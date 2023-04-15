@@ -192,7 +192,7 @@ _display displayAddEventHandler ["KeyDown", "_this call WFBE_CO_FNC_DisableTabLo
 WFBE_CO_FNC_HandleAFKkeys = compile preprocessFileLineNumbers "Client\Module\AFKkick\handleKeys.sqf";
 
 AFKthresholdExceededName = name player;
-WFBE_CO_VAR_AFKkickThreshold = 30;
+WFBE_CO_VAR_AFKkickThreshold = 5;
 WFBE_CO_VAR_NotAFK_update = false;
 
 _display displayAddEventHandler ["KeyDown", "_this call WFBE_CO_FNC_HandleAFKkeys"];
