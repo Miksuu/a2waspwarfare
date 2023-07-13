@@ -50,9 +50,9 @@ _i = 0;
 {
 	_closestSP = objNull;
 	_add = false;
-	
+
 	_nearSupport set [_i, []];
-	
+
 	//--- Service Point.
 	if (count _sp > 0) then {
 		_closestSP = [_x,_sp] Call WFBE_CO_FNC_GetClosestEntity;
@@ -66,19 +66,19 @@ _i = 0;
 
 	//--- Depots.
 	_nObject = [_x, (missionNamespace getVariable "WFBE_C_UNITS_SUPPORT_RANGE")] Call WFBE_CL_FNC_GetClosestDepot;
-	
+
 	if !(isNull _nObject) then {
 		_add = true;
 		_nearSupport set [_i,(_nearSupport select _i) + [_nObject]];
 	};
-	
+
 	//--- Repairs Trucks.
 	_checks = (getPos _x) nearEntities[_typeRepair, missionNamespace getVariable "WFBE_C_UNITS_REPAIR_TRUCK_RANGE"];
 	if (count _checks > 0) then {
 		_add = true;
 		_nearSupport set [_i,(_nearSupport select _i) + _checks];
 	};
-		
+
 	//--- Add the vehicle ?
 	if (_add) then {
 		_effective = _effective + [_x];
@@ -91,7 +91,7 @@ _i = 0;
 		};
 		_txt = "["+_finalNumber+"] "+ _desc + _isInVehicle;
 		lbAdd[20002,_txt];
-		
+
 		_i = _i + 1;
 	};
 } forEach _vehi;
@@ -106,7 +106,7 @@ if (count _checks > 0) then {
 			_nearSupport set [_i,[_repair]];
 			_descVehi = [typeOf (vehicle _x), 'displayName'] Call GetConfigInfo;
 			lbAdd[20002,_descVehi];
-			
+
 			_i = _i + 1;
 		};
 	} forEach _vehi;
@@ -116,7 +116,7 @@ if (count _effective > 0) then {lbSetCurSel[20002,0]};
 
 while {true} do {
 	sleep 0.1;
-	
+
 	if (Side player != sideJoined) exitWith {closeDialog 0};
 	if (!dialog) exitWith {};
 	_curSel = lbCurSel(20002);
@@ -124,7 +124,7 @@ while {true} do {
 	if (_curSel != -1) then {
 		_veh = (vehicle (_effective select _curSel));
 		_funds = Call GetPlayerFunds;
-		
+
 		if (_veh isKindOf "Man") then {
 			{ctrlEnable [_x,false]} forEach [20003,20004,20005];
 			_enabled = if (_funds >= _healPrice) then {true} else {false};
@@ -189,55 +189,55 @@ while {true} do {
 			};
 			ctrlSetText [20013,"$"+str(_refuelPrice)];
 		};
-		
+
 		_lastVeh = _veh;
-		
+
 		//--- Rearm.
 		if (MenuAction == 1) then {
 			MenuAction = -1;
 			-_rearmPrice Call ChangePlayerFunds;
-			
+
 			//--- Spawn a Rearm thread.
 			[_veh,_nearSupport select _curSel,_typeRepair,_spType] Spawn SupportRearm;
-		};	
-		
+		};
+
 		//--- Repair.
 		if (MenuAction == 2) then {
 			MenuAction = -1;
 			-_repairPrice Call ChangePlayerFunds;
-			
+
 			//--- Spawn a Repair thread.
 			[_veh,_nearSupport select _curSel,_typeRepair,_spType] Spawn SupportRepair;
 		};
-		
+
 		//--- Refuel.
 		if (MenuAction == 3) then {
 			MenuAction = -1;
 			-_refuelPrice Call ChangePlayerFunds;
-			
+
 			//--- Spawn a Refuel thread.
 			[_veh,_nearSupport select _curSel,_typeRepair,_spType] Spawn SupportRefuel;
 		};
-		
+
 		//--- Heal.
 		if (MenuAction == 5) then {
 			MenuAction = -1;
 			-_healPrice Call ChangePlayerFunds;
-			
+
 			//--- Spawn a Healing thread.
 			[_veh,_nearSupport select _curSel,_typeRepair,_spType] Spawn SupportHeal;
 		};
 	} else {
 		{ctrlEnable[_x,false]} forEach [20003,20004,20005,20008];
 	};
-	
+
 	//--- EASA. TBD: Add dialog;
 	if (MenuAction == 7) then {
 		MenuAction = -1;
 		closeDialog 0;
 		createDialog "RscMenu_EASA";
 	};
-	
+
 	//--- Back Button.
 	if (MenuAction == 8) exitWith { //---added-MrNiceGuy
 		MenuAction = -1;
