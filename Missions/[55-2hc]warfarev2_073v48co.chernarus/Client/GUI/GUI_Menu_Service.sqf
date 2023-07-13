@@ -219,6 +219,13 @@ while {true} do {
 			[_veh,_nearSupport select _curSel,_typeRepair,_spType] Spawn SupportRefuel;
 		};
 
+		//--- Add arty rearm here
+		if (MenuAction == 4) then {
+			MenuAction = -1;
+
+			// Rearm all types of vehicles such as 'M119','M252','MLRS','Stryker MC' (use foreach loop to loop through them)
+		};
+
 		//--- Heal.
 		if (MenuAction == 5) then {
 			MenuAction = -1;

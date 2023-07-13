@@ -2955,6 +2955,12 @@ class RscMenu_Service {
 			y = 0.699691;
 			w = 0.12;
 		};
+		class CA_LabelRearmArty: RscText {
+			idc = 20015;
+			x = 0.408739;
+			y = 0.673752;
+			w = 0.12;
+		};
 		/* Back */
 		class Back_Button : RscButton_Back {
 			x = 0.737046;
