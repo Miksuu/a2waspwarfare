@@ -2818,6 +2818,13 @@
                 <Russian>Перезарядить</Russian>
                 <Italian>Riarma</Italian>
             </Key>
+            <Key ID="STR_WF_SERVICE_RearmArtillery">
+                <English>Rearm Artillery</English>
+                <French>Rearm Artillery</French>
+                <German>Rearm Artillery</German>
+                <Russian>Rearm Artillery</Russian>
+                <Italian>Rearm Artillery</Italian>
+            </Key>
             <Key ID="STR_WF_SERVICE_Refuel">
                 <English>Refuel</English>
                 <French>Ravitailler</French>

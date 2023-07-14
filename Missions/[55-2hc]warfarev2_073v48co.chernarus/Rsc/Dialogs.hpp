@@ -2915,6 +2915,14 @@ class RscMenu_Service {
 			text = $STR_WF_SERVICE_Refuel;
 			action = "MenuAction = 3";
 		};
+		class CA_RearmArty_Button : RscButton {
+			idc = 20003;
+			x = 0.181261;
+			y = 0.670391;
+			w = 0.22;
+			text = $STR_WF_SERVICE_RearmArtillery;
+			action = "MenuAction = 4";
+		};
 		class CA_Heal_Button : RscButton {
 			idc = 20008;
 			x = 0.50748;

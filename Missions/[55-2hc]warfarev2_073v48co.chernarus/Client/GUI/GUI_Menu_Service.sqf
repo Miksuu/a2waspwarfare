@@ -14,6 +14,7 @@ _healPrice = 0;
 _repairPrice = 0;
 _refuelPrice = 0;
 _rearmPrice = 0;
+_artyRearmPrice = 0;
 _lastVeh = objNull;
 _lastDmg = 0;
 _lastFue = 0;
@@ -125,6 +126,19 @@ while {true} do {
 		_veh = (vehicle (_effective select _curSel));
 		_funds = Call GetPlayerFunds;
 
+        // Get the rearm price of all the artillery units
+        {
+            // Check if the unit is an artillery vehicle
+            if (vehicle _x isKindOf "M119" || vehicle _x isKindOf "M252" || vehicle _x isKindOf "MLRS" || vehicle _x isKindOf "Stryker MC") then {
+				_type = typeOf _x;
+				_get = missionNamespace getVariable _type;
+
+                _artyRearmPrice = _artyRearmPrice + round((_get select QUERYUNITPRICE)/(missionNamespace getVariable "WFBE_C_UNITS_SUPPORT_REARM_PRICE"));
+            };
+        } forEach _alives;
+
+        ctrlSetText [20015,"$"+str(_artyRearmPrice)];
+
 		if (_veh isKindOf "Man") then {
 			{ctrlEnable [_x,false]} forEach [20003,20004,20005];
 			_enabled = if (_funds >= _healPrice) then {true} else {false};
@@ -219,12 +233,17 @@ while {true} do {
 			[_veh,_nearSupport select _curSel,_typeRepair,_spType] Spawn SupportRefuel;
 		};
 
-		//--- Add arty rearm here
-		if (MenuAction == 4) then {
-			MenuAction = -1;
-
-			// Rearm all types of vehicles such as 'M119','M252','MLRS','Stryker MC' (use foreach loop to loop through them)
-		};
+		// Artillery Rearm
+        if (MenuAction == 4) then {
+        	MenuAction = -1;
+        	{
+        		// Check if the unit is an artillery vehicle
+        		if (vehicle _x isKindOf "M119" || vehicle _x isKindOf "M252" || vehicle _x isKindOf "MLRS" || vehicle _x isKindOf "Stryker MC") then {
+                    //--- Spawn a Rearm thread.
+			        [_x,_nearSupport select _curSel,_typeRepair,_spType] Spawn SupportRearm;
+        		};
+        	} forEach _alives;
+        };
 
 		//--- Heal.
 		if (MenuAction == 5) then {
