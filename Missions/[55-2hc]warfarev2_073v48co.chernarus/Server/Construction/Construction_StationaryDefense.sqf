@@ -58,6 +58,28 @@ if (_type == 'Sign_Danger') exitWith {
 	deleteVehicle _defense;
 };
 
+//--- For buying the supply point, create an a marker for it.
+if (_type == 'CDF_WarfareBVehicleServicePoint') exitWith {
+    Private["_color","_marker","_structure","_text","_type"];
+
+	_marker = Format["BaseMarker%1",buildingMarker];
+	buildingMarker = buildingMarker + 1;
+	createMarkerLocal [_marker,getPos _structure];
+
+	_type = "mil_box";
+	_color = "ColorGreen";
+
+	_marker setMarkerTypeLocal _type;
+	_text = "";
+    _text = [_structure, _side] Call GetStructureMarkerLabel;_marker setMarkerSizeLocal [0.5,0.5];
+	if (_text != "") then {_marker setMarkerTextLocal _text};
+	_marker setMarkerColorLocal _color;
+
+	while {!isNull _structure && alive _structure} do {sleep 2};
+
+	deleteMarkerLocal _marker;
+};
+
 _defense setVariable ["wfbe_defense", true]; //--- This is one of our defenses.
 
 /*if (_type == 'Concrete_Wall_EP1') then {
