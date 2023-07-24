@@ -73,7 +73,7 @@ _easaLoadout = 	_easaLoadout + [
 
 _easaVehi = _easaVehi + ['Su34'];
 _easaDefault = _easaDefault +
-[65020,'R-73 (8) | FAB-250 (8)',[['R73Launcher_2','AirBombLauncher'],
+[[['R73Launcher_2','AirBombLauncher'],
 ['R73_2Rnd','R73_2Rnd','R73_2Rnd','R73_2Rnd','4Rnd_FAB_250']]];
 _easaLoadout = _easaLoadout + [
 [
