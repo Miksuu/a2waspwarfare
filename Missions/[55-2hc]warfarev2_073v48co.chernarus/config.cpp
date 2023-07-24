@@ -3,9 +3,7 @@ class CfgPatches {
 };
 
 class CfgMagazines {
-    class Default; // This is important in Arma 2!
-
-    class 4Rnd_Ch29 : Default // Use Default here
+    class 4Rnd_Ch29 : VehicleMagazine
     {
         scope = 2;
         displayName = "Ch-29";
