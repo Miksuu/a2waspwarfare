@@ -72,29 +72,16 @@ _easaLoadout = 	_easaLoadout + [
 ];
 
 _easaVehi = _easaVehi + ['Su34'];
-_easaDefault = _easaDefault +
-[[['R73Launcher_2','AirBombLauncher'],
-['R73_2Rnd','R73_2Rnd','R73_2Rnd','R73_2Rnd','4Rnd_FAB_250']]];
+_easaDefault = _easaDefault + [[['R73Launcher_2','AirBombLauncher'],['2Rnd_R73','2Rnd_R73','2Rnd_R73','2Rnd_R73','4Rnd_FAB_250']]];
 _easaLoadout = _easaLoadout + [
-[
-[24220,'R-73 (10)',[['R73Launcher_2'],
-['R73_2Rnd','R73_2Rnd','R73_2Rnd','R73_2Rnd','R73_2Rnd']]],
-
-[66520,'R-73 (8) | FAB-250 (8)',[['R73Launcher_2','AirBombLauncher'],
-['R73_2Rnd','R73_2Rnd','R73_2Rnd','R73_2Rnd','4Rnd_FAB_250']]],
-
-[108320,'R-73 (6) | FAB-250 (16)',[['R73Launcher_2','AirBombLauncher'],
-['R73_2Rnd','R73_2Rnd','R73_2Rnd','4Rnd_FAB_250','4Rnd_FAB_250']]],
-
-[150120,'R-73 (4) | FAB-250 (24)',[['R73Launcher_2','AirBombLauncher'],
-['R73_2Rnd','R73_2Rnd','4Rnd_FAB_250','4Rnd_FAB_250','4Rnd_FAB_250']]],
-
-[191920,'R-73 (2) | FAB-250 (32)',[['R73Launcher_2','AirBombLauncher'],
-['R73_2Rnd','4Rnd_FAB_250','4Rnd_FAB_250','4Rnd_FAB_250','4Rnd_FAB_250']]],
-
-[232720,'FAB-250 (40)',[['AirBombLauncher'],
-['4Rnd_FAB_250','4Rnd_FAB_250','4Rnd_FAB_250','4Rnd_FAB_250','4Rnd_FAB_250']]]
-]
+    [
+    [24220,'R-73 (10)',[['R73Launcher_2'],['2Rnd_R73','2Rnd_R73','2Rnd_R73','2Rnd_R73','2Rnd_R73']]],
+    [66520,'R-73 (8) | FAB-250 (8)',[['R73Launcher_2','AirBombLauncher'],['2Rnd_R73','2Rnd_R73','2Rnd_R73','2Rnd_R73','4Rnd_FAB_250']]],
+    [108320,'R-73 (6) | FAB-250 (16)',[['R73Launcher_2','AirBombLauncher'],['2Rnd_R73','2Rnd_R73','2Rnd_R73','4Rnd_FAB_250','4Rnd_FAB_250']]],
+    [150120,'R-73 (4) | FAB-250 (24)',[['R73Launcher_2','AirBombLauncher'],['2Rnd_R73','2Rnd_R73','4Rnd_FAB_250','4Rnd_FAB_250','4Rnd_FAB_250']]],
+    [191920,'R-73 (2) | FAB-250 (32)',[['R73Launcher_2','AirBombLauncher'],['2Rnd_R73','4Rnd_FAB_250','4Rnd_FAB_250','4Rnd_FAB_250','4Rnd_FAB_250']]],
+    [232720,'FAB-250 (40)',[['AirBombLauncher'],['4Rnd_FAB_250','4Rnd_FAB_250','4Rnd_FAB_250','4Rnd_FAB_250','4Rnd_FAB_250']]]
+    ]
 ];
 
 _easaVehi = 	_easaVehi + ['L39_TK_EP1'];
