@@ -135,13 +135,13 @@ _i = _i + [['','',5200,35,-2,3,2,0,'Insurgents',[]]];
 
 /* Air Vehicles */
 _c = _c + ['Mi17_Ins'];
-_i = _i + [['','',8800,35,-2,1,3,0,'Insurgents',[]]];
+_i = _i + [['','',8800,30,-2,1,3,0,'Insurgents',[]]];
 
 _c = _c + ['Mi17_medevac_Ins'];
-_i = _i + [['','',9120,35,-2,1,3,0,'Insurgents',[]]];
+_i = _i + [['','',9120,30,-2,1,3,0,'Insurgents',[]]];
 
 _c = _c + ['Su25_Ins'];
-_i = _i + [['SU-25 (KH29)','',50640,55,-2,4,3,0,'Insurgents',[]]];
+_i = _i + [['Su-25A','',25584,45,-2,3,3,0,'Insurgents',[]]];
 
 /* Static Defenses */
 _c = _c + ['Ins_WarfareBMGNest_PK'];
