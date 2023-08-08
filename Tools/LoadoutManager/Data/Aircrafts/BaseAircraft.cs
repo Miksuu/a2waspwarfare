@@ -431,20 +431,21 @@ public abstract class BaseAircraft : InterfaceAircraft
     public void GenerateCommonBalanceInitForTheAircraft()
     {
         Dictionary<string, List<string>> weaponsAndMagazinesToAdd = new();
+        Dictionary<string, List<string>> weaponsAndMagazinesVanilla = new();
 
         PopulateWeaponsAndMagazines(defaultLoadout.AmmunitionTypesWithCount, weaponsAndMagazinesToAdd);
+        PopulateWeaponsAndMagazines(vanillaGameDefaultLoadout.AmmunitionTypesWithCount, weaponsAndMagazinesVanilla);
 
-        // Magazines and weapons to add
+        // Magazines to add
         List<string> magazinesToAdd = GetAllMagazines(weaponsAndMagazinesToAdd)
-            .Where(mag => !vanillaGameDefaultLoadout.AmmunitionTypesWithCount.Keys
-                .Select(a => EnumExtensions.GetEnumMemberAttrValue(a))
-                .Contains(mag))
-            .Distinct()  // Ensure unique magazines
+            .Except(GetAllMagazines(weaponsAndMagazinesVanilla))
+            .Distinct()
             .ToList();
 
+        // Weapons to add
         IEnumerable<string> weaponsToAdd = weaponsAndMagazinesToAdd.Keys
-            .Where(weapon => !magazinesToAdd.Any(mag => weaponsAndMagazinesToAdd[weapon].Contains(mag)))
-            .Distinct();  // Ensure unique weapons
+            .Except(weaponsAndMagazinesVanilla.Keys)
+            .Distinct();
 
         string addSQFCode = GenerateSQFCodeInner(magazinesToAdd, weaponsToAdd, "add");
 
@@ -452,6 +453,7 @@ public abstract class BaseAircraft : InterfaceAircraft
 
         Console.WriteLine(finalSQFCode);
     }
+
 
 
     private void PopulateWeaponsAndMagazines(
