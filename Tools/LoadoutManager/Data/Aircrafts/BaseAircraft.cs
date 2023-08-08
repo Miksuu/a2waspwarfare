@@ -431,21 +431,21 @@ public abstract class BaseAircraft : InterfaceAircraft
     public void GenerateCommonBalanceInitForTheAircraft()
     {
         Dictionary<string, List<string>> weaponsAndMagazinesToAdd = new();
-        Dictionary<string, List<string>> weaponsAndMagazinesVanilla = new();
 
         PopulateWeaponsAndMagazines(defaultLoadout.AmmunitionTypesWithCount, weaponsAndMagazinesToAdd);
-        PopulateWeaponsAndMagazines(vanillaGameDefaultLoadout.AmmunitionTypesWithCount, weaponsAndMagazinesVanilla);
 
-        // Magazines to add
+        // Identify magazines that are in defaultLoadout but not in vanillaGameDefaultLoadout
         List<string> magazinesToAdd = GetAllMagazines(weaponsAndMagazinesToAdd)
-            .Except(GetAllMagazines(weaponsAndMagazinesVanilla))
-            .Distinct()
+            .Where(mag => !vanillaGameDefaultLoadout.AmmunitionTypesWithCount.Keys
+                .Select(a => EnumExtensions.GetEnumMemberAttrValue(a))
+                .Contains(mag))
+            .Distinct()  // Ensure unique magazines
             .ToList();
 
-        // Weapons to add
+        // Identify weapons associated with the magazines
         IEnumerable<string> weaponsToAdd = weaponsAndMagazinesToAdd.Keys
-            .Except(weaponsAndMagazinesVanilla.Keys)
-            .Distinct();
+            .Where(weapon => magazinesToAdd.Any(mag => weaponsAndMagazinesToAdd[weapon].Contains(mag)))
+            .Distinct();  // Ensure unique weapons
 
         string addSQFCode = GenerateSQFCodeInner(magazinesToAdd, weaponsToAdd, "add");
 
@@ -453,8 +453,6 @@ public abstract class BaseAircraft : InterfaceAircraft
 
         Console.WriteLine(finalSQFCode);
     }
-
-
 
     private void PopulateWeaponsAndMagazines(
         Dictionary<AmmunitionType, int> _ammunitionTypesWithCount,
