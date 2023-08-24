@@ -9,6 +9,7 @@ HandleATReload = Compile preprocessFileLineNumbers "Common\Functions\Common_Hand
 HandleBombs = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleBombs.sqf";
 HandleATMissiles = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleATMissiles.sqf";
 HandleAAMissiles = Compile preprocessFileLineNumbers "Common\Functions\HandleAAMissiles\Common_HandleAAMissiles.sqf";
+HandleTunguskaMissiles = Compile preprocessFileLineNumbers "Common\Functions\HandleAAMissiles\Common_HandleTunguskaMissiles.sqf";
 HandleAlarm = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleAlarm.sqf";
 HandleArty = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleArty.sqf";
 HandleAT = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleAT.sqf";

@@ -287,20 +287,16 @@ if ((typeOf _vehicle ) in ['MLRS','GRAD','GRAD_CDF','MLRS_DES_EP1','M1129_MC_EP1
 	_vehicle setVariable ["restricted",false];_vehicle addEventHandler ["GetIn",{_this Spawn HandleArty}]
 };
 
-Private ["_tierOneTest"];
+Private ["_tierOneTest", "_tunguskaDefinition"];
 _tierOneTest = Call Compile preprocessFileLineNumbers "Common\Functions\HandleAAMissiles\TierDefinitions\Common_HandleAAMissiles_Tier1Definition.sqf";
+_tunguskaDefinition = Call Compile preprocessFileLineNumbers "Common\Functions\HandleAAMissiles\TierDefinitions\Common_HandleAAMissiles_TunguskaDefinition.sqf";
 
 if (typeOf _vehicle in _tierOneTest) then {
     _vehicle addeventhandler ['Fired',{_this spawn HandleBombs;_this spawn HandleAAMissiles}];
 };
 
-
-if(typeOf _vehicle in _tierOneTest) then {
-	_vehicle addeventhandler ['Fired',{_this spawn HandleBombs;_this spawn HandleAAMissiles}];
-};
-
-if(typeOf _vehicle in ['2S6M_Tunguska','M6_EP1']) then {
-	_vehicle addeventhandler ['Fired',{_this spawn HandleAAMissiles;}];
+if(typeOf _vehicle in _tunguskaDefinition) then {
+	_vehicle addeventhandler ['Fired',{_this spawn HandleTunguskaMissiles;}];
 };
 
 if(typeOf _vehicle in ['T90','BMP3']) then {

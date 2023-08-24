@@ -11,7 +11,7 @@ _rkt = nearestObject [_u,_am];
 if (isNull _rkt) exitwith {};
 
 /* Add missiles you want here */
-_msl = ["M_Sidewinder_AA","M_R73_AA","M_Maverick_AT"];
+_msl = ["M_9M311_AA"];
 _rtp =[];
 _sltd = 0;
 _t=0;
@@ -22,9 +22,7 @@ _i = 0.1;
 if (!(_am in _msl)) exitWith{};
 
 Switch (true) do {
-    case (_am isKindOf "M_Sidewinder_AA") :        {_rtp =["Building"];_sltd = 2000;_acc = 100;_agl = 0.9;_prd= 0.5;};
-    case (_am isKindOf "M_R73_AA") :        {_rtp =["Building"];_sltd = 865;_acc = 0.9;_agl = 0.0095;_prd= 0.5;};
-    case (_am isKindOf "M_Maverick_AT") :        {_rtp =["Building"];_sltd = 800;_acc = 0.9;_agl = 0.0095;_prd= 0.5;};
+    case (_am isKindOf "M_9M311_AA") : 		{_rtp =["Building"];_sltd = 920;_acc = 1.2;_agl = 0.115;_prd= 0.3;};
 };
 
 
