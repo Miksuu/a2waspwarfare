@@ -340,7 +340,11 @@ case "BRDM2_ATGM_INS": {
 
 // BTR-90 [LF3]
 case "BTR90": {
+<<<<<<< HEAD
 _current_heavy_level = ((side group player) Call WFBE_CO_FNC_GetSideUpgrades) select WFBE_UP_HEAVY;
+=======
+_current_heavy_level = ((side group player) Call WFBE_CO_FNC_GetSideUpgrades) select WFBE_UP_LIGHT;
+>>>>>>> LF_Balancing
 if (_current_heavy_level < 4) then {
     _this removeWeapon "AT5LauncherSingle";
 };
@@ -353,7 +357,11 @@ case "Pandur2_ACR": {
     _this removeWeaponTurret ["ATKMK44_ACR", [0]];
     _this addMagazineTurret ["200Rnd_40mmHE_FV510", [0]];
     _this addWeaponTurret ["CTWS", [0]];
+<<<<<<< HEAD
 _current_heavy_level = ((side group player) Call WFBE_CO_FNC_GetSideUpgrades) select WFBE_UP_HEAVY;
+=======
+_current_heavy_level = ((side group player) Call WFBE_CO_FNC_GetSideUpgrades) select WFBE_UP_LIGHT;
+>>>>>>> LF_Balancing
 if (_current_heavy_level < 4) then {
     _this removeWeapon "SpikeLauncher_ACR";
 };
