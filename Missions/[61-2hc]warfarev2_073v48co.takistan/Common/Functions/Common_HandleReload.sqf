@@ -12,6 +12,7 @@ switch (_weapon) do {
 	case ("AT5LauncherSingle"): {_reloadTime = 0.3};
 	case ("M242BC"): {_reloadTime = 0.5};
 	case ("M242"): {_reloadTime = 0.5};
+	case ("CTWS"): {_reloadTime = 2};
 
 };
 
