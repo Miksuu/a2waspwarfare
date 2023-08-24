@@ -17,16 +17,15 @@ _sltd = 0;
 _t=0;
 _acc = 0;
 _agl= 0.002;
-_i = 0;
-
+_i = 0.1;
 
 if (!(_am in _msl)) exitWith{};
 
 Switch (true) do {
-    case (_am isKindOf "M_9M311_AA") : 		{_rtp =["Building"];_sltd = 920;_acc = 1.2;_agl = 0.115;_i = 0.1;_prd= 0.3;};
-    case (_am isKindOf "M_Sidewinder_AA") :        {_rtp =["Building"];_sltd = 865;_acc = 0.9;_agl = 1;_i = 0.1;_prd= 0.5;};
-    case (_am isKindOf "M_R73_AA") :        {_rtp =["Building"];_sltd = 865;_acc = 0.9;_agl = 0.0095;_i = 0.1;_prd= 0.5;};
-    case (_am isKindOf "M_Maverick_AT") :        {_rtp =["Building"];_sltd = 800;_acc = 0.9;_agl = 0.0095;_i = 0.1;_prd= 0.5;};
+    case (_am isKindOf "M_9M311_AA") : 		{_rtp =["Building"];_sltd = 920;_acc = 1.2;_agl = 0.115;_prd= 0.3;};
+    case (_am isKindOf "M_Sidewinder_AA") :        {_rtp =["Building"];_sltd = 1;_acc = 0.9;_agl = 0.9;_prd= 0.5;};
+    case (_am isKindOf "M_R73_AA") :        {_rtp =["Building"];_sltd = 865;_acc = 0.9;_agl = 0.0095;_prd= 0.5;};
+    case (_am isKindOf "M_Maverick_AT") :        {_rtp =["Building"];_sltd = 800;_acc = 0.9;_agl = 0.0095;_prd= 0.5;};
 };
 
 
