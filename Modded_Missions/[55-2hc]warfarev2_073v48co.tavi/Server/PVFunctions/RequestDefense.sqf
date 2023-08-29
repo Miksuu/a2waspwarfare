@@ -7,5 +7,5 @@ _manned = _this select 4;
 
 _index = (missionNamespace getVariable Format["WFBE_%1DEFENSENAMES",str _side]) find _defenseType;
 if (_index != -1) then {
-	[_defenseType,_side,_pos,_dir,_manned,false] Call ConstructDefense;
+	[_defenseType,_side,_pos,_dir,_manned] Call ConstructDefense;
 };

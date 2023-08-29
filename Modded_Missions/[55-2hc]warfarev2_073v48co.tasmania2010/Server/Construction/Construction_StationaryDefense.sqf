@@ -1,12 +1,11 @@
 /* Description: Creates Defenses. */
-Private ["_buildings","_defense","_direction","_isAIQuery","_isArtillery","_manned","_position","_side","_sideID","_type","_area","_availweapons"];
+Private ["_buildings","_defense","_direction","_manRange","_isArtillery","_manned","_position","_side","_sideID","_type","_area","_availweapons"];
 _type = _this select 0;
 _side = _this select 1;
 _position = _this select 2;
 _direction = _this select 3;
 _manned = _this select 4;
-_isAIQuery = _this select 5;
-_manRange = if (count _this > 6) then {_this select 6} else {missionNamespace getVariable "WFBE_C_BASE_DEFENSE_MANNING_RANGE"};
+_manRange = missionNamespace getVariable "WFBE_C_BASE_DEFENSE_MANNING_RANGE";
 _sideID = (_side) Call GetSideID;
 
 _area = [_position,((_side) Call WFBE_CO_FNC_GetSideLogic) getVariable "wfbe_basearea"] Call WFBE_CO_FNC_GetClosestEntity4; hintsilent format ["%1",_area];
@@ -71,7 +70,7 @@ _defense addEventHandler ['handleDamage',{if ((_this select 4) isKindOf "BulletB
 
 Call Compile Format ["_defense addEventHandler ['Killed',{[_this select 0,_this select 1,%1] Spawn WFBE_CO_FNC_OnUnitKilled}]",_sideID];
 
-if (_defense emptyPositions "gunner" > 0 && (((missionNamespace getVariable "WFBE_C_BASE_DEFENSE_MAX_AI") > 0) || _isAIQuery)) then {
+if (_defense emptyPositions "gunner" > 0 && (missionNamespace getVariable "WFBE_C_BASE_DEFENSE_MAX_AI" > 0)) then {
 	Private ["_alives","_check","_closest","_team"];
 	_team = _area getVariable "DefenseTeam";
 
@@ -89,7 +88,7 @@ if (_defense emptyPositions "gunner" > 0 && (((missionNamespace getVariable "WFB
 	[_defense] Spawn WFBE_SE_FNC_HandleEmptyVehicle;
 	if (_manned) then {
 		_alives = (units _team) Call GetLiveUnits;
-		if (count _alives < _availweapons || _isAIQuery) then {
+		if (count _alives < _availweapons) then {
 			_buildings = (_side) Call WFBE_CO_FNC_GetSideStructures;
 			_closest = ['BARRACKSTYPE',_buildings,_manRange,_side,_defense] Call BuildingInRange;
 
