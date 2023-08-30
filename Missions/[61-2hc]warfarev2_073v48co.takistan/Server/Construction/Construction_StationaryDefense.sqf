@@ -70,35 +70,66 @@ _defense addEventHandler ['handleDamage',{if ((_this select 4) isKindOf "BulletB
 
 Call Compile Format ["_defense addEventHandler ['Killed',{[_this select 0,_this select 1,%1] Spawn WFBE_CO_FNC_OnUnitKilled}]",_sideID];
 
-if (_defense emptyPositions "gunner" > 0 && (missionNamespace getVariable "WFBE_C_BASE_DEFENSE_MAX_AI" > 0)) then {
-	Private ["_alives","_check","_closest","_team"];
-	_team = _area getVariable "DefenseTeam";
+// Debug info
+["DEBUG", Format ["FileName.sqf: Debug info [_defense, emptyPositions, missionNamespace, WFBE_C_BASE_DEFENSE_MAX_AI]", _defense, emptyPositions "gunner", missionNamespace getVariable "WFBE_C_BASE_DEFENSE_MAX_AI"]] Call WFBE_CO_FNC_LogContent;
 
-	if (isNil '_team') then {
+if (_defense emptyPositions "gunner" > 0 && (missionNamespace getVariable "WFBE_C_BASE_DEFENSE_MAX_AI" > 0)) then {
+    Private ["_alives","_check","_closest","_team"];
+
+    // Debug info
+    ["DEBUG", Format ["FileName.sqf: Debug info [_alives, _check, _closest, _team]", _alives, _check, _closest, _team]] Call WFBE_CO_FNC_LogContent;
+
+    _team = _area getVariable "DefenseTeam";
+
+    // Debug info
+    ["DEBUG", Format ["FileName.sqf: Debug info [_team]", _team]] Call WFBE_CO_FNC_LogContent;
+
+    if (isNil '_team') then {
         _team = createGroup _side;
         _area setVariable ["DefenseTeam", _team];
-    }else{
-        if(side _team != _side) then{
+
+        // Debug info
+        ["DEBUG", Format ["FileName.sqf: Debug info [_team, _area]", _team, _area]] Call WFBE_CO_FNC_LogContent;
+    } else {
+        if (side _team != _side) then {
             _team = createGroup _side;
         };
         _area setVariable ["DefenseTeam", _team];
+
+        // Debug info
+        ["DEBUG", Format ["FileName.sqf: Debug info [_team, _area]", _team, _area]] Call WFBE_CO_FNC_LogContent;
     };
 
-	emptyQueu = emptyQueu + [_defense];
-	[_defense] Spawn WFBE_SE_FNC_HandleEmptyVehicle;
-	if (_manned) then {
-		_alives = (units _team) Call GetLiveUnits;
-		if (count _alives < _availweapons) then {
-			_buildings = (_side) Call WFBE_CO_FNC_GetSideStructures;
-			_closest = ['BARRACKSTYPE',_buildings,_manRange,_side,_defense] Call BuildingInRange;
+    emptyQueu = emptyQueu + [_defense];
+    [_defense] Spawn WFBE_SE_FNC_HandleEmptyVehicle;
 
-			//--- Manning Defenses.
-			if (alive _closest) then {
-				[_defense,_side,_team,_closest] Spawn HandleDefense;
-			};
-		};
-	};
+    // Debug info
+    ["DEBUG", Format ["FileName.sqf: Debug info [emptyQueu, _defense]", emptyQueu, _defense]] Call WFBE_CO_FNC_LogContent;
+
+    if (_manned) then {
+        _alives = (units _team) Call GetLiveUnits;
+
+        // Debug info
+        ["DEBUG", Format ["FileName.sqf: Debug info [_alives]", _alives]] Call WFBE_CO_FNC_LogContent;
+
+        if (count _alives < _availweapons) then {
+            _buildings = (_side) Call WFBE_CO_FNC_GetSideStructures;
+            _closest = ['BARRACKSTYPE',_buildings,_manRange,_side,_defense] Call BuildingInRange;
+
+            // Debug info
+            ["DEBUG", Format ["FileName.sqf: Debug info [_buildings, _closest]", _buildings, _closest]] Call WFBE_CO_FNC_LogContent;
+
+            //--- Manning Defenses.
+            if (alive _closest) then {
+                [_defense,_side,_team,_closest] Spawn HandleDefense;
+
+                // Debug info
+                ["DEBUG", Format ["FileName.sqf: Debug info [_defense, _side, _team, _closest]", _defense, _side, _team, _closest]] Call WFBE_CO_FNC_LogContent;
+            };
+        };
+    };
 };
+
 
 if ((missionNamespace getVariable "WFBE_C_ARTILLERY_UI") > 0) then {
 	Private ["_isAC","_isVeh"];
