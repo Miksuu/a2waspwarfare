@@ -8,12 +8,16 @@ class Mission
 		"ca_highcommand",
 		"warfare2vehicles",
 		"ca_animals2_chicken",
-		"ca_communityconfigurationproject_e"
+		"ca_communityconfigurationproject_e",
+		"CorePatch_CCP_70799",
+		"ori_taviana"
 	};
 	addOnsAuto[]=
 	{
 		"ca_modules_functions",
-		"cacharacters2"
+		"cacharacters2",
+		"CorePatch_CCP_70799",
+		"ori_taviana"
 	};
 	randomSeed=10034581;
 	class Intel
@@ -4548,9 +4552,11 @@ class Intro
 {
 	addOns[]=
 	{
+		"ori_taviana"
 	};
 	addOnsAuto[]=
 	{
+		"ori_taviana"
 	};
 	randomSeed=13267190;
 	class Intel
@@ -4568,9 +4574,11 @@ class OutroWin
 {
 	addOns[]=
 	{
+		"ori_taviana"
 	};
 	addOnsAuto[]=
 	{
+		"ori_taviana"
 	};
 	randomSeed=10462969;
 	class Intel
@@ -4588,9 +4596,11 @@ class OutroLoose
 {
 	addOns[]=
 	{
+		"ori_taviana"
 	};
 	addOnsAuto[]=
 	{
+		"ori_taviana"
 	};
 	randomSeed=12603217;
 	class Intel
