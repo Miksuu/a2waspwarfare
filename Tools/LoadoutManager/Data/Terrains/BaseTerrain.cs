@@ -175,17 +175,24 @@ public abstract class BaseTerrain : InterfaceTerrain
         string _contentToSearchFor, string _contentToReplaceWith)
     {
         // Construct the full path of the file that needs to be updated
-        string finalPathToEdit = _destinationDirectory + _missionFileToEdit;
+        string finalPathToEdit = Path.Combine(_destinationDirectory, _missionFileToEdit);
 
         // Check if the file exists
         if (!File.Exists(finalPathToEdit))
         {
             // Log a message if the file was not found
             Console.WriteLine("File not found!");
+            return;
         }
 
-        // Read the content of the file
-        string content = File.ReadAllText(finalPathToEdit);
+        string content;
+
+        // Read the content of the file using FileStream and StreamReader
+        using (FileStream fs = new FileStream(finalPathToEdit, FileMode.Open, FileAccess.Read, FileShare.Read))
+        using (StreamReader reader = new StreamReader(fs))
+        {
+            content = reader.ReadToEnd();
+        }
 
         // Check if the file contains the specific string to be replaced
         if (!content.Contains(_contentToSearchFor))
@@ -195,9 +202,15 @@ public abstract class BaseTerrain : InterfaceTerrain
             return;
         }
 
-        // Replace the string and update the file
+        // Replace the string
         content = content.Replace(_contentToSearchFor, _contentToReplaceWith);
-        File.WriteAllText(finalPathToEdit, content);
+
+        // Update the file using FileStream and StreamWriter
+        using (FileStream fs = new FileStream(finalPathToEdit, FileMode.Create, FileAccess.Write, FileShare.None))
+        using (StreamWriter writer = new StreamWriter(fs))
+        {
+            writer.Write(content);
+        }
     }
 
     // Generates and returns the SQF code for a specific terrain. This method is built upon 
