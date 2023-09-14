@@ -1,0 +1,127 @@
+V52:
+
+-fixed static manning
+
+-roleselector removed
+back to slotbased rolesystem like in A2 (the price for changing skill is losing all ai again)
+
+-nato side has UK and US with specific unit and gear access now
+its a bit a teamworkside now, but should be balanced in general with RU
+
+-improved and fixed artillerysytem to old scripted system 
+mixed firemission possible now
+capture and use enemy arty is possible now too
+
+-high climb gear for every vehicle now
+
+
+
+
+-builded ammoboxes are ammopoints with full gearaccess now
+
+-added the best of ofps ideas
+ammotrucks have gearaccess now
+bulldozerfeature for commander and repairtruck
+added remote control for ai, needs gearaccess for getting a bit tactical by using it
+added great ofps gearmenu tweaks
+added defense upgrades
+
+
+
+-downgraded airliftsystem to a2 system
+reimplement airlift upgrade
+liftscript is simple zetacargo again for easy use and more gamedynamic
+
+-disabled terrain grid option, nobody need flying stones.(no grass mod much better)
+
+
+-improved mapmarkers
+
+-camps are destroyable from far like in a2 now
+
+
+-fixed halo and airdrop
+no parachute needed now
+keyhandler for pilots added too, ejectkey now force paraeject
+
+-removed maximum upgrade restrictions
+
+-buymenu are colored now for special vehicles similar to mapmarkers
+
+-improved and fixed buildmenu
+all functional keys are visible now( no more cryptic custom action) 
+
+-added earplug toogle option
+
+-changed factory and hq to green camo 
+ru has only green hq so now all green,thats fair
+
+-added auto bulldozer to hq deploy and factory build to prevent deploy and build in stone and such stuff
+
+fixed and reworked gearmenu
+
+-improved coin buildmenu again, statics now placable on objects
+
+-added random elements for: 
+resistance base spawn
+town defender spawn
+town buy menu (random foreign figthers and random cars)
+
+_added Spawnmarker
+-added Igiload vehicle (the lifttruck can lift all vehicles)
+-added Bunker
+-added Artillery for AI,all base artillery from all sides will atack now
+if enemy is spottet.randomized a bit and with upgradebased artytimeout 
+for non res factions. 
+-added ambulance spawnpod (nearly no despawn)
+
+-added townspawn + GLX system (ai will hunt you now...) 
+
+
+-added ECM Pod
+-fixed spawn
+
+-lobby rework
+-added custom teamchat channel
+-added EH Handle Damage (+50% for each damage)
+
+
+-reworked EASA for equip all at all (sidebased),added tooltips Damage... //todo need pricescript based on Hitdamage or something
+for now its ok with old pricescript
+
+-improved FPS Manager,it reduces townspawn to 1 now if Server lower than 26FPS and stops AI movement in a loop if its longer lower than 26
+
+-added Kamov Black with Radar AA
+-added AH for BAF with Radar AA, similar to KA52 Black
+-added both vehicle to Igiload
+
+
+-changed Crew for RES Basespawn to AA and AT units
+
+-added and implemented all backpackstatics
+- added backpackstatics to igiload
+-fixed arty 
+-cleared mission from unused trashcodes a bit
+
+
+
+-added small oneway launcher to both sides
+-changed c-ram to pretorian static (c-ram is buged)
+-added superhind
+-gear current mag bug should be fixed now
+
+
+-increased easa price to 14k because you can load all now
+-added 2 ah64 versions for balance to blu and to igiload
+-improved init_town.sqf for easy mapbuild
+-added a3 intern wreckmanager (10 min removaltime now if no player close)
+-same for dead corpes
+
+-wrote this stuff in gui_menu_help.sqf
+
+
+-added overall attach function for light mines and charges
+-set aiskill to 1
+
+-added towing
+-added remote actions towing and attach
