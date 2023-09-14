@@ -79,7 +79,7 @@ public class FileManager
                _fileName.EndsWith("StartVeh.sqf", StringComparison.OrdinalIgnoreCase) ||
                _fileName.EndsWith("Parameters.hpp", StringComparison.OrdinalIgnoreCase) ||
                _fileName.EndsWith("loadScreen.jpg", StringComparison.OrdinalIgnoreCase)
-               )&&
+               ) &&
 
 
                !_fileName.EndsWith("Init_Version.sqf", StringComparison.OrdinalIgnoreCase); // because there's version.sqf
@@ -131,7 +131,24 @@ public class FileManager
             string correspondingSourceFile = Path.Combine(_source, fileName);
             if (!File.Exists(correspondingSourceFile))
             {
-                File.Delete(destFile);
+                try
+                {
+                    // Open the file with a FileStream to check if it is in use
+                    using (FileStream fs = new FileStream(destFile, FileMode.Open, FileAccess.Read, FileShare.None))
+                    {
+                        // If we reach here, the file is not in use and can be deleted
+                        fs.Close(); // Explicitly close the stream before deleting the file
+                        File.Delete(destFile);
+                    }
+                }
+                catch (IOException ex)
+                {
+                    Console.WriteLine($"File is in use or another error occurred: {ex.Message}");
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Console.WriteLine($"Permission error: {ex.Message}");
+                }
             }
         }
     }
