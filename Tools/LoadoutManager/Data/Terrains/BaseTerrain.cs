@@ -53,7 +53,7 @@ public abstract class BaseTerrain : InterfaceTerrain
     private void WriteToFile(string _destinationDirection, string _content, string _targetScriptPath)
     {
         // Concatenate the directory and file path
-        string targetFile = _destinationDirection + _targetScriptPath;
+        string targetFile = Path.Combine(_destinationDirection, _targetScriptPath);
 
         // Make sure the directory exists
         string directoryName = Path.GetDirectoryName(targetFile);
@@ -63,8 +63,12 @@ public abstract class BaseTerrain : InterfaceTerrain
             Directory.CreateDirectory(directoryName);
         }
 
-        // Write the content to the target file
-        File.WriteAllText(targetFile, _content);
+        // Write the content to the target file using FileStream and StreamWriter
+        using (FileStream fs = new FileStream(targetFile, FileMode.Create, FileAccess.Write, FileShare.None))
+        using (StreamWriter writer = new StreamWriter(fs))
+        {
+            writer.Write(_content);
+        }
     }
 
     // Method to determine the mission path based on whether the terrain is modded or not
