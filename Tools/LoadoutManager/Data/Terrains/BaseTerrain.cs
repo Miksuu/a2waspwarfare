@@ -53,7 +53,7 @@ public abstract class BaseTerrain : InterfaceTerrain
     private void WriteToFile(string _destinationDirection, string _content, string _targetScriptPath)
     {
         // Concatenate the directory and file path
-        string targetFile = Path.Combine(_destinationDirection, _targetScriptPath);
+        string targetFile = _destinationDirection + _targetScriptPath;
 
         // Make sure the directory exists
         string directoryName = Path.GetDirectoryName(targetFile);
