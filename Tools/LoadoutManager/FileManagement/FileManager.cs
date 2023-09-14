@@ -18,7 +18,23 @@ public class FileManager
     // Ensures that the directory exists at the specified path. Creates the directory if it doesn't exist.
     private static void EnsureDirectoryExists(string _directoryPath)
     {
-        Directory.CreateDirectory(_directoryPath);
+        DirectoryInfo dirInfo = new DirectoryInfo(_directoryPath);
+
+        if (!dirInfo.Exists)
+        {
+            try
+            {
+                dirInfo.Create();
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Console.WriteLine($"Permission error: {ex.Message}");
+            }
+        }
     }
 
     // Copies each file from the source directory to the destination directory. Overwrites existing files.
