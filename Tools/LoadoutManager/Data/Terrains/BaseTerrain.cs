@@ -33,7 +33,7 @@ public abstract class BaseTerrain : InterfaceTerrain
 
         if (terrainName == TerrainName.TAKISTAN)
         {
-            UpdateFilesForTakistan();
+            UpdateFilesForTakistanAndModdedMaps();
         }
 
         Console.WriteLine("-------" + terrainName + " DONE! ---------");
@@ -88,11 +88,11 @@ public abstract class BaseTerrain : InterfaceTerrain
         return TerrainType == TerrainType.DESERT ? "//" : "";
     }
 
-    // Method to update files for Takistan
-    private void UpdateFilesForTakistan()
+    // Method to update all the files for Takistan, and the modded maps
+    private void UpdateFilesForTakistanAndModdedMaps()
     {
         // Determine the source and destination directories for file operations
-        string sourceDirectory = DetermineChernarusDirectory();
+        string sourceDirectory = DetermineSourceDirectory();
         string destinationDirectory = DetermineDestinationDirectory();
 
         // Copy files from the source to the destination directory
@@ -128,18 +128,18 @@ public abstract class BaseTerrain : InterfaceTerrain
             $" {EnumExtensions.GetEnumMemberAttrValue(terrainName)}</t><br />");
     }
 
-    // Method to determine the takistan directory
-    private string DetermineChernarusDirectory()
-    {
-        // Determine the name of the source terrain based on the terrain type
-        string sourceTerrainName = "chernarus";
+    // Method to determine the Chernaru directory (obsolete, use DetermineSourceDirectory())
+    //private string DetermineChernarusDirectory()
+    //{
+    //    // Determine the name of the source terrain based on the terrain type
+    //    string sourceTerrainName = "chernarus";
 
-        // Determine the player count for the mission based on the terrain type
-        string sourceTerrainPlayerCount = "55";
+    //    // Determine the player count for the mission based on the terrain type
+    //    string sourceTerrainPlayerCount = "55";
 
-        // Construct and return the full source directory path
-        return Path.Combine(FileManager.FindA2WaspWarfareDirectory().FullName, @"Missions\[" + sourceTerrainPlayerCount + "-2hc]warfarev2_073v48co." + sourceTerrainName);
-    }
+    //    // Construct and return the full source directory path
+    //    return Path.Combine(FileManager.FindA2WaspWarfareDirectory().FullName, @"Missions\[" + sourceTerrainPlayerCount + "-2hc]warfarev2_073v48co." + sourceTerrainName);
+    //}
 
     // Method to determine the source directory path based on terrain type and mission type
     private string DetermineSourceDirectory()
