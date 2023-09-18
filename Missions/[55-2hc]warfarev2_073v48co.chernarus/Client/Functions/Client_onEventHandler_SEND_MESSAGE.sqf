@@ -27,9 +27,9 @@ if (playerSide == _side_who_receive_message) then
         private["_localizedMessage","_timeBeforeImpact"];
         _timeBeforeImpact = missionNamespace getVariable "WFBE_ICBM_TIME_TO_IMPACT";
         _localizedMessage = localize _messageText;
-        _messageText = format[_messageText, _timeBeforeImpact];
+        _localizedMessage = format[_messageText, _timeBeforeImpact];
 
-    	systemChat _messageText;
+    	systemChat _localizedMessage;
     	playSound _messageSoundName;
     }else {
     	// Send a text and audio message to all clients who are supposed to receive it.
