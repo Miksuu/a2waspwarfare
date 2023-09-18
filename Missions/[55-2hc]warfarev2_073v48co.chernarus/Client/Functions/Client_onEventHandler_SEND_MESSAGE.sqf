@@ -27,7 +27,7 @@ if (playerSide == _side_who_receive_message) then
         private["_localizedMessage","_timeBeforeImpact"];
         _timeBeforeImpact = missionNamespace getVariable "WFBE_ICBM_TIME_TO_IMPACT";
         _localizedMessage = localize _messageText;
-        _localizedMessage = format[_messageText, _timeBeforeImpact];
+        _localizedMessage = format[_localizedMessage, _timeBeforeImpact];
 
     	systemChat _localizedMessage;
     	playSound _messageSoundName;
