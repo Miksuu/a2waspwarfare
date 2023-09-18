@@ -1,5 +1,5 @@
 /* 
-	Author: Marty
+	Author: Marty, Miksuu
 	Name: Client_onEventHandler_SEND_MESSAGE.sqf
 	Parameters:
 	Parameters are given by the EH "SEND_MESSAGE" addPublicVariableEventHandler
@@ -10,7 +10,7 @@
 	    
 */
 
-//[_messageText, _messageSoundName, _side_who_receive_message ] call WF_sendMessage ;
+// Miksuu: Should probably make the variables private here
 
 _SEND_MESSAGE_infos = _this select 1; // select 1 not 0 to get the value !
 
@@ -21,9 +21,21 @@ _side_who_receive_message	= _SEND_MESSAGE_infos select 2;
 
 if (playerSide == _side_who_receive_message) then 
 {
-	// Send a text and audio message to all clients who are supposed to receive it.
-	systemChat _messageText; 
-	playSound _messageSoundName;
+    // Miksuu: Create the localization on the client that receives it, not the sender for the ICBM messages
+    // Arty message is not changed now, needs a bit more refactoring for that, such as changing the _messageText variable.
+    if (_messageText == "STR_WF_CHAT_ICBM_Launch_BY_OUR_TEAM" || _messageText == "STR_WF_CHAT_ICBM_Launch_BY_ENEMY_TEAM") then {
+        private["_localizedMessage","_timeBeforeImpact"];
+        _timeBeforeImpact = missionNamespace getVariable "WFBE_ICBM_TIME_TO_IMPACT";
+        _localizedMessage = localize _messageText;
+        _messageText = format[_messageText, _timeBeforeImpact];
+
+    	systemChat _messageText;
+    	playSound _messageSoundName;
+    }else {
+    	// Send a text and audio message to all clients who are supposed to receive it.
+    	systemChat _messageText;
+    	playSound _messageSoundName;
+    };
 };
 
 

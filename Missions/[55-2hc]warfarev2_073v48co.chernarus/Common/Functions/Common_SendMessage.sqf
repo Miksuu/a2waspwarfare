@@ -12,6 +12,8 @@
 	    
 */
 
+// Miksuu: Should probably make the variables private here
+
 // Extract the value from the array to get specific infos for the marker creation :
 _messageText				= _this select 0;
 _messageSoundName			= _this select 1;
