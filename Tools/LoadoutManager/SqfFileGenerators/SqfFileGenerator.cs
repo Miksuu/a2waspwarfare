@@ -117,6 +117,7 @@ public class SqfFileGenerator
         GenerateLoadoutsForAllVehicleTypes();
         var easaFileStrings = GenerateEasaFileString();
         var commonBalanceFileStrings = GenerateCommonBalanceFileString();
+        var aircraftDisplayNameStrings = GenerateAircraftDisplayNameFileString();
         string coreModFileStrings = GenerateCoreModFileString();
 
         // First go through vanilla maps (copied to mod maps later)
@@ -179,6 +180,28 @@ public class SqfFileGenerator
 
     // GenerateCommonBalanceFileString() stores the path for the respective EASA loadouts or initialization files.
     private static MapFileProperties GenerateCommonBalanceFileString()
+    {
+        MapFileProperties properties = new MapFileProperties();
+
+        string commonBalanceFileString = @"Private[""_currentFactoryLevel""];" + "\n\n";
+        commonBalanceFileString += "// After adding Pandur and BTR-90 to this script," +
+            " it's necessary to exit on the server to prevent an occassional freeze\n";
+        commonBalanceFileString += "if (isServer) exitWith {};\n\n";
+        commonBalanceFileString += "switch (typeOf _this) do\n{\n";
+        commonBalanceFileString += commonBalanceInitFile;
+
+        properties.modded = commonBalanceFileString;
+        properties.modded += commonBalanceInitFileForModdedMaps;
+
+        commonBalanceFileString += "};";
+        properties.modded += "};";
+
+        properties.vanilla = commonBalanceFileString;
+        return properties;
+    }
+
+    // GenerateCommonBalanceFileString() stores the path for the respective EASA loadouts or initialization files.
+    private static MapFileProperties GenerateAircraftDisplayNameFileString()
     {
         MapFileProperties properties = new MapFileProperties();
 
