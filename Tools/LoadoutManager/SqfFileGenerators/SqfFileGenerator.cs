@@ -248,7 +248,6 @@ public class SqfFileGenerator
         return mapFileProperties;
     }
 
-
     public static Dictionary<string, string> GetDictionaryOfAircraftsThatHaveCustomRadarNameWithModdedDictionary(
         out Dictionary<string, bool> _isModdedDict)
     {
