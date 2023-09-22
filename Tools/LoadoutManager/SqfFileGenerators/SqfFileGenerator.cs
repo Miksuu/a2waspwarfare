@@ -200,44 +200,52 @@ public class SqfFileGenerator
         return properties;
     }
 
-    private static string GenerateAircraftDisplayNameFileString()
+    private static MapFileProperties GenerateAircraftDisplayNameFileString()
     {
         Dictionary<string, string> vehicleDict = GetDictionaryOfAircraftsThatHaveCustomRadarNameWithModdedDictionary(out Dictionary<string, bool> isModdedDict);
+        MapFileProperties mapFileProperties = new MapFileProperties();
 
-        // Initialize SQF content
-        string sqfContent = "// Common_ReturnAircraftNameFromItsType.sqf\n\n";
-        sqfContent += "private [\"_typeOfObject\", \"_aircraftName\"];\n";
-        sqfContent += "_typeOfObject = _this select 0; // Taking the first argument passed to the function\n\n";
-
-        // Define the array of valid types
-        sqfContent += "private _validTypes = [";
-        foreach (var pair in vehicleDict.Keys)
+        // Function to generate SQF content
+        Func<Dictionary<string, string>, Dictionary<string, bool>, bool, string> generateSQFContent = (vehicles, isModded, includeModded) =>
         {
-            sqfContent += $"\"{pair}\", ";
-        }
-        sqfContent = sqfContent.TrimEnd(',', ' ') + "];\n";
+            string sqfContent = "// Common_ReturnAircraftNameFromItsType.sqf\n\n";
+            sqfContent += "private [\"_typeOfObject\", \"_aircraftName\"];\n";
+            sqfContent += "_typeOfObject = _this select 0; // Taking the first argument passed to the function\n\n";
+            sqfContent += "private _validTypes = [";
 
-        // Set the aircraft name based on the type
-        sqfContent += @"
-_aircraftName = [_typeOfObject, 'displayName'] call GetConfigInfo;
+            foreach (var vehicle in vehicles.Keys)
+            {
+                if (includeModded || !isModded[vehicle])
+                {
+                    sqfContent += $"\"{vehicle}\", ";
+                }
+            }
 
-// Check if the type is in the valid types array
-if !(_typeOfObject in _validTypes) exitWith {_aircraftName};
+            sqfContent = sqfContent.TrimEnd(',', ' ') + "];\n\n";
+            sqfContent += "_aircraftName = [_typeOfObject, 'displayName'] call GetConfigInfo;\n";
+            sqfContent += "if !(_typeOfObject in _validTypes) exitWith {_aircraftName};\n";
+            sqfContent += "switch (_typeOfObject) do {\n";
 
-switch (_typeOfObject) do {
-";
-        foreach (var pair in vehicleDict)
-        {
-            sqfContent += $"    case \"{pair.Key}\": {{ _aircraftName = \"{pair.Value}\"; }};\n";
-        }
-        sqfContent += "};\n";
+            foreach (var pair in vehicles)
+            {
+                if (includeModded || !isModded[pair.Key])
+                {
+                    sqfContent += $"    case \"{pair.Key}\": {{ _aircraftName = \"{pair.Value}\"; }};\n";
+                }
+            }
 
-        // Return the aircraft name
-        sqfContent += "\n_aircraftName";
+            sqfContent += "};\n";
+            sqfContent += "_aircraftName";
+            return sqfContent;
+        };
 
-        //Console.WriteLine(sqfContent);
+        // Generate the SQF content for vanilla and modded vehicles
+        mapFileProperties.vanilla = generateSQFContent(vehicleDict, isModdedDict, false);
+        mapFileProperties.modded = generateSQFContent(vehicleDict, isModdedDict, true);
 
-        return sqfContent;
+        Console.WriteLine(mapFileProperties.vanilla + "\n\n\n" + mapFileProperties.modded);
+
+        return mapFileProperties;
     }
 
 
