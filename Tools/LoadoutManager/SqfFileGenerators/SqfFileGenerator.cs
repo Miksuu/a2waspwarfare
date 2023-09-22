@@ -203,23 +203,67 @@ public class SqfFileGenerator
     // GenerateCommonBalanceFileString() stores the path for the respective EASA loadouts or initialization files.
     private static MapFileProperties GenerateAircraftDisplayNameFileString()
     {
+        //foreach (VehicleType vehicleType in Enum.GetValues(typeof(VehicleType)))
+        //{
+        //    var interfaceVehicle = (InterfaceVehicle)EnumExtensions.GetInstance(vehicleType.ToString());
+        //    string vehicleName = EnumExtensions.GetEnumMemberAttrValue(vehicleType);
+        //}
+
+        Dictionary<string, string> vehicleDict = GetDictionaryOfAircraftsThatHaveCustomRadarNameWithModdedDictionary(out Dictionary<string, bool> isModdedDict);
+
+        // Display the dictionaries for demonstration purposes
+        foreach (var pair in vehicleDict)
+        {
+            Console.WriteLine($"{pair.Key} : {pair.Value}, IsModded: {isModdedDict[pair.Key]}");
+        }
+
         MapFileProperties properties = new MapFileProperties();
 
-        string commonBalanceFileString = @"Private[""_currentFactoryLevel""];" + "\n\n";
-        commonBalanceFileString += "// After adding Pandur and BTR-90 to this script," +
-            " it's necessary to exit on the server to prevent an occassional freeze\n";
-        commonBalanceFileString += "if (isServer) exitWith {};\n\n";
-        commonBalanceFileString += "switch (typeOf _this) do\n{\n";
-        commonBalanceFileString += commonBalanceInitFile;
+        //string commonBalanceFileString = @"Private[""_currentFactoryLevel""];" + "\n\n";
+        //commonBalanceFileString += "// After adding Pandur and BTR-90 to this script," +
+        //    " it's necessary to exit on the server to prevent an occassional freeze\n";
+        //commonBalanceFileString += "if (isServer) exitWith {};\n\n";
+        //commonBalanceFileString += "switch (typeOf _this) do\n{\n";
+        //commonBalanceFileString += commonBalanceInitFile;
 
-        properties.modded = commonBalanceFileString;
-        properties.modded += commonBalanceInitFileForModdedMaps;
+        //properties.modded = commonBalanceFileString;
+        //properties.modded += commonBalanceInitFileForModdedMaps;
 
-        commonBalanceFileString += "};";
-        properties.modded += "};";
+        //commonBalanceFileString += "};";
+        //properties.modded += "};";
 
-        properties.vanilla = commonBalanceFileString;
+        //properties.vanilla = commonBalanceFileString;
         return properties;
+    }
+
+    public static Dictionary<string, string> GetDictionaryOfAircraftsThatHaveCustomRadarNameWithModdedDictionary(out Dictionary<string, bool> _isModdedDict)
+    {
+        Dictionary<string, string> _vehicleDict = new Dictionary<string, string>();
+        _isModdedDict = new Dictionary<string, bool>();
+
+        foreach (VehicleType vehicleType in Enum.GetValues(typeof(VehicleType)))
+        {
+            var interfaceVehicle = (InterfaceVehicle)EnumExtensions.GetInstance(vehicleType.ToString());
+
+            // Check if interfaceVehicle is of type BaseAircraft or implements InterfaceAircraft
+            if (interfaceVehicle is not InterfaceAircraft interfaceAircraft)
+            {
+                continue;
+            }
+
+            if (!interfaceAircraft.hasCustomRadarName)
+            {
+                continue;
+            }
+
+            string vehicleName = EnumExtensions.GetEnumMemberAttrValue(vehicleType);
+            string inGameDisplayName = interfaceVehicle.InGameDisplayName;
+
+            _vehicleDict.Add(vehicleName, inGameDisplayName);
+            _isModdedDict.Add(vehicleName, interfaceVehicle.ModdedVehicle);
+        }
+
+        return _vehicleDict;
     }
 
     // GenerateAircraftSpecificLoadouts takes a VehicleType enum as an argument and generates specific loadouts for aircraft.
