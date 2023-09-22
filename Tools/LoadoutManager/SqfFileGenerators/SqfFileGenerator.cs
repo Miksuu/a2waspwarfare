@@ -209,7 +209,8 @@ public class SqfFileGenerator
         //    string vehicleName = EnumExtensions.GetEnumMemberAttrValue(vehicleType);
         //}
 
-        Dictionary<string, string> vehicleDict = GetDictionaryOfAircraftsThatHaveCustomRadarNameWithModdedDictionary(out Dictionary<string, bool> isModdedDict);
+        Dictionary<string, string> vehicleDict =
+            GetDictionaryOfAircraftsThatHaveCustomRadarNameWithModdedDictionary(out Dictionary<string, bool> isModdedDict);
 
         // Display the dictionaries for demonstration purposes
         foreach (var pair in vehicleDict)
@@ -236,7 +237,8 @@ public class SqfFileGenerator
         return properties;
     }
 
-    public static Dictionary<string, string> GetDictionaryOfAircraftsThatHaveCustomRadarNameWithModdedDictionary(out Dictionary<string, bool> _isModdedDict)
+    public static Dictionary<string, string> GetDictionaryOfAircraftsThatHaveCustomRadarNameWithModdedDictionary(
+        out Dictionary<string, bool> _isModdedDict)
     {
         Dictionary<string, string> _vehicleDict = new Dictionary<string, string>();
         _isModdedDict = new Dictionary<string, bool>();
