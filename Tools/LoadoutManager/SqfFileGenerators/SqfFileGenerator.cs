@@ -243,7 +243,7 @@ public class SqfFileGenerator
         mapFileProperties.vanilla = generateSQFContent(vehicleDict, isModdedDict, false);
         mapFileProperties.modded = generateSQFContent(vehicleDict, isModdedDict, true);
 
-        Console.WriteLine(mapFileProperties.vanilla + "\n\n\n" + mapFileProperties.modded);
+        //Console.WriteLine(mapFileProperties.vanilla + "\n\n\n" + mapFileProperties.modded);
 
         return mapFileProperties;
     }
