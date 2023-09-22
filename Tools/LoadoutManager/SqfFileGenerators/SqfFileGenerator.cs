@@ -200,6 +200,13 @@ public class SqfFileGenerator
         return properties;
     }
 
+    // This method generates two different strings containing the SQF content for aircraft display names.
+    // One string includes only vanilla (unmodded) vehicles, while the other includes both vanilla and modded vehicles.
+    // The method uses a local function 'generateSQFContent' to reduce code duplication in generating these SQF strings.
+    // Each SQF content string is stored in the corresponding field ('vanilla' or 'modded') of a MapFileProperties object.
+    // Return Type: MapFileProperties object containing two fields:
+    // - 'vanilla': string containing SQF content for vanilla vehicles
+    // - 'modded': string containing SQF content for both vanilla and modded vehicles
     private static MapFileProperties GenerateAircraftDisplayNameFileString()
     {
         Dictionary<string, string> vehicleDict = GetDictionaryOfAircraftsThatHaveCustomRadarNameWithModdedDictionary(out Dictionary<string, bool> isModdedDict);
@@ -248,6 +255,14 @@ public class SqfFileGenerator
         return mapFileProperties;
     }
 
+    // This method generates a dictionary containing information about aircraft that have custom radar names.
+    // It iterates through all the vehicle types in the VehicleType enumeration and filters out those that 
+    // do not implement the InterfaceAircraft interface or do not have a custom radar name.
+    // The method returns a primary dictionary that maps vehicle names to their in-game display names.
+    // It also returns an 'out' dictionary that indicates whether each vehicle is modded.
+    // Return Type:
+    // - Primary Dictionary: Mapping from vehicle names (string) to in-game display names (string)
+    // - 'out' Dictionary: Mapping from vehicle names (string) to their modded status (bool)
     public static Dictionary<string, string> GetDictionaryOfAircraftsThatHaveCustomRadarNameWithModdedDictionary(
         out Dictionary<string, bool> _isModdedDict)
     {
