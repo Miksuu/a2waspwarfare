@@ -26,7 +26,7 @@ public abstract class BaseTerrain : InterfaceTerrain
 
     // Method that writes and updates the terrain files.
     public void WriteAndUpdateTerrainFiles(
-        string _easaFileString, string _commonBalanceFileString, string _coreModFile = "")
+        string _easaFileString, string _commonBalanceFileString, string _aircraftDisplayNameStrings, string _coreModFile = "")
     {
         string destinationDirectory = DetermineDestinationDirectory();
 
@@ -44,19 +44,20 @@ public abstract class BaseTerrain : InterfaceTerrain
             ReplaceInitCommmonSqfForCoreModInit(destinationDirectory);
         }
 
-        WriteSpecificFilesToTheTerrains(destinationDirectory, _easaFileString, _commonBalanceFileString);
+        WriteSpecificFilesToTheTerrains(destinationDirectory, _easaFileString, _commonBalanceFileString, _aircraftDisplayNameStrings);
 
         Console.WriteLine("-------" + terrainName + " DONE! ---------");
     }
 
     // Method to write specific content to terrain files based on conditions
     private void WriteSpecificFilesToTheTerrains(
-        string _destinationDirection, string _easaFileString, string _commonBalanceFileString)
+        string _destinationDirection, string _easaFileString, string _commonBalanceFileString, string _aircraftDisplayNameStrings)
     {
         // Write the content to the specified files
         // Maybe could use a bit more better data structure
         WriteToFile(_destinationDirection, _easaFileString, @"\Client\Module\EASA\EASA_Init.sqf");
         WriteToFile(_destinationDirection, _commonBalanceFileString, @"\Common\Functions\Common_BalanceInit.sqf");
+        WriteToFile(_destinationDirection, _aircraftDisplayNameStrings, @"\Common\Common_ReturnAircraftNameFromItsType.sqf");
         WriteToFile(_destinationDirection, GenerateAndWriteVersionSqf(), @"\version.sqf");
 
         ReplaceGUIMenuHelp(_destinationDirection);
