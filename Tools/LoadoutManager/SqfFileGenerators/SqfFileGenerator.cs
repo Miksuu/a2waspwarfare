@@ -200,42 +200,46 @@ public class SqfFileGenerator
         return properties;
     }
 
-    // GenerateCommonBalanceFileString() stores the path for the respective EASA loadouts or initialization files.
-    private static MapFileProperties GenerateAircraftDisplayNameFileString()
+    private static string GenerateAircraftDisplayNameFileString()
     {
-        //foreach (VehicleType vehicleType in Enum.GetValues(typeof(VehicleType)))
-        //{
-        //    var interfaceVehicle = (InterfaceVehicle)EnumExtensions.GetInstance(vehicleType.ToString());
-        //    string vehicleName = EnumExtensions.GetEnumMemberAttrValue(vehicleType);
-        //}
+        Dictionary<string, string> vehicleDict = GetDictionaryOfAircraftsThatHaveCustomRadarNameWithModdedDictionary(out Dictionary<string, bool> isModdedDict);
 
-        Dictionary<string, string> vehicleDict =
-            GetDictionaryOfAircraftsThatHaveCustomRadarNameWithModdedDictionary(out Dictionary<string, bool> isModdedDict);
+        // Initialize SQF content
+        string sqfContent = "// Common_ReturnAircraftNameFromItsType.sqf\n\n";
+        sqfContent += "private [\"_typeOfObject\", \"_aircraftName\"];\n";
+        sqfContent += "_typeOfObject = _this select 0; // Taking the first argument passed to the function\n\n";
 
-        // Display the dictionaries for demonstration purposes
+        // Define the array of valid types
+        sqfContent += "private _validTypes = [";
+        foreach (var pair in vehicleDict.Keys)
+        {
+            sqfContent += $"\"{pair}\", ";
+        }
+        sqfContent = sqfContent.TrimEnd(',', ' ') + "];\n";
+
+        // Set the aircraft name based on the type
+        sqfContent += @"
+_aircraftName = [_typeOfObject, 'displayName'] call GetConfigInfo;
+
+// Check if the type is in the valid types array
+if !(_typeOfObject in _validTypes) exitWith {_aircraftName};
+
+switch (_typeOfObject) do {
+";
         foreach (var pair in vehicleDict)
         {
-            Console.WriteLine($"{pair.Key} : {pair.Value}, IsModded: {isModdedDict[pair.Key]}");
+            sqfContent += $"    case \"{pair.Key}\": {{ _aircraftName = \"{pair.Value}\"; }};\n";
         }
+        sqfContent += "};\n";
 
-        MapFileProperties properties = new MapFileProperties();
+        // Return the aircraft name
+        sqfContent += "\n_aircraftName";
 
-        //string commonBalanceFileString = @"Private[""_currentFactoryLevel""];" + "\n\n";
-        //commonBalanceFileString += "// After adding Pandur and BTR-90 to this script," +
-        //    " it's necessary to exit on the server to prevent an occassional freeze\n";
-        //commonBalanceFileString += "if (isServer) exitWith {};\n\n";
-        //commonBalanceFileString += "switch (typeOf _this) do\n{\n";
-        //commonBalanceFileString += commonBalanceInitFile;
+        //Console.WriteLine(sqfContent);
 
-        //properties.modded = commonBalanceFileString;
-        //properties.modded += commonBalanceInitFileForModdedMaps;
-
-        //commonBalanceFileString += "};";
-        //properties.modded += "};";
-
-        //properties.vanilla = commonBalanceFileString;
-        return properties;
+        return sqfContent;
     }
+
 
     public static Dictionary<string, string> GetDictionaryOfAircraftsThatHaveCustomRadarNameWithModdedDictionary(
         out Dictionary<string, bool> _isModdedDict)
