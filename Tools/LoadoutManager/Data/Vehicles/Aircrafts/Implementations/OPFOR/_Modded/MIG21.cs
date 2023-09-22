@@ -24,6 +24,8 @@
         };
 
         inGameDisplayName = "MiG-21MF Fishbed";
+        hasCustomRadarName = true;
+
         inGamePrice = 49999;
         ConstructionTime = 50;
         inGameFactoryLevel = 5;
