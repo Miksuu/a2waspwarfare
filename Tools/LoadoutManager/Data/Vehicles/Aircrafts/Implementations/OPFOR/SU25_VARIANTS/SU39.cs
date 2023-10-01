@@ -46,6 +46,8 @@
         };
 
         inGameDisplayName = "Su-39";
+        hasCustomRadarName = true;
+
         inGameFactoryLevel = 5;
         producedFromFactoryType = FactoryType.AIRCRAFTFACTORY;
     }

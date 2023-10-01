@@ -43,6 +43,8 @@
         };
 
         inGameDisplayName = "Su-25T";
+        hasCustomRadarName = true;
+
         inGameFactoryLevel = 4;
         producedFromFactoryType = FactoryType.AIRCRAFTFACTORY;
     }
