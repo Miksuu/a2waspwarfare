@@ -213,6 +213,8 @@ switch (_type) do {
   		_vehicle addeventhandler ["HandleDamage",format ["_this Call %1", _rearmor]];
 	};
 
+    //LoadoutManagerInsertChanges
+
 	default{
 	
 			_rearmor = {
