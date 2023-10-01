@@ -18,7 +18,7 @@ public abstract class BaseTerrain : InterfaceTerrain
     // Boolean flag to check if the terrain is modded.
     public bool isModdedTerrain { get; set; }
 
-    // The directory the game sees, added here after refactoring the EnumMember for discord bot usage
+    // The directory the game sees, added here after refactoring the EnumMember for The Discord bot usage
     public string inGameMapName { get; set; }
 
     // Moved this here for better copypasteability to GPT
