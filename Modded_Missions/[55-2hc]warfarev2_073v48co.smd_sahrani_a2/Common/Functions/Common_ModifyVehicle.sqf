@@ -213,9 +213,357 @@ switch (_type) do {
   		_vehicle addeventhandler ["HandleDamage",format ["_this Call %1", _rearmor]];
 	};
 
-    //LoadoutManagerInsertChanges
+    //LoadoutManagerInsertChanges\n
+case "Su34":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
 
-    //LoadoutManagerInsertChanges_END
+case "Su25_Ins":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "Su25_TK_EP1":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "Su39":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "L39_TK_EP1":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "F35B":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "L159_ACR":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "A10":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "A10_US_EP1":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "AV8B":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "AV8B2":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "Mi24_D_CZ_ACR":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "AH64D":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "AH64D_EP1":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "BAF_Apache_AH1_D":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "AH1Z":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "AW159_Lynx_BAF":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "Mi24_V":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "Mi24_P":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "Mi24_D_TK_EP1":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "Ka52":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "Ka52Black":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "An2_TK_EP1":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "UH1Y":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "AH6J_EP1":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+\n//LoadoutManagerInsertChanges_END
 
 	default{
 	
