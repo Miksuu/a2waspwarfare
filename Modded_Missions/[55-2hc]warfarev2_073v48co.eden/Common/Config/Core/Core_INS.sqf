@@ -115,7 +115,7 @@ _c = _c + ['BRDM2_ATGM_INS'];
 _i = _i + [['BRDM (Igla)','',2150,25,-2,3,1,0,'Insurgents',[]]];
 
 _c = _c + ['Ural_ZU23_INS'];
-_i = _i + [['','',1750,20,-2,3,1,0,'Insurgents',[]]];
+_i = _i + [['','',1100,20,-2,3,1,0,'Insurgents',[]]];
 
 _c = _c + ['GRAD_INS'];
 _i = _i + [['','',6800,35,-2,5,1,0,'Insurgents',[]]];
