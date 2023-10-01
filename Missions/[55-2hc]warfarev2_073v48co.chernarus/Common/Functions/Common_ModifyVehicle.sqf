@@ -215,6 +215,8 @@ switch (_type) do {
 
     //LoadoutManagerInsertChanges
 
+    //LoadoutManagerInsertChanges_END
+
 	default{
 	
 			_rearmor = {
