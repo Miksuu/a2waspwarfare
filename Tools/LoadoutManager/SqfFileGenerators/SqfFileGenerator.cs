@@ -160,16 +160,15 @@ case """ + vehicleName + @""":{
     _vehicle addeventhandler [""HandleDamage"", format[""_this Call %1"", _rearmor]];
 };
 ";
-            properties.vanilla += sqfCode;
+            properties.modded += sqfCode;
 
-            if (!interfaceVehicle.ModdedVehicle)
+            if (interfaceVehicle.ModdedVehicle)
             {
                 continue;
             }
 
-            properties.modded += sqfCode;
+            properties.vanilla += sqfCode;
         }
-
         return properties;
     }
 
