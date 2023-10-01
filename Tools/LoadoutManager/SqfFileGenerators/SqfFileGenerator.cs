@@ -139,7 +139,7 @@ public class SqfFileGenerator
         foreach (VehicleType vehicleType in Enum.GetValues(typeof(VehicleType)))
         {
             var interfaceVehicle = (InterfaceVehicle)EnumExtensions.GetInstance(vehicleType.ToString());
-            if (!(interfaceVehicle is BaseAircraft) && !(interfaceVehicle is BaseHelicopter))
+            if (!(interfaceVehicle is BaseAircraft) || interfaceVehicle is BaseHelicopter)
             {
                 continue;
             }
