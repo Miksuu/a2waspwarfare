@@ -148,7 +148,7 @@ public class SqfFileGenerator
             string vehicleName = EnumExtensions.GetEnumMemberAttrValue(vehicleType);
 
             string sqfCode = @"
-case " + vehicleName + @":{
+case """ + vehicleName + @""":{
     _rearmor = {
         _ammo = _this select 4;
         _result = 0;
