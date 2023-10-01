@@ -132,9 +132,9 @@ public class SqfFileGenerator
         WriteAndUpdateToFilesForModdedTerrains(easaFileStrings.modded, commonBalanceFileStrings.modded, aircraftDisplayNameStrings.modded, coreModFileStrings);
     }
 
-    public static string GenerateAircraftClassNames()
+    public static MapFileProperties GenerateAircraftClassNames()
     {
-        StringBuilder generatedCode = new StringBuilder();
+        MapFileProperties properties = new MapFileProperties();
 
         foreach (VehicleType vehicleType in Enum.GetValues(typeof(VehicleType)))
         {
@@ -160,10 +160,17 @@ case """ + vehicleName + @""":{
     _vehicle addeventhandler [""HandleDamage"", format[""_this Call %1"", _rearmor]];
 };
 ";
-            generatedCode.AppendLine(sqfCode);
+            properties.vanilla += sqfCode;
+
+            if (!interfaceVehicle.ModdedVehicle)
+            {
+                continue;
+            }
+
+            properties.modded += sqfCode;
         }
 
-        return generatedCode.ToString();
+        return properties;
     }
 
     // Generates file for the Core files, with vehicle name, price, construction time etc.
