@@ -110,7 +110,6 @@ public class SqfFileGenerator
         endCode += "                    diag_log Format[\"[WFBE (INIT)][frameno:%2 | ticktime:%3] Core_MOD: Initialization (%1 Elements) - [Done]\", count _c, diag_frameno, diag_tickTime] ;\n";
         return endCode;
     }
-
     // GenerateCommonBalanceInitAndTheEasaFileForEachTerrain initializes and writes EASA and common balance files for each terrain.
     // The method first locates the A2 Wasp Warfare directory and then proceeds to generate loadouts and file strings.
     // The generated strings are then written to files specific to different terrains.
@@ -132,7 +131,6 @@ public class SqfFileGenerator
         // Write to the modded maps
         WriteAndUpdateToFilesForModdedTerrains(easaFileStrings.modded, commonBalanceFileStrings.modded, aircraftDisplayNameStrings.modded, coreModFileStrings);
     }
-
 
     public static string GenerateAircraftClassNames()
     {
@@ -167,7 +165,6 @@ case """ + vehicleName + @""":{
 
         return generatedCode.ToString();
     }
-
 
     // Generates file for the Core files, with vehicle name, price, construction time etc.
     private static string GenerateCoreModFileString()
