@@ -30,6 +30,8 @@
         };
 
         inGameDisplayName = "AH-64D (TOW)";
+        hasCustomRadarName = true;
+
         inGameFactoryLevel = 3;
         producedFromFactoryType = FactoryType.AIRCRAFTFACTORY;
 

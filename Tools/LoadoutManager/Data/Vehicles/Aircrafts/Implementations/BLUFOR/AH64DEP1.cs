@@ -21,6 +21,8 @@
         };
 
         inGameDisplayName = "AH-64D (Hellfire)";
+        hasCustomRadarName = true;
+
         inGameFactoryLevel = 4;
         producedFromFactoryType = FactoryType.AIRCRAFTFACTORY;
 

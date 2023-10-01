@@ -48,6 +48,8 @@
         };
 
         inGameDisplayName = "A-10C";
+        hasCustomRadarName = true;
+
         inGameFactoryLevel = 4;
         producedFromFactoryType = FactoryType.AIRCRAFTFACTORY;
     }
