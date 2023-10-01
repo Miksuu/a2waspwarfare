@@ -195,10 +195,10 @@ public class FileManager
         // Insert the generated code between the markers
         if (startIndex >= 0 && endIndex >= 0 && startIndex < endIndex)
         {
-            string before = fileContent.Substring(0, startIndex + "//LoadoutManagerInsertChanges".Length);
+            string before = fileContent.Substring(0, startIndex + _startReplaceFrom.Length);
             string after = fileContent.Substring(endIndex);
 
-            string newContent = before + "\\n" + _generatedCode + "\\n" + after;
+            string newContent = before + _generatedCode + after;
 
             // Replace the old content with the new content
             System.IO.File.WriteAllText(_targetPath, newContent);
