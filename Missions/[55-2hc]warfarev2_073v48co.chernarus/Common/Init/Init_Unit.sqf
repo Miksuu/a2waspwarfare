@@ -58,11 +58,13 @@ if (_unit_kind in (missionNamespace getVariable "WFBE_REPAIRTRUCKS")) then { //-
 	};
 };
 
-if (_unit isKindOf "Tank") then { //--- Tanks.
+if ((_unit isKindOf "Tank")||(_unit_kind == 'An2_TK_EP1')) then { //--- Tanks.
 	//--- Valhalla Low gear.
 	_unit addAction ["<t color='#FFBD4C'>"+(localize "STR_ACT_LowGearOn")+"</t>","Client\Module\Valhalla\LowGear_Toggle.sqf", [], 91, false, true, "", "(player==driver _target) && !Local_HighClimbingModeOn && canMove _target"];
 	_unit addAction ["<t color='#FFBD4C'>"+(localize "STR_ACT_LowGearOff")+"</t>","Client\Module\Valhalla\LowGear_Toggle.sqf", [], 91, false, true, "", "(player==driver _target) && Local_HighClimbingModeOn && canMove _target"];
 };
+
+
 
 if (_unit isKindOf "Ship") then { //--- Boats.
 	//--- Push action.

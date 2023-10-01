@@ -25,7 +25,7 @@ _min=30;
 _max=40;
 
 if (_vehicle isKindOf "Tank") then { _min=24; _max=30 };
-
+if (_vehicle isKindOf "Air") then { _min=90; _max=250 };
 while {(player==(driver _vehicle)) && (Local_HighClimbingModeOn) && (canMove _vehicle)} do {
 	_speed=speed _vehicle;
 	_vel=velocity _vehicle;	
