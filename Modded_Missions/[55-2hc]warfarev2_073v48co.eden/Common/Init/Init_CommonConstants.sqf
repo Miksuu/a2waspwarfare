@@ -85,7 +85,13 @@ with missionNamespace do {
 	WFBE_C_ARTILLERY_AMMO_RANGE_LASER = 175; //--- Artillery laser rounds detection range (Per Shell).
 	WFBE_C_ARTILLERY_AMMO_RANGE_SADARM = 200; //--- Artillery SADARM rounds operative range (Per Shell).
 	WFBE_C_ARTILLERY_AREA_MAX = 300; //---  Maximum spread area of artillery support.
-	WFBE_C_ARTILLERY_INTERVALS = [400, 350, 300, 250]; //--- Delay between each fire mission for each upgrades.
+	if WF_Debug then 
+	{
+		WFBE_C_ARTILLERY_INTERVALS = [15, 15, 15, 15, 15, 15, 15]; // In debug mod, arty reload is set to 15 seconds.
+	} else 
+	{
+		WFBE_C_ARTILLERY_INTERVALS = [500, 450, 400, 350, 300, 250, 200]; //--- Delay between each fire mission for each upgrades.
+	};
 
 	//--- Base
 	if (isNil "WFBE_C_BASE_AREA") then {WFBE_C_BASE_AREA = 2}; //--- Force the bases to be grouped by areas.
@@ -163,6 +169,7 @@ with missionNamespace do {
 	if (isNil "WFBE_C_MODULE_WFBE_FLARES") then {WFBE_C_MODULE_WFBE_FLARES = 1}; //--- Enable the countermeasure system (0: Disabled, 1: Enabled with upgrade, 2: Enabled).
 	if (isNil "WFBE_C_MODULE_WFBE_ICBM") then {WFBE_C_MODULE_WFBE_ICBM = 1}; //--- Enable the Intercontinental Ballistic Missile call for the commander.
 	if (isNil "WFBE_C_MODULE_WFBE_IRSMOKE") then {WFBE_C_MODULE_WFBE_IRSMOKE = 1}; //--- Enable the use of IR Smoke.
+	if (isNil "WFBE_ICBM_TIME_TO_IMPACT") then {WFBE_ICBM_TIME_TO_IMPACT = 1}; //--- Time for ICBM to impact 
 
 //--- Players.
 	if (isNil "WFBE_C_PLAYERS_AI_MAX") then {WFBE_C_PLAYERS_AI_MAX = 16}; //--- Max AI allowed on each player groups.
@@ -304,12 +311,20 @@ if (WF_A2_Vanilla) then {
 	//--- Units Factions.
 switch (true) do {
 	case (WF_A2_CombinedOps): {
-			if (isNil "WFBE_C_UNITS_FACTION_EAST") then {WFBE_C_UNITS_FACTION_EAST = 1}; //--- East Faction.
-			if (isNil "WFBE_C_UNITS_FACTION_GUER") then {WFBE_C_UNITS_FACTION_GUER = 0}; //--- Guerilla Faction.
-			if (isNil "WFBE_C_UNITS_FACTION_WEST") then {WFBE_C_UNITS_FACTION_WEST = 2}; //--- West Faction.
 			WFBE_C_UNITS_FACTIONS_EAST = ['INS','RU','TKA']; //--- East Factions.
 			WFBE_C_UNITS_FACTIONS_GUER = ['GUE','PMC','TKGUE']; //--- Guerilla Factions.
 			WFBE_C_UNITS_FACTIONS_WEST = ['CDF','US','USMC']; //--- West Factions.
+
+			// Reworked to use the the cherno/takistan parameter
+            if (IS_chernarus_map_dependent) then {
+                missionNamespace setVariable ['WFBE_C_UNITS_FACTION_WEST', 2]; // USMC index
+                missionNamespace setVariable ['WFBE_C_UNITS_FACTION_EAST', 1]; // RU index
+                missionNamespace setVariable ['WFBE_C_UNITS_FACTION_GUER', 0]; // GUE index
+            } else {
+                missionNamespace setVariable ['WFBE_C_UNITS_FACTION_WEST', 1]; // US index
+                missionNamespace setVariable ['WFBE_C_UNITS_FACTION_EAST', 2]; // TKA index
+                missionNamespace setVariable ['WFBE_C_UNITS_FACTION_GUER', 2]; // TKGUE index
+            };
 	};
 };
 

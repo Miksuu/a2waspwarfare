@@ -1,6 +1,8 @@
 ﻿using Discord.Rest;
+using Discord.WebSocket;
 using System.Collections.Concurrent;
 using System.Runtime.Serialization;
+using System.Threading.Channels;
 
 [DataContract]
 public class GameDataUpdateEvent : ScheduledEvent
@@ -10,7 +12,7 @@ public class GameDataUpdateEvent : ScheduledEvent
     public GameDataUpdateEvent(
         ConcurrentBag<ScheduledEvent> _scheduledEvents)
     {
-        SetupScheduledEvent(133333333333337, _scheduledEvents, 60);
+        SetupScheduledEvent(133333333333337, _scheduledEvents, 90);
 
         Log.WriteLine("Done creating event: " + nameof(GameDataUpdateEvent));
     }
@@ -19,48 +21,68 @@ public class GameDataUpdateEvent : ScheduledEvent
     {
         try
         {
-            Log.WriteLine("This event should not be executed!", LogLevel.CRITICAL);
+            Log.WriteLine("This event should not be executed!", LogLevel.ERROR);
         }
         catch (Exception ex)
         {
-            Log.WriteLine(ex.Message, LogLevel.CRITICAL);
+            Log.WriteLine(ex.Message, LogLevel.ERROR);
             return;
         }
     }
 
-    public override void CheckTheScheduledEventStatus()
+    public async override void CheckTheScheduledEventStatus()
     {
         try
         {
-            GameDataDeSerialization.DeSerializeGameDataFromExtension();
+            await GameDataDeSerialization.DeSerializeGameDataFromExtension();
 
-            Database.Instance.Categories.FindInterfaceCategoryByCategoryName(
+            var interfaceChannel = Database.GetInstance<DiscordBotDatabase>().Categories.FindInterfaceCategoryByCategoryName(
                 CategoryType.GAMESTATUSCATEGORY).FindInterfaceChannelWithNameInTheCategory(
-                    ChannelType.GAMESTATUSCHANNEL).FindInterfaceMessageWithNameInTheChannel(
+                    ChannelType.GAMESTATUSCHANNEL);
+
+            interfaceChannel.FindInterfaceMessageWithNameInTheChannel(
                         MessageName.GAMESTATUSMESSAGE).GenerateAndModifyTheMessage();
 
             SetTheBotStatus();
+
+            var newChannelName = GameData.Instance.GetGameMapAndPlayerCountWithEmojiForChannelName();
+            interfaceChannel.ChannelName = newChannelName;
+
+            var guild = BotReference.GetGuildRef();
+
+            // Find the channel by its ID
+            var channel = guild.GetChannel(interfaceChannel.ChannelId);
+
+            // Check if the channel exists
+            if (channel == null)
+            {
+                return;
+            }
+
+            // Modify the channel name
+            await channel.ModifyAsync(properties => properties.Name = newChannelName);
         }
         catch (Exception ex)
         {
-            Log.WriteLine(ex.Message, LogLevel.CRITICAL);
+            Log.WriteLine(ex.Message, LogLevel.ERROR);
             return;
         }
     }
 
-    // Changes the bot status message to: "Playing: Chernarus[35/55]" for example, and the status to online/away depending on the map
+    // Changes the bot status message to: "Playing: Chernarus[35/55]" for example,
+    // and the status to online/away depending on the terrain type
     private void SetTheBotStatus()
     {
         var client = BotReference.GetClientRef();
-        string worldName = GameData.Instance.GetWorldNameAsCapitalFirstLetter();
+        var terrainInstance = GameData.Instance.GetInterfaceTerrainFromWorldName();
 
-        client.SetGameAsync(GameData.Instance.GetGameMapAndPlayerCount());
+        client.SetGameAsync(GameData.Instance.GetGameMapAndPlayerCountWithEmoji());
 
-        if (worldName == "Chernarus")
+        if (terrainInstance.TerrainType == TerrainType.FOREST)
         {
             client.SetStatusAsync(status: Discord.UserStatus.Online);
         }
-        else if (worldName == "Takistan")
+        else if (terrainInstance.TerrainType == TerrainType.DESERT)
         {
             client.SetStatusAsync(status: Discord.UserStatus.AFK);
         }

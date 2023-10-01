@@ -245,6 +245,20 @@
                 <Russian>У вас изъято $%1 за ваше снаряжение</Russian>
                 <Italian>You were deducted from $%1 due to your gear</Italian>
             </Key>
+            <Key ID="STR_WF_CHAT_ICBM_Launch_BY_OUR_TEAM">
+                <English>Attention! We launched a nuclear strike. Exit the area marked on the map at your earliest convenience. Countdown %1 minutes.</English>
+                <French>Attention ! Nous avons lancé une frappe nucléaire. Quittez la zone marquée sur la carte dès que possible. Compte à rebours %1 minutes.</French>
+                <German>Achtung! Wir haben einen Atomangriff gestartet. Verlassen Sie umgehend den auf der Karte markierten Bereich. Countdown %1 Minuten.</German>
+                <Russian>Внимание! Мы запустили ядерный удар. Покиньте область, отмеченную на карте, при первой возможности. Обратный отсчет %1 минут.</Russian>
+                <Italian>Attenzione! Abbiamo lanciato uno sciopero nucleare. Esci dall'area contrassegnata sulla mappa al più presto. Conto alla rovescia %1 minuti.</Italian>
+            </Key>
+            <Key ID="STR_WF_CHAT_ICBM_Launch_BY_ENEMY_TEAM">
+                <English>Warning! Enemy nuclear strike approaching. Impact coordinates are unknown. Countdown %1 minutes.</English>
+                <French>Attention ! Frappe nucléaire ennemie en approche. Les coordonnées de l'impact sont inconnues. Compte à rebours %1 minutes.</French>
+                <German>Achtung! Feindlicher Atomangriff im Anmarsch. Aufschlagskoordinaten sind unbekannt. Countdown %1 Minuten.</German>
+                <Russian>Внимание! Приближается атомный удар противника. Координаты удара неизвестны. Обратный отсчет %1 минут.</Russian>
+                <Italian>Attenzione! Si avvicina un attacco nucleare nemico. Le coordinate dell'impatto sono sconosciute. Conto alla rovescia %1 minuti.</Italian>
+            </Key>
             <Key ID="STR_WF_CHAT_ICBM_Launch">
                 <English>WARNING! An Intercontinental ballistic missile launch has been detected! Five minutes to impact!</English>
                 <French>ATTENTION! Le lancement d'un Missile balistique intercontinental a été detecté! Cinq minutes pour avoir un impact!</French>
@@ -371,15 +385,13 @@
                 <Russian>Запрещено менять команду в процессе игры . Вернитесь в первоначальную команду!</Russian>
                 <Italian>Сhoose other team or join your original team!</Italian>
             </Key>
-
             <Key ID="STR_WF_CHAT_Upgrade_Started_Message">
-                <English>%1 Upgrade is started, upgrading level is %2.</English>
-                <French>%1 Upgrade is started, upgrading level is %2.</French>
-                <German>%1 Upgrade is started, upgrading level is %2.</German>
-                <Russian>%1 модернизация до уровня %2 начата.</Russian>
-                <Italian>%1 Upgrade is started, upgrading level is %2.</Italian>
+                <English>%1 Upgrade has been started, upgrading to level %2.</English>
+                <French>%1 La mise à niveau a commencé, mise à niveau au niveau %2.</French>
+                <German>%1 Upgrade wurde gestartet, Upgrade auf Stufe %2.</German>
+                <Russian>%1 Модернизация начата, повышение до уровня %2.</Russian>
+                <Italian>%1 L'aggiornamento è stato avviato, aggiornamento al livello %2.</Italian>
             </Key>
-
             <Key ID="STR_WF_CHAT_Upgrade_Complete_Message">
                 <English>%1 Upgrade completed, %1 is now at Level %2.</English>
                 <French>Amélioration %1 Complète, %1 est désormais au Niveau %2.</French>
@@ -781,6 +793,20 @@
                 <German>Information:\n\n Du benötigst mindestens eine Artillerie-Einheit, um einen Feuerbefehl erteilen zu können.\n\n Wenn du schon eine besitzt, versichere dich, dass du diese auch ausgewählt hast.</German>
                 <Russian>Информация:\n\n для вызова артиллерии у Вас должна быть хотя бы одна арт. установка.</Russian>
                 <Italian>Informazioni:\n\n Hai bisogno di almeno un unità di artiglieria per chiamare il fuoco di soppressione.</Italian>
+            </Key>
+            <Key ID="STR_WF_INFO_Arty_called_message">
+                <English>%1 has initiated an artillery strike. The impact location has been marked on the map.</English>
+                <French>%1 a déclenché une frappe d'artillerie. L'emplacement de l'impact a été marqué sur la carte.</French>
+                <German>%1 hat einen Artillerieangriff ausgelöst. Die Einschlagstelle wurde auf der Karte markiert.</German>
+                <Russian>%1 инициировал артиллерийский удар. Местоположение удара отмечено на карте.</Russian>
+                <Italian>%1 ha lanciato un attacco di artiglieria. La posizione dell'impatto è stata segnata sulla mappa.</Italian>
+            </Key>
+            <Key ID="STR_WF_INFO_Arty_cool_down_over">
+                <English>Artillery cooldown has ended. You may use it again.</English>
+                <French>Le délai de refroidissement de l'artillerie est terminé. Vous pouvez la réutiliser</French>
+                <German>Die Abkühlzeit der Artillerie ist abgelaufen. Sie dürfen sie erneut verwenden.</German>
+                <Russian>Время охлаждения артиллерии завершено. Вы можете использовать её снова.</Russian>
+                <Italian>Il periodo di raffreddamento dell'artiglieria è terminato. Puoi usarlo di nuovo.</Italian>
             </Key>
             <Key ID="STR_WF_INFO_Paratroop_Info">
                 <English>Information:\n\n An aerial unit has been called according to your order, it shall arrive here quite soon.</English>
@@ -1189,6 +1215,14 @@
             </Key>
 
             <!--PARAMETER Strings - ALL DONE-->
+            <!--AFK time-->
+            <Key ID="STR_WF_PARAMETER_AFK_Time" >
+                <English>AFK: Maximum player idle time in minutes.</English>
+                <French>AFK: Durée max d'inactivité d'un joueur en minutes</French>
+                <German>AFK: Maximale Spieler-Inaktivitätszeit in minuten.</German>
+                <Russian>AFK: Максимальное время бездействия игрока в минутах.</Russian>
+                <Italian>AFK: Tempo massimo di inattività del giocatore in minuti.</Italian>
+            </Key>
             <!--AI-->
             <Key ID="STR_WF_PARAMETER_AI_Delegation" >
                 <English>AI: Client-side Delegation</English>
@@ -1673,6 +1707,13 @@
                 <Russian>Модуль: МБР</Russian>
                 <Italian>Modulo: Missile Nucleare</Italian>
             </Key>
+            <Key ID="STR_WF_PARAMETER_ICBM_IMPACT_TIME" >
+                <English>ICBM: Time before ICBM impact</English>
+                <French>ICBM: Temps avant impact de l'ICBM</French>
+                <German>ICBM: Zeit bis zum Einschlag der ICBM</German>
+                <Russian>МБР: Время до удара межконтинентальной баллистической ракеты</Russian>
+                <Italian>ICBM: Tempo prima dell'impatto dell'ICBM</Italian>
+            </Key>
             <Key ID="STR_WF_PARAMETER_IRS" >
                 <English>MODULE: IR Smoke</English>
                 <French>MODULE: Fumée IR</French>
@@ -1816,20 +1857,6 @@
                 <Russian>Город: Захват</Russian>
                 <Italian>Città: Occupazione</Italian>
             </Key>
-            <Key ID="STR_WF_PARAMETER_Occupation_Type_East"><!--shared U-->
-                <English>TOWNS: Occupation Faction - East</English>
-                <French>VILLES: Faction d'Occupation Est</French>
-                <German>STÄDTE: Besatzer-Fraktion (Ostblock)</German>
-                <Russian>Город: Охраняющая Фракция - Восток</Russian>
-                <Italian>Towns: Occupation Faction - East</Italian>
-            </Key>
-            <Key ID="STR_WF_PARAMETER_Occupation_Type_West"><!--shared U-->
-                <English>TOWNS: Occupation Faction - West</English>
-                <French>VILLES: Faction d'Occupation Ouest</French>
-                <German>STÄDTE: Besatzer-Fraktion (Westmächte)</German>
-                <Russian>Город: Охраняющая Фракция - Запад</Russian>
-                <Italian>Towns: Occupation Faction - West</Italian>
-            </Key>
             <Key ID="STR_WF_PARAMETER_Reinforcement_Occupation">
                 <English>TOWNS: Occupation Reinforcements</English>
                 <French>VILLES: Renforts d'Occupation</French>
@@ -1864,13 +1891,6 @@
                 <German>TOWNS: Defender</German>
                 <Russian>TOWNS: Defender</Russian>
                 <Italian>TOWNS: Defender</Italian>
-            </Key>
-            <Key ID="STR_WF_PARAMETER_Reinforcement_Type"><!--shared U-->
-                <English>TOWNS: Resistance Faction</English>
-                <French>VILLES: Faction Résistante</French>
-                <German>STÄDTE: Widerstand (Fraktion)</German>
-                <Russian>Город: Фракция сопротивления</Russian>
-                <Italian>Towns: Fazione Resistenza</Italian>
             </Key>
             <Key ID="STR_WF_PARAMETER_Reinforcement_Resistance">
                 <English>TOWNS: Resistance Reinforcements</English>
@@ -3632,11 +3652,11 @@
                 <Italian>This upgrade unlocks heavy vehicles.&lt;br/&gt;&lt;br/&gt;This allows the team to buy better vehicles at the Heavy Factory.</Italian>
             </Key>
             <Key ID="STR_WF_UPGRADE_ArtilleryUpgrade_Desc">
-                <English>This upgrade decreases the cooldown time of artillery missions called via the Tactical Center.&lt;br/&gt; - Cooldown:&lt;br/&gt;   Level 0 = 400 seconds&lt;br/&gt;   Level 1 = 350 seconds&lt;br/&gt;   Level 2 = 300 seconds&lt;br/&gt;   Level 3 = 250 seconds</English>
-                <French>This upgrade decreases the cooldown time of artillery missions called via the Tactical Center.&lt;br/&gt; - Cooldown:&lt;br/&gt;   Level 0 = 400 seconds&lt;br/&gt;   Level 1 = 350 seconds&lt;br/&gt;   Level 2 = 300 seconds&lt;br/&gt;   Level 3 = 250 seconds</French>
-                <German>Dieses Upgrade verringert die Nachladezeit der Artillerie im Tactical Center.&lt;br/&gt; - Nachladezeit:&lt;br/&gt;   Stufe 0 = 400 Sekunden&lt;br/&gt;   Stufe 1 = 350 Sekunden&lt;br/&gt;   Stufe 2 = 300 Sekunden&lt;br/&gt;   Stufe 3 = 250 Sekunden</German>
-                <Russian>Эта модернизация уменьшается время перезарядки артиллерии, вызываемой в миссии через Тактический центр.&lt;br/&gt; - Перезарядка:&lt;br/&gt;   Уровень 0 = 400 секунд&lt;br/&gt;   Уровень 1 = 350 секунд&lt;br/&gt;   Уровень 2 = 300 секунд&lt;br/&gt;   Уровень 3 = 250 секунд</Russian>
-                <Italian>This upgrade decreases the cooldown time of artillery missions called via the Tactical Center.&lt;br/&gt; - Cooldown:&lt;br/&gt;   Level 0 = 400 seconds&lt;br/&gt;   Level 1 = 350 seconds&lt;br/&gt;   Level 2 = 300 seconds&lt;br/&gt;   Level 3 = 250 seconds</Italian>
+                <English>This upgrade decreases the cooldown time of artillery missions called via the Tactical Center.&lt;br/&gt; - Cooldown:&lt;br/&gt;   Level 0 = 500 seconds&lt;br/&gt;   Level 1 = 450 seconds&lt;br/&gt;   Level 2 = 400 seconds&lt;br/&gt;   Level 3 = 350 seconds&lt;br/&gt;   Level 4 = 300 seconds&lt;br/&gt;   Level 5 = 250 seconds&lt;br/&gt;   Level 6 = 200 seconds</English>
+                <French>Cette mise à niveau réduit le temps de récupération des missions d'artillerie appelées via le Tactical Center.&lt;br/&gt; - Temps de récupération:&lt;br/&gt;   Niveau 0 = 500 secondes&lt;br/&gt;   Niveau 1 = 450 secondes&lt;br/&gt;   Niveau 2 = 400 secondes&lt;br/&gt;   Niveau 3 = 350 secondes&lt;br/&gt;   Niveau 4 = 300 secondes&lt;br/&gt;   Niveau 5 = 250 secondes&lt;br/&gt;   Niveau 6 = 200 secondes</French>
+                <German>Dieses Upgrade verringert die Nachladezeit der Artillerie im Tactical Center.&lt;br/&gt; - Nachladezeit:&lt;br/&gt;   Stufe 0 = 500 Sekunden&lt;br/&gt;   Stufe 1 = 450 Sekunden&lt;br/&gt;   Stufe 2 = 400 Sekunden&lt;br/&gt;   Stufe 3 = 350 Sekunden&lt;br/&gt;   Stufe 4 = 300 Sekunden&lt;br/&gt;   Stufe 5 = 250 Sekunden&lt;br/&gt;   Stufe 6 = 200 Sekunden</German>
+                <Russian>Эта модернизация уменьшает время перезарядки артиллерии, вызываемой в миссии через Тактический центр.&lt;br/&gt; - Перезарядка:&lt;br/&gt;   Уровень 0 = 500 секунд&lt;br/&gt;   Уровень 1 = 450 секунд&lt;br/&gt;   Уровень 2 = 400 секунд&lt;br/&gt;   Уровень 3 = 350 секунд&lt;br/&gt;   Уровень 4 = 300 секунд&lt;br/&gt;   Уровень 5 = 250 секунд&lt;br/&gt;   Уровень 6 = 200 секунд</Russian>
+                <Italian>Questo aggiornamento riduce il tempo di recupero delle missioni di artiglieria chiamate tramite il Tactical Center.&lt;br/&gt; - Tempo di recupero:&lt;br/&gt;   Livello 0 = 500 secondi&lt;br/&gt;   Livello 1 = 450 secondi&lt;br/&gt;   Livello 2 = 400 secondi&lt;br/&gt;   Livello 3 = 350 secondi&lt;br/&gt;   Livello 4 = 300 secondi&lt;br/&gt;   Livello 5 = 250 secondi&lt;br/&gt;   Livello 6 = 200 secondi</Italian>
             </Key>
             <Key ID="STR_WF_UPGRADE_ArtilleryAmmo_Desc">
                 <English>This upgrade unlocks new ammunition for artillery pieces.&lt;br/&gt;&lt;br/&gt;This allows the artillery-units to fire improved ammunition.</English>

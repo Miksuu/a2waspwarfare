@@ -3,5 +3,6 @@
     public TerrainName TerrainName { get; set; }
     public TerrainType TerrainType { get; set; }
     public bool isModdedTerrain { get; set; }
-    public void WriteToFile(DirectoryInfo _dir, string _content, string _targetScriptPath);
+    public string inGameMapName { get; set; }
+    public void WriteAndUpdateTerrainFiles(string _easaFileString, string _commonBalanceFileString, string _coreModFile = "");
 }

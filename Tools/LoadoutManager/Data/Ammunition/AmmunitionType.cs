@@ -161,4 +161,18 @@ public enum AmmunitionType
 
     [EnumMember(Value = "Laserbatteries")]
     LASERBATTERIES,
+
+    [EnumMember(Value = "140Rnd_30mm_ATKMK44_HE_ACR")]
+    ATK44HE,
+
+    [EnumMember(Value = "60Rnd_30mm_ATKMK44_AP_ACR")]
+    ATK44AP,
+
+
+    // Modded ammunitions
+    [EnumMember(Value = "520Rnd_23mm_GSh23L")]
+    MODDED_FIVEHUNDREDTWENTYROUND23MMGSH23L,
+
+    [EnumMember(Value = "PRACS_AA8x4")]
+    MODDED_FOURR60ROUND,
 }
