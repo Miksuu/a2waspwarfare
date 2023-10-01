@@ -121,7 +121,7 @@ public class SqfFileGenerator
         var easaFileStrings = GenerateEasaFileString();
         var commonBalanceFileStrings = GenerateCommonBalanceFileString();
         var aircraftDisplayNameStrings = GenerateAircraftDisplayNameFileString();
-        var addedAircraftDamageModelChanges = GenerateAircraftClassNames();
+        var addedAircraftDamageModelChanges = GenerateAircraftDamageModelChanges();
         string coreModFileStrings = GenerateCoreModFileString();
 
         // First go through vanilla maps (copied to mod maps later)
@@ -132,7 +132,7 @@ public class SqfFileGenerator
         WriteAndUpdateToFilesForModdedTerrains(easaFileStrings.modded, commonBalanceFileStrings.modded, aircraftDisplayNameStrings.modded, addedAircraftDamageModelChanges.modded, coreModFileStrings);
     }
 
-    public static MapFileProperties GenerateAircraftClassNames()
+    public static MapFileProperties GenerateAircraftDamageModelChanges()
     {
         MapFileProperties properties = new MapFileProperties();
 
