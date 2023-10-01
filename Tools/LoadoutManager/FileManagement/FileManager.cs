@@ -61,7 +61,7 @@ public class FileManager
                _fileName.EndsWith("texHeaders.bin", StringComparison.OrdinalIgnoreCase) ||
                _fileName.EndsWith("StartVeh.sqf", StringComparison.OrdinalIgnoreCase) ||
                _fileName.EndsWith("loadScreen.jpg", StringComparison.OrdinalIgnoreCase)
-               )&&
+               ) &&
                !_fileName.EndsWith("Init_Version.sqf", StringComparison.OrdinalIgnoreCase); // because there's version.sqf
     }
 
@@ -181,5 +181,32 @@ public class FileManager
 
         // Return the list of file paths
         return _filePaths;
+    }
+
+    public static void InsertGeneratedCodeInToAFile(string _generatedCode, string _targetPath, string _startReplaceFrom, string _endReplaceTo)
+    {
+        // Read the existing content from the file
+        string fileContent = System.IO.File.ReadAllText(_targetPath);
+
+        // Find the markers for insertion
+        int startIndex = fileContent.IndexOf(_startReplaceFrom);
+        int endIndex = fileContent.IndexOf(_endReplaceTo);
+
+        // Insert the generated code between the markers
+        if (startIndex >= 0 && endIndex >= 0 && startIndex < endIndex)
+        {
+            string before = fileContent.Substring(0, startIndex + "//LoadoutManagerInsertChanges".Length);
+            string after = fileContent.Substring(endIndex);
+
+            string newContent = before + "\\n" + _generatedCode + "\\n" + after;
+
+            // Replace the old content with the new content
+            System.IO.File.WriteAllText(_targetPath, newContent);
+        }
+        else
+        {
+            // Error handling: Marker not found or invalid
+            Console.WriteLine("not found: " + _startReplaceFrom + " | " + _endReplaceTo + " on " + _targetPath);
+        }
     }
 }
