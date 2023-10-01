@@ -125,11 +125,11 @@ public class SqfFileGenerator
         string coreModFileStrings = GenerateCoreModFileString();
 
         // First go through vanilla maps (copied to mod maps later)
-        WriteAndUpdateToFilesForATerrain(easaFileStrings.vanilla, commonBalanceFileStrings.vanilla, aircraftDisplayNameStrings.vanilla, TerrainName.CHERNARUS);
-        WriteAndUpdateToFilesForATerrain(easaFileStrings.vanilla, commonBalanceFileStrings.vanilla, aircraftDisplayNameStrings.vanilla, TerrainName.TAKISTAN);
+        WriteAndUpdateToFilesForATerrain(easaFileStrings.vanilla, commonBalanceFileStrings.vanilla, aircraftDisplayNameStrings.vanilla, addedAircraftDamageModelChanges.vanilla, TerrainName.CHERNARUS);
+        WriteAndUpdateToFilesForATerrain(easaFileStrings.vanilla, commonBalanceFileStrings.vanilla, aircraftDisplayNameStrings.vanilla, addedAircraftDamageModelChanges.vanilla, TerrainName.TAKISTAN);
 
         // Write to the modded maps
-        WriteAndUpdateToFilesForModdedTerrains(easaFileStrings.modded, commonBalanceFileStrings.modded, aircraftDisplayNameStrings.modded, coreModFileStrings);
+        WriteAndUpdateToFilesForModdedTerrains(easaFileStrings.modded, commonBalanceFileStrings.modded, aircraftDisplayNameStrings.modded, addedAircraftDamageModelChanges.modded, coreModFileStrings);
     }
 
     public static MapFileProperties GenerateAircraftClassNames()
@@ -383,18 +383,18 @@ case """ + vehicleName + @""":{
     // WriteAndUpdateToFilesForATerrain takes in a DirectoryInfo object and two strings for EASA and common balance files.
     // It takes a defined terrain (Chernarus) and writes or updates the respective files of that terrain
     private static void WriteAndUpdateToFilesForATerrain(
-        string _easaFileString, string _commonBalanceFileString, string _aircraftDisplayNameStrings, TerrainName _terrainName)
+        string _easaFileString, string _commonBalanceFileString, string _aircraftDisplayNameStrings, string _addedAircraftDamageModelChanges, TerrainName _terrainName)
     {
         var terrainInstance = (InterfaceTerrain)EnumExtensions.GetInstance(_terrainName.ToString());
 
         Console.WriteLine();
-        terrainInstance.WriteAndUpdateTerrainFiles(_easaFileString, _commonBalanceFileString, _aircraftDisplayNameStrings);
+        terrainInstance.WriteAndUpdateTerrainFiles(_easaFileString, _commonBalanceFileString, _aircraftDisplayNameStrings, _addedAircraftDamageModelChanges);
     }
 
     //WriteAndUpdateToFilesForTerrains takes in a DirectoryInfo object and two strings for EASA and common balance files.
     //It iterates through all defined terrains and writes or updates the respective files.
     private static void WriteAndUpdateToFilesForModdedTerrains(
-        string _easaFileString, string _commonBalanceFileString, string _aircraftDisplayNameStrings, string _coreModFile)
+        string _easaFileString, string _commonBalanceFileString, string _aircraftDisplayNameStrings, string _addedAircraftDamageModelChanges, string _coreModFile)
     {
         foreach (var terrainName in Enum.GetValues(typeof(TerrainName)))
         {
@@ -402,7 +402,7 @@ case """ + vehicleName + @""":{
             if (!terrainInstance.isModdedTerrain) continue;
 
             Console.WriteLine();
-            terrainInstance.WriteAndUpdateTerrainFiles(_easaFileString, _commonBalanceFileString, _aircraftDisplayNameStrings, _coreModFile);
+            terrainInstance.WriteAndUpdateTerrainFiles(_easaFileString, _commonBalanceFileString, _aircraftDisplayNameStrings, _addedAircraftDamageModelChanges, _coreModFile);
         }
     }
 }
