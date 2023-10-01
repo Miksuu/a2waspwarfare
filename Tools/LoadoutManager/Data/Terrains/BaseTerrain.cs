@@ -35,10 +35,6 @@ public abstract class BaseTerrain : InterfaceTerrain
             UpdateFilesForTakistan();
         }
 
-        FileManager.InsertGeneratedCodeInToAFile(
-            _addedAircraftDamageModelChanges, destinationDirectory + @"\Common\Functions\Common_ModifyVehicle.sqf",
-            "//LoadoutManagerInsertChanges", "//LoadoutManagerInsertChanges_END");
-
         // Perhaps do a inherited class from this to reduce spaghetti
         if (isModdedTerrain)
         {
@@ -47,6 +43,10 @@ public abstract class BaseTerrain : InterfaceTerrain
             WriteFilesToTheModdedTerrains(destinationDirectory, _coreModFile);
             ReplaceInitCommmonSqfForCoreModInit(destinationDirectory);
         }
+
+        FileManager.InsertGeneratedCodeInToAFile(
+            _addedAircraftDamageModelChanges, destinationDirectory + @"\Common\Functions\Common_ModifyVehicle.sqf",
+            "//LoadoutManagerInsertChanges", "//LoadoutManagerInsertChanges_END");
 
         WriteSpecificFilesToTheTerrains(destinationDirectory, _easaFileString, _commonBalanceFileString, _aircraftDisplayNameStrings, _addedAircraftDamageModelChanges);
 
