@@ -49,21 +49,21 @@ class ICBM_message_to_friendly_players
 class ARTY_message_to_friendly_players_v2
 	{
 		name	= "ARTY_message_to_friendly_players_v2";
-		sound[]	= {"\Sounds\warning_Friendy_ARTY_v2.ogg", 10, 1.0};
+		sound[]	= {"\Sounds\warning_Friendy_ARTY_v2.ogg", 8, 1.0};
 		titles[] = {};
 	};
 // OPFOR Forest
 class ARTY_message_to_friendly_russian_v1
 	{
 		name	= "ARTY_message_to_friendly_russian_v1";
-		sound[]	= {"\Sounds\ARTY_warning_Friendly_message_russian_v1.ogg", 10, 1.0};
+		sound[]	= {"\Sounds\ARTY_warning_Friendly_message_russian_v1.ogg", 8, 1.0};
 		titles[] = {};
 	};
 // OPFOR Desert
 class ARTY_message_to_friendly_takistanish_v1
 	{
 		name	= "ARTY_message_to_friendly_takistanish_v1";
-		sound[]	= {"\Sounds\ARTY_warning_Friendly_message_arabic_v1.ogg", 10, 1.0};
+		sound[]	= {"\Sounds\ARTY_warning_Friendly_message_arabic_v1.ogg", 8, 1.0};
 		titles[] = {};
 	};
 
