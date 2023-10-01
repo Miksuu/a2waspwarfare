@@ -35,10 +35,6 @@ public abstract class BaseTerrain : InterfaceTerrain
             UpdateFilesForTakistan();
         }
 
-        FileManager.InsertGeneratedCodeInToAFile(
-            _addedAircraftDamageModelChanges, destinationDirectory + @"\Common\Functions\Common_ModifyVehicle.sqf",
-            "//LoadoutManagerInsertChanges", "//LoadoutManagerInsertChanges_END");
-
         // Perhaps do a inherited class from this to reduce spaghetti
         if (isModdedTerrain)
         {
@@ -58,10 +54,11 @@ public abstract class BaseTerrain : InterfaceTerrain
         string _destinationDirection, string _easaFileString, string _commonBalanceFileString, string _aircraftDisplayNameStrings, string _addedAircraftDamageModelChanges)
     {
         // Write the content to the specified files
-        // Maybe could use a bit more better data structure, maybe if needed, use the new replace content method instead of writing the whole file
+        // Maybe could use a bit more better data structure
         WriteToFile(_destinationDirection, _easaFileString, @"\Client\Module\EASA\EASA_Init.sqf");
         WriteToFile(_destinationDirection, _commonBalanceFileString, @"\Common\Functions\Common_BalanceInit.sqf");
         WriteToFile(_destinationDirection, _aircraftDisplayNameStrings, @"\Common\Common_ReturnAircraftNameFromItsType.sqf");
+        WriteToFile(_destinationDirection, _addedAircraftDamageModelChanges, @"\Common\Common_ModifyVehicle.sqf");
         WriteToFile(_destinationDirection, GenerateAndWriteVersionSqf(), @"\version.sqf");
 
         ReplaceGUIMenuHelp(_destinationDirection);
