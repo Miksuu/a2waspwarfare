@@ -4,6 +4,8 @@
 // various vehicle types. In addition, it includes methods for writing these configurations 
 // to files onto different terrains.
 
+using System.Text;
+
 public class SqfFileGenerator
 {
     // aircraftEasaLoadoutsFile stores the text for the respective EASA loadouts or initialization files.
@@ -115,9 +117,12 @@ public class SqfFileGenerator
     public static void GenerateCommonBalanceInitAndTheEasaFileForEachTerrain()
     {
         GenerateLoadoutsForAllVehicleTypes();
+
+        // Move these to a better file managing solution on refactoring
         var easaFileStrings = GenerateEasaFileString();
         var commonBalanceFileStrings = GenerateCommonBalanceFileString();
         var aircraftDisplayNameStrings = GenerateAircraftDisplayNameFileString();
+        var addedAircraftDamageModelChanges = GenerateAircraftClassNames();
         string coreModFileStrings = GenerateCoreModFileString();
 
         // First go through vanilla maps (copied to mod maps later)
@@ -127,6 +132,42 @@ public class SqfFileGenerator
         // Write to the modded maps
         WriteAndUpdateToFilesForModdedTerrains(easaFileStrings.modded, commonBalanceFileStrings.modded, aircraftDisplayNameStrings.modded, coreModFileStrings);
     }
+
+
+    public static string GenerateAircraftClassNames()
+    {
+        StringBuilder generatedCode = new StringBuilder();
+
+        foreach (VehicleType vehicleType in Enum.GetValues(typeof(VehicleType)))
+        {
+            var interfaceVehicle = (InterfaceVehicle)EnumExtensions.GetInstance(vehicleType.ToString());
+            if (!(interfaceVehicle is BaseVehicle))
+            {
+                continue;
+            }
+            string vehicleName = EnumExtensions.GetEnumMemberAttrValue(vehicleType);
+
+            string sqfCode = @"
+case " + vehicleName + @":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case ""M_R73_AA"": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case ""M_Sidewinder_AA"": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default: {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler [""HandleDamage"", format[""_this Call %1"", _rearmor]];
+};
+";
+            generatedCode.AppendLine(sqfCode);
+        }
+
+        return generatedCode.ToString();
+    }
+
 
     // Generates file for the Core files, with vehicle name, price, construction time etc.
     private static string GenerateCoreModFileString()
