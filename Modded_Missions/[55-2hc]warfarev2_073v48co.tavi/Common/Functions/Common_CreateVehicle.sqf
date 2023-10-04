@@ -14,6 +14,7 @@ if (typeName _side == "SIDE") then {_side = (_side) Call WFBE_CO_FNC_GetSideID};
 
 _vehicle = createVehicle [_type, _position, [], 7, _special];
 if(_vehicle isKindOf "Tank" || _vehicle isKindOf "APC")then{ [_vehicle] Call Compile preprocessFile "Common\Functions\Common_ModifyVehicle.sqf";};
+if(_vehicle isKindOf "Air")then{ [_vehicle] Call Compile preprocessFile "Common\Functions\Common_ModifyAirVehicle.sqf";};
 
 [_vehicle] Call Compile preprocessFile "Common\Functions\Common_AddVehicleTexture.sqf";
 

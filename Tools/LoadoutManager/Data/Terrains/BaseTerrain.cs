@@ -45,7 +45,7 @@ public abstract class BaseTerrain : InterfaceTerrain
         }
 
         FileManager.InsertGeneratedCodeInToAFile(
-            _addedAircraftDamageModelChanges, destinationDirectory + @"\Common\Functions\Common_ModifyVehicle.sqf",
+            _addedAircraftDamageModelChanges, destinationDirectory + @"\Common\Functions\Common_ModifyAirVehicle.sqf",
             "//LoadoutManagerInsertChanges", "//LoadoutManagerInsertChanges_END");
 
         WriteSpecificFilesToTheTerrains(destinationDirectory, _easaFileString, _commonBalanceFileString, _aircraftDisplayNameStrings, _addedAircraftDamageModelChanges);
