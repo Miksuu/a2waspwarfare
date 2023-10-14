@@ -35,6 +35,7 @@ lnbClear _listBox;
 			if ((_x in ['Ins_Soldier_MG', "TK_Soldier_MG_EP1", 'USMC_Soldier_MG', 'US_Soldier_MG_EP1']) && _UpBar>=1)then{_addit  = true;};
 			if ((_x in ['RU_Soldier_AT', "TK_Soldier_AT_EP1", 'USMC_Soldier_LAT']) && _UpBar>=1)then{_addit = true;};
 			if ((_x in ['TK_Soldier_Engineer_EP1', 'BAF_Soldier_EN_W']) && _UpBar>=1)then{_addit = true;};
+			if ((_x in ['RU_Soldier_Sniper', 'TK_Soldier_Sniper_EP1', 'USMC_SoldierS_Sniper', 'US_Soldier_Sniper_EP1']) && _UpBar>=2)then{_addit = true;};
 			if ((_x in ['RU_Soldier_AA','USMC_Soldier_AA']) && _UpBar>=3)then{_addit = true;};
 		};
 
