@@ -308,6 +308,7 @@ if (IS_chernarus_map_dependent) then {
     	_u = _u		+ ['BAF_Soldier_EN_W'];
     	_u = _u		+ ['USMC_Soldier_LAT'];
         _u = _u		+ ['USMC_Soldier_MG'];
+        _u = _u		+ ['USMC_SoldierS_Sniper'];
         _u = _u		+ ['USMC_Soldier_AA'];
     _u = _u		+ ["UralCivil"];
     _u = _u		+ ["V3S_Refuel_TK_GUE_EP1"];
@@ -332,6 +333,7 @@ if (IS_chernarus_map_dependent) then {
     	_u = _u		+ ['BAF_Soldier_EN_W'];
     	_u = _u		+ ['US_Soldier_LAT_EP1'];
     	_u = _u		+ ['US_Soldier_MG_EP1'];
+    	_u = _u		+ ['US_Soldier_Sniper_EP1'];
     	_u = _u		+ ['US_Soldier_AA_EP1'];
         _u = _u		+ ["UralCivil"];
         _u = _u		+ ["V3S_Refuel_TK_GUE_EP1"];
