@@ -260,9 +260,9 @@ case """ + vehicleName + @""":{
         Func<Dictionary<string, string>, Dictionary<string, bool>, bool, string> generateSQFContent = (vehicles, isModded, includeModded) =>
         {
             string sqfContent = "// Common_ReturnAircraftNameFromItsType.sqf\n\n";
-            sqfContent += "private [\"_typeOfObject\", \"_aircraftName\"];\n";
+            sqfContent += "private [\"_typeOfObject\", \"_aircraftName\", \"_validTypes\"];\n";
             sqfContent += "_typeOfObject = _this select 0; // Taking the first argument passed to the function\n\n";
-            sqfContent += "private _validTypes = [";
+            sqfContent += "_validTypes = [";
 
             foreach (var vehicle in vehicles.Keys)
             {
