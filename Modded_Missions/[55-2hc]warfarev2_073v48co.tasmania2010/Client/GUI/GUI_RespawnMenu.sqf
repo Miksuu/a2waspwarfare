@@ -12,6 +12,8 @@ ctrlSetText [511004, if (WFBE_RespawnDefaultGear) then {localize "STR_WF_RESPAWN
 //--- Register the UI (if needed).
 if (isNil 'WFBE_RespawnTime') then {
 	WFBE_RespawnTime = missionNamespace getVariable "WFBE_C_RESPAWN_DELAY";
+	if (WF_Debug) then {WFBE_RespawnTime = 5};
+
 	[] Spawn {
 		while {WFBE_RespawnTime > 0} do {
 			sleep 1;
