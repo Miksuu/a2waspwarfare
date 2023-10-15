@@ -9,17 +9,4 @@ Zeta_DefaultPos = [0,0,-10];
 
 //--- Special vehicle with special position.
 Zeta_Special = ["C130J","C130J_US_EP1"];
-
-_distance = 5;
-
-// Get the position and direction of the target
-_targetPosition = getPos target;
-_targetDirection = getDir target;
-
-// Calculate the position behind the target
-_newX = _targetPosition select 0 - (sin _targetDirection * _distance);
-_newY = _targetPosition select 1 - (cos _targetDirection * _distance);
-_newZ = _targetPosition select 2;  // Keep the Z-coordinate the same
-
-// Set the new special position
-Zeta_SpecialPosition = [_newX, _newY, _newZ];
+Zeta_SpecialPosition = [[0,0,-2]];
