@@ -28,4 +28,4 @@ switch (_typeOfObject) do {
 
 ["DEBUG (ReturnAircraftName4)", Format ["after switch, returning %1", _aircraftName]] Call WFBE_CO_FNC_LogContent;
 
-_aircraftName
+str(_aircraftName)
