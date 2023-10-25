@@ -47,7 +47,6 @@ switch (WFBE_SK_V_Type) do {
 
 	case 'SpecOps': {
 		// Supply truck mission
-		diag_log "case SpecOps";
 		_unit addAction [
 			"<t color='#00e83e'>" + 'LOAD SUPPLIES TO TRUCK' + "</t>",
 			'Client\Module\supplyMission\supplyMissionStart.sqf',
