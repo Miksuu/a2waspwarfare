@@ -98,4 +98,16 @@ class CfgRadio
 		//title	= "$STR_WF_CHAT_ICBM_Launch_BY_OUR_TEAM";
 		title = "";
 	};
+class newCommander {
+        name = "newCommander";
+        sound[] = {"\sounds\newCommander.ogg",10,1};
+        titles[] = {};
+    };
+
+
+class commanderNotification {
+        name = "commanderNotification";
+        sound[] = {"\sounds\commanderNotification.ogg",10,1};
+        titles[] = {};
+    };
 };
