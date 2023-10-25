@@ -175,6 +175,7 @@ if (IS_chernarus_map_dependent) then {
     _u = _u		+ ['MtvrRefuel'];
     _u = _u		+ ['WarfareSalvageTruck_USMC'];
     if ((missionNamespace getVariable "WFBE_C_ECONOMY_SUPPLY_SYSTEM") == 0) then {_u = _u		+ ['WarfareSupplyTruck_USMC']};
+_u = _u		+ ['WarfareSupplyTruck_USMC'];
     _u = _u		+ ['RHIB'];
     _u = _u		+ ['RHIB2Turret'];
     _u = _u		+ ['LAV25'];
