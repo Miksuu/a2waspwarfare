@@ -13,8 +13,6 @@ _killer = _this select 1;
 _killed_side = (_this select 2) Call GetSideFromID;
 _type=typeOf _killed;
 
-["DEBUG (Paratroops1)", Format ["%1 | %2 | %3 | %4", _killed, _killer, _killed_side, _type]] Call WFBE_CO_FNC_LogContent;
-
 if (_killer == _killed || isNull _killer) then { //--- The killed may be the killer (suicide) or bailed before destruction.
 	_last_hit = _killed getVariable "wfbe_lasthitby";
 	if !(isNil '_last_hit') then {
@@ -94,15 +92,11 @@ if (!isNil '_get' && _killer_iswfteam) then { //--- Make sure that type killed t
 			if ((missionNamespace getVariable "WFBE_C_UNITS_BOUNTY") > 0) then {
 			//--- Award the bounty if needed.
 			if (_killed_isplayer && _killer_isplayer) then {
-			    ["DEBUG (Paratroops2)", Format ["%1 | %2", _killer_uid, _killed]] Call WFBE_CO_FNC_LogContent;
 				[_killer_uid, "AwardBountyPlayer", _killed] Call WFBE_CO_FNC_SendToClients;
 			};
 
-            ["DEBUG (Paratroops3)", Format ["%1 | %2 | %3", _killer_uid, _killed_type, _killer_award]] Call WFBE_CO_FNC_LogContent;
-
 			[_killer_uid, "AwardBounty", [_killed_type, false, _killer_award]] Call WFBE_CO_FNC_SendToClients;
 			if (vehicle _killed != _killed && alive _killed) then { //--- Kill assist (players in the same vehicle).
-			    ["DEBUG (Paratroops4)", Format ["%1 | %2 | %3 | %4", _killer_uid, _killed_type, _killer_award, _objectType]] Call WFBE_CO_FNC_LogContent;
 				{if (alive _x && isPlayer _x) then {[getPlayerUID(_x), "AwardBounty", [_objectType, true]] Call WFBE_CO_FNC_SendToClients}} forEach ((crew (vehicle _killed)) - [_killer, player]);
 			};
 
