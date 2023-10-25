@@ -23,6 +23,8 @@ if !(isMultiplayer) then {missionNamespace setVariable ["WFBE_C_AFK_TIME", 10]};
 _inactivityTimeout = missionNamespace getVariable "WFBE_C_AFK_TIME";
 _inactivityTimeout = _inactivityTimeout * 60; // Convert the given time from minutes to seconds.
 
+if (WF_Debug) then {_inactivityTimeout = _inactivityTimeout * 99999};
+
 while {!gameOver} do {
 
 	//Marty : check the inactivity (AFK, Away From Keyboard) and kick the player after too long time elapsed
@@ -33,7 +35,7 @@ while {!gameOver} do {
 	_countDownKick =round(_inactivityTimeout - _elapsedTime);
 	//player sideChat format ["Elapsed Time: %1 seconds", _elapsedTime]; // Display the inacticity time of the player for testing purpose	
 
-    if (_countDownKick < 30) then {
+    if (_countDownKick < 120) then {
 		hint format["You are AFK. If you dont move you will be kicked in %1", _countDownKick];
 	};
 

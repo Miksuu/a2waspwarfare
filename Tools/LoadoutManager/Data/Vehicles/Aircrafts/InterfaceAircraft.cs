@@ -6,6 +6,7 @@ public interface InterfaceAircraft
     public Dictionary<AmmunitionType, int> allowedAmmunitionTypesWithTheirLimitationAmount { get; set; }
     public bool addToDefaultLoadoutPrice { get; set; }
     public Dictionary<AmmunitionType, float> ammunitionTypeCostFloatModifier { get; set; }
+    public bool hasCustomRadarName { get; set; }
 
     public string GenerateLoadoutsForTheAircraft();
 }

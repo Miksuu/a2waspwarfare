@@ -23,7 +23,9 @@
             { AmmunitionType.FOURROUNDATAKA, 2},
         };
 
-        inGameDisplayName = "MiG-21MF Fishbed";
+        inGameDisplayName = "MiG-21MF";
+        hasCustomRadarName = true;
+
         inGamePrice = 49999;
         ConstructionTime = 50;
         inGameFactoryLevel = 5;

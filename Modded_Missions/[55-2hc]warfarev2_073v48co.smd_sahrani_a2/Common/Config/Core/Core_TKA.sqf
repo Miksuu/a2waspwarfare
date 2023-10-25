@@ -124,7 +124,7 @@ _c = _c + ['BTR60_TK_EP1'];
 _i = _i + [['','',1425,25,-2,3,1,0,'Takistani Army',[]]];
 
 _c = _c + ['Ural_ZU23_TK_EP1'];
-_i = _i + [['','',1750,25,-2,2,1,0,'Takistani Army',[]]];
+_i = _i + [['','',1100,20,-2,2,1,0,'Takistani Army',[]]];
 
 _c = _c + ['GRAD_TK_EP1'];
 _i = _i + [['','',6800,25,-2,4,1,0,'Takistani Army',[]]];

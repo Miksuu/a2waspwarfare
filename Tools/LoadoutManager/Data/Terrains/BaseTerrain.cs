@@ -18,7 +18,7 @@ public abstract class BaseTerrain : InterfaceTerrain
     // Boolean flag to check if the terrain is modded.
     public bool isModdedTerrain { get; set; }
 
-    // The directory the game sees, added here after refactoring the EnumMember for discord bot usage
+    // The directory the game sees, added here after refactoring the EnumMember for The Discord bot usage
     public string inGameMapName { get; set; }
 
     // Moved this here for better copypasteability to GPT
@@ -26,7 +26,7 @@ public abstract class BaseTerrain : InterfaceTerrain
 
     // Method that writes and updates the terrain files.
     public void WriteAndUpdateTerrainFiles(
-        string _easaFileString, string _commonBalanceFileString, string _coreModFile = "")
+        string _easaFileString, string _commonBalanceFileString, string _aircraftDisplayNameStrings, string _addedAircraftDamageModelChanges, string _coreModFile = "")
     {
         string destinationDirectory = DetermineDestinationDirectory();
 
@@ -44,19 +44,24 @@ public abstract class BaseTerrain : InterfaceTerrain
             ReplaceInitCommmonSqfForCoreModInit(destinationDirectory);
         }
 
-        WriteSpecificFilesToTheTerrains(destinationDirectory, _easaFileString, _commonBalanceFileString);
+        FileManager.InsertGeneratedCodeInToAFile(
+            _addedAircraftDamageModelChanges, destinationDirectory + @"\Common\Functions\Common_ModifyAirVehicle.sqf",
+            "//LoadoutManagerInsertChanges", "//LoadoutManagerInsertChanges_END");
+
+        WriteSpecificFilesToTheTerrains(destinationDirectory, _easaFileString, _commonBalanceFileString, _aircraftDisplayNameStrings, _addedAircraftDamageModelChanges);
 
         Console.WriteLine("-------" + terrainName + " DONE! ---------");
     }
 
     // Method to write specific content to terrain files based on conditions
     private void WriteSpecificFilesToTheTerrains(
-        string _destinationDirection, string _easaFileString, string _commonBalanceFileString)
+        string _destinationDirection, string _easaFileString, string _commonBalanceFileString, string _aircraftDisplayNameStrings, string _addedAircraftDamageModelChanges)
     {
         // Write the content to the specified files
-        // Maybe could use a bit more better data structure
+        // Maybe could use a bit more better data structure, maybe if needed, use the new replace content method instead of writing the whole file
         WriteToFile(_destinationDirection, _easaFileString, @"\Client\Module\EASA\EASA_Init.sqf");
         WriteToFile(_destinationDirection, _commonBalanceFileString, @"\Common\Functions\Common_BalanceInit.sqf");
+        WriteToFile(_destinationDirection, _aircraftDisplayNameStrings, @"\Common\Common_ReturnAircraftNameFromItsType.sqf");
         WriteToFile(_destinationDirection, GenerateAndWriteVersionSqf(), @"\version.sqf");
 
         ReplaceGUIMenuHelp(_destinationDirection);
