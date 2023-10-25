@@ -11,6 +11,7 @@ _count = 1;
 	_marker setMarkerColorLocal "ColorBlack";
 	_marker setMarkerSizeLocal [1,1];
 	_marker setMarkerSizeLocal [0.7,0.7];
+	_count = _count +1;
 } forEach clientTeams;
 
 while {!gameOver} do {
