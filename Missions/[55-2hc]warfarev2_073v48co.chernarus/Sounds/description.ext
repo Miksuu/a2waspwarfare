@@ -70,6 +70,19 @@ class ARTY_message_to_friendly_takistanish_v1
 		sound[]	= {"\Sounds\ARTY_warning_Friendly_message_arabic_v1.ogg", 10, 1.0};
 		titles[] = {};
 	};
+
+class newCommander {
+        name = "newCommander";
+        sound[] = {"\sounds\newCommander.ogg",10,1};
+        titles[] = {};
+    };
+
+
+class commanderNotification {
+        name = "commanderNotification";
+        sound[] = {"\sounds\commanderNotification.ogg",10,1};
+        titles[] = {};
+    };
 };
 
 // Marty : CfgRadio useless at this point considering i am using CfgSounds to play sounds with command playsound.
@@ -98,16 +111,4 @@ class CfgRadio
 		//title	= "$STR_WF_CHAT_ICBM_Launch_BY_OUR_TEAM";
 		title = "";
 	};
-class newCommander {
-        name = "newCommander";
-        sound[] = {"\sounds\newCommander.ogg",10,1};
-        titles[] = {};
-    };
-
-
-class commanderNotification {
-        name = "commanderNotification";
-        sound[] = {"\sounds\commanderNotification.ogg",10,1};
-        titles[] = {};
-    };
 };
