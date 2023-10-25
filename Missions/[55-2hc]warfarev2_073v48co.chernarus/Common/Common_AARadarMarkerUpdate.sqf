@@ -50,9 +50,9 @@ while {alive _object && !(isNull _object)} do {
             if (_aarUpgradeLevel > 1) then {
                 Private ["_typeOfObject", "_aircraftName"];
                 _typeOfObject = typeOf _object;
-                ["DEBUG (AAR1)", Format ["%1", _typeOfObject]] Call WFBE_CO_FNC_LogContent;
+                //["DEBUG (AAR1)", Format ["%1", _typeOfObject]] Call WFBE_CO_FNC_LogContent;
                 _aircraftName = [_typeOfObject] call compile preprocessFileLineNumbers "Common\Common_ReturnAircraftNameFromItsType.sqf";
-                ["DEBUG (AAR2)", Format ["%1", _aircraftName]] Call WFBE_CO_FNC_LogContent;
+                //["DEBUG (AAR2)", Format ["%1", _aircraftName]] Call WFBE_CO_FNC_LogContent;
 
                 _updateFrequency = 1;
             };
