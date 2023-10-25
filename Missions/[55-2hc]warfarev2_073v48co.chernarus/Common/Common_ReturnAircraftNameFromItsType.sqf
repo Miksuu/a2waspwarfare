@@ -3,10 +3,18 @@
 private ["_typeOfObject", "_aircraftName", "_validTypes"];
 _typeOfObject = _this select 0; // Taking the first argument passed to the function
 
+["DEBUG (ReturnAircraftName1)", Format ["%1", _typeOfObject]] Call WFBE_CO_FNC_LogContent;
+
 _validTypes = ["Su25_Ins", "Su25_TK_EP1", "Su39", "A10", "A10_US_EP1", "AH64D", "AH64D_EP1"];
 
 _aircraftName = [_typeOfObject, 'displayName'] call GetConfigInfo;
+
+["DEBUG (ReturnAircraftName2)", Format ["%1", _aircraftName]] Call WFBE_CO_FNC_LogContent;
+
 if !(_typeOfObject in _validTypes) exitWith {_aircraftName};
+
+["DEBUG (ReturnAircraftName3)", Format ["after exitWith %1", _aircraftName]] Call WFBE_CO_FNC_LogContent;
+
 switch (_typeOfObject) do {
     case "Su25_Ins": { _aircraftName = "Su-25A"; };
     case "Su25_TK_EP1": { _aircraftName = "Su-25T"; };
@@ -16,4 +24,7 @@ switch (_typeOfObject) do {
     case "AH64D": { _aircraftName = "AH-64D (TOW)"; };
     case "AH64D_EP1": { _aircraftName = "AH-64D (Hellfire)"; };
 };
+
+["DEBUG (ReturnAircraftName4)", Format ["after switch, returning %1", _aircraftName]] Call WFBE_CO_FNC_LogContent;
+
 _aircraftName
