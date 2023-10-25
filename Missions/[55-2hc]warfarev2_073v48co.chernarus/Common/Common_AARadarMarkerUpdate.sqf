@@ -59,7 +59,7 @@ while {alive _object && !(isNull _object)} do {
 
 			_markerName setMarkerAlphaLocal 1;
 			_markerName setMarkerPosLocal (getPos _object);
-            _markerName setMarkerTextLocal (format ["%1 %2 %3", _speed, _altitude, _aircraftName]);
+            _markerName setMarkerTextLocal (format ["%1 %2 %3", _speed, _altitude, str(_aircraftName)]);
 			_playerDirection = getDir _object; 				//Marty : get the player's angle direction (= azimut) in order to draw the arrow marker in the same direction.
 			_markerName setMarkerDirLocal _playerDirection;	//Marty : set the player's angle direction to the marker.
 
