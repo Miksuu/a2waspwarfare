@@ -5,7 +5,7 @@
 		- List.
 */
 
-Private["_current","_nearest","_nearestDistance","_object","_objects","_sorted"];
+Private["_current","_nearest","_nearestDistance","_object","_objects","_sorted","_distance","_index"];
 
 _object = _this select 0;
 _objects = +(_this select 1);
@@ -26,5 +26,7 @@ for '_i' from 0 to count(_objects)-1 do {
 	_objects set [_index, "!"];
 	_objects = _objects - ["!"];
 };
+
+diag_log "SortByDistance!!";
 
 _sorted
