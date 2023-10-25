@@ -50,7 +50,8 @@ while {alive _object && !(isNull _object)} do {
             if (_aarUpgradeLevel > 1) then {
                 Private ["_typeOfObject", "_aircraftName"];
                 _typeOfObject = typeOf _object;
-                _aircraftName = [_typeOfObject] Call Compile preprocessFile "Common\Common_ReturnAircraftNameFromItsType.sqf";
+
+                _aircraftName = [_typeOfObject] call compile preprocessFileLineNumbers "Common\Common_ReturnAircraftNameFromItsType.sqf";
 
                 _updateFrequency = 1;
             };
