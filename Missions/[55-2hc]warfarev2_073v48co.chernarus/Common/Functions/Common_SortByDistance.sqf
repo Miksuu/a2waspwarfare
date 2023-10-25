@@ -27,6 +27,4 @@ for '_i' from 0 to count(_objects)-1 do {
 	_objects = _objects - ["!"];
 };
 
-diag_log "SortByDistance!!";
-
 _sorted
