@@ -30,22 +30,9 @@ while {!gameOver} do {
 				if (isPlayer (leader _x)) then {
 					_label = Format[" %1",name (leader _x)];
 					_marker setMarkerTextLocal _label;
-
-					if (vehicle (leader _x) != leader _x) then {
-						// Player is in a vehicle
-						_vehicle = vehicle (leader _x);
-						_marker setMarkerPosLocal GetPos _vehicle;
-						_marker setMarkerAlphaLocal 1;
-						_vehicleDirection = getDir _vehicle;
-						_marker setMarkerDirLocal _vehicleDirection;
-					} else {
-						// Player is on foot
-						_marker setMarkerPosLocal GetPos (leader _x);
+					_marker setMarkerPosLocal GetPos (leader _x);
 					_marker setMarkerDirLocal GetDir (vehicle (leader _x));
-						_marker setMarkerAlphaLocal 1;
-						_playerDirection = getDir leader _x;
-						_marker setMarkerDirLocal _playerDirection;
-					}
+					_marker setMarkerAlphaLocal 1;
 				} else {
 					_label = "AI";
 					_marker setMarkerTextLocal _label;

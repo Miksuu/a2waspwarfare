@@ -83,6 +83,10 @@ lnbClear _listBox;
 		lnbSetColor [_listBox,[_i,1],[1.0, 0.3, 1.0, 0.4]]
 	};
 
+	if (_x in (missionNamespace getVariable Format ["WFBE_%1SUPPLYTRUCKS", sideJoinedText])) then {
+		lnbSetColor [_listBox,[_i,1],[1.0, 0.5, 0.25, 1.0]]
+	};
+
 		_i = _i + 1;
 	};
 	_u = _u + 1;
