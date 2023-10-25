@@ -2,6 +2,8 @@ Private ["_lock","_position","_side","_type","_vehicle"];
 _vehicle = _this select 0;
 _type = typeof _vehicle;
 
+["DEBUG (Common_ModifyAirVehicle1)", Format ["%1 | %2", _vehicle, _type]] Call WFBE_CO_FNC_LogContent;
+
 switch (_type) do {
 
 //LoadoutManagerInsertChanges
@@ -175,7 +177,7 @@ case "An2_TK_EP1":{
 //LoadoutManagerInsertChanges_END
 
 	default{
-	
+            ["DEBUG (Common_ModifyAirVehicle default)", Format ["%1 | %2", _vehicle, _type]] Call WFBE_CO_FNC_LogContent;
 			_rearmor = {
    				_ammo = _this select 4;
    				_result = 0;
@@ -189,4 +191,7 @@ case "An2_TK_EP1":{
 	};
 };
 processinitcommands;
+
+["DEBUG (Common_ModifyAirVehicle2)", Format ["returning vehicle %1 | %2", _vehicle, _type]] Call WFBE_CO_FNC_LogContent;
+
 _vehicle
