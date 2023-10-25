@@ -48,8 +48,7 @@ if (IS_chernarus_map_dependent) then {
     _u = _u		+ ['UralReammo_TK_EP1'];
     _u = _u		+ ['UralRefuel_TK_EP1'];
     _u = _u		+ ['UralSalvage_TK_EP1'];
-    if ((missionNamespace getVariable "WFBE_C_ECONOMY_SUPPLY_SYSTEM") == 0) then {_u = _u		+ ['UralSupply_TK_EP1']};
-_u = _u		+ ['UralSupply_TK_EP1'];
+    _u = _u		+ ['UralSupply_TK_EP1'];
     _u = _u		+ ['M113Ambul_TK_EP1'];
     _u = _u		+ ['BRDM2_TK_EP1'];
     _u = _u		+ ['BRDM2_ATGM_TK_EP1'];
@@ -72,7 +71,7 @@ _u = _u		+ ['UralSupply_TK_EP1'];
     _u = _u		+ ['UralReammo_TK_EP1'];
     _u = _u		+ ['UralRefuel_TK_EP1'];
     _u = _u		+ ['UralSalvage_TK_EP1'];
-    if ((missionNamespace getVariable "WFBE_C_ECONOMY_SUPPLY_SYSTEM") == 0) then {_u = _u		+ ['UralSupply_TK_EP1']};
+    _u = _u		+ ['UralSupply_TK_EP1'];
     _u = _u		+ ['M113Ambul_TK_EP1'];
     _u = _u		+ ['BRDM2_TK_EP1'];
     _u = _u		+ ['BRDM2_ATGM_TK_EP1'];
