@@ -10,7 +10,7 @@ _count = 1;
 	_marker setMarkerTypeLocal "Arrow";
 	_marker setMarkerColorLocal "ColorBlack";
 	_marker setMarkerSizeLocal [1,1];
-	_count = _count + 1;
+	_marker setMarkerSizeLocal [0.7,0.7];
 } forEach clientTeams;
 
 while {!gameOver} do {
@@ -27,7 +27,7 @@ while {!gameOver} do {
 			if (alive (leader _x)) then {
 				_label = "";
 				if (isPlayer (leader _x)) then {
-					_label = Format["%1 [%2]",name (leader _x),_count];
+					_label = Format[" %1",name (leader _x)];
 					_marker setMarkerTextLocal _label;
 
 					if (vehicle (leader _x) != leader _x) then {
@@ -45,7 +45,7 @@ while {!gameOver} do {
 						_marker setMarkerDirLocal _playerDirection;
 					}
 				} else {
-					_label = Format["AI [%1]",_count];
+					_label = "AI";
 					_marker setMarkerTextLocal _label;
 					_marker setMarkerPosLocal GetPos (leader _x);
 					_marker setMarkerAlphaLocal 0;
@@ -53,14 +53,20 @@ while {!gameOver} do {
 			} else {
 				label = "";
 				if (isPlayer (leader _x)) then {
-					_label = Format["%1 [%2]",name (leader _x),_count]
+					_label = Format["%1",name (leader _x)]
 				};
 				deleteMarkerLocal _label;
 			};
 			_marker setMarkerTypeLocal _markerType;
+
+			if (player == leader _x) then {
+				_marker setMarkerDirLocal GetDir (vehicle player);
+				_marker setMarkerColorLocal "ColorOrange";
+			};
 		};
+
 
 		_count = _count + 1;
 	} forEach clientTeams;
-	sleep 0.01;
+	sleep 0.05;
 };
