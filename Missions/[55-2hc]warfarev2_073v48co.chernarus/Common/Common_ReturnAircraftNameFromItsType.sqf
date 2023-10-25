@@ -2,6 +2,7 @@
 
 private ["_typeOfObject", "_aircraftName", "_validTypes"];
 _typeOfObject = _this select 0; // Taking the first argument passed to the function
+_aircraftName = "";
 
 _validTypes = ["Su25_Ins", "Su25_TK_EP1", "Su39", "A10", "A10_US_EP1", "AH64D", "AH64D_EP1"];
 
