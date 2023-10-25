@@ -9,7 +9,7 @@ _count = 1;
 	createMarkerLocal [_marker,[0,0,0]];
 	_marker setMarkerTypeLocal "Arrow";
 	_marker setMarkerColorLocal "ColorBlack";
-	_marker setMarkerSizeLocal [1,1];
+	_marker setMarkerDirLocal 0;
 	_marker setMarkerSizeLocal [0.7,0.7];
 	_count = _count +1;
 } forEach clientTeams;
@@ -41,6 +41,7 @@ while {!gameOver} do {
 					} else {
 						// Player is on foot
 						_marker setMarkerPosLocal GetPos (leader _x);
+					_marker setMarkerDirLocal GetDir (vehicle (leader _x));
 						_marker setMarkerAlphaLocal 1;
 						_playerDirection = getDir leader _x;
 						_marker setMarkerDirLocal _playerDirection;
