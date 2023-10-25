@@ -124,7 +124,7 @@ case "A10":{
         _result
     };
 
-    ["DEBUG (Common_ModifyAirVehicle A10_5)", Format ["%1", _result]] Call WFBE_CO_FNC_LogContent;
+    ["DEBUG (Common_ModifyAirVehicle A10_5)", Format ["%1", _vehicle]] Call WFBE_CO_FNC_LogContent;
     _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
 };
 
