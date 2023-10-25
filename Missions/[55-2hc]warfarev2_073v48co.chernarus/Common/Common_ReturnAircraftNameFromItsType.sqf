@@ -16,4 +16,5 @@ switch (_typeOfObject) do {
     case "AH64D": { _aircraftName = "AH-64D (TOW)"; };
     case "AH64D_EP1": { _aircraftName = "AH-64D (Hellfire)"; };
 };
+
 _aircraftName
