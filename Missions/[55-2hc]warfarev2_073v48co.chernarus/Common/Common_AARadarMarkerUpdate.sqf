@@ -49,9 +49,9 @@ while {alive _object && !(isNull _object)} do {
             // Get the aircraft name (AAR2)
             if (_aarUpgradeLevel > 1) then {
                 _typeOfObject = typeOf _object;
-                ["DEBUG (AAR1)", Format ["%1", _typeOfObject]] Call WFBE_CO_FNC_LogContent;
+                //["DEBUG (AAR1)", Format ["%1", _typeOfObject]] Call WFBE_CO_FNC_LogContent;
                 _aircraftName = [_typeOfObject] call WFBE_CL_FNC_ReturnAircraftNameFromItsType;
-                ["DEBUG (AAR2)", Format ["%1", _aircraftName]] Call WFBE_CO_FNC_LogContent;
+                //["DEBUG (AAR2)", Format ["%1", _aircraftName]] Call WFBE_CO_FNC_LogContent;
 
                 _updateFrequency = 1;
             };
