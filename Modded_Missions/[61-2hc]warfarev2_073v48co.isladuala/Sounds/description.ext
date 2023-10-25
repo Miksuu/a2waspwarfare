@@ -73,6 +73,19 @@ class ARTY_cooldown_over
 		sound[]	= {"Sounds\ARTY_cooldown_over.ogg", 8, 1.0};
 		titles[] = {};
 	};
+
+class newCommander {
+        name = "newCommander";
+        sound[] = {"\sounds\newCommander.ogg",10,1};
+        titles[] = {};
+    };
+
+
+class commanderNotification {
+        name = "commanderNotification";
+        sound[] = {"\sounds\commanderNotification.ogg",10,1};
+        titles[] = {};
+    };
 };
 
 // Marty : CfgRadio useless at this point considering i am using CfgSounds to play sounds with command playsound.

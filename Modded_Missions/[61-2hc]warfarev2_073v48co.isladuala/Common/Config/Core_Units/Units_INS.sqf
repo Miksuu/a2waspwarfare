@@ -28,7 +28,7 @@ if (IS_chernarus_map_dependent) then {
     _u = _u		+ ['UralRepair_INS'];
     _u = _u		+ ['UralReammo_INS'];
     _u = _u		+ ['UralRefuel_INS'];
-    if ((missionNamespace getVariable "WFBE_C_ECONOMY_SUPPLY_SYSTEM") == 0) then {_u = _u		+ ['WarfareSupplyTruck_INS']};
+    _u = _u		+ ['WarfareSupplyTruck_INS'];
     _u = _u		+ ['UAZ_MG_INS'];
     _u = _u		+ ['UAZ_AGS30_INS'];
     _u = _u		+ ['UAZ_SPG9_INS'];
@@ -43,7 +43,7 @@ if (IS_chernarus_map_dependent) then {
     _u = _u		+ ['UralRepair_INS'];
     _u = _u		+ ['UralReammo_INS'];
     _u = _u		+ ['UralRefuel_INS'];
-    if ((missionNamespace getVariable "WFBE_C_ECONOMY_SUPPLY_SYSTEM") == 0) then {_u = _u		+ ['WarfareSupplyTruck_INS']};
+    _u = _u		+ ['WarfareSupplyTruck_INS'];
     _u = _u		+ ['UAZ_MG_INS'];
     _u = _u		+ ['UAZ_AGS30_INS'];
     _u = _u		+ ['UAZ_SPG9_INS'];
