@@ -33,7 +33,7 @@ while {!gameOver} do {
 	_countDownKick =round(_inactivityTimeout - _elapsedTime);
 	//player sideChat format ["Elapsed Time: %1 seconds", _elapsedTime]; // Display the inacticity time of the player for testing purpose	
 
-    if (_countDownKick < 30) then {
+    if (_countDownKick < 120) then {
 		hint format["You are AFK. If you dont move you will be kicked in %1", _countDownKick];
 	};
 
