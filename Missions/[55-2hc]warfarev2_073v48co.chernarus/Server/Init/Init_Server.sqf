@@ -302,6 +302,13 @@ emptyQueu = [];
 		_hq addEventHandler ['killed', {_this Spawn WFBE_SE_FNC_OnHQKilled}];
 		_hq addEventHandler ["hit",{_this Spawn BuildingDamaged}];
 
+        if (_side == west && !(IS_chernarus_map_dependent))then{
+	        _hq setVehicleInit "this setObjectTexture [0,""Textures\lavbody_coD.paa""]";
+	        _hq setVehicleInit "this setObjectTexture [1,""Textures\lavbody2_coD.paa""]";
+	        _hq setVehicleInit "this setObjectTexture [2,""Textures\lav_hq_coD.paa""]";
+			processinitcommands;
+		};
+
 		//--- HQ Friendly Fire handler.
 		//if ((missionNamespace getVariable "WFBE_C_GAMEPLAY_HANDLE_FRIENDLYFIRE") > 0) then {_hq addEventHandler ['handleDamage',{[_this select 0,_this select 2,_this select 3] Call BuildingHandleDamages}]};
 
