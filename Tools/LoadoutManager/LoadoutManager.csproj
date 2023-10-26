@@ -6,12 +6,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Configurations>Debug;Release;SERVER_DEBUG</Configurations>
+    <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\Ammunition\Implementations\AirToGroundWeapons\Rockets\GuidedRockets\Maverick\ForVanillaLoadouts\" />
-    <Folder Include="Data\Weapons\Implementations\AirToAirWeapons\Stinger\ForVanillaLoadouts\" />
-    <Folder Include="Data\Weapons\Implementations\AirToGroundWeapons\Rockets\GuidedRockets\Maverick\ForVanillaLoadouts\" />
-  </ItemGroup>
-
 </Project>
