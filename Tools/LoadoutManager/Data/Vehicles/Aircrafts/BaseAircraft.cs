@@ -15,6 +15,9 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
     // Dictionary mapping ammunition types to their cost modifiers.
     public Dictionary<AmmunitionType, float> ammunitionTypeCostFloatModifier { get; set; }
 
+    // Used for generating for Common_ReturnAircraftNameFromItsType.sqf
+    public bool hasCustomRadarName { get; set; }
+
     // Generates a string representing the loadouts for this aircraft.
     public string GenerateLoadoutsForTheAircraft()
     {

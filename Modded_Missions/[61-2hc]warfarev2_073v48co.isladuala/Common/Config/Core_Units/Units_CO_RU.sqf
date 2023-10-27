@@ -91,11 +91,12 @@ if (IS_chernarus_map_dependent) then {
     _u = _u		+ ['V3S_Open_TK_EP1'];
     _u = _u		+ ['BTR40_TK_INS_EP1'];
     _u = _u		+ ['BTR40_MG_TK_INS_EP1'];
+
     _u = _u		+ ['KamazRepair'];
     _u = _u		+ ['WarfareReammoTruck_RU'];
     _u = _u		+ ['KamazRefuel'];
     _u = _u		+ ['WarfareSalvageTruck_RU'];
-    if ((missionNamespace getVariable "WFBE_C_ECONOMY_SUPPLY_SYSTEM") == 0) then {_u = _u		+ ['WarfareSupplyTruck_RU']};
+    _u = _u		+ ['WarfareSupplyTruck_RU'];
     _u = _u		+ ['M113Ambul_TK_EP1'];
     _u = _u		+ ['GAZ_Vodnik_MedEvac'];
     _u = _u		+ ['BRDM2_INS'];
@@ -126,7 +127,7 @@ if (IS_chernarus_map_dependent) then {
     _u = _u		+ ['UralReammo_TK_EP1'];
     _u = _u		+ ['UralRefuel_TK_EP1'];
     _u = _u		+ ['UralSalvage_TK_EP1'];
-    if ((missionNamespace getVariable "WFBE_C_ECONOMY_SUPPLY_SYSTEM") == 0) then {_u = _u		+ ['UralSupply_TK_EP1']};
+    _u = _u		+ ['UralSupply_TK_EP1'];
     _u = _u		+ ['M113Ambul_TK_EP1'];
     _u = _u		+ ['GAZ_Vodnik_MedEvac'];
     _u = _u		+ ['BRDM2_TK_EP1'];
@@ -254,6 +255,7 @@ if (IS_chernarus_map_dependent) then {
     	_u = _u		+ ['RU_Soldier_LAT'];
     	_u = _u		+ ['RU_Soldier_AT'];
         _u = _u		+ ['Ins_Soldier_MG'];
+        _u = _u		+ ['RU_Soldier_Sniper'];
     	_u = _u		+ ['RU_Soldier_AA'];
     _u = _u		+ ["UralCivil"];
     _u = _u		+ ["V3S_Refuel_TK_GUE_EP1"];
@@ -280,6 +282,7 @@ if (IS_chernarus_map_dependent) then {
     	_u = _u		+ ['TK_Soldier_LAT_EP1'];
     	_u = _u		+ ['TK_Soldier_AT_EP1'];
     	_u = _u		+ ['TK_Soldier_MG_EP1'];
+    	_u = _u		+ ['TK_Soldier_Sniper_EP1'];
     	_u = _u		+ ['TK_Soldier_AA_EP1'];
     _u = _u		+ ["UralCivil"];
     _u = _u		+ ["V3S_Refuel_TK_GUE_EP1"];

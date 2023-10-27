@@ -32,9 +32,10 @@ lnbClear _listBox;
 		if(_filler == 'Depot') then
 		{
 		    _UpBar = ((sideJoined) Call WFBE_CO_FNC_GetSideUpgrades) select WFBE_UP_BARRACKS;
-			if ((_x in ['Ins_Soldier_MG', "TK_Soldier_MG_EP1", 'USMC_Soldier_MG', 'US_Soldier_MG_EP1']) && _UpBar>=1)then{_addit  = true;};
-			if ((_x in ['RU_Soldier_AT', "TK_Soldier_AT_EP1", 'USMC_Soldier_LAT']) && _UpBar>=1)then{_addit = true;};
+			if ((_x in ['Ins_Soldier_MG', 'TK_Soldier_MG_EP1', 'USMC_Soldier_MG', 'US_Soldier_MG_EP1']) && _UpBar>=1)then{_addit  = true;};
+			if ((_x in ['RU_Soldier_AT', 'TK_Soldier_AT_EP1', 'USMC_Soldier_LAT']) && _UpBar>=1)then{_addit = true;};
 			if ((_x in ['TK_Soldier_Engineer_EP1', 'BAF_Soldier_EN_W']) && _UpBar>=1)then{_addit = true;};
+			if ((_x in ['RU_Soldier_Sniper', 'TK_Soldier_Sniper_EP1', 'USMC_SoldierS_Sniper', 'US_Soldier_Sniper_EP1']) && _UpBar>=2)then{_addit = true;};
 			if ((_x in ['RU_Soldier_AA','USMC_Soldier_AA']) && _UpBar>=3)then{_addit = true;};
 		};
 
@@ -81,6 +82,10 @@ lnbClear _listBox;
 
 	if(_x in (missionNamespace getVariable [format["WFBE_%1ARTYVEHICLE", sideJoinedText], []])) then {
 		lnbSetColor [_listBox,[_i,1],[1.0, 0.3, 1.0, 0.4]]
+	};
+
+	if (_x in (missionNamespace getVariable Format ["WFBE_%1SUPPLYTRUCKS", sideJoinedText])) then {
+		lnbSetColor [_listBox,[_i,1],[1.0, 0.5, 0.25, 1.0]]
 	};
 
 		_i = _i + 1;

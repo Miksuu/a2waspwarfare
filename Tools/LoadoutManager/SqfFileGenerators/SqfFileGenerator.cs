@@ -4,6 +4,8 @@
 // various vehicle types. In addition, it includes methods for writing these configurations 
 // to files onto different terrains.
 
+using System.Text;
+
 public class SqfFileGenerator
 {
     // aircraftEasaLoadoutsFile stores the text for the respective EASA loadouts or initialization files.
@@ -108,23 +110,66 @@ public class SqfFileGenerator
         endCode += "                    diag_log Format[\"[WFBE (INIT)][frameno:%2 | ticktime:%3] Core_MOD: Initialization (%1 Elements) - [Done]\", count _c, diag_frameno, diag_tickTime] ;\n";
         return endCode;
     }
-
     // GenerateCommonBalanceInitAndTheEasaFileForEachTerrain initializes and writes EASA and common balance files for each terrain.
     // The method first locates the A2 Wasp Warfare directory and then proceeds to generate loadouts and file strings.
     // The generated strings are then written to files specific to different terrains.
     public static void GenerateCommonBalanceInitAndTheEasaFileForEachTerrain()
     {
         GenerateLoadoutsForAllVehicleTypes();
+
+        // Move these to a better file managing solution on refactoring
         var easaFileStrings = GenerateEasaFileString();
         var commonBalanceFileStrings = GenerateCommonBalanceFileString();
+        var aircraftDisplayNameStrings = GenerateAircraftDisplayNameFileString();
+        var addedAircraftDamageModelChanges = GenerateAircraftDamageModelChanges();
         string coreModFileStrings = GenerateCoreModFileString();
 
         // First go through vanilla maps (copied to mod maps later)
-        WriteAndUpdateToFilesForATerrain(easaFileStrings.vanilla, commonBalanceFileStrings.vanilla, TerrainName.CHERNARUS);
-        WriteAndUpdateToFilesForATerrain(easaFileStrings.vanilla, commonBalanceFileStrings.vanilla, TerrainName.TAKISTAN);
+        WriteAndUpdateToFilesForATerrain(easaFileStrings.vanilla, commonBalanceFileStrings.vanilla, aircraftDisplayNameStrings.vanilla, addedAircraftDamageModelChanges.vanilla, TerrainName.CHERNARUS);
+        WriteAndUpdateToFilesForATerrain(easaFileStrings.vanilla, commonBalanceFileStrings.vanilla, aircraftDisplayNameStrings.vanilla, addedAircraftDamageModelChanges.vanilla, TerrainName.TAKISTAN);
 
         // Write to the modded maps
-        WriteAndUpdateToFilesForModdedTerrains(easaFileStrings.modded, commonBalanceFileStrings.modded, coreModFileStrings);
+        WriteAndUpdateToFilesForModdedTerrains(easaFileStrings.modded, commonBalanceFileStrings.modded, aircraftDisplayNameStrings.modded, addedAircraftDamageModelChanges.modded, coreModFileStrings);
+    }
+
+    public static MapFileProperties GenerateAircraftDamageModelChanges()
+    {
+        MapFileProperties properties = new MapFileProperties();
+
+        foreach (VehicleType vehicleType in Enum.GetValues(typeof(VehicleType)))
+        {
+            var interfaceVehicle = (InterfaceVehicle)EnumExtensions.GetInstance(vehicleType.ToString());
+            if (!(interfaceVehicle is BaseAircraft) || interfaceVehicle is BaseHelicopter)
+            {
+                continue;
+            }
+            string vehicleName = EnumExtensions.GetEnumMemberAttrValue(vehicleType);
+
+            string sqfCode = @"
+case """ + vehicleName + @""":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case ""M_R73_AA"": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case ""M_Sidewinder_AA"": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            default {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler [""HandleDamage"", format[""_this Call %1"", _rearmor]];
+};
+";
+            properties.modded += sqfCode;
+
+            if (interfaceVehicle.ModdedVehicle)
+            {
+                continue;
+            }
+
+            properties.vanilla += sqfCode;
+        }
+        return properties;
     }
 
     // Generates file for the Core files, with vehicle name, price, construction time etc.
@@ -199,6 +244,100 @@ public class SqfFileGenerator
         return properties;
     }
 
+    // This method generates two different strings containing the SQF content for aircraft display names.
+    // One string includes only vanilla (unmodded) vehicles, while the other includes both vanilla and modded vehicles.
+    // The method uses a local function 'generateSQFContent' to reduce code duplication in generating these SQF strings.
+    // Each SQF content string is stored in the corresponding field ('vanilla' or 'modded') of a MapFileProperties object.
+    // Return Type: MapFileProperties object containing two fields:
+    // - 'vanilla': string containing SQF content for vanilla vehicles
+    // - 'modded': string containing SQF content for both vanilla and modded vehicles
+    private static MapFileProperties GenerateAircraftDisplayNameFileString()
+    {
+        Dictionary<string, string> vehicleDict = GetDictionaryOfAircraftsThatHaveCustomRadarNameWithModdedDictionary(out Dictionary<string, bool> isModdedDict);
+        MapFileProperties mapFileProperties = new MapFileProperties();
+
+        // Function to generate SQF content
+        Func<Dictionary<string, string>, Dictionary<string, bool>, bool, string> generateSQFContent = (vehicles, isModded, includeModded) =>
+        {
+            string sqfContent = "// Common_ReturnAircraftNameFromItsType.sqf\n\n";
+            sqfContent += "private [\"_typeOfObject\", \"_aircraftName\", \"_validTypes\"];\n";
+            sqfContent += "_typeOfObject = _this select 0; // Taking the first argument passed to the function\n\n";
+            sqfContent += "_validTypes = [";
+
+            foreach (var vehicle in vehicles.Keys)
+            {
+                if (includeModded || !isModded[vehicle])
+                {
+                    sqfContent += $"\"{vehicle}\", ";
+                }
+            }
+
+            sqfContent = sqfContent.TrimEnd(',', ' ') + "];\n\n";
+            sqfContent += "_aircraftName = [_typeOfObject, 'displayName'] call GetConfigInfo;\n";
+            sqfContent += "if !(_typeOfObject in _validTypes) exitWith {_aircraftName};\n";
+            sqfContent += "switch (_typeOfObject) do {\n";
+
+            foreach (var pair in vehicles)
+            {
+                if (includeModded || !isModded[pair.Key])
+                {
+                    sqfContent += $"    case \"{pair.Key}\": {{ _aircraftName = \"{pair.Value}\"; }};\n";
+                }
+            }
+
+            sqfContent += "};\n";
+            sqfContent += "_aircraftName";
+            return sqfContent;
+        };
+
+        // Generate the SQF content for vanilla and modded vehicles
+        mapFileProperties.vanilla = generateSQFContent(vehicleDict, isModdedDict, false);
+        mapFileProperties.modded = generateSQFContent(vehicleDict, isModdedDict, true);
+
+        //Console.WriteLine(mapFileProperties.vanilla + "\n\n\n" + mapFileProperties.modded);
+
+        return mapFileProperties;
+    }
+
+    // This method generates a dictionary containing information about aircraft that have custom radar names.
+    // It iterates through all the vehicle types in the VehicleType enumeration and filters out those that 
+    // do not implement the InterfaceAircraft interface or do not have a custom radar name.
+    // The method returns a primary dictionary that maps vehicle names to their in-game display names.
+    // It also returns an 'out' dictionary that indicates whether each vehicle is modded.
+    // Return Type:
+    // - Primary Dictionary: Mapping from vehicle names (string) to in-game display names (string)
+    // - 'out' Dictionary: Mapping from vehicle names (string) to their modded status (bool)
+    public static Dictionary<string, string> GetDictionaryOfAircraftsThatHaveCustomRadarNameWithModdedDictionary(
+        out Dictionary<string, bool> _isModdedDict)
+    {
+        Dictionary<string, string> _vehicleDict = new Dictionary<string, string>();
+        _isModdedDict = new Dictionary<string, bool>();
+
+        foreach (VehicleType vehicleType in Enum.GetValues(typeof(VehicleType)))
+        {
+            var interfaceVehicle = (InterfaceVehicle)EnumExtensions.GetInstance(vehicleType.ToString());
+
+            // Check if interfaceVehicle is of type BaseAircraft or implements InterfaceAircraft
+            if (interfaceVehicle is not InterfaceAircraft interfaceAircraft)
+            {
+                continue;
+            }
+
+            if (!interfaceAircraft.hasCustomRadarName)
+            {
+                continue;
+            }
+
+            string vehicleName = EnumExtensions.GetEnumMemberAttrValue(vehicleType);
+            string inGameDisplayName = interfaceVehicle.InGameDisplayName;
+
+            _vehicleDict.Add(vehicleName, inGameDisplayName);
+            _isModdedDict.Add(vehicleName, interfaceVehicle.ModdedVehicle);
+        }
+
+        return _vehicleDict;
+    }
+
     // GenerateAircraftSpecificLoadouts takes a VehicleType enum as an argument and generates specific loadouts for aircraft.
     // It appends the generated loadouts to the 'aircraftEasaLoadoutsFile' and 'commonBalanceInitFile'.
     // The method returns early if the vehicle type is not an aircraft or if the generated result is empty.
@@ -244,18 +383,18 @@ public class SqfFileGenerator
     // WriteAndUpdateToFilesForATerrain takes in a DirectoryInfo object and two strings for EASA and common balance files.
     // It takes a defined terrain (Chernarus) and writes or updates the respective files of that terrain
     private static void WriteAndUpdateToFilesForATerrain(
-        string _easaFileString, string _commonBalanceFileString, TerrainName _terrainName)
+        string _easaFileString, string _commonBalanceFileString, string _aircraftDisplayNameStrings, string _addedAircraftDamageModelChanges, TerrainName _terrainName)
     {
         var terrainInstance = (InterfaceTerrain)EnumExtensions.GetInstance(_terrainName.ToString());
 
         Console.WriteLine();
-        terrainInstance.WriteAndUpdateTerrainFiles(_easaFileString, _commonBalanceFileString);
+        terrainInstance.WriteAndUpdateTerrainFiles(_easaFileString, _commonBalanceFileString, _aircraftDisplayNameStrings, _addedAircraftDamageModelChanges);
     }
 
     //WriteAndUpdateToFilesForTerrains takes in a DirectoryInfo object and two strings for EASA and common balance files.
     //It iterates through all defined terrains and writes or updates the respective files.
     private static void WriteAndUpdateToFilesForModdedTerrains(
-        string _easaFileString, string _commonBalanceFileString, string _coreModFile)
+        string _easaFileString, string _commonBalanceFileString, string _aircraftDisplayNameStrings, string _addedAircraftDamageModelChanges, string _coreModFile)
     {
         foreach (var terrainName in Enum.GetValues(typeof(TerrainName)))
         {
@@ -263,7 +402,7 @@ public class SqfFileGenerator
             if (!terrainInstance.isModdedTerrain) continue;
 
             Console.WriteLine();
-            terrainInstance.WriteAndUpdateTerrainFiles(_easaFileString, _commonBalanceFileString, _coreModFile);
+            terrainInstance.WriteAndUpdateTerrainFiles(_easaFileString, _commonBalanceFileString, _aircraftDisplayNameStrings, _addedAircraftDamageModelChanges, _coreModFile);
         }
     }
 }

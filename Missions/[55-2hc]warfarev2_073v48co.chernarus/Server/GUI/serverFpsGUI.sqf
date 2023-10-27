@@ -7,6 +7,6 @@ while {true} do
         SERVER_FPS_GUI = round(diag_fps);
         publicVariable "SERVER_FPS_GUI";
 
-        sleep 1; // Update frequency
+        sleep 8; // Update frequency
     }
 }

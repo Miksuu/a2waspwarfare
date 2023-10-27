@@ -14,6 +14,7 @@ private["_total"];
 
 //// Getting the amount of all towns
 _total = count towns;
+sleep 10;
 
 while {true} do {
 	sleep 1;

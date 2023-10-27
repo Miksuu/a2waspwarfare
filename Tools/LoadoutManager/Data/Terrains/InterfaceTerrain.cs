@@ -4,5 +4,6 @@
     public TerrainType TerrainType { get; set; }
     public bool isModdedTerrain { get; set; }
     public string inGameMapName { get; set; }
-    public void WriteAndUpdateTerrainFiles(string _easaFileString, string _commonBalanceFileString, string _coreModFile = "");
-}
+    public void WriteAndUpdateTerrainFiles(
+        string _easaFileString, string _commonBalanceFileString, string _aircraftDisplayNameStrings, string _addedAircraftDamageModelChanges, string _coreModFile = "");
+} 

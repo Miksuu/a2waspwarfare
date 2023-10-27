@@ -167,14 +167,12 @@ if (IS_chernarus_map_dependent) then {
     _u = _u		+ ['Dingo_WDL_ACR'];
     _u = _u		+ ['Dingo_GL_Wdl_ACR'];
     _u = _u		+ ['Pandur2_ACR'];
-
-    if ((missionNamespace getVariable "WFBE_C_ECONOMY_SUPPLY_SYSTEM") == 0) then {_u = _u		+ ['MtvrSupply_DES_EP1']};
     _u = _u		+ ['MTVR'];
     _u = _u		+ ['MtvrRepair'];
     _u = _u		+ ['WarfareReammoTruck_USMC'];
     _u = _u		+ ['MtvrRefuel'];
     _u = _u		+ ['WarfareSalvageTruck_USMC'];
-    if ((missionNamespace getVariable "WFBE_C_ECONOMY_SUPPLY_SYSTEM") == 0) then {_u = _u		+ ['WarfareSupplyTruck_USMC']};
+    _u = _u		+ ['WarfareSupplyTruck_USMC'];
     _u = _u		+ ['RHIB'];
     _u = _u		+ ['RHIB2Turret'];
     _u = _u		+ ['LAV25'];
@@ -211,11 +209,10 @@ if (IS_chernarus_map_dependent) then {
     _u = _u		+ ['MtvrReammo_DES_EP1'];
     _u = _u		+ ['MtvrRefuel_DES_EP1'];
     _u = _u		+ ['MtvrSalvage_DES_EP1'];
+    _u = _u		+ ['MtvrSupply_DES_EP1'];
     _u = _u		+ ['Dingo_DST_ACR'];
     _u = _u		+ ['Dingo_GL_DST_ACR'];
     _u = _u		+ ['LandRover_Special_CZ_EP1'];
-    if ((missionNamespace getVariable "WFBE_C_ECONOMY_SUPPLY_SYSTEM") == 0) then {_u = _u		+ ['MtvrSupply_DES_EP1']};
-    if ((missionNamespace getVariable "WFBE_C_ECONOMY_SUPPLY_SYSTEM") == 0) then {_u = _u		+ ['WarfareSupplyTruck_USMC']};
     _u = _u		+ ['LAV25'];
     _u = _u		+ ['BAF_Offroad_D'];
     _u = _u		+ ['BAF_Jackal2_GMG_D'];
@@ -308,6 +305,7 @@ if (IS_chernarus_map_dependent) then {
     	_u = _u		+ ['BAF_Soldier_EN_W'];
     	_u = _u		+ ['USMC_Soldier_LAT'];
         _u = _u		+ ['USMC_Soldier_MG'];
+        _u = _u		+ ['USMC_SoldierS_Sniper'];
         _u = _u		+ ['USMC_Soldier_AA'];
     _u = _u		+ ["UralCivil"];
     _u = _u		+ ["V3S_Refuel_TK_GUE_EP1"];
@@ -332,6 +330,7 @@ if (IS_chernarus_map_dependent) then {
     	_u = _u		+ ['BAF_Soldier_EN_W'];
     	_u = _u		+ ['US_Soldier_LAT_EP1'];
     	_u = _u		+ ['US_Soldier_MG_EP1'];
+    	_u = _u		+ ['US_Soldier_Sniper_EP1'];
     	_u = _u		+ ['US_Soldier_AA_EP1'];
         _u = _u		+ ["UralCivil"];
         _u = _u		+ ["V3S_Refuel_TK_GUE_EP1"];

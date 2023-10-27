@@ -48,7 +48,7 @@ _u = _u		+ ['V3S_Repair_TK_GUE_EP1'];
 _u = _u		+ ['V3S_Salvage_TK_GUE_EP1'];
 _u = _u		+ ['V3S_Reammo_TK_GUE_EP1'];
 _u = _u		+ ['V3S_Refuel_TK_GUE_EP1'];
-if ((missionNamespace getVariable "WFBE_C_ECONOMY_SUPPLY_SYSTEM") == 0) then {_u = _u		+ ['V3S_Supply_TK_GUE_EP1']};
+_u = _u		+ ['V3S_Supply_TK_GUE_EP1'];
 _u = _u		+ ['BRDM2_TK_GUE_EP1'];
 _u = _u		+ ['BTR40_TK_GUE_EP1'];
 _u = _u		+ ['BTR40_MG_TK_GUE_EP1'];

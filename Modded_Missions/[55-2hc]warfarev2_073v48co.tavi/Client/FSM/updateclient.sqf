@@ -23,6 +23,8 @@ if !(isMultiplayer) then {missionNamespace setVariable ["WFBE_C_AFK_TIME", 10]};
 _inactivityTimeout = missionNamespace getVariable "WFBE_C_AFK_TIME";
 _inactivityTimeout = _inactivityTimeout * 60; // Convert the given time from minutes to seconds.
 
+if (WF_Debug) then {_inactivityTimeout = _inactivityTimeout * 99999};
+
 while {!gameOver} do {
 
 	//Marty : check the inactivity (AFK, Away From Keyboard) and kick the player after too long time elapsed
@@ -33,7 +35,7 @@ while {!gameOver} do {
 	_countDownKick =round(_inactivityTimeout - _elapsedTime);
 	//player sideChat format ["Elapsed Time: %1 seconds", _elapsedTime]; // Display the inacticity time of the player for testing purpose	
 
-    if (_countDownKick < 30) then {
+    if (_countDownKick < 120) then {
 		hint format["You are AFK. If you dont move you will be kicked in %1", _countDownKick];
 	};
 
@@ -101,11 +103,11 @@ while {!gameOver} do {
 					[missionNamespace getVariable "WFBE_C_BASE_COIN_AREA_HQ_UNDEPLOYED",false,MCoin] Call Compile PreprocessFile "Client\Init\Init_Coin.sqf";
 				};
 				HQAction = leader(group player) addAction [localize "STR_WF_BuildMenu","Client\Action\Action_Build.sqf", [_MHQ], 100, false, true, "", "hqInRange && canBuildWHQ && (_target == player)"];
-				[Localize "STR_WF_CHAT_PlayerCommander"] Call TitleTextMessage;
-
-				playSound ["playerSelectedAsCommander", true];
-
-				["INFORMATION", Format ["Player %1 has become a new commander in %2 team).", name player, side group player]] Call WFBE_CO_FNC_LogContent;
+				[Localize "STR_WF_CHAT_PlayerCommanderTitleText"] Call TitleTextMessage;
+				hint parseText format ["<t color='fff700'>%1</t>", localize "STR_WF_CHAT_PlayerCommander"];
+				playSound ["commanderNotification", true];
+				playSound ["newCommander",true];
+				["INFORMATION", Format ["Player %1 has become a new commander in %2 team).", name player, side player]] Call WFBE_CO_FNC_LogContent;
 			} else {
 				if (!isNil "HQAction") then {player removeAction HQAction};
 				if (count (hcAllGroups player) > 0) then {HCRemoveAllGroups player};
