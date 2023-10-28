@@ -67,26 +67,20 @@ if (!isNil '_get' && _killer_iswfteam) then { //--- Make sure that type killed t
 			if !(_killer_isplayer) then { //--- An AI is the killer.
 				_killer_award = _killer;
 				_points = switch (true) do {
-					case (_killed_type isKindOf "Infantry"): {1};
-					case (_killed_type isKindOf "Car"): {2};
-					case (_killed_type isKindOf "Ship"): {4};
-					case (_killed_type isKindOf "Motorcycle"): {1};
-					case (_killed_type isKindOf "Tank"): {4};
-					case (_killed_type isKindOf "Helicopter"): {4};
-					case (_killed_type isKindOf "Plane"): {6};
-					case (_killed_type isKindOf "StaticWeapon"): {2};
-					case (_killed_type isKindOf "Building"): {2};
+					case (_killed_type isKindOf "Infantry"): {round((_get select QUERYUNITPRICE) *0.7* (missionNamespace getVariable "WFBE_C_UNITS_BOUNTY_COEF") / 100);};
+					case (_killed_type isKindOf "Car"): {round((_get select QUERYUNITPRICE) *0.45* (missionNamespace getVariable "WFBE_C_UNITS_BOUNTY_COEF") / 100);};
+					case (_killed_type isKindOf "Ship"): {round((_get select QUERYUNITPRICE) *0.4* (missionNamespace getVariable "WFBE_C_UNITS_BOUNTY_COEF") / 100);};
+					case (_killed_type isKindOf "Motorcycle"): {round((_get select QUERYUNITPRICE) *0.7* (missionNamespace getVariable "WFBE_C_UNITS_BOUNTY_COEF") / 100);};
+					case (_killed_type isKindOf "Tank"): {round((_get select QUERYUNITPRICE) *0.4* (missionNamespace getVariable "WFBE_C_UNITS_BOUNTY_COEF") / 100);};
+					case (_killed_type isKindOf "Helicopter"): {round((_get select QUERYUNITPRICE) *0.4* (missionNamespace getVariable "WFBE_C_UNITS_BOUNTY_COEF") / 100);};
+					case (_killed_type isKindOf "Plane"): {round((_get select QUERYUNITPRICE) *0.35* (missionNamespace getVariable "WFBE_C_UNITS_BOUNTY_COEF") / 100);};
+					case (_killed_type isKindOf "StaticWeapon"): {round((_get select QUERYUNITPRICE) *0.5* (missionNamespace getVariable "WFBE_C_UNITS_BOUNTY_COEF") / 100);};
+					case (_killed_type isKindOf "Building"): {round((_get select QUERYUNITPRICE) *0.55* (missionNamespace getVariable "WFBE_C_UNITS_BOUNTY_COEF") / 100 * (missionNamespace getVariable "WFBE_C_BUILDINGS_SCORE_COEF"));};
 					default {1};
 				};
 
-				if (isServer) then {
-					['SRVFNCREQUESTCHANGESCORE',[leader _killer_group, (score leader _killer_group) + _points]] Spawn WFBE_SE_FNC_HandlePVF;
+				score leader _killer_group + _points;
 
-
-
-				} else {
-					["RequestChangeScore", [leader _killer_group, (score leader _killer_group) + _points]] Call WFBE_CO_FNC_SendToServer;
-				};
 			};
 
 			if ((missionNamespace getVariable "WFBE_C_UNITS_BOUNTY") > 0) then {
