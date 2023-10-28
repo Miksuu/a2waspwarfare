@@ -8,6 +8,8 @@
 
 Private ["_get","_killed","_killed_isplayer","_killed_group","_killed_isman","_killed_side","_killed_type","_killer","_killer_group","_killer_isplayer","_killer_iswfteam","_killer_side","_killer_type","_killer_vehicle","_killer_uid"];
 
+if (!isDedicated) exitWith {};
+
 _killed = _this select 0;
 _killer = _this select 1;
 _killed_side = (_this select 2) Call GetSideFromID;
@@ -38,6 +40,7 @@ _killer_side = side _killer;
 _killer_type = typeOf _killer;
 _killer_vehicle = vehicle _killer;
 _killer_uid = getPlayerUID (leader _killer_group);
+_points = 0;
 
 
 if (_killer_side == sideEnemy) then { //--- Make sure the killer is not renegade, if so, get the side from the config.
@@ -64,7 +67,7 @@ if (!isNil '_get' && _killer_iswfteam) then { //--- Make sure that type killed t
 	if (_killer_side != _killed_side) then { //--- Normal kill.
 		if (isPlayer (leader _killer_group)) then { //--- The team is lead by a player.
 			_killer_award = objNull;
-			if !(_killer_isplayer) then { //--- An AI is the killer.
+			// if !(_killer_isplayer) then { //--- An AI is the killer.
 				_killer_award = _killer;
 				_points = switch (true) do {
 					case (_killed_type isKindOf "Infantry"): {round((_get select QUERYUNITPRICE) *0.7* (missionNamespace getVariable "WFBE_C_UNITS_BOUNTY_COEF") / 100);};
@@ -76,12 +79,15 @@ if (!isNil '_get' && _killer_iswfteam) then { //--- Make sure that type killed t
 					case (_killed_type isKindOf "Plane"): {round((_get select QUERYUNITPRICE) *0.35* (missionNamespace getVariable "WFBE_C_UNITS_BOUNTY_COEF") / 100);};
 					case (_killed_type isKindOf "StaticWeapon"): {round((_get select QUERYUNITPRICE) *0.5* (missionNamespace getVariable "WFBE_C_UNITS_BOUNTY_COEF") / 100);};
 					case (_killed_type isKindOf "Building"): {round((_get select QUERYUNITPRICE) *0.55* (missionNamespace getVariable "WFBE_C_UNITS_BOUNTY_COEF") / 100 * (missionNamespace getVariable "WFBE_C_BUILDINGS_SCORE_COEF"));};
+					case (_killed_type isKindOf "LAV25_HQ" || _killed_type isKindOf "LAV25_HQ_unfolded" || _killed_type isKindOf "M1130_HQ_unfolded_EP1" || _killed_type isKindOf "BTR90_HQ" || _killed_type isKindOf "BTR90_HQ_unfolded"): {900};
 					default {1};
 				};
 
-				score leader _killer_group + _points;
+				["INFORMATION", Format ["--- Common_OnUnitKilled.sqf: BEFORE: %1", (score leader _killer_group)]] Call WFBE_CO_FNC_LogContent;
+				(leader _killer_group) addScore _points;
+				["INFORMATION", Format ["--- Common_OnUnitKilled.sqf: AFTER: %1", (score leader _killer_group)]] Call WFBE_CO_FNC_LogContent;
 
-			};
+			//};
 
 			if ((missionNamespace getVariable "WFBE_C_UNITS_BOUNTY") > 0) then {
 			//--- Award the bounty if needed.
@@ -111,6 +117,8 @@ if (!isNil '_get' && _killer_iswfteam) then { //--- Make sure that type killed t
 		};
 	};
 };
+
+["INFORMATION", Format ["Common_OnUnitKilled.sqf: [%1] [%2] has been killed by [%3]. Their old score was [ %4 ], and it's now [ %5 ].", _killed_side, _killed, _killer, (score leader _killer_group) - _points, (score leader _killer_group)]] Call WFBE_CO_FNC_LogContent;
 
 if(!isPlayer(_killed) && _killed_type isKindOf "Infantry")then{
 	_killed removeEventHandler ["killed", 0];
