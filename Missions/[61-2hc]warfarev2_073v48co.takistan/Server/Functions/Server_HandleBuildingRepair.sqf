@@ -65,7 +65,7 @@ while {true} do {
 					} else {
 						_site addEventHandler ['handleDamage',{getDammage (_this select 0)+((_this select 2)/(_redu))}];
 					};
-					Call Compile Format ["_site AddEventHandler ['killed',{[_this select 0,_this select 1,'%1'] Spawn BuildingKilled}];",_type];
+					Call Compile Format ["_site AddMPEventHandler ['MPkilled',{[_this select 0,_this select 1,'%1'] Spawn BuildingKilled}];",_type];
 					
 					if ((missionNamespace getVariable "WFBE_C_ECONOMY_CURRENCY_SYSTEM") == 0) then {
 						[_side, -round((_buildingsCosts select _index)/2),"Factory being repaired. (It's normal for this message to show repeatedly.)"] Call ChangeSideSupply;
