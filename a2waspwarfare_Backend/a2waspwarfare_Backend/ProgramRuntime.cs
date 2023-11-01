@@ -35,10 +35,21 @@ class ProgramRuntime
                     type = "rconCommand",
                     attributes = new
                     {
-                        command = "raw",
+                        command = "arma:privateChat",
                         options = new
                         {
-                            raw = $"message {_playerName} {_message}"
+                            message = $"message {_playerName} {_message}"
+                        }
+                    },
+                    relationships = new
+                    {
+                        session = new
+                        {
+                            data = new
+                            {
+                                type = "session",
+                                id = "" //temp
+                            }
                         }
                     }
                 }
