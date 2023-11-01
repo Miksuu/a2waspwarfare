@@ -38,7 +38,7 @@ class ProgramRuntime
                         command = "raw",
                         options = new
                         {
-                            raw = $"tell {_playerName} {_message}"
+                            raw = $"message {_playerName} {_message}"
                         }
                     }
                 }
@@ -48,7 +48,13 @@ class ProgramRuntime
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-            var response = await client.PostAsync($"https://api.battlemetrics.com/servers/{serverId}/rcon", content);
+            var response = await client.PostAsync($"https://api.battlemetrics.com/servers/{serverId}/command", content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                string errorContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Error: {errorContent}");
+            }
 
             response.EnsureSuccessStatusCode();
         }
