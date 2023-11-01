@@ -38,7 +38,7 @@ class ProgramRuntime
                         command = "arma:privateChat",
                         options = new
                         {
-                            message = $"message {_playerName} {_message}"
+                            message = $"{_message}"
                         }
                     },
                     relationships = new
