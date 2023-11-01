@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
-
 class Program
 {
-    static void Main() => ProgramRuntime.RunBackend();
+    static async Task Main()
+    {
+        await ProgramRuntime.RunBackend();
+    }
 }

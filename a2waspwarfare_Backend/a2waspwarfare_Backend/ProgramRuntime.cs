@@ -12,9 +12,9 @@ class ProgramRuntime
     private static string backendAlias = "Skynet";
     private static ulong serverId = 19801218;
 
-    public static void RunBackend()
+    public static async Task RunBackend()
     {
-        testMethod();
+        await testMethod();
     }
 
     public static async Task testMethod()
@@ -23,30 +23,37 @@ class ProgramRuntime
         await SendMessage(token, "Mr.James", $"{backendAlias}: hello james, this is {backendAlias} speaking");
     }
 
-    static async Task SendMessage(string _token, string _playerName, string _message)
+    private static async Task SendMessage(string _token, string _playerName, string _message)
     {
-        var command = new
+        try
         {
-            data = new
+            var command = new
             {
-                type = "rconCommand",
-                attributes = new
+                data = new
                 {
-                    command = "raw",
-                    options = new
+                    type = "rconCommand",
+                    attributes = new
                     {
-                        raw = $"tell {_playerName} {_message}"
+                        command = "raw",
+                        options = new
+                        {
+                            raw = $"tell {_playerName} {_message}"
+                        }
                     }
                 }
-            }
-        };
+            };
 
-        string json = JsonConvert.SerializeObject(command);
-        var content = new StringContent(json, Encoding.UTF8, "application/json");
+            string json = JsonConvert.SerializeObject(command);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
-        var response = await client.PostAsync($"https://api.battlemetrics.com/servers/{serverId}/rcon", content);
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
+            var response = await client.PostAsync($"https://api.battlemetrics.com/servers/{serverId}/rcon", content);
 
-        response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCode();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
     }
 }
