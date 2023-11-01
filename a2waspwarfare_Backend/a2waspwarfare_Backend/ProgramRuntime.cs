@@ -11,7 +11,7 @@ class ProgramRuntime
     private static readonly HttpClient client = new HttpClient();
     private static string backendAlias = "Skynet";
     private static ulong serverId = 19801218;
-    private static string token;
+    private static string? token;
 
     public static async Task RunBackend()
     {
