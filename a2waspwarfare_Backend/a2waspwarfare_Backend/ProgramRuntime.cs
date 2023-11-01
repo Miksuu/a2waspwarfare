@@ -12,10 +12,12 @@ class ProgramRuntime
     private static string backendAlias = "Skynet";
     private static ulong serverId = 19801218;
     private static string? token;
+    private static string? sessionId;
 
     public static async Task RunBackend()
     {
         token = await File.ReadAllTextAsync("token.txt");
+        sessionId = await File.ReadAllTextAsync("sessionId.txt");
         await testMethod();
     }
 
@@ -48,7 +50,7 @@ class ProgramRuntime
                             data = new
                             {
                                 type = "session",
-                                id = "" //temp
+                                id = sessionId
                             }
                         }
                     }
