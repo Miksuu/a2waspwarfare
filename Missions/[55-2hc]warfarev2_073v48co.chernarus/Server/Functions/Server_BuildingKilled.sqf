@@ -1,7 +1,4 @@
 Private ['_current','_find','_killer','_logik','_structure','_structures','_side','_tked','_type','_killer_uid','_side_killer','_score','_bounty'];
-
-if (!isDedicated) exitWith {};
-
 _structure = _this select 0;
 _killer = _this select 1;
 _type = _this select 2;
@@ -67,10 +64,8 @@ if ((!isNull _killer) && (isPlayer _killer)) then
        // Increased the score gain a bit
        _score = _score * 3;
 
-       _killer addScore _score;
-
        // Change the score of the leader of the group upon killing a factory
-       // ['SRVFNCREQUESTCHANGESCORE',[leader _killerGroup, score leader _killerGroup + _score]] Spawn WFBE_SE_FNC_HandlePVF;
+       ['SRVFNCREQUESTCHANGESCORE',[leader _killerGroup, score leader _killerGroup + _score]] Spawn WFBE_SE_FNC_HandlePVF;
     };
 };
 
@@ -80,7 +75,7 @@ if (_teamkill) then
 }
 else
 {
-    ["INFORMATION", Format ["Server_BuildingKilled.sqf: [%1] Structure [%2] has been destroyed by [%3]. Their old score was [ %4 ], and it's now [ %5 ].", str _side, _type, _killer, (score _killer) - _score, (score _killer)]] Call WFBE_CO_FNC_LogContent;
+    ["INFORMATION", Format ["Server_BuildingKilled.sqf: [%1] Structure [%2] has been destroyed by [%3].", str _side, _type, _killer]] Call WFBE_CO_FNC_LogContent;
 };
 
 //--- Decrement building limit.

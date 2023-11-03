@@ -132,7 +132,7 @@ Call Compile preprocessFileLineNumbers 'Client\Functions\Client_FNC_Groups.sqf';
 Call Compile preprocessFileLineNumbers 'Client\Functions\Client_FNC_OnFired.sqf'; //--- FUNCTIONS: onFired EH.
 Call Compile preprocessFileLineNumbers 'Client\Functions\Client_FNC_Special.sqf'; //--- FUNCTIONS: Specials.
 
-
+clientInitComplete = true;
 
 //--- UI Namespace release from previous possible games (only on titles dialog!).
 {uiNamespace setVariable [_x, displayNull]} forEach ["wfbe_title_capture"];
@@ -663,7 +663,5 @@ publicVariableServer "WFBE_C_PLAYER_OBJECT";
 12452 cutText [(localize 'STR_WF_Loading')+"...","BLACK IN",5];
 
 player setVariable ["score", 0];
-
-clientInitComplete = true;
 
 ["INITIALIZATION", Format ["Init_Client.sqf: Client initialization ended at [%1]", time]] Call WFBE_CO_FNC_LogContent;
