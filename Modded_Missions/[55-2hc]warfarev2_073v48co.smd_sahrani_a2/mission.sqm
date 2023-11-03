@@ -2237,7 +2237,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="SpecOPS (Lockpick)";
+					description="Support (Supply run)";
 					synchronizations[]={177};
 				};
 			};
@@ -2259,7 +2259,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="SpecOPS (Lockpick)";
+					description="Support (Supply run)";
 					synchronizations[]={177};
 				};
 			};
@@ -2391,7 +2391,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="SpecOPS (Lockpick)";
+					description="Support (Supply run)";
 					synchronizations[]={177};
 				};
 			};
@@ -2567,7 +2567,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="SpecOPS (Lockpick)";
+					description="Support (Supply run)";
 					synchronizations[]={178};
 				};
 			};
@@ -2589,7 +2589,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="SpecOPS (Lockpick)";
+					description="Support (Supply run)";
 					synchronizations[]={178};
 				};
 			};
@@ -2677,7 +2677,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="SpecOPS (Lockpick)";
+					description="Support (Supply run)";
 					synchronizations[]={178};
 				};
 			};
@@ -2803,7 +2803,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="SpecOPS (Lockpick)";
+					description="Support (Supply run)";
 					synchronizations[]={177};
 				};
 			};
@@ -3110,7 +3110,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="SpecOPS (Lockpick)";
+					description="Support (Supply run)";
 					synchronizations[]={178};
 				};
 			};
@@ -3176,7 +3176,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="SpecOPS (Lockpick)";
+					description="Support (Supply run)";
 					synchronizations[]={177};
 				};
 			};
@@ -3242,7 +3242,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="SpecOPS (Lockpick)";
+					description="Support (Supply run)";
 					synchronizations[]={178};
 				};
 			};
