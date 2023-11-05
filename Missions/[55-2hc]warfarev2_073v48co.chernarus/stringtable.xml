@@ -101,10 +101,10 @@
             </Key>
             <Key ID="STR_WASP_actions_fastrep">
                 <English>Light repair</English>
-                <French>Light repair</French>
-                <German>Light repair</German>
-                <Russian>ремонт</Russian>
-                <Italian>Light repair</Italian>
+                <French>Réparation légère</French>
+                <German>Leichte Reparatur</German>
+                <Russian>Легкий ремонт</Russian>
+                <Italian>Riparazione leggera</Italian>
             </Key>
             <Key ID="STR_especially_2">
                 <English>&lt;br/&gt;&lt;br/&gt;In this mission default armament for some units has been replaced: &lt;br/&gt;*MI-24D - "Falanga" (АТ-2) missiles replaced by "Shturm" (АТ-6);&lt;br/&gt;*MI-24V - "Shturm" (АТ-6) missles replaced by "Ataka" (АТ-9), cannon YakB 12,7 mm replaced by GSh-23L 23 mm, add P73&lt;br/&gt;*UH1Y - added 14 FFAR missiles;&lt;br/&gt;*SU-25 Ins + Taki - "FAB-250" bombs replaced by "Kh-29" AT missiles;&lt;br/&gt;*АН-2 - cannon deployable;&lt;br/&gt;*M6_EP1 - Stinger replaced by M_9M311_AA.&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;Ch</English>
