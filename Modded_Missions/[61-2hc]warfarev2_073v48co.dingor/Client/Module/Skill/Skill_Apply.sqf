@@ -57,6 +57,17 @@ switch (WFBE_SK_V_Type) do {
 			"", 
 			"(player distance (call GetClosestFriendlyLocation) < 70) && (typeOf cursorTarget in ['WarfareSupplyTruck_RU', 'WarfareSupplyTruck_USMC', 'WarfareSupplyTruck_INS', 'WarfareSupplyTruck_Gue', 'WarfareSupplyTruck_CDF', 'UralSupply_TK_EP1', 'MtvrSupply_DES_EP1'])"
 		];
+
+		_unit addAction [
+			(localize "STR_WASP_actions_fastrep"),
+			(WFBE_SK_V_Root + 'LR' + '.sqf'), 
+			[], 
+			80, 
+			false, 
+			true, 
+			"", 
+			"(time - WFBE_SK_V_LastUse_LR > WFBE_SK_V_Reload_LR)&&((cursorTarget isKindOf 'Landvehicle' )|| (cursorTarget isKindOf 'Air'))&&(player distance cursorTarget<5)"
+		];
 		
 	};
 	case 'Spotter': {
