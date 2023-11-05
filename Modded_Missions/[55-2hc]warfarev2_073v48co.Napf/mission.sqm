@@ -188,8 +188,8 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={4091.9854,71.601753,4403.1753};
-					azimut=78;
+					position[]={4935.4722,71.576218,4857.7163};
+					azimut=170;
 					id=7;
 					side="LOGIC";
 					vehicle="LocationLogicAirport";
@@ -207,8 +207,8 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={18106.635,134.6132,2039.1484};
-					azimut=222;
+					position[]={18150.152,134.6132,2093.6431};
+					azimut=128;
 					id=8;
 					side="LOGIC";
 					vehicle="LocationLogicAirport";
@@ -226,8 +226,8 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={14595.077,16.402887,16690.037};
-					azimut=320;
+					position[]={14779.637,16.237471,16736.496};
+					azimut=138;
 					id=9;
 					side="LOGIC";
 					vehicle="LocationLogicAirport";
