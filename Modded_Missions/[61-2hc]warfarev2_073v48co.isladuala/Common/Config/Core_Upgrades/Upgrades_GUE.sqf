@@ -108,9 +108,9 @@ missionNamespace setVariable [Format["WFBE_C_UPGRADES_%1_LINKS", _side], [
 
 missionNamespace setVariable [Format["WFBE_C_UPGRADES_%1_TIMES", _side], [
 	[30,60,90], //--- Barracks
-	[40,70,100,100], //--- Light
-	[50,80,100,100], //--- Heavy
-	[60,80,100,100,100], //--- Air
+	[40,60,80,100], //--- Light
+	[50,70,90,110], //--- Heavy
+	[60,75,90,105,120], //--- Air
 	[35,55,75], //--- Paratroopers
 	[60], //--- UAV
 	[60,80,120], //--- Supply
