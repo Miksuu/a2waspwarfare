@@ -28,4 +28,7 @@ public enum TerrainName
 
     [EnumMember(Value = "Isla Duala")]
     ISLADUALA,
+
+    [EnumMember(Value = "Napf")]
+    NAPF,
 }
