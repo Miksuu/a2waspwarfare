@@ -16,11 +16,6 @@ class CfgSounds
         sound[] = {"\Sounds\playerSelectedAsCommander.ogg",10,1};
     };
 
-    class icbmLaunch {
-        name = "icbmLaunch";
-        sound[] = {"\Sounds\icbmLaunch.ogg",10,1};
-    };
-
     class inboundMissileGround {
         name = "inboundMissileGround";
         sound[] = {"\Sounds\inboundMissileGround.ogg",10,1};
