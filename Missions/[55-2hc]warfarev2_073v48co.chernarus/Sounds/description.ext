@@ -78,17 +78,4 @@ class CfgSounds
         name="Chernarus BLUFOR outro music";
         sound[]={"\Sounds\americafuckyeah.ogg", db + 10, 1.0};
     };
-
-
-    class ICBM_message_to_enemy_players
-    {
-        name    = "ICBM_message_to_enemy_players";
-        sound[] = {"\Sounds\warning_Enemy_ICBM_v1.ogg", 10, 1.0};
-    };
-
-    class ICBM_message_to_friendly_players
-    {
-        name    = "ICBM_message_to_friendly_players";
-        sound[] = {"\Sounds\warning_Friendly_ICBM_v1.ogg", 10, 1.0};
-    };
 };
