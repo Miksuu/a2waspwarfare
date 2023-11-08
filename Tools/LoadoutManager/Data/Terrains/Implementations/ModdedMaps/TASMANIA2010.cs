@@ -6,5 +6,6 @@
         TerrainType = TerrainType.FOREST;
         isModdedTerrain = true;
         inGameMapName = "tasmania2010";
+        isNavalTerrain = true;
     }
 }

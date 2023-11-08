@@ -6,5 +6,6 @@
         TerrainType = TerrainType.FOREST;
         isModdedTerrain = true;
         inGameMapName = "lingor";
+        isNavalTerrain = true;
     }
 }

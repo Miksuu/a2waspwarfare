@@ -6,5 +6,6 @@
         TerrainType = TerrainType.DESERT;
         isModdedTerrain = true;
         inGameMapName = "isladuala";
+        isNavalTerrain = true;
     }
 }

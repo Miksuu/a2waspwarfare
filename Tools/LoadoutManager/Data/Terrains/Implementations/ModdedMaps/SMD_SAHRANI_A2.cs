@@ -6,5 +6,6 @@
         TerrainType = TerrainType.FOREST;
         isModdedTerrain = true;
         inGameMapName = "smd_sahrani_a2";
+        isNavalTerrain = true;
     }
 }
