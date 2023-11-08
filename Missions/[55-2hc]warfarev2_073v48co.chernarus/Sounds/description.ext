@@ -3,27 +3,27 @@ class CfgSounds
     sounds[] = {};
     class inbound {
         name = "inbound";
-        sound[] = {"\sounds\inbound.ogg",10,1};
+        sound[] = {"\Sounds\inbound.ogg",10,1};
     };
 
     class Bipod_ON {
         name = "Bipod_ON";
-        sound[] = {"\sounds\Bipod_ON.ogg",10,1};
+        sound[] = {"\Sounds\Bipod_ON.ogg",10,1};
     };
 
     class playerSelectedAsCommander {
         name = "playerSelectedAsCommander";
-        sound[] = {"\sounds\playerSelectedAsCommander.ogg",10,1};
+        sound[] = {"\Sounds\playerSelectedAsCommander.ogg",10,1};
     };
 
     class icbmLaunch {
         name = "icbmLaunch";
-        sound[] = {"\sounds\icbmLaunch.ogg",10,1};
+        sound[] = {"\Sounds\icbmLaunch.ogg",10,1};
     };
 
     class inboundMissileGround {
         name = "inboundMissileGround";
-        sound[] = {"\sounds\inboundMissileGround.ogg",10,1};
+        sound[] = {"\Sounds\inboundMissileGround.ogg",10,1};
     };
 
     class ICBM_message_to_enemy_players
@@ -59,41 +59,41 @@ class CfgSounds
     class ARTY_cooldown_over
     {
         name    = "ARTY_cooldown_over";
-        sound[] = {"Sounds\ARTY_cooldown_over.ogg", 8, 1.0};
+        sound[] = {"\Sounds\ARTY_cooldown_over.ogg", 8, 1.0};
     };
 
     class newCommander {
         name = "newCommander";
-        sound[] = {"\sounds\newCommander.ogg",10,1};
+        sound[] = {"\Sounds\newCommander.ogg",10,1};
     };
 
     class commanderNotification {
         name = "commanderNotification";
-        sound[] = {"\sounds\commanderNotification.ogg",10,1};
+        sound[] = {"\Sounds\commanderNotification.ogg",10,1};
     };
 
-	class CheekiBreeki
-	{
-		name="Chernarus OPFOR outro music";
-		sound[]={"\sounds\cheekibreeki.ogg", db + 10, 1.0};
-	};
+    class CheekiBreeki
+    {
+        name="Chernarus OPFOR outro music";
+        sound[]={"\Sounds\cheekibreeki.ogg", db + 10, 1.0};
+    };
 
-	class AmericaFuckYeah
-	{
-		name="Chernarus BLUFOR outro music";
-		sound[]={"\sounds\americafuckyeah.ogg", db + 10, 1.0};
-	};
+    class AmericaFuckYeah
+    {
+        name="Chernarus BLUFOR outro music";
+        sound[]={"\Sounds\americafuckyeah.ogg", db + 10, 1.0};
+    };
 
 
-	class ICBM_message_to_enemy_players
-	{
-		name    = "ICBM_message_to_enemy_players";
-		sound[] = {"\Sounds\warning_Enemy_ICBM_v1.ogg", 10, 1.0};
-	};
+    class ICBM_message_to_enemy_players
+    {
+        name    = "ICBM_message_to_enemy_players";
+        sound[] = {"\Sounds\warning_Enemy_ICBM_v1.ogg", 10, 1.0};
+    };
 
-	class ICBM_message_to_friendly_players
-	{
-		name    = "ICBM_message_to_friendly_players";
-		sound[] = {"\Sounds\warning_Friendly_ICBM_v1.ogg", 10, 1.0};
-	};
+    class ICBM_message_to_friendly_players
+    {
+        name    = "ICBM_message_to_friendly_players";
+        sound[] = {"\Sounds\warning_Friendly_ICBM_v1.ogg", 10, 1.0};
+    };
 };
