@@ -54,6 +54,9 @@ while { alive _associatedSupplyTruck && !_supplyMissionForThisTownCompleted} do 
         _match = !(isNull _playerObject);
         if (_match) then {
 		    WFBE_Server_PV_SupplyMissionCompleted = [_playerObject, _associatedSupplyTruck, side _playerObject];
+
+            ['SRVFNCREQUESTCHANGESCORE',[_playerObject, 20]] Spawn WFBE_SE_FNC_HandlePVF;
+
 		    publicVariableServer "WFBE_Server_PV_SupplyMissionCompleted";
             _supplyMissionForThisTownCompleted = true;
         };
