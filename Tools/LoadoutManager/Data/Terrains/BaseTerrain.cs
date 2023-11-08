@@ -17,6 +17,7 @@ public abstract class BaseTerrain : InterfaceTerrain
 
     // Boolean flag to check if the terrain is modded.
     public bool isModdedTerrain { get; set; }
+    public bool isNavalTerrain { get; set; }
 
     // The directory the game sees, added here after refactoring the EnumMember for The Discord bot usage
     public string inGameMapName { get; set; }
@@ -129,6 +130,11 @@ public abstract class BaseTerrain : InterfaceTerrain
     private string DetermineIfTheTerrainIsNotModdedAndReturnCommentStringIfThatIsTheCase()
     {
         return isModdedTerrain == false ? "//" : "";
+    }
+
+        private string DetermineIfTheTerrainIsNavalReturnCommentStringIfThatIsTheCase()
+    {
+        return isNavalTerrain == false ? "//" : "";
     }
 
     // Method to update all the files for Takistan, and the modded maps
@@ -253,6 +259,7 @@ public abstract class BaseTerrain : InterfaceTerrain
         string wfLogContent = GenerateWFLogContent();
         string terrainTypeCommentPrefix = DetermineIfTheMissionIsTakistanTypeAndReturnCommentStringIfThatIsTheCase();
         string isModMapDependant = DetermineIfTheTerrainIsNotModdedAndReturnCommentStringIfThatIsTheCase();
+        string isNavalTerrain = DetermineIfTheTerrainIsNavalReturnCommentStringIfThatIsTheCase();
         string maxPlayers = DetermineMissionTypeIfItsForestOrDesert();
         string missionName = $@"[{maxPlayers}] Warfare V48 {EnumExtensions.GetEnumMemberAttrValue(terrainName)}";
 
@@ -260,6 +267,7 @@ public abstract class BaseTerrain : InterfaceTerrain
 {wfLogContent}
 {terrainTypeCommentPrefix}#define IS_CHERNARUS_MAP_DEPENDENT
 {isModMapDependant}#define IS_MOD_MAP_DEPENDENT
+{isNavalTerrain}#define IS_NAVAL_MAP
 #define WF_MAXPLAYERS {maxPlayers}
 #define WF_MISSIONNAME ""{missionName}""
 #define COMBINEDOPS 1

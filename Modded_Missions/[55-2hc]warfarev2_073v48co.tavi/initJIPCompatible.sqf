@@ -108,6 +108,11 @@ IS_mod_map_dependent = false;
 	IS_mod_map_dependent = true; // if the map content depend on modded vehicles then global variable boolean is true.
 #endif
 
+IS_naval_map = false;
+#ifdef IS_NAVAL_MAP
+	IS_naval_map = true; // if the map can support boats then global variable boolean is true.
+#endif
+
 if (isMultiplayer) then {Call Compile preprocessFileLineNumbers "Common\Init\Init_Parameters.sqf"}; //--- In MP, we get the parameters.
 
 Call Compile preprocessFileLineNumbers "Common\Init\Init_CommonConstants.sqf"; //--- Set the constants and the parameters, skip the params if they're already defined.

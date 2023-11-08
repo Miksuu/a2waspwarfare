@@ -6,5 +6,6 @@
         TerrainType = TerrainType.FOREST;
         isModdedTerrain = true;
         inGameMapName = "eden";
+        isNavalTerrain = true;
     }
 }
