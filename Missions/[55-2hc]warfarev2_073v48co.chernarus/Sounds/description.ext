@@ -45,21 +45,21 @@ class ICBM_message_to_friendly_players
 		titles[] = {};
 	};
 
-// BLUFOR Forest, Desert
+
 class ARTY_message_to_friendly_players_v2
 	{
 		name	= "ARTY_message_to_friendly_players_v2";
 		sound[]	= {"\Sounds\warning_Friendy_ARTY_v2.ogg", 8, 1.0};
 		titles[] = {};
 	};
-// OPFOR Forest
+
 class ARTY_message_to_friendly_russian_v1
 	{
 		name	= "ARTY_message_to_friendly_russian_v1";
 		sound[]	= {"\Sounds\ARTY_warning_Friendly_message_russian_v1.ogg", 8, 1.0};
 		titles[] = {};
 	};
-// OPFOR Desert
+
 class ARTY_message_to_friendly_takistanish_v1
 	{
 		name	= "ARTY_message_to_friendly_takistanish_v1";
@@ -90,38 +90,26 @@ class commanderNotification {
 
 class CheekiBreeki
 {
-	// display name
 	name="Chernarus OPFOR outro music";
-	// filename, volume, pitch
 	sound[]={"\sounds\cheekibreeki.ogg", db + 10, 1.0};
 };
 
 class AmericaFuckYeah
 {
-	// display name
 	name="Chernarus BLUFOR outro music";
-	// filename, volume, pitch
 	sound[]={"\sounds\americafuckyeah.ogg", db + 10, 1.0};
 };
 
 
 class ICBM_message_to_enemy_players
 {
-	// display name
 	name	= "";
-
-	// filename, volume, pitch
 	sound[]	= { "\Sounds\warning_Enemy_ICBM_v1.ogg", 10, 1.0 };
-
-	// radio caption
-	//title	= "Booooom";
-	//title = "$STR_WF_CHAT_ICBM_Launch_BY_ENEMY_TEAM";
 	title ="";
 };
 class ICBM_message_to_friendly_players
 {
 	name	= "";
 	sound[]	= { "\Sounds\warning_Friendly_ICBM_v1.ogg", 10, 1.0 };
-	//title	= "$STR_WF_CHAT_ICBM_Launch_BY_OUR_TEAM";
 	title = "";
 };
