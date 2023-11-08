@@ -53,11 +53,11 @@ public abstract class BaseTerrain : InterfaceTerrain
             }
 
             string cfgSounds = $@"
-            class CfgSounds
-            {{
-                sounds[] = {{}};
-                {string.Join(Environment.NewLine, soundClasses)}
-            }}";
+class CfgSounds
+{{
+    sounds[] = {{}};
+    {string.Join(Environment.NewLine, soundClasses)}
+}}";
 
             File.WriteAllText(soundDirectory + "description.ext", cfgSounds);
         }
