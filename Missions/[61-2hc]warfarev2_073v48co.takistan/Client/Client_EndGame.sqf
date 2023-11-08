@@ -16,11 +16,11 @@ _track = if (WF_A2_Vanilla) then {["Track21_Rise_Of_The_Fallen",41]} else {["EP1
 // playMusic _track;
 
 if (_side == west) then {
-    playMusic "AmericaFuckYeah";
+    playMusic "AmericaFuckYeahEndingMusic";
 };
 
 if (_side == east) then {
-    playMusic "CheekiBreeki";
+    playMusic "CheekiBreekiEndingMusic";
 };
 
 _track_hq = [];
