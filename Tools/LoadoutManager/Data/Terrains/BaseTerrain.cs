@@ -57,7 +57,7 @@ class CfgSounds
 {{
     sounds[] = {{}};
     {string.Join(Environment.NewLine, soundClasses)}
-}}";
+}};";
 
             File.WriteAllText(soundDirectory + "description.ext", cfgSounds);
         }

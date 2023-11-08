@@ -77,4 +77,4 @@ class CfgSounds
         name = "playerSelectedAsCommander";
         sound[] = {"\Sounds\playerSelectedAsCommander-10.ogg", 10, 1};
     }
-}
+};
