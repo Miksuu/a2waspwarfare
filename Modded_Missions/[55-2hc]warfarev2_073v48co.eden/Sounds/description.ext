@@ -33,6 +33,11 @@ class CfgSounds
         sound[] = {"\Sounds\Bipod_ON-10.ogg", 10, 1};
     };
 
+    class cashierSound {
+        name = "cashierSound";
+        sound[] = {"\Sounds\cashierSound-7.ogg", 7, 1};
+    };
+
     class CheekiBreekiEndingMusic {
         name = "CheekiBreekiEndingMusic";
         sound[] = {"\Sounds\CheekiBreekiEndingMusic-10.ogg", 10, 1};
@@ -71,10 +76,5 @@ class CfgSounds
     class newCommander {
         name = "newCommander";
         sound[] = {"\Sounds\newCommander-10.ogg", 10, 1};
-    };
-
-    class playerSelectedAsCommander {
-        name = "playerSelectedAsCommander";
-        sound[] = {"\Sounds\playerSelectedAsCommander-10.ogg", 10, 1};
     };
 };
