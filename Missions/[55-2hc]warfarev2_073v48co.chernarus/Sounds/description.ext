@@ -24,31 +24,31 @@ class CfgSounds
     class ICBM_message_to_enemy_players
     {
         name    = "ICBM_message_to_enemy_players";
-        sound[] = {"\Sounds\warning_Enemy_ICBM_v2.ogg", 10, 1.0};
+        sound[] = {"\Sounds\ICBM_message_to_enemy_players.ogg", 10, 1.0};
     };
 
     class ICBM_message_to_friendly_players
     {
         name    = "ICBM_message_to_friendly_players";
-        sound[] = {"\Sounds\warning_Friendly_ICBM_v2.ogg", 10, 1.0};
+        sound[] = {"\Sounds\ICBM_message_to_friendly_players.ogg", 10, 1.0};
     };
 
     class ARTY_message_to_friendly_players_v2
     {
         name    = "ARTY_message_to_friendly_players_v2";
-        sound[] = {"\Sounds\warning_Friendy_ARTY_v2.ogg", 8, 1.0};
+        sound[] = {"\Sounds\ARTY_message_to_friendly_players_v2.ogg", 8, 1.0};
     };
 
     class ARTY_message_to_friendly_russian_v1
     {
         name    = "ARTY_message_to_friendly_russian_v1";
-        sound[] = {"\Sounds\ARTY_warning_Friendly_message_russian_v1.ogg", 8, 1.0};
+        sound[] = {"\Sounds\ARTY_message_to_friendly_russian_v1.ogg", 8, 1.0};
     };
 
     class ARTY_message_to_friendly_takistanish_v1
     {
         name    = "ARTY_message_to_friendly_takistanish_v1";
-        sound[] = {"\Sounds\ARTY_warning_Friendly_message_arabic_v1.ogg", 8, 1.0};
+        sound[] = {"\Sounds\ARTY_message_to_friendly_takistanish_v1.ogg", 8, 1.0};
     };
 
     class ARTY_cooldown_over
