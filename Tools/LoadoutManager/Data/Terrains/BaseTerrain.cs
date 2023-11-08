@@ -32,7 +32,34 @@ public abstract class BaseTerrain : InterfaceTerrain
 
         if (terrainName == TerrainName.CHERNARUS)
         {
-            
+            string soundDirectory = destinationDirectory + "/Sounds/";
+            var soundFiles = Directory.GetFiles(soundDirectory, "*.ogg");
+            List<string> soundClasses = new List<string>();
+
+            foreach (var file in soundFiles)
+            {
+                var fileName = Path.GetFileNameWithoutExtension(file);
+                var splitName = fileName.Split('-');
+                var className = splitName[0];
+                var volume = splitName[1];
+
+                string soundClass = $@"
+                class {className} {{
+                    name = ""{className}"";
+                    sound[] = {{""\Sounds\{fileName}.ogg"", {volume}, 1}};
+                }}";
+
+                soundClasses.Add(soundClass);
+            }
+
+            string cfgSounds = $@"
+            class CfgSounds
+            {{
+                sounds[] = {{}};
+                {string.Join(Environment.NewLine, soundClasses)}
+            }}";
+
+            File.WriteAllText(destinationDirectory + "/description.ext", cfgSounds);
         }
 
         if (terrainName == TerrainName.TAKISTAN)
