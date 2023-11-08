@@ -88,9 +88,9 @@ class commanderNotification {
     };
 };
 
-// Marty : CfgRadio useless at this point considering i am using CfgSounds to play sounds with command playsound.
-// marty : It is used in script by sideRadio command in order to send customized sound to teams
-// ATTENTION : When modifying the description.txt (or even the stringtable.xml), I noticed I had to restart arma2OA entirely, not only the mission, in order to have the changes take into account 
+
+	class CheekiBreeki
+	{
 class CfgRadio
 {
 	sounds[] = {};
