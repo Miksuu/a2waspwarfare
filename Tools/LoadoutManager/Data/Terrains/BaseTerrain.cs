@@ -44,10 +44,10 @@ public abstract class BaseTerrain : InterfaceTerrain
                 var volume = splitName[1];
 
                 string soundClass = $@"
-                class {className} {{
-                    name = ""{className}"";
-                    sound[] = {{""\Sounds\{fileName}.ogg"", {volume}, 1}};
-                }}";
+    class {className} {{
+        name = ""{className}"";
+        sound[] = {{""\Sounds\{fileName}.ogg"", {volume}, 1}};
+    }}";
 
                 soundClasses.Add(soundClass);
             }
