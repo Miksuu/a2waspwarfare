@@ -30,6 +30,11 @@ public abstract class BaseTerrain : InterfaceTerrain
     {
         string destinationDirectory = DetermineDestinationDirectory();
 
+        if (terrainName == TerrainName.CHERNARUS)
+        {
+            
+        }
+
         if (terrainName == TerrainName.TAKISTAN)
         {
             UpdateFilesForTakistan();
