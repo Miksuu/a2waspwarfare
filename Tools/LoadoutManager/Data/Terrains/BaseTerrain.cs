@@ -59,7 +59,7 @@ public abstract class BaseTerrain : InterfaceTerrain
                 {string.Join(Environment.NewLine, soundClasses)}
             }}";
 
-            File.WriteAllText(destinationDirectory + "/description.ext", cfgSounds);
+            File.WriteAllText(soundDirectory + "description.ext", cfgSounds);
         }
 
         if (terrainName == TerrainName.TAKISTAN)
