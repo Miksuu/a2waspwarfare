@@ -67,15 +67,15 @@ class CfgSounds
         sound[] = {"\Sounds\commanderNotification.ogg",10,1};
     };
 
-    class CheekiBreeki
+    class CheekiBreekiEndingMusic
     {
         name="Chernarus OPFOR outro music";
-        sound[]={"\Sounds\cheekibreeki.ogg", 10, 1.0};
+        sound[]={"\Sounds\CheekiBreekiEndingMusic.ogg", 10, 1.0};
     };
 
-    class AmericaFuckYeah
+    class AmericaFuckYeahEndingMusic
     {
         name="Chernarus BLUFOR outro music";
-        sound[]={"\Sounds\americafuckyeah.ogg", 10, 1.0};
+        sound[]={"\Sounds\AmericaFuckYeahEndingMusic.ogg", 10, 1.0};
     };
 };
