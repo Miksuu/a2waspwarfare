@@ -88,9 +88,23 @@ class commanderNotification {
     };
 };
 
+class CheekiBreeki
+{
+	// display name
+	name="Chernarus OPFOR outro music";
+	// filename, volume, pitch
+	sound[]={"\sounds\cheekibreeki.ogg", db + 10, 1.0};
+};
 
-	class CheekiBreeki
-	{
+class AmericaFuckYeah
+{
+	// display name
+	name="Chernarus BLUFOR outro music";
+	// filename, volume, pitch
+	sound[]={"\sounds\americafuckyeah.ogg", db + 10, 1.0};
+};
+
+
 class CfgRadio
 {
 	sounds[] = {};
