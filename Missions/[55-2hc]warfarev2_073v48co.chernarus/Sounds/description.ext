@@ -70,12 +70,12 @@ class CfgSounds
     class CheekiBreeki
     {
         name="Chernarus OPFOR outro music";
-        sound[]={"\Sounds\cheekibreeki.ogg", db + 10, 1.0};
+        sound[]={"\Sounds\cheekibreeki.ogg", 10, 1.0};
     };
 
     class AmericaFuckYeah
     {
         name="Chernarus BLUFOR outro music";
-        sound[]={"\Sounds\americafuckyeah.ogg", db + 10, 1.0};
+        sound[]={"\Sounds\americafuckyeah.ogg", 10, 1.0};
     };
 };
