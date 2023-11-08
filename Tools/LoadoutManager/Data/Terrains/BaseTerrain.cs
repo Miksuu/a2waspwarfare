@@ -15,6 +15,8 @@ public abstract class BaseTerrain : InterfaceTerrain
     private TerrainName terrainName { get; set; }
     private TerrainType terrainType { get; set; }
 
+    public int startingDistanceInMeters { get; set; }
+
     // Boolean flag to check if the terrain is modded.
     public bool isModdedTerrain { get; set; }
 
@@ -262,6 +264,7 @@ public abstract class BaseTerrain : InterfaceTerrain
 {isModMapDependant}#define IS_MOD_MAP_DEPENDENT
 #define WF_MAXPLAYERS {maxPlayers}
 #define WF_MISSIONNAME ""{missionName}""
+#define STARTING_DISTANCE {startingDistanceInMeters}
 #define COMBINEDOPS 1
 #define WF_RESPAWNDELAY 2
 #define WF_LOADSCREEN {loadScreenEvalString}";

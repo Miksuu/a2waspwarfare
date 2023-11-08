@@ -4,6 +4,7 @@
     {
         TerrainName = TerrainName.DINGOR;
         TerrainType = TerrainType.DESERT;
+        startingDistanceInMeters = 7500;
         isModdedTerrain = true;
         inGameMapName = "dingor";
     }
