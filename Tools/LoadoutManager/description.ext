@@ -1,0 +1,81 @@
+class CfgSounds
+{
+    sounds[] = {};
+    class inbound {
+        name = "inbound";
+        sound[] = {"\Sounds\inbound.ogg",10,1};
+    };
+
+    class Bipod_ON {
+        name = "Bipod_ON";
+        sound[] = {"\Sounds\Bipod_ON.ogg",10,1};
+    };
+
+    class playerSelectedAsCommander {
+        name = "playerSelectedAsCommander";
+        sound[] = {"\Sounds\playerSelectedAsCommander.ogg",10,1};
+    };
+
+    class inboundMissileGround {
+        name = "inboundMissileGround";
+        sound[] = {"\Sounds\inboundMissileGround.ogg",10,1};
+    };
+
+    class ICBM_message_to_enemy_players
+    {
+        name    = "ICBM_message_to_enemy_players";
+        sound[] = {"\Sounds\ICBM_message_to_enemy_players.ogg", 10, 1.0};
+    };
+
+    class ICBM_message_to_friendly_players
+    {
+        name    = "ICBM_message_to_friendly_players";
+        sound[] = {"\Sounds\ICBM_message_to_friendly_players.ogg", 10, 1.0};
+    };
+
+    class ARTY_message_to_friendly_players_v2
+    {
+        name    = "ARTY_message_to_friendly_players_v2";
+        sound[] = {"\Sounds\ARTY_message_to_friendly_players_v2.ogg", 8, 1.0};
+    };
+
+    class ARTY_message_to_friendly_russian_v1
+    {
+        name    = "ARTY_message_to_friendly_russian_v1";
+        sound[] = {"\Sounds\ARTY_message_to_friendly_russian_v1.ogg", 8, 1.0};
+    };
+
+    class ARTY_message_to_friendly_takistanish_v1
+    {
+        name    = "ARTY_message_to_friendly_takistanish_v1";
+        sound[] = {"\Sounds\ARTY_message_to_friendly_takistanish_v1.ogg", 8, 1.0};
+    };
+
+    class ARTY_cooldown_over
+    {
+        name    = "ARTY_cooldown_over";
+        sound[] = {"\Sounds\ARTY_cooldown_over.ogg", 8, 1.0};
+    };
+
+    class newCommander {
+        name = "newCommander";
+        sound[] = {"\Sounds\newCommander.ogg",10,1};
+    };
+
+    class commanderNotification {
+        name = "commanderNotification";
+        sound[] = {"\Sounds\commanderNotification.ogg",10,1};
+    };
+
+    class CheekiBreekiEndingMusic
+    {
+        name="Chernarus OPFOR outro music";
+        sound[]={"\Sounds\CheekiBreekiEndingMusic.ogg", 10, 1.0};
+    };
+
+    class AmericaFuckYeahEndingMusic
+    {
+        name="Chernarus BLUFOR outro music";
+        sound[]={"\Sounds\AmericaFuckYeahEndingMusic.ogg", 10, 1.0};
+    };
+};
