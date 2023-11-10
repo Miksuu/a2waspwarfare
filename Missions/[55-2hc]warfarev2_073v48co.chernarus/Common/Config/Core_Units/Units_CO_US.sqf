@@ -300,8 +300,8 @@ if (IS_chernarus_map_dependent) then {
     _u = _u		+ ["LandRover_TK_CIV_EP1"];
     _u = _u		+ ["Ikarus"];
     if (IS_naval_map) then {
-        _u = _u		+ ["Zodiac"];
-    }:
+        _u = _u + ["Zodiac"];
+    };
     if ((missionNamespace getVariable "WFBE_C_UNITS_TOWN_PURCHASE") > 0) then {
     	_u = _u		+ [missionNamespace getVariable "WFBE_WESTSOLDIER"];
     	_u = _u		+ ['USMC_Soldier_Medic'];
@@ -329,7 +329,7 @@ if (IS_chernarus_map_dependent) then {
     _u = _u		+ ["Ikarus"];
     if (IS_naval_map) then {
         _u = _u		+ ["Zodiac"];
-    }:
+    };
     if ((missionNamespace getVariable "WFBE_C_UNITS_TOWN_PURCHASE") > 0) then {
     	_u = _u		+ [missionNamespace getVariable "WFBE_WESTSOLDIER"];
     	_u = _u		+ ['US_Soldier_Medic_EP1'];
