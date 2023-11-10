@@ -12,6 +12,11 @@ LOG_CONTENT_STATE = "";
 	LOG_CONTENT_STATE = "NOT ACTIVATED";
 #endif
 
+IS_naval_map = false;
+#ifdef IS_NAVAL_MAP
+	IS_naval_map = true; // if the map can support boats then global variable boolean is true.
+#endif
+
 CBA_display_ingame_warnings = false;
 publicVariable "CBA_display_ingame_warnings";
 //--- Mission is starting.
@@ -106,11 +111,6 @@ IS_chernarus_map_dependent = false;
 IS_mod_map_dependent = false;
 #ifdef IS_MOD_MAP_DEPENDENT
 	IS_mod_map_dependent = true; // if the map content depend on modded vehicles then global variable boolean is true.
-#endif
-
-IS_naval_map = false;
-#ifdef IS_NAVAL_MAP
-	IS_naval_map = true; // if the map can support boats then global variable boolean is true.
 #endif
 
 if (isMultiplayer) then {Call Compile preprocessFileLineNumbers "Common\Init\Init_Parameters.sqf"}; //--- In MP, we get the parameters.
