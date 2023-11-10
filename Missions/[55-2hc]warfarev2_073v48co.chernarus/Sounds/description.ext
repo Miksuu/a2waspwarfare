@@ -43,11 +43,6 @@ class CfgSounds
         sound[] = {"\Sounds\commanderNotification-10.ogg", 10, 1};
     };
 
-    class icbmLaunch {
-        name = "icbmLaunch";
-        sound[] = {"\Sounds\icbmLaunch-10.ogg", 10, 1};
-    };
-
     class ICBM_message_to_enemy_players {
         name = "ICBM_message_to_enemy_players";
         sound[] = {"\Sounds\ICBM_message_to_enemy_players-10.ogg", 10, 1};
