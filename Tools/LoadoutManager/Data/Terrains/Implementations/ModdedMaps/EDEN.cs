@@ -4,7 +4,9 @@
     {
         TerrainName = TerrainName.EDEN;
         TerrainType = TerrainType.FOREST;
+        startingDistanceInMeters = 7500;
         isModdedTerrain = true;
         inGameMapName = "eden";
+        isNavalTerrain = true;
     }
 }

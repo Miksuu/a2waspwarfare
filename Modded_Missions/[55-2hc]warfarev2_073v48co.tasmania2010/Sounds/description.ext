@@ -1,117 +1,89 @@
+
 class CfgSounds
 {
-sounds[] = {};
-class inbound {
-		name = "inbound";
-		sound[] = {"\sounds\inbound.ogg",10,1};
-		titles[] = {};
-	};
-
-class Bipod_ON {
-		name = "Bipod_ON";
-		sound[] = {"\sounds\Bipod_ON.ogg",10,1};
-		titles[] = {};
-	};
-
-class playerSelectedAsCommander {
-		name = "playerSelectedAsCommander";
-		sound[] = {"\sounds\playerSelectedAsCommander.ogg",10,1};
-		titles[] = {};
-	};
-
-class icbmLaunch {
-		name = "icbmLaunch";
-		sound[] = {"\sounds\icbmLaunch.ogg",10,1};
-		titles[] = {};
-	};
-
-class inboundMissileGround {
-		name = "inboundMissileGround";
-		sound[] = {"\sounds\inboundMissileGround.ogg",10,1};
-		titles[] = {};
-	};
-
-class ICBM_message_to_enemy_players
-	{
-		name	= "ICBM_message_to_enemy_players";
-		sound[]	= {"\Sounds\warning_Enemy_ICBM_v2.ogg", 10, 1.0};
-		titles[] = {};
-	};
-
-class ICBM_message_to_friendly_players
-	{
-		name	= "ICBM_message_to_friendly_players";
-		sound[]	= {"\Sounds\warning_Friendly_ICBM_v2.ogg", 10, 1.0};
-		titles[] = {};
-	};
-
-// BLUFOR Forest, Desert
-class ARTY_message_to_friendly_players_v2
-	{
-		name	= "ARTY_message_to_friendly_players_v2";
-		sound[]	= {"\Sounds\warning_Friendy_ARTY_v2.ogg", 8, 1.0};
-		titles[] = {};
-	};
-// OPFOR Forest
-class ARTY_message_to_friendly_russian_v1
-	{
-		name	= "ARTY_message_to_friendly_russian_v1";
-		sound[]	= {"\Sounds\ARTY_warning_Friendly_message_russian_v1.ogg", 8, 1.0};
-		titles[] = {};
-	};
-// OPFOR Desert
-class ARTY_message_to_friendly_takistanish_v1
-	{
-		name	= "ARTY_message_to_friendly_takistanish_v1";
-		sound[]	= {"\Sounds\ARTY_warning_Friendly_message_arabic_v1.ogg", 8, 1.0};
-		titles[] = {};
-	};
-
-class ARTY_cooldown_over
-	{
-		name	= "ARTY_cooldown_over";
-		sound[]	= {"Sounds\ARTY_cooldown_over.ogg", 8, 1.0};
-		titles[] = {};
-	};
-
-class newCommander {
-        name = "newCommander";
-        sound[] = {"\sounds\newCommander.ogg",10,1};
+    sounds[] = {};
+    
+    class AmericaFuckYeahEndingMusic {
+        name = "AmericaFuckYeahEndingMusic";
+        sound[] = {"\Sounds\AmericaFuckYeahEndingMusic-10.ogg", 10, 1};
         titles[] = {};
     };
 
+    class ARTY_cooldown_over {
+        name = "ARTY_cooldown_over";
+        sound[] = {"\Sounds\ARTY_cooldown_over-8.ogg", 8, 1};
+        titles[] = {};
+    };
 
-class commanderNotification {
+    class ARTY_message_to_friendly_players_v2 {
+        name = "ARTY_message_to_friendly_players_v2";
+        sound[] = {"\Sounds\ARTY_message_to_friendly_players_v2-8.ogg", 8, 1};
+        titles[] = {};
+    };
+
+    class ARTY_message_to_friendly_russian_v1 {
+        name = "ARTY_message_to_friendly_russian_v1";
+        sound[] = {"\Sounds\ARTY_message_to_friendly_russian_v1-8.ogg", 8, 1};
+        titles[] = {};
+    };
+
+    class ARTY_message_to_friendly_takistanish_v1 {
+        name = "ARTY_message_to_friendly_takistanish_v1";
+        sound[] = {"\Sounds\ARTY_message_to_friendly_takistanish_v1-8.ogg", 8, 1};
+        titles[] = {};
+    };
+
+    class Bipod_ON {
+        name = "Bipod_ON";
+        sound[] = {"\Sounds\Bipod_ON-10.ogg", 10, 1};
+        titles[] = {};
+    };
+
+    class cashierSound {
+        name = "cashierSound";
+        sound[] = {"\Sounds\cashierSound-7.ogg", 7, 1};
+        titles[] = {};
+    };
+
+    class CheekiBreekiEndingMusic {
+        name = "CheekiBreekiEndingMusic";
+        sound[] = {"\Sounds\CheekiBreekiEndingMusic-10.ogg", 10, 1};
+        titles[] = {};
+    };
+
+    class commanderNotification {
         name = "commanderNotification";
-        sound[] = {"\sounds\commanderNotification.ogg",10,1};
+        sound[] = {"\Sounds\commanderNotification-10.ogg", 10, 1};
         titles[] = {};
     };
-};
 
-// Marty : CfgRadio useless at this point considering i am using CfgSounds to play sounds with command playsound.
-// marty : It is used in script by sideRadio command in order to send customized sound to teams
-// ATTENTION : When modifying the description.txt (or even the stringtable.xml), I noticed I had to restart arma2OA entirely, not only the mission, in order to have the changes take into account 
-class CfgRadio
-{
-	sounds[] = {};
-	class ICBM_message_to_enemy_players
-	{
-		// display name
-		name	= "";
+    class ICBM_message_to_enemy_players {
+        name = "ICBM_message_to_enemy_players";
+        sound[] = {"\Sounds\ICBM_message_to_enemy_players-10.ogg", 10, 1};
+        titles[] = {};
+    };
 
-		// filename, volume, pitch
-		sound[]	= { "\Sounds\warning_Enemy_ICBM_v1.ogg", 10, 1.0 };
+    class ICBM_message_to_friendly_players {
+        name = "ICBM_message_to_friendly_players";
+        sound[] = {"\Sounds\ICBM_message_to_friendly_players-10.ogg", 10, 1};
+        titles[] = {};
+    };
 
-		// radio caption
-		//title	= "Booooom";
-		//title = "$STR_WF_CHAT_ICBM_Launch_BY_ENEMY_TEAM";
-		title ="";
-	};
-	class ICBM_message_to_friendly_players
-	{
-		name	= "";
-		sound[]	= { "\Sounds\warning_Friendly_ICBM_v1.ogg", 10, 1.0 };
-		//title	= "$STR_WF_CHAT_ICBM_Launch_BY_OUR_TEAM";
-		title = "";
-	};
+    class inbound {
+        name = "inbound";
+        sound[] = {"\Sounds\inbound-10.ogg", 10, 1};
+        titles[] = {};
+    };
+
+    class inboundMissileGround {
+        name = "inboundMissileGround";
+        sound[] = {"\Sounds\inboundMissileGround-10.ogg", 10, 1};
+        titles[] = {};
+    };
+
+    class newCommander {
+        name = "newCommander";
+        sound[] = {"\Sounds\newCommander-10.ogg", 10, 1};
+        titles[] = {};
+    };
 };

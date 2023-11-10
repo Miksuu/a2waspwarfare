@@ -1384,13 +1384,6 @@
                 <Russian>База: Позиция около городов</Russian>
                 <Italian>Base: Inizio Città Vicine</Italian>
             </Key>
-            <Key ID="STR_WF_PARAMETER_StartingDistance">
-                <English>BASE: Starting Distance</English>
-                <French>BASE: Distance de Démarrage</French>
-                <German>BASE: Distanz zum anderen Team bei Spielstart</German>
-                <Russian>База: Начальная дистанция</Russian>
-                <Italian>Base: Distanza Iniziale</Italian>
-            </Key>
             <Key ID="STR_WF_PARAMETER_StartingLocations"><!--shared U-->
                 <English>BASE: Starting Locations</English>
                 <French>BASE: Position de Démarrage</French>

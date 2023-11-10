@@ -4,7 +4,9 @@
     {
         TerrainName = TerrainName.ISLADUALA;
         TerrainType = TerrainType.DESERT;
+        startingDistanceInMeters = 5500;
         isModdedTerrain = true;
         inGameMapName = "isladuala";
+        isNavalTerrain = true;
     }
 }

@@ -15,8 +15,11 @@ public abstract class BaseTerrain : InterfaceTerrain
     private TerrainName terrainName { get; set; }
     private TerrainType terrainType { get; set; }
 
+    public int startingDistanceInMeters { get; set; }
+
     // Boolean flag to check if the terrain is modded.
     public bool isModdedTerrain { get; set; }
+    public bool isNavalTerrain { get; set; }
 
     // The directory the game sees, added here after refactoring the EnumMember for The Discord bot usage
     public string inGameMapName { get; set; }
@@ -29,6 +32,39 @@ public abstract class BaseTerrain : InterfaceTerrain
         string _easaFileString, string _commonBalanceFileString, string _aircraftDisplayNameStrings, string _addedAircraftDamageModelChanges, string _coreModFile = "")
     {
         string destinationDirectory = DetermineDestinationDirectory();
+
+        if (terrainName == TerrainName.CHERNARUS)
+        {
+            string soundDirectory = destinationDirectory + "/Sounds/";
+            var soundFiles = Directory.GetFiles(soundDirectory, "*.ogg");
+            List<string> soundClasses = new List<string>();
+
+            foreach (var file in soundFiles)
+            {
+                var fileName = Path.GetFileNameWithoutExtension(file);
+                var splitName = fileName.Split('-');
+                var className = splitName[0];
+                var volume = splitName[1];
+
+                string soundClass = $@"
+    class {className} {{
+        name = ""{className}"";
+        sound[] = {{""\Sounds\{fileName}.ogg"", {volume}, 1}};
+        titles[] = {{}};
+    }};";
+
+                soundClasses.Add(soundClass);
+            }
+
+            string cfgSounds = $@"
+class CfgSounds
+{{
+    sounds[] = {{}};
+    {string.Join(Environment.NewLine, soundClasses)}
+}};";
+
+            File.WriteAllText(soundDirectory + "description.ext", cfgSounds);
+        }
 
         if (terrainName == TerrainName.TAKISTAN)
         {
@@ -129,6 +165,11 @@ public abstract class BaseTerrain : InterfaceTerrain
     private string DetermineIfTheTerrainIsNotModdedAndReturnCommentStringIfThatIsTheCase()
     {
         return isModdedTerrain == false ? "//" : "";
+    }
+
+        private string DetermineIfTheTerrainIsNavalReturnCommentStringIfThatIsTheCase()
+    {
+        return isNavalTerrain == false ? "//" : "";
     }
 
     // Method to update all the files for Takistan, and the modded maps
@@ -253,6 +294,7 @@ public abstract class BaseTerrain : InterfaceTerrain
         string wfLogContent = GenerateWFLogContent();
         string terrainTypeCommentPrefix = DetermineIfTheMissionIsTakistanTypeAndReturnCommentStringIfThatIsTheCase();
         string isModMapDependant = DetermineIfTheTerrainIsNotModdedAndReturnCommentStringIfThatIsTheCase();
+        string isNavalTerrain = DetermineIfTheTerrainIsNavalReturnCommentStringIfThatIsTheCase();
         string maxPlayers = DetermineMissionTypeIfItsForestOrDesert();
         string missionName = $@"[{maxPlayers}] Warfare V48 {EnumExtensions.GetEnumMemberAttrValue(terrainName)}";
 
@@ -260,8 +302,10 @@ public abstract class BaseTerrain : InterfaceTerrain
 {wfLogContent}
 {terrainTypeCommentPrefix}#define IS_CHERNARUS_MAP_DEPENDENT
 {isModMapDependant}#define IS_MOD_MAP_DEPENDENT
+{isNavalTerrain}#define IS_NAVAL_MAP
 #define WF_MAXPLAYERS {maxPlayers}
 #define WF_MISSIONNAME ""{missionName}""
+#define STARTING_DISTANCE {startingDistanceInMeters}
 #define COMBINEDOPS 1
 #define WF_RESPAWNDELAY 2
 #define WF_LOADSCREEN {loadScreenEvalString}";

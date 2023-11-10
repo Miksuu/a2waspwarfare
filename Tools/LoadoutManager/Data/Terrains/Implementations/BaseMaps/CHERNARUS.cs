@@ -4,6 +4,8 @@
     {
         TerrainName = TerrainName.CHERNARUS;
         TerrainType = TerrainType.FOREST;
+        startingDistanceInMeters = 7500;
         inGameMapName = "chernarus";
+        isNavalTerrain = true;
     }
 }
