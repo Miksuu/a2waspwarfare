@@ -42,6 +42,7 @@ class CfgSounds
     class cashierSound {
         name = "cashierSound";
         sound[] = {"\Sounds\cashierSound-7.ogg", 7, 1};
+        titles[] = {};
     };
 
     class CheekiBreekiEndingMusic {
