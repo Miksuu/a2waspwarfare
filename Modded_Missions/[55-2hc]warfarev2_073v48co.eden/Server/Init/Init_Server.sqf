@@ -170,7 +170,7 @@ WF_Logic setVariable ["wfbe_spawnpos", _locationLogics];
 Private ["_i", "_maxAttempts", "_minDist", "_rPosE", "_rPosW", "_setEast", "_setGuer", "_setWest", "_startE", "_startG", "_startW"];
 _i = 0;
 _maxAttempts = 2000;
-_minDist = STARTING_DISTANCE;
+_minDist = startingDistance;
 _startW = [0,0,0];
 _startE = [0,0,0];
 _startG = [0,0,0];

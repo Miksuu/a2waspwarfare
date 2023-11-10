@@ -22,4 +22,5 @@ class Header {
 	gameType = CTI;
 	minPlayers = 1;
 	maxPlayers = WF_MAXPLAYERS;
+	startingDistance = STARTING_DISTANCE;
 };
