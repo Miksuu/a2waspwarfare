@@ -5,6 +5,6 @@
         TerrainName = TerrainName.NAPF;
         TerrainType = TerrainType.FOREST;
         isModdedTerrain = true;
-        inGameMapName = "Napf";
+        //inGameMapName = "Napf";
     }
 }
