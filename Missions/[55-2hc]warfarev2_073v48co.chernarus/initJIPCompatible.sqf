@@ -12,6 +12,8 @@ LOG_CONTENT_STATE = "";
 	LOG_CONTENT_STATE = "NOT ACTIVATED";
 #endif
 
+startingDistance = STARTING_DISTANCE;
+
 CBA_display_ingame_warnings = false;
 publicVariable "CBA_display_ingame_warnings";
 //--- Mission is starting.
