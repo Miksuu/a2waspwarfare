@@ -32,36 +32,9 @@ public abstract class BaseTerrain : InterfaceTerrain
 
         if (terrainName == TerrainName.CHERNARUS)
         {
-            string soundDirectory = destinationDirectory + "/Sounds/";
-            var soundFiles = Directory.GetFiles(soundDirectory, "*.ogg");
-            List<string> soundClasses = new List<string>();
-
-            foreach (var file in soundFiles)
-            {
-                var fileName = Path.GetFileNameWithoutExtension(file);
-                var splitName = fileName.Split('-');
-                var className = splitName[0];
-                var volume = splitName[1];
-
-                string soundClass = $@"
-    class {className} {{
-        name = ""{className}"";
-        sound[] = {{""\Sounds\{fileName}.ogg"", {volume}, 1}};
-    }};";
-
-                soundClasses.Add(soundClass);
-            }
-
-            string cfgSounds = $@"
-class CfgSounds
-{{
-    sounds[] = {{}};
-    {string.Join(Environment.NewLine, soundClasses)}
-}};";
-
-            File.WriteAllText(soundDirectory + "description.ext", cfgSounds);
+            HandleTerrainSpecificUpdates(destinationDirectory);
         }
-
+        
         if (terrainName == TerrainName.TAKISTAN)
         {
             UpdateFilesForTakistan();
@@ -83,6 +56,39 @@ class CfgSounds
         WriteSpecificFilesToTheTerrains(destinationDirectory, _easaFileString, _commonBalanceFileString, _aircraftDisplayNameStrings, _addedAircraftDamageModelChanges);
 
         Console.WriteLine("-------" + terrainName + " DONE! ---------");
+    }
+
+    private void HandleTerrainSpecificUpdates(string _destinationDirectory)
+    {
+
+        string soundDirectory = _destinationDirectory + "/Sounds/";
+        var soundFiles = Directory.GetFiles(soundDirectory, "*.ogg");
+        List<string> soundClasses = new List<string>();
+
+        foreach (var file in soundFiles)
+        {
+            var fileName = Path.GetFileNameWithoutExtension(file);
+            var splitName = fileName.Split('-');
+            var className = splitName[0];
+            var volume = splitName[1];
+
+            string soundClass = $@"
+    class {className} {{
+        name = ""{className}"";
+        sound[] = {{""\Sounds\{fileName}.ogg"", {volume}, 1}};
+    }};";
+
+                soundClasses.Add(soundClass);
+            }
+
+        string cfgSounds = $@"
+class CfgSounds
+{{
+    sounds[] = {{}};
+    {string.Join(Environment.NewLine, soundClasses)}
+}};";
+
+        File.WriteAllText(soundDirectory + "description.ext", cfgSounds);
     }
 
     // Method to write specific content to terrain files based on conditions
