@@ -40,8 +40,6 @@
 
 #include "Sounds\description.ext"
 
-#include "Music\description.ext"
-
 //--- Header contains the mission tite.
 #include "Rsc\Header.hpp"
 
