@@ -17,12 +17,15 @@ IS_naval_map = false;
 	IS_naval_map = true; // if the map can support boats then global variable boolean is true.
 #endif
 
+startingDistance = STARTING_DISTANCE;
+
 CBA_display_ingame_warnings = false;
 publicVariable "CBA_display_ingame_warnings";
 //--- Mission is starting.
 for '_i' from 0 to 3 do {diag_log "################################"};
 diag_log format ["## Island Name: [%1]", worldName];
 diag_log format ["## Mission Name: [%1]", WF_MISSIONNAME];
+diag_log format ["## Starting Distance: [%1]", startingDistance];
 diag_log format ["## Max players Defined: [%1]", WF_MAXPLAYERS];
 diag_log format ["## LOG CONTENT : [%1]", LOG_CONTENT_STATE];
 for '_i' from 0 to 3 do {diag_log "################################"};
