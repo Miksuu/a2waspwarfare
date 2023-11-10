@@ -50,6 +50,7 @@ public abstract class BaseTerrain : InterfaceTerrain
     class {className} {{
         name = ""{className}"";
         sound[] = {{""\Sounds\{fileName}.ogg"", {volume}, 1}};
+        titles[] = {{}};
     }};";
 
                 soundClasses.Add(soundClass);
