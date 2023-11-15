@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (console)",
+            "name": "DEBUG",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
@@ -11,14 +11,43 @@
             "cwd": "${workspaceFolder}/bin/debug/net7.0",
             "console": "integratedTerminal",
             "stopAtEntry": false,
-            "internalConsoleOptions": "openOnSessionStart",
-            "pipeTransport": {
-                "pipeCwd": "${workspaceFolder}",
-                "pipeProgram": "cmd",
-                "pipeArgs": ["/c"],
-                "debuggerPath": "C:\\Programs\\netcoredbg\\netcoredbg.exe",
-                "quoteArgs": true
-            }
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "name": "SERVER_DEBUG",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/bin/Debug/net7.0/LoadoutManager.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/bin/debug/net7.0",
+            "console": "integratedTerminal",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "name": "AIRWAR_DEBUG",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/bin/Debug/net7.0/LoadoutManager.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/bin/debug/net7.0",
+            "console": "integratedTerminal",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "name": "AIRWAR_SERVER_DEBUG",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/bin/Debug/net7.0/LoadoutManager.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/bin/debug/net7.0",
+            "console": "integratedTerminal",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart"
         }
-    ,]
+    ]
 }
