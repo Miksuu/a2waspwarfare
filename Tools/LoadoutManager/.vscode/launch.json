@@ -11,7 +11,14 @@
             "cwd": "${workspaceFolder}/bin/debug/net7.0",
             "console": "integratedTerminal",
             "stopAtEntry": false,
-            "internalConsoleOptions": "openOnSessionStart"
+            "internalConsoleOptions": "openOnSessionStart",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceFolder}",
+                "pipeProgram": "cmd",
+                "pipeArgs": ["/c"],
+                "debuggerPath": "C:\\Programs\\netcoredbg\\netcoredbg.exe",
+                "quoteArgs": true
+            }
         },
         {
             "name": "SERVER_DEBUG",
@@ -23,7 +30,14 @@
             "cwd": "${workspaceFolder}/bin/debug/net7.0",
             "console": "integratedTerminal",
             "stopAtEntry": false,
-            "internalConsoleOptions": "openOnSessionStart"
+            "internalConsoleOptions": "openOnSessionStart",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceFolder}",
+                "pipeProgram": "cmd",
+                "pipeArgs": ["/c"],
+                "debuggerPath": "C:\\Programs\\netcoredbg\\netcoredbg.exe",
+                "quoteArgs": true
+            }
         },
         {
             "name": "AIRWAR_DEBUG",
@@ -35,7 +49,14 @@
             "cwd": "${workspaceFolder}/bin/debug/net7.0",
             "console": "integratedTerminal",
             "stopAtEntry": false,
-            "internalConsoleOptions": "openOnSessionStart"
+            "internalConsoleOptions": "openOnSessionStart",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceFolder}",
+                "pipeProgram": "cmd",
+                "pipeArgs": ["/c"],
+                "debuggerPath": "C:\\Programs\\netcoredbg\\netcoredbg.exe",
+                "quoteArgs": true
+            }
         },
         {
             "name": "AIRWAR_SERVER_DEBUG",
@@ -47,7 +68,15 @@
             "cwd": "${workspaceFolder}/bin/debug/net7.0",
             "console": "integratedTerminal",
             "stopAtEntry": false,
-            "internalConsoleOptions": "openOnSessionStart"
+            "internalConsoleOptions": "openOnSessionStart",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceFolder}",
+                "pipeProgram": "cmd",
+                "pipeArgs": ["/c"],
+                "debuggerPath": "C:\\Programs\\netcoredbg\\netcoredbg.exe",
+                "quoteArgs": true
+            }
         }
     ]
 }
+
