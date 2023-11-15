@@ -3,12 +3,6 @@ class CfgSounds
 {
     sounds[] = {};
     
-    class AmericaFuckYeahEndingMusic {
-        name = "AmericaFuckYeahEndingMusic";
-        sound[] = {"\Sounds\AmericaFuckYeahEndingMusic-10.ogg", 10, 1};
-        titles[] = {};
-    };
-
     class ARTY_cooldown_over {
         name = "ARTY_cooldown_over";
         sound[] = {"\Sounds\ARTY_cooldown_over-8.ogg", 8, 1};
@@ -42,12 +36,6 @@ class CfgSounds
     class cashierSound {
         name = "cashierSound";
         sound[] = {"\Sounds\cashierSound-7.ogg", 7, 1};
-        titles[] = {};
-    };
-
-    class CheekiBreekiEndingMusic {
-        name = "CheekiBreekiEndingMusic";
-        sound[] = {"\Sounds\CheekiBreekiEndingMusic-10.ogg", 10, 1};
         titles[] = {};
     };
 
