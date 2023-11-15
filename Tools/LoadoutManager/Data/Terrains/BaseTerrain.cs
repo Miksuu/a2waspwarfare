@@ -297,12 +297,14 @@ class CfgSounds
         string isNavalTerrain = DetermineIfTheTerrainIsNavalReturnCommentStringIfThatIsTheCase();
         string maxPlayers = DetermineMissionTypeIfItsForestOrDesert();
         string missionName = $@"[{maxPlayers}] Warfare V48 {EnumExtensions.GetEnumMemberAttrValue(terrainName)}";
-
+        string isAirWarEvent = GenerateIsAirWarEvent();
+        
         return $@"{wfDebug}
 {wfLogContent}
 {terrainTypeCommentPrefix}#define IS_CHERNARUS_MAP_DEPENDENT
 {isModMapDependant}#define IS_MOD_MAP_DEPENDENT
 {isNavalTerrain}#define IS_NAVAL_MAP
+{isAirWarEvent}#define IS_AIR_WAR_EVENT
 #define WF_MAXPLAYERS {maxPlayers}
 #define WF_MISSIONNAME ""{missionName}""
 #define STARTING_DISTANCE {startingDistanceInMeters}
@@ -314,9 +316,9 @@ class CfgSounds
     // Generates the WF_DEBUG line based on build configuration
     private string GenerateWFDebug()
     {
-#if DEBUG
+#if DEBUG || AIRWAR_DEBUG
         return "#define WF_DEBUG 1";
-#elif SERVER_DEBUG
+#elif SERVER_DEBUG || AIRWAR_SERVER_DEBUG
         return "// #define WF_DEBUG 1";
 #else
             return "// #define WF_DEBUG 1";
@@ -325,12 +327,23 @@ class CfgSounds
     // Generates the WF_LOG_CONTENT line based on build configuration
     private string GenerateWFLogContent()
     {
-#if DEBUG
+#if DEBUG || AIRWAR_DEBUG
         return "#define WF_LOG_CONTENT";
-#elif SERVER_DEBUG
+#elif SERVER_DEBUG || AIRWAR_SERVER_DEBUG
         return "#define WF_LOG_CONTENT";
 #else
             return "// #define WF_LOG_CONTENT";
+#endif
+    }
+    // Generates the IS_AIR_WAR_EVENT line based on build configuration
+    private string GenerateIsAirWarEvent()
+    {
+#if AIRWAR_DEBUG
+        return "#define IS_AIR_WAR_EVENT 1";
+#elif AIRWAR_SERVER_DEBUG
+        return "// #define IS_AIR_WAR_EVENT 1";
+#else
+            return "// #define IS_AIR_WAR_EVENT 1";
 #endif
     }
 }
