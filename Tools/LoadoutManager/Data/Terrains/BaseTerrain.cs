@@ -304,7 +304,7 @@ class CfgSounds
 {terrainTypeCommentPrefix}#define IS_CHERNARUS_MAP_DEPENDENT
 {isModMapDependant}#define IS_MOD_MAP_DEPENDENT
 {isNavalTerrain}#define IS_NAVAL_MAP
-{isAirWarEvent}#define IS_AIR_WAR_EVENT
+{isAirWarEvent}
 #define WF_MAXPLAYERS {maxPlayers}
 #define WF_MISSIONNAME ""{missionName}""
 #define STARTING_DISTANCE {startingDistanceInMeters}
@@ -338,12 +338,10 @@ class CfgSounds
     // Generates the IS_AIR_WAR_EVENT line based on build configuration
     private string GenerateIsAirWarEvent()
     {
-#if AIRWAR_DEBUG
-        return "#define IS_AIR_WAR_EVENT";
-#elif AIRWAR_SERVER_DEBUG
-        return "// #define IS_AIR_WAR_EVENT";
+#if AIRWAR_DEBUG || AIRWAR_SERVER_DEBUG
+    return "#define IS_AIR_WAR_EVENT";
 #else
-            return "// #define IS_AIR_WAR_EVENT";
+    return "//#define IS_AIR_WAR_EVENT";
 #endif
     }
 }
