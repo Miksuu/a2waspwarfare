@@ -5,7 +5,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Configurations>Debug;Release;SERVER_DEBUG</Configurations>
+    <Configurations>DEBUG;SERVER_DEBUG;RELEASE;AIRWAR_DEBUG;AIRWAR_SERVER_DEBUG;AIRWAR_RELEASE</Configurations>
     <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
   </PropertyGroup>
 </Project>

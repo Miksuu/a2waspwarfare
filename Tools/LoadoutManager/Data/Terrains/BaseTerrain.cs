@@ -313,7 +313,6 @@ class CfgSounds
 #define WF_LOADSCREEN {loadScreenEvalString}";
     }
 
-    // Generates the WF_DEBUG line based on build configuration
     private string GenerateWFDebug()
     {
 #if DEBUG || AIRWAR_DEBUG
@@ -321,10 +320,10 @@ class CfgSounds
 #elif SERVER_DEBUG || AIRWAR_SERVER_DEBUG
         return "// #define WF_DEBUG 1";
 #else
-            return "// #define WF_DEBUG 1";
+        return "// #define WF_DEBUG 1";
 #endif
     }
-    // Generates the WF_LOG_CONTENT line based on build configuration
+
     private string GenerateWFLogContent()
     {
 #if DEBUG || AIRWAR_DEBUG
@@ -332,16 +331,16 @@ class CfgSounds
 #elif SERVER_DEBUG || AIRWAR_SERVER_DEBUG
         return "#define WF_LOG_CONTENT";
 #else
-            return "// #define WF_LOG_CONTENT";
+        return "// #define WF_LOG_CONTENT";
 #endif
     }
-    // Generates the IS_AIR_WAR_EVENT line based on build configuration
+
     private string GenerateIsAirWarEvent()
     {
 #if AIRWAR_DEBUG || AIRWAR_SERVER_DEBUG || AIRWAR_RELEASE
-    return "#define IS_AIR_WAR_EVENT";
+        return "#define IS_AIR_WAR_EVENT";
 #else
-    return "//#define IS_AIR_WAR_EVENT";
+        return "//#define IS_AIR_WAR_EVENT";
 #endif
     }
 }
