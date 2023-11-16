@@ -338,7 +338,7 @@ class CfgSounds
     // Generates the IS_AIR_WAR_EVENT line based on build configuration
     private string GenerateIsAirWarEvent()
     {
-#if AIRWAR_DEBUG || AIRWAR_SERVER_DEBUG
+#if AIRWAR_DEBUG || AIRWAR_SERVER_DEBUG || AIRWAR_RELEASE
     return "#define IS_AIR_WAR_EVENT";
 #else
     return "//#define IS_AIR_WAR_EVENT";
