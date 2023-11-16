@@ -31,6 +31,7 @@ for '_i' from 0 to 3 do {diag_log "################################"};
 diag_log format ["## Island Name: [%1]", worldName];
 diag_log format ["## Mission Name: [%1]", WF_MISSIONNAME];
 diag_log format ["## Starting Distance: [%1]", startingDistance];
+diag_log format ["## Air War Event: [%1]", IS_air_war_event];
 diag_log format ["## Max players Defined: [%1]", WF_MAXPLAYERS];
 diag_log format ["## LOG CONTENT : [%1]", LOG_CONTENT_STATE];
 for '_i' from 0 to 3 do {diag_log "################################"};
