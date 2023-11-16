@@ -126,6 +126,13 @@ if (isMultiplayer) then {Call Compile preprocessFileLineNumbers "Common\Init\Ini
 
 Call Compile preprocessFileLineNumbers "Common\Init\Init_CommonConstants.sqf"; //--- Set the constants and the parameters, skip the params if they're already defined.
 
+if (IS_air_war_event) then {
+	missionNamespace setVariable ["WFBE_C_ECONOMY_SUPPLY_START_EAST", 50000];
+	missionNamespace setVariable ["WFBE_C_ECONOMY_SUPPLY_START_WEST", 50000];
+	missionNamespace setVariable ["WFBE_C_ECONOMY_FUNDS_START_EAST", 13370000];
+	missionNamespace setVariable ["WFBE_C_ECONOMY_FUNDS_START_WEST", 13370000];
+};
+
 if (WF_Debug) then { //--- Debug.
 	missionNamespace setVariable ["WFBE_C_GAMEPLAY_UPGRADES_CLEARANCE", 7];
 	missionNamespace setVariable ["WFBE_C_TOWNS_OCCUPATION", 1];
