@@ -339,11 +339,11 @@ class CfgSounds
     private string GenerateIsAirWarEvent()
     {
 #if AIRWAR_DEBUG
-        return "#define IS_AIR_WAR_EVENT 1";
+        return "#define IS_AIR_WAR_EVENT";
 #elif AIRWAR_SERVER_DEBUG
-        return "// #define IS_AIR_WAR_EVENT 1";
+        return "// #define IS_AIR_WAR_EVENT";
 #else
-            return "// #define IS_AIR_WAR_EVENT 1";
+            return "// #define IS_AIR_WAR_EVENT";
 #endif
     }
 }
