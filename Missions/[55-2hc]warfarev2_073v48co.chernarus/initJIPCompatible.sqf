@@ -17,6 +17,11 @@ IS_naval_map = false;
 	IS_naval_map = true; // if the map can support boats then global variable boolean is true.
 #endif
 
+IS_air_war_event = false;
+#ifdef IS_AIR_WAR_EVENT
+	IS_air_war_event = true;
+#endif
+
 startingDistance = STARTING_DISTANCE;
 
 CBA_display_ingame_warnings = false;
