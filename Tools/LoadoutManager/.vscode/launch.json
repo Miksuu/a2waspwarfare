@@ -40,6 +40,25 @@
             }
         },
         {
+            "name": "RELEASE",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/bin/Debug/net7.0/LoadoutManager.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/bin/debug/net7.0",
+            "console": "integratedTerminal",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceFolder}",
+                "pipeProgram": "cmd",
+                "pipeArgs": ["/c"],
+                "debuggerPath": "C:\\Programs\\netcoredbg\\netcoredbg.exe",
+                "quoteArgs": true
+            }
+        },
+        {
             "name": "AIRWAR_DEBUG",
             "type": "coreclr",
             "request": "launch",
@@ -76,7 +95,26 @@
                 "debuggerPath": "C:\\Programs\\netcoredbg\\netcoredbg.exe",
                 "quoteArgs": true
             }
-        }
+        },
+        {
+            "name": "AIRWAR_RELEASE",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/bin/Debug/net7.0/LoadoutManager.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/bin/debug/net7.0",
+            "console": "integratedTerminal",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceFolder}",
+                "pipeProgram": "cmd",
+                "pipeArgs": ["/c"],
+                "debuggerPath": "C:\\Programs\\netcoredbg\\netcoredbg.exe",
+                "quoteArgs": true
+            }
+        },
     ]
 }
 
