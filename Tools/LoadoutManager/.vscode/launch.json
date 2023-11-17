@@ -1,3 +1,4 @@
+// Probably change this later to run fromm args instead of multiple configurations. Only BaseTerrain.cs is affected atm
 {
     "version": "0.2.0",
     "configurations": [
