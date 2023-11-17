@@ -180,7 +180,7 @@ class CfgSounds
         string destinationDirectory = DetermineDestinationDirectory();
 
         // Copy files from the source to the destination directory
-        FileManager.CopyFilesFromSourceToDestination(sourceDirectory, destinationDirectory);
+        FileManager.CopyFilesFromSourceToDestination(sourceDirectory, destinationDirectory, isModdedTerrain);
     }
 
     // Method to update all the files for the modded terrains
@@ -191,7 +191,7 @@ class CfgSounds
         string destinationDirectory = DetermineDestinationDirectory();
 
         // Copy files from the source to the destination directory
-        FileManager.CopyFilesFromSourceToDestination(sourceDirectory, destinationDirectory);
+        FileManager.CopyFilesFromSourceToDestination(sourceDirectory, destinationDirectory, isModdedTerrain);
     }
 
     // Replaces the gui menu help mission name according to the current Terrain name
