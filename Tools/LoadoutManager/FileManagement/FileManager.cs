@@ -5,12 +5,12 @@ public class FileManager
 {
     // Orchestrates the process of copying files and directories from the source to the destination.
     // Ensures the destination directory exists, copies the files, and cleans up any extra files and directories.
-    public static void CopyFilesFromSourceToDestination(string _source, string _destination)
+    public static void CopyFilesFromSourceToDestination(string _source, string _destination, bool _isModdedTerrain)
     {
         EnsureDirectoryExists(_destination);
-        CopyFiles(_source, _destination);
-        RecursivelyCopySubdirectories(_source, _destination);
-        DeleteExtraFiles(_source, _destination);
+        CopyFiles(_source, _destination, _isModdedTerrain);
+        RecursivelyCopySubdirectories(_source, _destination, _isModdedTerrain);
+        DeleteExtraFiles(_source, _destination, _isModdedTerrain);
         DeleteExtraDirectories(_source, _destination);
     }
 
@@ -21,13 +21,13 @@ public class FileManager
     }
 
     // Copies each file from the source directory to the destination directory. Overwrites existing files.
-    private static void CopyFiles(string _source, string _destination)
+    private static void CopyFiles(string _source, string _destination, bool _isModdedTerrain)
     {
         foreach (var file in Directory.GetFiles(_source))
         {
             string fileName = Path.GetFileName(file);
 
-            if (ShouldSkipFile(fileName))
+            if (ShouldSkipFile(fileName, _isModdedTerrain))
             {
                 continue;
             }
@@ -50,7 +50,7 @@ public class FileManager
 
     // Determines whether the given file should be skipped based on its name. Skips files with specific extensions
     // or naming conventions (the ones that are unique to each of the terrains)
-    private static bool ShouldSkipFile(string _fileName)
+    private static bool ShouldSkipFile(string _fileName, bool _isModdedTerrain)
     {
         return (_fileName.EndsWith("mission.sqm", StringComparison.OrdinalIgnoreCase) ||
                _fileName.EndsWith("version.sqf", StringComparison.OrdinalIgnoreCase) ||
@@ -59,13 +59,13 @@ public class FileManager
                _fileName.EndsWith("GUI_Menu_Help.sqf", StringComparison.OrdinalIgnoreCase) ||
                _fileName.EndsWith("texHeaders.bin", StringComparison.OrdinalIgnoreCase) ||
                _fileName.EndsWith("StartVeh.sqf", StringComparison.OrdinalIgnoreCase) ||
-               _fileName.EndsWith("loadScreen.jpg", StringComparison.OrdinalIgnoreCase)
+               (_fileName.EndsWith("loadScreen.jpg", StringComparison.OrdinalIgnoreCase) && !_isModdedTerrain)
                ) &&
                !_fileName.EndsWith("Init_Version.sqf", StringComparison.OrdinalIgnoreCase); // because there's version.sqf
     }
 
     // Recursively copies all subdirectories from the source to the destination using the main orchestrator method.
-    private static void RecursivelyCopySubdirectories(string _source, string _destination)
+    private static void RecursivelyCopySubdirectories(string _source, string _destination, bool _isModdedTerrain)
     {
         List<string> blacklistedDirectories = new List<string>
         {
@@ -90,18 +90,18 @@ public class FileManager
             if (directoryName == null) continue;
 
             string destinationDirectory = Path.Combine(_destination, directoryName);
-            CopyFilesFromSourceToDestination(directory, destinationDirectory);
+            CopyFilesFromSourceToDestination(directory, destinationDirectory, _isModdedTerrain);
         }
     }
 
     // Deletes extra files in the destination directory that do not exist in the source directory, skipping files based on naming conventions.
-    private static void DeleteExtraFiles(string _source, string _destination)
+    private static void DeleteExtraFiles(string _source, string _destination, bool _isModdedTerrain)
     {
         foreach (var destFile in Directory.GetFiles(_destination))
         {
             string fileName = Path.GetFileName(destFile);
 
-            if (ShouldSkipFile(fileName))
+            if (ShouldSkipFile(fileName, _isModdedTerrain))
             {
                 continue;
             }
