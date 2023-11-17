@@ -57,3 +57,9 @@ Modded_Missions/\[61-2hc\]warfarev2_073v48co.isladuala/version.sqf
 Modded_Missions/\[55-2hc\]warfarev2_073v48co.Napf/version.sqf
 
 Tools/LoadoutManager/PromptLibrary
+
+Tools/LoadoutManager/bin/AIRWAR_DEBUG/
+
+Tools/LoadoutManager/bin/AIRWAR_RELEASE/
+
+Tools/LoadoutManager/bin/AIRWAR_SERVER_DEBUG/
