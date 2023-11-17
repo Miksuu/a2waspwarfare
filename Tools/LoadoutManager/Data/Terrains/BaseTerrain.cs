@@ -299,7 +299,7 @@ class CfgSounds
         string missionName = $@"[{maxPlayers}] Warfare V48 {EnumExtensions.GetEnumMemberAttrValue(terrainName)}";
         string isAirWarEvent = GenerateIsAirWarEvent();
         
-        return $@"{wfDebug}
+        string versionSqf = $@"{wfDebug}
 {wfLogContent}
 {terrainTypeCommentPrefix}#define IS_CHERNARUS_MAP_DEPENDENT
 {isModMapDependant}#define IS_MOD_MAP_DEPENDENT
@@ -311,6 +311,9 @@ class CfgSounds
 #define COMBINEDOPS 1
 #define WF_RESPAWNDELAY 2
 #define WF_LOADSCREEN {loadScreenEvalString}";
+        
+        Console.WriteLine(versionSqf);
+        return versionSqf;
     }
 
     private string GenerateWFDebug()
