@@ -640,7 +640,7 @@ hint parseText "v10112023 <br/>MODPACK V10 <br/><br/> DOWNLOAD NAPF MODPACK: htt
 	[] Call Compile preprocessFile "Client\Module\Valhalla\Init_Valhalla.sqf";
 };
 
-if (!WF_Debug) then {playMusic "Track11_Large_Scale_Assault";};
+//if (!WF_Debug) then {playMusic "Track11_Large_Scale_Assault";};
 
 
 waitUntil {!(isNull player)};
