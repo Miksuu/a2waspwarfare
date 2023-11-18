@@ -27,7 +27,7 @@ if (local player) then {
 	          createMarkerLocal [_markercc,getPos _structure];
 			  _markercc setMarkerBrushLocal "Border";
 			  _markercc setMarkerShapeLocal "Ellipse";
-              _markercc setMarkerColorLocal "ColorKhaki";
+              _markercc setMarkerColorLocal "ColorBlack";
               _markercc setMarkerSizeLocal [_radius,_radius];
 	};
 	_type = "mil_box";
