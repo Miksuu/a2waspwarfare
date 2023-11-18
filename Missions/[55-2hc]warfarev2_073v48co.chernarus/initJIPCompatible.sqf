@@ -131,6 +131,7 @@ if (IS_air_war_event) then {
 	missionNamespace setVariable ["WFBE_C_ECONOMY_SUPPLY_START_WEST", 50000];
 	missionNamespace setVariable ["WFBE_C_ECONOMY_FUNDS_START_EAST", 13370000];
 	missionNamespace setVariable ["WFBE_C_ECONOMY_FUNDS_START_WEST", 13370000];
+	missionNamespace setVariable ["WFBE_C_TOWNS_STARTING_MODE", 1];
 };
 
 if (WF_Debug) then { //--- Debug.
