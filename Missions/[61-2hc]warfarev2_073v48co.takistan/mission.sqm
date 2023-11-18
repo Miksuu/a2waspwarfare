@@ -973,7 +973,7 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="Landay";
-					init="nullReturn = [this,""Landay"",""+"",10,40,400,""TinyTown1""] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
+					init="nullReturn = [this,""Landay"",""+"",10,40,400,""SmallTown1""] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
 					synchronizations[]={44,54};
 				};
 				class Item1
@@ -1262,7 +1262,7 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="Jaza";
-					init="nullReturn = [this,""Jaza"",""+"",10,40,400,""TinyTown1""] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
+					init="nullReturn = [this,""Jaza"",""+"",10,40,400,""SmallTown1""] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
 					synchronizations[]={68,69};
 				};
 				class Item1
@@ -1379,7 +1379,7 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="HazarBagh";
-					init="nullReturn = [this,""Hazar Bagh"",""+"",10,30,400,""TinyTown1""] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
+					init="nullReturn = [this,""Hazar Bagh"",""+"",10,30,400,""SmallTown1""] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
 					synchronizations[]={76,77};
 				};
 				class Item1
@@ -2599,7 +2599,7 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="Ravanay";
-					init="nullReturn = [this,""Ravanay"",""+"",10,40,400,""TinyTown1""] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
+					init="nullReturn = [this,""Ravanay"",""+"",10,40,400,""SmallTown1""] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
 					synchronizations[]={164,165};
 				};
 				class Item1
