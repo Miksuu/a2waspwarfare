@@ -5,24 +5,13 @@
         VehicleType = VehicleType.AH64DEP1;
         pylonAmount = 4;
 
-        // base.vanillaGameDefaultLoadout.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
-        //     {
-        //         { AmmunitionType.EIGHTROUNDHELLFIRE, 2},
-        //     };
-        // base.defaultLoadout.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
-        //     {
-        //         { AmmunitionType.EIGHTROUNDHELLFIRE, 2},
-        //     };
-
-        base.vanillaGameDefaultLoadoutOnTurret.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
+        base.vanillaGameDefaultLoadout.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
             {
                 { AmmunitionType.EIGHTROUNDHELLFIRE, 2},
-                { AmmunitionType.SIXTYROUNDCMFLAREMAGAZINE, 2},
             };
-        base.defaultLoadoutOnTurret.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
+        base.defaultLoadout.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
             {
                 { AmmunitionType.EIGHTROUNDHELLFIRE, 2},
-                { AmmunitionType.SIXTYROUNDCMFLAREMAGAZINE, 4},
             };
 
         allowedAmmunitionTypesWithTheirLimitationAmount = new Dictionary<AmmunitionType, int>
