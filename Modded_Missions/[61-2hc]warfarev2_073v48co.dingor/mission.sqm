@@ -2550,7 +2550,7 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="Aguado";
-					init="nullReturn = [this,""Aguado"",""+"",10,30,250,[""SmallTown1"",""SmallTown1"",""SmallTown2""]] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
+					init="nullReturn = [this,""Aguado"",""+"",10,30,250,[""SmallTown1"",""SmallTown2""]] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
 					synchronizations[]={140,141,142,143};
 				};
 				class Item1
