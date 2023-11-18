@@ -2098,7 +2098,7 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="Lagosa";
-					init="nullReturn = [this,""Lagosa"",""+"",10,40,100,""TinyTown1""] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
+					init="nullReturn = [this,""Lagosa"",""+"",10,40,100,""SmallTown1""] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
 					synchronizations[]={108,109,110};
 				};
 				class Item1
@@ -2156,7 +2156,7 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="Cemarin";
-					init="nullReturn = [this,""Cemarin"",""+"",10,40,200,""TinyTown1""] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
+					init="nullReturn = [this,""Cemarin"",""+"",10,40,200,""SmallTown1""] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
 					synchronizations[]={112,113};
 				};
 				class Item1
@@ -2365,7 +2365,7 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="Madron";
-					init="nullReturn = [this,""Madron"",""+"",10,30,50,""TinyTown1""] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
+					init="nullReturn = [this,""Madron"",""+"",10,30,50,""SmallTown1""] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
 					synchronizations[]={127,128};
 				};
 				class Item1
@@ -2550,7 +2550,7 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="Aguado";
-					init="nullReturn = [this,""Aguado"",""+"",10,30,250,[""TinyTown1"",""SmallTown1"",""SmallTown2""]] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
+					init="nullReturn = [this,""Aguado"",""+"",10,30,250,[""SmallTown1"",""SmallTown1"",""SmallTown2""]] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
 					synchronizations[]={140,141,142,143};
 				};
 				class Item1
