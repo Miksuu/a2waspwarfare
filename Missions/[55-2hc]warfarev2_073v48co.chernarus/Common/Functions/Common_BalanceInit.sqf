@@ -145,10 +145,16 @@ case "AH64D": {
 
 // AH-64D (Hellfire) [AF4] - 4 pylons
 case "AH64D_EP1": {
+    _this removeMagazineTurret ["60Rnd_CMFlareMagazine", [0]];
+    _this addMagazineTurret ["60Rnd_CMFlareMagazine", [0]];
+    _this addMagazineTurret ["60Rnd_CMFlareMagazine", [0]];
 };
 
 // Apache AH1 [AF4] - 4 pylons
 case "BAF_Apache_AH1_D": {
+    _this removeMagazineTurret ["60Rnd_CMFlareMagazine", [0]];
+    _this addMagazineTurret ["60Rnd_CMFlareMagazine", [0]];
+    _this addMagazineTurret ["60Rnd_CMFlareMagazine", [0]];
 };
 
 // AH-1Z [AF5] - 4 pylons

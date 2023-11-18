@@ -14,6 +14,18 @@
                 { AmmunitionType.SIXROUNDTOWTWO, 2},
             };
 
+        // Commented out, the system does not seem to generate the correct loadout for the turret (Just like in AH-64D (Hellfire) and the AH1
+        // base.vanillaGameDefaultLoadoutOnTurret.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
+        //     {
+        //         { AmmunitionType.EIGHTROUNDHELLFIRE, 2},
+        //         { AmmunitionType.SIXTYROUNDCMFLAREMAGAZINE, 2},
+        //     };
+        // base.defaultLoadoutOnTurret.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
+        //     {
+        //         { AmmunitionType.SIXROUNDTOWTWO, 2},
+        //         { AmmunitionType.SIXTYROUNDCMFLAREMAGAZINE, 4},
+        //     };
+
         //weapons[] = {
         //            "M230",
         //            "SidewinderLaucher_AH64" ????
