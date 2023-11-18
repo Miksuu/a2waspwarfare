@@ -27,11 +27,11 @@ if (local player) then {
 	          createMarkerLocal [_markercc,getPos _structure];
 			  _markercc setMarkerBrushLocal "Border";
 			  _markercc setMarkerShapeLocal "Ellipse";
-              _markercc setMarkerColorLocal "ColorBlack";
+              _markercc setMarkerColorLocal "ColorKhaki";
               _markercc setMarkerSizeLocal [_radius,_radius];
 	};
 	_type = "mil_box";
-	_color = "colorBlack";
+	_color = "colorKhaki";
 	if (_hq) then {_type = "Headquarters"};
 	_marker setMarkerTypeLocal _type;
 	_text = "";
