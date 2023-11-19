@@ -212,7 +212,7 @@ while {alive player && dialog} do {
 				};
 			};
 			case "ICBM": {
-				if ((missionNamespace getVariable "WFBE_C_MODULE_WFBE_ICBM") > 0) then {
+				if ((missionNamespace getVariable "WFBE_C_MODULE_WFBE_ICBM") > 0 && !(IS_air_war_event)) then {
 					_commander = false;
 					if (!isNull(commanderTeam)) then {
 						if (commanderTeam == group player) then {_commander = true};

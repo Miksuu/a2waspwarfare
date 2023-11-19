@@ -180,7 +180,7 @@ class CfgSounds
         string destinationDirectory = DetermineDestinationDirectory();
 
         // Copy files from the source to the destination directory
-        FileManager.CopyFilesFromSourceToDestination(sourceDirectory, destinationDirectory);
+        FileManager.CopyFilesFromSourceToDestination(sourceDirectory, destinationDirectory, isModdedTerrain);
     }
 
     // Method to update all the files for the modded terrains
@@ -191,7 +191,7 @@ class CfgSounds
         string destinationDirectory = DetermineDestinationDirectory();
 
         // Copy files from the source to the destination directory
-        FileManager.CopyFilesFromSourceToDestination(sourceDirectory, destinationDirectory);
+        FileManager.CopyFilesFromSourceToDestination(sourceDirectory, destinationDirectory, isModdedTerrain);
     }
 
     // Replaces the gui menu help mission name according to the current Terrain name
@@ -297,12 +297,14 @@ class CfgSounds
         string isNavalTerrain = DetermineIfTheTerrainIsNavalReturnCommentStringIfThatIsTheCase();
         string maxPlayers = DetermineMissionTypeIfItsForestOrDesert();
         string missionName = $@"[{maxPlayers}] Warfare V48 {EnumExtensions.GetEnumMemberAttrValue(terrainName)}";
-
+        string isAirWarEvent = GenerateIsAirWarEvent();
+        
         return $@"{wfDebug}
 {wfLogContent}
 {terrainTypeCommentPrefix}#define IS_CHERNARUS_MAP_DEPENDENT
 {isModMapDependant}#define IS_MOD_MAP_DEPENDENT
 {isNavalTerrain}#define IS_NAVAL_MAP
+{isAirWarEvent}
 #define WF_MAXPLAYERS {maxPlayers}
 #define WF_MISSIONNAME ""{missionName}""
 #define STARTING_DISTANCE {startingDistanceInMeters}
@@ -311,26 +313,34 @@ class CfgSounds
 #define WF_LOADSCREEN {loadScreenEvalString}";
     }
 
-    // Generates the WF_DEBUG line based on build configuration
     private string GenerateWFDebug()
     {
-#if DEBUG
+#if DEBUG || AIRWAR_DEBUG
         return "#define WF_DEBUG 1";
-#elif SERVER_DEBUG
+#elif SERVER_DEBUG || AIRWAR_SERVER_DEBUG
         return "// #define WF_DEBUG 1";
 #else
-            return "// #define WF_DEBUG 1";
+        return "// #define WF_DEBUG 1";
 #endif
     }
-    // Generates the WF_LOG_CONTENT line based on build configuration
+
     private string GenerateWFLogContent()
     {
-#if DEBUG
+#if DEBUG || AIRWAR_DEBUG
         return "#define WF_LOG_CONTENT";
-#elif SERVER_DEBUG
+#elif SERVER_DEBUG || AIRWAR_SERVER_DEBUG
         return "#define WF_LOG_CONTENT";
 #else
-            return "// #define WF_LOG_CONTENT";
+        return "// #define WF_LOG_CONTENT";
+#endif
+    }
+
+    private string GenerateIsAirWarEvent()
+    {
+#if AIRWAR_DEBUG || AIRWAR_SERVER_DEBUG || AIRWAR_RELEASE
+        return "#define IS_AIR_WAR_EVENT";
+#else
+        return "//#define IS_AIR_WAR_EVENT";
 #endif
     }
 }

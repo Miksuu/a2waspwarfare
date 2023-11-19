@@ -230,7 +230,9 @@ if (IS_chernarus_map_dependent) then {
     _u = _u		+ ['M1A1'];
     _u = _u		+ ['MLRS'];
     _u = _u		+ ['M1A2_TUSK_MG'];
-    _u = _u		+ ['M6_EP1'];
+    if (!(IS_air_war_event)) then {
+        _u = _u		+ ['M6_EP1'];
+    };
     _u = _u		+ ['BAF_FV510_W'];
 } else {
     _u 			= ['AAV'];
@@ -239,7 +241,9 @@ if (IS_chernarus_map_dependent) then {
     _u = _u		+ ['M1A1_US_DES_EP1'];
     _u = _u		+ ['MLRS_DES_EP1'];
     _u = _u		+ ['M1A2_US_TUSK_MG_EP1'];
-    _u = _u		+ ['M6_EP1'];
+    if (!(IS_air_war_event)) then {
+        _u = _u		+ ['M6_EP1'];
+    };
     _u = _u		+ ['BAF_FV510_D'];
 };
 

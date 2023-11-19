@@ -153,7 +153,9 @@ if (IS_chernarus_map_dependent) then {
     _u = _u		+ ['T55_TK_EP1'];
     _u = _u		+ ['T72_RU'];
     _u = _u		+ ['T90'];
-    _u = _u		+ ['2S6M_Tunguska'];
+    if (!(IS_air_war_event)) then {
+        _u = _u		+ ['2S6M_Tunguska'];
+    };
 } else {
     _u 			= ['M113_TK_EP1'];
     _u = _u		+ ['BMP2_TK_EP1'];
@@ -163,7 +165,9 @@ if (IS_chernarus_map_dependent) then {
     _u = _u		+ ['T55_TK_EP1'];
     _u = _u		+ ['T72_TK_EP1'];
     _u = _u		+ ['T90'];
-    _u = _u		+ ['2S6M_Tunguska'];
+    if (!(IS_air_war_event)) then {
+        _u = _u		+ ['2S6M_Tunguska'];
+    };
 };
 
 missionNamespace setVariable [Format ["WFBE_%1HEAVYUNITS", _side], _u];

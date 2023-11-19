@@ -1,12 +1,13 @@
+// Probably change this later to run fromm args instead of multiple configurations. Only BaseTerrain.cs is affected atm
 {
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (console)",
+            "name": "DEBUG",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
-            "program": "${workspaceFolder}/bin/Debug/net7.0/LoadoutManager.dll",
+            "preLaunchTask": "build-debug",
+            "program": "${workspaceFolder}/bin/debug/net7.0/LoadoutManager.dll",
             "args": [],
             "cwd": "${workspaceFolder}/bin/debug/net7.0",
             "console": "integratedTerminal",
@@ -19,6 +20,103 @@
                 "debuggerPath": "C:\\Programs\\netcoredbg\\netcoredbg.exe",
                 "quoteArgs": true
             }
-        }
-    ,]
+        },
+        {
+            "name": "SERVER_DEBUG",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-server-debug",
+            "program": "${workspaceFolder}/bin/server_debug/net7.0/LoadoutManager.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/bin/server_debug/net7.0",
+            "console": "integratedTerminal",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceFolder}",
+                "pipeProgram": "cmd",
+                "pipeArgs": ["/c"],
+                "debuggerPath": "C:\\Programs\\netcoredbg\\netcoredbg.exe",
+                "quoteArgs": true
+            }
+        },
+        {
+            "name": "RELEASE",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-release",
+            "program": "${workspaceFolder}/bin/release/net7.0/LoadoutManager.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/bin/release/net7.0",
+            "console": "integratedTerminal",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceFolder}",
+                "pipeProgram": "cmd",
+                "pipeArgs": ["/c"],
+                "debuggerPath": "C:\\Programs\\netcoredbg\\netcoredbg.exe",
+                "quoteArgs": true
+            }
+        },
+        {
+            "name": "AIRWAR_DEBUG",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-airwar-debug",
+            "program": "${workspaceFolder}/bin/airwar_debug/net7.0/LoadoutManager.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/bin/airwar_debug/net7.0",
+            "console": "integratedTerminal",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceFolder}",
+                "pipeProgram": "cmd",
+                "pipeArgs": ["/c"],
+                "debuggerPath": "C:\\Programs\\netcoredbg\\netcoredbg.exe",
+                "quoteArgs": true
+            }
+        },
+        {
+            "name": "AIRWAR_SERVER_DEBUG",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-airwar-server-debug",
+            "program": "${workspaceFolder}/bin/airwar_server_debug/net7.0/LoadoutManager.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/bin/airwar_server_debug/net7.0",
+            "console": "integratedTerminal",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceFolder}",
+                "pipeProgram": "cmd",
+                "pipeArgs": ["/c"],
+                "debuggerPath": "C:\\Programs\\netcoredbg\\netcoredbg.exe",
+                "quoteArgs": true
+            }
+        },
+        {
+            "name": "AIRWAR_RELEASE",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-airwar-release",
+            "program": "${workspaceFolder}/bin/airwar_release/net7.0/LoadoutManager.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/bin/airwar_release/net7.0",
+            "console": "integratedTerminal",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceFolder}",
+                "pipeProgram": "cmd",
+                "pipeArgs": ["/c"],
+                "debuggerPath": "C:\\Programs\\netcoredbg\\netcoredbg.exe",
+                "quoteArgs": true
+            }
+        },
+    ]
 }
+
+

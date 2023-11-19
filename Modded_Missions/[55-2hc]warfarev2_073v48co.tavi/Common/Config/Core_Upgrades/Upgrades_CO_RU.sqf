@@ -14,7 +14,7 @@ missionNamespace setVariable [Format["WFBE_C_UPGRADES_%1_ENABLED", _side], [
 	true, //--- Airlift
 	if ((missionNamespace getVariable "WFBE_C_MODULE_WFBE_FLARES") == 1) then {true} else {false}, //--- Custom Flares
 	if ((missionNamespace getVariable "WFBE_C_ARTILLERY") > 0) then {true} else {false}, //--- Artillery Time
-	if ((missionNamespace getVariable "WFBE_C_MODULE_WFBE_ICBM") > 0) then {true} else {false}, //--- ICBM
+	if ((missionNamespace getVariable "WFBE_C_MODULE_WFBE_ICBM") > 0 && !(IS_air_war_event)) then {true} else {false}, //--- ICBM
 	if ((missionNamespace getVariable "WFBE_C_GAMEPLAY_FAST_TRAVEL") > 0) then {true} else {false}, //--- Fast Travel
 	true, //--- Gear
 	true, //--- Build Ammo
