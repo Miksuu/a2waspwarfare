@@ -1,4 +1,4 @@
-Private ["_currency","_currencySym","_currency_system","_hq","_repairPrice","_vehicle","_commander","_towns","_logik","_get"];
+Private ["_currency","_currencySym","_currency_system","_hq","_repairPrice","_vehicle","_commander","_towns","_logik","_get", "_newRepairPrice", "_currentRepairPrice", "_repairPriceAdditionAmount"];
 
 _vehicle = _this select 0;
 _commander = (sidejoined) call GetCommanderTeam;
@@ -17,6 +17,12 @@ _currencySym = "$";
 if (_currency < _repairPrice) exitWith {hint Format [localize "STR_WF_INFO_Repair_MHQ_Funds",_currencySym,_repairPrice - _currency]};
 
 -(_repairPrice) Call ChangePlayerFunds;
+
+// Setting the new repair price
+_currentRepairPrice = missionNameSpace getVariable "WFBE_C_BASE_HQ_REPAIR_PRICE_CASH";
+_repairPriceAdditionAmount = missionNameSpace getVariable "WFBE_C_BASE_HQ_REPAIR_PRICE_ADDITION_AMOUNT";
+_newRepairPrice = _currentRepairPrice + _repairPriceAdditionAmount;
+missionNamespace setVariable ["WFBE_C_BASE_HQ_REPAIR_PRICE_CASH", _newRepairPrice];
 
 ["RequestMHQRepair", sideJoined] Call WFBE_CO_FNC_SendToServer;
 
