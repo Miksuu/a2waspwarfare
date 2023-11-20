@@ -1,4 +1,4 @@
-Private ["_currency","_currencySym","_currency_system","_hq","_repairPrice","_vehicle"];
+Private ["_currency","_currencySym","_currency_system","_hq","_repairPrice","_newRepairPrice","_vehicle"];
 
 _vehicle = _this select 0;
 
@@ -36,4 +36,6 @@ WF_Logic setVariable [Format ["%1MHQRepair",sideJoinedText],true,true];
 _counter = missionNamespace getVariable Format ['WFBE_C_BASE_HQ_REPAIR_COUNT_%1', sideJoined];
 missionNamespace setVariable [Format ['WFBE_C_BASE_HQ_REPAIR_COUNT_%1', sideJoined], _counter + 1];
 
-hint (localize "STR_WF_INFO_Repair_MHQ_Repair");
+_newRepairPrice = WFBE_C_BASE_HQ_REPAIR_PRICES select (_repairCount);
+
+hint Format [localize "STR_WF_INFO_Repair_MHQ_Repair", " The HQ repair price is now: S", _newRepairPrice];
