@@ -34,5 +34,5 @@ _towns =(sideJoined) call GetSideTowns;
 {_x setVariable ["supplyvalue", 10, true]} forEach _towns;
 hint "ALL TOWNS' SV ARE SET TO MINIMUM ...";
 sleep 5;
-_newRepairPriceHint = Format ["New HQ has been parachuted over your location ! New repair price: %1%2",_currencySym,_newRepairPrice];
+_newRepairPriceHint = Format ["New HQ has been parachuted over your location ! New price: %1%2",_currencySym,_newRepairPrice];
 hint _newRepairPriceHint;
