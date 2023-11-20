@@ -41,9 +41,11 @@ public class FileManager
 
             if (directoryName == null) continue;
 
+            var terrainModStatusForReturnedTerrain = _isModdedTerrain ? TerrainModStatus.MODDED : TerrainModStatus.VANILLA;
+
             string destinationDirectory = Path.Combine(_destination, directoryName);
             CopyFilesFromSourceToDestination(directory, destinationDirectory, 
-                _isModdedTerrain ? TerrainModStatus.MODDED : TerrainModStatus.VANILLA);
+                terrainModStatusForReturnedTerrain);
         }
     }
 
