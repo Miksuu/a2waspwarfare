@@ -5,7 +5,7 @@
         TerrainName = TerrainName.TASMANIA2010;
         TerrainType = TerrainType.FOREST;
         startingDistanceInMeters = 7500;
-        isModdedTerrain = true;
+        terrainModStatus = TerrainModStatus.MODDED;
         inGameMapName = "tasmania2010";
         isNavalTerrain = true;
     }

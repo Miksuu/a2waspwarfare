@@ -5,13 +5,46 @@ public class FileManager
 {
     // Orchestrates the process of copying files and directories from the source to the destination.
     // Ensures the destination directory exists, copies the files, and cleans up any extra files and directories.
-    public static void CopyFilesFromSourceToDestination(string _source, string _destination, bool _isModdedTerrain)
+    public static void CopyFilesFromSourceToDestination(string _source, string _destination, TerrainModStatus _terrainModStatus)
     {
+        bool _isModdedTerrainBool = _terrainModStatus == TerrainModStatus.MODDED;
+
         EnsureDirectoryExists(_destination);
-        CopyFiles(_source, _destination, _isModdedTerrain);
-        RecursivelyCopySubdirectories(_source, _destination, _isModdedTerrain);
-        DeleteExtraFiles(_source, _destination, _isModdedTerrain);
+        CopyFiles(_source, _destination, _isModdedTerrainBool);
+        RecursivelyCopySubdirectories(_source, _destination, _isModdedTerrainBool);
+        DeleteExtraFiles(_source, _destination, _isModdedTerrainBool);
         DeleteExtraDirectories(_source, _destination);
+    }
+
+    // Recursively copies all subdirectories from the source to the destination using the main orchestrator method.
+    private static void RecursivelyCopySubdirectories(string _source, string _destination, bool _isModdedTerrain)
+    {
+        List<string> blacklistedDirectories = new List<string>
+        {
+            "Textures",
+            @"Server\Config",
+            @"Core_Artillery",
+            @"Core_Structures",
+        };
+
+        foreach (var directory in Directory.GetDirectories(_source))
+        {
+            string directoryName = Path.GetFileName(directory);
+            bool shouldSkipDirectory = blacklistedDirectories.Any(blacklist => directory.EndsWith(blacklist));
+
+            // Check if directoryName ends with any string in blacklistedDirectories
+            // Only when copying to takistan
+            if (shouldSkipDirectory && _destination.Contains("co.takistan"))
+            {
+                continue; // Exit the method if the directory is blacklisted
+            }
+
+            if (directoryName == null) continue;
+
+            string destinationDirectory = Path.Combine(_destination, directoryName);
+            CopyFilesFromSourceToDestination(directory, destinationDirectory, 
+                _isModdedTerrain ? TerrainModStatus.MODDED : TerrainModStatus.VANILLA);
+        }
     }
 
     // Ensures that the directory exists at the specified path. Creates the directory if it doesn't exist.
@@ -64,35 +97,7 @@ public class FileManager
                !_fileName.EndsWith("Init_Version.sqf", StringComparison.OrdinalIgnoreCase); // because there's version.sqf
     }
 
-    // Recursively copies all subdirectories from the source to the destination using the main orchestrator method.
-    private static void RecursivelyCopySubdirectories(string _source, string _destination, bool _isModdedTerrain)
-    {
-        List<string> blacklistedDirectories = new List<string>
-        {
-            "Textures",
-            @"Server\Config",
-            @"Core_Artillery",
-            @"Core_Structures",
-        };
 
-        foreach (var directory in Directory.GetDirectories(_source))
-        {
-            string directoryName = Path.GetFileName(directory);
-            bool shouldSkipDirectory = blacklistedDirectories.Any(blacklist => directory.EndsWith(blacklist));
-
-            // Check if directoryName ends with any string in blacklistedDirectories
-            // Only when copying to takistan
-            if (shouldSkipDirectory && _destination.Contains("co.takistan"))
-            {
-                continue; // Exit the method if the directory is blacklisted
-            }
-
-            if (directoryName == null) continue;
-
-            string destinationDirectory = Path.Combine(_destination, directoryName);
-            CopyFilesFromSourceToDestination(directory, destinationDirectory, _isModdedTerrain);
-        }
-    }
 
     // Deletes extra files in the destination directory that do not exist in the source directory, skipping files based on naming conventions.
     private static void DeleteExtraFiles(string _source, string _destination, bool _isModdedTerrain)
