@@ -253,8 +253,10 @@ class CfgSounds
 
         string sourceDirectory = DetermineMissionSourcePathForModdedTerrains();
 
+        string pathToTakeMissionFrom = TerrainType == TerrainType.FOREST ? "Missions" : "Missions_Vanilla";
+
         // Construct and return the full source directory path
-        return Path.Combine(FileManager.FindA2WaspWarfareDirectory().FullName, @"Missions\[" + sourceTerrainPlayerCount + "-2hc]warfarev2_073v48co." + sourceDirectory);
+        return Path.Combine(FileManager.FindA2WaspWarfareDirectory().FullName, pathToTakeMissionFrom + @"\[" + sourceTerrainPlayerCount + "-2hc]warfarev2_073v48co." + sourceDirectory);
     }
 
     // Method to determine the destination directory based on mission type and terrain name
