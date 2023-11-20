@@ -34,6 +34,9 @@
     MrNiceGuy - UI Design - Beer provider
 */
 
+//--- Parameters contains the mission parameters.
+#include "Rsc\Parameters.hpp"
+
 //#include "scripts\unitCaching\description.ext"
 //--- Define which 'part' of the game to run.
 #include "version.sqf"
@@ -46,8 +49,6 @@
 //--- Styles
 #include "Rsc\Styles.hpp"
 
-//--- Parameters contains the mission parameters.
-#include "Rsc\Parameters.hpp"
 //--- Ressource contains the dialog ressources.
 #include "Rsc\Ressources.hpp"
 //--- Dialogs contain all the interfaces (dialogs).
