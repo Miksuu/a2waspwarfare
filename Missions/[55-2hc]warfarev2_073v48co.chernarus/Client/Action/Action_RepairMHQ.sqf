@@ -16,7 +16,7 @@ if (_repairCount > 0 && _repairCount <= count WFBE_C_BASE_HQ_REPAIR_PRICES) then
     missionNamespace setVariable [Format ['WFBE_C_BASE_HQ_REPAIR_PRICE_%1', sideJoined], _repairPrice];
 };
 
-if (missionNamespace getVariable Format ['WFBE_C_BASE_HQ_REPAIR_PRICE_%1', sideJoined] == (missionNamespace getVariable 'WFBE_C_BASE_HQ_REPAIR_PRICE_3RD')) exitWith {hint Format [localize "STR_WF_INFO_MHQ_Repairs_Used"]};
+if (missionNamespace getVariable Format ['WFBE_C_BASE_HQ_REPAIR_PRICE_%1', sideJoined] == (WFBE_C_BASE_HQ_REPAIR_PRICES select 2)) exitWith {hint Format [localize "STR_WF_INFO_MHQ_Repairs_Used"]};
 
 _repairPrice = (missionNamespace getVariable Format ['WFBE_C_BASE_HQ_REPAIR_PRICE_%1', sideJoined]);
 _currency = if (_currency_system == 0) then {(sideJoined) Call GetSideSupply} else {Call GetPlayerFunds};

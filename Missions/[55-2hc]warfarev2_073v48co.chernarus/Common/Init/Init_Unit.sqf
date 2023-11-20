@@ -2,7 +2,7 @@
 	Initialize a unit for clients (JIP Compatible).
 */
 
-Private ["_get","_isMan","_logik","_side","_sideID","_unit","_unit_kind","_upgrades"];
+Private ["_get","_isMan","_logik","_side","_sideID","_unit","_unit_kind","_upgrades","_repairPrice"];
 
 _unit 				= _this select 0;
 _sideID 	 		= _this select 1;
@@ -54,7 +54,8 @@ if (_unit_kind in (missionNamespace getVariable "WFBE_REPAIRTRUCKS")) then { //-
 
 	if ((missionNamespace getVariable "WFBE_C_GAMEPLAY_VICTORY_CONDITION") != 1) then { //--- Repair HQ Ability.
 		//--- Repair MHQ action.
-		_unit addAction [localize 'STR_WF_Repair_MHQ','Client\Action\Action_RepairMHQ.sqf', [], 98, false, true, '', 'alive _target'];
+		_repairPrice = missionNamespace getVariable Format ['WFBE_C_BASE_HQ_REPAIR_PRICE_%1', _side];
+		_unit addAction [format [localize 'STR_WF_Repair_MHQ %1', "[S", _repairPrice, "]"],'Client\Action\Action_RepairMHQ.sqf', [], 98, false, true, '', 'alive _target'];
 	};
 };
 
