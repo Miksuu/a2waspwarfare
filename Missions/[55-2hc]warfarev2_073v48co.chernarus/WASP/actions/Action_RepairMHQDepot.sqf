@@ -1,4 +1,4 @@
-Private ["_currency","_currencySym","_currency_system","_hq","_repairPrice","_vehicle","_commander","_towns","_logik", "_newRepairPrice", "_newRepairPriceHint", "_currentRepairPrice", "_repairPriceAdditionAmount"];
+Private ["_currency", "_currencySym", "_currency_system", "_hq", "_repairPrice", "_vehicle", "_commander", "_towns", "_logik", "_newRepairPrice", "_newRepairPriceHint", "_currentRepairPrice", "_repairPriceAdditionAmount"];
 
 _vehicle = _this select 0;
 _commander = (sidejoined) call GetCommanderTeam;
