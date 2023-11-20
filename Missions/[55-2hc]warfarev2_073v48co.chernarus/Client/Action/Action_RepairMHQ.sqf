@@ -1,4 +1,4 @@
-Private ["_currency","_currencySym","_currency_system","_hq","_repairPrice", "_repairCount","_newRepairPrice","_vehicle"];
+Private ["_currency","_currencySym","_currency_system","_hq","_repairPrice","_repairCount","_newRepairPrice","_vehicle"];
 
 _vehicle = _this select 0;
 
