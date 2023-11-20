@@ -1,12 +1,12 @@
-Private ["_currency","_currencySym","_currency_system","_hq","_repairPrice","_vehicle","_commander","_towns","_logik","_get", "_newRepairPrice", "_currentRepairPrice", "_repairPriceAdditionAmount"];
+Private ["_currency","_currencySym","_currency_system","_hq","_repairPrice","_vehicle","_commander","_towns","_logik", "_newRepairPrice", "_currentRepairPrice", "_repairPriceAdditionAmount"];
 
 _vehicle = _this select 0;
 _commander = (sidejoined) call GetCommanderTeam;
 _logik = (sidejoined) Call WFBE_CO_FNC_GetSideLogic;
-_get = _logik getVariable "cashrepaired";
+//_get = _logik getVariable "cashrepaired";
 _hq = (sideJoined) Call WFBE_CO_FNC_GetSideHQ;
 if (alive _hq ) exitWith {hint (localize "STR_WF_INFO_Repair_MHQ_None")};
-if (_get) exitWith {hint "HQ cannot be repaired using cash twice!"};
+//if (_get) exitWith {hint "HQ cannot be repaired using cash twice!"};
 //--- Is HQ already being fixed?
 if (WFBE_Client_Logic getVariable "wfbe_hq_repairing") exitWith {hint (localize "STR_WF_INFO_Repair_MHQ_BeingRepaired")};
 
@@ -27,7 +27,7 @@ missionNamespace setVariable ["WFBE_C_BASE_HQ_REPAIR_PRICE_CASH", _newRepairPric
 ["RequestMHQRepair", sideJoined] Call WFBE_CO_FNC_SendToServer;
 
 WF_Logic setVariable [Format ["%1MHQRepair",sideJoinedText],true,true];
-_logik setVariable ['cashrepaired',true,true];
+//_logik setVariable ['cashrepaired',true,true];
 hint (localize "STR_WF_INFO_Repair_MHQ_Repair");
 _hq setPos [((getPos player) select 0) + 5, (getPos player) select 1,((getPos player) select 2)+300];
 _towns =(sideJoined) call GetSideTowns;
