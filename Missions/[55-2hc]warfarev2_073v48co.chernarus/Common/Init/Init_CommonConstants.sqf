@@ -110,9 +110,7 @@ with missionNamespace do {
 	WFBE_C_BASE_HQ_REPAIR_COUNT_WEST = 0; //--- How many times HQ has been repaired.
 	WFBE_C_BASE_HQ_REPAIR_COUNT_EAST = 0;
 	WFBE_C_BASE_HQ_REPAIR_COUNT_GUER = 0;
-	WFBE_C_BASE_HQ_REPAIR_PRICE_1ST = 25000;
-    WFBE_C_BASE_HQ_REPAIR_PRICE_2ND = 40000;
-    WFBE_C_BASE_HQ_REPAIR_PRICE_3RD = 49500;
+	WFBE_C_BASE_HQ_REPAIR_PRICES = [25000, 40000, 49500];
     WFBE_C_BASE_HQ_REPAIR_PRICE_CASH = 200000; //--- HQ Repair price with cash.
 	WFBE_C_BASE_HQ_REPAIR_PRICE_ADDITION_AMOUNT = 50000; //--- Every repair will increase the price by this amount.
 	
