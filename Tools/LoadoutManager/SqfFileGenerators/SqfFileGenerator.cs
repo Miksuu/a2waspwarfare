@@ -399,7 +399,7 @@ case """ + vehicleName + @""":{
         foreach (var terrainName in Enum.GetValues(typeof(TerrainName)))
         {
             var terrainInstance = (InterfaceTerrain)EnumExtensions.GetInstance(terrainName.ToString());
-            if (!terrainInstance.isModdedTerrain) continue;
+            if (!terrainInstance.IsTerrainModded()) continue;
 
             Console.WriteLine();
             terrainInstance.WriteAndUpdateTerrainFiles(_easaFileString, _commonBalanceFileString, _aircraftDisplayNameStrings, _addedAircraftDamageModelChanges, _coreModFile);

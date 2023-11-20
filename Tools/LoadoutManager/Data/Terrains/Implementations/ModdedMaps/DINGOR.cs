@@ -5,7 +5,7 @@
         TerrainName = TerrainName.DINGOR;
         TerrainType = TerrainType.DESERT;
         startingDistanceInMeters = 7500;
-        isModdedTerrain = true;
+        terrainModStatus = TerrainModStatus.MODDED;
         inGameMapName = "dingor";
         isNavalTerrain = true;
     }
