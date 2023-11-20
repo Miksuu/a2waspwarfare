@@ -17,8 +17,11 @@ public abstract class BaseTerrain : InterfaceTerrain
 
     public int startingDistanceInMeters { get; set; }
 
-    // Boolean flag to check if the terrain is modded.
-    public bool isModdedTerrain { get; set; }
+    // Boolean flag to check if the terrain is modded. Replaced with TerrainModStatus
+    //public bool isModdedTerrain { get; set; }
+
+    public TerrainModStatus terrainModStatus { get; set; }
+
     public bool isNavalTerrain { get; set; }
 
     // The directory the game sees, added here after refactoring the EnumMember for The Discord bot usage
@@ -66,13 +69,14 @@ class CfgSounds
             File.WriteAllText(soundDirectory + "description.ext", cfgSounds);
         }
 
-        if (terrainName == TerrainName.TAKISTAN)
+        // Handle writing to the vanilla maps (Utes, Zargabad) more properly here later
+        if (terrainModStatus == TerrainModStatus.VANILLA)
         {
             UpdateFilesForTakistan();
         }
 
         // Perhaps do a inherited class from this to reduce spaghetti
-        if (isModdedTerrain)
+        if (terrainModStatus == TerrainModStatus.MODDED)
         {
             UpdateFilesForModdedTerrains();
 
@@ -133,10 +137,20 @@ class CfgSounds
     }
 
     // Method to determine the mission path based on whether the terrain is modded or not
-    private string DetermineMissionPathIfItsModdedOrNot()
+    private string DetermineMissionPathBasedOnModStatus()
     {
-        // Return "Modded_Missions" if the terrain is modded, otherwise return "Missions"
-        return isModdedTerrain ? "Modded_Missions" : "Missions";
+        // Return "Modded_Missions" if the terrain is modded, "Missions" if it's vanilla, and "Main_Missions" if it's main
+        switch (terrainModStatus)
+        {
+            case TerrainModStatus.MODDED:
+                return "Modded_Missions";
+            case TerrainModStatus.VANILLA:
+                return "Missions_Vanilla";
+            case TerrainModStatus.MAIN:
+                return "Missions";
+            default:
+                throw new Exception("Invalid terrain mod status");
+        }
     }
 
     // Method to determine where to get the source files from
@@ -160,14 +174,21 @@ class CfgSounds
         return TerrainType == TerrainType.DESERT ? "//" : "";
     }
 
+    // Method to determine if the terrain is modded
+    // Returns true if the terrain is modded, false otherwise
+    public bool IsTerrainModded()
+    {
+        return terrainModStatus == TerrainModStatus.MODDED;
+    }
+
     // Method for determine if the terrain is not modded and return a comment string if that is not the case
     // Used for generation of the version.sqf file
     private string DetermineIfTheTerrainIsNotModdedAndReturnCommentStringIfThatIsTheCase()
     {
-        return isModdedTerrain == false ? "//" : "";
+        return terrainModStatus != TerrainModStatus.MODDED ? "//" : "";
     }
 
-        private string DetermineIfTheTerrainIsNavalReturnCommentStringIfThatIsTheCase()
+    private string DetermineIfTheTerrainIsNavalReturnCommentStringIfThatIsTheCase()
     {
         return isNavalTerrain == false ? "//" : "";
     }
@@ -180,7 +201,7 @@ class CfgSounds
         string destinationDirectory = DetermineDestinationDirectory();
 
         // Copy files from the source to the destination directory
-        FileManager.CopyFilesFromSourceToDestination(sourceDirectory, destinationDirectory, isModdedTerrain);
+        FileManager.CopyFilesFromSourceToDestination(sourceDirectory, destinationDirectory, terrainModStatus);
     }
 
     // Method to update all the files for the modded terrains
@@ -191,7 +212,7 @@ class CfgSounds
         string destinationDirectory = DetermineDestinationDirectory();
 
         // Copy files from the source to the destination directory
-        FileManager.CopyFilesFromSourceToDestination(sourceDirectory, destinationDirectory, isModdedTerrain);
+        FileManager.CopyFilesFromSourceToDestination(sourceDirectory, destinationDirectory, terrainModStatus);
     }
 
     // Replaces the gui menu help mission name according to the current Terrain name
@@ -232,8 +253,10 @@ class CfgSounds
 
         string sourceDirectory = DetermineMissionSourcePathForModdedTerrains();
 
+        string pathToTakeMissionFrom = TerrainType == TerrainType.FOREST ? "Missions" : "Missions_Vanilla";
+
         // Construct and return the full source directory path
-        return Path.Combine(FileManager.FindA2WaspWarfareDirectory().FullName, @"Missions\[" + sourceTerrainPlayerCount + "-2hc]warfarev2_073v48co." + sourceDirectory);
+        return Path.Combine(FileManager.FindA2WaspWarfareDirectory().FullName, pathToTakeMissionFrom + @"\[" + sourceTerrainPlayerCount + "-2hc]warfarev2_073v48co." + sourceDirectory);
     }
 
     // Method to determine the destination directory based on mission type and terrain name
@@ -244,7 +267,7 @@ class CfgSounds
         // Determine the player count for the mission based on the terrain type
         string sourceTerrainPlayerCount = DetermineMissionTypeIfItsForestOrDesert();
 
-        string directoryOfMissions = DetermineMissionPathIfItsModdedOrNot();
+        string directoryOfMissions = DetermineMissionPathBasedOnModStatus();
 
         // Construct and return the full destination directory path
         return Path.Combine(projectDirectory.FullName, directoryOfMissions + @"\[" + sourceTerrainPlayerCount +
