@@ -99,8 +99,6 @@ public class FileManager
                !_fileName.EndsWith("Init_Version.sqf", StringComparison.OrdinalIgnoreCase); // because there's version.sqf
     }
 
-
-
     // Deletes extra files in the destination directory that do not exist in the source directory, skipping files based on naming conventions.
     private static void DeleteExtraFiles(string _source, string _destination, bool _isModdedTerrain)
     {
