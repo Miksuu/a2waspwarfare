@@ -1,4 +1,4 @@
-Private ["_currency","_currencySym","_currency_system","_hq","_repairPrice","_vehicle","_commander","_towns","_logik", "_newRepairPrice", "_currentRepairPrice", "_repairPriceAdditionAmount"];
+Private ["_currency","_currencySym","_currency_system","_hq","_repairPrice","_vehicle","_commander","_towns","_logik", "_newRepairPrice", "_newRepairPriceHint", "_currentRepairPrice", "_repairPriceAdditionAmount"];
 
 _vehicle = _this select 0;
 _commander = (sidejoined) call GetCommanderTeam;
@@ -34,4 +34,5 @@ _towns =(sideJoined) call GetSideTowns;
 {_x setVariable ["supplyvalue", 10, true]} forEach _towns;
 hint "ALL TOWNS' SV ARE SET TO MINIMUM ...";
 sleep 5;
-hint "New HQ has been parachuted over your location !";
+_newRepairPriceHint = Format ["New HQ has been parachuted over your location ! New repair price: %1%2",_currencySym,_newRepairPrice];
+hint _newRepairPriceHint;
