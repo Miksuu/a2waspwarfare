@@ -1718,13 +1718,6 @@
                 <Russian>Модуль: МБР</Russian>
                 <Italian>Modulo: Missile Nucleare</Italian>
             </Key>
-            <Key ID="STR_WF_PARAMETER_AIR_EVENT_ENABLED">
-                <English>Air Event Enabled</English>
-                <French>Événement aérien activé</French>
-                <German>Luftereignis aktiviert</German>
-                <Russian>Воздушное событие включено</Russian>
-                <Italian>Evento aereo abilitato</Italian>
-            </Key>
             <Key ID="STR_WF_PARAMETER_ICBM_IMPACT_TIME" >
                 <English>ICBM: Time before ICBM impact</English>
                 <French>ICBM: Temps avant impact de l'ICBM</French>
