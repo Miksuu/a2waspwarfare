@@ -114,6 +114,8 @@ with missionNamespace do {
     WFBE_C_BASE_HQ_REPAIR_PRICE_2ND = 40000;
     WFBE_C_BASE_HQ_REPAIR_PRICE_3RD = 49500;
     WFBE_C_BASE_HQ_REPAIR_PRICE_CASH = 200000; //--- HQ Repair price with cash.
+	WFBE_C_BASE_HQ_REPAIR_PRICE_ADDITION_AMOUNT = 50000; //--- Every repair will increase the price by this amount.
+	
 //--- Camps.
 	if (isNil "WFBE_C_CAMPS_CREATE") then {WFBE_C_CAMPS_CREATE = 1}; //--- Create the camp models.
 	WFBE_C_CAMPS_CAPTURE_BOUNTY = 500; //--- Bounty received by player whenever he capture a camp.
