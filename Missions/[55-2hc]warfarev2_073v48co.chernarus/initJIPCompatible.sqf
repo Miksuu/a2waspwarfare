@@ -154,6 +154,7 @@ if (WF_Debug) then { //--- Debug.
 	missionNamespace setVariable ["WFBE_C_ECONOMY_FUNDS_START_EAST", 999999];
 	missionNamespace setVariable ["WFBE_C_ECONOMY_FUNDS_START_WEST", 999999];
 	missionNamespace setVariable ["WFBE_C_MODULE_WFBE_EASA", 1];
+	missionNamespace setVariable ["WFBE_C_MAX_ECONOMY_SUPPLY_LIMIT", 100000];
 };
 
 //--- Disable headless client if it is not supported.
