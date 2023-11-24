@@ -17,6 +17,12 @@ public class ZipManager
         
         string destinationFile = Path.Combine(a2waspDirectory, "_MISSIONS.zip");
 
+        if (File.Exists(destinationFile))
+        {
+            File.Delete(destinationFile);
+            Console.WriteLine($"Deleted existing file: {destinationFile}");
+        }
+
         CreateDirectory(tempDirectory);
 
         foreach (var missionDirectory in missionDirectories)
