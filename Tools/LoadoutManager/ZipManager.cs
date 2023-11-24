@@ -54,13 +54,6 @@ public class ZipManager
     // This method copies files from one directory to another, ignoring symlinks
     private static void CopyFilesIgnoringSymlinks(string _sourceDirectory, string _destinationDirectory)
     {
-        foreach (var directory in Directory.GetDirectories(_sourceDirectory))
-        {
-            string _destination = Path.Combine(_destinationDirectory, Path.GetFileName(directory));
-            CreateDirectory(_destination);
-            CopyFilesIgnoringSymlinks(directory, _destination);
-        }
-
         foreach (var file in Directory.GetFiles(_sourceDirectory))
         {
             if (!IsSymlink(file))
