@@ -26,7 +26,7 @@
         inGameDisplayName = "MiG-21MF";
         hasCustomRadarName = true;
 
-        inGamePrice = 49999;
+        inGamePrice = 45712;
         ConstructionTime = 50;
         inGameFactoryLevel = 5;
         producedFromFactoryType = FactoryType.AIRCRAFTFACTORY;
