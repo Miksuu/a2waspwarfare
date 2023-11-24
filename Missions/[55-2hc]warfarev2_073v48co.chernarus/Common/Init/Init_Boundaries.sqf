@@ -2,14 +2,19 @@ Private ['_boundariesXY'];
 _boundariesXY = -1;
 
 switch (toLower(worldName)) do {
-	case 'chernarus': {_boundariesXY = 15360};
-	case 'eden': {_boundariesXY = 12800};
-	case 'isladuala': {_boundariesXY = 10240};
-	case 'takistan': {_boundariesXY = 12800};
-	case 'utes': {_boundariesXY = 5120};
-	case 'tasmania2010': {_boundariesXY = 25360};
-	case 'napf': {_boundariesXY = 20500};
+    case 'chernarus': {_boundariesXY = 15360};
+    case 'eden': {_boundariesXY = 12800};
+    case 'isladuala': {_boundariesXY = 10240};
+    case 'takistan': {_boundariesXY = 12800};
+    case 'utes': {_boundariesXY = 5120};
+    case 'tasmania2010': {_boundariesXY = 25360};
+    case 'napf': {_boundariesXY = 20500};
+    case 'lingor': {_boundariesXY = 10300};
+    case 'smd_sahrani_a2': {_boundariesXY = 20480};
+    case 'tavi': {_boundariesXY = 25600};
+    case 'dingor': {_boundariesXY = 10300};
 };
+
 
 if ((missionNamespace getVariable "WFBE_C_GAMEPLAY_BOUNDARIES_ENABLED") > 0) then {
 	if (_boundariesXY == -1) then {
