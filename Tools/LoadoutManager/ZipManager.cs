@@ -32,7 +32,7 @@ public class ZipManager
         foreach (var missionDirectory in missionDirectories)
         {
             string sourceDirectory = Path.Combine(a2waspDirectory, missionDirectory);
-            CopyDirectories(sourceDirectory, tempDirectory);
+            CopyFilesFromSourceToDestinationWithoutModdedTerrainsParam(sourceDirectory, tempDirectory);
         }
 
         Create7zFromDirectory(tempDirectory, destinationFile);
@@ -105,6 +105,59 @@ public class ZipManager
                 Directory.CreateDirectory(destinationDirectory);
             }
             Console.WriteLine($"Copied directory: {directory} to {_destinationDirectory}");
+        }
+    }
+
+    public static void CopyFilesFromSourceToDestinationWithoutModdedTerrainsParam(string _source, string _destination)
+    {
+        FileManager.EnsureDirectoryExists(_destination);
+        CopyFilesWithoutModdedTerrainsParam(_source, _destination);
+        RecursivelyCopySubdirectoriesWithoutModdedTerrainsParam(_source, _destination);
+    }
+
+    private static void RecursivelyCopySubdirectoriesWithoutModdedTerrainsParam(string _source, string _destination)
+    {
+        List<string> blacklistedDirectories = new List<string>
+        {
+            "PromptLibrary"
+        };
+
+        foreach (var directory in Directory.GetDirectories(_source))
+        {
+            string directoryName = Path.GetFileName(directory);
+            bool shouldSkipDirectory = blacklistedDirectories.Any(blacklist => directory.EndsWith(blacklist));
+
+            // Check if directoryName ends with any string in blacklistedDirectories
+            if (shouldSkipDirectory)
+            {
+                continue; // Exit the method if the directory is blacklisted
+            }
+
+            if (directoryName == null) continue;
+
+            string destinationDirectory = Path.Combine(_destination, directoryName);
+            CopyFilesFromSourceToDestinationWithoutModdedTerrainsParam(directory, destinationDirectory);
+        }
+    }
+
+    private static void CopyFilesWithoutModdedTerrainsParam(string _source, string _destination)
+    {
+        foreach (var file in Directory.GetFiles(_source))
+        {
+            string fileName = Path.GetFileName(file);
+            string destFile = Path.Combine(_destination, fileName);
+            try
+            {
+                using (FileStream sourceStream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))
+                using (FileStream destStream = new FileStream(destFile, FileMode.Create, FileAccess.Write, FileShare.None))
+                {
+                    sourceStream.CopyTo(destStream);
+                }
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine($"Error copying file: {ex.Message}");
+            }
         }
     }
 }
