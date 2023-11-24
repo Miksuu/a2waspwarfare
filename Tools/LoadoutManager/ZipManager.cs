@@ -15,7 +15,7 @@ public class ZipManager
             CreateDirectory(tempDirectory);
         }
         
-        string destinationFile = @"_MISSIONS.zip";
+        string destinationFile = Path.Combine(a2waspDirectory, "_MISSIONS.zip");
 
         CreateDirectory(tempDirectory);
 
