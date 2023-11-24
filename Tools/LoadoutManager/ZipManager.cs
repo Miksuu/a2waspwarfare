@@ -28,7 +28,7 @@ public class ZipManager
         foreach (var missionDirectory in missionDirectories)
         {
             string sourceDirectory = Path.Combine(a2waspDirectory, missionDirectory);
-            CopyFiles(sourceDirectory, tempDirectory);
+            CopyDirectories(sourceDirectory, tempDirectory);
         }
 
         Create7zFromDirectory(tempDirectory, destinationFile);
@@ -68,15 +68,15 @@ public class ZipManager
         Console.WriteLine($"Created 7z file: {_destinationFile}");
     }
 
-    // This method copies files from one directory to another, ignoring symlinks
-    private static void CopyFiles(string _sourceDirectory, string _destinationDirectory)
-    {        
-        foreach (var file in Directory.GetFiles(_sourceDirectory))
+    // This method copies directories from one location to another, ignoring symlinks
+    private static void CopyDirectories(string _sourceDirectory, string _destinationDirectory)
+    {
+        foreach (var directory in Directory.GetDirectories(_sourceDirectory))
         {
-            string destinationFile = Path.Combine(_destinationDirectory, Path.GetFileName(file));
-            // Overwrite the file if it already exists
-            File.Copy(file, destinationFile, true);
-            Console.WriteLine($"Copied file: {file} to {_destinationDirectory}");
+            string destinationDirectory = Path.Combine(_destinationDirectory, Path.GetFileName(directory));
+            // Overwrite the directory if it already exists
+            Directory.CreateDirectory(destinationDirectory);
+            Console.WriteLine($"Copied directory: {directory} to {_destinationDirectory}");
         }
     }
 
