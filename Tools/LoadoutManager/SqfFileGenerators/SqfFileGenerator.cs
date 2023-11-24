@@ -130,6 +130,8 @@ public class SqfFileGenerator
 
         // Write to the modded maps
         WriteAndUpdateToFilesForModdedTerrains(easaFileStrings.modded, commonBalanceFileStrings.modded, aircraftDisplayNameStrings.modded, addedAircraftDamageModelChanges.modded, coreModFileStrings);
+
+        ZipManager.DoZipOperations();
     }
 
     public static MapFileProperties GenerateAircraftDamageModelChanges()

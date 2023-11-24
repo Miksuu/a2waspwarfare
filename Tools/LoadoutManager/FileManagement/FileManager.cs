@@ -49,8 +49,9 @@ public class FileManager
         }
     }
 
+
     // Ensures that the directory exists at the specified path. Creates the directory if it doesn't exist.
-    private static void EnsureDirectoryExists(string _directoryPath)
+    public static void EnsureDirectoryExists(string _directoryPath)
     {
         Directory.CreateDirectory(_directoryPath);
     }
