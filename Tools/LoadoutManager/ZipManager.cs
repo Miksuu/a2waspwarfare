@@ -73,7 +73,14 @@ public class ZipManager
     {
         foreach (var directory in Directory.GetDirectories(_sourceDirectory))
         {
-            string destinationDirectory = Path.Combine(_destinationDirectory, Path.GetFileName(directory));
+            var pathName = Path.GetFileName(directory);
+
+            if (pathName.Contains("PromptLibrary"))
+            {
+                continue;
+            }
+
+            string destinationDirectory = Path.Combine(_destinationDirectory, pathName);
             // Overwrite the directory if it already exists
             Directory.CreateDirectory(destinationDirectory);
             Console.WriteLine($"Copied directory: {directory} to {_destinationDirectory}");
