@@ -8,5 +8,8 @@
         terrainModStatus = TerrainModStatus.MODDED;
         inGameMapName = "tasmania2010";
         isNavalTerrain = true;
+
+        // Temp until fixed
+        skipProcessing = true;
     }
 }
