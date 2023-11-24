@@ -19,6 +19,10 @@ public class ZipManager
 
         if (File.Exists(destinationFile))
         {
+            using (FileStream fs = new FileStream(destinationFile, FileMode.Open))
+            {
+                fs.Close();
+            }
             File.Delete(destinationFile);
             Console.WriteLine($"Deleted existing file: {destinationFile}");
         }
@@ -33,14 +37,27 @@ public class ZipManager
 
         Create7zFromDirectory(tempDirectory, destinationFile);
 
-        //DeleteDirectory(tempDirectory);
+        DeleteDirectory(tempDirectory);
     }
 
-    // This method creates a new directory
+    // This method creates a new directory if it doesn't exist
     private static void CreateDirectory(string _directoryPath)
     {
-        Directory.CreateDirectory(_directoryPath);
-        Console.WriteLine($"Created directory: {_directoryPath}");
+        try
+        {
+            if (!Directory.Exists(_directoryPath))
+            {
+                Directory.CreateDirectory(_directoryPath);
+                Console.WriteLine($"Created directory: {_directoryPath}");
+            }
+        }
+        catch (IOException)
+        {
+            if (!Directory.Exists(_directoryPath))
+            {
+                return;
+            }
+        }
     }
 
     // This method deletes a directory
@@ -81,21 +98,13 @@ public class ZipManager
             }
 
             string destinationDirectory = Path.Combine(_destinationDirectory, pathName);
-            // Overwrite the directory if it already exists
-            Directory.CreateDirectory(destinationDirectory);
+
+            // Create the directory if it doesn't exist
+            if (!Directory.Exists(destinationDirectory))
+            {
+                Directory.CreateDirectory(destinationDirectory);
+            }
             Console.WriteLine($"Copied directory: {directory} to {_destinationDirectory}");
         }
     }
-
-    // // This method checks if a file is a symlink
-    // private static bool IsSymlink(string _path)
-    // {
-    //     var fileAttributes = File.GetAttributes(_path);
-    //     bool isSymlink = fileAttributes.HasFlag(FileAttributes.ReparsePoint);
-    //     if (isSymlink)
-    //     {
-    //         Console.WriteLine($"File {_path} is a symlink");
-    //     }
-    //     return isSymlink;
-    // }
 }
