@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using System.IO.Compression;
+using System.Diagnostics;
 
 public class ZipManager
 {
@@ -15,7 +15,7 @@ public class ZipManager
             CreateDirectory(tempDirectory);
         }
         
-        string destinationFile = Path.Combine(a2waspDirectory, "_MISSIONS.zip");
+        string destinationFile = Path.Combine(a2waspDirectory, "_MISSIONS.7z");
 
         if (File.Exists(destinationFile))
         {
@@ -31,7 +31,7 @@ public class ZipManager
             CopyFilesIgnoringSymlinks(sourceDirectory, tempDirectory);
         }
 
-        CreateZipFromDirectory(tempDirectory, destinationFile);
+        Create7zFromDirectory(tempDirectory, destinationFile);
 
         DeleteDirectory(tempDirectory);
     }
@@ -50,16 +50,27 @@ public class ZipManager
         Console.WriteLine($"Deleted directory: {_directoryPath}");
     }
 
-    // This method creates a zip file from a directory
-    private static void CreateZipFromDirectory(string _sourceDirectory, string _destinationFile)
+    // This method creates a 7z file from a directory
+    private static void Create7zFromDirectory(string _sourceDirectory, string _destinationFile)
     {
-        ZipFile.CreateFromDirectory(_sourceDirectory, _destinationFile);
-        Console.WriteLine($"Created zip file: {_destinationFile}");
+        string sevenZipPath = Environment.GetEnvironmentVariable("7za");
+        if (string.IsNullOrEmpty(sevenZipPath))
+        {
+            throw new Exception("7za environment variable is not set.");
+        }
+
+        ProcessStartInfo p = new ProcessStartInfo();
+        p.FileName = "7za.exe";
+        p.Arguments = $"a -t7z \"{_destinationFile}\" \"{_sourceDirectory}\\*\" -mx=9";
+        p.WindowStyle = ProcessWindowStyle.Hidden;
+        Process x = Process.Start(p);
+        x.WaitForExit();
+        Console.WriteLine($"Created 7z file: {_destinationFile}");
     }
 
     // This method copies files from one directory to another, ignoring symlinks
     private static void CopyFilesIgnoringSymlinks(string _sourceDirectory, string _destinationDirectory)
-    {
+    {        
         foreach (var file in Directory.GetFiles(_sourceDirectory))
         {
             if (!IsSymlink(file))
