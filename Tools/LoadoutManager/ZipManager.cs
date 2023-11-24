@@ -65,7 +65,9 @@ public class ZipManager
         {
             if (!IsSymlink(file))
             {
-                File.Copy(file, Path.Combine(_destinationDirectory, Path.GetFileName(file)));
+                string destinationFile = Path.Combine(_destinationDirectory, Path.GetFileName(file));
+                // Overwrite the file if it already exists
+                File.Copy(file, destinationFile, true);
                 Console.WriteLine($"Copied file: {file} to {_destinationDirectory}");
             }
         }
