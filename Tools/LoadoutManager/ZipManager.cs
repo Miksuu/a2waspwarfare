@@ -28,12 +28,12 @@ public class ZipManager
         foreach (var missionDirectory in missionDirectories)
         {
             string sourceDirectory = Path.Combine(a2waspDirectory, missionDirectory);
-            CopyFilesIgnoringSymlinks(sourceDirectory, tempDirectory);
+            CopyFiles(sourceDirectory, tempDirectory);
         }
 
         Create7zFromDirectory(tempDirectory, destinationFile);
 
-        DeleteDirectory(tempDirectory);
+        //DeleteDirectory(tempDirectory);
     }
 
     // This method creates a new directory
@@ -69,29 +69,26 @@ public class ZipManager
     }
 
     // This method copies files from one directory to another, ignoring symlinks
-    private static void CopyFilesIgnoringSymlinks(string _sourceDirectory, string _destinationDirectory)
+    private static void CopyFiles(string _sourceDirectory, string _destinationDirectory)
     {        
         foreach (var file in Directory.GetFiles(_sourceDirectory))
         {
-            if (!IsSymlink(file))
-            {
-                string destinationFile = Path.Combine(_destinationDirectory, Path.GetFileName(file));
-                // Overwrite the file if it already exists
-                File.Copy(file, destinationFile, true);
-                Console.WriteLine($"Copied file: {file} to {_destinationDirectory}");
-            }
+            string destinationFile = Path.Combine(_destinationDirectory, Path.GetFileName(file));
+            // Overwrite the file if it already exists
+            File.Copy(file, destinationFile, true);
+            Console.WriteLine($"Copied file: {file} to {_destinationDirectory}");
         }
     }
 
-    // This method checks if a file is a symlink
-    private static bool IsSymlink(string _path)
-    {
-        var fileAttributes = File.GetAttributes(_path);
-        bool isSymlink = fileAttributes.HasFlag(FileAttributes.ReparsePoint);
-        if (isSymlink)
-        {
-            Console.WriteLine($"File {_path} is a symlink");
-        }
-        return isSymlink;
-    }
+    // // This method checks if a file is a symlink
+    // private static bool IsSymlink(string _path)
+    // {
+    //     var fileAttributes = File.GetAttributes(_path);
+    //     bool isSymlink = fileAttributes.HasFlag(FileAttributes.ReparsePoint);
+    //     if (isSymlink)
+    //     {
+    //         Console.WriteLine($"File {_path} is a symlink");
+    //     }
+    //     return isSymlink;
+    // }
 }
