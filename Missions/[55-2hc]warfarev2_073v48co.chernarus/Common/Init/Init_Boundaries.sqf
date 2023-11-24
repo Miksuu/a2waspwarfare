@@ -4,16 +4,9 @@ _boundariesXY = -1;
 switch (toLower(worldName)) do {
 	case 'chernarus': {_boundariesXY = 15360};
 	case 'eden': {_boundariesXY = 12800};
-	case 'fallujah': {_boundariesXY = 10240};
 	case 'isladuala': {_boundariesXY = 10240};
-	case 'panthera2': {_boundariesXY = 10240};
-	case 'queshkibrul': {_boundariesXY = 5120};
-	case 'sara': {_boundariesXY = 20480};
-	case 'saraLite': {_boundariesXY = 10240};
 	case 'takistan': {_boundariesXY = 12800};
 	case 'utes': {_boundariesXY = 5120};
-	case 'yapal': {_boundariesXY = 5120};
-	case 'zargabad': {_boundariesXY = 8192};
 	case 'tasmania2010': {_boundariesXY = 25360};
 	case 'napf': {_boundariesXY = 20500};
 };
