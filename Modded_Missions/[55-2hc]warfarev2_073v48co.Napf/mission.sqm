@@ -3303,7 +3303,7 @@ class Mission
 					id=218;
 					side="EAST";
 					vehicle="Ins_Soldier_CO";
-					player="PLAYER COMMANDER";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
