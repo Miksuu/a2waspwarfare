@@ -62,7 +62,7 @@ IsArtillery = Compile preprocessFileLineNumbers "Common\Functions\Common_IsArtil
 MarkerUpdate = Compile preprocessFileLineNumbers "Common\Common_MarkerUpdate.sqf";
 PlaceNear = Compile preprocessFileLineNumbers "Common\Functions\Common_PlaceNear.sqf";
 PlaceSafe = Compile preprocessFileLineNumbers "Common\Functions\Common_PlaceSafe.sqf";
-RearmVehicle = if !(WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Common\Functions\Common_RearmVehicleOA.sqf"} else {Compile preprocessFileLineNumbers "Common\Functions\Common_RearmVehicle.sqf"};
+RearmVehicle = Compile preprocessFileLineNumbers "Common\Functions\Common_RearmVehicleOA.sqf";
 RevealArea = Compile preprocessFileLineNumbers "Common\Functions\Common_RevealArea.sqf";
 SetCommanderVotes = Compile preprocessFileLineNumbers "Common\Functions\Common_SetCommanderVotes.sqf";
 SetTeamAutonomous = Compile preprocessFileLineNumbers "Common\Functions\Common_SetTeamAutonomous.sqf";
@@ -90,16 +90,16 @@ WFBE_CO_FNC_ArrayShift = Compile preprocessFileLineNumbers "Common\Functions\Com
 WFBE_CO_FNC_ArrayShuffle = Compile preprocessFileLineNumbers "Common\Functions\Common_ArrayShuffle.sqf";
 WFBE_CO_FNC_ChangeTeamFunds = Compile preprocessFileLineNumbers "Common\Functions\Common_ChangeTeamFunds.sqf";
 WFBE_CO_FNC_ChangeUnitGroup = Compile preprocessFileLineNumbers "Common\Functions\Common_ChangeUnitGroup.sqf";
-WFBE_CO_FNC_ClearVehicleCargo = if (WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Common\Functions\Common_ClearVehicleCargo.sqf"} else {Compile preprocessFileLineNumbers "Common\Functions\Common_ClearVehicleCargoOA.sqf"};
+WFBE_CO_FNC_ClearVehicleCargo = Compile preprocessFileLineNumbers "Common\Functions\Common_ClearVehicleCargoOA.sqf";
 WFBE_CO_FNC_CreateTeam = Compile preprocessFileLineNumbers "Common\Functions\Common_CreateTeam.sqf";
 WFBE_CO_FNC_CreateTownUnits = Compile preprocessFileLineNumbers "Common\Functions\Common_CreateTownUnits.sqf";
 WFBE_CO_FNC_CreateUnitForStaticDefence = Compile preprocessFileLineNumbers "Common\Functions\Common_CreateUnitForStaticDefence.sqf";
 WFBE_CO_FNC_CreateUnitsForResBases = Compile preprocessFileLineNumbers "Common\Functions\Common_CreateUnitsForResBases.sqf";
 WFBE_CO_FNC_CreateVehicle = Compile preprocessFileLineNumbers "Common\Functions\Common_CreateVehicle.sqf";
 WFBE_CO_FNC_CreateUnit = Compile preprocessFileLineNumbers "Common\Functions\Common_CreateUnit.sqf";
-WFBE_CO_FNC_EquipBackpack = if !(WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Common\Functions\Common_EquipBackpack.sqf"} else {{}};
+WFBE_CO_FNC_EquipBackpack = Compile preprocessFileLineNumbers "Common\Functions\Common_EquipBackpack.sqf";
 WFBE_CO_FNC_EquipUnit = Compile preprocessFileLineNumbers "Common\Functions\Common_EquipUnit.sqf";
-WFBE_CO_FNC_EquipVehicle = if !(WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Common\Functions\Common_EquipVehicle.sqf"} else {{}};
+WFBE_CO_FNC_EquipVehicle = Compile preprocessFileLineNumbers "Common\Functions\Common_EquipVehicle.sqf";
 WFBE_CO_FNC_FindTurretsRecursive = Compile preprocessFileLineNumbers "Common\Functions\Common_FindTurretsRecursive.sqf";
 WFBE_CO_FNC_FireArtillery = Compile preprocessFileLineNumbers "Common\Functions\Common_FireArtillery.sqf";
 WFBE_CO_FNC_GetAreaEnemiesCount = Compile preprocessFileLineNumbers "Common\Functions\Common_GetAreaEnemiesCount.sqf";
@@ -135,11 +135,11 @@ WFBE_CO_FNC_OnUnitHit = Compile preprocessFileLineNumbers "Common\Functions\Comm
 WFBE_CO_FNC_OnUnitKilled = Compile preprocessFileLineNumbers "Common\Functions\Common_OnUnitKilled.sqf";
 WFBE_CO_FNC_RevealArea = Compile preprocessFileLineNumbers "Common\Functions\Common_RevealArea.sqf";
 WFBE_CO_FNC_RemoveAAMissiles = Compile preprocessFileLineNumbers "Common\Functions\Common_RemoveAAMissiles.sqf";
-WFBE_CO_FNC_RemoveCountermeasures = if !(WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Common\Functions\Common_RemoveCountermeasures.sqf"} else {{}};
-WFBE_CO_FNC_SendToClient = if !(WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Common\Functions\Common_SendToClient.sqf"} else {{}};
+WFBE_CO_FNC_RemoveCountermeasures = Compile preprocessFileLineNumbers "Common\Functions\Common_RemoveCountermeasures.sqf";
+WFBE_CO_FNC_SendToClient = Compile preprocessFileLineNumbers "Common\Functions\Common_SendToClient.sqf";
 WFBE_CO_FNC_SendToClients = Compile preprocessFileLineNumbers "Common\Functions\Common_SendToClients.sqf";
-WFBE_CO_FNC_SendToServer = if (WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Common\Functions\Common_SendToServer.sqf"} else {Compile preprocessFileLineNumbers "Common\Functions\Common_SendToServerOptimized.sqf"};
-WFBE_CO_FNC_SetTurretsMagazines = if !(WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Common\Functions\Common_SetTurretsMagazines.sqf"} else {{}};
+WFBE_CO_FNC_SendToServer = Compile preprocessFileLineNumbers "Common\Functions\Common_SendToServerOptimized.sqf";
+WFBE_CO_FNC_SetTurretsMagazines = Compile preprocessFileLineNumbers "Common\Functions\Common_SetTurretsMagazines.sqf";
 WFBE_CO_FNC_SortByDistance = Compile preprocessFileLineNumbers "Common\Functions\Common_SortByDistance.sqf";
 WFBE_CO_FNC_WaypointPatrol = Compile preprocessFileLineNumbers "Common\Functions\Common_WaypointPatrol.sqf";
 WFBE_CO_FNC_WaypointPatrolTown = Compile preprocessFileLineNumbers "Common\Functions\Common_WaypointPatrolTown.sqf";
@@ -201,54 +201,52 @@ waitUntil {BIS_fnc_init};
 */
 _team_west = "";
 _team_east = "";
-switch (true) do {
-	case WF_A2_CombinedOps: {
-		/* Model Core */
-		if !(IS_chernarus_map_dependent) then {
-			Call Compile preprocessFileLineNumbers 'Common\Config\Core_Models\CombinedOps.sqf';
-		} else {
-			Call Compile preprocessFileLineNumbers 'Common\Config\Core_Models\CombinedOps_W.sqf';
-		};
 
-		/* Gear Core */
-		if (local player) then {
-			Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_US.sqf";
-			Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_TKA.sqf";
-			Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_BAF.sqf";
-			Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_GUE.sqf";
-			Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_PMC.sqf";
-			Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_RU.sqf";
-			Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_USMC.sqf";
-		};
-		/* Class Core */
- Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_MOD.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_ACR.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_BAF.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_BAFD.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_BAFW.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_CDF.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_CIV.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_DeltaForce.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_FR.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_GUE.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_INS.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_KSK.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_MVD.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_PMC.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_RU.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_Spetsnaz.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_TKA.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_TKCIV.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_TKGUE.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_TKSF.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_US.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_USMC.sqf';
-
-		/* Call in the teams template - Combined Operations */
-		_team_west = if (IS_chernarus_map_dependent) then {'US_Camo'} else {'US'};
-		_team_east = if (IS_chernarus_map_dependent) then {'RU'} else {'TKA'};
-	};
+/* Model Core */
+if !(IS_chernarus_map_dependent) then {
+	Call Compile preprocessFileLineNumbers 'Common\Config\Core_Models\CombinedOps.sqf';
+} else {
+	Call Compile preprocessFileLineNumbers 'Common\Config\Core_Models\CombinedOps_W.sqf';
 };
+
+/* Gear Core */
+if (local player) then {
+	Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_US.sqf";
+	Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_TKA.sqf";
+	Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_BAF.sqf";
+	Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_GUE.sqf";
+	Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_PMC.sqf";
+	Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_RU.sqf";
+	Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_USMC.sqf";
+};
+/* Class Core */
+ Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_MOD.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_ACR.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_BAF.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_BAFD.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_BAFW.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_CDF.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_CIV.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_DeltaForce.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_FR.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_GUE.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_INS.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_KSK.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_MVD.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_PMC.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_RU.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_Spetsnaz.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_TKA.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_TKCIV.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_TKGUE.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_TKSF.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_US.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_USMC.sqf';
+
+/* Call in the teams template - Combined Operations */
+_team_west = if (IS_chernarus_map_dependent) then {'US_Camo'} else {'US'};
+_team_east = if (IS_chernarus_map_dependent) then {'RU'} else {'TKA'};
+
 
 ["INITIALIZATION", "Init_Common.sqf: Core Files are loaded."] Call WFBE_CO_FNC_LogContent;
 

@@ -37,9 +37,9 @@ _camp_gear_enabled = if (_gear_mode in [1,2,3]) then {true} else {false};
 	if (_add && local _unit) then {[_units, _unit] Call WFBE_CO_FNC_ArrayPush};
 } forEach _temp;
 
-if !(WF_A2_Vanilla) then {
-	{if (local _x) then {[_vehicles, _x] Call WFBE_CO_FNC_ArrayPush}} forEach ((vehicle player) nearEntities [["Car","Motorcycle","Tank","Ship","Air"], missionNamespace getVariable "WFBE_C_PLAYERS_GEAR_VEHICLE_RANGE"]);
-};
+
+{if (local _x) then {[_vehicles, _x] Call WFBE_CO_FNC_ArrayPush}} forEach ((vehicle player) nearEntities [["Car","Motorcycle","Tank","Ship","Air"], missionNamespace getVariable "WFBE_C_PLAYERS_GEAR_VEHICLE_RANGE"]);
+
 
 _temp = _units + _vehicles;
 if (count _temp == 0) then {_temp = [player]};
