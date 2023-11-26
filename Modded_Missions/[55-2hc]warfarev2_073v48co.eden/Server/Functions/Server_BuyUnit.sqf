@@ -141,13 +141,11 @@ if ((typeOf _vehicle) isKindOf "Tank" || (typeOf _vehicle) isKindOf "Car") then 
 	if (_unitType isKindOf "Air") then {
 
 		//--- Countermeasures.
-		if !(WF_A2_Vanilla) then {
-			switch (missionNamespace getVariable "WFBE_C_MODULE_WFBE_FLARES") do { //--- Remove CM if needed.
-				case 0: {(_vehicle) Call WFBE_CO_FNC_RemoveCountermeasures}; //--- Disabled.
-				case 1: { //--- Enabled with upgrades.
-					if (((_side Call WFBE_CO_FNC_GetSideUpgrades) select WFBE_UP_FLARESCM) == 0) then {
-						(_vehicle) Call WFBE_CO_FNC_RemoveCountermeasures;
-					};
+		switch (missionNamespace getVariable "WFBE_C_MODULE_WFBE_FLARES") do { //--- Remove CM if needed.
+			case 0: {(_vehicle) Call WFBE_CO_FNC_RemoveCountermeasures}; //--- Disabled.
+			case 1: { //--- Enabled with upgrades.
+				if (((_side Call WFBE_CO_FNC_GetSideUpgrades) select WFBE_UP_FLARESCM) == 0) then {
+					(_vehicle) Call WFBE_CO_FNC_RemoveCountermeasures;
 				};
 			};
 		};

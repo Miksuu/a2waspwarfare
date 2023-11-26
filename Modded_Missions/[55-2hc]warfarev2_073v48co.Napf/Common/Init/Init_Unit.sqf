@@ -77,21 +77,6 @@ if (_unit isKindOf "Air") then { //--- Air units.
 		_unit addAction [localize 'STR_WF_Cargo_Eject','Client\Action\Action_EjectCargo.sqf', [], 99, false, true, '', 'driver _target == _this && alive _target'];
 	};
 
-	if ((missionNamespace getVariable "WFBE_C_MODULE_WFBE_FLARES") > 0 && WF_A2_Vanilla) then { //--- Use of a custom CM parameter (Vanilla Only).
-		switch (missionNamespace getVariable "WFBE_C_MODULE_WFBE_FLARES") do {
-			case 1: { //--- Enabled with upgrades.
-				if ((_upgrades select WFBE_UP_FLARESCM) > 0) then {
-					(_unit) ExecVM 'Client\Module\CM\CM_Set.sqf';
-					_unit addEventHandler ['incomingMissile',{_this Spawn CM_Countermeasures}];
-				};
-			};
-			case 2: { //--- Enabled.
-				(_unit) ExecVM 'Client\Module\CM\CM_Set.sqf';
-				_unit addEventHandler ['incomingMissile',{_this Spawn CM_Countermeasures}];
-			};
-		};
-	};
-
 	if ((missionNamespace getVariable "WFBE_C_STRUCTURES_ANTIAIRRADAR") > 0) then { //--- AAR Tracking.
 		if (sideJoined != _side) then { //--- Track the unit via AAR System, skip if the unit side is the same as the player one.
 			[_unit, _side, _sideID] ExecVM 'Common\Common_AARadarMarkerUpdate.sqf';
@@ -108,9 +93,7 @@ if !(_isMan) then { //--- Vehicle Specific.
 		_unit addEventHandler ['incomingMissile', {_this Spawn HandleIncomingMissile}]; //--- Handle incoming missiles.
 	};
 
-	if !(WF_A2_Vanilla) then { //--- Only run on non-vanilla versions.
-		if ((missionNamespace getVariable "WFBE_C_GAMEPLAY_THERMAL_IMAGING") < 2) then {Call Compile '_unit disableTIEquipment true;'}; //--- Call Compile the variable to prevent errors on Vanilla.
-	};
+	if ((missionNamespace getVariable "WFBE_C_GAMEPLAY_THERMAL_IMAGING") < 2) then {Call Compile '_unit disableTIEquipment true;'}; //--- Call Compile the variable to prevent errors on Vanilla.
 };
 
 // --- 				[Side specific initialization] (Run on the desired client team).
