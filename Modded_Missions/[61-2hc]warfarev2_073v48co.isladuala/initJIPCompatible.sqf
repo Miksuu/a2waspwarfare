@@ -92,11 +92,6 @@ townInit = false;
 modACE = false;
 towns = [];
 
-WF_A2_Arrowhead = false;
-#ifdef ARROWHEAD
-	WF_A2_Arrowhead = true;
-#endif
-
 WF_A2_CombinedOps = false;
 #ifdef COMBINEDOPS
 	WF_A2_CombinedOps = true;
