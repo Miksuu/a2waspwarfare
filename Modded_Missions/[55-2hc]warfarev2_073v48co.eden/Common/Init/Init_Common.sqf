@@ -201,54 +201,52 @@ waitUntil {BIS_fnc_init};
 */
 _team_west = "";
 _team_east = "";
-switch (true) do {
-	case WF_A2_CombinedOps: {
-		/* Model Core */
-		if !(IS_chernarus_map_dependent) then {
-			Call Compile preprocessFileLineNumbers 'Common\Config\Core_Models\CombinedOps.sqf';
-		} else {
-			Call Compile preprocessFileLineNumbers 'Common\Config\Core_Models\CombinedOps_W.sqf';
-		};
 
-		/* Gear Core */
-		if (local player) then {
-			Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_US.sqf";
-			Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_TKA.sqf";
-			Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_BAF.sqf";
-			Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_GUE.sqf";
-			Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_PMC.sqf";
-			Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_RU.sqf";
-			Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_USMC.sqf";
-		};
-		/* Class Core */
- Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_MOD.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_ACR.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_BAF.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_BAFD.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_BAFW.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_CDF.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_CIV.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_DeltaForce.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_FR.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_GUE.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_INS.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_KSK.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_MVD.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_PMC.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_RU.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_Spetsnaz.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_TKA.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_TKCIV.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_TKGUE.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_TKSF.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_US.sqf';
-		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_USMC.sqf';
-
-		/* Call in the teams template - Combined Operations */
-		_team_west = if (IS_chernarus_map_dependent) then {'US_Camo'} else {'US'};
-		_team_east = if (IS_chernarus_map_dependent) then {'RU'} else {'TKA'};
-	};
+/* Model Core */
+if !(IS_chernarus_map_dependent) then {
+	Call Compile preprocessFileLineNumbers 'Common\Config\Core_Models\CombinedOps.sqf';
+} else {
+	Call Compile preprocessFileLineNumbers 'Common\Config\Core_Models\CombinedOps_W.sqf';
 };
+
+/* Gear Core */
+if (local player) then {
+	Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_US.sqf";
+	Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_TKA.sqf";
+	Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_BAF.sqf";
+	Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_GUE.sqf";
+	Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_PMC.sqf";
+	Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_RU.sqf";
+	Call Compile preprocessFileLineNumbers "Common\Config\Gear\Gear_USMC.sqf";
+};
+/* Class Core */
+ Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_MOD.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_ACR.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_BAF.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_BAFD.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_BAFW.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_CDF.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_CIV.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_DeltaForce.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_FR.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_GUE.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_INS.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_KSK.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_MVD.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_PMC.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_RU.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_Spetsnaz.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_TKA.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_TKCIV.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_TKGUE.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_TKSF.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_US.sqf';
+Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_USMC.sqf';
+
+/* Call in the teams template - Combined Operations */
+_team_west = if (IS_chernarus_map_dependent) then {'US_Camo'} else {'US'};
+_team_east = if (IS_chernarus_map_dependent) then {'RU'} else {'TKA'};
+
 
 ["INITIALIZATION", "Init_Common.sqf: Core Files are loaded."] Call WFBE_CO_FNC_LogContent;
 
