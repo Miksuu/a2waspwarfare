@@ -587,7 +587,7 @@ serverInitFull = true;
 if ((missionNamespace getVariable "WFBE_C_TOWNS_STARTING_MODE") != 0 || (missionNamespace getVariable "WFBE_C_TOWNS_PATROLS") > 0) then {[] Call Compile preprocessFile "Server\Init\Init_Towns.sqf"} else {townInitServer = true};
 
 //--- Pre-initialization of the Garbage Collector & Empty vehicle collector.
-if (WF_A2_Vanilla) then {WF_Logic setVariable ["trash",[],true]};
+//if (WF_A2_Vanilla) then {WF_Logic setVariable ["trash",[],true]}; // Perhaps try enabling this later?
 WF_Logic setVariable ["emptyVehicles",[],true];
 
 //--- Don't pause the server init script.
