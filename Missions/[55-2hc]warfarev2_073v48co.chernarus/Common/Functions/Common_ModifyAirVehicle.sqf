@@ -1,8 +1,9 @@
 Private ["_lock","_position","_side","_type","_vehicle"];
 _vehicle = _this select 0;
-_type = typeof _vehicle;
+["DEBUG", Format ["Common_ModifyAirVehicle.sqf: Debug info [_vehicle] [%1]", _vehicle]] Call WFBE_CO_FNC_LogContent;
 
-["DEBUG (Common_ModifyAirVehicle1)", Format ["%1 | %2", _vehicle, _type]] Call WFBE_CO_FNC_LogContent;
+_type = typeof _vehicle;
+["DEBUG", Format ["Common_ModifyAirVehicle.sqf: Debug info [_type] [%1]", _type]] Call WFBE_CO_FNC_LogContent;
 
 switch (_type) do {
 
@@ -106,28 +107,54 @@ case "L159_ACR":{
 };
 
 case "A10":{
+    ["DEBUG", Format ["Common_ModifyAirVehicle.sqf: Debug info [_vehicle] [%1]", _vehicle]] Call WFBE_CO_FNC_LogContent;
     _rearmor = {
         _ammo = _this select 4;
+        ["DEBUG", Format ["Common_ModifyAirVehicle.sqf: Debug info [_ammo] [%1]", _ammo]] Call WFBE_CO_FNC_LogContent;
         _result = 0;
         switch (_ammo) do {
-            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
-            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_R73_AA": {
+                _dam = _this select 2;
+                ["DEBUG", Format ["Common_ModifyAirVehicle.sqf: Debug info [_dam] [%1]", _dam]] Call WFBE_CO_FNC_LogContent;
+                _p = 99;
+                _result = (_dam / 100) * (100 - _p);
+            };
+            case "M_Sidewinder_AA": {
+                _dam = _this select 2;
+                ["DEBUG", Format ["Common_ModifyAirVehicle.sqf: Debug info [_dam] [%1]", _dam]] Call WFBE_CO_FNC_LogContent;
+                _p = 99;
+                _result = (_dam / 100) * (100 - _p);
+            };
             default {_result = _this select 2; };
         };
+        ["DEBUG", Format ["Common_ModifyAirVehicle.sqf: Debug info [_result] [%1]", _result]] Call WFBE_CO_FNC_LogContent;
         _result
     };
     _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
 };
 
 case "A10_US_EP1":{
+    ["DEBUG", Format ["Common_ModifyAirVehicle.sqf: Debug info [_vehicle] [%1]", _vehicle]] Call WFBE_CO_FNC_LogContent;
     _rearmor = {
         _ammo = _this select 4;
+        ["DEBUG", Format ["Common_ModifyAirVehicle.sqf: Debug info [_ammo] [%1]", _ammo]] Call WFBE_CO_FNC_LogContent;
         _result = 0;
         switch (_ammo) do {
-            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
-            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_R73_AA": {
+                _dam = _this select 2;
+                ["DEBUG", Format ["Common_ModifyAirVehicle.sqf: Debug info [_dam] [%1]", _dam]] Call WFBE_CO_FNC_LogContent;
+                _p = 99;
+                _result = (_dam / 100) * (100 - _p);
+            };
+            case "M_Sidewinder_AA": {
+                _dam = _this select 2;
+                ["DEBUG", Format ["Common_ModifyAirVehicle.sqf: Debug info [_dam] [%1]", _dam]] Call WFBE_CO_FNC_LogContent;
+                _p = 99;
+                _result = (_dam / 100) * (100 - _p);
+            };
             default {_result = _this select 2; };
         };
+        ["DEBUG", Format ["Common_ModifyAirVehicle.sqf: Debug info [_result] [%1]", _result]] Call WFBE_CO_FNC_LogContent;
         _result
     };
     _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
@@ -177,10 +204,13 @@ case "An2_TK_EP1":{
 //LoadoutManagerInsertChanges_END
 
 	default{
-            ["DEBUG (Common_ModifyAirVehicle default)", Format ["%1 | %2", _vehicle, _type]] Call WFBE_CO_FNC_LogContent;
+            ["DEBUG", Format ["Common_ModifyAirVehicle.sqf: Debug info [_vehicle] [%1]", _vehicle]] Call WFBE_CO_FNC_LogContent;
+            ["DEBUG", Format ["Common_ModifyAirVehicle.sqf: Debug info [_type] [%1]", _type]] Call WFBE_CO_FNC_LogContent;
 			_rearmor = {
    				_ammo = _this select 4;
    				_result = 0;
+   				["DEBUG", Format ["Common_ModifyAirVehicle.sqf: Debug info [_ammo] [%1]", _ammo]] Call WFBE_CO_FNC_LogContent;
+   				["DEBUG", Format ["Common_ModifyAirVehicle.sqf: Debug info [_result] [%1]", _result]] Call WFBE_CO_FNC_LogContent;
 
    				switch (_ammo) do {
      				default {_result = _this select 2;};
