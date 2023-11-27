@@ -25,7 +25,7 @@
     WFBE_Server_PV_SupplyMissionCompletedMessage = [format ["%1 has transported S %2 to base from %3.", _namePlayer, _supplyAmount, _sourceTownStr], _sidePlayer];
 
     // Add money to the player according to the _supplyToMoneyMultiplier
-    [((_this select 1) select 0), _supplyToMoneyMultiplier] Call WFBE_CO_FNC_ChangeTeamFunds;
+    [((_this select 1) select 0), _moneyAmount] Call WFBE_CO_FNC_ChangeTeamFunds;
 
     [_sidePlayer, _supplyAmount, format ["Supply mission completed by %1. S %2 brought from %3 for team %4. ",_namePlayer, _supplyAmount, _sourceTown, _sidePlayer]] Call ChangeSideSupply;
     _associatedSupplyTruck setVariable ["SupplyAmount", 0, true];
