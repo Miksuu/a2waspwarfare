@@ -106,7 +106,7 @@ _c = _c + ['UralRefuel_INS'];
 _i = _i + [['','',500,21,-2,1,1,0,'Insurgents',[]]];
 
 _c = _c + ['WarfareSupplyTruck_INS'];
-_i = _i + [['','',550,21,-2,1,1,0,'Insurgents',[]]];
+_i = _i + [['','',550,21,-2,0,1,0,'Insurgents',[]]];
 
 _c = _c + ['BRDM2_INS'];
 _i = _i + [['','',1200,25,-2,3,1,0,'Insurgents',[]]];
