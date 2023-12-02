@@ -14,14 +14,14 @@
         //    "120Rnd_CMFlareMagazine"
         //};
 
-        base.vanillaGameDefaultLoadout.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
-            {
+        // base.vanillaGameDefaultLoadout.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
+        //     {
 
-            };
-        base.defaultLoadout.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
-            {
-                { AmmunitionType.SIXTYROUNDCMFLAREMAGAZINE, 2},
-            };
+        //     };
+        // base.defaultLoadout.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
+        //     {
+        //         { AmmunitionType.SIXTYROUNDCMFLAREMAGAZINE, 2},
+        //     };
 
         base.vanillaGameDefaultLoadoutOnTurret.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
             {
