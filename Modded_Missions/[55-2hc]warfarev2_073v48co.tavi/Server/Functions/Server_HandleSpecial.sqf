@@ -20,21 +20,13 @@ switch (_args select 0) do {
 			if (alive leader _group) then {
 				if (isPlayer leader _group) then {
 					//--- Player, forward the request.
-					if (WF_A2_Vanilla) then {
-						[getPlayerUID (leader _group), "HandleSpecial", ["group-join-request", _player]] Call WFBE_CO_FNC_SendToClients;
-					} else {
-						[leader _group, "HandleSpecial", ["group-join-request", _player]] Call WFBE_CO_FNC_SendToClient;
-					};
+					[leader _group, "HandleSpecial", ["group-join-request", _player]] Call WFBE_CO_FNC_SendToClient;
 				} else {
 					if (isNil {_group getVariable "wfbe_uid"}) then { //--- Ensure that the group is ai-controlled.
 						[_player, _group, _side] Call WFBE_CO_FNC_ChangeUnitGroup;
 
 						//--- Tell the player that his request is granted.
-						if (WF_A2_Vanilla) then {
-							[getPlayerUID (_player), "HandleSpecial", ["group-join-accept", _group]] Call WFBE_CO_FNC_SendToClients;
-						} else {
-							[_player, "HandleSpecial", ["group-join-accept", _group]] Call WFBE_CO_FNC_SendToClient;
-						};
+						[_player, "HandleSpecial", ["group-join-accept", _group]] Call WFBE_CO_FNC_SendToClient;
 					};
 				};
 			};
