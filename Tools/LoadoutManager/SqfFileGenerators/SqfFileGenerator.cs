@@ -153,8 +153,8 @@ case """ + vehicleName + @""":{
         _ammo = _this select 4;
         _result = 0;
         switch (_ammo) do {
-            case ""M_R73_AA"": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
-            case ""M_Sidewinder_AA"": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case ""M_R73_AA"": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
+            case ""M_Sidewinder_AA"": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
             default {_result = _this select 2; };
         };
         _result
