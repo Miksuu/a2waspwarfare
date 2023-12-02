@@ -291,9 +291,12 @@ case "M2A2_EP1": {
 // UH1Y [AF2] - 0 pylons
 case "UH1Y": {
     _this addMagazine "60Rnd_CMFlareMagazine";
-    _this addMagazine "38Rnd_FFAR";
     _this addWeapon "CMFlareLauncher";
-    _this addWeapon "FFARLauncher";
+    _this removeMagazineTurret ["14Rnd_FFAR", [0]];
+    _this addMagazineTurret ["14Rnd_FFAR", [0]];
+    _this addMagazineTurret ["14Rnd_FFAR", [0]];
+    _this addMagazineTurret ["14Rnd_FFAR", [0]];
+    _this addMagazineTurret ["14Rnd_FFAR", [0]];
 };
 
 // MLRS [HF3]
