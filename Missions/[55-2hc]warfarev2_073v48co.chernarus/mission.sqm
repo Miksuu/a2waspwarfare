@@ -3368,7 +3368,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Sniper (Spot marks on map, Camps restore)";
+					description="Sniper (Spot marks on map, Lockpick, Camps restore)";
 					synchronizations[]={255};
 				};
 			};
@@ -3390,7 +3390,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Sniper (Spot marks on map, Camps restore)";
+					description="Sniper (Spot marks on map, Lockpick, Camps restore)";
 					synchronizations[]={255};
 				};
 			};
@@ -3698,7 +3698,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Sniper (Spot marks on map, Camps restore)";
+					description="Sniper (Spot marks on map, Lockpick, Camps restore)";
 					synchronizations[]={256};
 				};
 			};
@@ -3912,7 +3912,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Sniper (Spot marks on map, Camps restore)";
+					description="Sniper (Spot marks on map, Lockpick, Camps restore)";
 					synchronizations[]={255};
 				};
 			};
@@ -4022,7 +4022,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Sniper (Spot marks on map, Camps restore)";
+					description="Sniper (Spot marks on map, Lockpick, Camps restore)";
 					synchronizations[]={256};
 				};
 			};
@@ -4088,7 +4088,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Sniper (Spot marks on map, Camps restore)";
+					description="Sniper (Spot marks on map, Lockpick, Camps restore)";
 					synchronizations[]={256};
 				};
 			};
@@ -4522,7 +4522,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Sniper (Spot marks on map, Camps restore)";
+					description="Sniper (Spot marks on map, Lockpick, Camps restore)";
 					synchronizations[]={255};
 				};
 			};
@@ -4588,7 +4588,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Sniper (Spot marks on map, Camps restore)";
+					description="Sniper (Spot marks on map, Lockpick, Camps restore)";
 					synchronizations[]={256};
 				};
 			};
