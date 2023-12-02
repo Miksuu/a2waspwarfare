@@ -18,9 +18,17 @@ IS_naval_map = false;
 #endif
 
 IS_air_war_event = false;
-#ifdef IS_AIR_WAR_EVENT
-	IS_air_war_event = true;
-#endif
+_airEventEnabledFromParameters = missionNamespace getVariable ["WFBE_AIR_EVENT_ENABLED", 0];
+
+switch (_airEventEnabledFromParameters) do {
+	case 0: {
+		#ifdef IS_AIR_WAR_EVENT
+			IS_air_war_event = true;
+		#endif
+	};
+	case 1: { IS_air_war_event = false; };
+	case 2: { IS_air_war_event = true; };
+};
 
 startingDistance = STARTING_DISTANCE;
 
