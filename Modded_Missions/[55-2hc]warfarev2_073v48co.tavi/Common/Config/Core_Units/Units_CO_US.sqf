@@ -7,8 +7,8 @@ if (IS_chernarus_map_dependent) then {
     _u = ['USMC_Soldier'];
     _u = _u		+ ['USMC_Soldier2'];
     _u = _u		+ ['USMC_Soldier_LAT'];
-    _u = _u		+ ['USMC_Soldier_AT'];
     _u = _u		+ ['BAF_Soldier_AT_W'];
+    _u = _u		+ ['USMC_Soldier_AT'];
     _u = _u		+ ['USMC_Soldier_HAT'];
     _u = _u		+ ['USMC_Soldier_AA'];
     _u = _u		+ ['USMC_Soldier_AR'];
@@ -70,8 +70,8 @@ if (IS_chernarus_map_dependent) then {
     _u = _u		+ ['US_Soldier_EP1'];
     _u = _u		+ ['US_Soldier_B_EP1'];
     _u = _u		+ ['US_Soldier_LAT_EP1'];
-    _u = _u		+ ['US_Soldier_AT_EP1'];
     _u = _u		+ ['BAF_Soldier_AT_DDPM'];
+    _u = _u		+ ['US_Soldier_AT_EP1'];
     _u = _u		+ ['US_Soldier_HAT_EP1'];
     _u = _u		+ ['US_Soldier_AA_EP1'];
     _u = _u		+ ['US_Soldier_AR_EP1'];
