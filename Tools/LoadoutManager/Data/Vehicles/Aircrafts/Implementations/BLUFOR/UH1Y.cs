@@ -21,7 +21,16 @@
         base.defaultLoadout.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
             {
                 { AmmunitionType.SIXTYROUNDCMFLAREMAGAZINE, 2},
-                { AmmunitionType.THIRTYEIGHTROUNDHYDRA, 2},
+            };
+
+        base.vanillaGameDefaultLoadoutOnTurret.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
+            {
+                { AmmunitionType.FOURTEENROUNDHYDRA, 2},
+            };
+
+        base.defaultLoadoutOnTurret.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
+            {
+                { AmmunitionType.FOURTEENROUNDHYDRA, 8},
             };
 
         allowedAmmunitionTypesWithTheirLimitationAmount = new Dictionary<AmmunitionType, int>
