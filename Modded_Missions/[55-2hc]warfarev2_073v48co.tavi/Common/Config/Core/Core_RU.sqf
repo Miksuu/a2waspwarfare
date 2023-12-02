@@ -85,7 +85,7 @@ _c = _c + ['KamazRefuel'];
 _i = _i + [['','',500,21,-2,1,1,0,'Russians',[]]];
 
 _c = _c + ['WarfareSupplyTruck_RU'];
-_i = _i + [['','',550,21,-2,1,1,0,'Russians',[]]];
+_i = _i + [['','',550,21,-2,0,1,0,'Russians',[]]];
 
 _c = _c + ['GAZ_Vodnik_MedEvac'];
 _i = _i + [['','',3200,25,-2,3,1,0,'Russians',[]]];
