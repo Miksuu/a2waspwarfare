@@ -107,8 +107,9 @@ if (local player) then {
 
 	//--- Import the needed Gear (Available from the gear menu), multiple gear can be used.
 	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Loadout\Loadout_USMC.sqf";
-
-	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Loadout\Loadout_US.sqf";
+	if (true) then {
+		(_side) Call Compile preprocessFileLineNumbers "Common\Config\Loadout\Loadout_US.sqf";
+	};
 };
 
 //--- Default Loadout [weapons, magazines, eligible muzzles, {backpack}, {backpack content}].
@@ -118,16 +119,29 @@ missionNamespace setVariable [Format["WFBE_%1_DefaultGear", _side], [
 	['M4A1_Aim','M9']
 ]];
 
-//--- Artillery.
-(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Artillery\Artillery_CO_US.sqf";
-//--- Units.
-(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Units\Units_CO_US.sqf";
-//--- Squads.
-(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Squads\Squad_USMC.sqf";
-//--- Structures.
-(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Structures\Structures_CO_US.sqf";
-//--- Upgrades.
-(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Upgrades\Upgrades_CO_US.sqf";
+if (true) then {
+	//--- Artillery.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Artillery\Artillery_CO_US.sqf";
+	//--- Units.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Units\Units_CO_US.sqf";
+	//--- Squads.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Squads\Squad_USMC.sqf";
+	//--- Structures.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Structures\Structures_CO_US.sqf";
+	//--- Upgrades.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Upgrades\Upgrades_CO_US.sqf";
+} else {
+	//--- Artillery.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Artillery\Artillery_USMC.sqf";
+	//--- Units.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Units\Units_USMC.sqf";
+	//--- Squads.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Squads\Squad_USMC.sqf";
+	//--- Structures.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Structures\Structures_USMC.sqf";
+	//--- Upgrades.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Upgrades\Upgrades_USMC.sqf";
+};
 
 //Engineer
 missionNamespace setVariable [Format["WFBE_%1_DefaultGearEngineer", _side], [
