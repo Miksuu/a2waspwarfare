@@ -8,12 +8,24 @@
 Private ["_delay", "_timer", "_vehicle"];
 
 _vehicle = _this select 0;
+["DEBUG", Format ["Server_HandleEmptyVehicle.sqf: Debug info [_vehicle] [%1]", _vehicle]] Call WFBE_CO_FNC_LogContent;
+
 _delay = if (count _this > 1) then {_this select 1} else {if (typeOf _vehicle in ['HMMWV_Ambulance','HMMWV_Ambulance_DES_EP1','UH60M_MEV_EP1','M1133_MEV_EP1','GAZ_Vodnik_MedEvac','Mi17_medevac_RU','M113Ambul_TK_EP1']) then {(missionNamespace getVariable "WFBE_C_UNITS_EMPTY_TIMEOUT")*2} else {missionNamespace getVariable "WFBE_C_UNITS_EMPTY_TIMEOUT"};};
+["DEBUG", Format ["Server_HandleEmptyVehicle.sqf: Debug info [_delay] [%1]", _delay]] Call WFBE_CO_FNC_LogContent;
+
 _timer = 0;
+["DEBUG", Format ["Server_HandleEmptyVehicle.sqf: Debug info [_timer] [%1]", _timer]] Call WFBE_CO_FNC_LogContent;
 
 // Added double timer for the repair trucks too
 if (typeOf _vehicle in ['MtvrRepair','WarfareRepairTruck_Gue','V3S_Repair_TK_GUE_EP1','UralRepair_CDF','UralRepair_INS','KamazRepair','UralRepair_TK_EP1','MtvrRepair_DES_EP1']) then {
     _delay = (missionNamespace getVariable "WFBE_C_UNITS_EMPTY_TIMEOUT")*2;
+    ["DEBUG", Format ["Server_HandleEmptyVehicle.sqf: Debug info [_delay] [%1]", _delay]] Call WFBE_CO_FNC_LogContent;
+};
+
+// Added 24 hours timer for the supply trucks
+if (typeOf _vehicle in ['V3S_Supply_TK_GUE_EP1','WarfareSupplyTruck_RU', 'WarfareSupplyTruck_USMC', 'WarfareSupplyTruck_INS', 'WarfareSupplyTruck_Gue', 'WarfareSupplyTruck_CDF', 'UralSupply_TK_EP1', 'MtvrSupply_DES_EP1']) then {
+    _delay = 1440;
+    ["DEBUG", Format ["Server_HandleEmptyVehicle.sqf: Debug info [_delay] [%1]", _delay]] Call WFBE_CO_FNC_LogContent;
 };
 
 while {alive _vehicle} do {
