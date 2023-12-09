@@ -18,6 +18,8 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
     // Used for generating for Common_ReturnAircraftNameFromItsType.sqf
     public bool hasCustomRadarName { get; set; }
 
+    public bool excludeFromAntiAirMissileOneHitKill { get; set; }
+
     // Generates a string representing the loadouts for this aircraft.
     public string GenerateLoadoutsForTheAircraft()
     {

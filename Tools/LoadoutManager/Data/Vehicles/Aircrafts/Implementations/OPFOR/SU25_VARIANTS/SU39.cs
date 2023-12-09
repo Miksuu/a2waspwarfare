@@ -50,5 +50,7 @@
 
         inGameFactoryLevel = 5;
         producedFromFactoryType = FactoryType.AIRCRAFTFACTORY;
+
+        excludeFromAntiAirMissileOneHitKill = true;
     }
 }
