@@ -145,6 +145,13 @@ public class SqfFileGenerator
             {
                 continue;
             }
+
+            var baseAircraft = EnumExtensions.GetInstance(vehicleType.ToString()) as BaseAircraft;
+            if (baseAircraft == null || baseAircraft.excludeFromAntiAirMissileOneHitKill)
+            {
+                continue;
+            }            
+
             string vehicleName = EnumExtensions.GetEnumMemberAttrValue(vehicleType);
 
             string sqfCode = @"
