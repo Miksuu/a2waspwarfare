@@ -35,34 +35,6 @@ case "Su25_Ins":{
     _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
 };
 
-case "Su25_TK_EP1":{
-    _rearmor = {
-        _ammo = _this select 4;
-        _result = 0;
-        switch (_ammo) do {
-            case "M_R73_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
-            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
-            default {_result = _this select 2; };
-        };
-        _result
-    };
-    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
-};
-
-case "Su39":{
-    _rearmor = {
-        _ammo = _this select 4;
-        _result = 0;
-        switch (_ammo) do {
-            case "M_R73_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
-            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
-            default {_result = _this select 2; };
-        };
-        _result
-    };
-    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
-};
-
 case "L39_TK_EP1":{
     _rearmor = {
         _ammo = _this select 4;
@@ -106,20 +78,6 @@ case "L159_ACR":{
 };
 
 case "A10":{
-    _rearmor = {
-        _ammo = _this select 4;
-        _result = 0;
-        switch (_ammo) do {
-            case "M_R73_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
-            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
-            default {_result = _this select 2; };
-        };
-        _result
-    };
-    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
-};
-
-case "A10_US_EP1":{
     _rearmor = {
         _ammo = _this select 4;
         _result = 0;
