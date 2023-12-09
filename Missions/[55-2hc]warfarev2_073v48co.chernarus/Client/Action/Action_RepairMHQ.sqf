@@ -9,7 +9,7 @@ if (alive _hq || (_hq distance _vehicle > 30)) exitWith {hint (localize "STR_WF_
 if (WFBE_Client_Logic getVariable "wfbe_hq_repairing") exitWith {hint (localize "STR_WF_INFO_Repair_MHQ_BeingRepaired")};
 
 _currency_system = missionNamespace getVariable "WFBE_C_ECONOMY_CURRENCY_SYSTEM";
-_repairPrice = (missionNamespace getVariable 'WFBE_C_BASE_HQ_REPAIR_PRICE') * (1+0.05*((WFBE_Client_Logic getVariable "wfbe_hq_repair_count")-1));
+_repairPrice = (missionNamespace getVariable 'WFBE_C_BASE_HQ_REPAIR_PRICE');
 _currency = if (_currency_system == 0) then {(sideJoined) Call GetSideSupply} else {Call GetPlayerFunds};
 _currencySym = if (_currency_system == 0) then {"S"} else {"$"};
 if (_currency < _repairPrice) exitWith {hint Format [localize "STR_WF_INFO_Repair_MHQ_Funds",_currencySym,_repairPrice - _currency]};
