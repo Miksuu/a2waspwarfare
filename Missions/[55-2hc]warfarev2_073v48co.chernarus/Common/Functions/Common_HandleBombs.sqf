@@ -27,18 +27,3 @@ if(_ammo in _affectedbombs)then{
 		_rocket setVelocity [(_speed0),(_speed1),(_speed2)];
 	};
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
