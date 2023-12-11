@@ -57,46 +57,46 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
 
         generatedCombinationLoadouts += "\n_easaLoadout = _easaLoadout + [\n[";
         var combinations = GenerateCombinations(allowedAmmunitionTypesWithTheirLimitationAmount.Keys.ToArray(), pylonAmount / 2);
-        generatedCombinationLoadouts += GenerateSortedCombinations(combinations);
+        generatedCombinationLoadouts += GenerateCombinations(combinations);
 
         return generatedCombinationLoadouts;
     }
 
-    // Sorts combinations of ammunition types by total cost and returns them as a formatted string.
-    private string GenerateSortedCombinations(List<List<AmmunitionType>> _combinations)
+    // Returns combinations of ammunition types as a formatted string without sorting by total cost.
+    private string GenerateCombinations(List<List<AmmunitionType>> _combinations)
     {
-        string sortedCombinations = string.Empty;
+        string combinations = string.Empty;
 
-        var finalPricesSortedByPrice = GetSortedCombinationsByPrice(_combinations);
+        var finalCombinations = GetFinalCombinations(_combinations);
 
         int index = 0;
-        foreach (var item in finalPricesSortedByPrice)
+        foreach (var item in finalCombinations)
         {
             string finalString = item.Key + ",";
-            if (index == finalPricesSortedByPrice.Count - 1)
+            if (index == finalCombinations.Count - 1)
             {
                 finalString = finalString.TrimEnd(',');
             }
-            sortedCombinations += "\n" + finalString;
+            combinations += "\n" + finalString;
             index++;
         }
 
-        return sortedCombinations;
+        return combinations;
     }
 
-    // Sorts given combinations of ammunition types by their total cost.
-    private Dictionary<string, int> GetSortedCombinationsByPrice(List<List<AmmunitionType>> _combinations)
+    // Returns given combinations of ammunition types with their total cost without sorting.
+    private Dictionary<string, int> GetFinalCombinations(List<List<AmmunitionType>> _combinations)
     {
-        Dictionary<string, int> unsortedListByPrice = new Dictionary<string, int>();
+        Dictionary<string, int> combinationDictionary = new Dictionary<string, int>();
         foreach (var combination in _combinations)
         {
             var loadout = GenerateLoadoutForCombination(combination);
             if (loadout.Item1 != "" && loadout.Item2 != 0)
             {
-                unsortedListByPrice.Add(loadout.Item1, loadout.Item2);
+                combinationDictionary.Add(loadout.Item1, loadout.Item2);
             }
         }
-        return unsortedListByPrice.OrderBy(pair => pair.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
+        return combinationDictionary;
     }
 
     // Generates a loadout and its cost for a given combination of ammunition types.
