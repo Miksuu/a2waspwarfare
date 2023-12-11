@@ -60,7 +60,7 @@ Suggestion 2
 etc... until the suggestions run out
 
 @everyone :stalin_ping:
-[Final conclusion/announcement]
+[INSERT THE FINAL CONCLUSION/ANNOUNCEMENT]
 ```
 
 ## Integrate an 'i' hotkey to capture ideas from Discord chat and transform them into Trello card format with the data gathered from the chat.
