@@ -57,15 +57,15 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
 
         generatedCombinationLoadouts += "\n_easaLoadout = _easaLoadout + [\n[";
         var combinations = GenerateCombinations(allowedAmmunitionTypesWithTheirLimitationAmount.Keys.ToArray(), pylonAmount / 2);
-        generatedCombinationLoadouts += GenerateCombinations(combinations);
+        generatedCombinationLoadouts += ConvertCombinationsToStringFormat(combinations);
 
         return generatedCombinationLoadouts;
     }
 
     // Returns combinations of ammunition types as a formatted string without sorting by total cost.
-    private string GenerateCombinations(List<List<AmmunitionType>> _combinations)
+    private string ConvertCombinationsToStringFormat(List<List<AmmunitionType>> _combinations)
     {
-        string combinations = string.Empty;
+        string combinationsInStringFormat = string.Empty;
 
         var finalCombinations = GetFinalCombinations(_combinations);
 
@@ -77,11 +77,11 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
             {
                 finalString = finalString.TrimEnd(',');
             }
-            combinations += "\n" + finalString;
+            combinationsInStringFormat += "\n" + finalString;
             index++;
         }
 
-        return combinations;
+        return combinationsInStringFormat;
     }
 
     // Returns given combinations of ammunition types with their total cost without sorting.
