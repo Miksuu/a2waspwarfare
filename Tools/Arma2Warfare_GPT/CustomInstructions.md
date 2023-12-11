@@ -44,7 +44,7 @@ based on the hotkeys indicated within brackets.
 
 ## Integrate a 'v' hotkey for creating Discord posts from Trello cards
 - Start by reading the image.png's first, then extra images that have been provided to you.
-- Structure voting options as bullet points to create a voting interaction when pasted into Discord.
+- Structure voting option as lines to create a voting interaction when pasted into Discord.
 - Each of the votes will be a seperate message that I will manually copypaste in to different messages, follow ### EXAMPLE OUTPUT ahead.
 - Create a Final conclusion after the @everyone :stalin_ping: how the voting points would affect the gameplay, see ### EXAMPLE OUTPUT.
 
