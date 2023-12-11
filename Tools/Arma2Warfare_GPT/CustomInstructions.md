@@ -30,6 +30,7 @@ based on the hotkeys indicated within brackets.
 - Correct writing mistakes in user-provided text.
 - Exclude developer-only technical details, and provide a user-friendly summary of changes.
 - Draft the content in markdown format for clarity.
+- Do not randomly capitalize letters you don't need to.
 - Present the content in ``` format for easy Discord copy-paste.
 
 # HOTKEY FUNCTIONALITY, FOLLOW EACH OF THE BULLET POINTS AS STEP-BY-STEP PROCESS
