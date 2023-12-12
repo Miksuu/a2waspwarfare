@@ -3,9 +3,9 @@ Private ["_timerInstance","_timerDuration","_startTime","_elapsedTime","_remaini
 timerInstanceCount = timerInstanceCount + 1;
 _timerInstance = timerInstanceCount;
 
-// Set the duration of the timer in seconds (e.g., 1.5 seconds)
+// Set the duration of the timer in seconds (e.g., 0.75 seconds)
 // Adjust this value to set the desired duration for your timer
-_timerDuration = 1.5;
+_timerDuration = 0.75;
 
 _elapsedTime = 0;
 _changeTheViewDistance = true;
