@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 
 // The BaseAircraft class serves as the foundational abstraction for all types of aircraft in the application.
@@ -105,9 +106,10 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
         var modifiedDictionary = new Dictionary<string, string>();
         foreach (var item in sortedDictionary)
         {
-            string modifiedKey = Regex.Replace(item.Key, @"\b0([1-9])\b", "$1");
+            string modifiedKey = Regex.Replace(item.Key, @"(\b|\D)0*([1-9][0-9]?)(\b|\D)", match => match.Groups[1].Value + (match.Groups[1].Value == " " || match.Groups[3].Value == " " ? match.Groups[2].Value.PadLeft(2, '0') : match.Groups[2].Value) + match.Groups[3].Value);
             modifiedDictionary.Add(modifiedKey, item.Value);
         }
+
         sortedDictionary = modifiedDictionary;
 
         return sortedDictionary;
@@ -376,6 +378,10 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
             // Temporarily make the weapon amount a string so that it can be padded with 0s
             int weaponAmountInt = int.Parse(weaponAmount);
             if (weaponAmountInt < 10)
+            {
+                weaponAmount = "00" + weaponAmount;
+            }
+            else if (weaponAmountInt < 100)
             {
                 weaponAmount = "0" + weaponAmount;
             }
