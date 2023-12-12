@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 // The BaseAircraft class serves as the foundational abstraction for all types of aircraft in the application.
 // It inherits from the BaseVehicle class and implements the InterfaceAircraft, encapsulating common behaviors,
 // properties, and methods shared across different aircraft types. This includes functionalities for generating
@@ -99,6 +101,15 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
             }
         }
         var sortedDictionary = combinationDictionary.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+
+        var modifiedDictionary = new Dictionary<string, string>();
+        foreach (var item in sortedDictionary)
+        {
+            string modifiedKey = Regex.Replace(item.Key, @"\b0([1-9])\b", "$1");
+            modifiedDictionary.Add(modifiedKey, item.Value);
+        }
+        sortedDictionary = modifiedDictionary;
+
         return sortedDictionary;
     }
 
@@ -267,7 +278,7 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
         }
 
         bool doneAddingSpecialAmounts = false;
-        Dictionary<string, int> alreadyAddedWeaponLaunchersWithWeaponAmountInTotal = new Dictionary<string, int>();
+        Dictionary<string, string> alreadyAddedWeaponLaunchersWithWeaponAmountInTotal = new Dictionary<string, string>();
 
         var sortedInput = _input.OrderBy(i => 
         {
@@ -277,7 +288,7 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
 
         foreach (var ammoTypeKvp in sortedInput)
         {
-            int weaponAmount = 0;
+            string weaponAmount = "0";
 
             var ammunitionType = (InterfaceAmmunition)EnumExtensions.GetInstance(ammoTypeKvp.Key.ToString());
             var weaponDefinition = (InterfaceWeapon)ammunitionType.weaponDefinition;
@@ -298,7 +309,9 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
                     newLoadoutRow.totalPrice += CalculateLoadoutTotalPrice(ammoTypeKvp.Key, ammunitionType.costPerPylon * 2);
                 }
 
-                weaponAmount += ammunitionType.amountPerPylon * 2;
+                int tempWeaponAmount = int.Parse(weaponAmount);
+                tempWeaponAmount += ammunitionType.amountPerPylon * 2;
+                weaponAmount = tempWeaponAmount.ToString();
 
                 foreach (var ammunitonType in ammunitionType.AmmunitionTypes)
                 {
@@ -349,7 +362,7 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
             // Do not add duplicate weapon launchers
             if (alreadyAddedWeaponLaunchersWithWeaponAmountInTotal.ContainsKey(weaponSqfName))
             {
-                alreadyAddedWeaponLaunchersWithWeaponAmountInTotal[weaponSqfName] += weaponAmount;
+                alreadyAddedWeaponLaunchersWithWeaponAmountInTotal[weaponSqfName] += int.Parse(weaponAmount);
                 continue;
             }
 
@@ -358,6 +371,17 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
                 newLoadoutRow.weaponTypesArray += "'";
                 newLoadoutRow.weaponTypesArray += EnumExtensions.GetEnumMemberAttrValue(weaponDefinition.WeaponType);
                 newLoadoutRow.weaponTypesArray += "',";
+            }
+
+            // Temporarily make the weapon amount a string so that it can be padded with 0s
+            int weaponAmountInt = int.Parse(weaponAmount);
+            if (weaponAmountInt < 10)
+            {
+                weaponAmount = "0" + weaponAmount;
+            }
+            else
+            {
+                weaponAmount = weaponAmount.ToString();
             }
 
             newLoadoutRow.weaponsInfo += ammunitionType.ammoDisplayName + " (" + weaponAmount + ") | ";
