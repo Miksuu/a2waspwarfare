@@ -266,7 +266,14 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
 
         bool doneAddingSpecialAmounts = false;
         Dictionary<string, int> alreadyAddedWeaponLaunchersWithWeaponAmountInTotal = new Dictionary<string, int>();
-        foreach (var ammoTypeKvp in _input)
+
+        var sortedInput = _input.OrderBy(i => 
+        {
+            var ammunitionType = (InterfaceAmmunition)EnumExtensions.GetInstance(i.Key.ToString());
+            return ammunitionType.ammoDisplayName.ToString();
+        }).ToDictionary(i => i.Key, i => i.Value);
+
+        foreach (var ammoTypeKvp in sortedInput)
         {
             int weaponAmount = 0;
 
