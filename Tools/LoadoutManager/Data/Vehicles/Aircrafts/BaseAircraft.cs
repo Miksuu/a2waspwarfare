@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 // The BaseAircraft class serves as the foundational abstraction for all types of aircraft in the application.
 // It inherits from the BaseVehicle class and implements the InterfaceAircraft, encapsulating common behaviors,
 // properties, and methods shared across different aircraft types. This includes functionalities for generating
@@ -97,6 +99,15 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
             }
         }
         var sortedDictionary = combinationDictionary.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+
+        var modifiedDictionary = new Dictionary<string, string>();
+        foreach (var item in sortedDictionary)
+        {
+            string modifiedKey = Regex.Replace(item.Key, @"\b0([1-9])\b", "$1");
+            modifiedDictionary.Add(modifiedKey, item.Value);
+        }
+        sortedDictionary = modifiedDictionary;
+
         return sortedDictionary;
     }
 
