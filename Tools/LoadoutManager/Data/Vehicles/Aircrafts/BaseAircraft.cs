@@ -59,52 +59,53 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
 
         generatedCombinationLoadouts += "\n_easaLoadout = _easaLoadout + [\n[";
         var combinations = GenerateCombinations(allowedAmmunitionTypesWithTheirLimitationAmount.Keys.ToArray(), pylonAmount / 2);
-        generatedCombinationLoadouts += GenerateSortedCombinations(combinations);
+        generatedCombinationLoadouts += ConvertCombinationsToStringFormat(combinations);
 
         return generatedCombinationLoadouts;
     }
 
-    // Sorts combinations of ammunition types by total cost and returns them as a formatted string.
-    private string GenerateSortedCombinations(List<List<AmmunitionType>> _combinations)
+    // Returns combinations of ammunition types as a formatted string without sorting by total cost.
+    private string ConvertCombinationsToStringFormat(List<List<AmmunitionType>> _combinations)
     {
-        string sortedCombinations = string.Empty;
+        string combinationsInStringFormat = string.Empty;
 
-        var finalPricesSortedByPrice = GetSortedCombinationsByPrice(_combinations);
+        var finalCombinations = GetFinalCombinations(_combinations);
 
         int index = 0;
-        foreach (var item in finalPricesSortedByPrice)
+        foreach (var item in finalCombinations)
         {
             string finalString = item.Key + ",";
-            if (index == finalPricesSortedByPrice.Count - 1)
+            if (index == finalCombinations.Count - 1)
             {
                 finalString = finalString.TrimEnd(',');
             }
-            sortedCombinations += "\n" + finalString;
+            combinationsInStringFormat += "\n" + finalString;
             index++;
         }
 
-        return sortedCombinations;
+        return combinationsInStringFormat;
     }
 
-    // Sorts given combinations of ammunition types by their total cost.
-    private Dictionary<string, int> GetSortedCombinationsByPrice(List<List<AmmunitionType>> _combinations)
+    // Returns given combinations of ammunition types with their total cost without sorting.
+    private Dictionary<string, string> GetFinalCombinations(List<List<AmmunitionType>> _combinations)
     {
-        Dictionary<string, int> unsortedListByPrice = new Dictionary<string, int>();
+        Dictionary<string, string> combinationDictionary = new Dictionary<string, string>();
         foreach (var combination in _combinations)
         {
             var loadout = GenerateLoadoutForCombination(combination);
-            if (loadout.Item1 != "" && loadout.Item2 != 0)
+            if (loadout.Item1 != "" && loadout.Item2 != "")
             {
-                unsortedListByPrice.Add(loadout.Item1, loadout.Item2);
+                combinationDictionary.Add(loadout.Item1, loadout.Item2);
             }
         }
-        return unsortedListByPrice.OrderBy(pair => pair.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
+        var sortedDictionary = combinationDictionary.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+        return sortedDictionary;
     }
 
     // Generates a loadout and its cost for a given combination of ammunition types.
-    private (string, int) GenerateLoadoutForCombination(List<AmmunitionType> _combination)
+    private (string, string) GenerateLoadoutForCombination(List<AmmunitionType> _combination)
     {
-        (string, int) loadout = ("", 0);
+        (string, string) loadout = ("", "");
         Dictionary<AmmunitionType, int> combinationLoadouts = new Dictionary<AmmunitionType, int>();
 
         foreach (var item in _combination)
@@ -126,7 +127,7 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
     // Generates a default loadout for the aircraft based on its type and specific configurations.
     private string GenerateDefaultLoadout()
     {
-        (string, int) ammunitionArray = ("", 0);
+        (string, string) ammunitionArray = ("", "");
 
         if (vehicleType == VehicleType.WILDCAT || vehicleType == VehicleType.MI24P)
         {
@@ -168,7 +169,7 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
 
     // Generates a row string that represents a loadout based on the given dictionary of ammunition types and counts.
     // Optionally includes price and weapons information in the output.
-    private (string, int) GenerateLoadoutRow(
+    private (string, string) GenerateLoadoutRow(
         Dictionary<AmmunitionType, int> _input, bool _generateWithPriceAndWeaponsInfo = true)
     {
         string finalRowOutput = string.Empty;
@@ -214,7 +215,7 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
         finalRowOutput = finalRowOutput.TrimEnd(',');
         finalRowOutput += "]]]";
 
-        return (finalRowOutput, calculatedLoadoutRow.totalPrice);
+        return (finalRowOutput, calculatedLoadoutRow.weaponsInfo);
     }
 
     // Checks whether a given loadout should be disregarded based on certain conditions, such as exceeding the allowed amount of a particular ammunition type.
@@ -267,7 +268,14 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
 
         bool doneAddingSpecialAmounts = false;
         Dictionary<string, int> alreadyAddedWeaponLaunchersWithWeaponAmountInTotal = new Dictionary<string, int>();
-        foreach (var ammoTypeKvp in _input)
+
+        var sortedInput = _input.OrderBy(i => 
+        {
+            var ammunitionType = (InterfaceAmmunition)EnumExtensions.GetInstance(i.Key.ToString());
+            return ammunitionType.ammoDisplayName.ToString();
+        }).ToDictionary(i => i.Key, i => i.Value);
+
+        foreach (var ammoTypeKvp in sortedInput)
         {
             int weaponAmount = 0;
 
