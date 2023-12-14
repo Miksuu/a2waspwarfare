@@ -162,6 +162,9 @@ case "AH1Z": {
 
 // Wildcat AH11 [AF3] - 4 pylons
 case "AW159_Lynx_BAF": {
+    _this addMagazine "2Rnd_Spike_ACR";
+    _this addMagazine "2Rnd_Spike_ACR";
+    _this addWeapon "SpikeLauncher_ACR";
     _this removeMagazineTurret ["12Rnd_CRV7", [-1]];
     _this removeMagazineTurret ["1200Rnd_20mm_M621", [-1]];
     _this removeWeaponTurret ["CRV7_PG", [-1]];
@@ -169,11 +172,8 @@ case "AW159_Lynx_BAF": {
     _this addMagazineTurret ["200Rnd_40mmHE_FV510", [-1]];
     _this addMagazineTurret ["200Rnd_40mmSABOT_FV510", [-1]];
     _this addMagazineTurret ["6Rnd_CRV7_HEPD", [-1]];
-    _this addMagazineTurret ["2Rnd_Spike_ACR", [-1]];
-    _this addMagazineTurret ["2Rnd_Spike_ACR", [-1]];
     _this addWeaponTurret ["CTWS", [-1]];
     _this addWeaponTurret ["CRV7_HEPD", [-1]];
-    _this addWeaponTurret ["SpikeLauncher_ACR", [-1]];
 };
 
 // Mi-24V [AF3] - 4 pylons
