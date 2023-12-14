@@ -126,7 +126,7 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
     {
         (string, int) ammunitionArray = ("", 0);
 
-        if (vehicleType == VehicleType.WILDCAT || vehicleType == VehicleType.MI24P)
+        if (vehicleType == VehicleType.MI24P)
         {
             ammunitionArray = GenerateLoadoutRow(defaultLoadout.AmmunitionTypesWithCount, false);
             ammunitionArray.Item1 = "\n_easaDefault = _easaDefault + " + ammunitionArray.Item1 + ";";
