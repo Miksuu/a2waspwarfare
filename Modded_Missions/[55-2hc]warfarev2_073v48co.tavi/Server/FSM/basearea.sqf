@@ -69,6 +69,10 @@ while {!gameOver} do {
 		_buildings = _buildings - _command - _service - _aar;
 		["DEBUG", Format ["basearea.sqf: Debug info [_buildings] [%1]", _buildings]] Call WFBE_CO_FNC_LogContent;
 		_areas_old = _logik getVariable "wfbe_basearea";
+
+		// Remove the null objects from the array, test to fix the bug possibly.
+		_areas_old = _areas_old - [objNull];
+
 		["DEBUG", Format ["basearea.sqf: Debug info [_areas_old] [%1]", _areas_old]] Call WFBE_CO_FNC_LogContent;
 		_areas = _areas_old;
 		["DEBUG", Format ["basearea.sqf: Debug info [_areas] [%1]", _areas]] Call WFBE_CO_FNC_LogContent;
