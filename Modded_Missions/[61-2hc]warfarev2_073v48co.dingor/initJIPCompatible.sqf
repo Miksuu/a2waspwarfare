@@ -18,7 +18,7 @@ IS_naval_map = false;
 #endif
 
 IS_air_war_event = false;
-_airEventEnabledFromParameters = missionNamespace getVariable "WFBE_AIR_EVENT_ENABLED";
+_airEventEnabledFromParameters = missionNamespace getVariable ["WFBE_AIR_EVENT_ENABLED", 0];
 
 switch (_airEventEnabledFromParameters) do {
 	case 0: {
