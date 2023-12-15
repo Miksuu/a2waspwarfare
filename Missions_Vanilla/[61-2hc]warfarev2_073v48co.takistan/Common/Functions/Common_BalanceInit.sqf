@@ -290,11 +290,11 @@ case "M2A2_EP1": {
 
 // UH1Y [AF2] - 0 pylons
 case "UH1Y": {
-    _this removeMagazineTurret ["14Rnd_FFAR", [0]];
-    _this addMagazineTurret ["14Rnd_FFAR", [0]];
-    _this addMagazineTurret ["14Rnd_FFAR", [0]];
-    _this addMagazineTurret ["14Rnd_FFAR", [0]];
-    _this addMagazineTurret ["14Rnd_FFAR", [0]];
+    _this removeMagazineTurret ["14Rnd_FFAR", [-1]];
+    _this addMagazineTurret ["14Rnd_FFAR", [-1]];
+    _this addMagazineTurret ["14Rnd_FFAR", [-1]];
+    _this addMagazineTurret ["14Rnd_FFAR", [-1]];
+    _this addMagazineTurret ["14Rnd_FFAR", [-1]];
 };
 
 // MLRS [HF3]

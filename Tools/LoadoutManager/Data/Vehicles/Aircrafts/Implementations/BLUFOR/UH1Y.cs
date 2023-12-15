@@ -40,6 +40,8 @@
         inGameDisplayName = "UH1Y";
         inGameFactoryLevel = 2;
 
+        turretPos = -1;
+
         producedFromFactoryType = FactoryType.AIRCRAFTFACTORY;
     }
 }
