@@ -8,12 +8,6 @@ _get = missionNamespace getVariable _type;
 
 _name = _get select QUERYUNITLABEL;
 
-["DEBUG", Format ["AwardBounty.sqf: Debug info [_type] [%1]", _type]] Call WFBE_CO_FNC_LogContent;
-["DEBUG", Format ["AwardBounty.sqf: Debug info [_assist] [%1]", _assist]] Call WFBE_CO_FNC_LogContent;
-["DEBUG", Format ["AwardBounty.sqf: Debug info [_ai] [%1]", _ai]] Call WFBE_CO_FNC_LogContent;
-["DEBUG", Format ["AwardBounty.sqf: Debug info [_get] [%1]", _get]] Call WFBE_CO_FNC_LogContent;
-["DEBUG", Format ["AwardBounty.sqf: Debug info [_name] [%1]", _name]] Call WFBE_CO_FNC_LogContent;
-
 _bounty = switch  (true) do {
                     case (_type isKindOf "Man"): {round((_get select QUERYUNITPRICE) *0.7* (missionNamespace getVariable "WFBE_C_UNITS_BOUNTY_COEF"));};
 
@@ -37,8 +31,6 @@ _bounty = switch  (true) do {
 
 };
 
-["DEBUG", Format ["AwardBounty.sqf: Debug info [_bounty] [%1]", _bounty]] Call WFBE_CO_FNC_LogContent;
-
 sleep (random 3);
 
 //--- Are we dealing with a kill assist or a full kill.
@@ -48,8 +40,6 @@ if (_assist) then {
 } else {
 	Format[Localize "STR_WF_CHAT_Award_Bounty", _bounty, _name] Call GroupChatMessage;
 };
-
-["DEBUG", Format ["AwardBounty.sqf: Debug info [_bounty] [%1]", _bounty]] Call WFBE_CO_FNC_LogContent;
 
 (_bounty) Call ChangePlayerFunds;
 /* 
