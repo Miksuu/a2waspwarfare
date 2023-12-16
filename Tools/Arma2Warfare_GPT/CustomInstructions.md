@@ -68,14 +68,15 @@ etc... until the suggestions run out
 - Focus on creating detailed and specific lines based on the text, avoiding generic phrases like 'balancing for X mechanic'. Each idea should be encapsulated in a single, well-outlined sentence. Refrain from adding numbers or bullet points at the beginning of the line.
 - Exclude the word 'Investigate' and similar developer-specific terminology. Ensure that the lines are presentable and understandable to the player base.
 - Replace the use of 'and' with multiple lines to convey distinct ideas or points.
+- Add [VOTE] in front of each line to make it clear that it's a voting option.
 
 ### EXAMPLE INPUT
 - [i] [text with ideas from our players]
 
 ### EXAMPLE OUTPUT:
 ```
-Idea 1
-Idea 2
+[VOTE] Idea 1
+[VOTE] Idea 2
 [etc... until the suggestions run out. This way trello sees them as multiple cards, as I am entering them there manually]
 ```
 
