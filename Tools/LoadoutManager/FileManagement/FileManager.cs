@@ -23,6 +23,8 @@ public class FileManager
         {
             "Textures",
             @"Server\Config",
+            @"Core_Artillery",
+            @"Core_Structures",
         };
 
         foreach (var directory in Directory.GetDirectories(_source))
