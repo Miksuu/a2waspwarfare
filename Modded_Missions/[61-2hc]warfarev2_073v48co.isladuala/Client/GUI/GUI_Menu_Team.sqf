@@ -90,11 +90,7 @@ while {alive player && dialog} do {
 			-_transferAmount Call ChangePlayerFunds;
 			_funds = Call GetPlayerFunds;
 			if (isPlayer leader (_list_Players select _curSel)) then {
-				// if (WF_A2_Vanilla) then {
-					[getPlayerUID(leader (_list_Players select _curSel)), "LocalizeMessage",['FundsTransfer',_transferAmount,name player]] Call WFBE_CO_FNC_SendToClients;
-				// } else {
-					// [leader (clientTeams select _curSel), "LocalizeMessage",['FundsTransfer',_transferAmount,name player]] Call WFBE_CO_FNC_SendToClient;
-				// };
+				[getPlayerUID(leader (_list_Players select _curSel)), "LocalizeMessage",['FundsTransfer',_transferAmount,name player]] Call WFBE_CO_FNC_SendToClients;
 			};
 			sliderSetRange[13007,0,_funds];
 		};

@@ -119,10 +119,5 @@ missionNamespace setVariable [Format["WFBE_%1_DefaultGear", _side], [
 //--- Upgrades.
 (_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Upgrades\Upgrades_CDF.sqf";
 
-if (WF_A2_CombinedOps) then {
-	//--- Structures.
-	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Structures\Structures_CO_CDF.sqf";
-} else {
-	//--- Structures.
-	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Structures\Structures_CDF.sqf";
-};
+//--- Structures.
+(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Structures\Structures_CO_CDF.sqf";

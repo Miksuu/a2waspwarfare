@@ -33,11 +33,7 @@ WFBE_SE_FNC_DelegateAITown = {
 		if (_i < count _delegators) then {
 			Private ["_uid"];
 			_uid = getPlayerUID(_delegators select _i);
-			if !(WF_A2_Vanilla) then {
 			[_delegators select _i, "HandleSpecial", ['delegate-townai', _town, _side, [_groups select _i], [_positions select _i], [_teams select _i]]] Call WFBE_CO_FNC_SendToClient;
-			} else {
-				[_uid, "HandleSpecial", ['delegate-townai', _town, _side, [_groups select _i], [_positions select _i], [_teams select _i]]] Call WFBE_CO_FNC_SendToClients;
-			};
 			[_uid, "increment"] Call WFBE_SE_FNC_DelegationOperate; //--- Increment the group count for that client.
 			[_uid, _teams select _i] Spawn WFBE_SE_FNC_DelegationTracker; //--- Track a group until it's nullification.
 			["INFORMATION", Format["Server_DelegateAITown.sqf: [%1] Town [%2] Units [%3] in group [%4] were delegated to client [%5].", _side, _town, _groups select _i, _teams select _i, name (_delegators select _i)]] Call WFBE_CO_FNC_LogContent;
