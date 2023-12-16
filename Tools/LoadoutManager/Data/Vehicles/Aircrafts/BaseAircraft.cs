@@ -265,6 +265,35 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
         Dictionary<AmmunitionType, int> _input,
         bool _generateWithPriceAndWeaponsInfo = true) // For non-default loadouts, show the information on the easa screen
     {
+        
+        // Special handling for wildcat, inserting the default weapons to each of the pylons
+        if (vehicleType == VehicleType.WILDCAT && _generateWithPriceAndWeaponsInfo) 
+        {
+            var wildcatSpecialWeapons = new Dictionary<AmmunitionType, int>
+            {
+                { AmmunitionType.TWOHUNDREDROUNDCTWSHE, 2},
+                { AmmunitionType.TWOHUNDREDROUNDCTWSSABOT, 2},
+                { AmmunitionType.SIXROUNDCRV7HEPD, 2},
+            };
+
+            foreach (var weapon in wildcatSpecialWeapons)
+            {
+                if (_input.ContainsKey(weapon.Key))
+                {
+                    _input[weapon.Key] += weapon.Value;
+                }
+                else
+                {
+                    _input.Add(weapon.Key, weapon.Value);
+                }
+            }
+
+            // foreach (var item in _input)
+            // {
+            //     Console.WriteLine($"Key: {item.Key}, Value: {item.Value}");
+            // }
+        }
+
         LoadoutRow newLoadoutRow = new LoadoutRow();
 
         if (CalculateWeaponsCount(_input) != pylonAmount && !addToDefaultLoadoutPrice)
