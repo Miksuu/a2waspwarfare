@@ -274,8 +274,7 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
     {
         var wildcatSpecialWeapons = new Dictionary<AmmunitionType, int>
         {
-            { AmmunitionType.TWOHUNDREDROUNDCTWSHE, 2},
-            { AmmunitionType.TWOHUNDREDROUNDCTWSSABOT, 2},
+            { AmmunitionType.TWOHUNDREDROUNDCTWSSABOT, 4},
             { AmmunitionType.SIXROUNDCRV7HEPD, 2},
         };
 
