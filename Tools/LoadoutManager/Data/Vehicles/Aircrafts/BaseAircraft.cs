@@ -233,6 +233,11 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
     private bool CheckDisregardedLoadout(
         Dictionary<AmmunitionType, int> _input, bool _generateWithPriceAndWeaponsInfo)
     {
+        if (vehicleType == VehicleType.WILDCAT)
+        {
+            return false;
+        }
+
         bool disregardLoadout = false;
         var ammoToSearch = AmmunitionType.BASECH29;
 
