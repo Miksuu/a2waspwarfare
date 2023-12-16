@@ -46,9 +46,11 @@ based on the hotkeys indicated within brackets.
 - image.png's with the Trello cards, analyse this with vision
 ### [@EVERYONE] (OPTIONAL)
 - @everyone ping with :stalin_ping:
+### [NR] (OPTIONAL)
+- -nr to generate a message that the patch will be available on the Next Restart on the server
 
 ### EXAMPLE INPUT
-- [p] [v17112023] [IMAGES] [@EVERYONE]
+- [p] [v17112023] [IMAGES] [@EVERYONE] [NR]
 
 ## Integrate a 'v' hotkey for creating Discord posts from Trello cards
 - Start by reading the image.png's first, then extra images that have been provided to you.
