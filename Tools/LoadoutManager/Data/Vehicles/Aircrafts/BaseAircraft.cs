@@ -152,10 +152,6 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
         {
             ammunitionArray = GenerateLoadoutRow(defaultLoadoutOnTurret.AmmunitionTypesWithCount, false);
         }
-        else if (vehicleType == VehicleType.WILDCAT)
-        {
-            ammunitionArray = GenerateLoadoutRow(allowedAmmunitionTypesWithTheirLimitationAmount, false);
-        }
         else
         {
             ammunitionArray = GenerateLoadoutRow(defaultLoadout.AmmunitionTypesWithCount, false);
