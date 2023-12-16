@@ -150,9 +150,22 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
         }
 
         // Calculate for turret (like for aircrafts, the Su34)
-        if (defaultLoadoutOnTurret.AmmunitionTypesWithCount.Count > 0) // Convert this to list if needed later on
+        if (defaultLoadoutOnTurret.AmmunitionTypesWithCount.Count > 0 && vehicleType != VehicleType.WILDCAT) // Convert this to list if needed later on
         {
             ammunitionArray = GenerateLoadoutRow(defaultLoadoutOnTurret.AmmunitionTypesWithCount, false);
+        }
+        else if (vehicleType == VehicleType.WILDCAT)
+        {
+            // Perhaps move to a separate method
+            Dictionary<AmmunitionType, int> filteredAmmunitionTypes = new Dictionary<AmmunitionType, int>();
+            foreach (var item in allowedAmmunitionTypesWithTheirLimitationAmount)
+            {
+                if (defaultLoadoutOnTurret.AmmunitionTypesWithCount.ContainsKey(item.Key))
+                {
+                    filteredAmmunitionTypes.Add(item.Key, item.Value);
+                }
+            }
+            ammunitionArray = GenerateLoadoutRow(filteredAmmunitionTypes, false);
         }
         else
         {

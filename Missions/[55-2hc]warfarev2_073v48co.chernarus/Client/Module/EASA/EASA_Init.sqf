@@ -617,7 +617,7 @@ _easaLoadout = _easaLoadout + [
 
 // Wildcat AH11 [AF3] - 4 pylons
 _easaVehi = _easaVehi + ['AW159_Lynx_BAF'];
-_easaDefault = _easaDefault + [[['CRV7_HEPD','CTWS','SpikeLauncher_ACR'],['6Rnd_CRV7_HEPD','200Rnd_40mmHE_FV510','200Rnd_40mmSABOT_FV510','2Rnd_Spike_ACR','2Rnd_Spike_ACR']]];
+_easaDefault = _easaDefault + [[['SpikeLauncher_ACR'],['2Rnd_Spike_ACR','2Rnd_Spike_ACR']]];
 _easaLoadout = _easaLoadout + [
 [
 [8800,'Spike (2) | Stinger (2)',[['SpikeLauncher_ACR','StingerLauncher_twice'],['2Rnd_Spike_ACR','2Rnd_Stinger']]],
