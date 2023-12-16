@@ -150,22 +150,9 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
         }
 
         // Calculate for turret (like for aircrafts, the Su34)
-        if (defaultLoadoutOnTurret.AmmunitionTypesWithCount.Count > 0 && vehicleType != VehicleType.WILDCAT) // Convert this to list if needed later on
+        if (defaultLoadoutOnTurret.AmmunitionTypesWithCount.Count > 0) // Convert this to list if needed later on
         {
             ammunitionArray = GenerateLoadoutRow(defaultLoadoutOnTurret.AmmunitionTypesWithCount, false);
-        }
-        else if (vehicleType == VehicleType.WILDCAT)
-        {
-            // Perhaps move to a separate method
-            Dictionary<AmmunitionType, int> filteredAmmunitionTypes = new Dictionary<AmmunitionType, int>();
-            foreach (var item in allowedAmmunitionTypesWithTheirLimitationAmount)
-            {
-                if (defaultLoadoutOnTurret.AmmunitionTypesWithCount.ContainsKey(item.Key))
-                {
-                    filteredAmmunitionTypes.Add(item.Key, item.Value);
-                }
-            }
-            ammunitionArray = GenerateLoadoutRow(filteredAmmunitionTypes, false);
         }
         else
         {
@@ -248,6 +235,11 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
     private bool CheckDisregardedLoadout(
         Dictionary<AmmunitionType, int> _input, bool _generateWithPriceAndWeaponsInfo)
     {
+        if (vehicleType == VehicleType.WILDCAT)
+        {
+            return false;
+        }
+
         bool disregardLoadout = false;
         var ammoToSearch = AmmunitionType.BASECH29;
 
@@ -280,6 +272,29 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
         Dictionary<AmmunitionType, int> _input,
         bool _generateWithPriceAndWeaponsInfo = true) // For non-default loadouts, show the information on the easa screen
     {
+        var wildcatSpecialWeapons = new Dictionary<AmmunitionType, int>
+        {
+            { AmmunitionType.TWOHUNDREDROUNDCTWSHE, 2},
+            { AmmunitionType.TWOHUNDREDROUNDCTWSSABOT, 2},
+            { AmmunitionType.SIXROUNDCRV7HEPD, 2},
+        };
+
+        // Special handling for wildcat, inserting the default weapons to each of the pylons
+        if (vehicleType == VehicleType.WILDCAT && _generateWithPriceAndWeaponsInfo) 
+        {
+            foreach (var weapon in wildcatSpecialWeapons)
+            {
+                if (_input.ContainsKey(weapon.Key))
+                {
+                    _input[weapon.Key] += weapon.Value;
+                }
+                else
+                {
+                    _input.Add(weapon.Key, weapon.Value);
+                }
+            }
+        }
+
         LoadoutRow newLoadoutRow = new LoadoutRow();
 
         if (CalculateWeaponsCount(_input) != pylonAmount && !addToDefaultLoadoutPrice)
@@ -302,10 +317,11 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
         }).ToDictionary(i => i.Key, i => i.Value);
 
         foreach (var ammoTypeKvp in sortedInput)
-        {
+        {            
             string weaponAmount = "0";
 
             var ammunitionType = (InterfaceAmmunition)EnumExtensions.GetInstance(ammoTypeKvp.Key.ToString());
+            
             var weaponDefinition = (InterfaceWeapon)ammunitionType.weaponDefinition;
             var weaponSqfName = EnumExtensions.GetEnumMemberAttrValue(weaponDefinition.WeaponType);
             var ammoDisplayName = EnumExtensions.GetEnumMemberAttrValue(ammunitionType.AmmunitionTypes[0]);
@@ -403,9 +419,17 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
                 weaponAmount = weaponAmount.ToString();
             }
 
-            newLoadoutRow.weaponsInfo += ammunitionType.ammoDisplayName + " (" + weaponAmount + ") | ";
-
-            alreadyAddedWeaponLaunchersWithWeaponAmountInTotal.Add(weaponSqfName, weaponAmount);
+            // Wildcat black magic
+            if (vehicleType == VehicleType.WILDCAT && _generateWithPriceAndWeaponsInfo && wildcatSpecialWeapons.ContainsKey(ammoTypeKvp.Key)) 
+            {
+                alreadyAddedWeaponLaunchersWithWeaponAmountInTotal.Add(weaponSqfName, weaponAmount);
+                continue;
+            }
+            else 
+            {
+                newLoadoutRow.weaponsInfo += ammunitionType.ammoDisplayName + " (" + weaponAmount + ") | ";
+                alreadyAddedWeaponLaunchersWithWeaponAmountInTotal.Add(weaponSqfName, weaponAmount);
+            }            
         }
 
         newLoadoutRow.weaponsInfo = newLoadoutRow.weaponsInfo.TrimEnd(' ');

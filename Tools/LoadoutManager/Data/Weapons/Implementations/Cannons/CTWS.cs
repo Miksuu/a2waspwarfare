@@ -3,6 +3,6 @@
     public CTWS()
     {
         WeaponType = WeaponType.CTWS;
-        costPerWeaponLauncher = 1000;
+        costPerWeaponLauncher = 0;
     }
 }

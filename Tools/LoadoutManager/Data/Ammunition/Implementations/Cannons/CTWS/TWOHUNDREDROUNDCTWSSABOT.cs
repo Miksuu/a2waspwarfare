@@ -6,6 +6,6 @@
         amountPerPylon = 200;
         weaponDefinition = (InterfaceWeapon)EnumExtensions.GetInstance(WeaponType.CTWS.ToString()) as BaseWeapon;
         ammoDisplayName = "CTWS (Sabot)";
-        costPerPylon = 99999999;
+        costPerPylon = 0;
     }
 }
