@@ -40,7 +40,7 @@ switch (true) do {
 				case "CommandCenter": {
 					_localizedString = localize "STR_WF_CommandCenter";
 					_value = "UAVTerminal";
-					if (_side == west) then {_value = "CommandPost"};
+					if (WF_A2_Arrowhead || (WF_A2_CombinedOps && _side == west)) then {_value = "CommandPost"};
 				};
 				case "Heavy": {_localizedString = localize "STRHeavyVehicleSupply";_value = "HeavyVehicleSupply"};
 				case "Aircraft": {_localizedString = localize "STRHelipad";_value = "Helipad"};

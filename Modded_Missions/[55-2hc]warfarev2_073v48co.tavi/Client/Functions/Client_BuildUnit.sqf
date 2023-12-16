@@ -193,15 +193,18 @@ if (!alive _building || isNull _building) exitWith {
 if (_isMan) then {
 	_soldier = [_unit,_group,_position,WFBE_Client_SideID] Call WFBE_CO_FNC_CreateUnit;
 
-	//--- Make sure that our unit is supposed to have a backpack.
-	if (getText(configFile >> 'CfgVehicles' >> _unit >> 'backpack') != "") then {
-		//--- Retrieve the unit gear config.
-		_gear_config = (_unit) Call WFBE_CO_FNC_GetUnitConfigGear;
-		_gear_backpack = _gear_config select 2;
-		_gear_backpack_content = _gear_config select 3;
+	//--- OA or CO, Since BIS will soon fix it... not!, we fix unit backpack attachment on creation.
+	if (WF_A2_Arrowhead || WF_A2_CombinedOps) then {
+		//--- Make sure that our unit is supposed to have a backpack.
+		if (getText(configFile >> 'CfgVehicles' >> _unit >> 'backpack') != "") then {
+			//--- Retrieve the unit gear config.
+			_gear_config = (_unit) Call WFBE_CO_FNC_GetUnitConfigGear;
+			_gear_backpack = _gear_config select 2;
+			_gear_backpack_content = _gear_config select 3;
 
-		//--- Backpack handling.
-		if (_gear_backpack != "") then {[_soldier, _gear_backpack, _gear_backpack_content] Call WFBE_CO_FNC_EquipBackpack};
+			//--- Backpack handling.
+			if (_gear_backpack != "") then {[_soldier, _gear_backpack, _gear_backpack_content] Call WFBE_CO_FNC_EquipBackpack};
+		};
 	};
 
 	[sideJoinedText,'UnitsCreated',1] Call UpdateStatistics;
@@ -244,11 +247,13 @@ if (_isMan) then {
 	if (_unit isKindOf "Air") then {
 		//--- Countermeasures.
 			if (getNumber(configFile >> "CfgVehicles" >> typeOf _vehicle >> "incommingmissliedetectionsystem") > 8) then {_vehicle addeventhandler ['IncomingMissile',{_this spawn HandleAlarm;}]};
-		switch (missionNamespace getVariable "WFBE_C_MODULE_WFBE_FLARES") do { //--- Remove CM if needed.
-			case 0: {(_vehicle) Call WFBE_CO_FNC_RemoveCountermeasures}; //--- Disabled.
-			case 1: { //--- Enabled with upgrades.
-				if (((sideJoined Call WFBE_CO_FNC_GetSideUpgrades) select WFBE_UP_FLARESCM) == 0) then {
-					(_vehicle) Call WFBE_CO_FNC_RemoveCountermeasures;
+		if !(WF_A2_Vanilla) then {
+			switch (missionNamespace getVariable "WFBE_C_MODULE_WFBE_FLARES") do { //--- Remove CM if needed.
+				case 0: {(_vehicle) Call WFBE_CO_FNC_RemoveCountermeasures}; //--- Disabled.
+				case 1: { //--- Enabled with upgrades.
+					if (((sideJoined Call WFBE_CO_FNC_GetSideUpgrades) select WFBE_UP_FLARESCM) == 0) then {
+						(_vehicle) Call WFBE_CO_FNC_RemoveCountermeasures;
+					};
 				};
 			};
 		};

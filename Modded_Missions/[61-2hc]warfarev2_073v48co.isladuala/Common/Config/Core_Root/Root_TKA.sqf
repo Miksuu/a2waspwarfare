@@ -107,8 +107,9 @@ if (local player) then {
 
 	//--- Import the needed Gear (Available from the gear menu), multiple gear can be used.
 	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Loadout\Loadout_TKA.sqf";
-
-	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Loadout\Loadout_RU.sqf";
+	if (WF_A2_CombinedOps) then {
+		(_side) Call Compile preprocessFileLineNumbers "Common\Config\Loadout\Loadout_RU.sqf";
+	};
 };
 
 //--- Default Loadout [weapons, magazines, eligible muzzles, {backpack}, {backpack content}].
@@ -118,17 +119,29 @@ missionNamespace setVariable [Format["WFBE_%1_DefaultGear", _side], [
 	['AKS_74_kobra','Makarov']
 ]];
 
-//--- Artillery.
-(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Artillery\Artillery_CO_RU.sqf";
-//--- Units.
-(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Units\Units_CO_RU.sqf";
-//--- Squads.
-(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Squads\Squad_RU.sqf";
-//--- Structures.
-(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Structures\Structures_CO_RU.sqf";
-//--- Upgrades.
-(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Upgrades\Upgrades_CO_RU.sqf";
-
+if (WF_A2_CombinedOps) then {
+	//--- Artillery.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Artillery\Artillery_CO_RU.sqf";
+	//--- Units.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Units\Units_CO_RU.sqf";
+	//--- Squads.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Squads\Squad_RU.sqf";
+	//--- Structures.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Structures\Structures_CO_RU.sqf";
+	//--- Upgrades.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Upgrades\Upgrades_CO_RU.sqf";
+} else {
+	//--- Artillery.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Artillery\Artillery_OA_TKA.sqf";
+	//--- Units.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Units\Units_OA_TKA.sqf";
+	//--- Squads.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Squads\Squad_OA_TKA.sqf";
+	//--- Structures.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Structures\Structures_OA_TKA.sqf";
+	//--- Upgrades.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Upgrades\Upgrades_OA_TKA.sqf";
+};
 //Engineer
 missionNamespace setVariable [Format["WFBE_%1_DefaultGearEngineer", _side], [
 	['AK_74_GL','ItemCompass','ItemMap','ItemWatch','ItemRadio','Binocular','NVGoggles'],

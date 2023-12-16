@@ -32,18 +32,15 @@ if (WF_A2_Vanilla || WF_A2_CombinedOps) then {
 	_dropPosY = _dropPosition select 1;
 	_dropPosZ = _dropPosition select 2;
 
-_dropPosX = _dropPosition select 0;
-_dropPosY = _dropPosition select 1;
-_dropPosZ = _dropPosition select 2;
+	_planespawnpos = [_dropPosX , _dropPosY , _dropPosZ + 600];
 
-_planespawnpos = [_dropPosX , _dropPosY , _dropPosZ + 600];
-
-_misFlare = createVehicle ["cruiseMissileFlare1",_planespawnpos,[], 0, "NONE"];
-_misFlare inflame true;
-_cruise setVariable ["cruisemissile_level", false];
-[_cruise, _misFlare] execVM (_pathS + "cruisemissileflare.sqf");
-_cruise setObjectTexture [0, _path + "data\exhaust_flame_ca"];
-[_cruise] execVM (_pathS + "exhaust1.sqf");
+	_misFlare = createVehicle ["cruiseMissileFlare1",_planespawnpos,[], 0, "NONE"];
+	_misFlare inflame true;
+	_cruise setVariable ["cruisemissile_level", false];
+	[_cruise, _misFlare] execVM (_pathS + "cruisemissileflare.sqf");
+	_cruise setObjectTexture [0, _path + "data\exhaust_flame_ca"];
+	[_cruise] execVM (_pathS + "exhaust1.sqf");
+};
 
 sleep 7;
 

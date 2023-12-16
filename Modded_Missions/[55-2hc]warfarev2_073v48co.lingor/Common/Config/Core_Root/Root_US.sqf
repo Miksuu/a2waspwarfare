@@ -109,8 +109,9 @@ if (local player) then {
 
 	//--- Import the needed Gear (Available from the gear menu), multiple gear can be used.
 	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Loadout\Loadout_US.sqf";
-
-	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Loadout\Loadout_USMC.sqf";
+	if (WF_A2_CombinedOps) then {
+		(_side) Call Compile preprocessFileLineNumbers "Common\Config\Loadout\Loadout_USMC.sqf";
+	};
 
 	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Loadout\Loadout_BAF.sqf";
 };

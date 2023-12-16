@@ -124,13 +124,21 @@ missionNamespace setVariable [Format["WFBE_%1_DefaultGear", _side], [
 //--- Squads.
 (_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Squads\Squad_USMC.sqf";
 
-//--- Units.
-(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Units\Units_CO_US.sqf";
-//--- Structures.
-(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Structures\Structures_CO_US.sqf";
-//--- Upgrades.
-(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Upgrades\Upgrades_CO_US.sqf";
-
+if (WF_A2_CombinedOps) then {
+	//--- Units.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Units\Units_CO_US.sqf";
+	//--- Structures.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Structures\Structures_CO_US.sqf";
+	//--- Upgrades.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Upgrades\Upgrades_CO_US.sqf";
+} else {
+	//--- Units.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Units\Units_USMC.sqf";
+	//--- Structures.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Structures\Structures_USMC.sqf";
+	//--- Upgrades.
+	(_side) Call Compile preprocessFileLineNumbers "Common\Config\Core_Upgrades\Upgrades_USMC.sqf";
+};
 //Engineer
 missionNamespace setVariable [Format["WFBE_%1_DefaultGearEngineer", _side], [
 	['M16A2GL','ItemCompass','ItemMap','ItemWatch','ItemRadio','Binocular','NVGoggles'],
