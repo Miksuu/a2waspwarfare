@@ -74,7 +74,7 @@ if ((missionNamespace getVariable "WFBE_C_STRUCTURES_CONSTRUCTION_MODE") == 0) t
 };
 
 if (WF_A2_Arrowhead) then {_objects = [["Land_WoodenRamp",[-2.45703,-0.593262,0.357508],270,1,0],["Land_WoodenRamp",[-2.5083,1.3811,0.357508],270,1,0],[_siteName,[4.6333,0.338135,0.00393867],90,1,0],["Land_Dirthump02_EP1",[-0.587891,8.57935,0.00207901],359.967,1,0],["Land_Dirthump01_EP1",[-3.97363,-8.49219,-4.57764e-005],29.9804,1,0],["Land_WoodenRamp",[8.8335,-0.125977,0.403545],90,1,0]]};
-if (WF_A2_CombinedOps) then {_objects = [["Land_WoodenRamp",[-2.45703,-0.593262,0.357508],270,1,0],["Land_WoodenRamp",[-2.5083,1.3811,0.357508],270,1,0],[_siteName,[4.6333,0.338135,0.00393867],90,1,0],["Land_Dirthump02",[-0.587891,8.57935,0.00207901],359.967,1,0],["Land_Dirthump01",[-3.97363,-8.49219,-4.57764e-005],29.9804,1,0],["Land_WoodenRamp",[8.8335,-0.125977,0.403545],90,1,0]]};
+if (WF_A2_Vanilla || WF_A2_CombinedOps) then {_objects = [["Land_WoodenRamp",[-2.45703,-0.593262,0.357508],270,1,0],["Land_WoodenRamp",[-2.5083,1.3811,0.357508],270,1,0],[_siteName,[4.6333,0.338135,0.00393867],90,1,0],["Land_Dirthump02",[-0.587891,8.57935,0.00207901],359.967,1,0],["Land_Dirthump01",[-3.97363,-8.49219,-4.57764e-005],29.9804,1,0],["Land_WoodenRamp",[8.8335,-0.125977,0.403545],90,1,0]]};
 _constructed = _constructed + ([_position,_direction,_objects] Call _construct);
 
 if ((missionNamespace getVariable "WFBE_C_STRUCTURES_CONSTRUCTION_MODE") == 0) then {
