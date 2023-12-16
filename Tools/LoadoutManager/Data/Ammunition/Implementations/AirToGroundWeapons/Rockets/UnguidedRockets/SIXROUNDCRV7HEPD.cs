@@ -6,6 +6,6 @@
         amountPerPylon = 19;
         weaponDefinition = (InterfaceWeapon)EnumExtensions.GetInstance(WeaponType.CRV7HEPD.ToString()) as BaseWeapon;
         ammoDisplayName = "CRV7 (HDPD)";
-        costPerPylon = 99999999;
+        costPerPylon = 0;
     }
 }

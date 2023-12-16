@@ -22,8 +22,15 @@ if (_type != -1) then {
 	
 	//--- Now we load the new EASA setup.
 	_loadout = (((missionNamespace getVariable 'WFBE_EASA_Loadouts') select _type) select _index) select 2;
-	{_vehicle addMagazine _x} forEach (_loadout select 1);
-	{_vehicle addWeapon _x} forEach (_loadout select 0);
+
+	// Check for wildcat, add weapons to its turret instead of the vehicle. Otherwise add them to the vehicle (just like before).
+	if ((typeOf _vehicle) == "AW159_Lynx_BAF") then {
+		{_vehicle addMagazineTurret [_x, [-1]]} forEach (_loadout select 1);
+		{_vehicle addWeaponTurret [_x, [-1]]} forEach (_loadout select 0);
+	} else {
+		{_vehicle addMagazine _x} forEach (_loadout select 1);
+		{_vehicle addWeapon _x} forEach (_loadout select 0);
+	};
 	
 	//--- We update the EASA setup on the vehicle for everyone if needed.
 	if (_get != _index) then {_vehicle setVariable ["WFBE_EASA_Setup", _index, true]};

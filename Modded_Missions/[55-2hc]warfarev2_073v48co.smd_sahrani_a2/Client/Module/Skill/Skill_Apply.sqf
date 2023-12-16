@@ -82,6 +82,18 @@ switch (WFBE_SK_V_Type) do {
 			"", 
 			"time - WFBE_SK_V_LastUse_Spot > WFBE_SK_V_Reload_Spot"
 		];
+
+		/* Lockpicking Ability */
+		_unit addAction [
+			("<t color='#f8d664'>" + localize 'STR_WF_ACTION_Lockpick'+ "</t>"),
+			(WFBE_SK_V_Root + 'SpecOps' + '.sqf'), 
+			[], 
+			80, 
+			false, 
+			true, 
+			"", 
+			"time - WFBE_SK_V_LastUse_Lockpick > WFBE_SK_V_Reload_Lockpick"
+		];
 		
 		_unit addAction [
 				(localize "STR_WASP_actions_fastrep"),

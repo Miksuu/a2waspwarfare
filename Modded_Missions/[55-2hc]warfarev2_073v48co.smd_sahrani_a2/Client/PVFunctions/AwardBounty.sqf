@@ -8,7 +8,6 @@ _get = missionNamespace getVariable _type;
 
 _name = _get select QUERYUNITLABEL;
 
-
 _bounty = switch  (true) do {
                     case (_type isKindOf "Man"): {round((_get select QUERYUNITPRICE) *0.7* (missionNamespace getVariable "WFBE_C_UNITS_BOUNTY_COEF"));};
 

@@ -12,8 +12,8 @@ case "Su34":{
         _ammo = _this select 4;
         _result = 0;
         switch (_ammo) do {
-            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
-            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_R73_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
             default {_result = _this select 2; };
         };
         _result
@@ -26,36 +26,8 @@ case "Su25_Ins":{
         _ammo = _this select 4;
         _result = 0;
         switch (_ammo) do {
-            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
-            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
-            default {_result = _this select 2; };
-        };
-        _result
-    };
-    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
-};
-
-case "Su25_TK_EP1":{
-    _rearmor = {
-        _ammo = _this select 4;
-        _result = 0;
-        switch (_ammo) do {
-            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
-            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
-            default {_result = _this select 2; };
-        };
-        _result
-    };
-    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
-};
-
-case "Su39":{
-    _rearmor = {
-        _ammo = _this select 4;
-        _result = 0;
-        switch (_ammo) do {
-            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
-            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_R73_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
             default {_result = _this select 2; };
         };
         _result
@@ -68,8 +40,8 @@ case "L39_TK_EP1":{
         _ammo = _this select 4;
         _result = 0;
         switch (_ammo) do {
-            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
-            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_R73_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
             default {_result = _this select 2; };
         };
         _result
@@ -82,8 +54,8 @@ case "F35B":{
         _ammo = _this select 4;
         _result = 0;
         switch (_ammo) do {
-            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
-            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_R73_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
             default {_result = _this select 2; };
         };
         _result
@@ -96,8 +68,8 @@ case "L159_ACR":{
         _ammo = _this select 4;
         _result = 0;
         switch (_ammo) do {
-            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
-            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_R73_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
             default {_result = _this select 2; };
         };
         _result
@@ -110,22 +82,8 @@ case "A10":{
         _ammo = _this select 4;
         _result = 0;
         switch (_ammo) do {
-            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
-            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
-            default {_result = _this select 2; };
-        };
-        _result
-    };
-    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
-};
-
-case "A10_US_EP1":{
-    _rearmor = {
-        _ammo = _this select 4;
-        _result = 0;
-        switch (_ammo) do {
-            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
-            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_R73_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
             default {_result = _this select 2; };
         };
         _result
@@ -138,8 +96,8 @@ case "AV8B":{
         _ammo = _this select 4;
         _result = 0;
         switch (_ammo) do {
-            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
-            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_R73_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
             default {_result = _this select 2; };
         };
         _result
@@ -152,8 +110,8 @@ case "AV8B2":{
         _ammo = _this select 4;
         _result = 0;
         switch (_ammo) do {
-            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
-            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_R73_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
             default {_result = _this select 2; };
         };
         _result
@@ -166,8 +124,8 @@ case "An2_TK_EP1":{
         _ammo = _this select 4;
         _result = 0;
         switch (_ammo) do {
-            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
-            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_R73_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
             default {_result = _this select 2; };
         };
         _result
@@ -180,8 +138,8 @@ case "ibrPRACS_MiG21mol":{
         _ammo = _this select 4;
         _result = 0;
         switch (_ammo) do {
-            case "M_R73_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
-            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 99; _result = (_dam / 100) * (100 - _p); };
+            case "M_R73_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
             default {_result = _this select 2; };
         };
         _result

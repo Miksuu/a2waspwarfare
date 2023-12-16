@@ -8,5 +8,7 @@ public interface InterfaceAircraft
     public Dictionary<AmmunitionType, float> ammunitionTypeCostFloatModifier { get; set; }
     public bool hasCustomRadarName { get; set; }
 
+    public bool excludeFromAntiAirMissileOneHitKill { get; set; }
+
     public string GenerateLoadoutsForTheAircraft();
 }

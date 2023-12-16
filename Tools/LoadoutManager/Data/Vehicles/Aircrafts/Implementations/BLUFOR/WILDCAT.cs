@@ -19,7 +19,6 @@
         base.defaultLoadout.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
             {
                 //{ AmmunitionType.LASERBATTERIES, 2},
-                { AmmunitionType.TWOROUNDSPIKE, 4},
             };
 
         //weapons[] = {
@@ -43,6 +42,7 @@
                 { AmmunitionType.TWOHUNDREDROUNDCTWSHE, 2},
                 { AmmunitionType.TWOHUNDREDROUNDCTWSSABOT, 2},
                 { AmmunitionType.SIXROUNDCRV7HEPD, 2},
+                { AmmunitionType.TWOROUNDSPIKE, 4},
             };
 
         turretPos = -1;
@@ -58,5 +58,7 @@
 
         addToDefaultLoadoutPrice = true;
         producedFromFactoryType = FactoryType.AIRCRAFTFACTORY;
+
+        addToDefaultLoadoutPrice = true;
     }
 }

@@ -17,10 +17,7 @@ IS_naval_map = false;
 	IS_naval_map = true; // if the map can support boats then global variable boolean is true.
 #endif
 
-IS_air_war_event = false;
-#ifdef IS_AIR_WAR_EVENT
-	IS_air_war_event = true;
-#endif
+
 
 startingDistance = STARTING_DISTANCE;
 
@@ -31,7 +28,6 @@ for '_i' from 0 to 3 do {diag_log "################################"};
 diag_log format ["## Island Name: [%1]", worldName];
 diag_log format ["## Mission Name: [%1]", WF_MISSIONNAME];
 diag_log format ["## Starting Distance: [%1]", startingDistance];
-diag_log format ["## Air War Event: [%1]", IS_air_war_event];
 diag_log format ["## Max players Defined: [%1]", WF_MAXPLAYERS];
 diag_log format ["## LOG CONTENT : [%1]", LOG_CONTENT_STATE];
 for '_i' from 0 to 3 do {diag_log "################################"};
@@ -125,6 +121,23 @@ IS_mod_map_dependent = false;
 if (isMultiplayer) then {Call Compile preprocessFileLineNumbers "Common\Init\Init_Parameters.sqf"}; //--- In MP, we get the parameters.
 
 Call Compile preprocessFileLineNumbers "Common\Init\Init_CommonConstants.sqf"; //--- Set the constants and the parameters, skip the params if they're already defined.
+
+IS_air_war_event = false;
+_airEventEnabledFromParameters = missionNamespace getVariable "WFBE_AIR_EVENT_ENABLED";
+
+switch (_airEventEnabledFromParameters) do {
+	case 0: {
+		#ifdef IS_AIR_WAR_EVENT
+			IS_air_war_event = true;
+		#endif
+	};
+	case 1: { 
+		IS_air_war_event = false; 
+	};
+	case 2: { 
+		IS_air_war_event = true; 
+	};
+};
 
 if (IS_air_war_event) then {
 	missionNamespace setVariable ["WFBE_C_ECONOMY_SUPPLY_START_EAST", 50000];

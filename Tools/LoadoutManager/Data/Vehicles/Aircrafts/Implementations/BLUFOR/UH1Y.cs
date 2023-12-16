@@ -14,14 +14,23 @@
         //    "120Rnd_CMFlareMagazine"
         //};
 
-        base.vanillaGameDefaultLoadout.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
-            {
+        // base.vanillaGameDefaultLoadout.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
+        //     {
 
-            };
-        base.defaultLoadout.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
+        //     };
+        // base.defaultLoadout.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
+        //     {
+        //         { AmmunitionType.SIXTYROUNDCMFLAREMAGAZINE, 2},
+        //     };
+
+        base.vanillaGameDefaultLoadoutOnTurret.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
             {
-                { AmmunitionType.SIXTYROUNDCMFLAREMAGAZINE, 2},
-                { AmmunitionType.THIRTYEIGHTROUNDHYDRA, 2},
+                { AmmunitionType.FOURTEENROUNDHYDRA, 2},
+            };
+
+        base.defaultLoadoutOnTurret.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
+            {
+                { AmmunitionType.FOURTEENROUNDHYDRA, 8},
             };
 
         allowedAmmunitionTypesWithTheirLimitationAmount = new Dictionary<AmmunitionType, int>
@@ -30,6 +39,8 @@
 
         inGameDisplayName = "UH1Y";
         inGameFactoryLevel = 2;
+
+        turretPos = -1;
 
         producedFromFactoryType = FactoryType.AIRCRAFTFACTORY;
     }

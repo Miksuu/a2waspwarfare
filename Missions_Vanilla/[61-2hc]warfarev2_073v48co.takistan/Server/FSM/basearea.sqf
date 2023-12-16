@@ -53,6 +53,10 @@ while {!gameOver} do {
 		_aar = [_side,missionNamespace getVariable Format["WFBE_%1AARADARTYPE",str _side],_buildings] Call GetFactories;
 		_buildings = _buildings - _command - _service - _aar;
 		_areas_old = _logik getVariable "wfbe_basearea";
+
+		// Remove the null objects from the array, test to fix the base area bug possibly.
+		_areas_old = _areas_old - [objNull];
+
 		_areas = _areas_old;
 	
 		{

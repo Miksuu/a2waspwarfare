@@ -1,3 +1,6 @@
+using System.Linq.Expressions;
+using System.Text.RegularExpressions;
+
 // The BaseAircraft class serves as the foundational abstraction for all types of aircraft in the application.
 // It inherits from the BaseVehicle class and implements the InterfaceAircraft, encapsulating common behaviors,
 // properties, and methods shared across different aircraft types. This includes functionalities for generating
@@ -17,6 +20,8 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
 
     // Used for generating for Common_ReturnAircraftNameFromItsType.sqf
     public bool hasCustomRadarName { get; set; }
+
+    public bool excludeFromAntiAirMissileOneHitKill { get; set; }
 
     // Generates a string representing the loadouts for this aircraft.
     public string GenerateLoadoutsForTheAircraft()
@@ -57,52 +62,63 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
 
         generatedCombinationLoadouts += "\n_easaLoadout = _easaLoadout + [\n[";
         var combinations = GenerateCombinations(allowedAmmunitionTypesWithTheirLimitationAmount.Keys.ToArray(), pylonAmount / 2);
-        generatedCombinationLoadouts += GenerateSortedCombinations(combinations);
+        generatedCombinationLoadouts += ConvertCombinationsToStringFormat(combinations);
 
         return generatedCombinationLoadouts;
     }
 
-    // Sorts combinations of ammunition types by total cost and returns them as a formatted string.
-    private string GenerateSortedCombinations(List<List<AmmunitionType>> _combinations)
+    // Returns combinations of ammunition types as a formatted string without sorting by total cost.
+    private string ConvertCombinationsToStringFormat(List<List<AmmunitionType>> _combinations)
     {
-        string sortedCombinations = string.Empty;
+        string combinationsInStringFormat = string.Empty;
 
-        var finalPricesSortedByPrice = GetSortedCombinationsByPrice(_combinations);
+        var finalCombinations = GetFinalCombinations(_combinations);
 
         int index = 0;
-        foreach (var item in finalPricesSortedByPrice)
+        foreach (var item in finalCombinations)
         {
             string finalString = item.Key + ",";
-            if (index == finalPricesSortedByPrice.Count - 1)
+            if (index == finalCombinations.Count - 1)
             {
                 finalString = finalString.TrimEnd(',');
             }
-            sortedCombinations += "\n" + finalString;
+            combinationsInStringFormat += "\n" + finalString;
             index++;
         }
 
-        return sortedCombinations;
+        return combinationsInStringFormat;
     }
 
-    // Sorts given combinations of ammunition types by their total cost.
-    private Dictionary<string, int> GetSortedCombinationsByPrice(List<List<AmmunitionType>> _combinations)
+    // Returns given combinations of ammunition types with their total cost without sorting.
+    private Dictionary<string, string> GetFinalCombinations(List<List<AmmunitionType>> _combinations)
     {
-        Dictionary<string, int> unsortedListByPrice = new Dictionary<string, int>();
+        Dictionary<string, string> combinationDictionary = new Dictionary<string, string>();
         foreach (var combination in _combinations)
         {
             var loadout = GenerateLoadoutForCombination(combination);
-            if (loadout.Item1 != "" && loadout.Item2 != 0)
+            if (loadout.Item1 != "" && loadout.Item2 != "")
             {
-                unsortedListByPrice.Add(loadout.Item1, loadout.Item2);
+                combinationDictionary.Add(loadout.Item1, loadout.Item2);
             }
         }
-        return unsortedListByPrice.OrderBy(pair => pair.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
+        var sortedDictionary = combinationDictionary.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+
+        var modifiedDictionary = new Dictionary<string, string>();
+        foreach (var item in sortedDictionary)
+        {
+            string modifiedKey = Regex.Replace(item.Key, @"(\b|\D)0*([1-9][0-9]?)(\b|\D)", match => match.Groups[1].Value + (match.Groups[1].Value == " " || match.Groups[3].Value == " " ? match.Groups[2].Value.PadLeft(2, '0') : match.Groups[2].Value) + match.Groups[3].Value);
+            modifiedDictionary.Add(modifiedKey, item.Value);
+        }
+
+        sortedDictionary = modifiedDictionary;
+
+        return sortedDictionary;
     }
 
     // Generates a loadout and its cost for a given combination of ammunition types.
-    private (string, int) GenerateLoadoutForCombination(List<AmmunitionType> _combination)
+    private (string, string) GenerateLoadoutForCombination(List<AmmunitionType> _combination)
     {
-        (string, int) loadout = ("", 0);
+        (string, string) loadout = ("", "");
         Dictionary<AmmunitionType, int> combinationLoadouts = new Dictionary<AmmunitionType, int>();
 
         foreach (var item in _combination)
@@ -124,9 +140,9 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
     // Generates a default loadout for the aircraft based on its type and specific configurations.
     private string GenerateDefaultLoadout()
     {
-        (string, int) ammunitionArray = ("", 0);
+        (string, string) ammunitionArray = ("", "");
 
-        if (vehicleType == VehicleType.WILDCAT || vehicleType == VehicleType.MI24P)
+        if (vehicleType == VehicleType.MI24P)
         {
             ammunitionArray = GenerateLoadoutRow(defaultLoadout.AmmunitionTypesWithCount, false);
             ammunitionArray.Item1 = "\n_easaDefault = _easaDefault + " + ammunitionArray.Item1 + ";";
@@ -134,7 +150,7 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
         }
 
         // Calculate for turret (like for aircrafts, the Su34)
-        if (defaultLoadoutOnTurret.AmmunitionTypesWithCount.Count > 0 && vehicleType != VehicleType.WILDCAT) // Convert this to list if needed later on
+        if (defaultLoadoutOnTurret.AmmunitionTypesWithCount.Count > 0) // Convert this to list if needed later on
         {
             ammunitionArray = GenerateLoadoutRow(defaultLoadoutOnTurret.AmmunitionTypesWithCount, false);
         }
@@ -166,7 +182,7 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
 
     // Generates a row string that represents a loadout based on the given dictionary of ammunition types and counts.
     // Optionally includes price and weapons information in the output.
-    private (string, int) GenerateLoadoutRow(
+    private (string, string) GenerateLoadoutRow(
         Dictionary<AmmunitionType, int> _input, bool _generateWithPriceAndWeaponsInfo = true)
     {
         string finalRowOutput = string.Empty;
@@ -212,13 +228,18 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
         finalRowOutput = finalRowOutput.TrimEnd(',');
         finalRowOutput += "]]]";
 
-        return (finalRowOutput, calculatedLoadoutRow.totalPrice);
+        return (finalRowOutput, calculatedLoadoutRow.weaponsInfo);
     }
 
     // Checks whether a given loadout should be disregarded based on certain conditions, such as exceeding the allowed amount of a particular ammunition type.
     private bool CheckDisregardedLoadout(
         Dictionary<AmmunitionType, int> _input, bool _generateWithPriceAndWeaponsInfo)
     {
+        if (vehicleType == VehicleType.WILDCAT)
+        {
+            return false;
+        }
+
         bool disregardLoadout = false;
         var ammoToSearch = AmmunitionType.BASECH29;
 
@@ -251,6 +272,29 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
         Dictionary<AmmunitionType, int> _input,
         bool _generateWithPriceAndWeaponsInfo = true) // For non-default loadouts, show the information on the easa screen
     {
+        var wildcatSpecialWeapons = new Dictionary<AmmunitionType, int>
+        {
+            { AmmunitionType.TWOHUNDREDROUNDCTWSHE, 2},
+            { AmmunitionType.TWOHUNDREDROUNDCTWSSABOT, 2},
+            { AmmunitionType.SIXROUNDCRV7HEPD, 2},
+        };
+
+        // Special handling for wildcat, inserting the default weapons to each of the pylons
+        if (vehicleType == VehicleType.WILDCAT && _generateWithPriceAndWeaponsInfo) 
+        {
+            foreach (var weapon in wildcatSpecialWeapons)
+            {
+                if (_input.ContainsKey(weapon.Key))
+                {
+                    _input[weapon.Key] += weapon.Value;
+                }
+                else
+                {
+                    _input.Add(weapon.Key, weapon.Value);
+                }
+            }
+        }
+
         LoadoutRow newLoadoutRow = new LoadoutRow();
 
         if (CalculateWeaponsCount(_input) != pylonAmount && !addToDefaultLoadoutPrice)
@@ -264,12 +308,20 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
         }
 
         bool doneAddingSpecialAmounts = false;
-        Dictionary<string, int> alreadyAddedWeaponLaunchersWithWeaponAmountInTotal = new Dictionary<string, int>();
-        foreach (var ammoTypeKvp in _input)
+        Dictionary<string, string> alreadyAddedWeaponLaunchersWithWeaponAmountInTotal = new Dictionary<string, string>();
+
+        var sortedInput = _input.OrderBy(i => 
         {
-            int weaponAmount = 0;
+            var ammunitionType = (InterfaceAmmunition)EnumExtensions.GetInstance(i.Key.ToString());
+            return ammunitionType.ammoDisplayName.ToString();
+        }).ToDictionary(i => i.Key, i => i.Value);
+
+        foreach (var ammoTypeKvp in sortedInput)
+        {            
+            string weaponAmount = "0";
 
             var ammunitionType = (InterfaceAmmunition)EnumExtensions.GetInstance(ammoTypeKvp.Key.ToString());
+            
             var weaponDefinition = (InterfaceWeapon)ammunitionType.weaponDefinition;
             var weaponSqfName = EnumExtensions.GetEnumMemberAttrValue(weaponDefinition.WeaponType);
             var ammoDisplayName = EnumExtensions.GetEnumMemberAttrValue(ammunitionType.AmmunitionTypes[0]);
@@ -288,7 +340,9 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
                     newLoadoutRow.totalPrice += CalculateLoadoutTotalPrice(ammoTypeKvp.Key, ammunitionType.costPerPylon * 2);
                 }
 
-                weaponAmount += ammunitionType.amountPerPylon * 2;
+                int tempWeaponAmount = int.Parse(weaponAmount);
+                tempWeaponAmount += ammunitionType.amountPerPylon * 2;
+                weaponAmount = tempWeaponAmount.ToString();
 
                 foreach (var ammunitonType in ammunitionType.AmmunitionTypes)
                 {
@@ -339,7 +393,7 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
             // Do not add duplicate weapon launchers
             if (alreadyAddedWeaponLaunchersWithWeaponAmountInTotal.ContainsKey(weaponSqfName))
             {
-                alreadyAddedWeaponLaunchersWithWeaponAmountInTotal[weaponSqfName] += weaponAmount;
+                alreadyAddedWeaponLaunchersWithWeaponAmountInTotal[weaponSqfName] += int.Parse(weaponAmount);
                 continue;
             }
 
@@ -350,9 +404,32 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
                 newLoadoutRow.weaponTypesArray += "',";
             }
 
-            newLoadoutRow.weaponsInfo += ammunitionType.ammoDisplayName + " (" + weaponAmount + ") | ";
+            // Temporarily make the weapon amount a string so that it can be padded with 0s
+            int weaponAmountInt = int.Parse(weaponAmount);
+            if (weaponAmountInt < 10)
+            {
+                weaponAmount = "00" + weaponAmount;
+            }
+            else if (weaponAmountInt < 100)
+            {
+                weaponAmount = "0" + weaponAmount;
+            }
+            else
+            {
+                weaponAmount = weaponAmount.ToString();
+            }
 
-            alreadyAddedWeaponLaunchersWithWeaponAmountInTotal.Add(weaponSqfName, weaponAmount);
+            // Wildcat black magic
+            if (vehicleType == VehicleType.WILDCAT && _generateWithPriceAndWeaponsInfo && wildcatSpecialWeapons.ContainsKey(ammoTypeKvp.Key)) 
+            {
+                alreadyAddedWeaponLaunchersWithWeaponAmountInTotal.Add(weaponSqfName, weaponAmount);
+                continue;
+            }
+            else 
+            {
+                newLoadoutRow.weaponsInfo += ammunitionType.ammoDisplayName + " (" + weaponAmount + ") | ";
+                alreadyAddedWeaponLaunchersWithWeaponAmountInTotal.Add(weaponSqfName, weaponAmount);
+            }            
         }
 
         newLoadoutRow.weaponsInfo = newLoadoutRow.weaponsInfo.TrimEnd(' ');
