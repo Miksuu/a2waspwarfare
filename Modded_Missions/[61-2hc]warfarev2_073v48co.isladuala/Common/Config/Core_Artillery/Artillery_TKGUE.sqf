@@ -35,5 +35,5 @@ missionNamespace setVariable [Format['WFBE_%1_ARTILLERY_EXTENDED_MAGS_UPGRADE', 
 //--- Artillery classnames, more than one of the same family may be used.
 missionNamespace setVariable [Format['WFBE_%1_ARTILLERY_CLASSNAMES', _side], [
 	['D30_TK_GUE_EP1'],
-	['2b14_82mm_TK_GUE_EP1','2b14_82mm_GUE']
+	['2b14_82mm_TK_GUE_EP1']
 ]];
