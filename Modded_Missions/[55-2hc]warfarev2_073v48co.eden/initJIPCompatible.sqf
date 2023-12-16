@@ -124,22 +124,18 @@ Call Compile preprocessFileLineNumbers "Common\Init\Init_CommonConstants.sqf"; /
 
 IS_air_war_event = false;
 _airEventEnabledFromParameters = missionNamespace getVariable "WFBE_AIR_EVENT_ENABLED";
-["DEBUG", Format ["initJIPCompatible.sqf: Debug info [_airEventEnabledFromParameters] [%1]", _airEventEnabledFromParameters]] Call WFBE_CO_FNC_LogContent;
 
 switch (_airEventEnabledFromParameters) do {
 	case 0: {
 		#ifdef IS_AIR_WAR_EVENT
 			IS_air_war_event = true;
-			["DEBUG", Format ["initJIPCompatible.sqf: Debug info [IS_air_war_event] [%1]", IS_air_war_event]] Call WFBE_CO_FNC_LogContent;
 		#endif
 	};
 	case 1: { 
 		IS_air_war_event = false; 
-		["DEBUG", Format ["initJIPCompatible.sqf: Debug info [IS_air_war_event] [%1]", IS_air_war_event]] Call WFBE_CO_FNC_LogContent;
 	};
 	case 2: { 
 		IS_air_war_event = true; 
-		["DEBUG", Format ["initJIPCompatible.sqf: Debug info [IS_air_war_event] [%1]", IS_air_war_event]] Call WFBE_CO_FNC_LogContent;
 	};
 };
 
