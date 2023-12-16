@@ -115,7 +115,6 @@ if (_greenlight) then {
 			_x action ["EJECT", _vehicle];
 			sleep _delay;
 			[leader _playerTeam, "HandleParatrooperMarkerCreation", [_x, _sideID]] Call WFBE_CO_FNC_SendToClient;
-			[_x] join (leader _playerTeam);
 		} forEach ((crew _vehicle) - [driver _vehicle, gunner _vehicle, commander _vehicle]);
 	} forEach _vehicles;
 	
