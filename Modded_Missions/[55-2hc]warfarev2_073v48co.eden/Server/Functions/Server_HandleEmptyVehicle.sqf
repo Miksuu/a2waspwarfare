@@ -24,7 +24,7 @@ if (typeOf _vehicle in ['MtvrRepair','WarfareRepairTruck_Gue','V3S_Repair_TK_GUE
 
 // Added 24 hours timer for the supply trucks
 if (typeOf _vehicle in ['V3S_Supply_TK_GUE_EP1','WarfareSupplyTruck_RU', 'WarfareSupplyTruck_USMC', 'WarfareSupplyTruck_INS', 'WarfareSupplyTruck_Gue', 'WarfareSupplyTruck_CDF', 'UralSupply_TK_EP1', 'MtvrSupply_DES_EP1']) then {
-    _delay = 1440;
+    _delay = 86400;
     ["DEBUG", Format ["Server_HandleEmptyVehicle.sqf: Debug info [_delay] [%1]", _delay]] Call WFBE_CO_FNC_LogContent;
 };
 
