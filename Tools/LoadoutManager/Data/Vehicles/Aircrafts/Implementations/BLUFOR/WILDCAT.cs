@@ -39,8 +39,7 @@
             };
         base.defaultLoadoutOnTurret.AmmunitionTypesWithCount = new Dictionary<AmmunitionType, int>
             {
-                { AmmunitionType.TWOHUNDREDROUNDCTWSHE, 2},
-                { AmmunitionType.TWOHUNDREDROUNDCTWSSABOT, 2},
+                { AmmunitionType.TWOHUNDREDROUNDCTWSSABOT, 4},
                 { AmmunitionType.SIXROUNDCRV7HEPD, 2},
                 { AmmunitionType.TWOROUNDSPIKE, 4},
             };
