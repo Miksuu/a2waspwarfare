@@ -39,8 +39,16 @@ based on the hotkeys indicated within brackets.
 - Format patch notes with the version number, using '# Patch Notes for vX.X.X'.
 - Start with the version number in a specified format, informing players about relevant changes.
 
+## PARAMETERS FOR THE INPUT
+### [v17112023]
+- The version of the patch
+### [IMAGES]
+- image.png's with the Trello cards, analyse this with vision
+### [@EVERYONE] (OPTIONAL)
+- @everyone ping with :stalin_ping:
+
 ### EXAMPLE INPUT
-- [p] [v17112023] [image.png's with the Trello cards, analyse this with vision] [optional @everyone ping with :stalin_ping:] 
+- [p] [v17112023] [IMAGES] [@EVERYONE]
 
 ## Integrate a 'v' hotkey for creating Discord posts from Trello cards
 - Start by reading the image.png's first, then extra images that have been provided to you.
