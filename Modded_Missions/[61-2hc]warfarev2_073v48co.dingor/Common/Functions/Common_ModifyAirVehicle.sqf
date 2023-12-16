@@ -1,8 +1,9 @@
 Private ["_lock","_position","_side","_type","_vehicle"];
 _vehicle = _this select 0;
-_type = typeof _vehicle;
+["DEBUG", Format ["Common_ModifyAirVehicle.sqf: Debug info [_vehicle] [%1]", _vehicle]] Call WFBE_CO_FNC_LogContent;
 
-["DEBUG (Common_ModifyAirVehicle1)", Format ["%1 | %2", _vehicle, _type]] Call WFBE_CO_FNC_LogContent;
+_type = typeof _vehicle;
+["DEBUG", Format ["Common_ModifyAirVehicle.sqf: Debug info [_type] [%1]", _type]] Call WFBE_CO_FNC_LogContent;
 
 switch (_type) do {
 
@@ -28,6 +29,37 @@ case "Su25_Ins":{
         switch (_ammo) do {
             case "M_R73_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
             case "M_Sidewinder_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
+<<<<<<< HEAD
+=======
+            default {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "Su25_TK_EP1":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
+            default {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "Su39":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
+>>>>>>> parent of ee82558e (Revert "Merge branch 'Common_ModifyAirVehicleSQF_Debug' into v03122023")
             default {_result = _this select 2; };
         };
         _result
@@ -84,6 +116,23 @@ case "A10":{
         switch (_ammo) do {
             case "M_R73_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
             case "M_Sidewinder_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
+<<<<<<< HEAD
+=======
+            default {_result = _this select 2; };
+        };
+        _result
+    };
+    _vehicle addeventhandler ["HandleDamage", format["_this Call %1", _rearmor]];
+};
+
+case "A10_US_EP1":{
+    _rearmor = {
+        _ammo = _this select 4;
+        _result = 0;
+        switch (_ammo) do {
+            case "M_R73_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
+            case "M_Sidewinder_AA": {_dam = _this select 2; _p = 1; _result = (_dam / 100) * (100 - _p); };
+>>>>>>> parent of ee82558e (Revert "Merge branch 'Common_ModifyAirVehicleSQF_Debug' into v03122023")
             default {_result = _this select 2; };
         };
         _result
@@ -149,10 +198,13 @@ case "ibrPRACS_MiG21mol":{
 //LoadoutManagerInsertChanges_END
 
 	default{
-            ["DEBUG (Common_ModifyAirVehicle default)", Format ["%1 | %2", _vehicle, _type]] Call WFBE_CO_FNC_LogContent;
+            ["DEBUG", Format ["Common_ModifyAirVehicle.sqf: Debug info [_vehicle] [%1]", _vehicle]] Call WFBE_CO_FNC_LogContent;
+            ["DEBUG", Format ["Common_ModifyAirVehicle.sqf: Debug info [_type] [%1]", _type]] Call WFBE_CO_FNC_LogContent;
 			_rearmor = {
    				_ammo = _this select 4;
    				_result = 0;
+   				["DEBUG", Format ["Common_ModifyAirVehicle.sqf: Debug info [_ammo] [%1]", _ammo]] Call WFBE_CO_FNC_LogContent;
+   				["DEBUG", Format ["Common_ModifyAirVehicle.sqf: Debug info [_result] [%1]", _result]] Call WFBE_CO_FNC_LogContent;
 
    				switch (_ammo) do {
      				default {_result = _this select 2;};
