@@ -616,9 +616,9 @@ _easaVehi = _easaVehi + ['AW159_Lynx_BAF'];
 _easaDefault = _easaDefault + [[['CRV7_HEPD','CTWS','SpikeLauncher_ACR'],['6Rnd_CRV7_HEPD','200Rnd_40mmHE_FV510','200Rnd_40mmSABOT_FV510','2Rnd_Spike_ACR','2Rnd_Spike_ACR']]];
 _easaLoadout = _easaLoadout + [
 [
-[600011794,'CRV7 (HDPD) (38) | CTWS (HE) (400) | Spike (2) | Stinger (2)',[['CRV7_HEPD','CTWS','SpikeLauncher_ACR','StingerLauncher_twice'],['6Rnd_CRV7_HEPD','200Rnd_40mmHE_FV510','200Rnd_40mmSABOT_FV510','2Rnd_Spike_ACR','2Rnd_Stinger']]],
-[600007994,'CRV7 (HDPD) (38) | CTWS (HE) (400) | Spike (4)',[['CRV7_HEPD','CTWS','SpikeLauncher_ACR'],['6Rnd_CRV7_HEPD','200Rnd_40mmHE_FV510','200Rnd_40mmSABOT_FV510','2Rnd_Spike_ACR','2Rnd_Spike_ACR']]],
-[600013594,'CRV7 (HDPD) (38) | CTWS (HE) (400) | Stinger (4)',[['CRV7_HEPD','CTWS','StingerLauncher_twice'],['6Rnd_CRV7_HEPD','200Rnd_40mmHE_FV510','200Rnd_40mmSABOT_FV510','2Rnd_Stinger','2Rnd_Stinger']]]
+[600011794,'Spike (2) | Stinger (2)',[['CRV7_HEPD','CTWS','SpikeLauncher_ACR','StingerLauncher_twice'],['6Rnd_CRV7_HEPD','200Rnd_40mmHE_FV510','200Rnd_40mmSABOT_FV510','2Rnd_Spike_ACR','2Rnd_Stinger']]],
+[600007994,'Spike (4)',[['CRV7_HEPD','CTWS','SpikeLauncher_ACR'],['6Rnd_CRV7_HEPD','200Rnd_40mmHE_FV510','200Rnd_40mmSABOT_FV510','2Rnd_Spike_ACR','2Rnd_Spike_ACR']]],
+[600013594,'Stinger (4)',[['CRV7_HEPD','CTWS','StingerLauncher_twice'],['6Rnd_CRV7_HEPD','200Rnd_40mmHE_FV510','200Rnd_40mmSABOT_FV510','2Rnd_Stinger','2Rnd_Stinger']]]
 ]
 ];
 

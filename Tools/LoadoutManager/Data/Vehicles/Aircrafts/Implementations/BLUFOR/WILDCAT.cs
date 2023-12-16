@@ -58,5 +58,7 @@
 
         addToDefaultLoadoutPrice = true;
         producedFromFactoryType = FactoryType.AIRCRAFTFACTORY;
+
+        addToDefaultLoadoutPrice = true;
     }
 }
