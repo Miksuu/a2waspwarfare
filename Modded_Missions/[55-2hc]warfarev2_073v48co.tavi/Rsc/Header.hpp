@@ -9,7 +9,10 @@ respawnDialog = false;
 onLoadMission = WF_MISSIONNAME;
 onLoadMissionTime = false;
 
-#ifndef VANILLA	
+#ifndef VANILLA
+	//--- ArrowHead / CO loadscreen.
+	//loadScreen = WF_LOADSCREEN;
+	
 	//--- Prevent gear from being dropped in water, not vanilla compatible.
 	enableItemsDropping = 0;
 #endif
