@@ -3,6 +3,6 @@
     public CRV7HEPD()
     {
         WeaponType = WeaponType.CRV7HEPD;
-        costPerWeaponLauncher = 1000;
+        costPerWeaponLauncher = 0;
     }
 }
