@@ -108,7 +108,9 @@ if !(_isMan) then { //--- Vehicle Specific.
 		_unit addEventHandler ['incomingMissile', {_this Spawn HandleIncomingMissile}]; //--- Handle incoming missiles.
 	};
 
-	if ((missionNamespace getVariable "WFBE_C_GAMEPLAY_THERMAL_IMAGING") < 2) then {Call Compile '_unit disableTIEquipment true;'}; //--- Call Compile the variable to prevent errors on Vanilla.
+	if !(WF_A2_Vanilla) then { //--- Only run on non-vanilla versions.
+		if ((missionNamespace getVariable "WFBE_C_GAMEPLAY_THERMAL_IMAGING") < 2) then {Call Compile '_unit disableTIEquipment true;'}; //--- Call Compile the variable to prevent errors on Vanilla.
+	};
 };
 
 // --- 				[Side specific initialization] (Run on the desired client team).

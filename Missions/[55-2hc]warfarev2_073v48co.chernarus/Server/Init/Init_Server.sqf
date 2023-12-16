@@ -8,7 +8,8 @@ resistance setFriend [west,0];
 resistance setFriend [east,0];
 
 AIBuyUnit = Compile preprocessFile "Server\Functions\Server_BuyUnit.sqf";
-AIAdvancedRespawn = Compile preprocessFile "Server\AI\AI_AdvancedRespawn.sqf";
+if (WF_A2_Vanilla) then {AISquadRespawn = Compile preprocessFile "Server\AI\AI_SquadRespawn.sqf"};
+if !(WF_A2_Vanilla) then {AIAdvancedRespawn = Compile preprocessFile "Server\AI\AI_AdvancedRespawn.sqf"};
 AIMoveTo = Compile preprocessFile "Server\AI\Orders\AI_MoveTo.sqf";
 AIPatrol = Compile preprocessFile "Server\AI\Orders\AI_Patrol.sqf";
 AITownPatrol = Compile preprocessFile "Server\AI\Orders\AI_TownPatrol.sqf";
@@ -55,7 +56,7 @@ WFBE_SE_FNC_OnHQKilled = Compile preprocessFileLineNumbers "Server\Functions\Ser
 WFBE_SE_FNC_OperateTownDefensesUnits = Compile preprocessFileLineNumbers "Server\Functions\Server_OperateTownDefensesUnits.sqf";
 WFBE_SE_FNC_ProcessUpgrade = Compile preprocessFileLineNumbers "Server\Functions\Server_ProcessUpgrade.sqf";
 WFBE_SE_FNC_SetCampsToSide = Compile preprocessFileLineNumbers "Server\Functions\Server_SetCampsToSide.sqf";
-WFBE_SE_FNC_SetLocalityOwner = Compile preprocessFileLineNumbers "Server\Functions\Server_SetLocalityOwner.sqf"
+WFBE_SE_FNC_SetLocalityOwner = if !(WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Server\Functions\Server_SetLocalityOwner.sqf"} else {{}};
 WFBE_SE_FNC_SpawnTownDefense = Compile preprocessFileLineNumbers "Server\Functions\Server_SpawnTownDefense.sqf";
 WFBE_SE_FNC_VoteForCommander = Compile preprocessFileLineNumbers "Server\Functions\Server_VoteForCommander.sqf";
 WFBE_SE_FNC_AssignForCommander = Compile preprocessFileLineNumbers "Server\Functions\Server_AssignNewCommander.sqf";
@@ -634,7 +635,7 @@ if ((missionNamespace getVariable "WFBE_C_BASE_AREA") > 0) then {[] execVM "Serv
 
 //--- ALICE Module.
 if ((missionNamespace getVariable "WFBE_C_MODULE_BIS_ALICE") > 0) then {
-	_type = 'Alice2Manager';
+	_type = if (WF_A2_Vanilla) then {'AliceManager'} else {'Alice2Manager'};
 	_alice = (createGroup sideLogic) createUnit [_type,[0,0,0],[],0,"NONE"];
 
 	["INITIALIZATION", "Init_Server.sqf: BIS ALICE is defined."] Call WFBE_CO_FNC_LogContent;
