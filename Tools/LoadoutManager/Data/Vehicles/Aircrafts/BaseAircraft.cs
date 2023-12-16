@@ -270,7 +270,6 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
         Dictionary<AmmunitionType, int> _input,
         bool _generateWithPriceAndWeaponsInfo = true) // For non-default loadouts, show the information on the easa screen
     {
-        
         // Special handling for wildcat, inserting the default weapons to each of the pylons
         if (vehicleType == VehicleType.WILDCAT && _generateWithPriceAndWeaponsInfo) 
         {
