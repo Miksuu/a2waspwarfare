@@ -5,19 +5,19 @@ _side = _this;
 /* Root Definition */
 _MHQ = "BTR90_HQ";
 _HQ = "BTR90_HQ_unfolded";
-_BAR = if (IS_chernarus_map_dependent) then {"RU_WarfareBBarracks"} else {"TK_WarfareBBarracks_EP1"};
-_LVF = if (IS_chernarus_map_dependent) then {"RU_WarfareBLightFactory"} else {"TK_WarfareBLightFactory_EP1"};
-_CC = if (IS_chernarus_map_dependent) then {"RU_WarfareBUAVterminal"} else {"TK_WarfareBUAVterminal_EP1"};
-_HEAVY = if (IS_chernarus_map_dependent) then {"RU_WarfareBHeavyFactory"} else {"TK_WarfareBHeavyFactory_EP1"};
-_AIR = if (IS_chernarus_map_dependent) then {"RU_WarfareBAircraftFactory"} else {"TK_WarfareBAircraftFactory_EP1"};
-_SP = if (IS_chernarus_map_dependent) then {"RU_WarfareBVehicleServicePoint"} else {"TK_WarfareBVehicleServicePoint_EP1"};
-_AAR = if (IS_chernarus_map_dependent) then {"RU_WarfareBAntiAirRadar"} else {"TK_WarfareBAntiAirRadar_EP1"};
+_BAR = "RU_WarfareBBarracks";
+_LVF = "RU_WarfareBLightFactory";
+_CC = "RU_WarfareBUAVterminal";
+_HEAVY = "RU_WarfareBHeavyFactory";
+_AIR = "RU_WarfareBAircraftFactory";
+_SP = "RU_WarfareBVehicleServicePoint";
+_AAR = "RU_WarfareBAntiAirRadar";
 
 /* Mash used after being deployed */
-missionNamespace setVariable [Format["WFBE_%1FARP", _side], 'CampEast_EP1'];
+missionNamespace setVariable [Format["WFBE_%1FARP", _side], 'CampEast'];
 
 /* Construction Crates */
-missionNamespace setVariable [Format["WFBE_%1CONSTRUCTIONSITE", _side], 'TK_WarfareBContructionSite_EP1'];
+missionNamespace setVariable [Format["WFBE_%1CONSTRUCTIONSITE", _side], 'RU_WarfareBContructionSite'];
 
 /* Structures */
 _v			= ["Headquarters"];
@@ -114,32 +114,33 @@ missionNamespace setVariable [Format["WFBE_%1STRUCTURESCRIPTS", _side], _s];
 
 /* Defenses */
 _n			= ["RU_WarfareBMGNest_PK"];
-_n = _n		+ ["SearchLight_TK_EP1"];
-_n = _n		+ ["KORD_TK_EP1"];
-_n = _n		+ ["KORD_high_TK_EP1"];
-_n = _n		+ ["AGS_TK_EP1"];
-_n = _n		+ ["SPG9_TK_INS_EP1"];
-_n = _n		+ ["Metis_TK_EP1"];
-_n = _n		+ ["Igla_AA_pod_TK_EP1"];
-_n = _n		+ ["ZU23_TK_EP1"];
-_n = _n		+ ["2b14_82mm_TK_EP1"];
-_n = _n		+ ["D30_TK_EP1"];
+_n = _n		+ ["SearchLight_RUS"];
+_n = _n		+ ["KORD"];
+_n = _n		+ ["KORD_high"];
+_n = _n		+ ["AGS_RU"];
+_n = _n		+ ["SPG9_Ins"];
+_n = _n		+ ["Metis"];
+_n = _n		+ ["Igla_AA_pod_East"];
+_n = _n		+ ["ZU23_Ins"];
+_n = _n		+ ["2b14_82mm"];
+_n = _n		+ ["D30_RU"];
 _n = _n		+ ["Land_HBarrier3"];
 _n = _n		+ ["Land_HBarrier5"];
 _n = _n		+ ["Land_HBarrier_large"];
-_n = _n		+ ["TK_WarfareBBarrier5x_EP1"];
-_n = _n		+ ["TK_WarfareBBarrier10x_EP1"];
-_n = _n		+ ["TK_WarfareBBarrier10xTall_EP1"];
-
-_n = _n		+ ["MASH_EP1"];
+_n = _n		+ ["Base_WarfareBBarrier5x"];
+_n = _n		+ ["Base_WarfareBBarrier10x"];
+_n = _n		+ ["Base_WarfareBBarrier10xTall"];
+_n = _n		+ ["MASH"];
 _n = _n		+ ["Land_fort_bagfence_long"];
 _n = _n		+ ["Land_fort_bagfence_corner"];
 _n = _n		+ ["Land_fort_bagfence_round"];
-_n = _n		+ [if (IS_chernarus_map_dependent) then {"Land_fortified_nest_small"} else {"Land_fortified_nest_small_EP1"}];
-_n = _n		+ [if (IS_chernarus_map_dependent) then {"Land_fort_rampart"} else {"Land_fort_rampart_EP1"}];
-_n = _n		+ [if (IS_chernarus_map_dependent) then {"Land_fort_artillery_nest"} else {"Land_fort_artillery_nest_EP1"}];
+_n = _n		+ ["Land_fortified_nest_small"];
+_n = _n		+ ["Land_fortified_nest_big"];
+_n = _n		+ ["Land_Fort_Watchtower"];
+_n = _n		+ ["Land_fort_rampart"];
+_n = _n		+ ["Land_fort_artillery_nest"];
 _n = _n		+ ["Hhedgehog_concreteBig"];
-_n = _n		+ ["Hedgehog_EP1"];
+_n = _n		+ ["Hedgehog"];
 
 //_____________SPAWNMARKER____________
 _n = _n		+ ["HeliH"];
@@ -147,13 +148,12 @@ _n = _n		+ ["HeliHRescue"];
 _n = _n		+ ["HeliHCivil"];
 
 
-_n = _n		+ [if (IS_chernarus_map_dependent) then {"Land_CamoNet_EAST"} else {"Land_CamoNet_EAST_EP1"}];
-_n = _n		+ [if (IS_chernarus_map_dependent) then {"Land_CamoNetVar_EAST"} else {"Land_CamoNetVar_EAST_EP1"}];
-_n = _n		+ [if (IS_chernarus_map_dependent) then {"Land_CamoNetB_EAST"} else {"Land_CamoNetB_EAST_EP1"}];
+_n = _n		+ ["Land_CamoNet_EAST"];
+_n = _n		+ ["Land_CamoNetVar_EAST"];
+_n = _n		+ ["Land_CamoNetB_EAST"];
 _n = _n		+ ["Sign_Danger"];
 _n = _n		+ ["Fort_RazorWire"];
-//_n = _n		+ ["Land_Ind_IlluminantTower"];
-_n = _n		+ ["Concrete_Wall_EP1"];
+_n = _n		+ ["Land_Ind_IlluminantTower"];
 _n = _n		+ ["Land_Campfire"];
 _n = _n		+ ["RUOrdnanceBox"];
 _n = _n		+ ["RUVehicleBox"];
@@ -161,14 +161,14 @@ _n = _n		+ ["RUBasicAmmunitionBox"];
 _n = _n		+ ["RUBasicWeaponsBox"];
 _n = _n		+ ["RULaunchersBox"];
 _n = _n		+ ["RUSpecialWeaponsBox"];
-_n = _n		+ ["INS_WarfareBVehicleServicePoint"];
+
 /* Class used for AI, AI will attempt to build those */
-missionNamespace setVariable [Format["WFBE_%1DEFENSES_MG", _side], ['KORD_high_TK_EP1']];
-missionNamespace setVariable [Format["WFBE_%1DEFENSES_GL", _side], ['AGS_TK_EP1']];
-missionNamespace setVariable [Format["WFBE_%1DEFENSES_AAPOD", _side], ['Igla_AA_pod_TK_EP1','ZU23_TK_EP1']];
-missionNamespace setVariable [Format["WFBE_%1DEFENSES_ATPOD", _side], ['Metis_TK_EP1','SPG9_TK_INS_EP1']];
-missionNamespace setVariable [Format["WFBE_%1DEFENSES_CANNON", _side], ['D30_TK_EP1']];
-missionNamespace setVariable [Format["WFBE_%1DEFENSES_MASH", _side], ['MASH_EP1']];
-missionNamespace setVariable [Format["WFBE_%1DEFENSES_MORTAR", _side], ['2b14_82mm_TK_EP1']];
+missionNamespace setVariable [Format["WFBE_%1DEFENSES_MG", _side], ['KORD_high']];
+missionNamespace setVariable [Format["WFBE_%1DEFENSES_GL", _side], ['AGS_RU']];
+missionNamespace setVariable [Format["WFBE_%1DEFENSES_AAPOD", _side], ['Igla_AA_pod_East','ZU23_Ins']];
+missionNamespace setVariable [Format["WFBE_%1DEFENSES_ATPOD", _side], ['Metis','SPG9_Ins']];
+missionNamespace setVariable [Format["WFBE_%1DEFENSES_CANNON", _side], ['D30_RU']];
+missionNamespace setVariable [Format["WFBE_%1DEFENSES_MASH", _side], ['MASH']];
+missionNamespace setVariable [Format["WFBE_%1DEFENSES_MORTAR", _side], ['2b14_82mm']];
 
 missionNamespace setVariable [Format["WFBE_%1DEFENSENAMES", _side], _n];
