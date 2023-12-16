@@ -24,7 +24,6 @@ if (_type != -1) then {
 	_loadout = (((missionNamespace getVariable 'WFBE_EASA_Loadouts') select _type) select _index) select 2;
 
 	// Check for wildcat, add weapons to its turret instead of the vehicle. Otherwise add them to the vehicle (just like before).
-	["DEBUG", Format ["EASA_Equip.sqf: Debug info [_vehicleType] [%1]", (typeOf _vehicle)]] Call WFBE_CO_FNC_LogContent;
 	if ((typeOf _vehicle) == "AW159_Lynx_BAF") then {
 		{_vehicle addMagazineTurret [_x, [-1]]} forEach (_loadout select 1);
 		{_vehicle addWeaponTurret [_x, [-1]]} forEach (_loadout select 0);

@@ -12,8 +12,6 @@
 */
 private["_ICBM_infos", "_ICBM_postion","_ICBM_side","_nukeMarker","_time_before_ICBM_impact"];
 
-["DEBUG", "OnEventHandler_ICBM_Launch.sqf: ICBM_launched addPublicVariableEventHandler"] Call WFBE_CO_FNC_LogContent;
-
 // The two first paramaters in the _this array given by addPublicVariableEventHandler are : the name of the publicvalue montitored by the EH, and the 2nd parameter correspond to its value set in the namespace.
 //_ICBM_infos = _this select 0; //NONNNNN 0 take only the name variable not its value !! 
 _ICBM_infos = _this select 1; //This is fine : Value is in select 1.
