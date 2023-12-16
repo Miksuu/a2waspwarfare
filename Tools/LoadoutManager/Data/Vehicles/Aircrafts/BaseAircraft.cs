@@ -291,11 +291,6 @@ public abstract class BaseAircraft : BaseVehicle, InterfaceAircraft
                     _input.Add(weapon.Key, weapon.Value);
                 }
             }
-
-            // foreach (var item in _input)
-            // {
-            //     Console.WriteLine($"Key: {item.Key}, Value: {item.Value}");
-            // }
         }
 
         LoadoutRow newLoadoutRow = new LoadoutRow();
