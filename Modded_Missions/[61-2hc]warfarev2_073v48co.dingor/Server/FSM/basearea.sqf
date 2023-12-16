@@ -70,7 +70,7 @@ while {!gameOver} do {
 		["DEBUG", Format ["basearea.sqf: Debug info [_buildings] [%1]", _buildings]] Call WFBE_CO_FNC_LogContent;
 		_areas_old = _logik getVariable "wfbe_basearea";
 
-		// Remove the null objects from the array, test to fix the bug possibly.
+		// Remove the null objects from the array, test to fix the base area bug possibly.
 		_areas_old = _areas_old - [objNull];
 
 		["DEBUG", Format ["basearea.sqf: Debug info [_areas_old] [%1]", _areas_old]] Call WFBE_CO_FNC_LogContent;
