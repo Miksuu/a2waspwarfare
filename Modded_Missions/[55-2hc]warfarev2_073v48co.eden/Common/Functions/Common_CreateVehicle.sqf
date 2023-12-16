@@ -15,15 +15,9 @@ if (typeName _side == "SIDE") then {_side = (_side) Call WFBE_CO_FNC_GetSideID};
 _vehicle = createVehicle [_type, _position, [], 7, _special];
 if(_vehicle isKindOf "Tank" || _vehicle isKindOf "APC")then{ [_vehicle] Call Compile preprocessFile "Common\Functions\Common_ModifyVehicle.sqf";};
 
-<<<<<<< HEAD
 //["DEBUG (Common_CreateVehicle)", Format ["Before calling"]] Call WFBE_CO_FNC_LogContent;
 if(_vehicle isKindOf "Air")then{ [_vehicle] Call Compile preprocessFile "Common\Functions\Common_ModifyAirVehicle.sqf";};
 //["DEBUG (Common_CreateVehicle2)", Format ["After calling"]] Call WFBE_CO_FNC_LogContent;
-=======
-["DEBUG (Common_CreateVehicle)", Format ["Before calling"]] Call WFBE_CO_FNC_LogContent;
-if(_vehicle isKindOf "Air")then{ [_vehicle] Call Compile preprocessFile "Common\Functions\Common_ModifyAirVehicle.sqf";};
-["DEBUG (Common_CreateVehicle2)", Format ["After calling"]] Call WFBE_CO_FNC_LogContent;
->>>>>>> parent of ee82558e (Revert "Merge branch 'Common_ModifyAirVehicleSQF_Debug' into v03122023")
 
 [_vehicle] Call Compile preprocessFile "Common\Functions\Common_AddVehicleTexture.sqf";
 
