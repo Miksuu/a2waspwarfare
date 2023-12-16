@@ -5,7 +5,11 @@ if (!isNull playerUAV) then {if (!alive playerUAV) then {playerUAV = objNull}};
 if (!isNull playerUAV) exitWith {
 	//--- Disable targetting.
 	{(driver playerUAV) disableAI _x} forEach ["TARGET","AUTOTARGET"];
-	ExecVM "Client\Module\UAV\uav_interface_oa.sqf";
+	if (WF_A2_Vanilla) then {
+		ExecVM "Client\Module\UAV\uav_interface.sqf";
+	} else {
+		ExecVM "Client\Module\UAV\uav_interface_oa.sqf";
+	};
 };
 
 if (isNil {missionNamespace getVariable Format ["WFBE_%1UAV",sideJoinedText]}) exitWith {};
@@ -60,7 +64,11 @@ _dir = 0;
 if !(isNil "_lastWP") then {deleteWaypoint _lastWP};
 
 //--- No need to preprocess those.
-ExecVM "Client\Module\UAV\uav_interface_oa.sqf";
+if (WF_A2_Vanilla) then {
+	ExecVM "Client\Module\UAV\uav_interface.sqf";
+} else {
+	ExecVM "Client\Module\UAV\uav_interface_oa.sqf";
+};
 [_uav] ExecVM 'Client\Module\UAV\uav_spotter.sqf';
 
 _spawn = [] spawn {}; //--- Empty spawn

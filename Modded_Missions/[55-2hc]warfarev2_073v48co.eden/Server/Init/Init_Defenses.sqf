@@ -80,7 +80,7 @@ missionNamespace setVariable ['WFBE_NEURODEF_AIRCRAFT_WALLS',[
 ]];
 
 missionNamespace setVariable ['WFBE_NEURODEF_MG',[
-	['Land_fortified_nest_small_EP1',[0.25,0,0],180],
+	[if (WF_A2_Vanilla) then {'Land_fortified_nest_small'} else {'Land_fortified_nest_small_EP1'},[0.25,0,0],180],
 	['Land_fort_bagfence_corner',[-1,-3,0],0]
 ]];
 

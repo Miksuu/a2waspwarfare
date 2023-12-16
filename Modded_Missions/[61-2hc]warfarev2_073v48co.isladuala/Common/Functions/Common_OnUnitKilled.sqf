@@ -47,10 +47,12 @@ if (_killer_side == sideEnemy) then { //--- Make sure the killer is not renegade
 
 if (_killer_side == civilian) exitWith {}; //--- Side couldn't be determined? exit.
 
-
-if (isServer) then {_killed setVariable ["wfbe_trashed", true];	_killed Spawn TrashObject};
-if (_killed_isplayer) then {_killed setVariable ["wfbe_trashed", true];	_killed Spawn TrashObject};
-
+if (WF_A2_Vanilla) then { //--- Garbage Collector.
+	if (!isServer || local player) then {_objects = (WF_Logic getVariable "trash") + [_killed];	WF_Logic setVariable ["trash",_objects,true];} else {_killed setVariable ["wfbe_trashed", true];_killed Spawn TrashObject};
+} else {
+	if (isServer) then {_killed setVariable ["wfbe_trashed", true];	_killed Spawn TrashObject};
+	if (_killed_isplayer) then {_killed setVariable ["wfbe_trashed", true];	_killed Spawn TrashObject};
+};
 
 if (_killed_side in WFBE_PRESENTSIDES) then { //--- Update the statistics if needed.
 	if (_killed_isman) then {[str _killed_side,'Casualties',1] Call UpdateStatistics} else {[str _killed_side,'VehiclesLost',1] Call UpdateStatistics};

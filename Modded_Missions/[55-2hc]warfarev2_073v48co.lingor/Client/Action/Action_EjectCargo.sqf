@@ -14,7 +14,11 @@ _cargo = (crew _vehicle) - [driver _vehicle, gunner _vehicle, commander _vehicle
 		} else {
 			//--- Dealing with a player or a non local unit.
 			if (isPlayer(leader (group _x))) then {
-				[getPlayerUID(leader(group _x)), "HandleSpecial", ["action-perform", _x, "EJECT", _vehicle]] Call WFBE_CO_FNC_SendToClients;
+				// if (WF_A2_Vanilla) then {
+					[getPlayerUID(leader(group _x)), "HandleSpecial", ["action-perform", _x, "EJECT", _vehicle]] Call WFBE_CO_FNC_SendToClients;
+				// } else {
+					// [leader (group _x), "PerformAction", [_x, "EJECT", _vehicle]] Call WFBE_CO_FNC_SendToClient;
+				// };
 			};
 		};
 	};

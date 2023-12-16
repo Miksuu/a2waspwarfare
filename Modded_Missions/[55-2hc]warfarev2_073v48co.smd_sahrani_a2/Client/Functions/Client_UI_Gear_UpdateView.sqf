@@ -16,9 +16,7 @@ _view = [];
 if (_target isKindOf "Man") then {
 	if (_backpack != "") then {_get = missionNamespace getVariable _backpack; if !(isNil '_get') then {if ((_get select 4) == 200) then {_view = [["Backpack","backpack"]]}}};
 	_view = _view + [["Gear","gear"]];
-	if (vehicle _target != _target) then {
-		_view = _view + [["Vehicle","vehicle"]];
-	};
+	if !(WF_A2_Vanilla) then {if (vehicle _target != _target) then {_view = _view + [["Vehicle","vehicle"]]}};
 } else {
 	_view =	[["Vehicle","vehicle"]];
 	_selected = "vehicle";

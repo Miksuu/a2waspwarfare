@@ -12,7 +12,11 @@ _commanderTeam = (_side) Call WFBE_CO_FNC_GetCommanderTeam;
 _logik = (_side) Call WFBE_CO_FNC_GetSideLogic;
 if !(isNull _commanderTeam) then {
 	if (isPlayer (leader _commanderTeam)) then {
-		[leader _commanderTeam, "HandleSpecial", ["hq-setstatus", false]] Call WFBE_CO_FNC_SendToClient;
+		if (WF_A2_Vanilla) then {
+			[getPlayerUID(leader _commanderTeam), "HandleSpecial", ["hq-setstatus", false]] Call WFBE_CO_FNC_SendToClients;
+		} else {
+			[leader _commanderTeam, "HandleSpecial", ["hq-setstatus", false]] Call WFBE_CO_FNC_SendToClient;
+		};
 	};
 };
 

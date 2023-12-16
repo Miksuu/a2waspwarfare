@@ -71,6 +71,13 @@ if (_ammo in _ammoList) then {
 		if !(isNull _projectile) then {
 			_projectile setPos _shellpos; 
 			_projectile setVelocity [(sin _direction*_velocity),(cos _direction*_velocity),((_velocity * 2.03) * -1)];
+			
+			if (WF_A2_Vanilla) then {
+				//---- MLRS ammo has some weird config problems on vanilla.
+				if (_ammo == "R_MLRS" || _ammo == "ARTY_R_227mm_HE_Rocket") then {
+					_projectile setPos _landDestination;
+				};
+			};
 		};
 	};
 	
