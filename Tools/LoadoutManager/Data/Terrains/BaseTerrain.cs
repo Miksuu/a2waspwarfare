@@ -336,6 +336,7 @@ class CfgSounds
 #define WF_MAXPLAYERS {maxPlayers}
 #define WF_MISSIONNAME ""{missionName}""
 #define STARTING_DISTANCE {startingDistanceInMeters}
+#define COMBINEDOPS 1
 #define WF_RESPAWNDELAY 2";
     }
 
