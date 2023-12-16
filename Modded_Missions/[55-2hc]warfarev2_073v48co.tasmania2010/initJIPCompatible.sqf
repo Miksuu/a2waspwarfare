@@ -18,7 +18,7 @@ IS_naval_map = false;
 #endif
 
 IS_air_war_event = false;
-_airEventEnabledFromParameters = missionNamespace getVariable ["WFBE_AIR_EVENT_ENABLED", 0];
+_airEventEnabledFromParameters = missionNamespace getVariable "WFBE_AIR_EVENT_ENABLED";
 ["DEBUG", Format ["initJIPCompatible.sqf: Debug info [_airEventEnabledFromParameters] [%1]", _airEventEnabledFromParameters]] Call WFBE_CO_FNC_LogContent;
 
 switch (_airEventEnabledFromParameters) do {
