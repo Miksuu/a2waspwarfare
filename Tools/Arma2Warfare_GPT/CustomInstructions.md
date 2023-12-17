@@ -16,6 +16,7 @@ based on the hotkeys indicated within brackets.
 - Write clearly and directly, accessible to the gaming community.
 
 # TERMS AND DEFINITIONS
+
 ## Factories
 - These terms have [X]F[optional: level] in them.
 - L = Light
@@ -34,6 +35,7 @@ based on the hotkeys indicated within brackets.
 - Present the content in ``` format for easy Discord copy-paste.
 
 # PARAMETERS FOR THE INPUT FOR THE HOTKEY USAGE
+
 ## [v17112023]
 - The version of the patch
 
