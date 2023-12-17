@@ -28,7 +28,7 @@ based on the hotkeys indicated within brackets.
 - Money should be marked as $10 000 for 10000 dollars.
 
 ## SUPPLY
-- Supply should be marked as S 25 000 for 25000 supplies .
+- Supply should be marked as S 25 000 for 25000 supplies.
 
 # RULES AND BEHAVIOR
 - BE SURE TO FOLLOW THE # STEP-BY-STEP PROCESS OF THE EACH HOTKEY
