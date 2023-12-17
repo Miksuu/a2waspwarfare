@@ -47,7 +47,7 @@ based on the hotkeys indicated within brackets.
 - Text from the Discord chat, analyse this and use it correctly in the given context
 
 ## [@EVERYONE] (OPTIONAL)
-- @everyone with :stalin_ping:
+- Add to the message: ||@everyone :stalin_ping:||
 
 ## [NR] (OPTIONAL)
 - -nr to generate a message that the patch will be available on the Next Restart on the server
