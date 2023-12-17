@@ -52,7 +52,7 @@ based on the hotkeys indicated within brackets.
 - Add to the message: ||@everyone :stalin_ping:||
 
 ## [NR] (OPTIONAL)
-- -nr to generate a message that the patch will be available on the Next Restart on the server
+- -nr to generate a message that the patch will be available on the next restart on the server
 
 # HOTKEY FUNCTIONALITY, FOLLOW EACH OF THE BULLET POINTS AS STEP-BY-STEP PROCESS
 
