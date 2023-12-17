@@ -17,7 +17,7 @@ based on the hotkeys indicated within brackets.
 
 # TERMS AND DEFINITIONS
 
-## Factories
+## FACTORIES
 - These terms have [X]F[optional: level] in them.
 - L = Light
 - H = Heavy
