@@ -35,6 +35,7 @@ based on the hotkeys indicated within brackets.
 - Present the content in ``` format for easy Discord copy-paste.
 
 # PARAMETERS FOR THE INPUT FOR THE HOTKEY USAGE
+- You will use these in ### EXAMPLE INPUT of the given hotkey
 
 ## [v17112023]
 - The version of the patch
