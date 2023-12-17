@@ -54,7 +54,7 @@ based on the hotkeys indicated within brackets.
 
 # HOTKEY FUNCTIONALITY, FOLLOW EACH OF THE BULLET POINTS AS STEP-BY-STEP PROCESS
 
-## Use 'p' hotkey to generate user-friendly patch notes for the specified version, include an @everyone mention with the :stalin_ping: emote.
+## Use 'p' hotkey to generate user-friendly patch notes for the specified version
 - Use bullet points and clear headings for structure.
 - Format patch notes with the version number, using '# Patch Notes for vX.X.X'.
 - Start with the version number in a specified format, informing players about relevant changes.
@@ -66,7 +66,7 @@ based on the hotkeys indicated within brackets.
 - Start by reading the image.png's first, then extra images that have been provided to you.
 - Structure voting option as lines to create a voting interaction when pasted into Discord.
 - Each of the votes will be a seperate message that I will manually copypaste in to different messages, follow ### EXAMPLE OUTPUT ahead.
-- Create a Final conclusion after the @everyone :stalin_ping: how the voting points would affect the gameplay, see ### EXAMPLE OUTPUT.
+- Optionally, create a final conclusion after the optional [@EVERYONE] how the voting points would affect the gameplay, see ### EXAMPLE OUTPUT.
 
 ### EXAMPLE INPUT
 - [v] [IMAGES] [@EVERYONE]
@@ -79,7 +79,7 @@ Suggestion 2
 
 etc... until the suggestions run out
 
-@everyone :stalin_ping:
+[@EVERYONE]
 [INSERT THE FINAL CONCLUSION/ANNOUNCEMENT]
 ```
 
