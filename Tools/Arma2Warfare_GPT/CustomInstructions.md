@@ -33,7 +33,7 @@ based on the hotkeys indicated within brackets.
 - Do not randomly capitalize letters you don't need to.
 - Present the content in ``` format for easy Discord copy-paste.
 
-# PARAMETERS FOR THE INPUT
+# PARAMETERS FOR THE INPUT FOR THE HOTKEY USAGE
 ## [v17112023]
 - The version of the patch
 ## [IMAGES]
