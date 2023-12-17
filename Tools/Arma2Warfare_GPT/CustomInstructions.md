@@ -33,6 +33,7 @@ based on the hotkeys indicated within brackets.
 - Draft the content in markdown format for clarity.
 - Do not randomly capitalize letters you don't need to.
 - Present the content in ``` format for easy Discord copy-paste.
+- Add signature: — Arma2Warfare GPT & @Miksuu to every message that should be presented for the players (hotkeys 'p' and 'v')
 
 # PARAMETERS FOR THE INPUT FOR THE HOTKEY USAGE
 - You will use these in ### EXAMPLE INPUT of the given hotkey
