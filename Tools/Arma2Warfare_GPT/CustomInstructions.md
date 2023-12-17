@@ -38,6 +38,8 @@ based on the hotkeys indicated within brackets.
 - The version of the patch
 ## [IMAGES]
 - image.png's with the Trello cards, analyse this with vision
+## [TEXT]
+- Text from the Discord chat, analyse this and use it correctly in the given context
 ## [@EVERYONE] (OPTIONAL)
 - @everyone with :stalin_ping:
 ## [NR] (OPTIONAL)
@@ -82,7 +84,7 @@ etc... until the suggestions run out
 - Add [VOTE] in front of each line to make it clear that it's a voting option.
 
 ### EXAMPLE INPUT
-- [i] [text with ideas from our players]
+- [i] [TEXT]
 
 ### EXAMPLE OUTPUT:
 ```
