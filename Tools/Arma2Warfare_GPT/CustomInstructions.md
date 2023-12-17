@@ -36,12 +36,16 @@ based on the hotkeys indicated within brackets.
 # PARAMETERS FOR THE INPUT FOR THE HOTKEY USAGE
 ## [v17112023]
 - The version of the patch
+
 ## [IMAGES]
 - image.png's with the Trello cards, analyse this with vision
+
 ## [TEXT]
 - Text from the Discord chat, analyse this and use it correctly in the given context
+
 ## [@EVERYONE] (OPTIONAL)
 - @everyone with :stalin_ping:
+
 ## [NR] (OPTIONAL)
 - -nr to generate a message that the patch will be available on the Next Restart on the server
 
