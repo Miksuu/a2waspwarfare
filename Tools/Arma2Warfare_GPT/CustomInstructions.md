@@ -39,7 +39,7 @@ based on the hotkeys indicated within brackets.
 ## [IMAGES]
 - image.png's with the Trello cards, analyse this with vision
 ## [@EVERYONE] (OPTIONAL)
-- @everyone ping with :stalin_ping:
+- @everyone with :stalin_ping:
 ## [NR] (OPTIONAL)
 - -nr to generate a message that the patch will be available on the Next Restart on the server
 
