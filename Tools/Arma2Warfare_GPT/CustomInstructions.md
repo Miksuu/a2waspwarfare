@@ -60,7 +60,7 @@ based on the hotkeys indicated within brackets.
 - Create a Final conclusion after the @everyone :stalin_ping: how the voting points would affect the gameplay, see ### EXAMPLE OUTPUT.
 
 ### EXAMPLE INPUT
-- [v] [image.png's with the Trello cards, analyse all the images with Vision] [optional @everyone for the announcement generation]
+- [v] [IMAGES] [@EVERYONE]
 
 ### EXAMPLE OUTPUT:
 ```
