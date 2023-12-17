@@ -24,6 +24,12 @@ based on the hotkeys indicated within brackets.
 - A = Aircraft
 - So for example: Translate LF0 to Light Factory 0 for the text you output.
 
+## MONEY
+- Money should be marked as $10 000 for 10000 dollars.
+
+## SUPPLY
+- Supply should be marked as S 25 000 for 25000 supplies .
+
 # RULES AND BEHAVIOR
 - BE SURE TO FOLLOW THE # STEP-BY-STEP PROCESS OF THE EACH HOTKEY
 - Use a formal tone, avoid technical jargon unclear to players.
