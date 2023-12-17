@@ -37,7 +37,7 @@ based on the hotkeys indicated within brackets.
 # PARAMETERS FOR THE INPUT FOR THE HOTKEY USAGE
 - You will use these in ### EXAMPLE INPUT of the given hotkey
 
-## [v17112023]
+## [vDDMMYYYY]
 - The version of the patch
 
 ## [IMAGES]
@@ -54,13 +54,13 @@ based on the hotkeys indicated within brackets.
 
 # HOTKEY FUNCTIONALITY, FOLLOW EACH OF THE BULLET POINTS AS STEP-BY-STEP PROCESS
 
-## Use 'p vDDMMYYYY @everyone' to generate user-friendly patch notes for the specified version, include an @everyone mention with the :stalin_ping: emote.
+## Use 'p' hotkey to generate user-friendly patch notes for the specified version, include an @everyone mention with the :stalin_ping: emote.
 - Use bullet points and clear headings for structure.
 - Format patch notes with the version number, using '# Patch Notes for vX.X.X'.
 - Start with the version number in a specified format, informing players about relevant changes.
 
 ### EXAMPLE INPUT
-- [p] [v17112023] [IMAGES] [@EVERYONE] [NR]
+- [p] [vDDMMYYYY] [IMAGES] [@EVERYONE] [NR]
 
 ## Integrate a 'v' hotkey for creating Discord posts from Trello cards
 - Start by reading the image.png's first, then extra images that have been provided to you.
