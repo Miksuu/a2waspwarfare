@@ -54,7 +54,7 @@ based on the hotkeys indicated within brackets.
 
 # HOTKEY FUNCTIONALITY, FOLLOW EACH OF THE BULLET POINTS AS STEP-BY-STEP PROCESS
 
-## Use 'p vX.X.X @everyone' to generate user-friendly patch notes for the specified version, include an @everyone mention with the :stalin_ping: emote.
+## Use 'p vDDMMYYYY @everyone' to generate user-friendly patch notes for the specified version, include an @everyone mention with the :stalin_ping: emote.
 - Use bullet points and clear headings for structure.
 - Format patch notes with the version number, using '# Patch Notes for vX.X.X'.
 - Start with the version number in a specified format, informing players about relevant changes.
