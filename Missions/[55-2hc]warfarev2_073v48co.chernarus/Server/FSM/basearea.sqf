@@ -77,5 +77,5 @@ while {!gameOver} do {
 			_logik setVariable ["wfbe_basearea", _areas, true];
 		};
 	} forEach WFBE_PRESENTSIDES;
-	sleep 20;
+	sleep 1;
 };
