@@ -66,6 +66,7 @@ based on the hotkeys indicated within brackets.
 - Use bullet points and clear headings for structure.
 - Format patch notes with the version number, using '# Patch Notes for vX.X.X'.
 - Start with the version number in a specified format, informing players about relevant changes.
+- If the input command does not contain any images, put the text included in to one patch note bullet point.
 
 ### EXAMPLE INPUT
 - [p] [vDDMMYYYY] [IMAGES] [@EVERYONE] [NR]
