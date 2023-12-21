@@ -33,7 +33,7 @@ class Mission
 	};
 	class Groups
 	{
-		items=119;
+		items=122;
 		class Item0
 		{
 			side="LOGIC";
@@ -4123,7 +4123,7 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={1927.2078,544.75983,15282.436};
+					position[]={1928.2761,544.77118,15282.791};
 					id=268;
 					side="CIV";
 					vehicle="Functionary1";
@@ -4132,7 +4132,7 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					init="this allowdamage false;";
-					description="Headless Client";
+					description="Headless Client (Town AI Delegation)";
 				};
 			};
 		};
@@ -4653,6 +4653,69 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					init="this setVariable [""wfbe_default"", resistance]; this setVariable [""wfbe_spawn"", ""central""];";
+				};
+			};
+		};
+		class Item119
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={1935.1619,545.05054,15287.775};
+					id=294;
+					side="CIV";
+					vehicle="Functionary2";
+					player="PLAY CDG";
+					forceHeadlessClient=1;
+					leader=1;
+					skill=0.60000002;
+					init="this allowdamage false;";
+					description="Headless Client (AI Delegation)";
+				};
+			};
+		};
+		class Item120
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={1940.7417,544.94751,15293.233};
+					id=295;
+					side="CIV";
+					vehicle="SchoolTeacher";
+					player="PLAY CDG";
+					forceHeadlessClient=1;
+					leader=1;
+					skill=0.60000002;
+					init="this allowdamage false;";
+					description="Headless Client (Static Defence AI Delegation)";
+				};
+			};
+		};
+		class Item121
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={1944.897,544.89893,15299.403};
+					id=296;
+					side="CIV";
+					vehicle="Doctor";
+					player="PLAY CDG";
+					forceHeadlessClient=1;
+					leader=1;
+					skill=0.60000002;
+					init="this allowdamage false;";
+					description="Headless Client (HandlePVF)";
 				};
 			};
 		};
