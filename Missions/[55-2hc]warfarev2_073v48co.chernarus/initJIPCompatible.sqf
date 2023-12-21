@@ -8,19 +8,18 @@ LOG_CONTENT_STATE = "";
 //WF_LOG_CONTENT
 #ifdef WF_LOG_CONTENT
 	LOG_CONTENT_STATE = "ACTIVATED";
-	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [LOG_CONTENT_STATE] [%1]", LOG_CONTENT_STATE]] Call WFBE_CO_FNC_LogContent;
 #else 
 	LOG_CONTENT_STATE = "NOT ACTIVATED";
-	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [LOG_CONTENT_STATE] [%1]", LOG_CONTENT_STATE]] Call WFBE_CO_FNC_LogContent;
 #endif
+
+["DEBUG", Format ["initJIPCompatible.sqf: Debug info [LOG_CONTENT_STATE] [%1]", LOG_CONTENT_STATE]] Call WFBE_CO_FNC_LogContent;
 
 IS_naval_map = false;
 #ifdef IS_NAVAL_MAP
 	IS_naval_map = true; // if the map can support boats then global variable boolean is true.
-	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [IS_naval_map] [%1]", IS_naval_map]] Call WFBE_CO_FNC_LogContent;
 #endif
 
-
+["DEBUG", Format ["initJIPCompatible.sqf: Debug info [IS_naval_map] [%1]", IS_naval_map]] Call WFBE_CO_FNC_LogContent;
 
 startingDistance = STARTING_DISTANCE;
 ["DEBUG", Format ["initJIPCompatible.sqf: Debug info [startingDistance] [%1]", startingDistance]] Call WFBE_CO_FNC_LogContent;
