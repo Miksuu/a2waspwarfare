@@ -6,4 +6,4 @@ WFBE_CL_FNC_HandlePVF = Compile preprocessFileLineNumbers "Client\Functions\Clie
 sleep 20;
 
 //--- Notify the server that our headless client is here.
-["RequestSpecial", ["connected-hc", player]] Call WFBE_CO_FNC_SendToServer;
+["RequestSpecial", ["connected-hc", player, "handlePVFdelegation"]] Call WFBE_CO_FNC_SendToServer;

@@ -6,4 +6,4 @@ WFBE_CL_FNC_DelegateAI = Compile preprocessFileLineNumbers "Client\Functions\Cli
 sleep 20;
 
 //--- Notify the server that our headless client is here.
-["RequestSpecial", ["connected-hc", player]] Call WFBE_CO_FNC_SendToServer;
+["RequestSpecial", ["connected-hc", player, "delegateAI"]] Call WFBE_CO_FNC_SendToServer;
