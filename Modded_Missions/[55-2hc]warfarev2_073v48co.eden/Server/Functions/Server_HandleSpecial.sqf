@@ -122,7 +122,7 @@ switch (_args select 0) do {
 		_id = owner _hc;
 		_uid = getPlayerUID _hc;
 
-		["INFORMATION", Format["Server_HandleSpecial.sqf: Headless client is now connected [%1] [%2] with Owner ID [%3].", _hc, _uid, _id]] Call WFBE_CO_FNC_LogContent;
+		["DEBUG", Format["Server_HandleSpecial.sqf: Headless client is now connected [%1] [%2] with Owner ID [%3].", _hc, _uid, _id]] Call WFBE_CO_FNC_LogContent;
 
 		if (_id != 0) then {
 			//--- Add the Headless client to our candidates.
