@@ -131,6 +131,12 @@ switch (_args select 0) do {
 			_currentHeadlessClients = missionNamespace getVariable "WFBE_HEADLESSCLIENTS_ID";
 			_currentHeadlessClients set [count _currentHeadlessClients, [group _hc, _hcType]];
 			missionNamespace setVariable ["WFBE_HEADLESSCLIENTS_ID", _currentHeadlessClients];
+
+			// Loop through the headless clients and print their group _hc and _hcType on the same line
+			{
+				["DEBUG", Format["Server_HandleSpecial.sqf: Debug info [Headless Client Group, Type] [%1, %2]", _x select 0, _x select 1]] Call WFBE_CO_FNC_LogContent;
+			} forEach _currentHeadlessClients;
+			
 		} else {
 			["WARNING", Format["Server_HandleSpecial.sqf: Headless client [%1] Owner ID is [0], it is server controlled.",_hc]] Call WFBE_CO_FNC_LogContent;
 		};
