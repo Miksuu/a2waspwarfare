@@ -21,6 +21,12 @@ for '_i' from 0 to count(_groups) -1 do {
 	_clients = missionNamespace getVariable "WFBE_HEADLESSCLIENTS_ID";
 
 	if (count _clients > 0) then {
-		[leader(_clients select floor(random count _clients)), "HandleSpecial", ['delegate-townai', _town, _side, [_groups select _i], [_positions select _i], [_teams select _i]]] Call WFBE_CO_FNC_SendToClient;
+		// Find the staticDefenceAIdelegation _hcType client
+		_staticDefenceClient = _clients select {_x select 1 == "staticDefenceAIdelegation"} select 0;
+
+		// If found, delegate the town AI creation to this client
+		if (!isNil "_staticDefenceClient") then {
+			[leader(_staticDefenceClient), "HandleSpecial", ['delegate-townai', _town, _side, [_groups select _i], [_positions select _i], [_teams select _i]]] Call WFBE_CO_FNC_SendToClient;
+		};
 	};
 };
