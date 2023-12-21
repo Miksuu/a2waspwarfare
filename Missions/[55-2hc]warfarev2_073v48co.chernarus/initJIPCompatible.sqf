@@ -205,9 +205,25 @@ if (isHostedServer || (!isHeadLessClient && !isDedicated)) then {
 	execVM "Client\Init\Init_Client.sqf";
 };
 
-//--- Run the headless client initialization.
+//--- Run the headless client initialization based on client name.
 if (isHeadLessClient) then {
-	execVM "Headless\Init\Init_HC.sqf";
+	switch (name player) do {
+		case "hc_AIdelegation": {
+			execVM "Headless\Init\Init_AIdelegation.sqf";
+		};
+		case "hc_TownAIdelegation": {
+			execVM "Headless\Init\Init_TownAIdelegation.sqf";
+		};
+		case "hc_StaticDefenceAIdelegation": {
+			execVM "Headless\Init\Init_StaticDefenceAIdelegation.sqf";
+		};
+		case "hc_HandlePVFdelegation": {
+			execVM "Headless\Init\Init_HandlePVFdelegation.sqf";
+		};
+		default {
+			["INITIALIZATION", format ["initJIPCompatible.sqf: Unknown headless client name '%1'.", name player]] Call WFBE_CO_FNC_LogContent;
+		};
+	};
 };
 
 //// Wasp part
