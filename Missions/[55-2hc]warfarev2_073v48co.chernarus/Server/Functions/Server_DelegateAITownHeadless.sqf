@@ -23,11 +23,14 @@ for '_i' from 0 to count(_groups) -1 do {
 
 	if (count _clients > 0) then {
 		// Find the AI TownDefence Client from _hcType client
-		_aiTownDefenceClient = _clients select {
-			["DEBUG", Format ["Server_DelegateAITownHeadless.sqf: Debug info [_x] [%1]", _x]] Call WFBE_CO_FNC_LogContent;
-			_x select 1 == "delegateTownAI"
-		} select 0;
-		
+		_aiTownDefenceClient = objNull;
+		{
+			if ((_x select 1) == "delegateTownAI") then {
+				_aiTownDefenceClient = (_x select 0);
+				exitWith {};
+			};
+		} forEach _clients;
+
 		["DEBUG", Format ["Server_DelegateAITownHeadless.sqf: Debug info [_aiTownDefenceClient] [%1]", _aiTownDefenceClient]] Call WFBE_CO_FNC_LogContent;
 
 		// If found, delegate the town AI creation to this client
