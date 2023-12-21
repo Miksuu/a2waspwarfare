@@ -25,10 +25,8 @@ for '_i' from 0 to count(_groups) -1 do {
 		// Find the AI TownDefence Client from _hcType client
 		_aiTownDefenceClient = objNull;
 		{
-			if ((_x select 1) == "delegateTownAI") then {
-				_aiTownDefenceClient = (_x select 0);
-				exitWith {};
-			};
+			if ((_x select 1) == "delegateTownAI") exitWith {_aiTownDefenceClient = (_x select 0)};
+
 		} forEach _clients;
 
 		["DEBUG", Format ["Server_DelegateAITownHeadless.sqf: Debug info [_aiTownDefenceClient] [%1]", _aiTownDefenceClient]] Call WFBE_CO_FNC_LogContent;
