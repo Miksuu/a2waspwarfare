@@ -221,7 +221,7 @@ if (isHeadLessClient) then {
 			execVM "Headless\Init\Init_HandlePVFdelegation.sqf";
 		};
 		default {
-			["INITIALIZATION", format ["initJIPCompatible.sqf: Unknown headless client name '%1'.", name player]] Call WFBE_CO_FNC_LogContent;
+			["ERROR", format ["initJIPCompatible.sqf: Unknown headless client name '%1'.", name player]] Call WFBE_CO_FNC_LogContent;
 		};
 	};
 };
