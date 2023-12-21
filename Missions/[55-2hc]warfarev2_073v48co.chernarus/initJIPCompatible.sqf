@@ -18,11 +18,10 @@ IS_naval_map = false;
 #endif
 
 startingDistance = STARTING_DISTANCE;
-["DEBUG", Format ["initJIPCompatible.sqf: Debug info [startingDistance] [%1]", startingDistance]] Call WFBE_CO_FNC_LogContent;
 
 CBA_display_ingame_warnings = false;
 publicVariable "CBA_display_ingame_warnings";
-["DEBUG", Format ["initJIPCompatible.sqf: Debug info [CBA_display_ingame_warnings] [%1]", CBA_display_ingame_warnings]] Call WFBE_CO_FNC_LogContent;
+
 //--- Mission is starting.
 for '_i' from 0 to 3 do {diag_log "################################"};
 diag_log format ["## Island Name: [%1]", worldName];
@@ -33,7 +32,6 @@ diag_log format ["## LOG CONTENT : [%1]", LOG_CONTENT_STATE];
 for '_i' from 0 to 3 do {diag_log "################################"};
 
 townModeSet = false;
-["DEBUG", Format ["initJIPCompatible.sqf: Debug info [townModeSet] [%1]", townModeSet]] Call WFBE_CO_FNC_LogContent;
 
 WFBE_CO_FNC_LogContent = Compile preprocessFileLineNumbers "Common\Functions\Common_LogContent.sqf"; //--- Define the log function earlier.
 WFBE_LogLevel = 0; //--- Logging level (0: Trivial, 1: Information, 2: Warnnings, 3: Errors).
