@@ -8,21 +8,26 @@ LOG_CONTENT_STATE = "";
 //WF_LOG_CONTENT
 #ifdef WF_LOG_CONTENT
 	LOG_CONTENT_STATE = "ACTIVATED";
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [LOG_CONTENT_STATE] [%1]", LOG_CONTENT_STATE]] Call WFBE_CO_FNC_LogContent;
 #else 
 	LOG_CONTENT_STATE = "NOT ACTIVATED";
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [LOG_CONTENT_STATE] [%1]", LOG_CONTENT_STATE]] Call WFBE_CO_FNC_LogContent;
 #endif
 
 IS_naval_map = false;
 #ifdef IS_NAVAL_MAP
 	IS_naval_map = true; // if the map can support boats then global variable boolean is true.
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [IS_naval_map] [%1]", IS_naval_map]] Call WFBE_CO_FNC_LogContent;
 #endif
 
 
 
 startingDistance = STARTING_DISTANCE;
+["DEBUG", Format ["initJIPCompatible.sqf: Debug info [startingDistance] [%1]", startingDistance]] Call WFBE_CO_FNC_LogContent;
 
 CBA_display_ingame_warnings = false;
 publicVariable "CBA_display_ingame_warnings";
+["DEBUG", Format ["initJIPCompatible.sqf: Debug info [CBA_display_ingame_warnings] [%1]", CBA_display_ingame_warnings]] Call WFBE_CO_FNC_LogContent;
 //--- Mission is starting.
 for '_i' from 0 to 3 do {diag_log "################################"};
 diag_log format ["## Island Name: [%1]", worldName];
@@ -33,6 +38,7 @@ diag_log format ["## LOG CONTENT : [%1]", LOG_CONTENT_STATE];
 for '_i' from 0 to 3 do {diag_log "################################"};
 
 townModeSet = false;
+["DEBUG", Format ["initJIPCompatible.sqf: Debug info [townModeSet] [%1]", townModeSet]] Call WFBE_CO_FNC_LogContent;
 
 WFBE_CO_FNC_LogContent = Compile preprocessFileLineNumbers "Common\Functions\Common_LogContent.sqf"; //--- Define the log function earlier.
 WFBE_LogLevel = 0; //--- Logging level (0: Trivial, 1: Information, 2: Warnnings, 3: Errors).
@@ -50,11 +56,13 @@ waitUntil {!isNil 'VERSION_SET'};
 VERSION_SET = nil;
 
 isHostedServer = if (!isMultiplayer || (isServer && !isDedicated)) then {true} else {false};
+["DEBUG", Format ["initJIPCompatible.sqf: Debug info [isHostedServer] [%1]", isHostedServer]] Call WFBE_CO_FNC_LogContent;
 isHeadLessClient = false;
 
 //--- Headless Client?
 isHeadLessClient = Call Compile preprocessFileLineNumbers "Headless\Functions\HC_IsHeadlessClient.sqf";
 if (isHeadLessClient) then {["INITIALIZATION", "initJIPCompatible.sqf: Detected an headless client."] Call WFBE_CO_FNC_LogContent};
+["DEBUG", Format ["initJIPCompatible.sqf: Debug info [isHeadLessClient] [%1]", isHeadLessClient]] Call WFBE_CO_FNC_LogContent;
 
 
 //--- Server JIP Information
@@ -64,6 +72,8 @@ if ((isHostedServer || isDedicated) && !isHeadLessClient) then { //--- JIP Handl
 
 	onPlayerConnected {[_uid, _name, _id] Spawn WFBE_SE_FNC_OnPlayerConnected};
 	onPlayerDisconnected {[_uid, _name, _id] Spawn WFBE_SE_FNC_OnPlayerDisconnected};
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [WFBE_SE_FNC_OnPlayerConnected] [%1]", WFBE_SE_FNC_OnPlayerConnected]] Call WFBE_CO_FNC_LogContent;
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [WFBE_SE_FNC_OnPlayerDisconnected] [%1]", WFBE_SE_FNC_OnPlayerDisconnected]] Call WFBE_CO_FNC_LogContent;
 };
 
 //--- Client initialization, either hosted or pure client. Part I
@@ -73,9 +83,11 @@ if (isHostedServer || (!isHeadLessClient && !isDedicated)) then {
 	["INITIALIZATION", "initJIPCompatible.sqf: Client is not null..."] Call WFBE_CO_FNC_LogContent;
 	//--- Client Init - Begin the blackout on Layer 12452.
 	12452 cutText [(localize 'STR_WF_Loading')+"...","BLACK FADED",50000];
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [12452 cutText] [%1]", (localize 'STR_WF_Loading')+"..."]] Call WFBE_CO_FNC_LogContent;
 };
 
 setViewDistance 6000; //--- Server & Client default View Distance.
+["DEBUG", Format ["initJIPCompatible.sqf: Debug info [setViewDistance] [%1]", 6000]] Call WFBE_CO_FNC_LogContent;
 
 clientInitComplete = false;
 commonInitComplete = false;
@@ -119,6 +131,7 @@ IS_mod_map_dependent = false;
 #endif
 
 if (isMultiplayer) then {Call Compile preprocessFileLineNumbers "Common\Init\Init_Parameters.sqf"}; //--- In MP, we get the parameters.
+["DEBUG", Format ["initJIPCompatible.sqf: Debug info [isMultiplayer] [%1]", isMultiplayer]] Call WFBE_CO_FNC_LogContent;
 
 Call Compile preprocessFileLineNumbers "Common\Init\Init_CommonConstants.sqf"; //--- Set the constants and the parameters, skip the params if they're already defined.
 
@@ -138,27 +151,44 @@ switch (_airEventEnabledFromParameters) do {
 		IS_air_war_event = true; 
 	};
 };
+["DEBUG", Format ["initJIPCompatible.sqf: Debug info [IS_air_war_event] [%1]", IS_air_war_event]] Call WFBE_CO_FNC_LogContent;
 
 if (IS_air_war_event) then {
 	missionNamespace setVariable ["WFBE_C_ECONOMY_SUPPLY_START_EAST", 50000];
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [WFBE_C_ECONOMY_SUPPLY_START_EAST] [%1]", 50000]] Call WFBE_CO_FNC_LogContent;
 	missionNamespace setVariable ["WFBE_C_ECONOMY_SUPPLY_START_WEST", 50000];
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [WFBE_C_ECONOMY_SUPPLY_START_WEST] [%1]", 50000]] Call WFBE_CO_FNC_LogContent;
 	missionNamespace setVariable ["WFBE_C_ECONOMY_FUNDS_START_EAST", 13370000];
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [WFBE_C_ECONOMY_FUNDS_START_EAST] [%1]", 13370000]] Call WFBE_CO_FNC_LogContent;
 	missionNamespace setVariable ["WFBE_C_ECONOMY_FUNDS_START_WEST", 13370000];
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [WFBE_C_ECONOMY_FUNDS_START_WEST] [%1]", 13370000]] Call WFBE_CO_FNC_LogContent;
 	missionNamespace setVariable ["WFBE_C_TOWNS_STARTING_MODE", 1];
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [WFBE_C_TOWNS_STARTING_MODE] [%1]", 1]] Call WFBE_CO_FNC_LogContent;
 	missionNamespace setVariable ["WFBE_C_GAMEPLAY_UPGRADES_CLEARANCE", 7];
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [WFBE_C_GAMEPLAY_UPGRADES_CLEARANCE] [%1]", 7]] Call WFBE_CO_FNC_LogContent;
 };
 
 if (WF_Debug) then { //--- Debug.
 	missionNamespace setVariable ["WFBE_C_GAMEPLAY_UPGRADES_CLEARANCE", 7];
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [WFBE_C_GAMEPLAY_UPGRADES_CLEARANCE] [%1]", 7]] Call WFBE_CO_FNC_LogContent;
 	missionNamespace setVariable ["WFBE_C_TOWNS_OCCUPATION", 1];
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [WFBE_C_TOWNS_OCCUPATION] [%1]", 1]] Call WFBE_CO_FNC_LogContent;
 	missionNamespace setVariable ["WFBE_C_TOWNS_DEFENDER", 2];
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [WFBE_C_TOWNS_DEFENDER] [%1]", 2]] Call WFBE_CO_FNC_LogContent;
 	missionNamespace setVariable ["WFBE_C_AI_DELEGATION", 2];
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [WFBE_C_AI_DELEGATION] [%1]", 2]] Call WFBE_CO_FNC_LogContent;
 	missionNamespace setVariable ["WFBE_C_TOWNS_STARTING_MODE", 2];
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [WFBE_C_TOWNS_STARTING_MODE] [%1]", 2]] Call WFBE_CO_FNC_LogContent;
 	missionNamespace setVariable ["WFBE_C_ECONOMY_SUPPLY_START_EAST", 999999];
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [WFBE_C_ECONOMY_SUPPLY_START_EAST] [%1]", 999999]] Call WFBE_CO_FNC_LogContent;
 	missionNamespace setVariable ["WFBE_C_ECONOMY_SUPPLY_START_WEST", 999999];
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [WFBE_C_ECONOMY_SUPPLY_START_WEST] [%1]", 999999]] Call WFBE_CO_FNC_LogContent;
 	missionNamespace setVariable ["WFBE_C_ECONOMY_FUNDS_START_EAST", 999999];
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [WFBE_C_ECONOMY_FUNDS_START_EAST] [%1]", 999999]] Call WFBE_CO_FNC_LogContent;
 	missionNamespace setVariable ["WFBE_C_ECONOMY_FUNDS_START_WEST", 999999];
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [WFBE_C_ECONOMY_FUNDS_START_WEST] [%1]", 999999]] Call WFBE_CO_FNC_LogContent;
 	missionNamespace setVariable ["WFBE_C_MODULE_WFBE_EASA", 1];
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [WFBE_C_MODULE_WFBE_EASA] [%1]", 1]] Call WFBE_CO_FNC_LogContent;
 };
 
 //--- Disable headless client if it is not supported.
@@ -167,6 +197,7 @@ if (ARMA_VERSION >= 162 && ARMA_RELEASENUMBER >= 101334 || ARMA_VERSION > 162) t
 } else {
 	if ((missionNamespace getVariable "WFBE_C_AI_DELEGATION") == 2) then {
 		missionNamespace setVariable ["WFBE_C_AI_DELEGATION", 0];
+		["DEBUG", Format ["initJIPCompatible.sqf: Debug info [WFBE_C_AI_DELEGATION] [%1]", 0]] Call WFBE_CO_FNC_LogContent;
 		["INITIALIZATION", "initJIPCompatible.sqf: Headless client is not supported."] Call WFBE_CO_FNC_LogContent
 	};
 };
@@ -182,6 +213,7 @@ if (ARMA_VERSION >= 162 && ARMA_RELEASENUMBER >= 101334 || ARMA_VERSION > 162) t
 };
 
 WFBE_Parameters_Ready = true; //--- All parameters are set and ready.
+["DEBUG", Format ["initJIPCompatible.sqf: Debug info [WFBE_Parameters_Ready] [%1]", WFBE_Parameters_Ready]] Call WFBE_CO_FNC_LogContent;
 
 ExecVM "Common\Init\Init_Common.sqf"; //--- Execute the common files.
 ExecVM "Common\Init\Init_Towns.sqf"; //--- Execute the towns file.
@@ -199,6 +231,7 @@ if (isHostedServer || (!isHeadLessClient && !isDedicated)) then {
 		_logik = (_x) Call WFBE_CO_FNC_GetSideLogic;
 		waitUntil {!isNil {_logik getVariable "wfbe_teams"}};
 		missionNamespace setVariable [Format["WFBE_%1TEAMS",_x], _logik getVariable "wfbe_teams"];
+		["DEBUG", Format ["initJIPCompatible.sqf: Debug info [WFBE_%1TEAMS] [%2]", _x, _logik getVariable "wfbe_teams"]] Call WFBE_CO_FNC_LogContent;
 	} forEach WFBE_PRESENTSIDES;
 
 	["INITIALIZATION", "initJIPCompatible.sqf: Executing the Client Initialization."] Call WFBE_CO_FNC_LogContent;
@@ -240,14 +273,20 @@ IS_American_Faction_on_this_map = false;
 if (IS_chernarus_map_dependent) then 
 {
 	IS_Russian_Faction_On_This_Map = true  ;
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [IS_Russian_Faction_On_This_Map] [%1]", IS_Russian_Faction_On_This_Map]] Call WFBE_CO_FNC_LogContent;
 	IS_Takistan_Faction_On_This_Map = false;
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [IS_Takistan_Faction_On_This_Map] [%1]", IS_Takistan_Faction_On_This_Map]] Call WFBE_CO_FNC_LogContent;
 	IS_American_Faction_on_this_map = true ; // for west side it is always american faction on every maps.
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [IS_American_Faction_on_this_map] [%1]", IS_American_Faction_on_this_map]] Call WFBE_CO_FNC_LogContent;
 };
 
 // If map is takistant dependent (= not chernarus dependant) :
 if !(IS_chernarus_map_dependent) then  
 {
 	IS_Russian_Faction_On_This_Map  = false;
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [IS_Russian_Faction_On_This_Map] [%1]", IS_Russian_Faction_On_This_Map]] Call WFBE_CO_FNC_LogContent;
 	IS_Takistan_Faction_On_This_Map = true ;
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [IS_Takistan_Faction_On_This_Map] [%1]", IS_Takistan_Faction_On_This_Map]] Call WFBE_CO_FNC_LogContent;
 	IS_American_Faction_on_this_map = true ; // for west side it is always american faction on every maps.
+	["DEBUG", Format ["initJIPCompatible.sqf: Debug info [IS_American_Faction_on_this_map] [%1]", IS_American_Faction_on_this_map]] Call WFBE_CO_FNC_LogContent;
 };
