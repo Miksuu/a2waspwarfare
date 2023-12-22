@@ -57,35 +57,6 @@ isHeadLessClient = Call Compile preprocessFileLineNumbers "Headless\Functions\HC
 if (isHeadLessClient) then {["INITIALIZATION", "initJIPCompatible.sqf: Detected an headless client."] Call WFBE_CO_FNC_LogContent};
 ["DEBUG", Format ["initJIPCompatible.sqf: Debug info [isHeadLessClient] [%1]", isHeadLessClient]] Call WFBE_CO_FNC_LogContent;
 
-if (isHeadLessClient) then {
-	_civilianSlots = [];
-	{
-		if (side _x == civilian) then {
-			_civilianSlots = _civilianSlots + [_x];
-			["DEBUG", format ["initJIPCompatible.sqf: Added civilian slot [%1]", _x]] call WFBE_CO_FNC_LogContent;
-		};
-		["DEBUG", format ["initJIPCompatible.sqf: Looping through slot [%1]", _x]] call WFBE_CO_FNC_LogContent;
-	} forEach allUnits;
-
-	_freeCivilianSlots = [];
-	{
-		["DEBUG", Format ["initJIPCompatible.sqf: Debug info [typeOf _x] [%1]", typeOf _x]] Call WFBE_CO_FNC_LogContent;
-		if (!local _x) then {
-			_freeCivilianSlots = _freeCivilianSlots + [_x];
-			["DEBUG", format ["initJIPCompatible.sqf: Added free civilian slot [%1]", _x]] call WFBE_CO_FNC_LogContent;
-		};
-	} forEach _civilianSlots;
-
-	if (count _freeCivilianSlots > 0) then {
-		_randomIndex = floor(random count _freeCivilianSlots);
-		_randomUnit = _freeCivilianSlots select _randomIndex;
-		selectPlayer _randomUnit;
-
-		["DEBUG", format ["Client moved to slot [%1]", _randomIndex]] call WFBE_CO_FNC_LogContent;
-	} else {
-		["ERROR", "No free civilian slots available"] call WFBE_CO_FNC_LogContent;
-	};
-};
 
 //--- Server JIP Information
 if ((isHostedServer || isDedicated) && !isHeadLessClient) then { //--- JIP Handler, handle connection & disconnection.
