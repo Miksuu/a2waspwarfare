@@ -137,7 +137,7 @@ WFBE_CO_FNC_RemoveAAMissiles = Compile preprocessFileLineNumbers "Common\Functio
 WFBE_CO_FNC_RemoveCountermeasures = if !(WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Common\Functions\Common_RemoveCountermeasures.sqf"} else {{}};
 WFBE_CO_FNC_SendToClient = if !(WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Common\Functions\Common_SendToClient.sqf"} else {{}};
 WFBE_CO_FNC_SendToClients = Compile preprocessFileLineNumbers "Common\Functions\Common_SendToClients.sqf";
-WFBE_CO_FNC_SendToServer = if (WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Common\Functions\Common_SendToServer.sqf"} else {Compile preprocessFileLineNumbers "Common\Functions\Common_SendToServerOptimized.sqf"};
+WFBE_CO_FNC_SendToServer Compile preprocessFileLineNumbers "Common\Functions\Common_SendToServerOptimized.sqf";
 WFBE_CO_FNC_SetTurretsMagazines = if !(WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Common\Functions\Common_SetTurretsMagazines.sqf"} else {{}};
 WFBE_CO_FNC_SortByDistance = Compile preprocessFileLineNumbers "Common\Functions\Common_SortByDistance.sqf";
 WFBE_CO_FNC_WaypointPatrol = Compile preprocessFileLineNumbers "Common\Functions\Common_WaypointPatrol.sqf";
