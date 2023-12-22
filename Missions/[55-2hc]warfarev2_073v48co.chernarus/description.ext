@@ -63,3 +63,4 @@ loadScreen = "loadScreen.jpg";
 enableSentences = false;
 disableChannels[]={3,6};
 disabledAI=0;
+joinUnassigned = 0;
