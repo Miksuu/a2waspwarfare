@@ -4132,7 +4132,7 @@ class Mission
 					type="HeadlessClient_F";
 					leader=1;
 					skill=0.60000002;
-					init="this setVariable ['hc_slot', 'hc0']; this allowDamage false;";
+					init="this setVariable ['hc_slot0', 'hc0']; this allowDamage false;";
 					description="hc0";
 				};
 			};
@@ -4674,7 +4674,7 @@ class Mission
 					type="HeadlessClient_F";
 					leader=1;
 					skill=0.60000002;
-					init="this setVariable ['hc_slot', 'hc1']; this allowDamage false;";
+					init="this setVariable ['hc_slot1', 'hc1']; this allowDamage false;";
 					description="hc1";
 				};
 			};
@@ -4696,7 +4696,7 @@ class Mission
 					type="HeadlessClient_F";
 					leader=1;
 					skill=0.60000002;
-					init="this setVariable ['hc_slot', 'hc2']; this allowDamage false;";
+					init="this setVariable ['hc_slot2', 'hc2']; this allowDamage false;";
 					description="hc2";
 				};
 			};
@@ -4718,7 +4718,7 @@ class Mission
 					type="HeadlessClient_F";
 					leader=1;
 					skill=0.60000002;
-					init="this setVariable ['hc_slot', 'hc3']; this allowDamage false;";
+					init="this setVariable ['hc_slot3', 'hc3']; this allowDamage false;";
 					description="hc3";
 				};
 			};
