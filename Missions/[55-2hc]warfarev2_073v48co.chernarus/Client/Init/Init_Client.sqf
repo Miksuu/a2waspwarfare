@@ -47,7 +47,6 @@ GetStructureMarkerLabel = Compile preprocessFile "Client\Functions\Client_GetStr
 GetTime = Compile preprocessFile "Client\Functions\Client_GetTime.sqf";
 GroupChatMessage = Compile preprocessFile "Client\Functions\Client_GroupChatMessage.sqf";
 HandleHQAction = Compile preprocessFile "Client\Functions\Client_HandleHQAction.sqf";
-HandlePVF = Compile preprocessFile "Client\Functions\Client_HandlePVF.sqf";
 MarkerAnim = Compile preprocessFile "Client\Functions\Client_MarkerAnim.sqf";
 OnRespawnHandler = Compile preprocessFile "Client\Functions\Client_OnRespawnHandler.sqf";
 PreRespawnHandler = Compile preprocessFile "Client\Functions\Client_PreRespawnHandler.sqf";
