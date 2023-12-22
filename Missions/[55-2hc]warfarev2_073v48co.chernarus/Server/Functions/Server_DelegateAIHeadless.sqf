@@ -14,8 +14,13 @@ _unitType = +(_this select 1);
 _position = +(_this select 2);
 _team = +(_this select 3);
 
-//--- Delegate The groups to the miscelleanous headless clients.
+["DEBUG", Format ["Server_DelegateAIHeadless.sqf: Debug info [_side] [%1]", _side]] Call WFBE_CO_FNC_LogContent;
+["DEBUG", Format ["Server_DelegateAIHeadless.sqf: Debug info [_unitType] [%1]", _unitType]] Call WFBE_CO_FNC_LogContent;
+["DEBUG", Format ["Server_DelegateAIHeadless.sqf: Debug info [_position] [%1]", _position]] Call WFBE_CO_FNC_LogContent;
+["DEBUG", Format ["Server_DelegateAIHeadless.sqf: Debug info [_team] [%1]", _team]] Call WFBE_CO_FNC_LogContent;
+["DEBUG", Format ["Server_DelegateAIHeadless.sqf: Debug info [_clients] [%1]", _clients]] Call WFBE_CO_FNC_LogContent;
 
+//--- Delegate The groups to the miscelleanous headless clients.
 _clients = missionNamespace getVariable "WFBE_HEADLESSCLIENTS_ID";
 
 if (count _clients > 0) then {
