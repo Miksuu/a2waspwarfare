@@ -60,6 +60,9 @@ switch (_action) do {
 				};
 
 			};
+			
+			// Added small delay to avoid the lag spike when spawning all units at once
+			sleep 0.5;
 		} forEach (_town getVariable "wfbe_town_defenses");
 
 		//--- Reveal the town area to the statics.
