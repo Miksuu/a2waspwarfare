@@ -90,7 +90,7 @@ with missionNamespace do {
 		WFBE_C_ARTILLERY_INTERVALS = [15, 15, 15, 15, 15, 15, 15]; // In debug mod, arty reload is set to 15 seconds.
 	} else 
 	{
-		WFBE_C_ARTILLERY_INTERVALS = [500, 450, 400, 350, 300, 250, 200]; //--- Delay between each fire mission for each upgrades.
+		WFBE_C_ARTILLERY_INTERVALS = [550, 500, 450, 400, 350, 300, 250]; //--- Delay between each fire mission for each upgrades.
 	};
 
 	//--- Base
