@@ -575,29 +575,7 @@ switch (missionNamespace getVariable "WFBE_C_STRUCTURES_COLLIDING") do {
                 	_color = _colorGreen;
             	};
 
-            	if ((typeOf _preview) isKindOf "StaticWeapon") then {
-					 _color = _colorGreen;
-
-            		if ((typeOf _preview) isKindOf "MGNest") then {
-						_current_side  = side commanderTeam;
-						_opposite_side = east;
-
-						if(_current_side == west)then{
-							_opposite_side = east;
-						} else{
-							_opposite_side = west;
-						};
-
-						_detected = (_area nearEntities [["Man","Car","Motorcycle","Tank","Air","Ship"], missionNamespace getVariable "WFBE_C_BASE_AREA_RANGE"]) unitsBelowHeight 20;
-						{
-							if(_itemcategory !=0 && side _x == _opposite_side)exitwith{
-								_color = _colorRed;
-								hintSilent parseText "<t color='#fb0808'> Enemies are detected near your base! </t>";
-							};
-
-						}foreach _detected;
-					}; 
-				};
+            	if ((typeOf _preview) isKindOf "StaticWeapon") then { _color = _colorGreen; };
 
 			if (_itemcategory == 0) then {
 				Private ["_town","_townside","_eArea"];
