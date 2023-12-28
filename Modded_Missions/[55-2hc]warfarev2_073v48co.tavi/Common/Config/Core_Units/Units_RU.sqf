@@ -29,7 +29,7 @@ _u = _u		+ ['RUS_Soldier_TL'];
 _u = _u		+ ['MVD_Soldier_GL'];
 _u = _u		+ ['MVD_Soldier_MG'];
 _u = _u		+ ['MVD_Soldier_Marksman'];
-_u = _u		+ ['MVD_Soldier_AT'];
+_u = _u		+ ['MVD_Soldier_AT']; // MVD_Soldier_AT acts as RPG-7VR soldier now
 _u = _u		+ ['MVD_Soldier_Sniper'];
 _u = _u		+ ['MVD_Soldier_TL'];
 

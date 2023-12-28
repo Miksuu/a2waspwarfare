@@ -33,8 +33,8 @@ _u		= ["Mi17_Ins"];
 _u = _u + ["Ins_Soldier_Medic"];
 _u = _u + ["Ins_Soldier_MG"];
 _u = _u + ["Ins_Soldier_AR"];
-_u = _u + ["Ins_Soldier_AT"];
-_u = _u + ["Ins_Soldier_AT"];
+_u = _u + ["Ins_Soldier_AT"]; // Ins_Soldier_AT acts as Dragon soldier now
+_u = _u + ["Ins_Soldier_AT"]; // Ins_Soldier_AT acts as Dragon soldier now
 _u = _u + ["Ins_Soldier_Sniper"];
 _u = _u + ["Ins_Soldier_1"];
 
