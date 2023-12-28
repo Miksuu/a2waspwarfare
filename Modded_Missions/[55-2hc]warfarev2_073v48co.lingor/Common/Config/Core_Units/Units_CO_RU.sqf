@@ -10,6 +10,8 @@ if (IS_chernarus_map_dependent) then {
     _u = _u		+ ['RU_Soldier2'];
     _u = _u		+ ['RU_Soldier_LAT'];
     _u = _u		+ ['RU_Soldier_AT'];
+    _u = _u		+ ['MVD_Soldier_AT']; // MVD_Soldier_AT acts as RPG-7VR soldier now
+    _u = _u		+ ['Ins_Soldier_AT']; // Ins_Soldier_AT acts as Dragon soldier now
     _u = _u		+ ['RU_Soldier_HAT'];
     _u = _u		+ ['RU_Soldier_AA'];
     _u = _u		+ ['RU_Soldier_AR'];
@@ -33,7 +35,7 @@ if (IS_chernarus_map_dependent) then {
     _u = _u		+ ['MVD_Soldier_GL'];
     _u = _u		+ ['MVD_Soldier_MG'];
     _u = _u		+ ['MVD_Soldier_Marksman'];
-    _u = _u		+ ['MVD_Soldier_AT'];
+
     _u = _u		+ ['MVD_Soldier_Sniper'];
     _u = _u		+ ['MVD_Soldier_TL'];
     //--- Takistan Troops.
@@ -49,6 +51,8 @@ if (IS_chernarus_map_dependent) then {
     _u = _u		+ ['TK_Soldier_LAT_EP1'];
     _u = _u		+ ['TK_Soldier_AAT_EP1'];
     _u = _u		+ ['TK_Soldier_AT_EP1'];
+    _u = _u		+ ['MVD_Soldier_AT']; // MVD_Soldier_AT acts as RPG-7VR soldier now
+    _u = _u		+ ['Ins_Soldier_AT']; // Ins_Soldier_AT acts as Dragon soldier now
     _u = _u		+ ['TK_Soldier_HAT_EP1'];
     _u = _u		+ ['TK_Soldier_AA_EP1'];
     _u = _u		+ ['TK_Soldier_AR_EP1'];

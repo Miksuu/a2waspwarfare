@@ -81,6 +81,7 @@ based on the hotkeys indicated within brackets.
 - [v] [IMAGES] [@EVERYONE]
 
 ### EXAMPLE OUTPUT:
+- Remove all instance of [VOTE] in the text.
 ```
 Suggestion 1
 

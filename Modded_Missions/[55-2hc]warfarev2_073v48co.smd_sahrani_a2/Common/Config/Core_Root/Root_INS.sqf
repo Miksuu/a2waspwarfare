@@ -39,20 +39,20 @@ if (isServer) then {
 	//--- Patrols.
 	missionNamespace setVariable [Format["WFBE_%1_PATROL_LIGHT", _side], [
 		['Ins_Commander','Ins_Soldier_MG','Ins_Soldier_Sniper','Ins_Soldier_Medic'], 
-		['Ins_Commander','Ins_Soldier_AR','Ins_Soldier_GL','Ins_Soldier_AT','Ins_Soldier_1'],
+		['Ins_Commander','Ins_Soldier_AR','Ins_Soldier_GL','Ins_Soldier_AT','Ins_Soldier_1'], // Ins_Soldier_AT acts as Dragon soldier now
 		['UAZ_MG_INS','UAZ_SPG9_INS']
 	]];
 
 	missionNamespace setVariable [Format["WFBE_%1_PATROL_MEDIUM", _side], [
 		['BRDM2_INS','BRDM2_ATGM_INS'], 
-		['Ural_INS','Ins_Commander','Ins_Soldier_AT','Ins_Soldier_MG','Ins_Soldier_AT'],
+		['Ural_INS','Ins_Commander','Ins_Soldier_AT','Ins_Soldier_MG','Ins_Soldier_AT'], // Ins_Soldier_AT acts as Dragon soldier now
 		['BMP2_INS','Ins_Soldier_AA','Ins_Soldier_AA','Ins_Soldier_Medic']
 	]];
 
 	missionNamespace setVariable [Format["WFBE_%1_PATROL_HEAVY", _side], [
 		['T72_INS','BMP2_INS'], 
 		['T72_INS','T72_INS'],
-		['BMP2_INS','BMP2_INS','Ins_Commander','Ins_Soldier_MG','Ins_Soldier_Sniper','Ins_Soldier_Medic','Ins_Soldier_AT','Ins_Soldier_AT','Ins_Soldier_1'],
+		['BMP2_INS','BMP2_INS','Ins_Commander','Ins_Soldier_MG','Ins_Soldier_Sniper','Ins_Soldier_Medic','Ins_Soldier_AT','Ins_Soldier_AT','Ins_Soldier_1'], // Ins_Soldier_AT acts as Dragon soldier now
 		['BMP2_INS','Ins_Commander','Ins_Soldier_Medic','Ins_Soldier_GL','Ins_Soldier_1','Ins_Soldier_AR']
 	]];
 	

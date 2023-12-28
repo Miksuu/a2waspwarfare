@@ -551,6 +551,7 @@ _easaLoadout = _easaLoadout + [
 [14200,'AIM-9L (6) | GBU-12 (2)',[['SidewinderLaucher_AH1Z','BombLauncherF35'],['2Rnd_Sidewinder_AH1Z','2Rnd_Sidewinder_AH1Z','2Rnd_Sidewinder_AH1Z','2Rnd_GBU12']]],
 [7200,'AIM-9L (6) | Hydra (38)',[['SidewinderLaucher_AH1Z','FFARLauncher'],['2Rnd_Sidewinder_AH1Z','2Rnd_Sidewinder_AH1Z','2Rnd_Sidewinder_AH1Z','38Rnd_FFAR']]],
 [6800,'AIM-9L (6) | MK-82 (6)',[['SidewinderLaucher_AH1Z','Mk82BombLauncher_6'],['2Rnd_Sidewinder_AH1Z','2Rnd_Sidewinder_AH1Z','2Rnd_Sidewinder_AH1Z','6Rnd_Mk82']]],
+[6600,'AIM-9L (8)',[['SidewinderLaucher_AH1Z'],['2Rnd_Sidewinder_AH1Z','2Rnd_Sidewinder_AH1Z','2Rnd_Sidewinder_AH1Z','2Rnd_Sidewinder_AH1Z']]],
 [13200,'GBU-12 (2) | Hydra (38) | MK-82 (12)',[['BombLauncherF35','FFARLauncher','Mk82BombLauncher_6'],['2Rnd_GBU12','38Rnd_FFAR','6Rnd_Mk82','6Rnd_Mk82']]],
 [13600,'GBU-12 (2) | Hydra (76) | MK-82 (6)',[['BombLauncherF35','FFARLauncher','Mk82BombLauncher_6'],['2Rnd_GBU12','38Rnd_FFAR','38Rnd_FFAR','6Rnd_Mk82']]],
 [13000,'GBU-12 (2) | Hydra (114)',[['BombLauncherF35','FFARLauncher'],['2Rnd_GBU12','38Rnd_FFAR','38Rnd_FFAR','38Rnd_FFAR']]],

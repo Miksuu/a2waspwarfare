@@ -188,7 +188,7 @@ WFBE_Logic_Airfield = "LocationLogicAirport";
 WFBE_Logic_Camp = "LocationLogicCamp";
 WFBE_Logic_Depot = "LocationLogicDepot";
 
-isAutoWallConstructingEnabled = false;
+isAutoWallConstructingEnabled = true;
 WFBE_CO_VAR_SupplyMissionRegenInterval = 1800;
 
 /* Wait for BIS Module Init */

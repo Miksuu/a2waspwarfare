@@ -29,6 +29,31 @@ if(side _unit == east && !(_unit hasWeapon "NVGoggles")) then {
    _unit addWeapon "NVGoggles";
 };
 
+// Add custom dragon soldier (Ins_Soldier_AT)
+if (_type == "Ins_Soldier_AT") then {
+	_unit removeMagazine "PG7VL";
+	_unit removeMagazine "PG7VL";
+	_unit removeMagazine "PG7VL";
+	_unit removeWeapon "RPG7V";
+	_unit addWeapon "M47Launcher_EP1";
+	_unit addMagazine "Dragon_EP1";
+	_unit addMagazine "Dragon_EP1";
+};
+
+// Add custom RPG-7 VR soldier (MVD_Soldier_AT)
+if (_type == "MVD_Soldier_AT") then {
+	_unit removeMagazine "PG7VL";
+	_unit removeMagazine "PG7VL";
+	_unit removeMagazine "OG7";
+	_unit addMagazine "PG7VR";
+	_unit addMagazine "PG7VR";
+};
+
+// Remove one rocket from the NLAW soldier
+if (_type == "BAF_Soldier_AT_W" || _type == "BAF_Soldier_AT_DDPM") then {
+	_unit removeMagazine "NLAW";
+};
+
 if (_global) then {
 	if (_side != WFBE_DEFENDER_ID || WFBE_ISTHREEWAY) then {
 		if ((missionNamespace getVariable "WFBE_C_UNITS_TRACK_INFANTRY") > 0) then {
