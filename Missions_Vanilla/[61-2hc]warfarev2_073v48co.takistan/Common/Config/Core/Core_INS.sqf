@@ -29,8 +29,9 @@ _i = _i + [['','',180,4,-1,1,0,1,'Insurgents',[]]];
 _c = _c + ['Ins_Soldier_MG'];
 _i = _i + [['','',190,4,-1,1,0,1,'Insurgents',[]]];
 
+// Ins_Soldier_AT acts as Dragon soldier now
 _c = _c + ['Ins_Soldier_AT'];
-_i = _i + [['','',220,6,-1,1,0,1,'Insurgents',[]]];
+_i = _i + [['AT Specialist (Dragon)','',600,6,-1,2,0,1,'Insurgents',[]]];
 
 _c = _c + ['Ins_Soldier_AA'];
 _i = _i + [['','',300,6,-1,2,0,1,'Insurgents',[]]];

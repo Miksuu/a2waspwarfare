@@ -35,8 +35,8 @@ _u = _u + ["MVD_Soldier_GL"];
 _u = _u + ["MVD_Soldier_MG"];
 _u = _u + ["MVD_Soldier_MG"];
 _u = _u + ["MVD_Soldier_Marksman"];
-_u = _u + ["MVD_Soldier_AT"];
-_u = _u + ["MVD_Soldier_AT"];
+_u = _u + ["MVD_Soldier_AT"]; // MVD_Soldier_AT acts as RPG-7VR soldier now
+_u = _u + ["MVD_Soldier_AT"]; // MVD_Soldier_AT acts as RPG-7VR soldier now
 
 _aiTeamTemplateName = _aiTeamTemplateName + ["Air - Infantry Mi-8 Squadron"];
 _aiTeamTemplates = _aiTeamTemplates + [_u];
