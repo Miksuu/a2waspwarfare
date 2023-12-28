@@ -38,6 +38,15 @@ if (_type == "Ins_Soldier_AT") then {
 	_unit addMagazine "Dragon_EP1";
 };
 
+// Add custom RPG-7 VR soldier (MVD_Soldier_AT)
+if (_type == "MVD_Soldier_AT") then {
+	_unit removeMagazine "PG7VL";
+	_unit removeMagazine "PG7VL";
+	_unit removeMagazine "OG7";
+	_unit addMagazine "PG7VR";
+	_unit addMagazine "PG7VR";
+};
+
 if (_global) then {
 	if (_side != WFBE_DEFENDER_ID || WFBE_ISTHREEWAY) then {
 		if ((missionNamespace getVariable "WFBE_C_UNITS_TRACK_INFANTRY") > 0) then {
