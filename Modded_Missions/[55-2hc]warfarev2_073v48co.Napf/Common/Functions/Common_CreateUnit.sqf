@@ -34,7 +34,9 @@ if (_type == "Ins_Soldier_AT") then {
 	_unit removeMagazine "PG7VL";
 	_unit removeMagazine "PG7VL";
 	_unit removeMagazine "PG7VL";
+	_unit removeWeapon "RPG7V";
 	_unit addWeapon "M47Launcher_EP1";
+	_unit addMagazine "Dragon_EP1";
 	_unit addMagazine "Dragon_EP1";
 };
 
