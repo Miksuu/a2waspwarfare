@@ -9,6 +9,8 @@
     <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
   </PropertyGroup>
 
+  <Import Project="..\Data\TerrainData\TerrainData.projitems" Label="Shared" />
+
   <ItemGroup>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
 		<PackageReference Include="System.ServiceProcess.ServiceController" Version="8.0.0" />
