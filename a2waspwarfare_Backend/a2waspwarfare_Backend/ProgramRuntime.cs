@@ -38,6 +38,12 @@ class ProgramRuntime
                     while ((temp = sr.ReadLine()) != null)
                     {
                         Log.WriteLine("Received from client: " + temp, LogLevel.DEBUG);
+
+                        if (temp == "restartServer")
+                        {
+                            Log.WriteLine("Restarting server");
+                            await ServerManager.RestartServer();
+                        }
                     }
                 }
             }
