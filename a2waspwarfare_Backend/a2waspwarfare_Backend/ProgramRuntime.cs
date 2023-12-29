@@ -27,10 +27,13 @@ class ProgramRuntime
             using (NamedPipeServerStream pipeServer = 
                 new NamedPipeServerStream("testpipe", PipeDirection.In))
             {
+                Log.WriteLine("Created NamedPipeServerStream", LogLevel.VERBOSE);
                 pipeServer.WaitForConnection();
+                Log.WriteLine("Client connected", LogLevel.VERBOSE);
 
                 using (StreamReader sr = new StreamReader(pipeServer))
                 {
+                    Log.WriteLine("Created StreamReader", LogLevel.VERBOSE);
                     string temp;
                     while ((temp = sr.ReadLine()) != null)
                     {
@@ -39,6 +42,7 @@ class ProgramRuntime
                 }
             }
 
+            Log.WriteLine("Waiting for 1 second before next iteration", LogLevel.VERBOSE);
             await Task.Delay(1000); // Wait for 1 second before next iteration
         }
     }
