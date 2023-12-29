@@ -22,8 +22,8 @@ public class RESTARTSERVER : BaseExtensionClass
                     FileName = "a2waspwarfare_Backend.exe",
                     WorkingDirectory = @"C:\a2waspwarfare_Backend",
                     Arguments = "true",
-                    UseShellExecute = false, // Don't use operating system shell to start the process
-                    CreateNoWindow = true, // Don't create a new window
+                    //UseShellExecute = false, // Don't use operating system shell to start the process
+                    //CreateNoWindow = true, // Don't create a new window
                 };
 
                 // Print the ProcessStartInfo after it's set
