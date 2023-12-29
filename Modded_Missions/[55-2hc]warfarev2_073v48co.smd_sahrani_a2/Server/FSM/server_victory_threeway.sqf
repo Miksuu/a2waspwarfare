@@ -27,7 +27,7 @@ while {!gameOver} do {
 
 				// Wait for the endgame to be handled, then restart the server with the callExtension command
 				["DEBUG", Format ["server_victory_threeway.sqf: Debug info [Sleep] [5]"]] Call WFBE_CO_FNC_LogContent;
-				sleep 5; // temp 5, make more than 60sec
+				sleep 75;
 
 				// Restart the server with the callExtension command (send command to the backend C# plugin)
 				["DEBUG", Format ["server_victory_threeway.sqf: Debug info [callExtension] [RESTARTSERVER]"]] Call WFBE_CO_FNC_LogContent;
