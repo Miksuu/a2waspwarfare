@@ -26,7 +26,7 @@ while {!gameOver} do {
 				WFBE_GameOver = true;
 				
 				// Wait for the endgame to be handled, then restart the server with the callExtension command
-				sleep 60;
+				sleep 5; // temp 5, make more than 60sec
 
 				// Restart the server with the callExtension command (send command to the backend C# plugin)
 				"a2waspwarfare_Extension" callExtension format ["%1","RESTARTSERVER"];
