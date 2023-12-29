@@ -1,0 +1,18 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34024.191
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TerrainData", "TerrainData.shproj", "{42E2342D-3D78-4FAD-B1EB-BC4E6DB81E38}"
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {17808175-13BD-4943-8775-C2B4BFA21948}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		TerrainData.projitems*{42e2342d-3d78-4fad-b1eb-bc4e6db81e38}*SharedItemsImports = 13
+	EndGlobalSection
+EndGlobal
