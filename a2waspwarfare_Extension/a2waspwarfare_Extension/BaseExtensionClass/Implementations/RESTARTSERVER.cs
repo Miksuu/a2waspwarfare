@@ -9,11 +9,13 @@ public class RESTARTSERVER : BaseExtensionClass
     {
         try
         {
-            Log.WriteLine("Restarting server", LogLevel.DEBUG);
+            Log.WriteLine("Starting server restart process", LogLevel.DEBUG);
 
             Process[] pname = Process.GetProcessesByName("a2waspwarfare_Backend");
             if (pname.Length == 0)
             {
+                Log.WriteLine("No existing a2waspwarfare_Backend process found. Starting a new one.", LogLevel.DEBUG);
+
                 // Start a new process that runs a separate application to handle the backend
                 ProcessStartInfo startInfo = new ProcessStartInfo
                 {
@@ -26,17 +28,22 @@ public class RESTARTSERVER : BaseExtensionClass
 
                 Process backendProcess = new Process { StartInfo = startInfo };
                 backendProcess.Start();
+                Log.WriteLine("New a2waspwarfare_Backend process started.", LogLevel.DEBUG);
             }
             else
             {
+                Log.WriteLine("Existing a2waspwarfare_Backend process found. Sending restart command.", LogLevel.DEBUG);
+
                 using (NamedPipeClientStream pipeClient = 
                     new NamedPipeClientStream(".", "testpipe", PipeDirection.Out))
                 {
                     pipeClient.Connect();
+                    Log.WriteLine("Connected to pipe.", LogLevel.DEBUG);
 
                     using (StreamWriter sw = new StreamWriter(pipeClient))
                     {
                         sw.WriteLine("restartServer");
+                        Log.WriteLine("Restart command sent.", LogLevel.DEBUG);
                     }
                 }
             }
