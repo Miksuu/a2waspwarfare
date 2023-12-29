@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.ServiceProcess;
 
 public class RESTARTSERVER : BaseExtensionClass
 {
@@ -7,10 +9,17 @@ public class RESTARTSERVER : BaseExtensionClass
         try
         {
             Log.WriteLine("Restarting server", LogLevel.DEBUG);
-        
-            
 
-            Log.WriteLine("Done restarting server", LogLevel.DEBUG);
+            Process[] pname = Process.GetProcessesByName("a2waspwarfare_Backend");
+            if (pname.Length == 0)
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "a2waspwarfare_Backend.exe",
+                    WorkingDirectory = @"C:\a2waspwarfare_Backend",
+                    Arguments = "true"
+                });
+            }
         }
         catch (Exception _ex)
         {
