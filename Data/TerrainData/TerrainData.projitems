@@ -9,5 +9,20 @@
     <Import_RootNamespace>TerrainData</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)BaseTerrain.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Implementations\MainMap\CHERNARUS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Implementations\ModdedMaps\DINGOR.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Implementations\ModdedMaps\EDEN.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Implementations\ModdedMaps\ISLADUALA.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Implementations\ModdedMaps\LINGOR.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Implementations\ModdedMaps\NAPF.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Implementations\ModdedMaps\SMD_SAHRANI_A2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Implementations\ModdedMaps\TASMANIA2010.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Implementations\ModdedMaps\TAVI.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Implementations\VanillaMaps\TAKISTAN.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InterfaceTerrain.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TerrainModStatus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TerrainName.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TerrainType.cs" />
   </ItemGroup>
 </Project>
