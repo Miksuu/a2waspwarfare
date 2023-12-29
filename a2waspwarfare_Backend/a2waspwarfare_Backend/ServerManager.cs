@@ -5,7 +5,7 @@ using System.ServiceProcess;
 public static class ServerManager
 {
     // Args[0] = restart server, true or false
-    public static void RestartServer()
+    public static async Task RestartServer()
     {
         // Restart the service named A2OAServer
         ServiceController service = new ServiceController("A2OAServer");
