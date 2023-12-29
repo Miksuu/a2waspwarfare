@@ -18,11 +18,11 @@ public static class ServerManager
 
         await RotationManager.ModifyRotation();
 
+        Task.Run(() => HeadlessClientManager.RebootHeadlessClientAndSetItToRealTimePriority());
+        
         service.Start();
         service.WaitForStatus(ServiceControllerStatus.Running);
 
         Log.WriteLine("Done restarting server, killing headless client.");
-
-        Task.Run(() => HeadlessClientManager.RebootHeadlessClientAndSetItToRealTimePriority());
     }
 }
