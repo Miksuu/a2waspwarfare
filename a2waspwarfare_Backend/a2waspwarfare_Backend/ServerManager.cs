@@ -15,6 +15,9 @@ public static class ServerManager
             service.Stop();
             service.WaitForStatus(ServiceControllerStatus.Stopped);
         }
+
+        await RotationManager.ModifyRotation();
+
         service.Start();
         service.WaitForStatus(ServiceControllerStatus.Running);
 

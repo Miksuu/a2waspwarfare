@@ -3,7 +3,7 @@ using System.Text;
 
 public static class RotationManager
 {
-    public static void ModifyRotation()
+    public static async Task ModifyRotation()
     {
         List<string> searchStrings = new List<string> { "chernarus", "takistan" };// Temp, will be replaced with a list of maps from the TerrainData
         string targetPath = @"C:\Program Files (x86)\Steam\steamapps\common\Arma 2 Operation Arrowhead\default\serverconfig.cfg";
