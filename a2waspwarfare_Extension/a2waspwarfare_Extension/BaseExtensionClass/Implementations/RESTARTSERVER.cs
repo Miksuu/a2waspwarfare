@@ -26,6 +26,9 @@ public class RESTARTSERVER : BaseExtensionClass
                     CreateNoWindow = true, // Don't create a new window
                 };
 
+                // Print the ProcessStartInfo after it's set
+                Log.WriteLine($"ProcessStartInfo set: FileName = {startInfo.FileName}, WorkingDirectory = {startInfo.WorkingDirectory}, Arguments = {startInfo.Arguments}, UseShellExecute = {startInfo.UseShellExecute}, CreateNoWindow = {startInfo.CreateNoWindow}", LogLevel.DEBUG);
+
                 Process backendProcess = new Process { StartInfo = startInfo };
                 backendProcess.Start();
                 Log.WriteLine("New a2waspwarfare_Backend process started.", LogLevel.DEBUG);
