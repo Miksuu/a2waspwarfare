@@ -22,6 +22,8 @@ class ProgramRuntime
 
         while (true)
         {
+            Log.WriteLine("Waiting for client connection...", LogLevel.VERBOSE);
+
             using (NamedPipeServerStream pipeServer = 
                 new NamedPipeServerStream("testpipe", PipeDirection.In))
             {
