@@ -69,7 +69,7 @@ WFBE_CL_FNC_EndGame = {
 	sleep 65;
 
 	for "_i" from 0 to 10 do {
-		_text = format ["Server will be restarted in %1 seconds", 75 - _i];
+		_text = format ["Server will be restarted in %1 seconds", 10 - _i];
 		(format ["%1", _text]) Call GroupChatMessage;
 		sleep 1;
 	};
