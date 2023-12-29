@@ -17,6 +17,6 @@ public static class ServerManager
         service.Start();
         service.WaitForStatus(ServiceControllerStatus.Running);
 
-        Console.WriteLine("Done restarting server");
+        Log.WriteLine("Done restarting server");
     }
 }

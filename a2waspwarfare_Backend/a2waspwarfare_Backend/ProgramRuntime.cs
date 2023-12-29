@@ -25,7 +25,7 @@ class ProgramRuntime
                     string temp;
                     while ((temp = sr.ReadLine()) != null)
                     {
-                        Console.WriteLine("Received from client: {0}", temp);
+                        Log.WriteLine("Received from client: {0}", temp);
                     }
                 }
             }

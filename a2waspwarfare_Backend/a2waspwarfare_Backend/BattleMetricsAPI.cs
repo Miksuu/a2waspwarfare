@@ -66,14 +66,14 @@ class BattleMetricsAPI
             if (!response.IsSuccessStatusCode)
             {
                 string errorContent = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"Error: {errorContent}");
+                Log.WriteLine($"Error: {errorContent}");
             }
 
             response.EnsureSuccessStatusCode();
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"An error occurred: {ex.Message}");
+            Log.WriteLine($"An error occurred: {ex.Message}");
         }
     }
 }
