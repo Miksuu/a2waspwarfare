@@ -68,6 +68,7 @@
     <Compile Include="BaseExtensionClass\InterfaceExtension.cs" />
     <Compile Include="BaseExtensionClass\BaseExtensionClass.cs" />
     <Compile Include="BaseExtensionClass\Implementations\GLOBALGAMESTATS.cs" />
+    <Compile Include="BaseExtensionClass\Implementations\RESTARTSERVER.cs" />
     <Compile Include="ArrayTools.cs" />
     <Compile Include="EnumExtensions.cs" />
     <Compile Include="ExtensionMethods.cs" />
