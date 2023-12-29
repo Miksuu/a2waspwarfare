@@ -16,21 +16,32 @@ public class RESTARTSERVER : BaseExtensionClass
             {
                 Log.WriteLine("No existing a2waspwarfare_Backend process found. Starting a new one.", LogLevel.DEBUG);
 
-                // Start a new process that runs a separate application to handle the backend
                 ProcessStartInfo startInfo = new ProcessStartInfo
                 {
-                    FileName = "a2waspwarfare_Backend.exe",
+                    FileName = @"C:\a2waspwarfare_Backend\a2waspwarfare_Backend.exe",
                     WorkingDirectory = @"C:\a2waspwarfare_Backend",
                     Arguments = "true",
-                    //UseShellExecute = false, // Don't use operating system shell to start the process
-                    //CreateNoWindow = true, // Don't create a new window
+                    UseShellExecute = false,
+                    CreateNoWindow = true
                 };
 
                 // Print the ProcessStartInfo after it's set
                 Log.WriteLine($"ProcessStartInfo set: FileName = {startInfo.FileName}, WorkingDirectory = {startInfo.WorkingDirectory}, Arguments = {startInfo.Arguments}, UseShellExecute = {startInfo.UseShellExecute}, CreateNoWindow = {startInfo.CreateNoWindow}", LogLevel.DEBUG);
 
-                Process backendProcess = new Process { StartInfo = startInfo };
-                backendProcess.Start();
+                try
+                {
+                    Process backendProcess = new Process { StartInfo = startInfo };
+                    backendProcess.Start();
+                }
+                catch (Exception _ex)
+                {
+                    Log.WriteLine($"Failed to start process. Error: {_ex.Message}", LogLevel.CRITICAL);
+                    if (_ex.InnerException != null)
+                    {
+                        Log.WriteLine($"Inner Exception: {_ex.InnerException.Message}", LogLevel.CRITICAL);
+                    }
+                }
+
                 Log.WriteLine("New a2waspwarfare_Backend process started.", LogLevel.DEBUG);
             }
             else
