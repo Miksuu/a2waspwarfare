@@ -18,11 +18,10 @@ public class RESTARTSERVER : BaseExtensionClass
 
                 ProcessStartInfo startInfo = new ProcessStartInfo
                 {
-                    FileName = @"C:\a2waspwarfare_Backend\a2waspwarfare_Backend.exe",
-                    WorkingDirectory = @"C:\a2waspwarfare_Backend",
-                    Arguments = "true",
-                    UseShellExecute = false,
-                    CreateNoWindow = true
+                    FileName = "cmd.exe",
+                    Arguments = "/C start \"\" \"" + @"C:\a2waspwarfare_Backend\a2waspwarfare_Backend.exe" + "\" true",
+                    CreateNoWindow = true,
+                    UseShellExecute = false
                 };
 
                 // Print the ProcessStartInfo after it's set
