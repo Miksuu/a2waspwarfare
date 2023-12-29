@@ -65,14 +65,6 @@ WFBE_CL_FNC_EndGame = {
 	WFBE_GameOver = true;
 
 	(_sideValue Call WFBE_CO_FNC_GetSideFromID) ExecVM "Client\Client_EndGame.sqf";
-
-	sleep 65;
-
-	for "_i" from 0 to 10 do {
-		_text = format ["Server will be restarted in %1 seconds", 10 - _i];
-		(format ["%1", _text]) Call GroupChatMessage;
-		sleep 1;
-	};
 };
 
 WFBE_CL_FNC_HQ_SetStatus = {
