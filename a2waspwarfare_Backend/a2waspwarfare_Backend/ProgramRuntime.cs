@@ -10,6 +10,8 @@ class ProgramRuntime
     {
         Log.WriteLine("Starting backend");
 
+        //RotationManager.ModifyRotation();
+
         if (_args != null && _args.Length > 0 && _args[0] == "true")
         {
             await ServerManager.RestartServerAndHeadlessClient();
