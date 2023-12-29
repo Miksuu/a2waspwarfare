@@ -48,8 +48,8 @@ class ProgramRuntime
                 }
             }
 
-            Log.WriteLine("Waiting for 1 second before next iteration", LogLevel.VERBOSE);
-            await Task.Delay(1000); // Wait for 1 second before next iteration
+            // Log.WriteLine("Waiting for 1 second before next iteration", LogLevel.VERBOSE);
+            // await Task.Delay(1000); // Wait for 1 second before next iteration
         }
     }
 }
