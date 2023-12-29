@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using System.ServiceProcess;
+using System.IO.Pipes;
 
 public class RESTARTSERVER : BaseExtensionClass
 {
@@ -19,6 +19,19 @@ public class RESTARTSERVER : BaseExtensionClass
                     WorkingDirectory = @"C:\a2waspwarfare_Backend",
                     Arguments = "true"
                 });
+            }
+            else
+            {
+                using (NamedPipeClientStream pipeClient = 
+                    new NamedPipeClientStream(".", "testpipe", PipeDirection.Out))
+                {
+                    pipeClient.Connect();
+
+                    using (StreamWriter sw = new StreamWriter(pipeClient))
+                    {
+                        sw.WriteLine("restartServer");
+                    }
+                }
             }
         }
         catch (Exception _ex)
