@@ -8,4 +8,7 @@
     <Configurations>DEBUG;SERVER_DEBUG;RELEASE;AIRWAR_DEBUG;AIRWAR_SERVER_DEBUG;AIRWAR_RELEASE</Configurations>
     <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
   </PropertyGroup>
+
+  <Import Project="..\..\Data\TerrainData\TerrainData.projitems" Label="Shared" />
+
 </Project>

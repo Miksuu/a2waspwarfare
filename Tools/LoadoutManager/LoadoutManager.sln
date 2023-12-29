@@ -25,4 +25,7 @@ Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F4FF730-372D-4D51-83F1-FF43A8F8262A}
 	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\..\Data\TerrainData\TerrainData.projitems*{79c56066-9b0f-45d8-9ffc-e613e5bd3a36}*SharedItemsImports = 5
+	EndGlobalSection
 EndGlobal
