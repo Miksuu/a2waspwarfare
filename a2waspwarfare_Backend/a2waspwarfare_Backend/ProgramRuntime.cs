@@ -12,7 +12,7 @@ class ProgramRuntime
 
         if (_args != null && _args.Length > 0 && _args[0] == "true")
         {
-            await ServerManager.RestartServer();
+            await ServerManager.RestartServerAndHeadlessClient();
         }
         else 
         {
@@ -40,7 +40,7 @@ class ProgramRuntime
 
                         if (temp == "restartServer")
                         {
-                            await ServerManager.RestartServer();
+                            await ServerManager.RestartServerAndHeadlessClient();
                         }
                     }
                 }

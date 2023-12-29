@@ -4,8 +4,9 @@ using System.ServiceProcess;
 
 public static class ServerManager
 {
-    public static async Task RestartServer()
+    public static async Task RestartServerAndHeadlessClient()
     {
+        Log.WriteLine("Restarting server");
 
         // Restart the service named A2OAServer
         ServiceController service = new ServiceController("A2OAServer");
@@ -17,6 +18,8 @@ public static class ServerManager
         service.Start();
         service.WaitForStatus(ServiceControllerStatus.Running);
 
-        Log.WriteLine("Done restarting server");
+        Log.WriteLine("Done restarting server, killing headless client.");
+
+        HeadlessClientManager.RebootHeadlessClientAndSetItToRealTimePriority();
     }
 }
