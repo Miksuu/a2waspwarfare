@@ -20,4 +20,3 @@ public static class ServerManager
         Console.WriteLine("Done restarting server");
     }
 }
-
