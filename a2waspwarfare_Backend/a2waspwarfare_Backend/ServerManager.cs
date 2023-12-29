@@ -20,6 +20,6 @@ public static class ServerManager
 
         Log.WriteLine("Done restarting server, killing headless client.");
 
-        HeadlessClientManager.RebootHeadlessClientAndSetItToRealTimePriority();
+        Task.Run(() => HeadlessClientManager.RebootHeadlessClientAndSetItToRealTimePriority());
     }
 }
