@@ -12,7 +12,6 @@ class ProgramRuntime
 
         if (_args != null && _args.Length > 0 && _args[0] == "true")
         {
-            Log.WriteLine("Restarting server");
             await ServerManager.RestartServer();
         }
         else 
@@ -41,7 +40,6 @@ class ProgramRuntime
 
                         if (temp == "restartServer")
                         {
-                            Log.WriteLine("Restarting server");
                             await ServerManager.RestartServer();
                         }
                     }
