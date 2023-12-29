@@ -24,15 +24,20 @@ while {!gameOver} do {
 				WF_Logic setVariable ["WF_Winner", _x];
 				gameOver = true;
 				WFBE_GameOver = true;
-				
+
 				// Wait for the endgame to be handled, then restart the server with the callExtension command
+				["DEBUG", Format ["server_victory_threeway.sqf: Debug info [Sleep] [5]"]] Call WFBE_CO_FNC_LogContent;
 				sleep 5; // temp 5, make more than 60sec
 
 				// Restart the server with the callExtension command (send command to the backend C# plugin)
+				["DEBUG", Format ["server_victory_threeway.sqf: Debug info [callExtension] [RESTARTSERVER]"]] Call WFBE_CO_FNC_LogContent;
 				"a2waspwarfare_Extension" callExtension format ["%1","RESTARTSERVER"];
+
+				["DEBUG", Format ["server_victory_threeway.sqf: Debug info [callExtension] after [RESTARTSERVER]"]] Call WFBE_CO_FNC_LogContent;
 
 				// Can add the following to the callExtension command to send more data to the C# plugin, such as for more reliable discord bot handling (unnecessary?)
 				//"a2waspwarfare_Extension" callExtension format ["%1,%2,%3,%4,%5,%6",_cSharpClassName,_scoreSideWest,_scoreSideEast,_currentMap,_uptime,_playerCount];
+				
 			};
 		} forEach WFBE_PRESENTSIDES - [WFBE_DEFENDER];
 	};
