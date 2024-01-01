@@ -18,6 +18,8 @@ public static class HeadlessClientManager
             armaProcess.Kill();
         }
 
+        await Task.Delay(TimeSpan.FromSeconds(20));
+
         armaProcesses = Process.GetProcessesByName("Arma2OA");
         foreach (Process armaProcess in armaProcesses)
         {
