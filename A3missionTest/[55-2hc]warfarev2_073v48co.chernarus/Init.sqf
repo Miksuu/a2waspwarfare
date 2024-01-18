@@ -212,8 +212,8 @@
 //--- Define which 'part' of the game to run.
 #include "version.sqf"
 
-//WF_Debug = false;
-WF_Debug = true;
+WF_Debug = false;
+//WF_Debug = true;
 #ifdef WF_DEBUG
 	WF_Debug = true;
 #endif
