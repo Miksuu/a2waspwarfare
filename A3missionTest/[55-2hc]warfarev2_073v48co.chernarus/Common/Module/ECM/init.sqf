@@ -36,9 +36,7 @@
 
 //cti_CO_FNC_init_ECM = Compile preprocessFileLineNumbers "Functions\Init_ECMobject.sqf";
 
-ECM_SYNC_AREA_UNITS=[];
-ECM_SYNC_AREA_VEHICLES=[];
-OUTSIDE_SYNC_ECM_AREA_VEHICLES=[];
+
 
 cti_CO_FNC_HandleIncomingMissileECM = Compile preprocessFileLineNumbers "Common\Module\ECM\Functions\Common_HandleIncomingMissileECM.sqf";
 cti_CO_FNC_HandleIncomingMissile = Compile preprocessFileLineNumbers "Common\Module\ECM\Functions\Common_HandleIncomingMissile.sqf";

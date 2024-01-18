@@ -1,9 +1,14 @@
+_ecm=_this#0;
+_charge=_this#2;
+_distance=_ecm distance _charge;
+_type=typeof _charge;  
 
-_mainlist=_this#0;
-_ecm=_mainlist#0;
-_ammo= _this#0#6;
-_direct= _this#0#10;
-_values=[_ammo#0,_ammo#1];
+
+
+_distance=_distance/1.4;
+
+_coef=1/_distance;
+
 
 _ARMORPOINTS=3000;
 
@@ -21,20 +26,27 @@ _ecm setVariable [_OBJECTid,0];
 };
 
 
-if (_direct == true) then {
+
+_damage=0;
+
+_damage = getNumber(configFile >> 'CfgAmmo' >> _type >> 'hit');
+
+//sometimes it gives back  0
+
+if (_damage == 0) then {
+if (_type == "DemoCharge_Remote_Ammo")then{_damage=1000;};
+if (_type == "SatchelCharge_Remote_Ammo")then{_damage=3000;};
+if (_type == "CUP_PipeBomb_Ammo")then{_damage=3000;};
+};				
+
+_damage=_damage*_coef;
+
+
 
 _CHECKVALUE= _ecm getVariable _OBJECTid;
-_CHECKVALUE=_CHECKVALUE+_values#0;
-_ecm setVariable [_OBJECTid,_CHECKVALUE];
-
-}else{
-
-_CHECKVALUE= _ecm getVariable _OBJECTid;
-_CHECKVALUE=_CHECKVALUE+_values#1;
-_ecm setVariable [_OBJECTid,_CHECKVALUE];
-
-};
-
+_CHECKVALUE=_CHECKVALUE+_damage;
+_ecm setVariable [_OBJECTid,_CHECKVALUE];   
+ 
 if (_CHECKVALUE > _ARMORPOINTS) then {
 	
 	_ecm setVariable [_OBJECTid,nil];
@@ -57,5 +69,5 @@ if (_CHECKVALUE > _ARMORPOINTS) then {
 	sleep 30;
 	deleteVehicle  _ecm;
 	
-};
-
+}; 
+ 

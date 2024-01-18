@@ -37,6 +37,18 @@ cti_CL_FNC_HandleSpecial = Compile preprocessFileLineNumbers "Client\PVFunctions
 cti_CL_FNC_GetSideID = Compile preprocessFileLineNumbers "Common\Functions\Common_GetSideID.sqf";
 */
 
+//ECMFIX
+
+//--- ECM Sync lists
+
+ECM_SYNC_AREA_UNITS=[];
+ECM_SYNC_AREA_VEHICLES=[];
+OUTSIDE_SYNC_ECM_AREA_VEHICLES=[];
+
+
+
+cti_SE_PVF_RequestECMSWITCH = Compile preprocessFileLineNumbers "Server\PVFunctions\RequestECMSWITCH.sqf";
+cti_SE_FNC_ECMSWITCH = Compile preprocessFile "Server\Functions\Server_ECMSWITCH.sqf";
 
 
 

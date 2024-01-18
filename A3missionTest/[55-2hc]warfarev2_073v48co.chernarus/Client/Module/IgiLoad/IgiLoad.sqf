@@ -945,6 +945,9 @@ if (isnil "IL_Variables") then
 	,'pook_KS19_base'
 	,"CUP_O_BTR90_HQ_RU"
 	,"Land_Device_slingloadable_F"
+	,"Land_Device_assembled_F"
+	
+	
 	,"CUP_O_Hilux_unarmed_CHDKZ"
 	,"cwr3_o_fia_btr40_dshkm"
 	,"CUP_O_Datsun_PK"
@@ -1989,8 +1992,13 @@ if (isnil "IL_Procedures") then
 			};
 			sleep 0.25;
 		};
+		
 
+		
 		_obj AttachTo [_veh, _to];
+		
+
+		
 	};
 //	END IL_Move_Attach
 

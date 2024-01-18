@@ -17,6 +17,7 @@ cti_CL_FNC_GetStructureMarkerLabel = Compile preprocessFile "Client\Functions\Cl
 cti_CO_FNC_HandleIncomingMissileECM = Compile preprocessFileLineNumbers "Common\Module\ECM\Functions\Common_HandleIncomingMissileECM.sqf";
 cti_CO_FNC_HandleIncomingMissile = Compile preprocessFileLineNumbers "Common\Module\ECM\Functions\Common_HandleIncomingMissile.sqf";
 cti_CO_FNC_HandleDamage_Object = Compile preprocessFileLineNumbers "Common\Module\ECM\Functions\Common_HandleDamageObject.sqf";
+cti_CO_FNC_HandleDamage_ObjectExplosion = Compile preprocessFileLineNumbers "Common\Module\ECM\Functions\Common_HandleDamageObjectExplosion.sqf";
 
 
 

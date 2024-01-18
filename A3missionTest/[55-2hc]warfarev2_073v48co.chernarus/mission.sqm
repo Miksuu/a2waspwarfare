@@ -124,7 +124,7 @@ class Mission
 {
 	class Intel
 	{
-		briefingName="BECTI2 RELOADED CHERNARUS V55";
+		briefingName="BECTI2 RELOADED CHERNARUS V56";
 		overviewText="ATTENTION! THIS MISSION WILL PATCH YOUR HUD SETTINGS.IF YOU WANT KEEP YOUR SETTINGS, MAKE A NEW PROFIL AND JOIN AFTER THAT.";
 		resistanceWest=0;
 		startWeather=0;

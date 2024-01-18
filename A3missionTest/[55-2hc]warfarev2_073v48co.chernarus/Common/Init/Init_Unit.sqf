@@ -110,6 +110,7 @@ if (typeOf _unit in (missionNamespace getVariable Format["cti_%1ECMVEHICLE", _si
 		private _CHECKVALUE= missionNamespace getVariable _OBJECTid_damage;
 		if (isNil "_CHECKVALUE") then {
 		_unit addEventHandler ['HitPart', {_this Spawn cti_CO_FNC_HandleDamage_Object}];
+		_unit addEventHandler ['Explosion', {_this Spawn cti_CO_FNC_HandleDamage_ObjectExplosion}];
 
 		_CHECKVALUE=[0,_OBJECTid_damage];
 		missionNamespace setVariable [_OBJECTid_damage, _CHECKVALUE];
@@ -117,7 +118,9 @@ if (typeOf _unit in (missionNamespace getVariable Format["cti_%1ECMVEHICLE", _si
 	};
 };
 
-	_unit addAction ["ECM-SWITCH","Common\Module\ECM\Functions\Init_ECMobject.sqf","",95,true,true,"","(((_this distance _originalTarget)<5))",5,true,"",""];
+	//_unit addAction ["ECM-SWITCH","Common\Module\ECM\Functions\Init_ECMobject.sqf","",95,true,true,"","(((_this distance _originalTarget)<5))",5,true,"",""];
+	_unit addAction ["ECM-SWITCH","Client\Action\Action_ECM_SWITCH.sqf","",95,true,true,"","(((_this distance _originalTarget)<5))",5,true,"",""];
+	
 };
 
 

@@ -125,3 +125,5 @@ for now its ok with old pricescript
 
 -added towing
 -added remote actions towing and attach
+
+-fixed ecm pod final
