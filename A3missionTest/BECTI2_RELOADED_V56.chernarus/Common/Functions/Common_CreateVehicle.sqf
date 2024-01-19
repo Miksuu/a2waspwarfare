@@ -122,11 +122,11 @@ player connectTerminalToUAV _vehicle;
 
 
 
-if(isHeadLessClient)then{
-    _emptyVehicles = (WF_Logic getVariable "emptyVehicles");
-    _emptyVehicles pushBack _vehicle;
-    WF_Logic setVariable ["emptyVehicles",_emptyVehicles,true]
-};
+//if(isHeadLessClient)then{
+//    _emptyVehicles = (WF_Logic getVariable "emptyVehicles");
+//    _emptyVehicles pushBack _vehicle;
+//    WF_Logic setVariable ["emptyVehicles",_emptyVehicles,true]
+//};
 
 ["INFORMATION", Format ["Common_CreateVehicle.sqf: [%1] Vehicle [%2] was created at [%3].", _side Call cti_CO_FNC_GetSideFromID, _type, _position]] Call cti_CO_FNC_LogContent;
 

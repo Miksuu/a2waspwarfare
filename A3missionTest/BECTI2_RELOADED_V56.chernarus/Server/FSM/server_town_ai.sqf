@@ -87,7 +87,7 @@ while {!cti_GameOver} do {
                     ["INFORMATION", Format ["server_town_ai.fsm: Town [%1] has been activated, creating defensive units for [%2].", _town, _side]] Call cti_CO_FNC_LogContent;
 
                     if (missionNamespace getVariable Format ["cti_%1_PRESENT",_side]) then {[_side,"HostilesDetectedNear",_town] Spawn cti_SE_FNC_SideMessage};
-
+					systemchat "trigger creation";
                     //--- Get the positions and create the groups
                     _camps = +(_town getVariable "camps");
                     _positions = [];
@@ -109,15 +109,15 @@ while {!cti_GameOver} do {
 
                     [_town, _side, "spawn"] spawn cti_SE_FNC_OperateTownDefensesUnits;
 
-                    if (count(missionNamespace getVariable "cti_HEADLESSCLIENTS_ID") > 0) then {
-                        [_town, _side, _groups, _positions] spawn cti_SE_FNC_DelegateAITownHeadless
-                    }else {
+                    //if (count(missionNamespace getVariable "cti_HEADLESSCLIENTS_ID") > 0) then {
+                    //    [_town, _side, _groups, _positions] spawn cti_SE_FNC_DelegateAITownHeadless
+                    //}else {
                         [_town, _side, _groups, _positions] spawn cti_CO_FNC_CreateTownUnits;
-                    };
+                    //};
                     //// end of creating
                 };
             };
-
+/*old buggy a3 code
 			if((_town getVariable "cti_active") || (_town getVariable "cti_active_air")) then {
 				    if(time - (_town getVariable "cti_inactivity") > _unitsInactiveMax) then {
                         _town setVariable ["cti_active", false];
@@ -152,6 +152,48 @@ while {!cti_GameOver} do {
                         //// end of inner block
                     };
 			};
+			
+			*/
+			//working a2 solution
+			
+			if((_town getVariable "cti_active") || (_town getVariable "cti_active_air")) then {
+				if(time - (_town getVariable "cti_inactivity") > _unitsInactiveMax) then {
+					//// inner block
+					_town setVariable ["cti_active", false];
+					_town setVariable ["cti_active_air", false];
+					systemchat "trigger false";
+					//--- Teams Units.
+					{
+						if !(isNil '_x') then {
+							if !(isNull _x) then {
+								{deleteVehicle _x} forEach units _x;
+								deleteGroup _x;
+							};
+						};
+					} forEach (_town getVariable 'cti_town_teams');
+
+					//--- Teams vehicles.
+					{
+						if (alive _x) then {
+							if (!(isPlayer leader group _x)) then {deleteVehicle _x};
+						};
+					} forEach (_town getVariable 'cti_active_vehicles');
+
+					//_town_teams = [];
+					_town setVariable ['cti_active_vehicles', []];
+
+					//--- Despawn the town defenses unit.
+					[_town, _side, "remove"] Call cti_SE_FNC_OperateTownDefensesUnits;
+					//// end of inner block
+				};
+			};
+			
+			
+			
+			
+			
+			
+			
 		};
 		sleep 0.05;
 	};

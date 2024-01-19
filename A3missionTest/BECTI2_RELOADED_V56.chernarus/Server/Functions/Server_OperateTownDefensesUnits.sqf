@@ -29,9 +29,9 @@ switch (_action) do {
                         _positions pushBack (getPosATL _x);
                         _groups pushBack (missionNamespace getVariable Format ["cti_%1SOLDIER", _side]);
 
-                        if (count(missionNamespace getVariable "cti_HEADLESSCLIENTS_ID") > 0) then {
-                            [_side, _groups, _positions, _team, _defense, true] Call cti_SE_FNC_DelegateAIStaticDefenceHeadless;
-                        }else{
+                        //if (count(missionNamespace getVariable "cti_HEADLESSCLIENTS_ID") > 0) then {
+                        //    [_side, _groups, _positions, _team, _defense, true] Call cti_SE_FNC_DelegateAIStaticDefenceHeadless;
+                        //}else{
                             _type = missionNamespace getVariable Format ["cti_%1SOLDIER", _side];
                             _sideID = (_side) Call cti_CO_FNC_GetSideID;
                             _unit = [_type,_team, getPosATL _x, _sideID] Call cti_CO_FNC_CreateUnit;
@@ -41,7 +41,7 @@ switch (_action) do {
                             _unit moveInGunner _defense;
                            [_team, 450, getPosATL _x] spawn cti_CO_FNC_RevealArea;
                             _x setVariable ["cti_defense_operator", _unit]; //--- Track the original gunner.
-                        };
+                        //};
                     };
                 };
             } forEach (_allDefences);

@@ -30,30 +30,30 @@ _longest = missionNamespace getVariable Format ["cti_LONGEST%1BUILDTIME",_factor
 
 if !(alive _building) exitWith {["INFORMATION", Format ["Server_ResBuyUnit.sqf: Unit [%1] construction has been stopped due to factory destruction.", _unitType]] Call cti_CO_FNC_LogContent};
 
-_HC = missionNamespace getVariable "cti_HEADLESSCLIENTS_ID";
+//_HC = missionNamespace getVariable "cti_HEADLESSCLIENTS_ID";
 _factoryPosition = getPosATL _building;
 _dir = -((((_position select 1) - (_factoryPosition select 1)) atan2 ((_position select 0) - (_factoryPosition select 0))) - 90);
 if (_unitType isKindOf "Man") then {
-	if (count _HC > 0) then {
-		_groups = [];
-		_groups pushBack (missionNamespace getVariable Format ["cti_%1SOLDIER", _side]);
-		_positions = [];
-		_positions pushBack _position;
+	//if (count _HC > 0) then {
+	//	_groups = [];
+	//	_groups pushBack (missionNamespace getVariable Format ["cti_%1SOLDIER", _side]);
+	//	_positions = [];
+	//	_positions pushBack _position;
 
-		[_side, _unitType, _position, _team, _dir] Call cti_SE_FNC_DelegateAIHeadless;
-	}else{
+	//	[_side, _unitType, _position, _team, _dir] Call cti_SE_FNC_DelegateAIHeadless;
+	//}else{
 	    _soldier = [_unitType,_team,_position,_sideID] Call cti_CO_FNC_CreateUnit;
         //--- Infantry can use the team vehicles as cargo.
         _vehicle = [_team,true] Call cti_CO_FNC_GetTeamVehicles;
         {_team addVehicle _x} forEach _vehicle;
-	};
+	//};
 }else{
-    if (count _HC > 0) then {
-        _groups = [];
-        _groups pushBack (missionNamespace getVariable Format ["cti_%1SOLDIER", _side]);
-        _special = if (_unitType isKindOf "Air") then {"FLY"} else {"NONE"};
-        [_side, _unitType, _position, _team, _dir, _special] Call cti_SE_FNC_DelegateAIHeadless;
-    }else{
+    //if (count _HC > 0) then {
+    //   _groups = [];
+    //    _groups pushBack (missionNamespace getVariable Format ["cti_%1SOLDIER", _side]);
+    //    _special = if (_unitType isKindOf "Air") then {"FLY"} else {"NONE"};
+    //    [_side, _unitType, _position, _team, _dir, _special] Call cti_SE_FNC_DelegateAIHeadless;
+    //}else{
         //_crew = missionNamespace getVariable Format["cti_%1RESSOLDIER",_sideText];
 		
 		
@@ -127,6 +127,6 @@ if (_unitType isKindOf "Man") then {
                 } forEach _turrets;
             };
         };
-    };
+    //};
 
 };

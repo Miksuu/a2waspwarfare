@@ -20,11 +20,11 @@ if (_name == '__SERVER__' || _uid == '' || local player) exitWith {};
 ["INFORMATION", Format ["Server_PlayerDisconnected.sqf: Player [%1] [%2] has left the game", _name, _uid]] Call cti_CO_FNC_LogContent;
 
 //--- Headless Clients disconnection?.
-_get = missionNamespace getVariable Format["cti_HEADLESS_%1", _uid];
-if !(isNil '_get') then {
-	missionNamespace setVariable ["cti_HEADLESSCLIENTS_ID", (missionNamespace getVariable "cti_HEADLESSCLIENTS_ID") - [_get]];
-	missionNamespace setVariable [Format["cti_HEADLESS_%1", _uid], nil];
-};
+//_get = missionNamespace getVariable Format["cti_HEADLESS_%1", _uid];
+//if !(isNil '_get') then {
+//	missionNamespace setVariable ["cti_HEADLESSCLIENTS_ID", (missionNamespace getVariable "cti_HEADLESSCLIENTS_ID") - [_get]];
+//	missionNamespace setVariable [Format["cti_HEADLESS_%1", _uid], nil];
+//};
 
 //--- Player had any objects created?
 _get = missionNamespace getVariable Format ["cti_CLIENT_%1_OBJECTS", _uid];

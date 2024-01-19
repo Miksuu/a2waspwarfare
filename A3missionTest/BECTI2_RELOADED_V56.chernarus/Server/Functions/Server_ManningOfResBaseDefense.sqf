@@ -30,9 +30,9 @@ _side = resistance;
                 missionNamespace setVariable [format["cti_%1_DefenseTeam", _side], _team];
             };
 
-            if (count(missionNamespace getVariable "cti_HEADLESSCLIENTS_ID") > 0) then {
-                [_side, _groups, _positions, _team, _defense, true] Call cti_SE_FNC_DelegateAIStaticDefenceHeadless;
-            }else{
+            //if (count(missionNamespace getVariable "cti_HEADLESSCLIENTS_ID") > 0) then {
+            //    [_side, _groups, _positions, _team, _defense, true] Call cti_SE_FNC_DelegateAIStaticDefenceHeadless;
+            //}else{
                 _unit = [missionNamespace getVariable Format ["cti_%1SOLDIER", _side],missionNamespace getVariable Format ["cti_%1_DefenseTeam", _side], getPos _x, _side] Call cti_CO_FNC_CreateUnit;
                 _unit assignAsGunner _defense;
                 [_unit] orderGetIn true;
@@ -40,7 +40,7 @@ _side = resistance;
                 [_unit, 350, _pos] Call cti_CO_FNC_RevealArea;
                 [group _unit, 175, getPos _defense] spawn cti_CO_FNC_RevealArea;
                 _x setVariable ["cti_defense_operator", _unit]; //--- Track the original gunner.
-            };
+            //};
         };
     };
 } forEach (_allDefences);

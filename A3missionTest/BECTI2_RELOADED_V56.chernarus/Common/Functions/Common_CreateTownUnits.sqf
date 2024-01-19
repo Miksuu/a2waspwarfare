@@ -19,16 +19,16 @@ _sideID = (_side) call cti_CO_FNC_GetSideID;
 _built = 0;
 _builtveh = 0;
 
-if!(isNil "Headless_Client_Towns")then{
-	if(_town in Headless_Client_Towns)then{
-		for '_a' from 0 to count(Headless_Client_Towns)-1 do { 
-			_kept_town = Headless_Client_Towns select _a;
-			if(_town getVariable "name" == _kept_town getVariable "name")then{_town = _kept_town};
-		};
-	}else{
-		Headless_Client_Towns pushBackUnique _town
-	};
-};
+//if!(isNil "Headless_Client_Towns")then{
+//	if(_town in Headless_Client_Towns)then{
+//		for '_a' from 0 to count(Headless_Client_Towns)-1 do { 
+//			_kept_town = Headless_Client_Towns select _a;
+//			if(_town getVariable "name" == _kept_town getVariable "name")then{_town = _kept_town};
+//		};
+//	}else{
+//		Headless_Client_Towns pushBackUnique _town
+//	};
+//};
 
 _lock = if ((missionNamespace getVariable "cti_C_TOWNS_VEHICLES_LOCK_DEFENDER") == 0 && _side == cti_DEFENDER) then {false} else {true};
 

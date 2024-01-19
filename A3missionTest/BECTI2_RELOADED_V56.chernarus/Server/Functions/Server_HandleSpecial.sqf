@@ -95,24 +95,24 @@ switch (_args select 0) do {
 	case "process-killed-hq": {
 		(_args select 1) Spawn cti_SE_FNC_OnHQKilled;
 	};
-	case "connected-hc": {
-		Private ["_hc","_id","_uid"];
-		_hc = _args select 1;
-		_id = owner _hc;
-		_uid = getPlayerUID _hc;
-		if(isNil "headlessClients")then{headlessClients = [];};
+	//case "connected-hc": {
+	//	Private ["_hc","_id","_uid"];
+	//	_hc = _args select 1;
+	//	_id = owner _hc;
+	//	_uid = getPlayerUID _hc;
+	//	if(isNil "headlessClients")then{headlessClients = [];};
 
-		["INFORMATION", Format["Server_HandleSpecial.sqf: Headless client is now connected [%1] [%2] with Owner ID [%3].", _hc, _uid, _id]] Call cti_CO_FNC_LogContent;
+	//	["INFORMATION", Format["Server_HandleSpecial.sqf: Headless client is now connected [%1] [%2] with Owner ID [%3].", _hc, _uid, _id]] Call cti_CO_FNC_LogContent;
 
-		if (_id != 0) then {
+	//	if (_id != 0) then {
 			//--- Add the Headless client to our candidates.
-			headlessClients pushBack _hc; 
-			missionNamespace setVariable [Format["cti_HEADLESS_%1", _uid], group _hc];
-			missionNamespace setVariable ["cti_HEADLESSCLIENTS_ID", (missionNamespace getVariable "cti_HEADLESSCLIENTS_ID") + [group _hc]];
-		} else {
-			["WARNING", Format["Server_HandleSpecial.sqf: Headless client [%1] Owner ID is [0], it is server controlled.",_hc]] Call cti_CO_FNC_LogContent;
-		};
-	};
+	//		headlessClients pushBack _hc; 
+	//		missionNamespace setVariable [Format["cti_HEADLESS_%1", _uid], group _hc];
+	//		missionNamespace setVariable ["cti_HEADLESSCLIENTS_ID", (missionNamespace getVariable "cti_HEADLESSCLIENTS_ID") + [group _hc]];
+	//	} else {
+	//		["WARNING", Format["Server_HandleSpecial.sqf: Headless client [%1] Owner ID is [0], it is server controlled.",_hc]] Call cti_CO_FNC_LogContent;
+	//	};
+	//};
 	case "track-playerobject": {
 		Private ["_get","_object","_uid"];
 		_uid = _args select 1;

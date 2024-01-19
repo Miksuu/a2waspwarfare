@@ -22,24 +22,24 @@ while {alive _defense} do {
 			_type = missionNamespace getVariable Format ["cti_%1SOLDIER", _side];
 			_use_server = true;
 
-			if(_ai_delegation_enabled > 0)then{
-				switch (_ai_delegation_enabled) do {
-					case 2: { //--- Headless Client delegation.
-						if !(isServer) exitWith{};
-						_HC = missionNamespace getVariable "cti_HEADLESSCLIENTS_ID";
-						if (count _HC > 0) then {
-
-							_groups = [];
-							[_groups, missionNamespace getVariable Format ["cti_%1SOLDIER", _side]] call cti_CO_FNC_ArrayPush;
-							_positions = [];
-							[_positions, _position] call cti_CO_FNC_ArrayPush;
-							//[_side, _groups, _positions, _teams, _defense] Call cti_CO_FNC_DelegateAIStaticDefenceHeadless;
-							[_side, _groups, _positions, _team, _defense, false] Call cti_CO_FNC_DelegateAIStaticDefenceHeadless;
-							_use_server = false;
-						};
-					};
-				};
-			};
+			//if(_ai_delegation_enabled > 0)then{
+			//	switch (_ai_delegation_enabled) do {
+			//		case 2: { //--- Headless Client delegation.
+			//			if !(isServer) exitWith{};
+			//			_HC = missionNamespace getVariable "cti_HEADLESSCLIENTS_ID";
+			//			if (count _HC > 0) then {
+			//
+			//				_groups = [];
+			//				[_groups, missionNamespace getVariable Format ["cti_%1SOLDIER", _side]] call cti_CO_FNC_ArrayPush;
+			//				_positions = [];
+			//				[_positions, _position] call cti_CO_FNC_ArrayPush;
+			//				//[_side, _groups, _positions, _teams, _defense] Call cti_CO_FNC_DelegateAIStaticDefenceHeadless;
+			//				[_side, _groups, _positions, _team, _defense, false] Call cti_CO_FNC_DelegateAIStaticDefenceHeadless;
+			//				_use_server = false;
+			//			};
+			//		};
+			//	};
+			//};
 
 			if(_use_server)then{
 				_soldier = [_type,_team,_position,_side] Call cti_CO_FNC_CreateUnit;
