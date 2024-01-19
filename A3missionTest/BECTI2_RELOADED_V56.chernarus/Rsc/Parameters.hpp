@@ -47,7 +47,7 @@ class Params {
 		title = "$STR_WF_PARAMETER_GroupSizePlayer";
 		values[] = {2,4,6,8,10,12,14,16};
 		texts[] = {"2","4","6","8","10","12","14","16"};
-		default = 10;
+		default = 16;
 	};
 	class cti_C_ARTILLERY {
 		title = "$STR_WF_PARAMETER_Arty";
