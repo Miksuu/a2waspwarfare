@@ -5,18 +5,12 @@ _side = _this select 0;
 _kind = _this select 1;
 _buildings = _this select 2;
 
-_list = [];
-
-
-
+__list = [];
 _type = (missionNamespace getVariable Format["cti_%1STRUCTURENAMES", _side]) select _kind;
-
-//_type = (Format["cti_%1STRUCTURENAMES",str _side] Call GetNamespace) select _kind;
-
 {
-    if (typeOf _x == _type && alive _x) then {
-        _list pushBack _x;
-    }
+	if (typeOf _x == _type && alive _x) then {
+		_list = _list + [_x];
+	};
 } forEach _buildings;
 
 _list
