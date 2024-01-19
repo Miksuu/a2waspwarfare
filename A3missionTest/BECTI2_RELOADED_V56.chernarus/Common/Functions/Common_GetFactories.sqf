@@ -13,7 +13,11 @@ _type = (missionNamespace getVariable Format["cti_%1STRUCTURENAMES", _side]) sel
 
 //_type = (Format["cti_%1STRUCTURENAMES",str _side] Call GetNamespace) select _kind;
 
-{if (typeOf _x == _type && alive _x) then {_list pushBack _x}} forEach _buildings;
+{
+    if (typeOf _x == _type && alive _x) then {
+        _list pushBack _x;
+    }
+} forEach _buildings;
 
 _list
 
