@@ -1,5 +1,3 @@
-
-
 Private ["_buildings","_kind","_list","_side","_type"];
 _side = _this select 0;
 _kind = _this select 1;
