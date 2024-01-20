@@ -7,28 +7,28 @@
 Private ["_logic", "_side", "_voteTime"];
 
 _side = _this;
-["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_side] [%1]", _side]] Call WFBE_CO_FNC_LogContent;
+["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_side] [%1]", _side]] Call cti;
 _voteTime = (missionNamespace getVariable 'cti_C_GAMEPLAY_VOTE_TIME');
-["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_voteTime] [%1]", _voteTime]] Call WFBE_CO_FNC_LogContent;
+["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_voteTime] [%1]", _voteTime]] Call cti;
 _logic = (_side) Call cti_CO_FNC_GetSideLogic;
-["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_logic] [%1]", _logic]] Call WFBE_CO_FNC_LogContent;
+["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_logic] [%1]", _logic]] Call cti;
 
 //--- Vote countdown.
 while {_voteTime > -1} do {
 	_voteTime = _voteTime - 1;
 	_logic setVariable ["cti_votetime", _voteTime, true];
-	["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_voteTime] [%1]", _voteTime]] Call WFBE_CO_FNC_LogContent;
+	["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_voteTime] [%1]", _voteTime]] Call cti;
 	sleep 1;
 };
 
 //--- Get the most voted person.
 Private ["_aiVotes","_count","_highest","_highestTeam","_tie","_teams","_vote","_votes"];
 _aiVotes = 0;
-["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_aiVotes] [%1]", _aiVotes]] Call WFBE_CO_FNC_LogContent;
+["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_aiVotes] [%1]", _aiVotes]] Call cti;
 _votes = [];
 _teams = _logic getVariable "cti_teams";
 _teams = _teams - [grpNull];
-["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_teams] [%1]", _teams]] Call WFBE_CO_FNC_LogContent;
+["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_teams] [%1]", _teams]] Call cti;
 
 //--- Get the votes from everyone.
 for '_i' from 0 to (count _teams)-1 do {
@@ -38,13 +38,13 @@ for '_i' from 0 to (count _teams)-1 do {
 {
 	if (isPlayer leader _x) then {
 		_vote = _x getVariable "cti_vote";
-		["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_vote] [%1]", _vote]] Call WFBE_CO_FNC_LogContent;
+		["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_vote] [%1]", _vote]] Call cti;
 		if (_vote == -1) then {
 			_aiVotes = _aiVotes + 1;
-			["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_aiVotes] [%1]", _aiVotes]] Call WFBE_CO_FNC_LogContent;
+			["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_aiVotes] [%1]", _aiVotes]] Call cti;
 		} else {
 			_votes set [_vote, (_votes select _vote) + 1];
-			["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_votes] [%1]", _votes]] Call WFBE_CO_FNC_LogContent;
+			["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_votes] [%1]", _votes]] Call cti;
 		};
 	};
 } forEach _teams;
@@ -58,16 +58,16 @@ _tie = false;
 {
 	if (_x == _highest && _x > 0) then {
 		_tie = true;
-		["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_tie] [%1]", _tie]] Call WFBE_CO_FNC_LogContent;
+		["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_tie] [%1]", _tie]] Call cti;
 	};
 	if (_x > _highest) then {
 		_highestTeam = _count;
 		_highest = _x;
 		_tie = false;
-		["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_highestTeam, _highest, _tie] [%1, %2, %3]", _highestTeam, _highest, _tie]] Call WFBE_CO_FNC_LogContent;
+		["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_highestTeam, _highest, _tie] [%1, %2, %3]", _highestTeam, _highest, _tie]] Call cti;
 	};
 	_count = _count + 1;
-	["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_count] [%1]", _count]] Call WFBE_CO_FNC_LogContent;
+	["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_count] [%1]", _count]] Call cti;
 } forEach _votes;
 
 _commander = objNull;
