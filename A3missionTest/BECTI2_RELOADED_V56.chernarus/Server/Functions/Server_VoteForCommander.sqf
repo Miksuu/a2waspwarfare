@@ -26,7 +26,6 @@ while {_voteTime > -1} do {
 //--- Get the most voted person.
 Private ["_aiVotes","_count","_highest","_highestTeam","_tie","_teams","_vote","_votes"];
 _aiVotes = 0;
-["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_aiVotes] [%1]", _aiVotes]] Call cti_CO_FNC_LogContent;
 _votes = [];
 _teams = _logic getVariable "cti_teams";
 _teams = _teams - [grpNull];
