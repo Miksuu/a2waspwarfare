@@ -11,7 +11,11 @@ _voteTime = (missionNamespace getVariable 'cti_C_GAMEPLAY_VOTE_TIME');
 _logic = (_side) Call cti_CO_FNC_GetSideLogic;
 
 //--- Vote countdown.
-while {_voteTime > -1} do {_voteTime = _voteTime - 1;_logic setVariable ["cti_votetime", _voteTime, true];sleep 1};
+while {_voteTime > -1} do {
+	_voteTime = _voteTime - 1;
+	_logic setVariable ["cti_votetime", _voteTime, true];
+	sleep 1;
+};
 
 //--- Get the most voted person.
 Private ["_aiVotes","_count","_highest","_highestTeam","_tie","_teams","_vote","_votes"];
@@ -19,21 +23,38 @@ _aiVotes = 0;
 _votes = [];
 _teams = _logic getVariable "cti_teams";
 _teams = _teams - [grpNull];
+
 //--- Get the votes from everyone.
-for '_i' from 0 to (count _teams)-1 do {_votes pushBack 0};
+for '_i' from 0 to (count _teams)-1 do {
+	_votes pushBack 0;
+};
+
 {
 	if (isPlayer leader _x) then {
 		_vote = _x getVariable "cti_vote";
-		if (_vote == -1) then {_aiVotes = _aiVotes + 1;} else {_votes set [_vote, (_votes select _vote) + 1]};
+		if (_vote == -1) then {
+			_aiVotes = _aiVotes + 1;
+		} else {
+			_votes set [_vote, (_votes select _vote) + 1];
+		};
 	};
 } forEach _teams;
 
 //--- Who was the most voted for?
-_count = 0;_highest = 0;_highestTeam = -1;
+_count = 0;
+_highest = 0;
+_highestTeam = -1;
 _tie = false;
+
 {
-	if (_x == _highest && _x > 0) then {_tie = true;};
-	if (_x > _highest) then {_highestTeam = _count;_highest = _x;_tie = false;};
+	if (_x == _highest && _x > 0) then {
+		_tie = true;
+	};
+	if (_x > _highest) then {
+		_highestTeam = _count;
+		_highest = _x;
+		_tie = false;
+	};
 	_count = _count + 1;
 } forEach _votes;
 
