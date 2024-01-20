@@ -7,7 +7,7 @@
 Private ["_logic", "_side", "_voteTime"];
 
 _side = _this;
-["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_side] [%1]", _side]] Call cti_CO_FNC_LogContent;
+["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_side] [%1] on the beginning", _side]] Call cti_CO_FNC_LogContent;
 _voteTime = (missionNamespace getVariable 'cti_C_GAMEPLAY_VOTE_TIME');
 ["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_voteTime] [%1]", _voteTime]] Call cti_CO_FNC_LogContent;
 _logic = (_side) Call cti_CO_FNC_GetSideLogic;
@@ -20,6 +20,8 @@ while {_voteTime > -1} do {
 	["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_voteTime] [%1]", _voteTime]] Call cti_CO_FNC_LogContent;
 	sleep 1;
 };
+
+["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_side] [%1] after the vote countdown", _side]] Call cti_CO_FNC_LogContent;
 
 //--- Get the most voted person.
 Private ["_aiVotes","_count","_highest","_highestTeam","_tie","_teams","_vote","_votes"];
