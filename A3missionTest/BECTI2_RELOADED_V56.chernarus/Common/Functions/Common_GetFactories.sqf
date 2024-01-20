@@ -3,7 +3,7 @@ _side = _this select 0;
 _kind = _this select 1;
 _buildings = _this select 2;
 
-__list = [];
+_list = [];
 _type = (missionNamespace getVariable Format["cti_%1STRUCTURENAMES", _side]) select _kind;
 {
 	if (typeOf _x == _type && alive _x) then {
