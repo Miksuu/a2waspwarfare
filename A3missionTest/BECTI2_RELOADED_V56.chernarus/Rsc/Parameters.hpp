@@ -1,6 +1,15 @@
 /* Parameters */
 
 class Params {
+	
+	class cti_C_DEBUG {
+		title = "$STR_WF_DEBUG";
+		values[] = {0,1};
+		texts[] = {"ON","OFF"};
+		default = 1;
+	
+	};
+	
 	class cti_C_FPS_MANAGER {
 		title = "$STR_WF_FPS_MANAGER";
 		values[] = {0,1};

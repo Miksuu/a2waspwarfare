@@ -1100,7 +1100,7 @@ sleep 5;
 /* HUD MODULE */
 ExecVM "Client\Client_UpdateRHUD.sqf";
 
-hint (parseText(localize "STR_WF_HUDPATCHINFO"));
+//hint (parseText(localize "STR_WF_HUDPATCHINFO"));
 
 if(WF_Skip_Intro) then {
  

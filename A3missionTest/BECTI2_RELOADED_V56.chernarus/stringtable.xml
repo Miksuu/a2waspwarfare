@@ -5,7 +5,15 @@
 
 
 <!--COIN Upgrade Strings - ALL DONE-->
-     
+    
+<Key ID="STR_WF_DEBUG"><!--shared W-->
+       <English>DEBUG</English>
+        <French>DEBUG</French>
+        <German>DEBUG</German>
+        <Russian>DEBUG</Russian>
+        <Italian>DEBUG</Italian>
+      </Key>
+	
 <Key ID="STR_WF_Defense40er"><!--shared W-->
        <English>Defend (0)</English>
         <French>Défense (0)</French>

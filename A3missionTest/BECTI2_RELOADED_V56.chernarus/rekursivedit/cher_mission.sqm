@@ -5,7 +5,7 @@ class EditorData
 	angleGridStep=0.2617994;
 	scaleGridStep=10;
 	autoGroupingDist=10;
-	toggles=709;
+	toggles=581;
 	class ItemIDProvider
 	{
 		nextID=504;
@@ -15,11 +15,11 @@ class EditorData
 		pos[]={87.875282,25.171762,1382.6699};
 		dir[]={0,-0.70710683,0.70710683};
 		up[]={0,0.70710677,0.70710677};
-		aside[]={0.99999994,0,-0};
+		aside[]={0.99999994,0,0};
 	};
 };
 binarizationWanted=0;
-sourceName="BECTI2_RELOADED_V55";
+sourceName="BECTI2_RELOADED_V56";
 addons[]=
 {
 	"A3_Ui_F",
@@ -30,14 +30,13 @@ addons[]=
 	"CUP_Creatures_Military_BAF",
 	"universal_uniforms_cup",
 	"A3_Modules_F_Heli_Misc",
-	"A3_Characters_F",
 	"CUP_Creatures_Military_Russia"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=10;
+		items=9;
 		class Item0
 		{
 			className="A3_Ui_F";
@@ -88,13 +87,6 @@ class AddonsMetaData
 		};
 		class Item8
 		{
-			className="A3_Characters_F";
-			name="Arma 3 Alpha - Characters and Clothing";
-			author="Bohemia Interactive";
-			url="https://www.arma3.com";
-		};
-		class Item9
-		{
 			className="CUP_Creatures_Military_Russia";
 			name="CUP_Creatures_Military_Russia";
 		};
@@ -125,7 +117,7 @@ class Mission
 	class Intel
 	{
 		briefingName="BECTI2 RELOADED CHERNARUS V56";
-		overviewText="ATTENTION! THIS MISSION WILL PATCH YOUR HUD SETTINGS.IF YOU WANT KEEP YOUR SETTINGS, MAKE A NEW PROFIL AND JOIN AFTER THAT.";
+		overviewText="Arma2 BECTI --> Arma3";
 		resistanceWest=0;
 		startWeather=0;
 		startWind=0.1;
@@ -142,7 +134,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=417;
+		items=416;
 		class Item0
 		{
 			dataType="Marker";
@@ -2596,7 +2588,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BTeamleader1";
 						description="United States of America [ Team 1 ]@US Teamleader (MORE AI)";
 						isPlayable=1;
@@ -2644,7 +2636,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -2677,7 +2669,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BEngineer1";
 						description="United States of America [ Team 1 ]@US Engineer (FULL REPAIR, FAST CAMP DESTROY)";
 						isPlayable=1;
@@ -2725,7 +2717,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -2758,7 +2750,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BMachinegunner1_1";
 						description="United States of America [ Team 1 ]@US Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -2806,7 +2798,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -2839,7 +2831,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BMedic1";
 						description="United States of America [ Team 1 ]@US Medic (REPAIR CAMP)";
 						isPlayable=1;
@@ -2889,7 +2881,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -2922,7 +2914,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BMachinegunner1_2";
 						description="United States of America [ Team 1 ]@US Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -2972,7 +2964,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -3005,7 +2997,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }]; }";
+						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }]; }";
 						name="BSpecOps1";
 						description="United States of America [ Team 1 ]@US SpecOps (LOCKPICK, CAMP REPAIR, UAVHACK)";
 						isPlayable=1;
@@ -3053,7 +3045,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -3086,7 +3078,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BTeamleader2";
 						description="United States of America [ Team 2 ]@US Teamleader (MORE AI)";
 						isPlayable=1;
@@ -3134,7 +3126,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -3167,7 +3159,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BEngineer2";
 						description="United States of America [ Team 2 ]@US Engineer (FULL REPAIR, FAST CAMP DESTROY)";
 						isPlayable=1;
@@ -3215,7 +3207,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -3248,7 +3240,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BMachinegunner2_1";
 						description="United States of America [ Team 2 ]@US Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -3296,7 +3288,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -3329,7 +3321,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BMedic2";
 						description="United States of America [ Team 2 ]@US Medic (REPAIR CAMP)";
 						isPlayable=1;
@@ -3379,7 +3371,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -3412,7 +3404,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BMachinegunner2_2";
 						description="United States of America [ Team 2 ]@US Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -3462,7 +3454,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -3495,7 +3487,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }]; }";
+						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }]; }";
 						name="BSpecOps2";
 						description="United States of America [ Team 2 ]@US SpecOps (LOCKPICK, CAMP REPAIR, UAVHACK)";
 						isPlayable=1;
@@ -3543,7 +3535,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -3576,7 +3568,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BTeamleader3";
 						description="United States of America [ Team 3 ]@US Teamleader (MORE AI)";
 						isPlayable=1;
@@ -3624,7 +3616,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -3657,7 +3649,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BEngineer3";
 						description="United States of America [ Team 3 ]@US Engineer (FULL REPAIR, FAST CAMP DESTROY)";
 						isPlayable=1;
@@ -3705,7 +3697,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -3738,7 +3730,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BMachinegunner3_1";
 						description="United States of America [ Team 3 ]@US Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -3786,7 +3778,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -3819,7 +3811,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BMedic3";
 						description="United States of America [ Team 3 ]@US Medic (REPAIR CAMP)";
 						isPlayable=1;
@@ -3867,7 +3859,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -3900,7 +3892,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BMachinegunner3_2";
 						description="United States of America [ Team 3 ]@US Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -3948,7 +3940,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -3981,7 +3973,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false; this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false; this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BSpecOps3";
 						description="United States of America [ Team 3 ]@US SpecOps (LOCKPICK, CAMP REPAIR, UAVHACK)";
 						isPlayable=1;
@@ -4031,7 +4023,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -4064,7 +4056,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BTeamleader4";
 						description="United Kingdom [ Team 1 ]@UK Teamleader (MORE AI)";
 						isPlayable=1;
@@ -4112,7 +4104,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -4145,7 +4137,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BEngineer4";
 						description="United Kingdom [ Team 1 ]@UK Engineer (FULL REPAIR, FAST CAMP DESTROY)";
 						isPlayable=1;
@@ -4193,7 +4185,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -4226,7 +4218,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BMachinegunner4_1";
 						description="United Kingdom [ Team 1 ]@UK Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -4274,7 +4266,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -4307,7 +4299,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BMedic4";
 						description="United Kingdom [ Team 1 ]@UK Medic (REPAIR CAMP)";
 						isPlayable=1;
@@ -4355,7 +4347,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -4388,7 +4380,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BMachinegunner4_2";
 						description="United Kingdom [ Team 1 ]@UK Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -4436,7 +4428,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -4469,7 +4461,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }]; }";
+						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }]; }";
 						name="BSpecOps4";
 						description="United Kingdom [ Team 1 ]@UK SpecOps (LOCKPICK, CAMP REPAIR, UAVHACK)";
 						isPlayable=1;
@@ -4519,7 +4511,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -4552,7 +4544,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BTeamleader5";
 						description="United Kingdom [ Team 2 ]@UK Teamleader (MORE AI)";
 						isPlayable=1;
@@ -4600,7 +4592,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -4633,7 +4625,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BEngineer5";
 						description="United Kingdom [ Team 2 ]@UK Engineer (FULL REPAIR, FAST CAMP DESTROY)";
 						isPlayable=1;
@@ -4681,7 +4673,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -4714,7 +4706,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BMachinegunner5_1";
 						description="United Kingdom [ Team 2 ]@UK Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -4762,7 +4754,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -4795,7 +4787,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BMedic5";
 						description="United Kingdom [ Team 2 ]@UK Medic (REPAIR CAMP)";
 						isPlayable=1;
@@ -4843,7 +4835,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -4876,7 +4868,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="BMachinegunner5_2";
 						description="United Kingdom [ Team 2 ]@UK Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -4924,7 +4916,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -4957,7 +4949,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }]; }";
+						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }]; }";
 						name="BSpecOps5";
 						description="United Kingdom [ Team 2 ]@UK SpecOps (LOCKPICK, CAMP REPAIR, UAVHACK)";
 						isPlayable=1;
@@ -5007,7 +4999,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -7068,28 +7060,13 @@ class Mission
 			dataType="Logic";
 			class PositionInfo
 			{
-				position[]={551.30713,64.114563,3234.5869};
-				angles[]={0.059927464,0,6.1063848};
-			};
-			name="HC";
-			init="this allowDamage false;";
-			isPlayable=1;
-			id=325;
-			type="HeadlessClient_F";
-			atlOffset=7.6293945e-006;
-		};
-		class Item288
-		{
-			dataType="Logic";
-			class PositionInfo
-			{
 				position[]={10352.763,49.441032,3684.8491};
 				angles[]={0.055940546,0,0.42562255};
 			};
 			id=327;
 			type="LocationArea_F";
 		};
-		class Item289
+		class Item288
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -7102,7 +7079,7 @@ class Mission
 			type="LocationOutpost_F";
 			atlOffset=5.6539998;
 		};
-		class Item290
+		class Item289
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -7115,7 +7092,7 @@ class Mission
 			type="LocationOutpost_F";
 			atlOffset=4.9799976;
 		};
-		class Item291
+		class Item290
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -7128,7 +7105,7 @@ class Mission
 			id=330;
 			type="LocationOutpost_F";
 		};
-		class Item292
+		class Item291
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -7141,7 +7118,7 @@ class Mission
 			type="LocationOutpost_F";
 			atlOffset=5.6660156;
 		};
-		class Item293
+		class Item292
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -7154,7 +7131,7 @@ class Mission
 			type="LocationOutpost_F";
 			atlOffset=5.4159393;
 		};
-		class Item294
+		class Item293
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -7167,7 +7144,7 @@ class Mission
 			type="LocationOutpost_F";
 			atlOffset=1.1120963;
 		};
-		class Item295
+		class Item294
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -7180,7 +7157,7 @@ class Mission
 			type="LocationOutpost_F";
 			atlOffset=5.6493225;
 		};
-		class Item296
+		class Item295
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -7193,7 +7170,7 @@ class Mission
 			id=335;
 			type="LocationOutpost_F";
 		};
-		class Item297
+		class Item296
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -7206,7 +7183,7 @@ class Mission
 			type="LocationOutpost_F";
 			atlOffset=5.4032898;
 		};
-		class Item298
+		class Item297
 		{
 			dataType="Group";
 			side="East";
@@ -7225,7 +7202,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OTeamleader1";
 						description="Russian Federation [ Team 1 ]@Teamleader (MORE AI)";
 						isPlayable=1;
@@ -7273,7 +7250,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -7286,7 +7263,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item299
+		class Item298
 		{
 			dataType="Group";
 			side="East";
@@ -7305,7 +7282,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OEngineer1";
 						description="Russian Federation [ Team 1 ]@Engineer (FULL REPAIR, FAST CAMP DESTROY)";
 						isPlayable=1;
@@ -7353,7 +7330,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -7366,7 +7343,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item300
+		class Item299
 		{
 			dataType="Group";
 			side="East";
@@ -7385,7 +7362,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OMachinegunner1_1";
 						description="Russian Federation [ Team 1 ]@Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -7433,7 +7410,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -7446,7 +7423,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item301
+		class Item300
 		{
 			dataType="Group";
 			side="East";
@@ -7465,7 +7442,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OMedic1";
 						description="Russian Federation [ Team 1 ]@Medic (REPAIR CAMP)";
 						isPlayable=1;
@@ -7526,7 +7503,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -7539,7 +7516,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item302
+		class Item301
 		{
 			dataType="Group";
 			side="East";
@@ -7558,7 +7535,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OMachinegunner1_2";
 						description="Russian Federation [ Team 1 ]@Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -7606,7 +7583,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -7619,7 +7596,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item303
+		class Item302
 		{
 			dataType="Group";
 			side="East";
@@ -7638,7 +7615,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false; this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false; this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OSpecOps1";
 						description="Russian Federation [ Team 1 ]@SpecOps (LOCKPICK, CAMP REPAIR, UAVHACK)";
 						isPlayable=1;
@@ -7699,7 +7676,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -7712,7 +7689,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item304
+		class Item303
 		{
 			dataType="Group";
 			side="East";
@@ -7731,7 +7708,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OTeamleader2";
 						description="Russian Federation [ Team 2 ]@Teamleader (MORE AI)";
 						isPlayable=1;
@@ -7779,7 +7756,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -7792,7 +7769,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item305
+		class Item304
 		{
 			dataType="Group";
 			side="East";
@@ -7811,7 +7788,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OEngineer2";
 						description="Russian Federation [ Team 2 ]@Engineer (FULL REPAIR, FAST CAMP DESTROY)";
 						isPlayable=1;
@@ -7859,7 +7836,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -7872,7 +7849,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item306
+		class Item305
 		{
 			dataType="Group";
 			side="East";
@@ -7891,7 +7868,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OMachinegunner2_1";
 						description="Russian Federation [ Team 2 ]@Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -7939,7 +7916,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -7952,7 +7929,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item307
+		class Item306
 		{
 			dataType="Group";
 			side="East";
@@ -7971,7 +7948,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OMedic2";
 						description="Russian Federation [ Team 2 ]@Medic (REPAIR CAMP)";
 						isPlayable=1;
@@ -8019,7 +7996,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -8032,7 +8009,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item308
+		class Item307
 		{
 			dataType="Group";
 			side="East";
@@ -8051,7 +8028,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OMachinegunner2_2";
 						description="Russian Federation [ Team 2 ]@Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -8101,7 +8078,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -8114,7 +8091,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item309
+		class Item308
 		{
 			dataType="Group";
 			side="East";
@@ -8133,7 +8110,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }]; }";
+						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }]; }";
 						name="OSpecOps2";
 						description="Russian Federation [ Team 2 ]@SpecOps (LOCKPICK, CAMP REPAIR, UAVHACK)";
 						isPlayable=1;
@@ -8183,7 +8160,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -8196,7 +8173,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item310
+		class Item309
 		{
 			dataType="Group";
 			side="East";
@@ -8215,7 +8192,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OTeamleader3";
 						description="Russian Federation [ Team 3 ]@Teamleader (MORE AI)";
 						isPlayable=1;
@@ -8263,7 +8240,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -8276,7 +8253,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item311
+		class Item310
 		{
 			dataType="Group";
 			side="East";
@@ -8295,7 +8272,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OEngineer3";
 						description="Russian Federation [ Team 3 ]@Engineer (FULL REPAIR, FAST CAMP DESTROY)";
 						isPlayable=1;
@@ -8343,7 +8320,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -8356,7 +8333,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item312
+		class Item311
 		{
 			dataType="Group";
 			side="East";
@@ -8375,7 +8352,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OMachinegunner3_1";
 						description="Russian Federation [ Team 3 ]@Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -8436,7 +8413,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -8449,7 +8426,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item313
+		class Item312
 		{
 			dataType="Group";
 			side="East";
@@ -8468,7 +8445,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OMedic3";
 						description="Russian Federation [ Team 3 ]@Medic (REPAIR CAMP)";
 						isPlayable=1;
@@ -8516,7 +8493,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -8529,7 +8506,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item314
+		class Item313
 		{
 			dataType="Group";
 			side="East";
@@ -8548,7 +8525,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OMachinegunner3_2";
 						description="Russian Federation [ Team 3 ]@Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -8598,7 +8575,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -8611,7 +8588,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item315
+		class Item314
 		{
 			dataType="Group";
 			side="East";
@@ -8630,7 +8607,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false; this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false; this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OSpecOps3";
 						description="Russian Federation [ Team 3 ]@SpecOps (LOCKPICK, CAMP REPAIR, UAVHACK)";
 						isPlayable=1;
@@ -8680,7 +8657,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -8693,7 +8670,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item316
+		class Item315
 		{
 			dataType="Group";
 			side="East";
@@ -8712,7 +8689,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OTeamleader4";
 						description="Russian Federation [ Team 4 ]@Teamleader (MORE AI)";
 						isPlayable=1;
@@ -8760,7 +8737,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -8773,7 +8750,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item317
+		class Item316
 		{
 			dataType="Group";
 			side="East";
@@ -8792,7 +8769,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OEngineer4";
 						description="Russian Federation [ Team 4 ]@Engineer (FULL REPAIR, FAST CAMP DESTROY)";
 						isPlayable=1;
@@ -8853,7 +8830,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -8866,7 +8843,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item318
+		class Item317
 		{
 			dataType="Group";
 			side="East";
@@ -8885,7 +8862,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OMachinegunner4_1";
 						description="Russian Federation [ Team 4 ]@Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -8933,7 +8910,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -8946,7 +8923,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item319
+		class Item318
 		{
 			dataType="Group";
 			side="East";
@@ -8965,7 +8942,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OMedic4";
 						description="Russian Federation [ Team 4 ]@Medic (REPAIR CAMP)";
 						isPlayable=1;
@@ -9013,7 +8990,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -9026,7 +9003,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item320
+		class Item319
 		{
 			dataType="Group";
 			side="East";
@@ -9045,7 +9022,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OMachinegunner4_2";
 						description="Russian Federation [ Team 4 ]@Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -9106,7 +9083,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -9119,7 +9096,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item321
+		class Item320
 		{
 			dataType="Group";
 			side="East";
@@ -9138,7 +9115,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }]; }";
+						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }]; }";
 						name="OSpecOps4";
 						description="Russian Federation [ Team 4 ]@SpecOps (LOCKPICK, CAMP REPAIR, UAVHACK)";
 						isPlayable=1;
@@ -9186,7 +9163,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -9199,7 +9176,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item322
+		class Item321
 		{
 			dataType="Group";
 			side="East";
@@ -9218,7 +9195,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OTeamleader5";
 						description="Russian Federation [ Team 5 ]@Teamleader (MORE AI)";
 						isPlayable=1;
@@ -9268,7 +9245,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -9281,7 +9258,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item323
+		class Item322
 		{
 			dataType="Group";
 			side="East";
@@ -9300,7 +9277,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OEngineer5";
 						description="Russian Federation [ Team 5 ]@Engineer (FULL REPAIR, FAST CAMP DESTROY)";
 						isPlayable=1;
@@ -9348,7 +9325,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -9361,7 +9338,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item324
+		class Item323
 		{
 			dataType="Group";
 			side="East";
@@ -9380,7 +9357,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OMachinegunner5_1";
 						description="Russian Federation [ Team 5 ]@Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -9430,7 +9407,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -9443,7 +9420,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item325
+		class Item324
 		{
 			dataType="Group";
 			side="East";
@@ -9462,7 +9439,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OMedic5";
 						description="Russian Federation [ Team 5 ]@Medic (REPAIR CAMP)";
 						isPlayable=1;
@@ -9510,7 +9487,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -9523,7 +9500,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item326
+		class Item325
 		{
 			dataType="Group";
 			side="East";
@@ -9542,7 +9519,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
 						name="OMachinegunner5_2";
 						description="Russian Federation [ Team 5 ]@Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -9590,7 +9567,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -9603,7 +9580,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item327
+		class Item326
 		{
 			dataType="Group";
 			side="East";
@@ -9621,7 +9598,7 @@ class Mission
 					flags=7;
 					class Attributes
 					{
-						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;  " \n "removeUniform this;  " \n "removeVest this;  " \n "removeBackpack this;  " \n "removeHeadgear this;  " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }]; }";
+						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }]; }";
 						name="OSpecOps5";
 						description="Russian Federation [ Team 5 ]@SpecOps (LOCKPICK, CAMP REPAIR, UAVHACK)";
 						isPlayable=1;
@@ -9669,7 +9646,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression=" if (isNil 'CBA_fnc_setCallsign') then { _this setGroupID [_value]; } else { [_this, _value] call CBA_fnc_setCallsign; }; ";
+					expression="                            if (isNil 'CBA_fnc_setCallsign') then {                                _this setGroupID [_value];                            } else {                                [_this, _value] call CBA_fnc_setCallsign;                            };                        ";
 					class Value
 					{
 						class data
@@ -9682,7 +9659,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item328
+		class Item327
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9695,7 +9672,7 @@ class Mission
 			id=397;
 			type="LocationOutpost_F";
 		};
-		class Item329
+		class Item328
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9708,7 +9685,7 @@ class Mission
 			type="LocationOutpost_F";
 			atlOffset=5.1238995;
 		};
-		class Item330
+		class Item329
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9720,7 +9697,7 @@ class Mission
 			id=399;
 			type="Logic";
 		};
-		class Item331
+		class Item330
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9733,7 +9710,7 @@ class Mission
 			type="Logic";
 			atlOffset=5.1236115;
 		};
-		class Item332
+		class Item331
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9746,7 +9723,7 @@ class Mission
 			type="Logic";
 			atlOffset=5.1240234;
 		};
-		class Item333
+		class Item332
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9758,7 +9735,7 @@ class Mission
 			id=402;
 			type="Logic";
 		};
-		class Item334
+		class Item333
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9771,7 +9748,7 @@ class Mission
 			type="Logic";
 			atlOffset=5.1240206;
 		};
-		class Item335
+		class Item334
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9784,7 +9761,7 @@ class Mission
 			type="Logic";
 			atlOffset=1.2299652;
 		};
-		class Item336
+		class Item335
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9797,7 +9774,7 @@ class Mission
 			type="Logic";
 			atlOffset=1.2912598;
 		};
-		class Item337
+		class Item336
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9809,7 +9786,7 @@ class Mission
 			id=406;
 			type="Logic";
 		};
-		class Item338
+		class Item337
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9821,7 +9798,7 @@ class Mission
 			id=407;
 			type="Logic";
 		};
-		class Item339
+		class Item338
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9834,7 +9811,7 @@ class Mission
 			type="Logic";
 			atlOffset=25.167997;
 		};
-		class Item340
+		class Item339
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9846,7 +9823,7 @@ class Mission
 			id=409;
 			type="Logic";
 		};
-		class Item341
+		class Item340
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9859,7 +9836,7 @@ class Mission
 			type="Logic";
 			atlOffset=4.6139526;
 		};
-		class Item342
+		class Item341
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9872,7 +9849,7 @@ class Mission
 			type="Logic";
 			atlOffset=4.6333313;
 		};
-		class Item343
+		class Item342
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9885,7 +9862,7 @@ class Mission
 			type="Logic";
 			atlOffset=5.3479614;
 		};
-		class Item344
+		class Item343
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9898,7 +9875,7 @@ class Mission
 			type="Logic";
 			atlOffset=4.6279297;
 		};
-		class Item345
+		class Item344
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9911,7 +9888,7 @@ class Mission
 			type="Logic";
 			atlOffset=5.8673401;
 		};
-		class Item346
+		class Item345
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9924,7 +9901,7 @@ class Mission
 			type="Logic";
 			atlOffset=6.7233582;
 		};
-		class Item347
+		class Item346
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9936,7 +9913,7 @@ class Mission
 			id=418;
 			type="Logic";
 		};
-		class Item348
+		class Item347
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9949,7 +9926,7 @@ class Mission
 			id=419;
 			type="Logic";
 		};
-		class Item349
+		class Item348
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9962,7 +9939,7 @@ class Mission
 			id=420;
 			type="Logic";
 		};
-		class Item350
+		class Item349
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9975,7 +9952,7 @@ class Mission
 			id=421;
 			type="Logic";
 		};
-		class Item351
+		class Item350
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -9988,7 +9965,7 @@ class Mission
 			id=422;
 			type="Logic";
 		};
-		class Item352
+		class Item351
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10001,7 +9978,7 @@ class Mission
 			type="Logic";
 			atlOffset=4.7192993;
 		};
-		class Item353
+		class Item352
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10014,7 +9991,7 @@ class Mission
 			type="Logic";
 			atlOffset=3.9213257;
 		};
-		class Item354
+		class Item353
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10028,7 +10005,7 @@ class Mission
 			type="Logic";
 			atlOffset=4.4593201;
 		};
-		class Item355
+		class Item354
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10042,7 +10019,7 @@ class Mission
 			type="Logic";
 			atlOffset=4.8299866;
 		};
-		class Item356
+		class Item355
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10056,7 +10033,7 @@ class Mission
 			type="Logic";
 			atlOffset=5.3659668;
 		};
-		class Item357
+		class Item356
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10069,7 +10046,7 @@ class Mission
 			type="Logic";
 			atlOffset=5.2839661;
 		};
-		class Item358
+		class Item357
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10104,7 +10081,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item359
+		class Item358
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10122,7 +10099,7 @@ class Mission
 			type="LocationCamp_F";
 			atlOffset=0.00011062622;
 		};
-		class Item360
+		class Item359
 		{
 			dataType="Marker";
 			position[]={14098,21,2743};
@@ -10131,7 +10108,7 @@ class Mission
 			id=431;
 			atlOffset=1.7306633;
 		};
-		class Item361
+		class Item360
 		{
 			dataType="Marker";
 			position[]={13491,-14.931152,2815};
@@ -10140,7 +10117,7 @@ class Mission
 			id=432;
 			atlOffset=-26.027882;
 		};
-		class Item362
+		class Item361
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10158,7 +10135,7 @@ class Mission
 			type="LocationCamp_F";
 			atlOffset=0.91348267;
 		};
-		class Item363
+		class Item362
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10194,7 +10171,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item364
+		class Item363
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10212,7 +10189,7 @@ class Mission
 			type="LocationCamp_F";
 			atlOffset=1.7513428;
 		};
-		class Item365
+		class Item364
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10230,7 +10207,7 @@ class Mission
 			type="LocationCamp_F";
 			atlOffset=0.15609741;
 		};
-		class Item366
+		class Item365
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10243,7 +10220,7 @@ class Mission
 			type="Logic";
 			atlOffset=1.0033264;
 		};
-		class Item367
+		class Item366
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10255,7 +10232,7 @@ class Mission
 			id=438;
 			type="Logic";
 		};
-		class Item368
+		class Item367
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10268,7 +10245,7 @@ class Mission
 			type="Logic";
 			atlOffset=0.17459106;
 		};
-		class Item369
+		class Item368
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10280,7 +10257,7 @@ class Mission
 			id=440;
 			type="Logic";
 		};
-		class Item370
+		class Item369
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10315,7 +10292,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item371
+		class Item370
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10334,7 +10311,7 @@ class Mission
 			type="LocationCamp_F";
 			atlOffset=-0.51126099;
 		};
-		class Item372
+		class Item371
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10353,7 +10330,7 @@ class Mission
 			type="LocationCamp_F";
 			atlOffset=-0.23068237;
 		};
-		class Item373
+		class Item372
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10365,7 +10342,7 @@ class Mission
 			id=444;
 			type="Logic";
 		};
-		class Item374
+		class Item373
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10377,7 +10354,7 @@ class Mission
 			id=445;
 			type="Logic";
 		};
-		class Item375
+		class Item374
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10389,7 +10366,7 @@ class Mission
 			id=446;
 			type="Logic";
 		};
-		class Item376
+		class Item375
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10401,7 +10378,7 @@ class Mission
 			id=447;
 			type="Logic";
 		};
-		class Item377
+		class Item376
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10414,7 +10391,7 @@ class Mission
 			id=448;
 			type="Logic";
 		};
-		class Item378
+		class Item377
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10449,7 +10426,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item379
+		class Item378
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10468,7 +10445,7 @@ class Mission
 			type="LocationCamp_F";
 			atlOffset=-0.17262268;
 		};
-		class Item380
+		class Item379
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10487,7 +10464,7 @@ class Mission
 			type="LocationCamp_F";
 			atlOffset=-0.056640625;
 		};
-		class Item381
+		class Item380
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10499,7 +10476,7 @@ class Mission
 			id=452;
 			type="Logic";
 		};
-		class Item382
+		class Item381
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10511,7 +10488,7 @@ class Mission
 			id=453;
 			type="Logic";
 		};
-		class Item383
+		class Item382
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10523,7 +10500,7 @@ class Mission
 			id=454;
 			type="Logic";
 		};
-		class Item384
+		class Item383
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10535,7 +10512,7 @@ class Mission
 			id=455;
 			type="Logic";
 		};
-		class Item385
+		class Item384
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10548,7 +10525,7 @@ class Mission
 			id=456;
 			type="Logic";
 		};
-		class Item386
+		class Item385
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10584,7 +10561,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item387
+		class Item386
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10603,7 +10580,7 @@ class Mission
 			type="LocationCamp_F";
 			atlOffset=-0.48871613;
 		};
-		class Item388
+		class Item387
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10621,7 +10598,7 @@ class Mission
 			type="LocationCamp_F";
 			atlOffset=0.26128387;
 		};
-		class Item389
+		class Item388
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10633,7 +10610,7 @@ class Mission
 			id=460;
 			type="Logic";
 		};
-		class Item390
+		class Item389
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10645,7 +10622,7 @@ class Mission
 			id=461;
 			type="Logic";
 		};
-		class Item391
+		class Item390
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10657,7 +10634,7 @@ class Mission
 			id=462;
 			type="Logic";
 		};
-		class Item392
+		class Item391
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10706,7 +10683,7 @@ class Mission
 				nAttributes=2;
 			};
 		};
-		class Item393
+		class Item392
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10718,7 +10695,7 @@ class Mission
 			id=465;
 			type="Logic";
 		};
-		class Item394
+		class Item393
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10730,7 +10707,7 @@ class Mission
 			id=466;
 			type="Logic";
 		};
-		class Item395
+		class Item394
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10749,7 +10726,7 @@ class Mission
 			type="LocationCamp_F";
 			atlOffset=-0.011169434;
 		};
-		class Item396
+		class Item395
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10762,7 +10739,7 @@ class Mission
 			id=468;
 			type="LocationOutpost_F";
 		};
-		class Item397
+		class Item396
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10773,7 +10750,7 @@ class Mission
 			id=469;
 			type="LocationArea_F";
 		};
-		class Item398
+		class Item397
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10784,7 +10761,7 @@ class Mission
 			id=470;
 			type="LocationArea_F";
 		};
-		class Item399
+		class Item398
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10795,7 +10772,7 @@ class Mission
 			id=471;
 			type="LocationArea_F";
 		};
-		class Item400
+		class Item399
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10812,7 +10789,7 @@ class Mission
 			id=472;
 			type="LocationCamp_F";
 		};
-		class Item401
+		class Item400
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10823,7 +10800,7 @@ class Mission
 			id=473;
 			type="LocationArea_F";
 		};
-		class Item402
+		class Item401
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10859,7 +10836,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item403
+		class Item402
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10877,7 +10854,7 @@ class Mission
 			type="LocationCamp_F";
 			atlOffset=0.72866821;
 		};
-		class Item404
+		class Item403
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10889,7 +10866,7 @@ class Mission
 			id=476;
 			type="Logic";
 		};
-		class Item405
+		class Item404
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10925,7 +10902,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item406
+		class Item405
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10943,7 +10920,7 @@ class Mission
 			type="LocationCamp_F";
 			atlOffset=0.027664185;
 		};
-		class Item407
+		class Item406
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -10955,7 +10932,7 @@ class Mission
 			id=479;
 			type="Logic";
 		};
-		class Item408
+		class Item407
 		{
 			dataType="Object";
 			class PositionInfo
@@ -10991,7 +10968,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item409
+		class Item408
 		{
 			dataType="Object";
 			class PositionInfo
@@ -11009,7 +10986,7 @@ class Mission
 			type="LocationCamp_F";
 			atlOffset=0.096008301;
 		};
-		class Item410
+		class Item409
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -11021,7 +10998,7 @@ class Mission
 			id=482;
 			type="Logic";
 		};
-		class Item411
+		class Item410
 		{
 			dataType="Object";
 			class PositionInfo
@@ -11057,7 +11034,7 @@ class Mission
 				nAttributes=1;
 			};
 		};
-		class Item412
+		class Item411
 		{
 			dataType="Object";
 			class PositionInfo
@@ -11075,7 +11052,7 @@ class Mission
 			type="LocationCamp_F";
 			atlOffset=0.28148651;
 		};
-		class Item413
+		class Item412
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -11087,7 +11064,7 @@ class Mission
 			id=485;
 			type="Logic";
 		};
-		class Item414
+		class Item413
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -11098,7 +11075,7 @@ class Mission
 			id=492;
 			type="LocationEvacPoint_F";
 		};
-		class Item415
+		class Item414
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -11109,7 +11086,7 @@ class Mission
 			id=494;
 			type="LocationEvacPoint_F";
 		};
-		class Item416
+		class Item415
 		{
 			dataType="Logic";
 			class PositionInfo

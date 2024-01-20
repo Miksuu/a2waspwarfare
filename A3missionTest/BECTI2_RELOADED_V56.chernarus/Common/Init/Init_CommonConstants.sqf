@@ -195,6 +195,9 @@ with missionNamespace do {
 	//cti_RESERVEDUIDS = ["76561198058092022","76561198086269246"]; //Admin UIDS 
 	cti_RESERVEDUIDS = [];
 
+//---DEBUG
+	if (isNil "cti_C_DEBUG") then {cti_C_DEBUG = 1;}; //--- DEBUG
+
 
 //--- AI.
 	if (isNil "cti_C_FPS_MANAGER") then {cti_C_FPS_MANAGER = 0;}; //--- EXPERIMENTAL FPS_MANAGER

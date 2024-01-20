@@ -213,10 +213,20 @@
 #include "version.sqf"
 
 WF_Debug = false;
+
+
+
+
+//if ((missionNamespace getVariable "cti_C_DEBUG") == 0) then {
 //WF_Debug = true;
+//}else{
+//WF_Debug = false;
+//};
+
 #ifdef WF_DEBUG
 	WF_Debug = true;
 #endif
+
 
 
 
@@ -291,6 +301,16 @@ if (isMultiplayer) then {Call Compile preprocessFileLineNumbers "Common\Init\Ini
 cti_Parameters_Ready = true; //--- All parameters are set and ready.
 
 Call Compile preprocessFileLineNumbers "Common\Init\Init_CommonConstants.sqf"; //--- Set the constants and the parameters, skip the params if they're already defined.
+
+
+
+
+if ((missionNamespace getVariable "cti_C_DEBUG") == 0) then {//not catches all in this way but votingtime 40s is ok for now.most of debugstuff works
+WF_Debug = true;
+};
+
+
+
 
 if (WF_Debug) then { //--- Debug.
 	missionNamespace setVariable ["cti_C_GAMEPLAY_UPGRADES_CLEARANCE", 7];
