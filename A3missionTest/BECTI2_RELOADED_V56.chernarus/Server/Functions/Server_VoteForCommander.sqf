@@ -55,6 +55,11 @@ _highest = 0;
 _highestTeam = -1;
 _tie = false;
 
+// Remove all the nil votes, there might be a better way to do this (remove objects from the array in the first place if player is not connected to the slot).
+_votes = _votes select {!isNil"_x"};
+
+["DEBUG", Format ["Server_VoteForCommander.sqf: Debug info [_votes] after removal: [%1]", _votes]] Call cti_CO_FNC_LogContent;
+
 {
 	if (_x == _highest && _x > 0) then {
 		_tie = true;
