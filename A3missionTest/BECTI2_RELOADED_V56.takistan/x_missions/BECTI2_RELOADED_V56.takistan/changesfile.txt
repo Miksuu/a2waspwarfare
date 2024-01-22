@@ -1,0 +1,67 @@
+20240122
+
+
+
+changed overview text in missions/*/mission.sqm
+to V56 sv=20240121
+
+i made fail lasttime and only changed altis
+
+-----------------------
+REVISION 20240121
+||
+target add repair camp option to rtruck:
+
+/client/init/init_unit.sqf
+	changed addaction param [line 84]
+subfix hint message need changed:
+	changed to unformated hints from a2
+
+state:done
+---------------------------
+REVISION 20240120
+||
+target votefix:
+Server/Functions/Server_VoteForCommander.sqf
+	changed code to adapted a2 version
+reverted old one seems running
+
+#fail comes after changing slot init vote seems working
+#todo fix voting
+
+
+||
+target add debug param:
+RSC/Parameters.hpp
+	added class
+--
+stringtable.xml
+	added class
+--
+init.sqf
+	added debug conditionswitch from params
+	||	
+	-subtarget remove hud patch:
+		init.sqf
+			/*removed*/
+		client/init/init_client.sqf
+			/*removed*/
+			//line 1103,no hudpatchinfo need anymore
+		mission.sqm
+			changed hudpatchwarning to "" line 222 to overviewText="Arma2 BECTI --> Arma3";
+
+debugmode seems working,only votetime not set to 1.but this solution good enough for now.
+
+||
+target fix nakedbug:
+changed all mission.sqm
+	removed removeuniform stuff in slot init
+
+	seems fixed now
+		||		
+		removed hc modul from mission.sqm too
+
+
+target remove hc rests:
+init.sqf
+	// init_HC.sqf load
