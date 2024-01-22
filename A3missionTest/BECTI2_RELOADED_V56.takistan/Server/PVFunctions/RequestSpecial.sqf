@@ -1,1 +1,0 @@
-_this Spawn cti_SE_FNC_HandleSpecial;
