@@ -32,7 +32,9 @@ _pos = getPosATL _unit;
 _switch= missionNamespace getVariable _OBJECTid;
 
 if (_startmessage==2) then{
-systemChat "ECM-ON";  
+//systemChat "ECM-ON";  
+['chat',"ECM-ON"] remoteExecCall ["cti_CL_FNC_LocalizeMessage"];
+
 _startmessage=5;};
 
 
@@ -324,7 +326,9 @@ deleteMarker _markername;
 _markername=_markername+"1";
 };
 missionNamespace setVariable [_OBJECTid, nil];
- systemChat "ECM-OFF";   
+// systemChat "ECM-OFF";   
+['chat',"ECM-OFF"] remoteExecCall ["cti_CL_FNC_LocalizeMessage"];
+
 
 //________________________________________________________________________________________________________________________________
 
@@ -332,7 +336,9 @@ missionNamespace setVariable [_OBJECTid, nil];
 }else {
 _end=(str _actionID)+"2ndRUN";
 missionNamespace setVariable [_OBJECTid, _end];
-systemChat "ECM-SHUTTING DOWN";
+//systemChat "ECM-SHUTTING DOWN";
+['chat',"ECM-SHUTTING DOWN"] remoteExecCall ["cti_CL_FNC_LocalizeMessage"];
+
 };
 
 
