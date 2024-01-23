@@ -1,14 +1,33 @@
-20240122
+20240123
+||
+target add systemchatmessages for dedicated debug and ecm message:
+	
+#	added new functionfile
+#/client/functions/Client_SystemChatMessage.sqf
+#	added compile line to cti_CL_FNC_SystemChatMessage in 	||#removed,systemchat not works in this way
+#/client/init/init_client.sqf line 250
+	
+	changed 
+	/client/pvfunctions/localizemessage.sqf
+		to handle this
+			-added "chat" case
+				syntax = ['chat',"exampletext"] remoteExecCall ["cti_CL_FNC_LocalizeMessage"];
+			if you want use in scripts for debug and ingame feedback.
+			exampletext can be list too,i made str in localizescript.
+	changed or fixed 
 
+/server/functions/server_ecmswitch.sqf
+	with these new feature.so every client get ecm feedback in chat now,how it should be.
+	
+maybe revision needed,looks like all other stuff use commandchat because _commandChat = true;.reason unclear for now,
+maybe that was fix for something.
 
+todo maybe:add hint function too there,some gui layouts blocking systemchat or hint.dont remember which is blocked.
+fixed: changed systemchat to groupchat,systemchat run maybe like local only.makes no different for debug,so thats it for now.
 
-changed overview text in missions/*/mission.sqm
-to V56 sv=20240121
-
-i made fail lasttime and only changed altis
-
------------------------
-REVISION 20240121
+state: ecm message works,"chat" syntax input for debug too
+--------------------------
+REVISION  20240121
 ||
 target add repair camp option to rtruck:
 

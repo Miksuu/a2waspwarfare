@@ -56,7 +56,7 @@ class Params {
 		title = "$STR_WF_PARAMETER_GroupSizePlayer";
 		values[] = {2,4,6,8,10,12,14,16};
 		texts[] = {"2","4","6","8","10","12","14","16"};
-		default = 16;
+		default = 10;
 	};
 	class cti_C_ARTILLERY {
 		title = "$STR_WF_PARAMETER_Arty";
@@ -146,25 +146,25 @@ class Params {
 		title = "$STR_WF_PARAMETER_Funds_East";
 		values[] = {800,1600,2400,3200,4000,4800,6400,8000,12800,25600,51200,102400,204800,409600,819200};
 		texts[] = {"$ 800","$ 1600","$ 2400","$ 3200","$ 4000","$ 4800","$ 6400","$ 8000","$ 12800","$ 25600","$ 51200","$ 102400","$ 204800","$ 409600","$ 819200"};
-		default = 102400;
+		default = 25600;
 	};
 	class cti_C_ECONOMY_FUNDS_START_WEST {
 		title = "$STR_WF_PARAMETER_Funds_West";
 		values[] = {800,1600,2400,3200,4000,4800,6400,8000,12800,25600,51200,102400,204800,409600,819200};
 		texts[] = {"$ 800","$ 1600","$ 2400","$ 3200","$ 4000","$ 4800","$ 6400","$ 8000","$ 12800","$ 25600","$ 51200","$ 102400","$ 204800","$ 409600","$ 819200"};
-		default = 102400;
+		default = 25600;
 	};
 	class cti_C_ECONOMY_SUPPLY_START_EAST {
 		title = "$STR_WF_PARAMETER_Supply_East";
 		values[] = {1200,2400,3600,4800,6000,7200,8400,9600,19200,38400,76800};
 		texts[] = {"S 1200","S 2400","S 3600","S 4800","S 6000","S 7200","S 8400","S 9600","S 19200","S 38400","S 76800"};
-		default = 19200;
+		default = 6000;
 	};
 	class cti_C_ECONOMY_SUPPLY_START_WEST {
 		title = "$STR_WF_PARAMETER_Supply_West";
 		values[] = {1200,2400,3600,4800,6000,7200,8400,9600,19200,38400,76800};
 		texts[] = {"S 1200","S 2400","S 3600","S 4800","S 6000","S 7200","S 8400","S 9600","S 19200","S 38400","S 76800"};
-		default = 19200;
+		default = 6000;
 	};
 	
 
@@ -315,7 +315,7 @@ class Params {
 		title = "$STR_WF_PARAMETER_ICBM_TIMEOUT";
 		values[] = {5,180,300,420,600};
 		texts[] = {"5","180","300","420","600"};
-		default = 300;
+		default = 180;
 	};
 	class cti_C_RESPAWN_CAMPS_MODE {
 		title = "$STR_WF_PARAMETER_Camp";
