@@ -19,7 +19,7 @@ def paste_files(target_folders, files_to_copy):
             print(f"Copied {file} to {folder}")
 
 def main():
-    current_directory = os.getcwd()
+    current_directory = os.path.dirname(os.path.realpath(__file__))
     x_missions_path = os.path.join(current_directory, "x_missions")
 
     # Files and folders to exclude
