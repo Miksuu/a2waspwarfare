@@ -80,6 +80,16 @@ Full changelog :<br/>
 - same for dead corpes <br/>
 - added attach everywhere for small mines and charges <br/>
 - set aiskill to 1 for all <br/>
+- ---------------- <br/>
+
+- removed HC from mission <br/>
+- fixed nakedbug <br/>
+- removed hudpatch <br/>
+- fixed repair camp with rtruck <br/>
+- fixed voting <br/>
+
+
+
 ", missionNamespace getVariable "cti_MISSIONNAME"],
 //-------------------------------------Introductions
 "<t size='1.4' color='#2394ef' underline='true'>Introduction</t><br />

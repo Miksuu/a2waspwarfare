@@ -103,10 +103,22 @@ _vehicle 	addEventHandler ["HandleDamage", {
 	  }];
 
 
+	
+};
+
+
+_vehicle addEventHandler ['incomingMissile', {_this Spawn cti_CO_FNC_HandleIncomingMissile}]; //--- Handle incoming missiles.
+
+//high climb gear not working in this way,res vehicles are not local
+//_vehicle addAction ["<t color='#FFBD4C'>"+(localize "STR_ACT_LowGearOn")+"</t>","Client\Module\Valhalla\LowGear_Toggle.sqf", [], 91, false, true, "", "((player==driver _target)||(CTI_P_Controlled==driver _target)) && !Local_HighClimbingModeOn && canMove _target"];
+//_vehicle addAction ["<t color='#FFBD4C'>"+(localize "STR_ACT_LowGearOff")+"</t>","Client\Module\Valhalla\LowGear_Toggle.sqf", [], 91, false, true, "", "((player==driver _target)||(CTI_P_Controlled==driver _target)) && Local_HighClimbingModeOn && canMove _target"];
+
+
+
 //if (typeOf _vehicle isKindOf "Helikopter") then{_vehicle enableRopeAttach false;};
 	  
 _vehicle enableRopeAttach false;	  
-};
+//};
 
 
 
