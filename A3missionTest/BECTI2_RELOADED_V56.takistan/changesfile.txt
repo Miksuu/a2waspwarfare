@@ -1,4 +1,17 @@
-20240123
+20240124
+target fix vote:
+	changed /server/functions/server_onplayerdisconected.sqf
+	and /common/functions/common_updateclientteams.sqf
+
+looks like its fixed now
+
+target write changelog:
+ in /client/gui/gui_menu_help.sqf:
+
+done
+
+--------------------------------------------
+REVISION  20240123
 ||
 target add systemchatmessages for dedicated debug and ecm message:
 	
