@@ -12,11 +12,14 @@ def copy_files(src_folder, exclude_files, exclude_folders):
                 files_to_copy.append(file_path)
     return files_to_copy
 
-def paste_files(target_folders, files_to_copy):
+def paste_files(target_folders, files_to_copy, src_folder):
     for folder in target_folders:
         for file in files_to_copy:
-            shutil.copy(file, folder)
-            print(f"Copied {file} to {folder}")
+            relative_path = os.path.relpath(file, src_folder)
+            target_path = os.path.join(folder, relative_path)
+            os.makedirs(os.path.dirname(target_path), exist_ok=True)
+            shutil.copy(file, target_path)
+            print(f"Copied {file} to {target_path}")
 
 def main():
     current_directory = os.path.dirname(os.path.realpath(__file__))
@@ -34,7 +37,7 @@ def main():
     target_folders = [os.path.join(x_missions_path, d) for d in os.listdir(x_missions_path) if os.path.isdir(os.path.join(x_missions_path, d))]
 
     # Pasting files
-    paste_files(target_folders, files_to_copy)
+    paste_files(target_folders, files_to_copy, current_directory)
     print("Copying complete.")
 
 if __name__ == "__main__":
