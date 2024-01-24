@@ -32,7 +32,9 @@ _pos = getPosATL _unit;
 _switch= missionNamespace getVariable _OBJECTid;
 
 if (_startmessage==2) then{
-systemChat "ECM-ON";  
+//systemChat "ECM-ON";  
+['chat',"ECM-ON"] remoteExecCall ["cti_CL_FNC_LocalizeMessage"];
+
 _startmessage=5;};
 
 
@@ -45,24 +47,27 @@ for "_i" from 0 to ((count _allUAV_in_range)-1) do {{_x disableUAVConnectability
 
 if !(_ECM_AREA_UNITS isEqualTypeArray []) then {
 	ECM_SYNC_AREA_UNITS = ECM_SYNC_AREA_UNITS - _ECM_AREA_UNITS};
+	publicVariable "ECM_SYNC_AREA_UNITS";//sync it to locals(eh for missles running local)
 //__________________________________________________________________________________________________________
 //Create GLOBAL UNITSSPLITLIST FOR NON_ECM_SCRIPT HANDLING (if inf from inside area firing to outside)
 _ECM_AREA_UNITS= allUnits inAreaArray [_pos, 3000, 3000, 0, False, 3000]; 
 //add affected units in global list
 {ECM_SYNC_AREA_UNITS pushBackUnique _x;}forEach _ECM_AREA_UNITS;
+publicVariable "ECM_SYNC_AREA_UNITS";//sync it to locals(eh for missles running local)
 //__________________________________________________________________________________________________________
 
 
 
 if !(_ECM_AREA_VEHICLES isEqualTypeArray []) then {
 	ECM_SYNC_AREA_VEHICLES = ECM_SYNC_AREA_VEHICLES - _ECM_AREA_VEHICLES};
+	publicVariable "ECM_SYNC_AREA_VEHICLES";//sync it to locals(eh for missles running local)
 //__________________________________________________________________________________________________________
 //vehicle part
 _ECM_AREA_VEHICLES=[]; 
 _ECM_AREA_VEHICLES= vehicles inAreaArray [_pos, 3000, 3000, 0, False, 3000];  
 //sync condition lists for NON_ECM_SCRIPT
 {ECM_SYNC_AREA_VEHICLES pushBackUnique _x;}forEach _ECM_AREA_VEHICLES;
-
+publicVariable "ECM_SYNC_AREA_VEHICLES";//sync it to locals(eh for missles running local)
 {
 	if (!(_x in _OUTSIDE_ECM_AREA_VEHICLES))then {
 		
@@ -96,8 +101,8 @@ _ECM_AREA_VEHICLES= vehicles inAreaArray [_pos, 3000, 3000, 0, False, 3000];
 	_x setVariable ["KILLSWITCH", 5];
 	};
 		
-	_x removeAllEventHandlers "incomingMissile";
-	_x addEventHandler ['incomingMissile', {_this Spawn cti_CO_FNC_HandleIncomingMissileECM}];
+	//_x removeAllEventHandlers "incomingMissile";
+	//_x addEventHandler ['incomingMissile', {_this Spawn cti_CO_FNC_HandleIncomingMissileECM}];
 	sleep 1;
 	if !(_x in _OUTSIDE_ECM_AREA_VEHICLES)then {hintSilent "";};
 	
@@ -108,11 +113,12 @@ _ECM_AREA_VEHICLES= vehicles inAreaArray [_pos, 3000, 3000, 0, False, 3000];
 
 if !(_OUTSIDE_ECM_AREA_VEHICLES isEqualTypeArray []) then {
 	OUTSIDE_SYNC_ECM_AREA_VEHICLES = OUTSIDE_SYNC_ECM_AREA_VEHICLES - _OUTSIDE_ECM_AREA_VEHICLES};
+	publicVariable "OUTSIDE_SYNC_ECM_AREA_VEHICLES";//sync it to locals(eh for missles running local)
 //__________________________________________________________________________________________________________
 _vehicles=vehicles;
 _OUTSIDE_ECM_AREA_VEHICLES =_vehicles - ECM_SYNC_AREA_VEHICLES;
 {OUTSIDE_SYNC_ECM_AREA_VEHICLES pushBackUnique _x;}forEach _OUTSIDE_ECM_AREA_VEHICLES;
-
+publicVariable "OUTSIDE_SYNC_ECM_AREA_VEHICLES";//sync it to locals(eh for missles running local)
 {	if (((_x getVariable "KILLSWITCH")==5)&&(!(_x in ECM_SYNC_AREA_VEHICLES))&&(_x in OUTSIDE_SYNC_ECM_AREA_VEHICLES)) then {
 	
 	_x vehiclechat "STATUS : YOU LEAVING ECM AREA";
@@ -166,8 +172,8 @@ _OUTSIDE_ECM_AREA_VEHICLES =_vehicles - ECM_SYNC_AREA_VEHICLES;
 	_x setVariable ["KILLSWITCH", 2];
 	};
 	
-	_x removeAllEventHandlers "incomingMissile";
-	_x addEventHandler ['incomingMissile', {_this Spawn cti_CO_FNC_HandleIncomingMissile}];
+	//_x removeAllEventHandlers "incomingMissile";
+	//_x addEventHandler ['incomingMissile', {_this Spawn cti_CO_FNC_HandleIncomingMissile}];
 } forEach _OUTSIDE_ECM_AREA_VEHICLES;
 //__________________________________________________________________________________________________________
 
@@ -253,17 +259,19 @@ sleep 0.5;
 //CLEAR SYNC LISTS
 if !(_ECM_AREA_UNITS isEqualTypeArray []) then {
 	ECM_SYNC_AREA_UNITS = ECM_SYNC_AREA_UNITS - _ECM_AREA_UNITS};
+	publicVariable "ECM_SYNC_AREA_UNITS";//sync it to locals(eh for missles running local)
 if !(_ECM_AREA_VEHICLES isEqualTypeArray []) then {
 	ECM_SYNC_AREA_VEHICLES = ECM_SYNC_AREA_VEHICLES - _ECM_AREA_VEHICLES};
+	publicVariable "ECM_SYNC_AREA_VEHICLES";//sync it to locals(eh for missles running local)
 if !(_OUTSIDE_ECM_AREA_VEHICLES isEqualTypeArray []) then {
 	OUTSIDE_SYNC_ECM_AREA_VEHICLES = OUTSIDE_SYNC_ECM_AREA_VEHICLES - _OUTSIDE_ECM_AREA_VEHICLES};	
-
+	publicVariable "OUTSIDE_SYNC_ECM_AREA_VEHICLES";//sync it to locals(eh for missles running local)
 //________________________________________________________________________________________________________________________________
 
 
 {
-		_x removeAllEventHandlers "incomingMissile";
-		_x addEventHandler ['incomingMissile', {_this Spawn cti_CO_FNC_HandleIncomingMissile}];
+		//_x removeAllEventHandlers "incomingMissile";
+		//_x addEventHandler ['incomingMissile', {_this Spawn cti_CO_FNC_HandleIncomingMissile}];
 
 		
 	if(_x == (vehicle player)) then {	
@@ -324,7 +332,9 @@ deleteMarker _markername;
 _markername=_markername+"1";
 };
 missionNamespace setVariable [_OBJECTid, nil];
- systemChat "ECM-OFF";   
+// systemChat "ECM-OFF";   
+['chat',"ECM-OFF"] remoteExecCall ["cti_CL_FNC_LocalizeMessage"];
+
 
 //________________________________________________________________________________________________________________________________
 
@@ -332,7 +342,9 @@ missionNamespace setVariable [_OBJECTid, nil];
 }else {
 _end=(str _actionID)+"2ndRUN";
 missionNamespace setVariable [_OBJECTid, _end];
-systemChat "ECM-SHUTTING DOWN";
+//systemChat "ECM-SHUTTING DOWN";
+['chat',"ECM-SHUTTING DOWN"] remoteExecCall ["cti_CL_FNC_LocalizeMessage"];
+
 };
 
 

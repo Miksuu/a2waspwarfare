@@ -52,14 +52,16 @@ _team = grpNull;
 if (isNull _team) exitWith {["WARNING", Format ["Server_PlayerDisconnected.sqf: Player [%1] [%2] team is null", _name, _uid]] Call cti_CO_FNC_LogContent};
 
 //[[[_team,_side,false], "Common\Functions\Common_UpdateClientTeams.sqf"], "BIS_fnc_execVM", true, true] call BIS_fnc_MP;
-_logik = (_side) Call cti_CO_FNC_GetSideLogic;
-_teams = _logik getVariable "cti_teams";
+[[[_team,_side,false,false], "Common\Functions\Common_UpdateClientTeams.sqf"], "BIS_fnc_execVM", true, true] call BIS_fnc_MP;
+//_logik = (_side) Call cti_CO_FNC_GetSideLogic;
+//_teams = _logik getVariable "cti_teams";
 
-_teams = _teams - [_team];
-_teams = _teams - [grpNull];
-_logik synchronizeObjectsRemove [leader _team];
-_logik setVariable ["cti_teams", _teams, true];
-_logik setVariable ["cti_teams_count", count _teams];
+//_teams = _teams - [_team];
+//_teams = _teams - [grpNull];
+//_logik synchronizeObjectsRemove [leader _team];
+//_logik setVariable ["cti_teams", _teams, true];
+//_logik setVariable ["cti_teams_count", count _teams];
+
 //--- We attempt to fetch the client old unit, we need to check if it's group is the right one (on the fly group swapping).
 _old_unit = _team getVariable "cti_teamleader";
 if (isNil '_old_unit') then {

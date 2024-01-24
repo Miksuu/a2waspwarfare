@@ -185,6 +185,13 @@ Private ['_HQRadio','_base','_buildings','_condition','_get','_idbl','_isDeploye
 ["INITIALIZATION", Format ["Init_Client.sqf: Client initialization begins at [%1]", time]] Call cti_CO_FNC_LogContent;
 
 
+
+//--- ECM Sync lists (server doing sync,just need created here to handle local eh conditions)
+ECM_SYNC_AREA_UNITS=[];
+ECM_SYNC_AREA_VEHICLES=[];
+OUTSIDE_SYNC_ECM_AREA_VEHICLES=[];
+
+
 call compile preprocessFile "Client\Functions\Client_RemoteTowVehicle.sqf";
 CTI_CL_FNC_AddRemoteActionsToUnit = compileFinal preprocessFile "Client\Functions\Client_AddRemoteActionsToUnit.sqf";
 CTI_CL_FNC_CanRemoteUnit = compileFinal preprocessFile "Client\Functions\Client_CanRemoteUnit.sqf";
@@ -247,7 +254,6 @@ cti_CL_FNC_MarkerAnim = Compile preprocessFile "Client\Functions\Client_MarkerAn
 cti_CL_FNC_OnRespawnHandler = Compile preprocessFile "Client\Functions\Client_OnRespawnHandler.sqf";
 cti_CL_FNC_PreRespawnHandler = Compile preprocessFile "Client\Functions\Client_PreRespawnHandler.sqf";
 cti_CL_FNC_RequestFireMission = Compile preprocessFile "Client\Functions\Client_RequestFireMission.sqf";
-
 
 
 cti_CL_FNC_SetControlFadeAnim = Compile preprocessFile "Client\Functions\Client_SetControlFadeAnim.sqf";

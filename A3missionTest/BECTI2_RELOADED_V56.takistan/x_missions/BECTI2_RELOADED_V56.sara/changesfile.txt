@@ -1,14 +1,72 @@
-20240122
+20240124
+||
+target fix vote:
+	changed /server/functions/server_onplayerdisconected.sqf
+	and /common/functions/common_updateclientteams.sqf
+
+looks like its fixed now
+||
+target write changelog:
+ in /client/gui/gui_menu_help.sqf:
+
+
+||
+taget rework ecm and fix misslerange==3k:
+
+	removed eh actions in
+/server/functions/server_ecmswitch.sqf
+	only 1 eh common_handleincommingmissle.sqf is used now
+	attached in init_unit.sqf like allways
+	synced lists to clients
+/client/init/init_client
+	added empty ecm lists for eh handling
+
+/common/functions/common_createvehicle
+	added eh misslerange to res townunits
 
 
 
-changed overview text in missions/*/mission.sqm
-to V56 sv=20240121
+	compile changed in
+/common/init/init_common.sqf
+	to standard eh scriptlocation
+	rewritten eh script for all cases
 
-i made fail lasttime and only changed altis
+/common/init/init_unit
+	changed eh misslerangepath to old location
 
------------------------
-REVISION 20240121
+should be fixed now and ecm should run on dedicated now too
+
+--------------------------------------------
+REVISION  20240123
+||
+target add systemchatmessages for dedicated debug and ecm message:
+	
+#	added new functionfile
+#/client/functions/Client_SystemChatMessage.sqf
+#	added compile line to cti_CL_FNC_SystemChatMessage in 	||#removed,systemchat not works in this way
+#/client/init/init_client.sqf line 250
+	
+	changed 
+	/client/pvfunctions/localizemessage.sqf
+		to handle this
+			-added "chat" case
+				syntax = ['chat',"exampletext"] remoteExecCall ["cti_CL_FNC_LocalizeMessage"];
+			if you want use in scripts for debug and ingame feedback.
+			exampletext can be list too,i made str in localizescript.
+	changed or fixed 
+
+/server/functions/server_ecmswitch.sqf
+	with these new feature.so every client get ecm feedback in chat now,how it should be.
+	
+maybe revision needed,looks like all other stuff use commandchat because _commandChat = true;.reason unclear for now,
+maybe that was fix for something.
+
+todo maybe:add hint function too there,some gui layouts blocking systemchat or hint.dont remember which is blocked.
+fixed: changed systemchat to groupchat,systemchat run maybe like local only.makes no different for debug,so thats it for now.
+
+state: ecm message works,"chat" syntax input for debug too
+--------------------------
+REVISION  20240121
 ||
 target add repair camp option to rtruck:
 

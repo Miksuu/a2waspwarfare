@@ -14,7 +14,7 @@ if ((_source in ECM_SYNC_AREA_UNITS)||(_source in ECM_SYNC_AREA_VEHICLES)) then 
 	if(_missile distance _unit < 15)then {deleteVehicle _missile;};	
 	_destroyed=False;
 waitUntil {
-				if ((_destroyed)||( _missile distance _unit < 20)) exitWith { true }; 
+				if ((_destroyed)||( _missile distance _unit < 20)||_missile distance _source > 3000) exitWith { true }; 
 				_destroyed=!alive _missile;
 				//systemChat str _destroyed;
 				

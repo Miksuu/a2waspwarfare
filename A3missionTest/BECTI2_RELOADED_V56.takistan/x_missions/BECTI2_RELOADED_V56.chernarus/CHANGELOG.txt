@@ -127,3 +127,8 @@ for now its ok with old pricescript
 -added remote actions towing and attach
 
 -fixed ecm pod final
+--------------------v56
+20240120 -removed HC|slotinit changed in mission.sqm (nakedbug)|removed HUDPATCH|added DEBUG param
+20240121 -fixed rtruck camp repair
+20240123 -fixed ecm messages on dedicated |added  ['chat',"exampletext"] remoteExecCall ["cti_CL_FNC_LocalizeMessage"]; for send message to all
+20240124 -fixed voting

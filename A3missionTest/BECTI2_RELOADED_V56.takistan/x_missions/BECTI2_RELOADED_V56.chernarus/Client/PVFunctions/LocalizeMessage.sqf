@@ -1,9 +1,15 @@
-Private["_localize","_txt"];
+Private["_localize","_givenTXT","_txt"];
 
 _localize = _this select 0;
+_givenTXT= _this select 1;
+
 _commandChat = true;
+_systemChat=false;
 _txt = "";
 switch (_localize) do {
+	
+	case "chat": {_systemChat=true;if (_givenTXT isEqualType  "")then{_txt=_givenTXT}else{_txt =str _givenTXT};};
+	
 	case "BuildingTeamkill": {_txt = Format [Localize "STR_WF_CHAT_Teamkill_Building",_this select 1, _this select 2, [_this select 3, 'displayName'] Call cti_CO_FNC_GetConfigInfo]};
 	case "Teamswap": {_txt = Format [Localize "STR_WF_CHAT_Teamswap",_this select 1, _this select 2, _this select 3, _this select 4]};
 	case "Teamstack": {_txt = Format [Localize "STR_WF_CHAT_Teamstack",_this select 1, _this select 2, _this select 3, _this select 4]};
@@ -73,8 +79,12 @@ switch (_localize) do {
         _commandChat = true;
     };
 };
+if (_systemChat) then {
+	_txt Call cti_CL_FNC_GroupChatMessage;
+	
+} else {
 if (_commandChat) then {
 	_txt Call cti_CL_FNC_CommandChatMessage;
-} else {
+}else{
 	_txt Call cti_CL_FNC_GroupChatMessage;
-};
+};};
