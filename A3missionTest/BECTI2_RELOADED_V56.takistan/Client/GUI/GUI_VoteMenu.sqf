@@ -2,7 +2,7 @@ scriptName "Client\GUI\GUI_VoteMenu.sqf";
 
 //--- Register the UI.
 uiNamespace setVariable ["cti_display_vote", _this select 0];
-//['chat',"test"] remoteExecCall ["cti_CL_FNC_LocalizeMessage"];
+//['chat',cti_Client_Teams] remoteExecCall ["cti_CL_FNC_LocalizeMessage"];
 _u = 1;
 lnbClear 500100;
 lnbAddRow[500100, ["AI Commander", "0"]];
