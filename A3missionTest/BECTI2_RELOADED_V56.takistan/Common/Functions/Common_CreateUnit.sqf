@@ -67,10 +67,17 @@ _unit 	addEventHandler ["HandleDamage", {
 	
 	_damage 
 	  }];
+
+
 };
 
 
 _unit addEventHandler ['Killed', Format ['[_this select 0,_this select 1,%1] Spawn cti_CO_FNC_OnUnitKilled', _side]];
+
+
+
+
+
 
 
 _unit setSkill 1;
