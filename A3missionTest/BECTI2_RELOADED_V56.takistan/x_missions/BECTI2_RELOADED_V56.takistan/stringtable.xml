@@ -3511,11 +3511,11 @@
         <Italian>Ricarica precedente</Italian>
       </Key>
 	  <Key ID="STR_WF_TOOLTIP_HeadbugFix">
-        <English>GUI patch</English>
-        <French>patch d'interface graphique</French>
-        <German>GUI-Patch</German>
-        <Russian>Патч графического интерфейса</Russian>
-        <Italian>Patch della GUI</Italian>
+        <English>Fix Headbug</English>
+        <French>Règler Headbug</French>
+        <German>Headbug beheben</German>
+        <Russian>Исправить баг головы</Russian>
+        <Italian>Fix Headbug</Italian>
       </Key>
 	  <Key ID="STR_WF_TOOLTIP_MainMenu_Purchase_Gear">
         <English>Weapon, Ammonition, Backpacks, Bags and Misc</English>
