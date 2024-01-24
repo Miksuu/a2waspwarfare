@@ -123,5 +123,3 @@ changed all mission.sqm
 target remove hc rests:
 init.sqf
 	// init_HC.sqf load
-
-	testing 123

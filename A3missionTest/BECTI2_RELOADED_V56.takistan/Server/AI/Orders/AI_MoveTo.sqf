@@ -1,4 +1,4 @@
-Private ["_destination","_formations","_mission","_radius","_team","_update"]; // testing
+Private ["_destination","_formations","_mission","_radius","_team","_update"];
 _team = _this select 0;
 _destination = _this select 1;
 _mission = _this select 2;
