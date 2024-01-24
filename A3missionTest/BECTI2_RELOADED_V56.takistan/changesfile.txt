@@ -1,14 +1,40 @@
 20240124
+||
 target fix vote:
 	changed /server/functions/server_onplayerdisconected.sqf
 	and /common/functions/common_updateclientteams.sqf
 
 looks like its fixed now
-
+||
 target write changelog:
  in /client/gui/gui_menu_help.sqf:
 
-done
+
+||
+taget rework ecm and fix misslerange==3k:
+
+	removed eh actions in
+/server/functions/server_ecmswitch.sqf
+	only 1 eh common_handleincommingmissle.sqf is used now
+	attached in init_unit.sqf like allways
+	synced lists to clients
+/client/init/init_client
+	added empty ecm lists for eh handling
+
+/common/functions/common_createvehicle
+	added eh misslerange to res townunits
+
+
+
+	compile changed in
+/common/init/init_common.sqf
+	to standard eh scriptlocation
+	rewritten eh script for all cases
+
+/common/init/init_unit
+	changed eh misslerangepath to old location
+
+should be fixed now and ecm should run on dedicated now too
 
 --------------------------------------------
 REVISION  20240123

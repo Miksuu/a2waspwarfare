@@ -185,6 +185,13 @@ Private ['_HQRadio','_base','_buildings','_condition','_get','_idbl','_isDeploye
 ["INITIALIZATION", Format ["Init_Client.sqf: Client initialization begins at [%1]", time]] Call cti_CO_FNC_LogContent;
 
 
+
+//--- ECM Sync lists (server doing sync,just need created here to handle local eh conditions)
+ECM_SYNC_AREA_UNITS=[];
+ECM_SYNC_AREA_VEHICLES=[];
+OUTSIDE_SYNC_ECM_AREA_VEHICLES=[];
+
+
 call compile preprocessFile "Client\Functions\Client_RemoteTowVehicle.sqf";
 CTI_CL_FNC_AddRemoteActionsToUnit = compileFinal preprocessFile "Client\Functions\Client_AddRemoteActionsToUnit.sqf";
 CTI_CL_FNC_CanRemoteUnit = compileFinal preprocessFile "Client\Functions\Client_CanRemoteUnit.sqf";
