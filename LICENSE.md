@@ -1,4 +1,12 @@
-Copyright (C) 2023 Miksuu
+Copyright (C) 2024 Miksuu
+
+By contributing to this repository, you agree that all your contributions will be deemed made under the license associated with this repository. Furthermore, you acknowledge and agree that all contributions to this repository, once submitted, become the exclusive property of the repository owner. The repository owner has the sole right to copy, distribute, modify, merge, publish, sublicense, and/or sell copies of the contributed materials, and to permit persons to whom the materials are furnished to do so, subject to the terms of the license associated with this repository.
+
+This agreement is intended to provide the repository owner with the full freedom to manage the repository as they see fit, in accordance with the inbound=outbound model as described in GitHub's Terms of Service. It ensures that the contributions can be managed seamlessly, promoting the growth and development of the project.
+
+By contributing to this project, you acknowledge that you have read, understood, and agree to these terms.
+
+===========================================================================================================================================================================
 
 Discord.net license:
 The MIT License (MIT)
