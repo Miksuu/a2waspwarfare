@@ -14,12 +14,14 @@ def copy_files(src_folder, exclude_files, exclude_folders):
 
 def paste_files(target_folders, files_to_copy, src_folder):
     for folder in target_folders:
+        exclude_folder_path = os.path.join(folder, "Townsound")  # Define the path to the Townsound folder to exclude it
         for file in files_to_copy:
             relative_path = os.path.relpath(file, src_folder)
             target_path = os.path.join(folder, relative_path)
-            os.makedirs(os.path.dirname(target_path), exist_ok=True)
-            shutil.copy(file, target_path)
-            print(f"Copied {file} to {target_path}")
+            if exclude_folder_path not in target_path:  # Check if the target path is not within the Townsound folder
+                os.makedirs(os.path.dirname(target_path), exist_ok=True)
+                shutil.copy(file, target_path)
+                print(f"Copied {file} to {target_path}")
 
 def main():
     current_directory = os.path.dirname(os.path.realpath(__file__))
