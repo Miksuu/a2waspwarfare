@@ -706,6 +706,9 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 						_structures = missionNamespace getVariable Format["WFBE_%1STRUCTURENAMES",sideJoinedText];
 						_defenses = missionNamespace getVariable Format["WFBE_%1DEFENSENAMES",sideJoinedText];
 
+						_area = [_pos,((sidejoined) Call WFBE_CO_FNC_GetSideLogic) getVariable "wfbe_basearea"] Call WFBE_CO_FNC_GetClosestEntity2;
+						_get = _area getVariable 'avail';
+
 						_find = _structures find _class;
 						if (_find != -1) then {
 							//--- Increment the buildings.
@@ -721,13 +724,12 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 						if (_class in _defenses) then {
 							["RequestDefense", [sideJoined,_class,_pos,_dir,manningDefense]] Call WFBE_CO_FNC_SendToServer;
 							lastBuilt = _par;
-							_area = [_pos,((sidejoined) Call WFBE_CO_FNC_GetSideLogic) getVariable "wfbe_basearea"] Call WFBE_CO_FNC_GetClosestEntity2;
-							_get = _area getVariable 'avail';
+							
 							if (!isNull _area && _get > 0) then {
 							_commanderTeam =(sideJoined) Call WFBE_CO_FNC_GetCommanderTeam;
 							_area setVariable [ "avail" ,_get -1];
-							hintSilent parseText format ["Available Items : " +"<t color='#00FF00'>"+" %1"+"</t>", _area getVariable 'avail'];
-							[leader _commanderTeam, "Available", _area getVariable 'avail'] Call WFBE_CO_FNC_SendToClient;};
+							hintSilent parseText format ["Available Items : " +"<t color='#00FF00'>"+" %1"+"</t>", _get];
+							[leader _commanderTeam, "Available", _get] Call WFBE_CO_FNC_SendToClient;};
 						};
 					};
 				};
