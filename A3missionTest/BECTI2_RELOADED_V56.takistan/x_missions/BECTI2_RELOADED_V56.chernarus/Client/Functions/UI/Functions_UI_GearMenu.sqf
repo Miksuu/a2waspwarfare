@@ -11,7 +11,9 @@ CTI_UI_Gear_DisplayInventoryVehicle = {
 	{
 		_item = _x;
 		if !(_item in _list) then {
-			_count = {_x == _item} count _gear;
+		//ofps fix
+		//if (({_x isEqualTo _item} count _list) < 1) then {
+		_count = {_x == _item} count _gear;
 			_config = (_item) call CTI_UI_Gear_GetItemBaseConfig;
 			lnbAddRow [70109, [format ["x%1", _count], format ["%1", getText(configFile >> _config >> _item >> 'displayName')]]];
 			lnbSetPicture [70109, [_u, 0], getText(configFile >> _config >> _item >> 'picture')];
@@ -27,6 +29,15 @@ CTI_UI_Gear_AddVehicleItem = {
 	private ["_gear", "_item"];
 	_gear = _this select 0;
 	_item = _this select 1;
+	
+	//mass check
+	_mass = uiNamespace getVariable "CTI_dialog_ui_gear_target_gear_mass";
+	_container_capacity = _mass select 0;
+	_container_items_mass = _mass select 1;	
+	_progress = if (_container_capacity != 0) then {_container_items_mass / _container_capacity} else {0};
+	//systemChat str _progress;
+	if (_progress >=1)exitWith{};//container is full
+	
 	
 	_gear pushBack _item;
 	
@@ -721,7 +732,7 @@ CTI_UI_Gear_ReplaceContainer = {
 				};
 
 				deleteVehicle _muli;
-	
+				deleteGroup _grp_get_fkn_PREFILLED;
 			
 			
 			//(_gear select 1) set [_container, [_item,[]]];

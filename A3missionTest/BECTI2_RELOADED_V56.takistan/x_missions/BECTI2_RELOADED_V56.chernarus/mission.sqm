@@ -19,7 +19,7 @@ class EditorData
 	};
 };
 binarizationWanted=0;
-sourceName="BECTI2_RELOADED_V56";
+sourceName="positionen";
 addons[]=
 {
 	"A3_Ui_F",
@@ -116,7 +116,7 @@ class Mission
 {
 	class Intel
 	{
-		briefingName="BECTI2 RELOADED CHERNARUS V56 sv=20240124_2";
+		briefingName="BECTI2 RELOADED CHERNARUS V56 sv=20240206";
 		overviewText="Arma2 BECTI --> Arma3";
 		resistanceWest=0;
 		startWeather=0;
@@ -1773,7 +1773,7 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={5917,304,7943};
+				position[]={5916,306,7910};
 				angles[]={0,2.0587823,0};
 			};
 			side="Empty";
@@ -1784,7 +1784,7 @@ class Mission
 			};
 			id=84;
 			type="LocationCamp_F";
-			atlOffset=0.71533203;
+			atlOffset=0.43270874;
 		};
 		class Item82
 		{
@@ -5439,12 +5439,13 @@ class Mission
 			dataType="Logic";
 			class PositionInfo
 			{
-				position[]={5915,305.67596,7892};
-				angles[]={0.058600098,4.9741883,6.1585021};
+				position[]={5916,307.65393,7866};
+				angles[]={0.11548305,4.9741883,6.0986438};
 			};
 			init="this setVariable ['cti_defense_kind', ['CMG']];";
 			id=230;
 			type="Logic";
+			atlOffset=3.0517578e-005;
 		};
 		class Item197
 		{

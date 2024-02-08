@@ -300,7 +300,6 @@ cti_CL_FNC_AllCampsCaptured = Compile preprocessFileLineNumbers "Client\PVFuncti
 
 //--- Call the UI Functions
 call compile preprocessFile "Client\Functions\UI\Functions_UI_GearMenu.sqf";
-//call compile preprocessFile "Client\Functions\UI\Functions_UI_KeyHandlers.sqf";
 
 //--- Namespace related (GUI).
 BIS_FNC_GUIset = {UInamespace setVariable [_this select 0, _this select 1]};

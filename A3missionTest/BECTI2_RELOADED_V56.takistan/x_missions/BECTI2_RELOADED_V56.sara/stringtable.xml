@@ -3511,11 +3511,11 @@
         <Italian>Ricarica precedente</Italian>
       </Key>
 	  <Key ID="STR_WF_TOOLTIP_HeadbugFix">
-        <English>Fix Headbug</English>
-        <French>Règler Headbug</French>
-        <German>Headbug beheben</German>
-        <Russian>Исправить баг головы</Russian>
-        <Italian>Fix Headbug</Italian>
+        <English>GUI patch</English>
+        <French>patch d'interface graphique</French>
+        <German>GUI-Patch</German>
+        <Russian>Патч графического интерфейса</Russian>
+        <Italian>Patch della GUI</Italian>
       </Key>
 	  <Key ID="STR_WF_TOOLTIP_MainMenu_Purchase_Gear">
         <English>Weapon, Ammonition, Backpacks, Bags and Misc</English>
@@ -4923,7 +4923,4240 @@
         <Russian>прыжок!</Russian>
         <Italian>jump!</Italian>
 	 </Key>
+
+<!--US BARRACKS UNITS BECTI2 stuff -->		
 	
+	<Key ID="STR_WF_US_B1">
+        <English>Driver</English>
+        <French>Conducteur</French>
+        <German>Fahrer</German>
+        <Russian>Водитель</Russian>
+        <Italian>Autista</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_B2">
+        <English>Pilot[Jet]</English>
+        <French>Pilote[Jet]</French>
+        <German>Pilot[Jet]</German>
+        <Russian>Пилот[Джет]</Russian>
+        <Italian>Pilota[Jet]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_B3">
+        <English>Pilot[Helicopter]</English>
+        <French>Pilote[Hélicoptère]</French>
+        <German>Pilot[Hubschrauber]</German>
+        <Russian>Пилот[Вертолет]</Russian>
+        <Italian>Pilota[Elicottero]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_B4">
+        <English>Crewman</English>
+        <French>Membre d'équipage</French>
+        <German>Besatzungsmitglied</German>
+        <Russian>член экипажа</Russian>
+        <Italian>Membro dell'equipaggio</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_B5">
+        <English>Rifleman</English>
+        <French>Fusilier</French>
+        <German>Schütze</German>
+        <Russian>стрелок</Russian>
+        <Italian>Fuciliere</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_B6">
+        <English>Rifleman [Backpack]</English>
+        <French>Fusilier [Sac à dos]</French>
+        <German>Schütze [Rucksack]</German>
+        <Russian>стрелок [Рюкзак]</Russian>
+        <Italian>Fuciliere [Zaino]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B7">
+        <English>Rifleman [Law]</English>
+        <French>Fusilier [Law]</French>
+        <German>Schütze [Law]</German>
+        <Russian>стрелок [Law]</Russian>
+        <Italian>Fuciliere [Law]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B8">
+        <English>Medic</English>
+        <French>Médical</French>
+        <German>Mediziner</German>
+        <Russian>Медик</Russian>
+        <Italian>Medico</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_B9">
+        <English>Engineer [Mines]</English>
+        <French>Ingénieur [Mines]</French>
+        <German>Ingenieur [Minen]</German>
+        <Russian>Инженер [Мины]</Russian>
+        <Italian>Ingegnere [Miniere]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_B10">
+        <English>Automatic Rifleman [M16]</English>
+        <French>Automatique Fusilier [M16]</French>
+        <German>Automatik Schütze [M16]</German>
+        <Russian>Автоматический стрелок [M16]</Russian>
+        <Italian>Automatico Fuciliere [M16]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B11">
+        <English>Assistant Machine Gunner</English>
+        <French>Assistant Machine Canonnier</French>
+        <German>Assistent Maschinengewehrschütze</German>
+        <Russian>Ассистент Машина наводчик</Russian>
+        <Italian>Assistente Macchina Artigliere</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B12">
+        <English>Machine Gunner</English>
+        <French>Machine Canonnier</French>
+        <German>Maschinengewehrschütze</German>
+        <Russian>Машина наводчик</Russian>
+        <Italian>Macchina Artigliere</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_B13">
+        <English>Marksman</English>
+        <French>Buteur</French>
+        <German>Scharfschütze</German>
+        <Russian>стрелок</Russian>
+        <Italian>Tiratore scelto</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B14">
+        <English>Spotter</English>
+        <French>Observateur</French>
+        <German>Aufklärer</German>
+        <Russian>Корректировщик</Russian>
+        <Italian>Osservatore</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B15">
+       <English>Engineer [Explosives]</English>
+        <French>Ingénieur [des charges]</French>
+        <German>Ingenieur [Explosives]</German>
+        <Russian>Инженер [сборы]</Russian>
+        <Italian>Ingegnere [spese]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B16">
+        <English>Sniper</English>
+        <French>Tireur d'élite</French>
+        <German>Sniper</German>
+        <Russian>Снайпер</Russian>
+        <Italian>Cecchina</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B17">
+         <English>Assistant AT Specialist [Carl Gustaf]</English>
+        <French>Assistant anti réservoir Spécialiste [Carl Gustave]</French>
+        <German>Assistent AT Spezialist [Carl Gustaf]</German>
+        <Russian>Ассистент анти бак Специалист [Карл Густав]</Russian>
+        <Italian>Assistant anti cisterna Specialista [Carlo Gustavo]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B18">
+         <English>AT Specialist [Carl Gustaf]</English>
+        <French>anti réservoir Spécialiste [Carl Gustave]</French>
+        <German>AT Spezialist [Carl Gustaf]</German>
+        <Russian>анти бак Специалист [Карл Густав]</Russian>
+        <Italian>anti cisterna Specialista [Carlo Gustavo]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_B19">
+         <English>AA Specialist [Redeye]</English>
+        <French>anti Air Spécialiste [Occhi rossi]</French>
+        <German>AA Spezialist [Redeye]</German>
+        <Russian>анти Воздух Специалист [Красный глаз]</Russian>
+        <Italian>anti Aria Specialista [Yeux rouges]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_B20">
+         <English>Assistant AT Specialist [M67]</English>
+        <French>Assistant anti réservoir Spécialiste [M67]</French>
+        <German>Assistent AT Spezialist [M67]</German>
+        <Russian>Ассистент анти бак Специалист [M67]</Russian>
+        <Italian>Assistant anti cisterna Specialista [M67]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B21">
+         <English>AT Specialist [M67]</English>
+        <French>anti réservoir Spécialiste [M67]</French>
+        <German>AT Spezialist [M67]</German>
+        <Russian>анти бак Специалист [M67]</Russian>
+        <Italian>anti cisterna Specialista [M67]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B22">
+         <English>Assistant AT Specialist [M47]</English>
+       <French>Assistant anti réservoir Spécialiste [M47]</French>
+        <German>Assistent AT Spezialist [M47]</German>
+        <Russian>Ассистент анти бак Специалист [M47]</Russian>
+        <Italian>Assistant anti cisterna Specialista [M47]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B23">
+         <English>AT Specialist [M47]</English>
+        <French>anti réservoir Spécialiste [M47]</French>
+        <German>AT Spezialist [M47]</German>
+        <Russian>анти бак Специалист [M47]</Russian>
+        <Italian>anti cisterna Specialista [M47]</Italian>
+	 </Key>
+	 	 <Key ID="STR_WF_US_B24">
+        <English>Grenadier [Heavy]</English>
+        <French>Grenadier [Lourd]</French>
+        <German>Grenadier [Heavy]</German>
+        <Russian>гренадер [Тяжелый]</Russian>
+        <Italian>Granatiere [Pesante]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B25">
+        <English>Assistant Automatic Rifleman</English>
+        <French>Assistant Automatique Fusilier</French>
+        <German>Assistent Automatik Schütze</German>
+        <Russian>Ассистент Автоматический стрелок</Russian>
+        <Italian>Assistant Automatico Fuciliere</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B26">
+        <English>Automatic Rifleman [M249]</English>
+        <French>Automatique Fusilier [M249]</French>
+        <German>Automatik Schütze [M249]</German>
+        <Russian>Автоматический стрелок [M249]</Russian>
+        <Italian>Automatico Fuciliere [M249]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B27">
+        <English>Officer [Night]</English>
+        <French>Officier [Nuit]</French>
+        <German>Offizier [Nacht]</German>
+        <Russian>Офицер [Ночь]</Russian>
+        <Italian>Ufficiale [Notte]</Italian>
+	 </Key>
+	 	 <Key ID="STR_WF_US_B28">
+        <English>Squad Leader</English>
+        <French>Équipe Chef</French>
+        <German>Truppführer</German>
+        <Russian>Отряд Лидер</Russian>
+        <Italian>Squadra Capo</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B29">
+        <English>Rifleman [M14]</English>
+       <French>Fusilier [M14]</French>
+        <German>Schütze [M14]</German>
+        <Russian>стрелок [M14]</Russian>
+        <Italian>Fuciliere [M14]</Italian>
+	 </Key>
+	 	 <Key ID="STR_WF_US_B30">
+        <English>Grenadier</English>
+        <French>Grenadier</French>
+        <German>Grenadier</German>
+        <Russian>гренадер</Russian>
+        <Italian>Granatiere</Italian>
+	 </Key>
+	 	 <Key ID="STR_WF_US_B31">
+        <English>Pilot</English>
+        <French>Pilote</French>
+        <German>Pilot</German>
+        <Russian>Пилот</Russian>
+        <Italian>Pilota</Italian>
+	 </Key>
+	 	<Key ID="STR_WF_US_B32">
+        <English>Crewman</English>
+        <French>Membre d'équipage</French>
+        <German>Besatzungsmitglied</German>
+        <Russian>член экипажа</Russian>
+        <Italian>Membro dell'equipaggio</Italian>
+	 </Key>
+	 
+	 	 	<Key ID="STR_WF_US_B33">
+        <English>Rifleman</English>
+        <French>Fusilier</French>
+        <German>Schütze</German>
+        <Russian>стрелок</Russian>
+        <Italian>Fuciliere</Italian>
+	 </Key>
+	 	 	<Key ID="STR_WF_US_B34">
+        <English>Automatic Rifleman</English>
+        <French>Automatique Fusilier</French>
+        <German>Automatik Schütze</German>
+        <Russian>Автоматический стрелок</Russian>
+        <Italian>Automatico Fuciliere</Italian>
+	 </Key>
+	 	 	<Key ID="STR_WF_US_B35">
+        <English>Rifleman [M136]</English>
+        <French>Fusilier [M136]</French>
+        <German>Schütze [M136]</German>
+        <Russian>стрелок [M136]</Russian>
+        <Italian>Fuciliere [M136]</Italian>
+	 </Key>
+	 
+	 
+	 	 	 	<Key ID="STR_WF_US_B36">
+        <English>Machine Gunner</English>
+        <French>Machine Canonnier</French>
+        <German>Maschinengewehrschütze</German>
+        <Russian>Машина наводчик</Russian>
+        <Italian>Macchina Artigliere</Italian>
+	 </Key>
+	 	 	 	<Key ID="STR_WF_US_B37">
+        <English>Grenadier</English>
+        <French>Grenadier</French>
+        <German>Grenadier</German>
+        <Russian>гренадер</Russian>
+        <Italian>Granatiere</Italian>
+	 </Key>
+	 	 	 	<Key ID="STR_WF_US_B38">
+        <English>Marksman</English>
+       <French>Buteur</French>
+        <German>Scharfschütze</German>
+        <Russian>стрелок</Russian>
+        <Italian>Tiratore scelto</Italian>
+	 </Key>
+	 	 	 	<Key ID="STR_WF_US_B39">
+        <English>AT Specialist [SMAW]</English>
+         <French>anti réservoir Spécialiste [SMAW]</French>
+        <German>AT Spezialist [SMAW]</German>
+        <Russian>анти бак Специалист [SMAW]</Russian>
+        <Italian>anti cisterna Specialista [SMAW]</Italian>
+	 </Key>
+	 	 	 	<Key ID="STR_WF_US_B40">
+        <English>Engineer</English>
+        <French>Ingénieur</French>
+        <German>Ingenieur</German>
+        <Russian>Инженер</Russian>
+        <Italian>Ingegnere</Italian>
+	 </Key>
+	 	 	 	<Key ID="STR_WF_US_B41">
+        <English>Corpsman</English>
+        <French>Corpsman</French>
+        <German>Corpsman</German>
+        <Russian>санитар</Russian>
+        <Italian>Corpista</Italian>
+	 </Key>
+	 
+	 
+	 <Key ID="STR_WF_US_B42">
+        <English>AA Specialist [Stinger]</English>
+       <French>anti Air Spécialiste [Dard]</French>
+        <German>AA Spezialist [Stinger]</German>
+        <Russian>анти Воздух Специалист [Жало]</Russian>
+        <Italian>anti Aria Specialista [Pungiglione]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B43">
+        <English>Team Leader</English>
+        <French>groupe leader</French>
+        <German>Teamführer</German>
+        <Russian>группа Лидер</Russian>
+        <Italian>gruppo leader</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B44">
+        <English>Squad Leader</English>
+        <French>Équipe Chef</French>
+        <German>Truppführer</German>
+        <Russian>Отряд Лидер</Russian>
+        <Italian>Squadra Capo</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B45">
+        <English>Spotter</English>
+       <French>Observateur</French>
+        <German>Aufklärer</German>
+        <Russian>Корректировщик</Russian>
+        <Italian>Osservatore</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B46">
+        <English>Sniper</English>
+        <French>Tireur d'élite</French>
+        <German>Sniper</German>
+        <Russian>Снайпер</Russian>
+        <Italian>Cecchina</Italian>
+	 </Key>
+	 
+	 <Key ID="STR_WF_US_B47">
+        <English>Rifleman [M1014]</English>
+         <French>Fusilier [M1014]</French>
+        <German>Schütze [M1014]</German>
+        <Russian>стрелок [M1014]</Russian>
+        <Italian>Fuciliere [M1014]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B48">
+        <English>Black Op [Laserdesignator]</English>
+        <French>Noir Opérateur [Désignateur laser]</French>
+        <German>Black Op [Laserdesignator]</German>
+        <Russian>Черный Оператор [Лазерный целеуказатель]</Russian>
+        <Italian>Nero Operatore [Designatore laser]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B49">
+        <English>Sniper</English>
+        <French>Tireur d'élite</French>
+        <German>Sniper</German>
+        <Russian>Снайпер</Russian>
+        <Italian>Cecchina</Italian>
+	 </Key>
+	 
+	  <Key ID="STR_WF_US_B50">
+        <English>Sniper [M107]</English>
+       <French>Tireur d'élite [M107]</French>
+        <German>Sniper [M107]</German>
+        <Russian>Снайпер [M107]</Russian>
+        <Italian>Cecchina [M107]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B51">
+        <English>Spotter</English>
+         <French>Observateur</French>
+        <German>Aufklärer</German>
+        <Russian>Корректировщик</Russian>
+        <Italian>Osservatore</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B52">
+        <English>Sniper [TWS]</English>
+        <French>Tireur d'élite [TWS]</French>
+        <German>Sniper [TWS]</German>
+        <Russian>Снайпер [СПЦ]</Russian>
+        <Italian>Cecchina [TWS]</Italian>
+	 </Key>
+	  <Key ID="STR_WF_US_B53">
+        <English>Marksman</English>
+        <French>Buteur</French>
+        <German>Scharfschütze</German>
+        <Russian>стрелок</Russian>
+        <Italian>Tiratore scelto</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B54">
+        <English>Sniper [M107]</English>
+        <French>Tireur d'élite [M107]</French>
+        <German>Sniper [M107]</German>
+        <Russian>Снайпер [M107]</Russian>
+        <Italian>Cecchina [M107]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_B55">
+        <English>AT Specialist [Javelin]</English>
+        <French>anti réservoir Spécialiste [Javelot]</French>
+        <German>AT Spezialist [Javelin]</German>
+        <Russian>анти бак Специалист [Копье]</Russian>
+        <Italian>anti cisterna Specialista [Giavellotto]</Italian>
+	 </Key>
+	  <Key ID="STR_WF_US_B56">
+        <English>Special Operator [Explosives]</English>
+        <French>Spécial Opérateur [des charges]</French>
+        <German>Spezial Operator [Explosives]</German>
+        <Russian>Особенный Оператор [сборы]</Russian>
+        <Italian>Speciale Operatore [spese]</Italian>
+	 </Key>
+	 
+	 <!--UK BARRACKS UNITS BECTI2 stuff -->		
+	
+	<Key ID="STR_WF_UK_B1">
+         <English>Driver</English>
+        <French>Conducteur</French>
+        <German>Fahrer</German>
+        <Russian>Водитель</Russian>
+        <Italian>Autista</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_B2">
+        <English>Pilot[Jet]</English>
+        <French>Pilote[Jet]</French>
+        <German>Pilot[Jet]</German>
+        <Russian>Пилот[Джет]</Russian>
+        <Italian>Pilota[Jet]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_B3">
+        <English>Pilot[Helicopter]</English>
+        <French>Pilote[Hélicoptère]</French>
+        <German>Pilot[Hubschrauber]</German>
+        <Russian>Пилот[Вертолет]</Russian>
+        <Italian>Pilota[Elicottero]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_B4">
+        <English>Crewman</English>
+        <French>Membre d'équipage</French>
+        <German>Besatzungsmitglied</German>
+        <Russian>член экипажа</Russian>
+        <Italian>Membro dell'equipaggio</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_B5">
+         <English>Rifleman</English>
+        <French>Fusilier</French>
+        <German>Schütze</German>
+        <Russian>стрелок</Russian>
+        <Italian>Fuciliere</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_B6">
+       <English>Rifleman [Backpack]</English>
+        <French>Fusilier [Sac à dos]</French>
+        <German>Schütze [Rucksack]</German>
+        <Russian>стрелок [Рюкзак]</Russian>
+        <Italian>Fuciliere [Zaino]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_UK_B7">
+        <English>Rifleman [Law]</English>
+        <French>Fusilier [Law]</French>
+        <German>Schütze [Law]</German>
+        <Russian>стрелок [Law]</Russian>
+        <Italian>Fuciliere [Law]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_UK_B8">
+        <English>Medic</English>
+        <French>Médical</French>
+        <German>Mediziner</German>
+        <Russian>Медик</Russian>
+        <Italian>Medico</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_B9">
+        <English>Engineer [Mines]</English>
+        <French>Ingénieur [Mines]</French>
+        <German>Ingenieur [Minen]</German>
+        <Russian>Инженер [Мины]</Russian>
+        <Italian>Ingegnere [Miniere]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_B10">
+        <English>Automatic Rifleman</English>
+        <French>Automatique Fusilier</French>
+        <German>Automatik Schütze</German>
+        <Russian>Автоматический стрелок</Russian>
+        <Italian>Automatico Fuciliere</Italian>
+	 </Key>
+	 <Key ID="STR_WF_UK_B11">
+        <English>Assistant Machine Gunner</English>
+        <French>Assistant Machine Canonnier</French>
+        <German>Assistent Maschinengewehrschütze</German>
+        <Russian>Ассистент Машина наводчик</Russian>
+        <Italian>Assistente Macchina Artigliere</Italian>
+	 </Key>
+	 <Key ID="STR_WF_UK_B12">
+        <English>Machine Gunner</English>
+        <French>Machine Canonnier</French>
+        <German>Maschinengewehrschütze</German>
+        <Russian>Машина наводчик</Russian>
+        <Italian>Macchina Artigliere</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_B13">
+        <English>Marksman</English>
+        <French>Buteur</French>
+        <German>Scharfschütze</German>
+        <Russian>стрелок</Russian>
+        <Italian>Tiratore scelto</Italian>
+	 </Key>
+	 <Key ID="STR_WF_UK_B14">
+         <English>Spotter</English>
+        <French>Observateur</French>
+        <German>Aufklärer</German>
+        <Russian>Корректировщик</Russian>
+        <Italian>Osservatore</Italian>
+	 </Key>
+	 <Key ID="STR_WF_UK_B15">
+         <English>Engineer [Explosives]</English>
+        <French>Ingénieur [des charges]</French>
+        <German>Ingenieur [Explosives]</German>
+        <Russian>Инженер [сборы]</Russian>
+        <Italian>Ingegnere [spese]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_UK_B16">
+         <English>Sniper</English>
+        <French>Tireur d'élite</French>
+        <German>Sniper</German>
+        <Russian>Снайпер</Russian>
+        <Italian>Cecchina</Italian>
+	 </Key>
+	 <Key ID="STR_WF_UK_B17">
+         <English>Assistant AT Specialist [Carl Gustaf]</English>
+        <French>Assistant anti réservoir Spécialiste [Carl Gustave]</French>
+        <German>Assistent AT Spezialist [Carl Gustaf]</German>
+        <Russian>Ассистент анти бак Специалист [Карл Густав]</Russian>
+        <Italian>Assistant anti cisterna Specialista [Carlo Gustavo]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_UK_B18">
+         <English>AT Specialist [Carl Gustaf]</English>
+        <French>anti réservoir Spécialiste [Carl Gustave]</French>
+        <German>AT Spezialist [Carl Gustaf]</German>
+        <Russian>анти бак Специалист [Карл Густав]</Russian>
+        <Italian>anti cisterna Specialista [Carlo Gustavo]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_B19">
+         <English>Assistant AA Specialist [Javelin]</English>
+        <French>Assistant anti Air Spécialiste [Javelot]</French>
+        <German>Assistent AA Spezialist [Javelin]</German>
+        <Russian>Ассистент анти Воздух Специалист [Копье]</Russian>
+        <Italian>Assistant anti Aria Specialista [Giavellotto]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_B20">
+         <English>AA Specialist [Javelin]</English>
+        <French>anti Air Spécialiste [Javelot]</French>
+        <German>AA Spezialist [Javelin]</German>
+        <Russian>анти Воздух Специалист [Копье]</Russian>
+        <Italian>anti Aria Specialista [Giavellotto]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_UK_B21">
+         <English>Team Leader</English>
+        <French>groupe leader</French>
+        <German>Teamführer</German>
+        <Russian>группа leader</Russian>
+        <Italian>gruppo leader</Italian>
+	 </Key>
+	 <Key ID="STR_WF_UK_B22">
+         <English>Pilot</English>
+        <French>Pilote</French>
+        <German>Pilot</German>
+        <Russian>Пилот</Russian>
+        <Italian>Pilota</Italian>
+	 </Key>
+	 <Key ID="STR_WF_UK_B23">
+         <English>Crewman</English>
+        <French>Membre d'équipage</French>
+        <German>Besatzungsmitglied</German>
+        <Russian>член экипажа</Russian>
+        <Italian>Membro dell'equipaggio</Italian>
+	 </Key>
+	 	 <Key ID="STR_WF_UK_B24">
+        <English>Rifleman</English>
+        <French>Fusilier</French>
+        <German>Schütze</German>
+        <Russian>стрелок</Russian>
+        <Italian>Fuciliere</Italian>
+	 </Key>
+	 <Key ID="STR_WF_UK_B25">
+        <English>Automatic Rifleman</English>
+        <French>Automatique Fusilier</French>
+        <German>Automatik Schütze</German>
+        <Russian>Автоматический стрелок</Russian>
+        <Italian>Automatico Fuciliere</Italian>
+	 </Key>
+	 <Key ID="STR_WF_UK_B26">
+        <English>Rifleman [M136]</English>
+        <French>Fusilier [M136]</French>
+        <German>Schütze [M136]</German>
+        <Russian>стрелок [M136]</Russian>
+        <Italian>Fuciliere [M136]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_UK_B27">
+        <English>Machine Gunner</English>
+        <French>Machine Canonnier</French>
+        <German>Maschinengewehrschütze</German>
+        <Russian>Машина наводчик</Russian>
+        <Italian>Macchina Artigliere</Italian>
+	 </Key>
+	 	 <Key ID="STR_WF_UK_B28">
+        <English>Grenadier</English>
+        <French>Grenadier</French>
+        <German>Grenadier</German>
+        <Russian>гренадер</Russian>
+        <Italian>Granatiere</Italian>
+	 </Key>
+	 <Key ID="STR_WF_UK_B29">
+        <English>Marksman</English>
+        <French>Buteur</French>
+        <German>Scharfschütze</German>
+        <Russian>стрелок</Russian>
+        <Italian>Tiratore scelto</Italian>
+	 </Key>
+	 	 <Key ID="STR_WF_UK_B30">
+        <English>AT Specialist [NLAW]</English>
+         <French>anti réservoir Spécialiste [NLAW]</French>
+        <German>AT Spezialist [NLAW]</German>
+        <Russian>анти бак Специалист [НЗАК]</Russian>
+        <Italian>anti cisterna Specialista [NLAW]</Italian>
+	 </Key>
+	 	 <Key ID="STR_WF_UK_B31">
+        <English>Engineer</English>
+        <French>Ingénieur</French>
+        <German>Ingenieur</German>
+        <Russian>Инженер</Russian>
+        <Italian>Ingegnere</Italian>
+	 </Key>
+	 	<Key ID="STR_WF_UK_B32">
+        <English>Medic</English>
+        <French>Médical</French>
+        <German>Mediziner</German>
+        <Russian>Медик</Russian>
+        <Italian>Medico</Italian>
+	 </Key>
+	 
+	 	 	<Key ID="STR_WF_UK_B33">
+        <English>AA Specialist [Stinger]</English>
+        <French>anti Air Spécialiste [Dard]</French>
+        <German>AA Spezialist [Stinger]</German>
+        <Russian>анти Воздух Специалист [Жало]</Russian>
+        <Italian>anti Aria Specialista [Pungiglione]</Italian>
+	 </Key>
+	 	 	<Key ID="STR_WF_UK_B34">
+        <English>Team Leader</English>
+       <French>groupe leader</French>
+        <German>Teamführer</German>
+        <Russian>группа Лидер</Russian>
+        <Italian>gruppo leader</Italian>
+	 </Key>
+	 	 	<Key ID="STR_WF_UK_B35">
+        <English>Squad Leader</English>
+        <French>Équipe Chef</French>
+        <German>Truppführer</German>
+        <Russian>Отряд Лидер</Russian>
+        <Italian>Squadra Capo</Italian>
+	 </Key>
+	 
+	 
+	 	 	 	<Key ID="STR_WF_UK_B36">
+        <English>Spotter</English>
+        <French>Observateur</French>
+        <German>Aufklärer</German>
+        <Russian>Корректировщик</Russian>
+        <Italian>Osservatore</Italian>
+	 </Key>
+	 	 	 	<Key ID="STR_WF_UK_B37">
+        <English>Spotter</English>
+        <French>Observateur</French>
+        <German>Aufklärer</German>
+        <Russian>Корректировщик</Russian>
+        <Italian>Osservatore</Italian>
+	 </Key>
+	 	 	 	<Key ID="STR_WF_UK_B38">
+        <English>Sniper [LRR]</English>
+         <French>Tireur d'élite [LRR]</French>
+        <German>Sniper [LRR]</German>
+        <Russian>Снайпер [ЛРР]</Russian>
+        <Italian>Cecchina [LRR]</Italian>
+	 </Key>
+	 	 	 	<Key ID="STR_WF_UK_B39">
+        <English>Sniper</English>
+        <French>Tireur d'élite</French>
+        <German>Sniper</German>
+        <Russian>Снайпер</Russian>
+        <Italian>Cecchina</Italian>
+	 </Key>
+	 	 	 	<Key ID="STR_WF_UK_B40">
+        <English>SAS Trooper [Laser,Night]</English>
+        <French>SAS Soldat [Laser,Nuit]</French>
+        <German>SAS Soldat [Laser,Nacht]</German>
+        <Russian>САС Солдат [Лазер,Ночь]</Russian>
+        <Italian>SAS Soldato [Laser,Notte]</Italian>
+	 </Key>
+	 	 	 	<Key ID="STR_WF_UK_B41">
+        <English>Spotter [Night]</English>
+        <French>Observateur [Nuit]</French>
+        <German>Aufklärer [Nacht]</German>
+        <Russian>Корректировщик [Ночь]</Russian>
+        <Italian>Osservatore [Notte]</Italian>
+	 </Key>
+	 
+	 
+	 <Key ID="STR_WF_UK_B42">
+        <English>Sniper [AS50]</English>
+        <French>Tireur d'élite [AS50]</French>
+        <German>Sniper [AS50]</German>
+        <Russian>Снайпер [АС50]</Russian>
+        <Italian>Cecchina [AS50]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_UK_B43">
+        <English>Sniper [AS50 TWS]</English>
+        <French>Tireur d'élite [AS50 TWS]</French>
+        <German>Sniper [AS50 TWS]</German>
+        <Russian>Снайпер [АС50 СПЦ]</Russian>
+        <Italian>Cecchina [AS50 TWS]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_UK_B44">
+        <English>AT Specialist [Javelin]</English>
+        <French>anti réservoir Spécialiste [Javelot]</French>
+        <German>AT Spezialist [Javelin]</German>
+        <Russian>анти бак Специалист [Копье]</Russian>
+        <Italian>anti cisterna Specialista [Giavellotto]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_UK_B45">
+        <English>Assistant AT Specialist [Javelin]</English>
+       <French>Assistant anti réservoir Spécialiste [Javelot]</French>
+        <German>Assistent AT Spezialist [Javelin]</German>
+        <Russian>Ассистент анти бак Специалист [Копье]</Russian>
+        <Italian>Assistant anti cisterna Specialista [Giavellotto]</Italian>
+	 </Key>
+	
+	
+	<!--RU BARRACKS UNITS BECTI2 stuff -->		
+	
+	<Key ID="STR_WF_RU_B1">
+        <English>Driver</English>
+        <French>Conducteur</French>
+        <German>Fahrer</German>
+        <Russian>Водитель</Russian>
+        <Italian>Autista</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_B2">
+        <English>Pilot[Jet]</English>
+        <French>Pilote[Jet]</French>
+        <German>Pilot[Jet]</German>
+        <Russian>Пилот[Джет]</Russian>
+        <Italian>Pilota[Jet]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_B3">
+        <English>Pilot[Helicopter]</English>
+        <French>Pilote[Hélicoptère]</French>
+        <German>Pilot[Hubschrauber]</German>
+        <Russian>Пилот[Вертолет]</Russian>
+        <Italian>Pilota[Elicottero]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_B4">
+        <English>Crewman</English>
+        <French>Membre d'équipage</French>
+        <German>Besatzungsmitglied</German>
+        <Russian>член экипажа</Russian>
+        <Italian>Membro dell'equipaggio</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_B5">
+        <English>Rifleman</English>
+        <French>Fusilier</French>
+        <German>Schütze</German>
+        <Russian>стрелок</Russian>
+        <Italian>Fuciliere</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_B6">
+        <English>Rifleman [Backpack]</English>
+        <French>Fusilier [Sac à dos]</French>
+        <German>Schütze [Rucksack]</German>
+        <Russian>стрелок [Рюкзак]</Russian>
+        <Italian>Fuciliere [Zaino]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B7">
+        <English>Rifleman [RPG-18]</English>
+        <French>Fusilier [RPG-18]</French>
+        <German>Schütze [RPG-18]</German>
+        <Russian>стрелок [РПГ-18]</Russian>
+         <Italian>Fuciliere [RPG-18]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B8">
+        <English>Medic</English>
+         <French>Médical</French>
+        <German>Mediziner</German>
+        <Russian>Медик</Russian>
+        <Italian>Medico</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_B9">
+        <English>Engineer [Mines]</English>
+        <French>Ingénieur [Mines]</French>
+        <German>Ingenieur [Minen]</German>
+        <Russian>Инженер [Мины]</Russian>
+        <Italian>Ingegnere [Miniere]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_B10">
+        <English>Automatic Rifleman</English>
+       <French>Automatique Fusilier</French>
+        <German>Automatik Schütze</German>
+        <Russian>Автоматический стрелок</Russian>
+        <Italian>Automatico Fuciliere</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B11">
+        <English>Assistant Machine Gunner</English>
+         <French>Assistant Machine Canonnier</French>
+        <German>Assistent Maschinengewehrschütze</German>
+        <Russian>Ассистент Машина наводчик</Russian>
+        <Italian>Assistente Macchina Artigliere</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B12">
+        <English>Machine Gunner</English>
+        <French>Machine Canonnier</French>
+        <German>Maschinengewehrschütze</German>
+        <Russian>Машина наводчик</Russian>
+        <Italian>Macchina Artigliere</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_B13">
+        <English>Marksman</English>
+        <French>Buteur</French>
+        <German>Scharfschütze</German>
+        <Russian>стрелок</Russian>
+        <Italian>Tiratore scelto</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B14">
+        <English>Spotter</English>
+        <French>Observateur</French>
+        <German>Aufklärer</German>
+        <Russian>Корректировщик</Russian>
+        <Italian>Osservatore</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B15">
+        <English>Engineer [Explosives]</English>
+         <French>Ingénieur [des charges]</French>
+        <German>Ingenieur [Explosives]</German>
+        <Russian>Инженер [сборы]</Russian>
+        <Italian>Ingegnere [spese]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B16">
+        <English>Sniper</English>
+         <French>Tireur d'élite</French>
+        <German>Sniper</German>
+        <Russian>Снайпер</Russian>
+        <Italian>Cecchina</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B17">
+         <English>AT Specialist [AT-4]</English>
+        <French>anti réservoir Spécialiste [AT-4]</French>
+        <German>AT Spezialist [AT-4]</German>
+        <Russian>анти бак Специалист [9К111]</Russian>
+        <Italian>anti cisterna Specialista [AT-4]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B18">
+         <English>Assistant AT Specialist [AT-4]</English>
+        <French>Assistant anti réservoir Spécialiste [AT-4]</French>
+        <German>Assistent AT Spezialist [AT-4]</German>
+        <Russian>Ассистент анти бак Специалист [9К111]</Russian>
+        <Italian>Assistant anti cisterna Specialista [AT-4]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_B19">
+         <English>AA Specialist [Strela]</English>
+        <French>anti Air Spécialiste [Stréla]</French>
+        <German>AA Spezialist [Strela]</German>
+        <Russian>анти Воздух Специалист [Стрела]</Russian>
+        <Italian>anti Aria Specialista [Strela]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_B20">
+         <English>Assistant AT Specialist [RPG-7]</English>
+        <French>Assistant anti réservoir Spécialiste [RPG-7]</French>
+        <German>Assistent AT Spezialist [RPG-7]</German>
+        <Russian>Ассистент анти бак Специалист [РПГ-7]</Russian>
+        <Italian>Assistant anti cisterna Specialista [RPG-7]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B21">
+         <English>AT Specialist [RPG-7]</English>
+        <French>anti réservoir Spécialiste [RPG-7]</French>
+        <German>AT Spezialist [RPG-7]</German>
+        <Russian>анти бак Специалист [РПГ-7]</Russian>
+        <Italian>anti cisterna Specialista [RPG-7]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B22">
+         <English>Grenadier [Heavy]</English>
+        <French>Grenadier [Lourd]</French>
+        <German>Grenadier [Heavy]</German>
+        <Russian>гренадер [Тяжелый]</Russian>
+        <Italian>Granatiere [Pesante]</Italian>
+	 </Key>
+	 
+	 <Key ID="STR_WF_RU_B23">
+        <English>Officer [Night]</English>
+        <French>Officier [Nuit]</French>
+        <German>Offizier [Nacht]</German>
+        <Russian>Офицер [Ночь]</Russian>
+        <Italian>Ufficiale [Notte]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B24">
+        <English>Squad Leader</English>
+        <French>Équipe Chef</French>
+        <German>Truppführer</German>
+        <Russian>Отряд Лидер</Russian>
+        <Italian>Squadra Capo</Italian>
+	 </Key>
+	
+	 <Key ID="STR_WF_RU_B25">
+        <English>Grenadier</English>
+        <French>Grenadier</French>
+        <German>Grenadier</German>
+        <Russian>гренадер</Russian>
+        <Italian>Granatiere</Italian>
+	 </Key>
+	 	 <Key ID="STR_WF_RU_B26">
+        <English>Pilot</English>
+        <French>Pilote</French>
+        <German>Pilot</German>
+        <Russian>Пилот</Russian>
+        <Italian>Pilota</Italian>
+	 </Key>
+	 	 <Key ID="STR_WF_RU_B27">
+        <English>Crewman</English>
+        <French>Membre d'équipage</French>
+        <German>Besatzungsmitglied</German>
+        <Russian>член экипажа</Russian>
+        <Italian>Membro dell'equipaggio</Italian>
+	 </Key>
+	 	<Key ID="STR_WF_RU_B28">
+        <English>Rifleman</English>
+        <French>Fusilier</French>
+        <German>Schütze</German>
+        <Russian>стрелок</Russian>
+        <Italian>Fuciliere</Italian>
+	 </Key>
+	 
+	 	 	<Key ID="STR_WF_RU_B29">
+        <English>Automatic Rifleman</English>
+       <French>Automatique Fusilier</French>
+        <German>Automatik Schütze</German>
+        <Russian>Автоматический стрелок</Russian>
+        <Italian>Automatico Fuciliere</Italian>
+	 </Key>
+	 	 	<Key ID="STR_WF_RU_B30">
+        <English>Rifleman [RPG-26]</English>
+        <French>Fusilier [RPG-26]</French>
+        <German>Schütze [RPG-26]</German>
+        <Russian>стрелок [РПГ-26]</Russian>
+        <Italian>Fuciliere [RPG-26]</Italian>
+	 </Key>
+	 	 	<Key ID="STR_WF_RU_B31">
+        <English>Machine Gunner</English>
+        <French>Machine Canonnier</French>
+        <German>Maschinengewehrschütze</German>
+        <Russian>Машина наводчик</Russian>
+        <Italian>Macchina Artigliere</Italian>
+	 </Key>
+	 
+	 
+	 	 	 	<Key ID="STR_WF_RU_B32">
+        <English>Grenadier</English>
+        <French>Grenadier</French>
+        <German>Grenadier</German>
+        <Russian>гренадер</Russian>
+        <Italian>Granatiere</Italian>
+	 </Key>
+	 	 	 	<Key ID="STR_WF_RU_B33">
+        <English>Marksman</English>
+        <French>Buteur</French>
+        <German>Scharfschütze</German>
+        <Russian>стрелок</Russian>
+        <Italian>Tiratore scelto</Italian>
+	 </Key>
+	 	 	 	<Key ID="STR_WF_RU_B34">
+        <English>Assistant AT Specialist [RPG-7]</English>
+       <French>Assistant anti réservoir Spécialiste [RPG-7]</French>
+        <German>Assistent AT Spezialist [RPG-7]</German>
+        <Russian>Ассистент анти бак Специалист [РПГ-7]</Russian>
+        <Italian>Assistant anti cisterna Specialista [RPG-7]</Italian>
+	 </Key>
+	 	 	 	<Key ID="STR_WF_RU_B35">
+        <English>AT Specialist [RPG-7]</English>
+        <French>anti réservoir Spécialiste [RPG-7]</French>
+        <German>AT Spezialist [RPG-7]</German>
+        <Russian>анти бак Специалист [РПГ-7]</Russian>
+        <Italian>anti cisterna Specialista [RPG-7]</Italian>
+	 </Key>
+	 	 	 	<Key ID="STR_WF_RU_B36">
+        <English>Engineer</English>
+        <French>Ingénieur</French>
+        <German>Ingenieur</German>
+        <Russian>Инженер</Russian>
+        <Italian>Ingegnere</Italian>
+	 </Key>
+	 	 	 	<Key ID="STR_WF_RU_B37">
+        <English>Corpsman</English>
+        <French>Corpsman</French>
+        <German>Corpsman</German>
+        <Russian>санитар</Russian>
+        <Italian>Corpista</Italian>
+	 </Key>
+	 
+	 
+	 <Key ID="STR_WF_RU_B38">
+		<English>AA Specialist [Igla]</English>
+       <French>anti Air Spécialiste [Igla]</French>
+        <German>AA Spezialist [Igla]</German>
+        <Russian>анти Воздух Специалист [Игла]</Russian>
+        <Italian>anti Aria Specialista [Igla]</Italian>
+		
+	 </Key>
+	 <Key ID="STR_WF_RU_B39">
+        <English>Team Leader</English>
+        <French>groupe leader</French>
+        <German>Teamführer</German>
+        <Russian>группа Лидер</Russian>
+        <Italian>gruppo leader</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B40">
+         <English>Squad Leader</English>
+        <French>Équipe Chef</French>
+        <German>Truppführer</German>
+        <Russian>Отряд Лидер</Russian>
+        <Italian>Squadra Capo</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B41">
+        <English>Spotter</English>
+        <French>Observateur</French>
+        <German>Aufklärer</German>
+        <Russian>Корректировщик</Russian>
+        <Italian>Osservatore</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B42">
+        <English>Sniper</English>
+        <French>Tireur d'élite</French>
+        <German>Sniper</German>
+        <Russian>Снайпер</Russian>
+        <Italian>Cecchina</Italian>
+	 </Key>
+	 
+	 <Key ID="STR_WF_RU_B43">
+        <English>Rifleman [Saiga]</English>
+        <French>Fusilier [Saïga]</French>
+        <German>Schütze [Saiga]</German>
+        <Russian>стрелок [Сайга]</Russian>
+        <Italian>Fuciliere [Saiga]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B44">
+        <English>AT Specialist [Metis HE]</English>
+        <French>anti réservoir Spécialiste [Métis HE]</French>
+        <German>AT Spezialist [Metis HE]</German>
+        <Russian>анти бак Специалист [Метис HE]</Russian>
+        <Italian>anti cisterna Specialista [Metis HE]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B45">
+        <English>Rifleman [Bizon SD,Laser]</English>
+        <French>Fusilier [Bizon SD,Laser]</French>
+        <German>Schütze [Bizon SD,Laser]</German>
+        <Russian>стрелок [Бизон SD,Лазер]</Russian>
+        <Italian>Fuciliere [Bizon SD,Laser]</Italian>
+	 </Key>
+	 
+	  <Key ID="STR_WF_RU_B46">
+        <English>Rifleman [night]</English>
+        <French>Fusilier [Nuit]</French>
+        <German>Schütze [Nacht]</German>
+        <Russian>стрелок [Ночь]</Russian>
+        <Italian>Fuciliere [Notte]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B47">
+        <English>Sniper [night]</English>
+        <French>Tireur d'élite [Nuit]</French>
+        <German>Sniper [Nacht]</German>
+        <Russian>Снайпер [Ночь]</Russian>
+        <Italian>Cecchina [Notte]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B48">
+        <English>Speznaz Scout</English>
+        <French>Speznaz Observateur</French>
+        <German>Speznaz Aufklärer</German>
+        <Russian>Speznaz Корректировщик</Russian>
+        <Italian>Speznaz Osservatore</Italian>
+	 </Key>
+	  <Key ID="STR_WF_RU_B49">
+        <English>Speznaz Scout [Night]</English>
+        <French>Speznaz Observateur [Nuit]</French>
+        <German>Speznaz Aufklärer [Nacht]</German>
+        <Russian>Speznaz Корректировщик [Ночь]</Russian>
+        <Italian>Speznaz Osservatore [Notte]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B50">
+        <English>Sniper [KSVK Desert]</English>
+        <French>Tireur d'élite [KSVK Désert]</French>
+        <German>Sniper [KSVK Desert]</German>
+        <Russian>Снайпер [КСВК Пустыня]</Russian>
+        <Italian>Cecchina [KSVK Deserto]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B51">
+        <English>Sniper [KSVK Woodland]</English>
+        <French>Tireur d'élite [KSVK Des bois]</French>
+        <German>Sniper [KSVK Woodland]</German>
+        <Russian>Снайпер [КСВК Вудленд]</Russian>
+        <Italian>Cecchina [KSVK Bosco]</Italian>
+	 </Key>
+	  <Key ID="STR_WF_RU_B52">
+        <English>Recon Marksman</English>
+        <French>Reconnaissance Buteur</French>
+        <German>Aufklärung Scharfschütze</German>
+        <Russian>Разведка стрелок</Russian>
+        <Italian>ricognizione Tiratore scelto</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B53">
+        <English>Recon Teamleader</English>
+        <French>Reconnaissance groupe leader</French>
+        <German>Aufklärung Teamführer</German>
+        <Russian>Разведка группа Лидер</Russian>
+        <Italian>ricognizione gruppo leader</Italian>
+	 </Key>
+	
+	<Key ID="STR_WF_RU_B54">
+        <English>Recon Rifleman [Explosives]</English>
+        <French>Reconnaissance Fusilier [des charges]</French>
+        <German>Aufklärung Schütze [Explosives]</German>
+        <Russian>Разведка стрелок [сборы]</Russian>
+        <Italian>ricognizione Fuciliere [spese]</Italian>
+	 </Key>
+	
+	<Key ID="STR_WF_RU_B55">
+        <English>Marksman</English>
+        <French>Buteur</French>
+        <German>Scharfschütze</German>
+        <Russian>стрелок</Russian>
+        <Italian>Tiratore scelto</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B56">
+        <English>Assistant AT Specialist [Metis]</English>
+        <French>Assistant anti réservoir Spécialiste [Metis]</French>
+        <German>Assistent AT Spezialist [Metis]</German>
+        <Russian>Ассистент анти бак Специалист [Метис]</Russian>
+        <Italian>Assistant anti cisterna Specialista [Metis]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B57">
+        <English>AT Specialist [Metis]</English>
+         <French>anti réservoir Spécialiste [Metis]</French>
+        <German>AT Spezialist [Metis]</German>
+        <Russian>анти бак Специалист [Метис]</Russian>
+        <Italian>anti cisterna Specialista [Metis]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_RU_B58">
+       <English>Specialist [Explosives]</English>
+         <French>Spécialiste [des charges]</French>
+        <German>Spezialist [Explosives]</German>
+        <Russian>Специалист [сборы]</Russian>
+        <Italian>Specialista [spese]</Italian>
+	 </Key>
+	
+	
+	
+	<!--ALL LIGHT UNITS BECTI2 stuff -->		
+	
+	<Key ID="STR_WF_ALL_L1">
+         <English>Medic Container [SPAWN]</English>
+        <French>Medic Container [SPAWN]</French>
+        <German>Medic Container [SPAWN]</German>
+        <Russian>Medic Container [SPAWN]</Russian>
+        <Italian>Medic Container [SPAWN]</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_L2">
+         <English>ECM Device [ECM]</English>
+        <French>ECM Device [ECM]</French>
+        <German>ECM Device [ECM]</German>
+        <Russian>ECM Device [ECM]</Russian>
+        <Italian>ECM Device [ECM]</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_L3">
+         <English>Bicycle</English>
+        <French>Bicycle</French>
+        <German>Bicycle</German>
+        <Russian>Bicycle</Russian>
+        <Italian>Bicycle</Italian>
+	 </Key>
+	
+		<Key ID="STR_WF_ALL_L4">
+         <English>Quadbike</English>
+        <French>Quadbike</French>
+        <German>Quadbike</German>
+        <Russian>Quadbike</Russian>
+        <Italian>Quadbike</Italian>
+	 </Key>
+	<!--BLU LIGHT UNITS BECTI2 stuff -->	
+	
+	<Key ID="STR_WF_BLU_L1">
+         <English>MAZ-7910 [Cargo 8slots]</English>
+        <French>MAZ-7910 [Cargo 8slots]</French>
+        <German>MAZ-7910 [Cargo 8slots]</German>
+        <Russian>MAZ-7910 [Cargo 8slots]</Russian>
+        <Italian>MAZ-7910 [Cargo 8slots]</Italian>
+	 </Key>
+	
+	<Key ID="STR_WF_BLU_L2">
+         <English>MAARS [M240]</English>
+        <French>MAARS [M240]</French>
+        <German>MAARS [M240]</German>
+        <Russian>MAARS [M240]</Russian>
+        <Italian>MAARS [M240]</Italian>
+	 </Key>
+	
+
+	
+	
+	<!--US LIGHT UNITS BECTI2 stuff -->	
+	<Key ID="STR_WF_US_L1">
+         <English>M1030</English>
+        <French>M1030</French>
+        <German>M1030</German>
+        <Russian>M1030</Russian>
+        <Italian>M1030</Italian>
+	 </Key>
+	<!--changed to BLU_L1,dont want  change numbers for all BECTI2 stuff -->
+	<Key ID="STR_WF_US_L2">
+         <English>MAZ-7910 [Cargo 8slots]</English>
+        <French>MAZ-7910 [Cargo 8slots]</French>
+        <German>MAZ-7910 [Cargo 8slots]</German>
+        <Russian>MAZ-7910 [Cargo 8slots]</Russian>
+        <Italian>MAZ-7910 [Cargo 8slots]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L3">
+         <English>M939 [Cargo [4]]</English>
+        <French>M939 [Cargo [4]]</French>
+        <German>M939 [Cargo [4]]</German>
+        <Russian>M939 [Cargo [4]]</Russian>
+        <Italian>M939 [Cargo [4]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L4">
+         <English>M1152 [ECV,Cargo[2]]</English>
+        <French>M1152 [ECV,Cargo[2]]</French>
+        <German>M1152 [ECV,Cargo[2]]</German>
+        <Russian>M1152 [ECV,Cargo[2]]</Russian>
+        <Italian>M1152 [ECV,Cargo[2]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L5">
+         <English>M1165 GMV [M134,Cargo[2]]</English>
+        <French>M1165 GMV [M134,Cargo[2]]</French>
+        <German>M1165 GMV [M134,Cargo[2]]</German>
+        <Russian>M1165 GMV [M134,Cargo[2]]</Russian>
+        <Italian>M1165 GMV [M134,Cargo[2]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L6">
+         <English>M1025 RECON SOV [M2,Cargo[2]]</English>
+        <French>M1025 RECON SOV [M2,Cargo[2]]</French>
+        <German>M1025 RECON SOV [M2,Cargo[2]]</German>
+        <Russian>M1025 RECON SOV [M2,Cargo[2]]</Russian>
+        <Italian>M1025 RECON SOV [M2,Cargo[2]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L7">
+         <English>M1025 RECON SOV [Mk19,Cargo[2]]</English>
+        <French>M1025 RECON SOV [Mk19,Cargo[2]]</French>
+        <German>M1025 RECON SOV [Mk19,Cargo[2]]</German>
+        <Russian>M1025 RECON SOV [Mk19,Cargo[2]]</Russian>
+        <Italian>M1025 RECON SOV [Mk19,Cargo[2]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L8">
+         <English>M151</English>
+        <French>M151</French>
+        <German>M151</German>
+        <Russian>M151</Russian>
+        <Italian>M151</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L9">
+         <English>M1038 [2 seater cargo,fording]</English>
+        <French>M1038 [2 seater cargo,fording]</French>
+        <German>M1038 [2 seater cargo,fording]</German>
+        <Russian>M1038 [2 seater cargo,fording]</Russian>
+        <Italian>M1038 [2 seater cargo,fording]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L10">
+         <English>M939 [Transport,Salvage]</English>
+        <French>M939 [Transport,Salvage]</French>
+        <German>M939 [Transport,Salvage]</German>
+        <Russian>M939 [Transport,Salvage]</Russian>
+        <Italian>M939 [Transport,Salvage]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L11">
+         <English>M151 [M2]</English>
+        <French>M151 [M2]</French>
+        <German>M151 [M2]</German>
+        <Russian>M151 [M2]</Russian>
+        <Italian>M151 [M2]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L12">
+         <English>M1025 [M240]</English>
+        <French>M1025 [M240]</French>
+        <German>M1025 [M240]</German>
+        <Russian>M1025 [M240]</Russian>
+        <Italian>M1025 [M240]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L13">
+         <English>M1165 GMV [M134]</English>
+        <French>M1165 GMV [M134]</French>
+        <German>M1165 GMV [M134]</German>
+        <Russian>M1165 GMV [M134]</Russian>
+        <Italian>M1165 GMV [M134]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L14">
+         <English>M1025 [Mk19]</English>
+        <French>M1025 [Mk19]</French>
+        <German>M1025 [Mk19]</German>
+        <Russian>M1025 [Mk19]</Russian>
+        <Italian>M1025 [Mk19]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L15">
+         <English>M1025 [M2]</English>
+        <French>M1025 [M2]</French>
+        <German>M1025 [M2]</German>
+        <Russian>M1025 [M2]</Russian>
+        <Italian>M1025 [M2]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L16">
+         <English>M1151 [Mk19]</English>
+        <French>M1151 [Mk19]</French>
+        <German>M1151 [Mk19]</German>
+        <Russian>M1151 [Mk19]</Russian>
+        <Italian>M1151 [Mk19]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L17">
+         <English>M1151 [M2]</English>
+        <French>M1151 [M2]</French>
+        <German>M1151 [M2]</German>
+        <Russian>M1151 [M2]</Russian>
+        <Italian>M1151 [M2]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L18">
+         <English>M939 [Ammo,Gearacess]</English>
+        <French>M939 [Ammo,Gearacess]</French>
+        <German>M939 [Ammo,Gearacess]</German>
+        <Russian>M939 [Ammo,Gearacess]</Russian>
+        <Italian>M939 [Ammo,Gearacess]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L19">
+         <English>M113A1</English>
+        <French>M113A1</French>
+        <German>M113A1</German>
+        <Russian>M113A1</Russian>
+        <Italian>M113A1</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L20">
+         <English>M997 [Ambulance,Spawn]</English>
+        <French>M997 [Ambulance,Spawn]</French>
+        <German>M997 [Ambulance,Spawn]</German>
+        <Russian>M997 [Ambulance,Spawn]</Russian>
+        <Italian>M997 [Ambulance,Spawn]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L21">
+         <English>M939 [Repair,Service,Buildmenu]</English>
+        <French>M939 [Repair,Service,Buildmenu]</French>
+        <German>M939 [Repair,Service,Buildmenu]</German>
+        <Russian>M939 [Repair,Service,Buildmenu]</Russian>
+        <Italian>M939 [Repair,Service,Buildmenu]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L22">
+         <English>RG-31 [M2]</English>
+        <French>RG-31 [M2]</French>
+        <German>RG-31 [M2]</German>
+        <Russian>RG-31 [M2]</Russian>
+        <Italian>RG-31 [M2]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L23">
+         <English>RG-31 [Mk19]</English>
+        <French>RG-31 [Mk19]</French>
+        <German>RG-31 [Mk19]</German>
+        <Russian>RG-31 [Mk19]</Russian>
+        <Italian>RG-31 [Mk19]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L24">
+         <English>M1036 [M220/TOW]</English>
+        <French>M1036 [M220/TOW]</French>
+        <German>M1036 [M220/TOW]</German>
+        <Russian>M1036 [M220/TOW]</Russian>
+        <Italian>M1036 [M220/TOW]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L25">
+         <English>M1135 [ATGMV]</English>
+        <French>M1135 [ATGMV]</French>
+        <German>M1135 [ATGMV]</German>
+        <Russian>M1135 [ATGMV]</Russian>
+        <Italian>M1135 [ATGMV]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L26">
+         <English>M1133 [Ambulance,Spawn]</English>
+        <French>M1133 [Ambulance,Spawn]</French>
+        <German>M1133 [Ambulance,Spawn]</German>
+        <Russian>M1133 [Ambulance,Spawn]</Russian>
+        <Italian>M1133 [Ambulance,Spawn]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L27">
+         <English>M1097 [Avenger]</English>
+        <French>M1097 [Avenger]</French>
+        <German>M1097 [Avenger]</German>
+        <Russian>M1097 [Avenger]</Russian>
+        <Italian>M1097 [Avenger]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L28">
+         <English>M1097 [Avenger,Radar]</English>
+        <French>M1097 [Avenger,Radar]</French>
+        <German>M1097 [Avenger,Radar]</German>
+        <Russian>M1097 [Avenger,Radar]</Russian>
+        <Italian>M1097 [Avenger,Radar]</Italian>
+	 </Key>
+	 
+	
+	
+	<Key ID="STR_WF_US_L29">
+         <English>M113A3</English>
+        <French>M113A3</French>
+        <German>M113A3</German>
+        <Russian>M113A3</Russian>
+        <Italian>M113A3</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_L30">
+         <English>LAV-25A1</English>
+        <French>LAV-25A1</French>
+        <German>LAV-25A1</German>
+        <Russian>LAV-25A1</Russian>
+        <Italian>LAV-25A1</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L31">
+         <English>M1126 ICV [M2,CROWS]</English>
+        <French>M1126 ICV [M2,CROWS]</French>
+        <German>M1126 ICV [M2,CROWS]</German>
+        <Russian>M1126 ICV [M2,CROWS]</Russian>
+        <Italian>M1126 ICV [M2,CROWS]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_L32">
+         <English>M1126 ICV [Mk19,CROWS]</English>
+        <French>M1126 ICV [Mk19,CROWS]</French>
+        <German>M1126 ICV [Mk19,CROWS]</German>
+        <Russian>M1126 ICV [Mk19,CROWS]</Russian>
+        <Italian>M1126 ICV [Mk19,CROWS]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L33">
+         <English>M1129 [MK19,Mortar]</English>
+        <French>M1129 [MK19,Mortar]</French>
+        <German>M1129 [MK19,Mortar]</German>
+        <Russian>M1129 [MK19,Mortar]</Russian>
+        <Italian>M1129 [MK19,Mortar]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_L34">
+         <English>M901 [ITV]</English>
+        <French>M901 [ITV]</French>
+        <German>M901 [ITV]</German>
+        <Russian>M901 [ITV]</Russian>
+        <Italian>M901 [ITV]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L35">
+         <English>C-RAM</English>
+        <French>C-RAM</French>
+        <German>C-RAM</German>
+        <Russian>C-RAM</Russian>
+        <Italian>C-RAM</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_L36">
+         <English>MEADS [AA]</English>
+        <French>MEADS [AA]</French>
+        <German>MEADS [AA]</German>
+        <Russian>MEADS [AA]</Russian>
+        <Italian>MEADS [AA]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L37">
+         <English>M113A3 [Ambulance,Spawn]</English>
+        <French>M113A3 [Ambulance,Spawn]</French>
+        <German>M113A3 [Ambulance,Spawn]</German>
+        <Russian>M113A3 [Ambulance,Spawn]</Russian>
+        <Italian>M113A3 [Ambulance,Spawn]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_L38">
+         <English>M1128 [MGS]</English>
+        <French>M1128 [MGS]</French>
+        <German>M1128 [MGS]</German>
+        <Russian>M1128 [MGS]</Russian>
+        <Italian>M1128 [MGS]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_L39">
+         <English>M163A1 [VADS]</English>
+        <French>M163A1 [VADS]</French>
+        <German>M163A1 [VADS]</German>
+        <Russian>M163A1 [VADS]</Russian>
+        <Italian>M163A1 [VADS]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_US_L40">
+         <English>M983 [MLRS]</English>
+        <French>M983 [MLRS]</French>
+        <German>M983 [MLRS]</German>
+        <Russian>M983 [MLRS]</Russian>
+        <Italian>M983 [MLRS]</Italian>
+	 </Key>
+	
+	
+		<!--UK LIGHT UNITS BECTI2 stuff -->	
+	<Key ID="STR_WF_UK_L1">
+         <English>MAN HX60 [Cargo[4]]</English>
+        <French>MAN HX60 [Cargo[4]]</French>
+        <German>MAN HX60 [Cargo[4]]</German>
+        <Russian>MAN HX60 [Cargo[4]]</Russian>
+        <Italian>MAN HX60 [Cargo[4]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L2">
+         <English>FV620 [Cargo[2]]</English>
+        <French>FV620 [Cargo[2]]</French>
+        <German>FV620 [Cargo[2]]</German>
+        <Russian>FV620 [Cargo[2]]</Russian>
+        <Italian>FV620 [Cargo[2]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L3">
+         <English>Coyote [L2A1,Cargo[2]]</English>
+        <French>Coyote [L2A1,Cargo[2]]</French>
+        <German>Coyote [L2A1,Cargo[2]]</German>
+        <Russian>Coyote [L2A1,Cargo[2]]</Russian>
+        <Italian>Coyote [L2A1,Cargo[2]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L4">
+         <English>Coyote [GMG,Cargo[2]]</English>
+        <French>Coyote [GMG,Cargo[2]]</French>
+        <German>Coyote [GMG,Cargo[2]]</German>
+        <Russian>Coyote [GMG,Cargo[2]]</Russian>
+        <Italian>Coyote [GMG,Cargo[2]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L5">
+         <English>Husky [GMG,Cargo[2]]</English>
+        <French>Husky [GMG,Cargo[2]]</French>
+        <German>Husky [GMG,Cargo[2]]</German>
+        <Russian>Husky [GMG,Cargo[2]]</Russian>
+        <Italian>Husky [GMG,Cargo[2]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L6">
+         <English>Husky [GPMG,Cargo[2]]</English>
+        <French>Husky [GPMG,Cargo[2]]</French>
+        <German>Husky [GPMG,Cargo[2]]</German>
+        <Russian>Husky [GPMG,Cargo[2]]</Russian>
+        <Italian>Husky [GPMG,Cargo[2]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L7">
+         <English>Wolfhound [LMG,Cargo[2]]</English>
+        <French>Wolfhound [LMG,Cargo[2]]</French>
+        <German>Wolfhound [LMG,Cargo[2]]</German>
+        <Russian>Wolfhound [LMG,Cargo[2]]</Russian>
+        <Italian>Wolfhound [LMG,Cargo[2]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L8">
+         <English>Wolfhound [HMG,Cargo[2]]</English>
+        <French>Wolfhound [HMG,Cargo[2]]</French>
+        <German>Wolfhound [HMG,Cargo[2]]</German>
+        <Russian>Wolfhound [HMG,Cargo[2]]</Russian>
+        <Italian>Wolfhound [HMG,Cargo[2]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L9">
+         <English>Wolfhound [GMG,Cargo[2]]</English>
+        <French>Wolfhound [GMG,Cargo[2]]</French>
+        <German>Wolfhound [GMG,Cargo[2]]</German>
+        <Russian>Wolfhound [GMG,Cargo[2]]</Russian>
+        <Italian>Wolfhound [GMG,Cargo[2]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L10">
+         <English>Land Rover</English>
+        <French>Land Rover</French>
+        <German>Land Rover</German>
+        <Russian>Land Rover</Russian>
+        <Italian>Land Rover</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L11">
+         <English>MAN HX58 [Transport,Salvage]</English>
+        <French>MAN HX58 [Transport,Salvage]</French>
+        <German>MAN HX58 [Transport,Salvage]</German>
+        <Russian>MAN HX58 [Transport,Salvage]</Russian>
+        <Italian>MAN HX58 [Transport,Salvage]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L12">
+         <English>Land Rover [GMG]</English>
+        <French>Land Rover [GMG]</French>
+        <German>Land Rover [GMG]</German>
+        <Russian>Land Rover [GMG]</Russian>
+        <Italian>Land Rover [GMG]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L13">
+         <English>Panther [GPMG]</English>
+        <French>Panther [GPMG]</French>
+        <German>Panther [GPMG]</German>
+        <Russian>Panther [GPMG]</Russian>
+        <Italian>Panther [GPMG]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L14">
+         <English>Jackal2 [L2A1]</English>
+        <French>Jackal2 [L2A1]</French>
+        <German>Jackal2 [L2A1]</German>
+        <Russian>Jackal2 [L2A1]</Russian>
+        <Italian>Jackal2 [L2A1]</Italian>
+	 </Key>
+	 	<Key ID="STR_WF_UK_L15">
+         <English>Jackal2 [GMG]</English>
+        <French>Jackal2 [GMG]</French>
+        <German>Jackal2 [GMG]</German>
+        <Russian>Jackal2 [GMG]</Russian>
+        <Italian>Jackal2 [GMG]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L16">
+         <English>FV620 [Ammo,Gear]</English>
+        <French>FV620 [Ammo,Gear]</French>
+        <German>FV620 [Ammo,Gear]</German>
+        <Russian>FV620 [Ammo,Gear]</Russian>
+        <Italian>FV620 [Ammo,Gear]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L17">
+         <English>FV432 [GPMG]</English>
+        <French>FV432 [GPMG]</French>
+        <German>FV432 [GPMG]</German>
+        <Russian>FV432 [GPMG]</Russian>
+        <Italian>FV432 [GPMG]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L18">
+         <English>Land Rover [Ambulance,Spawn]</English>
+        <French>Land Rover [Ambulance,Spawn]</French>
+        <German>Land Rover [Ambulance,Spawn]</German>
+        <Russian>Land Rover [Ambulance,Spawn]</Russian>
+        <Italian>Land Rover [Ambulance,Spawn]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L19">
+         <English>Land Rover [big Ambulance,Spawn]</English>
+        <French>Land Rover [big Ambulance,Spawn]</French>
+        <German>Land Rover [big Ambulance,Spawn]</German>
+        <Russian>Land Rover [big Ambulance,Spawn]</Russian>
+        <Italian>Land Rover [big Ambulance,Spawn]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L20">
+         <English>MAN HX60 [Repair,Service,Buildmenu]</English>
+        <French>MAN HX60 [Repair,Service,Buildmenu]</French>
+        <German>MAN HX60 [Repair,Service,Buildmenu]</German>
+        <Russian>MAN HX60 [Repair,Service,Buildmenu]</Russian>
+        <Italian>MAN HX60 [Repair,Service,Buildmenu]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L21">
+         <English>Pandur-II [Mk19]</English>
+        <French>Pandur-II [Mk19]</French>
+        <German>Pandur-II [Mk19]</German>
+        <Russian>Pandur-II [Mk19]</Russian>
+        <Italian>Pandur-II [Mk19]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L22">
+         <English>Pandur-II [M2]</English>
+        <French>Pandur-II [M2]</French>
+        <German>Pandur-II [M2]</German>
+        <Russian>Pandur-II [M2]</Russian>
+        <Italian>Pandur-II [M2]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L23">
+         <English>Ridgeback [LMG]</English>
+        <French>Ridgeback [LMG]</French>
+        <German>Ridgeback [LMG]</German>
+        <Russian>Ridgeback [LMG]</Russian>
+        <Italian>Ridgeback [LMG]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L24">
+         <English>Land Rover [MILAN]</English>
+        <French>Land Rover [MILAN]</French>
+        <German>Land Rover [MILAN]</German>
+        <Russian>Land Rover [MILAN]</Russian>
+        <Italian>Land Rover [MILAN]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L25">
+         <English>Pandur-II [HOT-2]</English>
+        <French>Pandur-II [HOT-2]</French>
+        <German>Pandur-II [HOT-2]</German>
+        <Russian>Pandur-II [HOT-2]</Russian>
+        <Italian>Pandur-II [HOT-2]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L26">
+         <English>Pandur-II [Ambulance,Spawn]</English>
+        <French>Pandur-II [Ambulance,Spawn]</French>
+        <German>Pandur-II [Ambulance,Spawn]</German>
+        <Russian>Pandur-II [Ambulance,Spawn]</Russian>
+        <Italian>Pandur-II [Ambulance,Spawn]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L27">
+         <English>Land Rover [AA]</English>
+        <French>Land Rover [AA]</French>
+        <German>Land Rover [AA]</German>
+        <Russian>Land Rover [AA]</Russian>
+        <Italian>Land Rover [AA]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L28">
+         <English>Pandur-II RWS [M2]</English>
+        <French>Pandur-II RWS [M2]</French>
+        <German>Pandur-II RWS [M2]</German>
+        <Russian>Pandur-II RWS [M2]</Russian>
+        <Italian>Pandur-II RWS [M2]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L29">
+         <English>Pandur-II [SP-30]</English>
+        <French>Pandur-II [SP-30]</French>
+        <German>Pandur-II [SP-30]</German>
+        <Russian>Pandur-II [SP-30]</Russian>
+        <Italian>Pandur-II [SP-30]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L30">
+         <English>Ridgeback [HMG]</English>
+        <French>Ridgeback [HMG]</French>
+        <German>Ridgeback [HMG]</German>
+        <Russian>Ridgeback [HMG]</Russian>
+        <Italian>Ridgeback [HMG]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L31">
+         <English>Ridgeback [GMG]</English>
+        <French>Ridgeback [GMG]</French>
+        <German>Ridgeback [GMG]</German>
+        <Russian>Ridgeback [GMG]</Russian>
+        <Italian>Ridgeback [GMG]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L32">
+         <English>Mastiff [LMG]</English>
+        <French>Mastiff [LMG]</French>
+        <German>Mastiff [LMG]</German>
+        <Russian>Mastiff [LMG]</Russian>
+        <Italian>Mastiff [LMG]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L33">
+         <English>Pandur-II [Mortar]</English>
+        <French>Pandur-II [Mortar]</French>
+        <German>Pandur-II [Mortar]</German>
+        <Russian>Pandur-II [Mortar]</Russian>
+        <Italian>Pandur-II [Mortar]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L34">
+         <English>NASAMS [AA]</English>
+        <French>NASAMS [AA]</French>
+        <German>NASAMS [AA]</German>
+        <Russian>NASAMS [AA]</Russian>
+        <Italian>NASAMS [AA]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L35">
+         <English>FV620 [Repair,Service,Buildmenu]</English>
+        <French>FV620 [Repair,Service,Buildmenu]</French>
+        <German>FV620 [Repair,Service,Buildmenu]</German>
+        <Russian>FV620 [Repair,Service,Buildmenu]</Russian>
+        <Italian>FV620 [Repair,Service,Buildmenu]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L36">
+         <English>Mastiff [HMG]</English>
+        <French>Mastiff [HMG]</French>
+        <German>Mastiff [HMG]</German>
+        <Russian>Mastiff [HMG]</Russian>
+        <Italian>Mastiff [HMG]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L37">
+         <English>Mastiff [GMG]</English>
+        <French>Mastiff [GMG]</French>
+        <German>Mastiff [GMG]</German>
+        <Russian>Mastiff [GMG]</Russian>
+        <Italian>Mastiff [GMG]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L38">
+         <English>Pandur-II [RCWS-30]</English>
+        <French>Pandur-II [RCWS-30]</French>
+        <German>Pandur-II [RCWS-30]</German>
+        <Russian>Pandur-II [RCWS-30]</Russian>
+        <Italian>Pandur-II [RCWS-30]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L39">
+         <English>FV432 [Ambulance,Spawn]</English>
+        <French>FV432 [Ambulance,Spawn]</French>
+        <German>FV432 [Ambulance,Spawn]</German>
+        <Russian>FV432 [Ambulance,Spawn]</Russian>
+        <Italian>FV432 [Ambulance,Spawn]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L40">
+         <English>Pandur-II [MGS]</English>
+        <French>Pandur-II [MGS]</French>
+        <German>Pandur-II [MGS]</German>
+        <Russian>Pandur-II [MGS]</Russian>
+        <Italian>Pandur-II [MGS]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L41">
+         <English>Pandur-II [RBS-70]</English>
+        <French>Pandur-II [RBS-70]</French>
+        <German>Pandur-II [RBS-70]</German>
+        <Russian>Pandur-II [RBS-70]</Russian>
+        <Italian>Pandur-II [RBS-70]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L42">
+         <English>CAESAR [Artillery]</English>
+        <French>CAESAR [Artillery]</French>
+        <German>CAESAR [Artillery]</German>
+        <Russian>CAESAR [Artillery]</Russian>
+        <Italian>CAESAR [Artillery]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_L43">
+         <English>Land Rover [UGV]</English>
+        <French>Land Rover [UGV]</French>
+        <German>Land Rover [UGV]</German>
+        <Russian>Land Rover [UGV]</Russian>
+        <Italian>Land Rover [UGV]</Italian>
+	 </Key>
+
+		<!--RU LIGHT UNITS BECTI2 stuff -->	
+	<Key ID="STR_WF_RU_L1">
+         <English>TT650</English>
+        <French>TT650</French>
+        <German>TT650</German>
+        <Russian>TT650</Russian>
+        <Italian>TT650</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L2">
+         <English>MAZ-7910 [Cargo[all]]</English>
+        <French>MAZ-7910 [Cargo[all]]</French>
+        <German>MAZ-7910 [Cargo[all]]</German>
+        <Russian>MAZ-7910 [Cargo[all]]</Russian>
+        <Italian>MAZ-7910 [Cargo[all]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L3">
+         <English>Ural-4320 [Cargo[4]]</English>
+        <French>Ural-4320 [Cargo[4]]</French>
+        <German>Ural-4320 [Cargo[4]]</German>
+        <Russian>Ural-4320 [Cargo[4]]</Russian>
+        <Italian>Ural-4320 [Cargo[4]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L4">
+         <English>UAZ-469 [Cargo[2]]</English>
+        <French>UAZ-469 [Cargo[2]]</French>
+        <German>UAZ-469 [Cargo[2]]</German>
+        <Russian>UAZ-469 [Cargo[2]]</Russian>
+        <Italian>UAZ-469 [Cargo[2]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L5">
+         <English>Hilux [Cargo[2]]</English>
+        <French>Hilux [Cargo[2]]</French>
+        <German>Hilux [Cargo[2]]</German>
+        <Russian>Hilux [Cargo[2]]</Russian>
+        <Italian>Hilux [Cargo[2]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L6">
+         <English>Datsun [PK,Cargo[2]]</English>
+        <French>Datsun [PK,Cargo[2]]</French>
+        <German>Datsun [PK,Cargo[2]]</German>
+        <Russian>Datsun [PK,Cargo[2]]</Russian>
+        <Italian>Datsun [PK,Cargo[2]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L7">
+         <English>BTR-40 [DShKM,Cargo[2]]</English>
+        <French>BTR-40 [DShKM,Cargo[2]]</French>
+        <German>BTR-40 [DShKM,Cargo[2]]</German>
+        <Russian>BTR-40 [DShKM,Cargo[2]]</Russian>
+        <Italian>BTR-40 [DShKM,Cargo[2]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L8">
+         <English>UAZ-452</English>
+        <French>UAZ-452</French>
+        <German>UAZ-452</German>
+        <Russian>UAZ-452</Russian>
+        <Italian>UAZ-452</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L9">
+         <English>Ural [Transport,Salvage]</English>
+        <French>Ural [Transport,Salvage]</French>
+        <German>Ural [Transport,Salvage]</German>
+        <Russian>Ural [Transport,Salvage]</Russian>
+        <Italian>Ural [Transport,Salvage]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L10">
+         <English>UAZ-469 [DShKM]</English>
+        <French>UAZ-469 [DShKM]</French>
+        <German>UAZ-469 [DShKM]</German>
+        <Russian>UAZ-469 [DShKM]</Russian>
+        <Italian>UAZ-469 [DShKM]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L11">
+         <English>UAZ-469 [AGS-30]</English>
+        <French>UAZ-469 [AGS-30]</French>
+        <German>UAZ-469 [AGS-30]</German>
+        <Russian>UAZ-469 [AGS-30]</Russian>
+        <Italian>UAZ-469 [AGS-30]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L12">
+         <English>Ural-4320 [ZU-23]</English>
+        <French>Ural-4320 [ZU-23]</French>
+        <German>Ural-4320 [ZU-23]</German>
+        <Russian>Ural-4320 [ZU-23]</Russian>
+        <Italian>Ural-4320 [ZU-23]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L13">
+         <English>UAZ-469 [SPG-9]</English>
+        <French>UAZ-469 [SPG-9]</French>
+        <German>UAZ-469 [SPG-9]</German>
+        <Russian>UAZ-469 [SPG-9]</Russian>
+        <Italian>UAZ-469 [SPG-9]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L14">
+         <English>GAZ-3937 Vodnik [2x PKM]</English>
+        <French>GAZ-3937 Vodnik [2x PKM]</French>
+        <German>GAZ-3937 Vodnik [2x PKM]</German>
+        <Russian>GAZ-3937 Vodnik [2x PKM]</Russian>
+        <Italian>GAZ-3937 Vodnik [2x PKM]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L15">
+         <English>GAZ-3937 Vodnik [AGS-30,PKM]</English>
+        <French>GAZ-3937 Vodnik [AGS-30,PKM]</French>
+        <German>GAZ-3937 Vodnik [AGS-30,PKM]</German>
+        <Russian>GAZ-3937 Vodnik [AGS-30,PKM]</Russian>
+        <Italian>GAZ-3937 Vodnik [AGS-30,PKM]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L16">
+         <English>Ural-4320 [Ammo,Gear]</English>
+        <French>Ural-4320 [Ammo,Gear]</French>
+        <German>Ural-4320 [Ammo,Gear]</German>
+        <Russian>Ural-4320 [Ammo,Gear]</Russian>
+        <Italian>Ural-4320 [Ammo,Gear]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L17">
+         <English>BRDM-2UM</English>
+        <French>BRDM-2UM</French>
+        <German>BRDM-2UM</German>
+        <Russian>BRDM-2UM</Russian>
+        <Italian>BRDM-2UM</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L18">
+         <English>BRDM2-MG [PK]</English>
+        <French>BRDM2-MG [PK]</French>
+        <German>BRDM2-MG [PK]</German>
+        <Russian>BRDM2-MG [PK]</Russian>
+        <Italian>BRDM2-MG [PK]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L19">
+         <English>UAZ-469 [Ambulance,Spawn]</English>
+        <French>UAZ-469 [Ambulance,Spawn]</French>
+        <German>UAZ-469 [Ambulance,Spawn]</German>
+        <Russian>UAZ-469 [Ambulance,Spawn]</Russian>
+        <Italian>UAZ-469 [Ambulance,Spawn]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L20">
+         <English>UAZ-452 [Ambulance,Spawn]</English>
+        <French>UAZ-452 [Ambulance,Spawn]</French>
+        <German>UAZ-452 [Ambulance,Spawn]</German>
+        <Russian>UAZ-452 [Ambulance,Spawn]</Russian>
+        <Italian>UAZ-452 [Ambulance,Spawn]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L21">
+         <English>Ural-4320 [Repair,Service,Buildmenu]</English>
+        <French>Ural-4320 [Repair,Service,Buildmenu]</French>
+        <German>Ural-4320 [Repair,Service,Buildmenu]</German>
+        <Russian>Ural-4320 [Repair,Service,Buildmenu]</Russian>
+        <Italian>Ural-4320 [Repair,Service,Buildmenu]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L22">
+         <English>GAZ-3937 Vodnik [KPVT]</English>
+        <French>GAZ-3937 Vodnik [KPVT]</French>
+        <German>GAZ-3937 Vodnik [KPVT]</German>
+        <Russian>GAZ-3937 Vodnik [KPVT]</Russian>
+        <Italian>GAZ-3937 Vodnik [KPVT]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L23">
+         <English>BRDM2-MG [DShK]</English>
+        <French>BRDM2-MG [DShK]</French>
+        <German>BRDM2-MG [DShK]</German>
+        <Russian>BRDM2-MG [DShK]</Russian>
+        <Italian>BRDM2-MG [DShK]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L24">
+         <English>BRDM2 [KPVT]</English>
+        <French>BRDM2 [KPVT]</French>
+        <German>BRDM2 [KPVT]</German>
+        <Russian>BRDM2 [KPVT]</Russian>
+        <Italian>BRDM2 [KPVT]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L25">
+         <English>UAZ-496 [Metis]</English>
+        <French>UAZ-496 [Metis]</French>
+        <German>UAZ-496 [Metis]</German>
+        <Russian>UAZ-496 [Metis]</Russian>
+        <Italian>UAZ-496 [Metis]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L26">
+         <English>BRDM2-9P124 [AT-2]</English>
+        <French>BRDM2-9P124 [AT-2]</French>
+        <German>BRDM2-9P124 [AT-2]</German>
+        <Russian>BRDM2-9P124 [AT-2]</Russian>
+        <Italian>BRDM2-9P124 [AT-2]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L27">
+         <English>BRDM2-9P122 [AT-3]</English>
+        <French>BRDM2-9P122 [AT-3]</French>
+        <German>BRDM2-9P122 [AT-3]</German>
+        <Russian>BRDM2-9P122 [AT-3]</Russian>
+        <Italian>BRDM2-9P122 [AT-3]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L28">
+         <English>GAZ-3937 Vodnik [Ambulance,Spawn]</English>
+        <French>GAZ-3937 Vodnik [Ambulance,Spawn]</French>
+        <German>GAZ-3937 Vodnik [Ambulance,Spawn]</German>
+        <Russian>GAZ-3937 Vodnik [Ambulance,Spawn]</Russian>
+        <Italian>GAZ-3937 Vodnik [Ambulance,Spawn]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L29">
+         <English>UAZ-469 [Igla]</English>
+        <French>UAZ-469 [Igla]</French>
+        <German>UAZ-469 [Igla]</German>
+        <Russian>UAZ-469 [Igla]</Russian>
+        <Italian>UAZ-469 [Igla]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L30">
+         <English>GAZ-3937 Vodnik [BPPU]</English>
+        <French>GAZ-3937 Vodnik [BPPU]</French>
+        <German>GAZ-3937 Vodnik [BPPU]</German>
+        <Russian>GAZ-3937 Vodnik [BPPU]</Russian>
+        <Italian>GAZ-3937 Vodnik [BPPU]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L31">
+         <English>BTR-60 [MWS]</English>
+        <French>BTR-60 [MWS]</French>
+        <German>BTR-60 [MWS]</German>
+        <Russian>BTR-60 [MWS]</Russian>
+        <Italian>BTR-60 [MWS]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L32">
+         <English>BTR-80</English>
+        <French>BTR-80</French>
+        <German>BTR-80</German>
+        <Russian>BTR-80</Russian>
+        <Italian>BTR-80</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L33">
+         <English>BRDM2M [KPVT,AGS]</English>
+        <French>BRDM2M [KPVT,AGS]</French>
+        <German>BRDM2M [KPVT,AGS]</German>
+        <Russian>BRDM2M [KPVT,AGS]</Russian>
+        <Italian>BRDM2M [KPVT,AGS]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L34">
+         <English>BTR-80 [MWS]</English>
+        <French>BTR-80 [MWS]</French>
+        <German>BTR-80 [MWS]</German>
+        <Russian>BTR-80 [MWS]</Russian>
+        <Italian>BTR-80 [MWS]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L35">
+         <English>BTR-60 [2A42]</English>
+        <French>BTR-60 [2A42]</French>
+        <German>BTR-60 [2A42]</German>
+        <Russian>BTR-60 [2A42]</Russian>
+        <Italian>BTR-60 [2A42]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L36">
+         <English>BM-21 Grad</English>
+        <French>BM-21 Grad</French>
+        <German>BM-21 Grad</German>
+        <Russian>BM-21 Grad</Russian>
+        <Italian>BM-21 Grad</Italian>
+	 </Key>
+	
+	
+	<Key ID="STR_WF_RU_L37">
+         <English>Pantir-S1 [SA22]</English>
+        <French>Pantir-S1 [SA22]</French>
+        <German>Pantir-S1 [SA22]</German>
+        <Russian>Pantir-S1 [SA22]</Russian>
+        <Italian>Pantir-S1 [SA22]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L38">
+         <English>BRDM2-9K31 [SA-9]</English>
+        <French>BRDM2-9K31 [SA-9]</French>
+        <German>BRDM2-9K31 [SA-9]</German>
+        <Russian>BRDM2-9K31 [SA-9]</Russian>
+        <Italian>BRDM2-9K31 [SA-9]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L39">
+         <English>BRDM2 [ATGM]</English>
+        <French>BRDM2 [ATGM]</French>
+        <German>BRDM2 [ATGM]</German>
+        <Russian>BRDM2 [ATGM]</Russian>
+        <Italian>BRDM2 [ATGM]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L40">
+         <English>MT-LB [Ambulance,Spawn]</English>
+        <French>MT-LB [Ambulance,Spawn]</French>
+        <German>MT-LB [Ambulance,Spawn]</German>
+        <Russian>MT-LB [Ambulance,Spawn]</Russian>
+        <Italian>MT-LB [Ambulance,Spawn]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L41">
+         <English>BTR-90</English>
+        <French>BTR-90</French>
+        <German>BTR-90</German>
+        <Russian>BTR-90</Russian>
+        <Italian>BTR-90</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L42">
+         <English>9K57M Urugan-M</English>
+        <French>9K57M Urugan-M</French>
+        <German>9K57M Urugan-M</German>
+        <Russian>9K57M Urugan-M</Russian>
+        <Italian>9K57M Urugan-M</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L43">
+         <English>A-222</English>
+        <French>A-222</French>
+        <German>A-222</German>
+        <Russian>A-222</Russian>
+        <Italian>A-222</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L44">
+         <English>9K58 Smerch</English>
+        <French>9K58 Smerch</French>
+        <German>9K58 Smerch</German>
+        <Russian>9K58 Smerch</Russian>
+        <Italian>9K58 Smerch</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_L45">
+         <English>MRK-27 [UGV]</English>
+        <French>MRK-27 [UGV]</French>
+        <German>MRK-27 [UGV]</German>
+        <Russian>MRK-27 [UGV]</Russian>
+        <Italian>MRK-27 [UGV]</Italian>
+	 </Key>
+	
+	
+	<!--US HEAVY UNITS BECTI2 stuff -->	
+	<Key ID="STR_WF_US_H1">
+         <English>AAVP7/A1</English>
+        <French>AAVP7/A1</French>
+        <German>AAVP7/A1</German>
+        <Russian>AAVP7/A1</Russian>
+        <Italian>AAVP7/A1</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_H2">
+         <English>M7 Bradley</English>
+        <French>M7 Bradley</French>
+        <German>M7 Bradley</German>
+        <Russian>M7 Bradley</Russian>
+        <Italian>M7 Bradley</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_H3">
+         <English>M41A1</English>
+        <French>M41A1</French>
+        <German>M41A1</German>
+        <Russian>M41A1</Russian>
+        <Italian>M41A1</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_H4">
+         <English>M60A3</English>
+        <French>M60A3</French>
+        <German>M60A3</German>
+        <Russian>M60A3</Russian>
+        <Italian>M60A3</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_H5">
+         <English>M2A2 Bradley IFV</English>
+        <French>M2A2 Bradley IFV</French>
+        <German>M2A2 Bradley IFV</German>
+        <Russian>M2A2 Bradley IFV</Russian>
+        <Italian>M2A2 Bradley IFV</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_H6">
+         <English>M163A1 VADS</English>
+        <French>M163A1 VADS</French>
+        <German>M163A1 VADS</German>
+        <Russian>M163A1 VADS</Russian>
+        <Italian>M163A1 VADS</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_H7">
+         <English>M1</English>
+        <French>M1</French>
+        <German>M1</German>
+        <Russian>M1</Russian>
+        <Italian>M1</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_H8">
+         <English>M270 MLRS [HE]</English>
+        <French>M270 MLRS [HE]</French>
+        <German>M270 MLRS [HE]</German>
+        <Russian>M270 MLRS [HE]</Russian>
+        <Italian>M270 MLRS [HE]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_H9">
+         <English>M1A1FEP</English>
+        <French>M1A1FEP</French>
+        <German>M1A1FEP</German>
+        <Russian>M1A1FEP</Russian>
+        <Italian>M1A1FEP</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_H10">
+         <English>M1A1SA</English>
+        <French>M1A1SA</French>
+        <German>M1A1SA</German>
+        <Russian>M1A1SA</Russian>
+        <Italian>M1A1SA</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_H11">
+         <English>M60A3 TTS</English>
+        <French>M60A3 TTS</French>
+        <German>M60A3 TTS</German>
+        <Russian>M60A3 TTS</Russian>
+        <Italian>M60A3 TTS</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_H12">
+         <English>M2A3 ERA Bradley IFV</English>
+        <French>M2A3 ERA Bradley IFV</French>
+        <German>M2A3 ERA Bradley IFV</German>
+        <Russian>M2A3 ERA Bradley IFV</Russian>
+        <Italian>M2A3 ERA Bradley IFV</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_H13">
+         <English>M1A1FEP [Full TUSK]</English>
+        <French>M1A1FEP [Full TUSK]</French>
+        <German>M1A1FEP [Full TUSK]</German>
+        <Russian>M1A1FEP [Full TUSK]</Russian>
+        <Italian>M1A1FEP [Full TUSK]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_H14">
+         <English>M1A2SEPv1 [TUSK II]</English>
+        <French>M1A2SEPv1 [TUSK II]</French>
+        <German>M1A2SEPv1 [TUSK II]</German>
+        <Russian>M1A2SEPv1 [TUSK II]</Russian>
+        <Italian>M1A2SEPv1 [TUSK II]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_H15">
+         <English>M6 Linebacker [AA]</English>
+        <French>M6 Linebacker [AA]</French>
+        <German>M6 Linebacker [AA]</German>
+        <Russian>M6 Linebacker [AA]</Russian>
+        <Italian>M6 Linebacker [AA]</Italian>
+	 </Key>
+	
+	 
+		
+	<!--UK HEAVY UNITS BECTI2 stuff -->	
+	<Key ID="STR_WF_UK_H1">
+         <English>FV432 Bulldog [L111A1,RWS]</English>
+        <French>FV432 Bulldog [L111A1,RWS]</French>
+        <German>FV432 Bulldog [L111A1,RWS]</German>
+        <Russian>FV432 Bulldog [L111A1,RWS]</Russian>
+        <Italian>FV432 Bulldog [L111A1,RWS]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_H2">
+         <English>FV432/3 Bulldog [GPMG]</English>
+        <French>FV432/3 Bulldog [GPMG]</French>
+        <German>FV432/3 Bulldog [GPMG]</German>
+        <Russian>FV432/3 Bulldog [GPMG]</Russian>
+        <Italian>FV432/3 Bulldog [GPMG]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_H3">
+         <English>FV510 Warrior</English>
+        <French>FV510 Warrior</French>
+        <German>FV510 Warrior</German>
+        <Russian>FV510 Warrior</Russian>
+        <Italian>FV510 Warrior</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_H4">
+         <English>FV107 Scimitar</English>
+        <French>FV107 Scimitar</French>
+        <German>FV107 Scimitar</German>
+        <Russian>FV107 Scimitar</Russian>
+        <Italian>FV107 Scimitar</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_H5">
+         <English>FV101 Scorpion</English>
+        <French>FV101 Scorpion</French>
+        <German>FV101 Scorpion</German>
+        <Russian>FV101 Scorpion</Russian>
+        <Italian>FV101 Scorpion</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_H6">
+         <English>MCV-80 Warrior</English>
+        <French>MCV-80 Warrior</French>
+        <German>MCV-80 Warrior</German>
+        <Russian>MCV-80 Warrior</Russian>
+        <Italian>MCV-80 Warrior</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_H7">
+         <English>FV4201 Chieftrain</English>
+        <French>FV4201 Chieftrain</French>
+        <German>FV4201 Chieftrain</German>
+        <Russian>FV4201 Chieftrain</Russian>
+        <Italian>FV4201 Chieftrain</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_H8">
+         <English>M270 MLRS [HE]</English>
+        <French>M270 MLRS [HE]</French>
+        <German>M270 MLRS [HE]</German>
+        <Russian>M270 MLRS [HE]</Russian>
+        <Italian>M270 MLRS [HE]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_H9">
+         <English>MCV-80 Warrior [SLAT]</English>
+        <French>MCV-80 Warrior [SLAT]</French>
+        <German>MCV-80 Warrior [SLAT]</German>
+        <Russian>MCV-80 Warrior [SLAT]</Russian>
+        <Italian>MCV-80 Warrior [SLAT]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_H10">
+         <English>FV4030 Challenger 1</English>
+        <French>FV4030 Challenger 1</French>
+        <German>FV4030 Challenger 1</German>
+        <Russian>FV4030 Challenger 1</Russian>
+        <Italian>FV4030 Challenger 1</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_H11">
+         <English>FV510 Warrior</English>
+        <French>FV510 Warrior</French>
+        <German>FV510 Warrior</German>
+        <Russian>FV510 Warrior</Russian>
+        <Italian>FV510 Warrior</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_H12">
+         <English>FV4034 Challenger 2</English>
+        <French>FV4034 Challenger 2</French>
+        <German>FV4034 Challenger 2</German>
+        <Russian>FV4034 Challenger 2</Russian>
+        <Italian>FV4034 Challenger 2</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_H13">
+         <English>FV510 Warrior [SLAT]</English>
+        <French>FV510 Warrior [SLAT]</French>
+        <German>FV510 Warrior [SLAT]</German>
+        <Russian>FV510 Warrior [SLAT]</Russian>
+        <Italian>FV510 Warrior [SLAT]</Italian>
+	 </Key>
+	
+	
+		<!--RU HEAVY UNITS BECTI2 stuff -->	
+	<Key ID="STR_WF_RU_H1">
+         <English>MT-LB LV</English>
+        <French>MT-LB LV</French>
+        <German>MT-LB LV</German>
+        <Russian>MT-LB LV</Russian>
+        <Italian>MT-LB LV</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_H2">
+         <English>BMP-2 [ZU-23]</English>
+        <French>BMP-2 [ZU-23]</French>
+        <German>BMP-2 [ZU-23]</German>
+        <Russian>BMP-2 [ZU-23]</Russian>
+        <Italian>BMP-2 [ZU-23]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_H3">
+         <English>PT-76B</English>
+        <French>PT-76B</French>
+        <German>PT-76B</German>
+        <Russian>PT-76B</Russian>
+        <Italian>PT-76B</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_H4">
+         <English>BMP-1</English>
+        <French>BMP-1</French>
+        <German>BMP-1</German>
+        <Russian>BMP-1</Russian>
+        <Italian>BMP-1</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_H5">
+         <English>BMP-1P</English>
+        <French>BMP-1P</French>
+        <German>BMP-1P</German>
+        <Russian>BMP-1P</Russian>
+        <Italian>BMP-1P</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_H6">
+         <English>T-55</English>
+        <French>T-55</French>
+        <German>T-55</German>
+        <Russian>T-55</Russian>
+        <Italian>T-55</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_H7">
+         <English>T-55A</English>
+        <French>T-55A</French>
+        <German>T-55A</German>
+        <Russian>T-55A</Russian>
+        <Italian>T-55A</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_H8">
+         <English>BMP-2 [Ambulance,Spawn]</English>
+        <French>BMP-2 [Ambulance,Spawn]</French>
+        <German>BMP-2 [Ambulance,Spawn]</German>
+        <Russian>BMP-2 [Ambulance,Spawn]</Russian>
+        <Italian>BMP-2 [Ambulance,Spawn]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_H9">
+         <English>T-55AMV</English>
+        <French>T-55AMV</French>
+        <German>T-55AMV</German>
+        <Russian>T-55AMV</Russian>
+        <Italian>T-55AMV</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_H10">
+         <English>BMP-2</English>
+        <French>BMP-2</French>
+        <German>BMP-2</German>
+        <Russian>BMP-2</Russian>
+        <Italian>BMP-2</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_H11">
+         <English>TOS-1A</English>
+        <French>TOS-1A</French>
+        <German>TOS-1A</German>
+        <Russian>TOS-1A</Russian>
+        <Italian>TOS-1A</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_H12">
+         <English>MT-LB [9K35M]</English>
+        <French>MT-LB [9K35M]</French>
+        <German>MT-LB [9K35M]</German>
+        <Russian>MT-LB [9K35M]</Russian>
+        <Italian>MT-LB [9K35M]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_H13">
+         <English>T-64B</English>
+        <French>T-64B</French>
+        <German>T-64B</German>
+        <Russian>T-64B</Russian>
+        <Italian>T-64B</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_H14">
+         <English>T-64BV</English>
+        <French>T-64BV</French>
+        <German>T-64BV</German>
+        <Russian>T-64BV</Russian>
+        <Italian>T-64BV</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_H15">
+         <English>T-72</English>
+        <French>T-72</French>
+        <German>T-72</German>
+        <Russian>T-72</Russian>
+        <Italian>T-72</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_H16">
+         <English>BMP-3</English>
+        <French>BMP-3</French>
+        <German>BMP-3</German>
+        <Russian>BMP-3</Russian>
+        <Italian>BMP-3</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_H17">
+         <English>ZSU-23-4</English>
+        <French>ZSU-23-4</French>
+        <German>ZSU-23-4</German>
+        <Russian>ZSU-23-4</Russian>
+        <Italian>ZSU-23-4</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_H18">
+         <English>T-72A</English>
+        <French>T-72A</French>
+        <German>T-72A</German>
+        <Russian>T-72A</Russian>
+        <Italian>T-72A</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_H19">
+         <English>T-72B1</English>
+        <French>T-72B1</French>
+        <German>T-72B1</German>
+        <Russian>T-72B1</Russian>
+        <Italian>T-72B1</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_H20">
+         <English>T-90A</English>
+        <French>T-90A</French>
+        <German>T-90A</German>
+        <Russian>T-90A</Russian>
+        <Italian>T-90A</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_H21">
+         <English>2S6M Tunguska-M</English>
+        <French>2S6M Tunguska-M</French>
+        <German>2S6M Tunguska-M</German>
+        <Russian>2S6M Tunguska-M</Russian>
+        <Italian>2S6M Tunguska-M</Italian>
+	 </Key>
+	
+		<!--US AIR UNITS BECTI2 stuff -->	
+	<Key ID="STR_WF_US_A1">
+         <English>MH-6J</English>
+        <French>MH-6J</French>
+        <German>MH-6J</German>
+        <Russian>MH-6J</Russian>
+        <Italian>MH-6J</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A2">
+         <English>T-41 Mescalero</English>
+        <French>T-41 Mescalero</French>
+        <German>T-41 Mescalero</German>
+        <Russian>T-41 Mescalero</Russian>
+        <Italian>T-41 Mescalero</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A3">
+         <English>C-130J</English>
+        <French>C-130J</French>
+        <German>C-130J</German>
+        <Russian>C-130J</Russian>
+        <Italian>C-130J</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A4">
+         <English>MV-22B Osprey</English>
+        <French>MV-22B Osprey</French>
+        <German>MV-22B Osprey</German>
+        <Russian>MV-22B Osprey</Russian>
+        <Italian>MV-22B Osprey</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A5">
+         <English>CH-53E Super Stallion</English>
+        <French>CH-53E Super Stallion</French>
+        <German>CH-53E Super Stallion</German>
+        <Russian>CH-53E Super Stallion</Russian>
+        <Italian>CH-53E Super Stallion</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A6">
+         <English>CH-47F</English>
+        <French>CH-47F</French>
+        <German>CH-47F</German>
+        <Russian>CH-47F</Russian>
+        <Italian>CH-47F</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A7">
+         <English>UH-60L [M134]</English>
+        <French>UH-60L [M134]</French>
+        <German>UH-60L [M134]</German>
+        <Russian>UH-60L [M134]</Russian>
+        <Italian>UH-60L [M134]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A8">
+         <English>T-41 Mescalero [Armed]</English>
+        <French>T-41 Mescalero [Armed]</French>
+        <German>T-41 Mescalero [Armed]</German>
+        <Russian>T-41 Mescalero [Armed]</Russian>
+        <Italian>T-41 Mescalero [Armed]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A9">
+         <English>UH-1Y Venom [Ambulance,Spawn]</English>
+        <French>UH-1Y Venom [Ambulance,Spawn]</French>
+        <German>UH-1Y Venom [Ambulance,Spawn]</German>
+        <Russian>UH-1Y Venom [Ambulance,Spawn]</Russian>
+        <Italian>UH-1Y Venom [Ambulance,Spawn]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A10">
+         <English>AH-6J</English>
+        <French>AH-6J</French>
+        <German>AH-6J</German>
+        <Russian>AH-6J</Russian>
+        <Italian>AH-6J</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A11">
+         <English>MH-60S Knighthawk [Hydra]</English>
+        <French>MH-60S Knighthawk [Hydra]</French>
+        <German>MH-60S Knighthawk [Hydra]</German>
+        <Russian>MH-60S Knighthawk [Hydra]</Russian>
+        <Italian>MH-60S Knighthawk [Hydra]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A12">
+         <English>UH-1Y Venom [Hydra]</English>
+        <French>UH-1Y Venom [Hydra]</French>
+        <German>UH-1Y Venom [Hydra]</German>
+        <Russian>UH-1Y Venom [Hydra]</Russian>
+        <Italian>UH-1Y Venom [Hydra]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A13">
+         <English>F-4E Phantom</English>
+        <French>F-4E Phantom</French>
+        <German>F-4E Phantom</German>
+        <Russian>F-4E Phantom</Russian>
+        <Italian>F-4E Phantom</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A14">
+         <English>AH-1S [MC]</English>
+        <French>AH-1S [MC]</French>
+        <German>AH-1S [MC]</German>
+        <Russian>AH-1S [MC]</Russian>
+        <Italian>AH-1S [MC]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A15">
+         <English>OH-58D [Armed]</English>
+        <French>OH-58D [Armed]</French>
+        <German>OH-58D [Armed]</German>
+        <Russian>OH-58D [Armed]</Russian>
+        <Italian>OH-58D [Armed]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A16">
+         <English>F-14A Tomcat [NSAWC]</English>
+        <French>F-14A Tomcat [NSAWC]</French>
+        <German>F-14A Tomcat [NSAWC]</German>
+        <Russian>F-14A Tomcat [NSAWC]</Russian>
+        <Italian>F-14A Tomcat [NSAWC]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A17">
+         <English>AH-64C</English>
+        <French>AH-64C</French>
+        <German>AH-64C</German>
+        <Russian>AH-64C</Russian>
+        <Italian>AH-64C</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A18">
+         <English>AH-64</English>
+        <French>AH-64</French>
+        <German>AH-64</German>
+        <Russian>AH-64</Russian>
+        <Italian>AH-64</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A19">
+         <English>F-15A Eagle</English>
+        <French>F-15A Eagle</French>
+        <German>F-15A Eagle</German>
+        <Russian>F-15A Eagle</Russian>
+        <Italian>F-15A Eagle</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A20">
+         <English>AV-8B Harrier II</English>
+        <French>AV-8B Harrier II</French>
+        <German>AV-8B Harrier II</German>
+        <Russian>AV-8B Harrier II</Russian>
+        <Italian>AV-8B Harrier II</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A21">
+         <English>A-10A Thunderbolt II</English>
+        <French>A-10A Thunderbolt II</French>
+        <German>A-10A Thunderbolt II</German>
+        <Russian>A-10A Thunderbolt II</Russian>
+        <Italian>A-10A Thunderbolt II</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A22">
+         <English>F-16C</English>
+        <French>F-16C</French>
+        <German>F-16C</German>
+        <Russian>F-16C</Russian>
+        <Italian>F-16C</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A23">
+         <English>EA-18G Growler [VAQ-141 CAG]</English>
+        <French>EA-18G Growler [VAQ-141 CAG]</French>
+        <German>EA-18G Growler [VAQ-141 CAG]</German>
+        <Russian>EA-18G Growler [VAQ-141 CAG]</Russian>
+        <Italian>EA-18G Growler [VAQ-141 CAG]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A24">
+         <English>AH-6X Littlebird [UAV]</English>
+        <French>AH-6X Littlebird [UAV]</French>
+        <German>AH-6X Littlebird [UAV]</German>
+        <Russian>AH-6X Littlebird [UAV]</Russian>
+        <Italian>AH-6X Littlebird [UAV]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A25">
+         <English>AV-8B Harrier II Plus</English>
+        <French>AV-8B Harrier II Plus</French>
+        <German>AV-8B Harrier II Plus</German>
+        <Russian>AV-8B Harrier II Plus</Russian>
+        <Italian>AV-8B Harrier II Plus</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A26">
+         <English>AH-1Z</English>
+        <French>AH-1Z</French>
+        <German>AH-1Z</German>
+        <Russian>AH-1Z</Russian>
+        <Italian>AH-1Z</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A27">
+         <English>AH-64D</English>
+        <French>AH-64D</French>
+        <German>AH-64D</German>
+        <Russian>AH-64D</Russian>
+        <Italian>AH-64D</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A28">
+         <English>MQ9 Reaper [UAV]</English>
+        <French>MQ9 Reaper [UAV]</French>
+        <German>MQ9 Reaper [UAV]</German>
+        <Russian>MQ9 Reaper [UAV]</Russian>
+        <Italian>MQ9 Reaper [UAV]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A29">
+         <English>F-22 Raptor</English>
+        <French>F-22 Raptor</French>
+        <German>F-22 Raptor</German>
+        <Russian>F-22 Raptor</Russian>
+        <Italian>F-22 Raptor</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A30">
+         <English>F-23A Grey Ghost [Black Widow]</English>
+        <French>F-23A Grey Ghost [Black Widow]</French>
+        <German>F-23A Grey Ghost [Black Widow]</German>
+        <Russian>F-23A Grey Ghost [Black Widow]</Russian>
+        <Italian>F-23A Grey Ghost [Black Widow]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A31">
+         <English>F-35B Lightning II</English>
+        <French>F-35B Lightning II</French>
+        <German>F-35B Lightning II</German>
+        <Russian>F-35B Lightning II</Russian>
+        <Italian>F-35B Lightning II</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A32">
+         <English>F-35B Lightning II [Stealth]</English>
+        <French>F-35B Lightning II [Stealth]</French>
+        <German>F-35B Lightning II [Stealth]</German>
+        <Russian>F-35B Lightning II [Stealth]</Russian>
+        <Italian>F-35B Lightning II [Stealth]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_A33">
+         <English>F-35B Lightning II [VMFA-251]</English>
+        <French>F-35B Lightning II [VMFA-251]</French>
+        <German>F-35B Lightning II [VMFA-251]</German>
+        <Russian>F-35B Lightning II [VMFA-251]</Russian>
+        <Italian>F-35B Lightning II [VMFA-251]</Italian>
+	 </Key>
+	
+	
+	
+			<!--UK AIR UNITS BECTI2 stuff -->	
+	<Key ID="STR_WF_UK_A1">
+         <English>AW159 Wildcat [unarmed]</English>
+        <French>AW159 Wildcat [unarmed]</French>
+        <German>AW159 Wildcat [unarmed]</German>
+        <Russian>AW159 Wildcat [unarmed]</Russian>
+        <Italian>AW159 Wildcat [unarmed]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_A2">
+         <English>Sopwith Camel</English>
+        <French>Sopwith Camel</French>
+        <German>Sopwith Camel</German>
+        <Russian>Sopwith Camel</Russian>
+        <Italian>Sopwith Camel</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_A3">
+         <English>C-130J</English>
+        <French>C-130J</French>
+        <German>C-130J</German>
+        <Russian>C-130J</Russian>
+        <Italian>C-130J</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_A4">
+         <English>Merlin HC3 24</English>
+        <French>Merlin HC3 24</French>
+        <German>Merlin HC3 24</German>
+        <Russian>Merlin HC3 24</Russian>
+        <Italian>Merlin HC3 24</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_A5">
+         <English>Chinook HC Mk.18</English>
+        <French>Chinook HC Mk.18</French>
+        <German>Chinook HC Mk.18</German>
+        <Russian>Chinook HC Mk.18</Russian>
+        <Italian>Chinook HC Mk.18</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_A6">
+         <English>Puma HC Mk.1</English>
+        <French>Puma HC Mk.1</French>
+        <German>Puma HC Mk.1</German>
+        <Russian>Puma HC Mk.1</Russian>
+        <Italian>Puma HC Mk.1</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_A7">
+         <English>Lynx AH.7 [unarmed]</English>
+        <French>Lynx AH.7 [unarmed]</French>
+        <German>Lynx AH.7 [unarmed]</German>
+        <Russian>Lynx AH.7 [unarmed]</Russian>
+        <Italian>Lynx AH.7 [unarmed]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_A8">
+         <English>Merlin HC4 CSAR</English>
+        <French>Merlin HC4 CSAR</French>
+        <German>Merlin HC4 CSAR</German>
+        <Russian>Merlin HC4 CSAR</Russian>
+        <Italian>Merlin HC4 CSAR</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_A9">
+         <English>UH-60L [Ambulance,Spawn]</English>
+        <French>UH-60L [Ambulance,Spawn]</French>
+        <German>UH-60L [Ambulance,Spawn]</German>
+        <Russian>UH-60L [Ambulance,Spawn]</Russian>
+        <Italian>UH-60L [Ambulance,Spawn]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_A10">
+         <English>AW159 Wildcat</English>
+        <French>AW159 Wildcat</French>
+        <German>AW159 Wildcat</German>
+        <Russian>AW159 Wildcat</Russian>
+        <Italian>AW159 Wildcat</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_A11">
+         <English>F-4M Phantom FGR.2</English>
+        <French>F-4M Phantom FGR.2</French>
+        <German>F-4M Phantom FGR.2</German>
+        <Russian>F-4M Phantom FGR.2</Russian>
+        <Italian>F-4M Phantom FGR.2</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_A12">
+         <English>Lynx AH.7 [TOW]</English>
+        <French>Lynx AH.7 [TOW]</French>
+        <German>Lynx AH.7 [TOW]</German>
+        <Russian>Lynx AH.7 [TOW]</Russian>
+        <Italian>Lynx AH.7 [TOW]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_A13">
+         <English>Wildcat AH1 6 Armed [Generic]</English>
+        <French>Wildcat AH1 6 Armed [Generic]</French>
+        <German>Wildcat AH1 6 Armed [Generic]</German>
+        <Russian>Wildcat AH1 6 Armed [Generic]</Russian>
+        <Italian>Wildcat AH1 6 Armed [Generic]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_A14">
+         <English>Tornado GR.4</English>
+        <French>Tornado GR.4</French>
+        <German>Tornado GR.4</German>
+        <Russian>Tornado GR.4</Russian>
+        <Italian>Tornado GR.4</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_A15">
+         <English>Apache AH1 CAS</English>
+        <French>Apache AH1 CAS</French>
+        <German>Apache AH1 CAS</German>
+        <Russian>Apache AH1 CAS</Russian>
+        <Italian>Apache AH1 CAS</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_A16">
+         <English>Wildcat AH1 8 Armed [Generic]</English>
+        <French>Wildcat AH1 8 Armed [Generic]</French>
+        <German>Wildcat AH1 8 Armed [Generic]</German>
+        <Russian>Wildcat AH1 8 Armed [Generic]</Russian>
+        <Italian>Wildcat AH1 8 Armed [Generic]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_A17">
+         <English>AH1</English>
+        <French>AH1</French>
+        <German>AH1</German>
+        <Russian>AH1</Russian>
+        <Italian>AH1</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_A18">
+         <English>Harrier II GR7A</English>
+        <French>Harrier II GR7A</French>
+        <German>Harrier II GR7A</German>
+        <Russian>Harrier II GR7A</Russian>
+        <Italian>Harrier II GR7A</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_A19">
+         <English>Sea Harrier FRS.1</English>
+        <French>Sea Harrier FRS.1</French>
+        <German>Sea Harrier FRS.1</German>
+        <Russian>Sea Harrier FRS.1</Russian>
+        <Italian>Sea Harrier FRS.1</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_A20">
+         <English>Harrier GR.9</English>
+        <French>Harrier GR.9</French>
+        <German>Harrier GR.9</German>
+        <Russian>Harrier GR.9</Russian>
+        <Italian>Harrier GR.9</Italian>
+	 </Key>
+	
+	<Key ID="STR_WF_UK_A21">
+         <English>Apache AH1 [ASRAAM]</English>
+        <French>Apache AH1 [ASRAAM]</French>
+        <German>Apache AH1 [ASRAAM]</German>
+        <Russian>Apache AH1 [ASRAAM]</Russian>
+        <Italian>Apache AH1 [ASRAAM]</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_A22">
+         <English>MQ-9 Reaper</English>
+        <French>MQ-9 Reaper</French>
+        <German>MQ-9 Reaper</German>
+        <Russian>MQ-9 Reaper</Russian>
+        <Italian>MQ-9 Reaper</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_A23">
+         <English>F-35B Lightning II</English>
+        <French>F-35B Lightning II</French>
+        <German>F-35B Lightning II</German>
+        <Russian>F-35B Lightning II</Russian>
+        <Italian>F-35B Lightning II</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_A24">
+         <English>F-35B Lightning II [Stealth]</English>
+        <French>F-35B Lightning II [Stealth]</French>
+        <German>F-35B Lightning II [Stealth]</German>
+        <Russian>F-35B Lightning II [Stealth]</Russian>
+        <Italian>F-35B Lightning II [Stealth]</Italian>
+	 </Key>
+	 <Key ID="STR_WF_UK_A25">
+         <English>F-35B Lightning II [RAF ZM136]</English>
+        <French>F-35B Lightning II [RAF ZM136]</French>
+        <German>F-35B Lightning II [RAF ZM136]</German>
+        <Russian>F-35B Lightning II [RAF ZM136]</Russian>
+        <Italian>F-35B Lightning II [RAF ZM136]</Italian>
+	 </Key>
+	
+	
+				<!--RU AIR UNITS BECTI2 stuff -->	
+	<Key ID="STR_WF_RU_A1">
+         <English>Ka-60 Kasatka [unarmed]</English>
+        <French>Ka-60 Kasatka [unarmed]</French>
+        <German>Ka-60 Kasatka [unarmed]</German>
+        <Russian>Ka-60 Kasatka [unarmed]</Russian>
+        <Italian>Ka-60 Kasatka [unarmed]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A2">
+         <English>AN-2</English>
+        <French>AN-2</French>
+        <German>AN-2</German>
+        <Russian>AN-2</Russian>
+        <Italian>AN-2</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A3">
+         <English>AN-26</English>
+        <French>AN-26</French>
+        <German>AN-26</German>
+        <Russian>AN-26</Russian>
+        <Italian>AN-26</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A4">
+         <English>An-12BK</English>
+        <French>An-12BK</French>
+        <German>An-12BK</German>
+        <Russian>An-12BK</Russian>
+        <Italian>An-12BK</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A5">
+         <English>Mi-8AMT</English>
+        <French>Mi-8AMT</French>
+        <German>Mi-8AMT</German>
+        <Russian>Mi-8AMT</Russian>
+        <Italian>Mi-8AMT</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A6">
+         <English>Mi-6T Hook</English>
+        <French>Mi-6T Hook</French>
+        <German>Mi-6T Hook</German>
+        <Russian>Mi-6T Hook</Russian>
+        <Italian>Mi-6T Hook</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A7">
+         <English>Mi-8AMT [Ambulance,Spawn]</English>
+        <French>Mi-8AMT [Ambulance,Spawn]</French>
+        <German>Mi-8AMT [Ambulance,Spawn]</German>
+        <Russian>Mi-8AMT [Ambulance,Spawn]</Russian>
+        <Italian>Mi-8AMT [Ambulance,Spawn]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A8">
+         <English>Mi-8MTV3</English>
+        <French>Mi-8MTV3</French>
+        <German>Mi-8MTV3</German>
+        <Russian>Mi-8MTV3</Russian>
+        <Italian>Mi-8MTV3</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A9">
+         <English>MiG-21</English>
+        <French>MiG-21</French>
+        <German>MiG-21</German>
+        <Russian>MiG-21</Russian>
+        <Italian>MiG-21</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A10">
+         <English>Mi-24D</English>
+        <French>Mi-24D</French>
+        <German>Mi-24D</German>
+        <Russian>Mi-24D</Russian>
+        <Italian>Mi-24D</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A11">
+         <English>Ka-50 Black Shark</English>
+        <French>Ka-50 Black Shark</French>
+        <German>Ka-50 Black Shark</German>
+        <Russian>Ka-50 Black Shark</Russian>
+        <Italian>Ka-50 Black Shark</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A12">
+         <English>Su-17M4</English>
+        <French>Su-17M4</French>
+        <German>Su-17M4</German>
+        <Russian>Su-17M4</Russian>
+        <Italian>Su-17M4</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A13">
+         <English>Su-22</English>
+        <French>Su-22</French>
+        <German>Su-22</German>
+        <Russian>Su-22</Russian>
+        <Italian>Su-22</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A14">
+         <English>Mi-24P</English>
+        <French>Mi-24P</French>
+        <German>Mi-24P</German>
+        <Russian>Mi-24P</Russian>
+        <Italian>Mi-24P</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A15">
+         <English>Mi-24V</English>
+        <French>Mi-24V</French>
+        <German>Mi-24V</German>
+        <Russian>Mi-24V</Russian>
+        <Italian>Mi-24V</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A16">
+         <English>MiG-23</English>
+        <French>MiG-23</French>
+        <German>MiG-23</German>
+        <Russian>MiG-23</Russian>
+        <Italian>MiG-23</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A17">
+         <English>Ka-52</English>
+        <French>Ka-52</French>
+        <German>Ka-52</German>
+        <Russian>Ka-52</Russian>
+        <Italian>Ka-52</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A18">
+         <English>Yak-38</English>
+        <French>Yak-38</French>
+        <German>Yak-38</German>
+        <Russian>Yak-38</Russian>
+        <Italian>Yak-38</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A19">
+         <English>MiG-31</English>
+        <French>MiG-31</French>
+        <German>MiG-31</German>
+        <Russian>MiG-31</Russian>
+        <Italian>MiG-31</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A20">
+         <English>Su-25T Frogfoot</English>
+        <French>Su-25T Frogfoot</French>
+        <German>Su-25T Frogfoot</German>
+        <Russian>Su-25T Frogfoot</Russian>
+        <Italian>Su-25T Frogfoot</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A21">
+         <English>MiG-29</English>
+        <French>MiG-29</French>
+        <German>MiG-29</German>
+        <Russian>MiG-29</Russian>
+        <Italian>MiG-29</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A22">
+         <English>Su-24M</English>
+        <French>Su-24M</French>
+        <German>Su-24M</German>
+        <Russian>Su-24M</Russian>
+        <Italian>Su-24M</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A23">
+         <English>Mi-24 Mk.IV</English>
+        <French>Mi-24 Mk.IV</French>
+        <German>Mi-24 Mk.IV</German>
+        <Russian>Mi-24 Mk.IV</Russian>
+        <Italian>Mi-24 Mk.IV</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A24">
+         <English>Ka-52 [R77]</English>
+        <French>Ka-52 [R77]</French>
+        <German>Ka-52 [R77]</German>
+        <Russian>Ka-52 [R77]</Russian>
+        <Italian>Ka-52 [R77]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A25">
+         <English>S-70 [UAV]</English>
+        <French>S-70 [UAV]</French>
+        <German>S-70 [UAV]</German>
+        <Russian>S-70 [UAV]</Russian>
+        <Italian>S-70 [UAV]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A26">
+         <English>Pchela-1T</English>
+        <French>Pchela-1T</French>
+        <German>Pchela-1T</German>
+        <Russian>Pchela-1T</Russian>
+        <Italian>Pchela-1T</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A27">
+         <English>MiG-35</English>
+        <French>MiG-35</French>
+        <German>MiG-35</German>
+        <Russian>MiG-35</Russian>
+        <Italian>MiG-35</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_A28">
+         <English>Su-34</English>
+        <French>Su-34</French>
+        <German>Su-34</German>
+        <Russian>Su-34</Russian>
+        <Italian>Su-34</Italian>
+	 </Key>
+	
+	<!--ALL TOWNCARS BECTI2 stuff -->	
+	<Key ID="STR_WF_ALL_T1">
+         <English>Fuel Truck</English>
+        <French>Fuel Truck</French>
+        <German>Fuel Truck</German>
+        <Russian>Fuel Truck</Russian>
+        <Italian>Fuel Truck</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T2">
+         <English>Van [Cargo[4]]</English>
+        <French>Van [Cargo[4]]</French>
+        <German>Van [Cargo[4]]</German>
+        <Russian>Van [Cargo[4]]</Russian>
+        <Italian>Van [Cargo[4]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T3">
+         <English>TT650</English>
+        <French>TT650</French>
+        <German>TT650</German>
+        <Russian>TT650</Russian>
+        <Italian>TT650</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T4">
+         <English>S1203</English>
+        <French>S1203</French>
+        <German>S1203</German>
+        <Russian>S1203</Russian>
+        <Italian>S1203</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T5">
+         <English>Ural</English>
+        <French>Ural</French>
+        <German>Ural</German>
+        <Russian>Ural</Russian>
+        <Italian>Ural</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T6">
+         <English>Truck</English>
+        <French>Truck</French>
+        <German>Truck</German>
+        <Russian>Truck</Russian>
+        <Italian>Truck</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T7">
+         <English>V3S</English>
+        <French>V3S</French>
+        <German>V3S</German>
+        <Russian>V3S</Russian>
+        <Italian>V3S</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T8">
+         <English>Lada</English>
+        <French>Lada</French>
+        <German>Lada</German>
+        <Russian>Lada</Russian>
+        <Italian>Lada</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T9">
+         <English>VW</English>
+        <French>VW</French>
+        <German>VW</German>
+        <Russian>VW</Russian>
+        <Italian>VW</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T10">
+         <English>SKODA</English>
+        <French>SKODA</French>
+        <German>SKODA</German>
+        <Russian>SKODA</Russian>
+        <Italian>SKODA</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T11">
+         <English>Hatchback</English>
+        <French>Hatchback</French>
+        <German>Hatchback</German>
+        <Russian>Hatchback</Russian>
+        <Italian>Hatchback</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T12">
+         <English>VOLVO</English>
+        <French>VOLVO</French>
+        <German>VOLVO</German>
+        <Russian>VOLVO</Russian>
+        <Italian>VOLVO</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T13">
+         <English>Hatchback Sport</English>
+        <French>Hatchback Sport</French>
+        <German>Hatchback Sport</German>
+        <Russian>Hatchback Sport</Russian>
+        <Italian>Hatchback Sport</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T14">
+         <English>SUV</English>
+        <French>SUV</French>
+        <German>SUV</German>
+        <Russian>SUV</Russian>
+        <Italian>SUV</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T15">
+         <English>Datsun [Cargo[2]]</English>
+        <French>Datsun [Cargo[2]]</French>
+        <German>Datsun [Cargo[2]]</German>
+        <Russian>Datsun [Cargo[2]]</Russian>
+        <Italian>Datsun [Cargo[2]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T16">
+         <English>Datsun2 [Cargo[2]]</English>
+        <French>Datsun2 [Cargo[2]]</French>
+        <German>Datsun2 [Cargo[2]]</German>
+        <Russian>Datsun2 [Cargo[2]]</Russian>
+        <Italian>Datsun2 [Cargo[2]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T17">
+         <English>Quad</English>
+        <French>Quad</French>
+        <German>Quad</German>
+        <Russian>Quad</Russian>
+        <Italian>Quad</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T18">
+         <English>Pickup [Cargo[2]]</English>
+        <French>Pickup [Cargo[2]]</French>
+        <German>Pickup [Cargo[2]]</German>
+        <Russian>Pickup [Cargo[2]]</Russian>
+        <Italian>Pickup [Cargo[2]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T19">
+         <English>Offroad [Cargo[2]]</English>
+        <French>Offroad [Cargo[2]]</French>
+        <German>Offroad [Cargo[2]]</German>
+        <Russian>Offroad [Cargo[2]]</Russian>
+        <Italian>Offroad [Cargo[2]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T20">
+         <English>Hilux [Cargo[2]]</English>
+        <French>Hilux [Cargo[2]]</French>
+        <German>Hilux [Cargo[2]]</German>
+        <Russian>Hilux [Cargo[2]]</Russian>
+        <Italian>Hilux [Cargo[2]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T21">
+         <English>Bus</English>
+        <French>Bus</French>
+        <German>Bus</German>
+        <Russian>Bus</Russian>
+        <Italian>Bus</Italian>
+	 </Key>
+	
+	<Key ID="STR_WF_ALL_T22">
+         <English>Ikarus</English>
+        <French>Ikarus</French>
+        <German>Ikarus</German>
+        <Russian>Ikarus</Russian>
+        <Italian>Ikarus</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T23">
+         <English>UAZ</English>
+        <French>UAZ</French>
+        <German>UAZ</German>
+        <Russian>UAZ</Russian>
+        <Italian>UAZ</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T24">
+         <English>SUV</English>
+        <French>SUV</French>
+        <German>SUV</German>
+        <Russian>SUV</Russian>
+        <Italian>SUV</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T25">
+         <English>Land Rover</English>
+        <French>Land Rover</French>
+        <German>Land Rover</German>
+        <Russian>Land Rover</Russian>
+        <Italian>Land Rover</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T26">
+         <English>Land Rover2</English>
+        <French>Land Rover2</French>
+        <German>Land Rover2</German>
+        <Russian>Land Rover2</Russian>
+        <Italian>Land Rover2</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T27">
+         <English>Transport</English>
+        <French>Transport</French>
+        <German>Transport</German>
+        <Russian>Transport</Russian>
+        <Italian>Transport</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T28">
+         <English>UAZ [Cargo[2]]</English>
+        <French>UAZ [Cargo[2]]</French>
+        <German>UAZ [Cargo[2]]</German>
+        <Russian>UAZ [Cargo[2]]</Russian>
+        <Italian>UAZ [Cargo[2]]</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_T29">
+         <English>Ural [Cargo[4]]</English>
+        <French>Ural [Cargo[4]]</French>
+        <German>Ural [Cargo[4]]</German>
+        <Russian>Ural [Cargo[4]]</Russian>
+        <Italian>Ural [Cargo[4]]</Italian>
+	 </Key> 
+	
+	<!--ALL TOWNFIGHTER BECTI2 stuff -->	
+	<Key ID="STR_WF_ALL_TAI1">
+        <English>[$] Rifleman</English>
+        <French>[$] Fusilier</French>
+        <German>[$] Schütze</German>
+        <Russian>[$] стрелок</Russian>
+        <Italian>[$] Fuciliere</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_TAI2">
+         <English>[$] Medic</English>
+        <French>[$] Médical</French>
+        <German>[$] Mediziner</German>
+        <Russian>[$] Медик</Russian>
+        <Italian>[$] Medico</Italian>
+	</Key>	
+	 </Key><Key ID="STR_WF_ALL_TAI3">
+        <English>[$] AT Rifleman</English>
+        <French>[$] anti réservoir Fusilier</French>
+        <German>[$] AT Schütze</German>
+        <Russian>[$] анти бак стрелок</Russian>
+        <Italian>[$] anti cisterna Fuciliere</Italian>
+	 </Key>
+	 </Key><Key ID="STR_WF_ALL_TAI4">
+        <English>[$] Machine Gunner</English>
+        <French>[$] Machine Canonnier</French>
+        <German>[$] Maschinengewehrschütze</German>
+        <Russian>[$] Машина наводчик</Russian>
+        <Italian>[$] Macchina Artigliere</Italian>
+	 </Key>
+	 </Key><Key ID="STR_WF_ALL_TAI5">
+        <English>[$] Automatic Rifleman</English>
+        <French>[$] Automatique Fusilier</French>
+        <German>[$] Automatik Schütze</German>
+        <Russian>[$] Автоматический стрелок</Russian>
+        <Italian>[$] Automatico Fuciliere</Italian>
+	 </Key>
+	 </Key><Key ID="STR_WF_ALL_TAI6">
+        <English>[$] AT Specialist</English>
+        <French>[$] anti réservoir Spécialiste</French>
+        <German>[$] AT Spezialist</German>
+        <Russian>[$] анти бак Специалист</Russian>
+        <Italian>[$] anti cisterna Specialista</Italian>
+	 </Key>
+	 </Key><Key ID="STR_WF_ALL_TAI7">
+        <English>[$] AA Specialist</English>
+       <French>[$] anti Air Spécialiste</French>
+        <German>[$] AA Spezialist</German>
+        <Russian>[$] анти Воздух Специалист</Russian>
+        <Italian>[$] anti Aria Specialista</Italian>
+	 </Key>
+
+	
+	<!--ALL COIN FORTIFICATION BECTI2 stuff -->	
+	<Key ID="STR_WF_ALL_CF1">
+        <English>Bunker (Small)</English>
+        <French>Bunker (Small)</French>
+        <German>Bunker (Small)</German>
+        <Russian>Bunker (Small)</Russian>
+        <Italian>Bunker (Small)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF2">
+        <English>Wall (Long Tall)</English>
+        <French>Wall (Long Tall)</French>
+        <German>Wall (Long Tall)</German>
+        <Russian>Wall (Long Tall)</Russian>
+        <Italian>Wall (Long Tall)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF3">
+        <English>Hesco Barrier Wall (Small)</English>
+        <French>Hesco Barrier Wall (Small)</French>
+        <German>Hesco Barrier Wall (Small)</German>
+        <Russian>Hesco Barrier Wall (Small)</Russian>
+        <Italian>Hesco Barrier Wall (Small)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF4">
+        <English>H-Barrier (Large)</English>
+        <French>H-Barrier (Large)</French>
+        <German>H-Barrier (Large)</German>
+        <Russian>H-Barrier (Large)</Russian>
+        <Italian>H-Barrier (Large)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF5">
+        <English>H-Barrier</English>
+        <French>H-Barrier</French>
+        <German>H-Barrier</German>
+        <Russian>H-Barrier</Russian>
+        <Italian>H-Barrier</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF6">
+        <English>H-Barrier (Short)</English>
+        <French>H-Barrier (Short)</French>
+        <German>H-Barrier (Short)</German>
+        <Russian>H-Barrier (Short)</Russian>
+        <Italian>H-Barrier (Short)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF7">
+        <English>H-Barrier (Cube)</English>
+        <French>H-Barrier (Cube)</French>
+        <German>H-Barrier (Cube)</German>
+        <Russian>H-Barrier (Cube)</Russian>
+        <Italian>H-Barrier (Cube)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF8">
+        <English>Bag fence (corner)</English>
+        <French>Bag fence (corner)</French>
+        <German>Bag fence (corner)</German>
+        <Russian>Bag fence (corner)</Russian>
+        <Italian>Bag fence (corner)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF9">
+        <English>Bag fence</English>
+        <French>Bag fence</French>
+        <German>Bag fence</German>
+        <Russian>Bag fence</Russian>
+        <Italian>Bag fence</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF10">
+        <English>Earthen rampart (desert)</English>
+        <French>Earthen rampart (desert)</French>
+        <German>Earthen rampart (desert)</German>
+        <Russian>Earthen rampart (desert)</Russian>
+        <Italian>Earthen rampart (desert)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF11">
+        <English>Earthen Artillery Nest (Desert)</English>
+        <French>Earthen Artillery Nest (Desert)</French>
+        <German>Earthen Artillery Nest (Desert)</German>
+        <Russian>Earthen Artillery Nest (Desert)</Russian>
+        <Italian>Earthen Artillery Nest (Desert)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF12">
+        <English>Earthen Artillery Nest (Desert)2</English>
+        <French>Earthen Artillery Nest (Desert)2</French>
+        <German>Earthen Artillery Nest (Desert)2</German>
+        <Russian>Earthen Artillery Nest (Desert)2</Russian>
+        <Italian>Earthen Artillery Nest (Desert)2</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF13">
+        <English>Dragon Teeth</English>
+        <French>Dragon Teeth</French>
+        <German>Dragon Teeth</German>
+        <Russian>Dragon Teeth</Russian>
+        <Italian>Dragon Teeth</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF14">
+        <English>Guard Tower</English>
+        <French>Guard Tower</French>
+        <German>Guard Tower</German>
+        <Russian>Guard Tower</Russian>
+        <Italian>Guard Tower</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF15">
+        <English>Streetlamp</English>
+        <French>Streetlamp</French>
+        <German>Streetlamp</German>
+        <Russian>Streetlamp</Russian>
+        <Italian>Streetlamp</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF16">
+        <English>Concrete Wall</English>
+        <French>Concrete Wall</French>
+        <German>Concrete Wall</German>
+        <Russian>Concrete Wall</Russian>
+        <Italian>Concrete Wall</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF17">
+        <English>Concrete Target (Support)</English>
+        <French>Concrete Target (Support)</French>
+        <German>Concrete Target (Support)</German>
+        <Russian>Concrete Target (Support)</Russian>
+        <Italian>Concrete Target (Support)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF18">
+        <English>Modular Bunker (Block)</English>
+        <French>Modular Bunker (Block)</French>
+        <German>Modular Bunker (Block)</German>
+        <Russian>Modular Bunker (Block)</Russian>
+        <Italian>Modular Bunker (Block)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF19">
+        <English>Modular Bunker (3 Blocks)</English>
+        <French>Modular Bunker (3 Blocks)</French>
+        <German>Modular Bunker (3 Blocks)</German>
+        <Russian>Modular Bunker (3 Blocks)</Russian>
+        <Italian>Modular Bunker (3 Blocks)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF20">
+        <English>Pillbox Wall (3m,Blunt)</English>
+        <French>Pillbox Wall (3m,Blunt)</French>
+        <German>Pillbox Wall (3m,Blunt)</German>
+        <Russian>Pillbox Wall (3m,Blunt)</Russian>
+        <Italian>Pillbox Wall (3m,Blunt)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF21">
+        <English>Concrete Barrier (Medium,Long)</English>
+        <French>Concrete Barrier (Medium,Long)</French>
+        <German>Concrete Barrier (Medium,Long)</German>
+        <Russian>Concrete Barrier (Medium,Long)</Russian>
+        <Italian>Concrete Barrier (Medium,Long)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF22">
+        <English>Petroglyph Wall</English>
+        <French>Petroglyph Wall</French>
+        <German>Petroglyph Wall</German>
+        <Russian>Petroglyph Wall</Russian>
+        <Italian>Petroglyph Wall</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF23">
+        <English>Garage (Old)</English>
+        <French>Garage (Old)</French>
+        <German>Garage (Old)</German>
+        <Russian>Garage (Old)</Russian>
+        <Italian>Garage (Old)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF24">
+        <English>Pillbox Wall (6m,Blunt)</English>
+        <French>Pillbox Wall (6m,Blunt)</French>
+        <German>Pillbox Wall (6m,Blunt)</German>
+        <Russian>Pillbox Wall (6m,Blunt)</Russian>
+        <Italian>Pillbox Wall (6m,Blunt)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF25">
+        <English>Concrete Wall (Long)</English>
+        <French>Concrete Wall (Long)</French>
+        <German>Concrete Wall (Long)</German>
+        <Russian>Concrete Wall (Long)</Russian>
+        <Italian>Concrete Wall (Long)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF26">
+        <English>Platform Stairs 4</English>
+        <French>Platform Stairs 4</French>
+        <German>Platform Stairs 4</German>
+        <Russian>Platform Stairs 4</Russian>
+        <Italian>Platform Stairs 4</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF27">
+        <English>Platform Stairs (High)</English>
+        <French>Platform Stairs (High)</French>
+        <German>Platform Stairs (High)</German>
+        <Russian>Platform Stairs (High)</Russian>
+        <Italian>Platform Stairs (High)</Italian>
+	 </Key>
+	
+	<Key ID="STR_WF_ALL_CF28">
+        <English>Platform Stairs (Low)</English>
+        <French>Platform Stairs (Low)</French>
+        <German>Platform Stairs (Low)</German>
+        <Russian>Platform Stairs (Low)</Russian>
+        <Italian>Platform Stairs (Low)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF29">
+        <English>Concrete Ramp</English>
+        <French>Concrete Ramp</French>
+        <German>Concrete Ramp</German>
+        <Russian>Concrete Ramp</Russian>
+        <Italian>Concrete Ramp</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF30">
+        <English>Concrete Block</English>
+        <French>Concrete Block</French>
+        <German>Concrete Block</German>
+        <Russian>Concrete Block</Russian>
+        <Italian>Concrete Block</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF31">
+        <English>Platform Flat</English>
+        <French>Platform Flat</French>
+        <German>Platform Flat</German>
+        <Russian>Platform Flat</Russian>
+        <Italian>Platform Flat</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF32">
+        <English>Basalt Wall</English>
+        <French>Basalt Wall</French>
+        <German>Basalt Wall</German>
+        <Russian>Basalt Wall</Russian>
+        <Italian>Basalt Wall</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF33">
+        <English>Basalt Wall Gate</English>
+        <French>Basalt Wall Gate</French>
+        <German>Basalt Wall Gate</German>
+        <Russian>Basalt Wall Gate</Russian>
+        <Italian>Basalt Wall Gate</Italian>
+	 </Key>
+	
+	
+	<Key ID="STR_WF_ALL_CF34">
+        <English>Pillbox (Rectangular)</English>
+        <French>Pillbox (Rectangular)</French>
+        <German>Pillbox (Rectangular)</German>
+        <Russian>Pillbox (Rectangular)</Russian>
+        <Italian>Pillbox (Rectangular)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF35">
+        <English>Pillbox (Hexagonal)</English>
+        <French>Pillbox (Hexagonal)</French>
+        <German>Pillbox (Hexagonal)</German>
+        <Russian>Pillbox (Hexagonal)</Russian>
+        <Italian>Pillbox (Hexagonal)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF36">
+        <English>Old Bunker (Right)</English>
+        <French>Old Bunker (Right)</French>
+        <German>Old Bunker (Right)</German>
+        <Russian>Old Bunker (Right)</Russian>
+        <Italian>Old Bunker (Right)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF37">
+        <English>Old Bunker (Right,Mossy)</English>
+        <French>Old Bunker (Right,Mossy)</French>
+        <German>Old Bunker (Right,Mossy)</German>
+        <Russian>Old Bunker (Right,Mossy)</Russian>
+        <Italian>Old Bunker (Right,Mossy)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF38">
+        <English>Old Bunker</English>
+        <French>Old Bunker</French>
+        <German>Old Bunker</German>
+        <Russian>Old Bunker</Russian>
+        <Italian>Old Bunker</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF39">
+        <English>Old Bunker (Left)</English>
+        <French>Old Bunker (Left)</French>
+        <German>Old Bunker (Left)</German>
+        <Russian>Old Bunker (Left)</Russian>
+        <Italian>Old Bunker (Left)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF40">
+        <English>Old Bunker (Left,Mossy)</English>
+        <French>Old Bunker (Left,Mossy)</French>
+        <German>Old Bunker (Left,Mossy)</German>
+        <Russian>Old Bunker (Left,Mossy)</Russian>
+        <Italian>Old Bunker (Left,Mossy)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF41">
+        <English>Old Bunker (Mossy)</English>
+        <French>Old Bunker (Mossy)</French>
+        <German>Old Bunker (Mossy)</German>
+        <Russian>Old Bunker (Mossy)</Russian>
+        <Italian>Old Bunker (Mossy)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF42">
+        <English>Modular Bunker (Small)</English>
+        <French>Modular Bunker (Small)</French>
+        <German>Modular Bunker (Small)</German>
+        <Russian>Modular Bunker (Small)</Russian>
+        <Italian>Modular Bunker (Small)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF43">
+        <English>Platform Stairs (Concrete)</English>
+        <French>Platform Stairs (Concrete)</French>
+        <German>Platform Stairs (Concrete)</German>
+        <Russian>Platform Stairs (Concrete)</Russian>
+        <Italian>Platform Stairs (Concrete)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF44">
+        <English>Modular Bunker (Big)</English>
+        <French>Modular Bunker (Big)</French>
+        <German>Modular Bunker (Big)</German>
+        <Russian>Modular Bunker (Big)</Russian>
+        <Italian>Modular Bunker (Big)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF45">
+        <English>Modular Bunker (HQ)</English>
+        <French>Modular Bunker (HQ)</French>
+        <German>Modular Bunker (HQ)</German>
+        <Russian>Modular Bunker (HQ)</Russian>
+        <Italian>Modular Bunker (HQ)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF46">
+        <English>Bunker (Ammo Storage)</English>
+        <French>Bunker (Ammo Storage)</French>
+        <German>Bunker (Ammo Storage)</German>
+        <Russian>Bunker (Ammo Storage)</Russian>
+        <Italian>Bunker (Ammo Storage)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF47">
+        <English>Pillbox (Big)</English>
+        <French>Pillbox (Big)</French>
+        <German>Pillbox (Big)</German>
+        <Russian>Pillbox (Big)</Russian>
+        <Italian>Pillbox (Big)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF48">
+        <English>Modular Bunker (Tall)</English>
+        <French>Modular Bunker (Tall)</French>
+        <German>Modular Bunker (Tall)</German>
+        <Russian>Modular Bunker (Tall)</Russian>
+        <Italian>Modular Bunker (Tall)</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CF49">
+        <English>Ammo Bunker (Double)</English>
+        <French>Ammo Bunker (Double)</French>
+        <German>Ammo Bunker (Double)</German>
+        <Russian>Ammo Bunker (Double)</Russian>
+        <Italian>Ammo Bunker (Double)</Italian>
+	 </Key>
+	
+	
+	<!--ALL COIN STRATEGIC BECTI2 stuff -->	
+	<Key ID="STR_WF_ALL_CS1">
+        <English>BARRACKS SPAWNPOINT</English>
+        <French>BARRACKS SPAWNPOINT</French>
+        <German>BARRACKS SPAWNPOINT</German>
+        <Russian>BARRACKS SPAWNPOINT</Russian>
+        <Italian>BARRACKS SPAWNPOINT</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CS2">
+        <English>LIGHT SPAWNPOINT</English>
+        <French>LIGHT SPAWNPOINT</French>
+        <German>LIGHT SPAWNPOINT</German>
+        <Russian>LIGHT SPAWNPOINT</Russian>
+        <Italian>LIGHT SPAWNPOINT</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CS3">
+        <English>HEAVY SPAWNPOINT</English>
+        <French>HEAVY SPAWNPOINT</French>
+        <German>HEAVY SPAWNPOINT</German>
+        <Russian>HEAVY SPAWNPOINT</Russian>
+        <Italian>HEAVY SPAWNPOINT</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CS4">
+        <English>AIR SPAWNPOINT</English>
+        <French>AIR SPAWNPOINT</French>
+        <German>AIR SPAWNPOINT</German>
+        <Russian>AIR SPAWNPOINT</Russian>
+        <Italian>AIR SPAWNPOINT</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CS5">
+        <English>Vehicle Service Point</English>
+        <French>Vehicle Service Point</French>
+        <German>Vehicle Service Point</German>
+        <Russian>Vehicle Service Point</Russian>
+        <Italian>Vehicle Service Point</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CS6">
+        <English>MINEFIELD AT</English>
+        <French>MINEFIELD AT</French>
+        <German>MINEFIELD AT</German>
+        <Russian>MINEFIELD AT</Russian>
+        <Italian>MINEFIELD AT</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CS7">
+        <English>MINEFIELD AP</English>
+        <French>MINEFIELD AP</French>
+        <German>MINEFIELD AP</German>
+        <Russian>MINEFIELD AP</Russian>
+        <Italian>MINEFIELD AP</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CS8">
+        <English>Field Hospital</English>
+        <French>Field Hospital</French>
+        <German>Field Hospital</German>
+        <Russian>Field Hospital</Russian>
+        <Italian>Field Hospital</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CS9">
+        <English>Look-Out Mast</English>
+        <French>Look-Out Mast</French>
+        <German>Look-Out Mast</German>
+        <Russian>Look-Out Mast</Russian>
+        <Italian>Look-Out Mast</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CS10">
+        <English>Camouflage Vehicle Cover</English>
+        <French>Camouflage Vehicle Cover</French>
+        <German>Camouflage Vehicle Cover</German>
+        <Russian>Camouflage Vehicle Cover</Russian>
+        <Italian>Camouflage Vehicle Cover</Italian>
+	 </Key>
+	<Key ID="STR_WF_ALL_CS11">
+        <English>IR Masking Tent</English>
+        <French>IR Masking Tent</French>
+        <German>IR Masking Tent</German>
+        <Russian>IR Masking Tent</Russian>
+        <Italian>IR Masking Tent</Italian>
+	 </Key>
+	
+	
+	<!--ALL COIN AMMO BECTI2 stuff -->	
+	<Key ID="STR_WF_ALL_CA1">
+        <English>GEARPOINT</English>
+        <French>GEARPOINT</French>
+        <German>GEARPOINT</German>
+        <Russian>GEARPOINT</Russian>
+        <Italian>GEARPOINT</Italian>
+	 </Key>
+	
+	
+	<!--BLU COIN DEFENSES BECTI2 stuff -->	
+	<Key ID="STR_WF_BLU_CD1">
+        <English>Remote Designator [NATO]</English>
+        <French>Remote Designator [NATO]</French>
+        <German>Remote Designator [NATO]</German>
+        <Russian>Remote Designator [NATO]</Russian>
+        <Italian>Remote Designator [NATO]</Italian>
+	 </Key>
+	<Key ID="STR_WF_BLU_CD2">
+        <English>AN/MPQ-105 Radar</English>
+        <French>AN/MPQ-105 Radar</French>
+        <German>AN/MPQ-105 Radar</German>
+        <Russian>AN/MPQ-105 Radar</Russian>
+        <Italian>AN/MPQ-105 Radar</Italian>
+	 </Key>
+	<Key ID="STR_WF_BLU_CD3">
+        <English>MIM-145 Defender</English>
+        <French>MIM-145 Defender</French>
+        <German>MIM-145 Defender</German>
+        <Russian>MIM-145 Defender</Russian>
+        <Italian>MIM-145 Defender</Italian>
+	 </Key>
+	<Key ID="STR_WF_BLU_CD4">
+        <English>Pretorian 1C</English>
+        <French>Pretorian 1C</French>
+        <German>Pretorian 1C</German>
+        <Russian>Pretorian 1C</Russian>
+        <Italian>Pretorian 1C</Italian>
+	 </Key>
+	 
+	
+	
+	
+	
+	
+	<!--US COIN DEFENSES BECTI2 stuff -->	
+	<Key ID="STR_WF_US_CD1">
+        <English>Searchlight</English>
+        <French>Searchlight</French>
+        <German>Searchlight</German>
+        <Russian>Searchlight</Russian>
+        <Italian>Searchlight</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_CD2">
+        <English>M2 Minitripod</English>
+        <French>M2 Minitripod</French>
+        <German>M2 Minitripod</German>
+        <Russian>M2 Minitripod</Russian>
+        <Italian>M2 Minitripod</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_CD3">
+        <English>M2 Machine Gun</English>
+        <French>M2 Machine Gun</French>
+        <German>M2 Machine Gun</German>
+        <Russian>M2 Machine Gun</Russian>
+        <Italian>M2 Machine Gun</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_CD4">
+        <English>MK19 Minitripod</English>
+        <French>MK19 Minitripod</French>
+        <German>MK19 Minitripod</German>
+        <Russian>MK19 Minitripod</Russian>
+        <Italian>MK19 Minitripod</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_CD5">
+        <English>M220 TOW</English>
+        <French>M220 TOW</French>
+        <German>M220 TOW</German>
+        <Russian>M220 TOW</Russian>
+        <Italian>M220 TOW</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_CD6">
+        <English>FIM92 [Stinger]</English>
+        <French>FIM92 [Stinger]</French>
+        <German>FIM92 [Stinger]</German>
+        <Russian>FIM92 [Stinger]</Russian>
+        <Italian>FIM92 [Stinger]</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_CD7">
+        <English>M252 81mm Mortar</English>
+        <French>M252 81mm Mortar</French>
+        <German>M252 81mm Mortar</German>
+        <Russian>M252 81mm Mortar</Russian>
+        <Italian>M252 81mm Mortar</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_CD8">
+        <English>M-777</English>
+        <French>M-777</French>
+        <German>M-777</German>
+        <Russian>M-777</Russian>
+        <Italian>M-777</Italian>
+	 </Key>
+	<Key ID="STR_WF_US_CD9">
+        <English>M134A</English>
+        <French>M134A</French>
+        <German>M134A</German>
+        <Russian>M134A</Russian>
+        <Italian>M134A</Italian>
+	 </Key>
+	
+	
+	
+		<!--UK COIN DEFENSES BECTI2 stuff -->	
+	<Key ID="STR_WF_UK_CD1">
+        <English>Searchlight</English>
+        <French>Searchlight</French>
+        <German>Searchlight</German>
+        <Russian>Searchlight</Russian>
+        <Italian>Searchlight</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_CD2">
+        <English>Searchlight 2</English>
+        <French>Searchlight 2</French>
+        <German>Searchlight 2</German>
+        <Russian>Searchlight 2</Russian>
+        <Italian>Searchlight 2</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_CD3">
+        <English>L7A2 (Low Tripod)</English>
+        <French>L7A2 (Low Tripod)</French>
+        <German>L7A2 (Low Tripod)</German>
+        <Russian>L7A2 (Low Tripod)</Russian>
+        <Italian>L7A2 (Low Tripod)</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_CD4">
+        <English>L111A1 (Low Tripod)</English>
+        <French>L111A1 (Low Tripod)</French>
+        <German>L111A1 (Low Tripod)</German>
+        <Russian>L111A1 (Low Tripod)</Russian>
+        <Italian>L111A1 (Low Tripod)</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_CD5">
+        <English>L111A1 (High Tripod)</English>
+        <French>L111A1 (High Tripod)</French>
+        <German>L111A1 (High Tripod)</German>
+        <Russian>L111A1 (High Tripod)</Russian>
+        <Italian>L111A1 (High Tripod)</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_CD6">
+        <English>L111A1 Minitripod</English>
+        <French>L111A1 Minitripod</French>
+        <German>L111A1 Minitripod</German>
+        <Russian>L111A1 Minitripod</Russian>
+        <Italian>L111A1 Minitripod</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_CD7">
+        <English>L111A1 Machine Gun</English>
+        <French>L111A1 Machine Gun</French>
+        <German>L111A1 Machine Gun</German>
+        <Russian>L111A1 Machine Gun</Russian>
+        <Italian>L111A1 Machine Gun</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_CD8">
+        <English>L134A1</English>
+        <French>L134A1</French>
+        <German>L134A1</German>
+        <Russian>L134A1</Russian>
+        <Italian>L134A1</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_CD9">
+        <English>M220 TOW</English>
+        <French>M220 TOW</French>
+        <German>M220 TOW</German>
+        <Russian>M220 TOW</Russian>
+        <Italian>M220 TOW</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_CD10">
+        <English>Javelin LML</English>
+        <French>Javelin LML</French>
+        <German>Javelin LML</German>
+        <Russian>Javelin LML</Russian>
+        <Italian>Javelin LML</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_CD11">
+        <English>L16A2 81mm Mortar</English>
+        <French>L16A2 81mm Mortar</French>
+        <German>L16A2 81mm Mortar</German>
+        <Russian>L16A2 81mm Mortar</Russian>
+        <Italian>L16A2 81mm Mortar</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_CD12">
+        <English>L118 Light Gun</English>
+        <French>L118 Light Gun</French>
+        <German>L118 Light Gun</German>
+        <Russian>L118 Light Gun</Russian>
+        <Italian>L118 Light Gun</Italian>
+	 </Key>
+	<Key ID="STR_WF_UK_CD13">
+        <English>M134A</English>
+        <French>M134A</French>
+        <German>M134A</German>
+        <Russian>M134A</Russian>
+        <Italian>M134A</Italian>
+	 </Key>
+	
+			<!--RU COIN DEFENSES BECTI2 stuff -->	
+	<Key ID="STR_WF_RU_CD1">
+        <English>Searchlight</English>
+        <French>Searchlight</French>
+        <German>Searchlight</German>
+        <Russian>Searchlight</Russian>
+        <Italian>Searchlight</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_CD2">
+        <English>Searchlight 2</English>
+        <French>Searchlight 2</French>
+        <German>Searchlight 2</German>
+        <Russian>Searchlight 2</Russian>
+        <Italian>Searchlight 2</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_CD3">
+        <English>NSV (Low Tripod)</English>
+        <French>NSV (Low Tripod)</French>
+        <German>NSV (Low Tripod)</German>
+        <Russian>NSV (Low Tripod)</Russian>
+        <Italian>NSV (Low Tripod)</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_CD4">
+        <English>NSV (High Tripod)</English>
+        <French>NSV (High Tripod)</French>
+        <German>NSV (High Tripod)</German>
+        <Russian>NSV (High Tripod)</Russian>
+        <Italian>NSV (High Tripod)</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_CD5">
+        <English>KORD Minitripod</English>
+        <French>KORD Minitripod</French>
+        <German>KORD Minitripod</German>
+        <Russian>KORD Minitripod</Russian>
+        <Italian>KORD Minitripod</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_CD6">
+        <English>KORD</English>
+        <French>KORD</French>
+        <German>KORD</German>
+        <Russian>KORD</Russian>
+        <Italian>KORD</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_CD7">
+        <English>AGS-30</English>
+        <French>AGS-30</French>
+        <German>AGS-30</German>
+        <Russian>AGS-30</Russian>
+        <Italian>AGS-30</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_CD8">
+        <English>SPG-9</English>
+        <French>SPG-9</French>
+        <German>SPG-9</German>
+        <Russian>SPG-9</Russian>
+        <Italian>SPG-9</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_CD9">
+        <English>Konkurs AT-5</English>
+        <French>Konkurs AT-5</French>
+        <German>Konkurs AT-5</German>
+        <Russian>Konkurs AT-5</Russian>
+        <Italian>Konkurs AT-5</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_CD10">
+        <English>Metis AT-13</English>
+        <French>Metis AT-13</French>
+        <German>Metis AT-13</German>
+        <Russian>Metis AT-13</Russian>
+        <Italian>Metis AT-13</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_CD11">
+        <English>Kornet AT-14</English>
+        <French>Kornet AT-14</French>
+        <German>Kornet AT-14</German>
+        <Russian>Kornet AT-14</Russian>
+        <Italian>Kornet AT-14</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_CD12">
+        <English>ZU-23-2</English>
+        <French>ZU-23-2</French>
+        <German>ZU-23-2</German>
+        <Russian>ZU-23-2</Russian>
+        <Italian>ZU-23-2</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_CD13">
+        <English>Igla AA Pod</English>
+        <French>Igla AA Pod</French>
+        <German>Igla AA Pod</German>
+        <Russian>Igla AA Pod</Russian>
+        <Italian>Igla AA Pod</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_CD14">
+        <English>Podnos 2B14 Mortar</English>
+        <French>Podnos 2B14 Mortar</French>
+        <German>Podnos 2B14 Mortar</German>
+        <Russian>Podnos 2B14 Mortar</Russian>
+        <Italian>Podnos 2B14 Mortar</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_CD15">
+        <English>D-30</English>
+        <French>D-30</French>
+        <German>D-30</German>
+        <Russian>D-30</Russian>
+        <Italian>D-30</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_CD16">
+        <English>Remote Designator [SU]</English>
+        <French>Remote Designator [SU]</French>
+        <German>Remote Designator [SU]</German>
+        <Russian>Remote Designator [SU]</Russian>
+        <Italian>Remote Designator [SU]</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_CD17">
+        <English>R-750 Cronus Radar</English>
+        <French>R-750 Cronus Radar</French>
+        <German>R-750 Cronus Radar</German>
+        <Russian>R-750 Cronus Radar</Russian>
+        <Italian>R-750 Cronus Radar</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_CD18">
+        <English>S-750 Rhea</English>
+        <French>S-750 Rhea</French>
+        <German>S-750 Rhea</German>
+        <Russian>S-750 Rhea</Russian>
+        <Italian>S-750 Rhea</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_CD19">
+        <English>KS-19</English>
+        <French>KS-19</French>
+        <German>KS-19</German>
+        <Russian>KS-19</Russian>
+        <Italian>KS-19</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_CD20">
+        <English>KS-12</English>
+        <French>KS-12</French>
+        <German>KS-12</German>
+        <Russian>KS-12</Russian>
+        <Italian>KS-12</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_CD21">
+        <English>ZU-23-M</English>
+        <French>ZU-23-M</French>
+        <German>ZU-23-M</German>
+        <Russian>ZU-23-M</Russian>
+        <Italian>ZU-23-M</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_CD22">
+        <English>ZU-23</English>
+        <French>ZU-23</French>
+        <German>ZU-23</German>
+        <Russian>ZU-23</Russian>
+        <Italian>ZU-23</Italian>
+	 </Key>
+	<Key ID="STR_WF_RU_CD23">
+        <English>S-60</English>
+        <French>S-60</French>
+        <German>S-60</German>
+        <Russian>S-60</Russian>
+        <Italian>S-60</Italian>
+	 </Key>
+	
+	<!--Remote Menu Strings BECTI2 stuff -->	
+	
+	<Key ID="STR_WF_EXIT">
+        <English>EXIT</English>
+        <French>SORTIR</French>
+        <German>AUSGANG</German>
+        <Russian>ВЫХОД</Russian>
+        <Italian>USCITA</Italian>
+      </Key>
+	
+	<Key ID="STR_WF_INTERNAL">
+        <English>INTERNAL</English>
+        <French>INTERNE</French>
+        <German>INTERN</German>
+        <Russian>ВНУТРЕННИЙ</Russian>
+        <Italian>INTERNO</Italian>
+      </Key>
+	  
+	<Key ID="STR_WF_EXTERNAL">
+        <English>EXTERNAL</English>
+        <French>EXTERNE</French>
+        <German>EXTERN</German>
+        <Russian>ВНЕШНИЙ</Russian>
+        <Italian>ESTERNO</Italian>
+      </Key>
+
+	<Key ID="STR_WF_IRONSIGHT">
+        <English>IRON SIGHT</English>
+        <French>VUE DE FER</French>
+        <German>Eisenvisier</German>
+        <Russian>ЖЕЛЕЗНЫЙ ВЗГЛЯД</Russian>
+        <Italian>MIRINO IN FERRO</Italian>
+      </Key>
+	
+	<Key ID="STR_WF_TEAMS">
+        <English>Teams :</English>
+        <French>Equipes :</French>
+        <German>Teams :</German>
+        <Russian>Команды:</Russian>
+        <Italian>Squadre:</Italian>
+      </Key>
+	
+	<Key ID="STR_WF_AITEAMS">
+        <English>AI Members :</English>
+        <French>Membres IA :</French>
+        <German>AI Members :</German>
+        <Russian>Члены ИИ:</Russian>
+        <Italian>Membri dell'AI:</Italian>
+      </Key>
+	
+	<Key ID="STR_WF_HIDETEAMS">
+        <English>Hide Teams</English>
+        <French>Masquer les équipes</French>
+        <German>Hide Teams</German>
+        <Russian>Скрыть команды</Russian>
+        <Italian>Nascondi squadre</Italian>
+      </Key>
+	<Key ID="STR_WF_SHOWTEAMS">
+        <English>Show Teams</English>
+        <French>Afficher les équipes</French>
+        <German>Show Teams</German>
+        <Russian>Показать команды</Russian>
+        <Italian>Mostra squadre</Italian>
+      </Key>
+	<Key ID="STR_WF_HIDEMAP">
+        <English>Hide Map</English>
+        <French>Masquer la carte</French>
+        <German>Hide Map</German>
+        <Russian>Скрыть карту</Russian>
+        <Italian>Nascondi mappa</Italian>
+      </Key>
+	<Key ID="STR_WF_SHOWMAP">
+        <English>Show Map</English>
+        <French>Afficher la carte</French>
+        <German>Show Map</German>
+        <Russian>Показать карту</Russian>
+        <Italian>Mostra la mappa</Italian>
+      </Key>  
+	
+	
+	 <Key ID="STR_WF_CommanderUC">
+        <English>(C)</English>
+        <French>(C)</French>
+        <German>(K)</German>
+        <Russian>(к)</Russian>
+        <Italian>(C)</Italian>
+      </Key>
+	  <Key ID="STR_WF_DriverUC">
+        <English>(D)</English>
+        <French>(C)</French>
+        <German>(F)</German>
+        <Russian>(В)</Russian>
+        <Italian>(D)</Italian>
+      </Key>
+ 
+	  <Key ID="STR_WF_GunnerUC">
+        <English>(G)</English>
+        <French>(T)</French>
+        <German>(S)</German>
+        <Russian>(С)</Russian>
+        <Italian>(G)</Italian>
+      </Key>
+    
 	
 	
     </Container>

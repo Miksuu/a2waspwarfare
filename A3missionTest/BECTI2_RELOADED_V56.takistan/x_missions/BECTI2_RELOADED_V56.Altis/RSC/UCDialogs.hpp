@@ -1748,7 +1748,7 @@ class CTI_UCRscUnitsCamera {
 			w = "SafeZoneW * 0.19";
 			h = "SafeZoneH * 0.03";
 
-			text = "Teams :";
+			text = $STR_WF_TEAMS;
 			colorText[] = {0.231372549, 0.580392157, 0.929411765, 1};
 			sizeEx = "0.9 * (			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
 		};
@@ -1768,7 +1768,7 @@ class CTI_UCRscUnitsCamera {
 			w = "SafeZoneW * 0.19";
 			h = "SafeZoneH * 0.03";
 
-			text = "AI Members :";
+			text = $STR_WF_AITEAMS;
 		};
 		class CTI_Menu_Control_UnitsAILiUCST_Frame : CTI_Menu_Control_UnitsLiUCST_Frame { //--- Render out.
 			idc = 180006;
@@ -1833,9 +1833,10 @@ class CTI_UCRscUnitsCamera {
 			h = "SafeZoneH * 0.04";
 			w = "SafeZoneW * 0.14";
 
-			text = "Exit";
+			text = $STR_WF_EXIT;
 			action = "closeDialog 0";
 		};
+		/*changed to a2 functions,not needed now
 		class CTI_Menu_Control_Mode : CTI_Menu_Control_Exit {
 			idc = 180013;
 
@@ -1844,6 +1845,8 @@ class CTI_UCRscUnitsCamera {
 			text = "";
 			action = "['onViewModeChanged'] call compile preprocessFileLineNumbers 'Client\Events\Events_UI_UnitsCamera.sqf'";
 		};
+		*/
+		
 		/*no satelitekey needed
 		class CTI_Menu_UnitCamJump : CTI_Menu_Control_Exit { //--- Render out
 			idc = 180014;
@@ -1903,7 +1906,7 @@ class CTI_UCRscUnitsCamera {
 			h = "SafeZoneH * 0.04";
 			w = "SafeZoneW * 0.14";
 
-			text = "Iron Sight";
+			text = $STR_WF_IRONSIGHT;
 			action = "['onCamChange', 'ironsight'] call compile preprocessFileLineNumbers 'Client\Events\Events_UI_UnitsCamera.sqf'";
 		};
 		class CTI_Menu_Control_Internal : CTI_Menu_Control_IronSight {
@@ -1911,7 +1914,7 @@ class CTI_UCRscUnitsCamera {
 
 			y = "SafeZoneY + (SafeZoneH * 0.85)";
 
-			text = "Internal";
+			text = $STR_WF_INTERNAL;
 			action = "['onCamChange', 'internal'] call compile preprocessFileLineNumbers 'Client\Events\Events_UI_UnitsCamera.sqf'";
 		};
 		class CTI_Menu_Control_External : CTI_Menu_Control_IronSight { //--- Render out.
@@ -1919,25 +1922,25 @@ class CTI_UCRscUnitsCamera {
 
 			y = "SafeZoneY + (SafeZoneH * 0.80)";
 
-			text = "External";
+			text = $STR_WF_EXTERNAL;
 			action = "['onCamChange', 'external'] call compile preprocessFileLineNumbers 'Client\Events\Events_UI_UnitsCamera.sqf'";
 		};
-		/*unflip not needed
+		
 		class CTI_Menu_Control_Unflip : CTI_Menu_Control_IronSight {
 			idc = 180022;
 
 			y = "SafeZoneY + (SafeZoneH * 0.75)";
 			
-			text = "";
+			text = $STR_WF_COMMAND_UnflipButton;
 			action = "['onUnitUnflip'] call compile preprocessFileLineNumbers 'Client\Events\Events_UI_UnitsCamera.sqf'";
 		};
-		*/
+		
 		class CTI_Menu_Control_Disband : CTI_Menu_Control_IronSight { //--- Render out.
 			idc = 180023;
 
 			y = "SafeZoneY + (SafeZoneH * 0.70)";
 
-			text = "Disband Unit";
+			text = $STR_WF_TEAM_DisbandButton;
 			action = "['onUnitDisband'] call compile preprocessFileLineNumbers 'Client\Events\Events_UI_UnitsCamera.sqf'";
 		};
 		class CTI_Menu_Control_Remote : CTI_Menu_Control_IronSight {
@@ -1945,7 +1948,7 @@ class CTI_UCRscUnitsCamera {
 
 			y = "SafeZoneY + (SafeZoneH * 0.65)";
 
-			text = "Remote Control";
+			text = $STR_WF_MAIN_RoleSelector;
 			action = "['onRemote'] call compile preprocessFileLineNumbers 'Client\Events\Events_UI_UnitsCamera.sqf'";
 		};
 	/*Removed in favor of HALO vehicle fast travel

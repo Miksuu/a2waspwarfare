@@ -1,6 +1,7 @@
-misslelimit fix
-votefix#done
-add objectbased supplyrun like in a2 + add supersalvage in same way and reduce normal salvage to 40%
-write pricescript for easa,maybe add template function for easa too
-maybe add backpackuav to spawn in lower level af and reduce pchela to same level
-add rest of new a2 features
+easa fix
+	-remove old weapons if equip new
+	-build sensefull pricescript
+	-add template
+towndubbing
+	-create ogg for each town
+	-implement dubbing (looked like its made for just add sounds)

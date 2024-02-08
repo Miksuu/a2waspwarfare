@@ -21,7 +21,6 @@ cti_CO_FNC_HandleDamage_ObjectExplosion = Compile preprocessFileLineNumbers "Com
 
 
 
-
 //---GLX + compatible Waypoints Enviroment
 
 cti_CO_FNC_Streetwaypoints = Compile preprocessFileLineNumbers "GLX_System\Streetwaypoints.sqf";
@@ -90,6 +89,9 @@ cti_CO_FNC_ChangeTeamFunds = Compile preprocessFileLineNumbers "Common\Functions
 cti_CO_FNC_HandleIncomingMissile = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleIncomingMissile.sqf";
 cti_CO_FNC_ChangeUnitGroup = Compile preprocessFileLineNumbers "Common\Functions\Common_ChangeUnitGroup.sqf";
 cti_CO_FNC_ClearVehicleCargo = Compile preprocessFileLineNumbers "Common\Functions\Common_ClearVehicleCargoOA.sqf";
+CTI_CO_FNC_GetVehicleCargo= Compile preprocessFileLineNumbers  "Common\Functions\Common_GetVehicleCargo.sqf";
+
+
 cti_CO_FNC_CreateTeam = Compile preprocessFileLineNumbers "Common\Functions\Common_CreateTeam.sqf";
 cti_CO_FNC_CreateTownUnits = Compile preprocessFileLineNumbers "Common\Functions\Common_CreateTownUnits.sqf";
 cti_CO_FNC_CreateUnitForStaticDefence = Compile preprocessFileLineNumbers "Common\Functions\Common_CreateUnitForStaticDefence.sqf";
@@ -98,7 +100,11 @@ cti_CO_FNC_CreateVehicle = Compile preprocessFileLineNumbers "Common\Functions\C
 cti_CO_FNC_CreateUnit = Compile preprocessFileLineNumbers "Common\Functions\Common_CreateUnit.sqf";
 cti_CO_FNC_EquipBackpack = Compile preprocessFileLineNumbers "Common\Functions\Common_EquipBackpack.sqf";
 cti_CO_FNC_EquipUnit = Compile preprocessFileLineNumbers "Common\Functions\Common_EquipUnit.sqf";
-cti_CO_FNC_EquipVehicle = Compile preprocessFileLineNumbers "Common\Functions\Common_EquipVehicle.sqf";
+//cti_CO_FNC_EquipVehicle = Compile preprocessFileLineNumbers "Common\Functions\Common_EquipVehicle.sqf";
+//back to benny script,imported from ofps
+cti_CO_FNC_EquipVehicleCargo = Compile preprocessFileLineNumbers "Common\Functions\Common_EquipVehicleCargo.sqf";
+
+
 cti_CO_FNC_FindTurretsRecursive = Compile preprocessFileLineNumbers "Common\Functions\Common_FindTurretsRecursive.sqf";
 cti_CO_FNC_FireArtillery = Compile preprocessFileLineNumbers "Common\Functions\Common_FireArtillery.sqf";
 cti_CO_FNC_GetAreaEnemiesCount = Compile preprocessFileLineNumbers "Common\Functions\Common_GetAreaEnemiesCount.sqf";
