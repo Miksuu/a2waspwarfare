@@ -709,27 +709,30 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 						_area = [_pos,((sidejoined) Call WFBE_CO_FNC_GetSideLogic) getVariable "wfbe_basearea"] Call WFBE_CO_FNC_GetClosestEntity2;
 						_get = _area getVariable 'avail';
 
-						_find = _structures find _class;
-						if (_find != -1) then {
-							//--- Increment the buildings.
-							if ((_find - 1) > -1) then {
-								_current = WFBE_Client_Logic getVariable "wfbe_structures_live";
-								_current set [_find - 1, (_current select (_find-1)) + 1];
-								WFBE_Client_Logic setVariable ["wfbe_structures_live", _current, true];
+						// Add a restriction to buying the defences if the max count has been reached
+						if (_get > 0) then {
+							_find = _structures find _class;
+							if (_find != -1) then {
+								//--- Increment the buildings.
+								if ((_find - 1) > -1) then {
+									_current = WFBE_Client_Logic getVariable "wfbe_structures_live";
+									_current set [_find - 1, (_current select (_find-1)) + 1];
+									WFBE_Client_Logic setVariable ["wfbe_structures_live", _current, true];
+								};
+
+								["RequestStructure", [sideJoined,_class,_pos,_dir]] Call WFBE_CO_FNC_SendToServer;
 							};
 
-							["RequestStructure", [sideJoined,_class,_pos,_dir]] Call WFBE_CO_FNC_SendToServer;
-						};
-
-						if (_class in _defenses) then {
-							["RequestDefense", [sideJoined,_class,_pos,_dir,manningDefense]] Call WFBE_CO_FNC_SendToServer;
-							lastBuilt = _par;
-							
-							if (!isNull _area && _get > 0) then {
-							_commanderTeam =(sideJoined) Call WFBE_CO_FNC_GetCommanderTeam;
-							_area setVariable [ "avail" ,_get -1];
-							hintSilent parseText format ["Available Items : " +"<t color='#00FF00'>"+" %1"+"</t>", _get];
-							[leader _commanderTeam, "Available", _get] Call WFBE_CO_FNC_SendToClient;};
+							if (_class in _defenses) then {
+								["RequestDefense", [sideJoined,_class,_pos,_dir,manningDefense]] Call WFBE_CO_FNC_SendToServer;
+								lastBuilt = _par;
+								
+								if (!isNull _area && _get > 0) then {
+								_commanderTeam =(sideJoined) Call WFBE_CO_FNC_GetCommanderTeam;
+								_area setVariable [ "avail" ,_get -1];
+								hintSilent parseText format ["Available Items : " +"<t color='#00FF00'>"+" %1"+"</t>", _get];
+								[leader _commanderTeam, "Available", _get] Call WFBE_CO_FNC_SendToClient;};
+							};
 						};
 					};
 				};
