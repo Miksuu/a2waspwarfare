@@ -145,7 +145,7 @@ _n = _n		+ ["Hedgehog_EP1"];
 _n = _n		+ ["HeliH"];
 _n = _n		+ ["HeliHRescue"];
 _n = _n		+ ["HeliHCivil"];
-
+_n = _n		+ ["Plastic_Pole_EP1"];
 
 _n = _n		+ [if (IS_chernarus_map_dependent) then {"Land_CamoNet_EAST"} else {"Land_CamoNet_EAST_EP1"}];
 _n = _n		+ [if (IS_chernarus_map_dependent) then {"Land_CamoNetVar_EAST"} else {"Land_CamoNetVar_EAST_EP1"}];
@@ -161,7 +161,7 @@ _n = _n		+ ["RUBasicAmmunitionBox"];
 _n = _n		+ ["RUBasicWeaponsBox"];
 _n = _n		+ ["RULaunchersBox"];
 _n = _n		+ ["RUSpecialWeaponsBox"];
-_n = _n		+ ["TK_WarfareBVehicleServicePoint_Base_EP1"];
+_n = _n		+ [if (IS_chernarus_map_dependent) then {"INS_WarfareBVehicleServicePoint"} else {"TK_WarfareBVehicleServicePoint_Base_EP1"}];
 
 /* Class used for AI, AI will attempt to build those */
 missionNamespace setVariable [Format["WFBE_%1DEFENSES_MG", _side], ['KORD_high_TK_EP1']];
