@@ -45,10 +45,10 @@ if (_factoryType isEqualTo 	"Barracks")then{
 	private _dir = 0;
 	if (count _pads > 0) then {
 		for "_i" from 0 to (count _pads - 1) do {
-			private _no = getpos (_pads select _i) nearEntities [["Man","Car","Motorcycle","Tank","Ship","Air","StaticWeapon"], 0.5];
-			private _double = _pad_man countType _no;
+			//private _no = getpos (_pads select _i) nearEntities [["Man","Car","Motorcycle","Tank","Ship","Air","StaticWeapon"], 0.5];
+			//private _double = _pad_man countType _no;
 			_dir = getDir (_pads select _i);
-			if (_no isEqualTo [_pads select _i] || _double isEqualTo count _no) then {_free = _free + [[getpos (_pads select _i), _dir]];};
+			//if (_no isEqualTo [_pads select _i] || _double isEqualTo count _no) then {_free = _free + [[getpos (_pads select _i), _dir]];};
 		};
 	};
 	if (count _free > 0) then {
@@ -64,7 +64,8 @@ if (_factoryType isEqualTo 	"Barracks")then{
 
 
 
-};
+
+}else{//---------------------------------------------------------check for light
 
 
 if(_factoryType isEqualTo "Light")then{
@@ -78,10 +79,10 @@ if(_factoryType isEqualTo "Light")then{
 	private _dir = 0;
 	if (count _pads > 0) then {
 		for "_i" from 0 to (count _pads - 1) do {
-			private _no = getpos (_pads select _i) nearEntities [["Man","Car","Motorcycle","Tank","Ship","Air","StaticWeapon"], 0.5];
-			private _double = _pad_man countType _no;
+			//private _no = getpos (_pads select _i) nearEntities [["Man","Car","Motorcycle","Tank","Ship","Air","StaticWeapon"], 0.5];
+			//private _double = _pad_man countType _no;
 			_dir = getDir (_pads select _i);
-			if (_no isEqualTo [_pads select _i] || _double isEqualTo count _no) then {_free = _free + [[getpos (_pads select _i), _dir]];};
+			//if (_no isEqualTo [_pads select _i] || _double isEqualTo count _no) then {_free = _free + [[getpos (_pads select _i), _dir]];};
 		};
 	};
 	if (count _free > 0) then {
@@ -98,7 +99,8 @@ if(_factoryType isEqualTo "Light")then{
 
 	
 	
-};
+
+}else{//---------------------------------------------------------check for heavy
 		
 if(_factoryType isEqualTo "Heavy")then{
 		
@@ -110,10 +112,10 @@ if(_factoryType isEqualTo "Heavy")then{
 	private _dir = 0;
 	if (count _pads > 0) then {
 		for "_i" from 0 to (count _pads - 1) do {
-			private _no = getpos (_pads select _i) nearEntities [["Man","Car","Motorcycle","Tank","Ship","Air","StaticWeapon"], 0.5];
-			private _double = _pad_man countType _no;
+			//private _no = getpos (_pads select _i) nearEntities [["Man","Car","Motorcycle","Tank","Ship","Air","StaticWeapon"], 0.5];
+			//private _double = _pad_man countType _no;
 			_dir = getDir (_pads select _i);
-			if (_no isEqualTo [_pads select _i] || _double isEqualTo count _no) then {_free = _free + [[getpos (_pads select _i), _dir]];};
+			//if (_no isEqualTo [_pads select _i] || _double isEqualTo count _no) then {_free = _free + [[getpos (_pads select _i), _dir]];};
 		};
 	};
 	if (count _free > 0) then {
@@ -127,7 +129,9 @@ if(_factoryType isEqualTo "Heavy")then{
 	_position set [2, .5];};
 		
 		
-};
+
+}else{//---------------------------------------------------------check for air
+
 if(_factoryType isEqualTo "Aircraft")then{
 			
 		_pad_man='Land_HelipadCivil_F';
@@ -136,10 +140,10 @@ if(_factoryType isEqualTo "Aircraft")then{
 	private _dir = 0;
 	if (count _pads > 0) then {
 		for "_i" from 0 to (count _pads - 1) do {
-			private _no = getpos (_pads select _i) nearEntities [["Man","Car","Motorcycle","Tank","Ship","Air","StaticWeapon"], 0.5];
-			private _double = _pad_man countType _no;
+			//private _no = getpos (_pads select _i) nearEntities [["Man","Car","Motorcycle","Tank","Ship","Air","StaticWeapon"], 0.5];
+			//private _double = _pad_man countType _no;
 			_dir = getDir (_pads select _i);
-			if (_no isEqualTo [_pads select _i] || _double isEqualTo count _no) then {_free = _free + [[getpos (_pads select _i), _dir]];};
+			//if (_no isEqualTo [_pads select _i] || _double isEqualTo count _no) then {_free = _free + [[getpos (_pads select _i), _dir]];};
 		};
 	};
 	if (count _free > 0) then {
@@ -151,7 +155,7 @@ if(_factoryType isEqualTo "Aircraft")then{
 	}else{
 	_position = _building modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
 	_position set [2, .5];};
-};
+};};};};
 			
 
 
@@ -228,7 +232,7 @@ if (!alive _building || isNull _building) exitWith {
 
 if (_isMan) then {
 	_soldier = [_unit,_group,_position,cti_Client_SideID] Call cti_CO_FNC_CreateUnit;
-	
+	/*fkn clear backpack function not needed
 	//--- Make sure that our unit is supposed to have a backpack.
 	if (getText(configFile >> 'CfgVehicles' >> _unit >> 'backpack') != "") then {
 		//--- Retrieve the unit gear config.
@@ -239,7 +243,7 @@ if (_isMan) then {
 		//--- Backpack handling.
 		if (_gear_backpack != "") then {[_soldier, _gear_backpack, _gear_backpack_content] Call cti_CO_FNC_EquipBackpack};
 	};
-
+	*/
 	[cti_Client_SideJoinedText,'UnitsCreated',1] Call cti_CO_FNC_UpdateStatistics;
 } else {
 	_driver = _vehi select 0;

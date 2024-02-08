@@ -447,8 +447,6 @@ CTI_ARTY_SCRIPTBLACKLIST=["CUP_O_2b14_82mm_RU",'CUP_B_M252_USMC','CUP_B_L16A2_BA
 	
 	cti_C_INFANTRY_TO_REQUIP = [
 	 
-	 //['CUP_O_RU_Soldier_Lite_Ratnik_BeigeDigital', ['CUP_arifle_AK105', 'CUP_LRTV'], ['CUP_30Rnd_545x39_AK74M_M x6', 'CUP_HandGrenade_RGD5 x1', 'SmokeShell x1', 'Laserbatteries x1']]
-		
 		
 		//ADD LASER
 		['cwr3_o_spetsnaz_bizon_sd', ['BIZON', 'LASER'], ['BIZONAMMO', 'CUP_HandGrenade_RGD5 x1', 'SmokeShell x1', 'Laserbatteries x1']],
@@ -456,8 +454,10 @@ CTI_ARTY_SCRIPTBLACKLIST=["CUP_O_2b14_82mm_RU",'CUP_B_M252_USMC','CUP_B_L16A2_BA
 		//METIS HE AMMO FOR BALANCE DRAGON ON LOW LEVEL
 		['CUP_O_RU_Soldier_HAT_EMR', ['AK', 'METIS(HE AMMO)'], ['CUP_30Rnd_545x39_AK74M_M x6', 'CUP_HandGrenade_RGD5 x1', 'SmokeShell x1']]
 		
+		
+		
 		];
-
+		
 
 
 

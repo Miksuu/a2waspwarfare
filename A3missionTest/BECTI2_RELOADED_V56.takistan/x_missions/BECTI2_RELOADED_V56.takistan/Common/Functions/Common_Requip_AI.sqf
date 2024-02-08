@@ -39,6 +39,9 @@ switch (typeOf _this) do
 		// toDo: adapt gear, inventory according to camo specification		
 		_this addSecondaryWeaponItem "Vorona_HE";
 	};
+
+	
+	
 	
 	
 	/*

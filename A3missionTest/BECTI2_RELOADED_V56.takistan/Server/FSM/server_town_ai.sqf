@@ -87,7 +87,7 @@ while {!cti_GameOver} do {
                     ["INFORMATION", Format ["server_town_ai.fsm: Town [%1] has been activated, creating defensive units for [%2].", _town, _side]] Call cti_CO_FNC_LogContent;
 
                     if (missionNamespace getVariable Format ["cti_%1_PRESENT",_side]) then {[_side,"HostilesDetectedNear",_town] Spawn cti_SE_FNC_SideMessage};
-					systemchat "trigger creation";
+					//systemchat "trigger creation";
                     //--- Get the positions and create the groups
                     _camps = +(_town getVariable "camps");
                     _positions = [];
@@ -161,7 +161,7 @@ while {!cti_GameOver} do {
 					//// inner block
 					_town setVariable ["cti_active", false];
 					_town setVariable ["cti_active_air", false];
-					systemchat "trigger false";
+					//systemchat "trigger false";
 					//--- Teams Units.
 					{
 						if !(isNil '_x') then {

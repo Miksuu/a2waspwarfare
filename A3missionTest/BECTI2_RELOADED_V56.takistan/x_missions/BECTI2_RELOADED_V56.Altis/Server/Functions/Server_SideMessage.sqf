@@ -16,20 +16,20 @@ switch (true) do {
 		_rlName = _parameters getVariable "name";
 		
 		_dub = _parameters getVariable "cti_town_dubbing";
-		if (_dub != "Town") then {if (count(getArray(configFile >> (missionNamespace getVariable Format ["cti_%1_RadioAnnouncers_Config", _side]) >> "Words" >> _dub)) == 0) then {_dub = "Town"}};
-
-		_speaker kbTell [_receiver, _topicSide, format["%1%2", _message, _side],["1","",_rlName,[_dub]],true];
+		_speaker kbTell [_receiver, _topicSide, format["%1%2", _message, _side],["1","",_dub,[format ["\Townsound\%1%2.ogg",_dub, _side]]],true];
 	};
 	case (_message in ["CapturedNear","LostAt"]): {
 		_locRaw = str (_parameters select 1);
 		_rlName = (_parameters select 1) getVariable "name";
 
 		_dub = (_parameters select 1) getVariable "cti_town_dubbing";
-		if (_dub != "Town") then {if (count(getArray(configFile >> (missionNamespace getVariable Format ["cti_%1_RadioAnnouncers_Config", _side]) >> "Words" >> _dub)) == 0) then {_dub = "Town"}};
+		_speaker kbTell [_receiver, _topicSide, format["%1%2", _message, _side],["1","",(_parameters select 0),[(_parameters select 0)]],["2","",_dub,[format ["\Townsound\%1%2.ogg",_dub, _side]]],true];
 		
-		_speaker kbTell [_receiver, _topicSide, format["%1%2", _message, _side],["1","",(_parameters select 0),[(_parameters select 0)]],["2","",_rlName,[_dub]],true];
+		
+		
 	};
 	case (_message in ["Constructed","Destroyed","Deployed","Mobilized","IsUnderAttack"]): {
+		
 		_localizedString = "";
 		_value = "";
 		if ((_parameters select 0 ) == "Base") then {
@@ -50,10 +50,16 @@ switch (true) do {
 		} else {
 			_localizedString = (_parameters select 1) getVariable "name";
 			_dub = (_parameters select 1) getVariable "cti_town_dubbing";
-			if (_dub != "Town") then {if (count(getArray(configFile >> (missionNamespace getVariable Format ["cti_%1_RadioAnnouncers_Config", _side]) >> "Words" >> _dub)) == 0) then {_dub = "Town"}};
 			_value = _dub;
 		};		
-		_speaker kbTell [_receiver, _topicSide, format["%1%2", _message, _side],["1","",_localizedString,[format ["\Sounds\%1%2.wss",_value, _side]]],true];
+
+		
+		if ((_parameters select 0 ) == "Base") then {
+		_speaker kbTell [_receiver, _topicSide, format["%1%2", _message, _side],["1","",_localizedString,[format ["\Sounds\%1%2.ogg",_value, _side]]],true];
+		} else {
+		_speaker kbTell [_receiver, _topicSide, format["%1%2", _message, _side],["1","",_localizedString,[format ["\Townsound\%1%2.ogg",_value, _side]]],true];
+		};
+	
 	};
 	case (_message in ["VotingForNewCommander","NewIntelAvailable","MMissionFailed","NewMissionAvailable"]): {		
 		_speaker kbTell [_receiver, _topicSide, format["%1%2", _message, _side], true]

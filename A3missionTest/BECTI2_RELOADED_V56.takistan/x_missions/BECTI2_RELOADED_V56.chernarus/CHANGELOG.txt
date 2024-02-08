@@ -132,3 +132,30 @@ for now its ok with old pricescript
 20240121 -fixed rtruck camp repair
 20240123 -fixed ecm messages on dedicated |added  ['chat',"exampletext"] remoteExecCall ["cti_CL_FNC_LocalizeMessage"]; for send message to all
 20240124 -fixed voting
+20240130 -fixed misslelimit and ecm functions
+	 -fixed empty backpackspawn for ai
+	 -fixed clear vehicle crew, needed for prevent ghost objects
+	 -started add stringtable for each unit to get all multilingual,like it should be.
+		barracks#done
+
+
+blu ugv fixed
+-vehicle trunk in gear menu fixed 
+-added stringtable links for light #todo translation
+-added stringtable links for heavy #todo translation
+-added stringtable links for air#todo translation
+
+20240202
+-added stringtable links for towncars #todo translation
+-added stringtable links for townfighter #maybe optimize google translation,used strings from barracks
+-added stringtable links for coin buildstuff #todo translation
+
+if all translated we can name it v57
+
+-improved remote cam and unit cam
+
+20240206 -added full towndubbing for all 4 maps
+	-fixed some altismap issues with camps
+	-gui_menu_help changelog update
+
+todo easa fix and rework

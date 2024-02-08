@@ -6,47 +6,73 @@ switch (_action) do {
 		_groups = (cti_Client_SideJoined) call CTI_CO_FNC_GetSideGroups;
 		
 		
+		//changed cam code to much better a2 code,so good fps now for watching planes or other fast units
+		
+		UIcurrentUnit = (player) Call cti_CO_FNC_GetUnitVehicle;
+		UIcurrentMode = "Internal";
+		UIcurrentUnit switchCamera UIcurrentMode;
+		UItype = ["Internal","External","Ironsight"];
 		
 		
-		_track = player;
-		showCinemaBorder false;
-		
-		_pitch = 0;
-		_dir = 180;
-		_distance = 2.5;
-		_pos = [(sin _dir)*(cos _pitch * _distance),(cos _pitch) * (cos _dir * _distance),1.5-(sin _pitch * _distance)];
-		
-		CTI_UnitsCamera = "camera" camCreate getPos _track;
-		CTI_UnitsCamera camSetTarget _track;
-		CTI_UnitsCamera camSetRelPos _pos;
-		CTI_UnitsCamera camCommit 0;
-		
-		if (difficultyOption "thirdPersonView" isEqualTo 1) then {
-			uiNamespace setVariable ["cti_dialog_ui_unitscam_camview", "external"];
-			CTI_UnitsCamera cameraEffect ["Internal", "back"];
-			
-			((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180021) ctrlSetPosition [SafeZoneX + (SafeZoneW * 0.01), SafeZoneY + (SafeZoneH * 0.80), SafeZoneW * 0.14, SafeZoneH * 0.04]; ((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180021) ctrlCommit 0; //--- Bring back the button!
-		} else {
-			uiNamespace setVariable ["cti_dialog_ui_unitscam_camview", "internal"];
-			vehicle _track switchCamera "INTERNAL";
-		};
-		
-		uiNamespace setVariable ["cti_dialog_ui_unitscam_anchor", nil];
-		uiNamespace setVariable ["cti_dialog_ui_unitscam_camview_in", cameraView];
+		//init load player ai
 		uiNamespace setVariable ["cti_dialog_ui_unitscam_screenselect", objNull];
-		uiNamespace setVariable ["cti_dialog_ui_unitscam_pitch", 0];
-		uiNamespace setVariable ["cti_dialog_ui_unitscam_dir", 180];
-		uiNamespace setVariable ["cti_dialog_ui_unitscam_focus", _track];
+		//--- Load the AI Members
+		_ais = (Units (group player) - [player]) Call cti_CO_FNC_GetLiveUnits;
+		uiNamespace setVariable ["cti_dialog_ui_unitscam_groups_ai", _ais];
+		{
+			private _ai_text = [];
+			{_ai_text pushback (parseNumber ((str _x splitString ":") select 1))} foreach _ais;
+			//--- Add AI vehicle status
+			_vehicle =  "";
+			_status = "";
+			_class=typeOf (vehicle _x);
+			_currentUnit = missionNamespace getVariable _class;
+			_unitdescription = _currentUnit select QUERYUNITLABEL;
+			if (isnull objectParent _x) then {
+			
+	
+			if (_unitdescription=="")then{
+			_status = GetText (configFile >> "CfgVehicles" >> (typeOf (vehicle _x)) >> "displayName");
+			}else{_status=_unitdescription;};
+			
+			
+			} else {
+				_d=localize "STR_WF_DriverUC";_g=localize "STR_WF_GunnerUC";_c=localize "STR_WF_CommanderUC";
+				
+				if (_unitdescription=="")then{
+				_vehicle =  getText(configFile >> "CfgVehicles" >> typeOf objectParent _x >> "displayName");
+				}else{_vehicle=_unitdescription;};
+				
+				switch (true) do { 
+					case ((driver objectParent _x) isEqualto _x) : {_status = _d}; 
+					case ((gunner objectParent _x) isEqualto _x)  : {_status = _g };
+					case ((commander objectParent _x) isEqualto _x)  : {_status = _c };
+					default {_status = ""}; 
+				};	
+			}; 
+			((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180101) lbAdd format["%1 %2 %3", _ai_text select _forEachIndex, _status, _vehicle];
+
+			if (alive _origin && _x isEqualTo _origin) then {((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180101) lbSetCurSel _forEachIndex};
+		} forEach (_ais);
 		
-		((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180001) ctrlAddEventHandler ["MouseButtonDown", "nullReturn = _this call CTI_UI_KeyHandler_UnitsCam_MouseButtonDown"];
-		((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180001) ctrlAddEventHandler ["MouseButtonUp", "nullReturn = _this call CTI_UI_KeyHandler_UnitsCam_MouseButtonUp"];
-		// ((uiNamespace getVariable "cti_dialog_ui_satcam") displayCtrl 170001) ctrlAddEventHandler ["MouseZChanged", "nullReturn = _this call CTI_UI_KeyHandler_SatelitteCamera_MouseZChanged"];
-		((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180001) ctrlAddEventHandler ["MouseMoving", "nullReturn = _this call CTI_UI_KeyHandler_UnitsCam_MouseMoving"];
-		((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180001) ctrlAddEventHandler ["MouseHolding", "nullReturn = _this call CTI_UI_KeyHandler_UnitsCam_MouseMoving"];
+
+		if !(isNil {uiNamespace getVariable "cti_dialog_ui_unitscam_origin"}) then {
+			uiNamespace setVariable ["cti_dialog_ui_unitscam_origin", nil];
+		} else {
+			if !(isNull (uiNamespace getVariable "cti_dialog_ui_unitscam_screenselect")) then {
+				((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180101) lbSetCurSel (_ais find (uiNamespace getVariable "cti_dialog_ui_unitscam_screenselect"));
+				uiNamespace setVariable ["cti_dialog_ui_unitscam_screenselect", objNull];
+			} else {
+				if (alive leader _group) then {
+					switch (uiNamespace getVariable "cti_dialog_ui_unitscam_camview") do { case "internal": {(vehicle leader _group) switchCamera "INTERNAL"}; case "ironsight": {(vehicle leader _group) switchCamera "GUNNER"}};
+					((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180011) ctrlSetText format["Feed: %1", leader _group];
+					//uiNamespace setVariable ["cti_dialog_ui_unitscam_focus", leader _group];
+					
+				};
+			};
+		};	
 		
 		ctrlSetFocus ((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180001);
-		
-		
 		
 		_groups = (cti_Client_SideJoined) call CTI_CO_FNC_GetSideGroups;
 		uiNamespace setVariable ["cti_dialog_ui_unitscam_groups", _groups];
@@ -69,8 +95,6 @@ switch (_action) do {
 		
 		
 		
-		
-		
 		if (isNil {uiNamespace getVariable "cti_dialog_ui_unitscam_showgroups"}) then {uiNamespace setVariable ["cti_dialog_ui_unitscam_showgroups", true]};
 		if (uiNamespace getVariable "cti_dialog_ui_unitscam_showgroups") then {
 			((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180007) ctrlSetText "Hide Teams";
@@ -89,14 +113,7 @@ switch (_action) do {
 		
 		if (isNil {uiNamespace getVariable "cti_dialog_ui_unitscam_showinfo"}) then {uiNamespace setVariable ["cti_dialog_ui_unitscam_showinfo", false]};
 		
-		/*no info needed
-		if (uiNamespace getVariable "cti_dialog_ui_unitscam_showinfo") then {
-			((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180015) ctrlSetText "Hide Info";
-		} else {
-			((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180015) ctrlSetText "Show Info";
-			{((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl _x) ctrlShow false} forEach [180016, 180018];
-		};
-		*/
+
 		
 		
 		//--- Render in. Where the bloody hell is the dialog option to render thing invisible at first? visible = 0 ?!?!
@@ -109,45 +126,14 @@ switch (_action) do {
 		((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180005) ctrlSetPosition [SafeZoneX + (SafeZoneW * 0.805), SafeZoneY + (SafezoneH * 0.41), SafeZoneW * 0.19, SafeZoneH * 0.03]; ((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180005) ctrlCommit 0;
 		{((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl _x) ctrlSetPosition [SafeZoneX + (SafeZoneW * 0.805), SafeZoneY + (SafezoneH * 0.45), SafeZoneW * 0.18, SafeZoneH * 0.15]; ((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl _x) ctrlCommit 0} forEach [180006, 180101];
 		
-		/*unflip not needed,we have 2 unitcams now
-		if (call CTI_CL_FNC_IsPlayerCommander) then {
-			((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180022) ctrlSetPosition [SafeZoneX + (SafeZoneW * 0.01), SafeZoneY + (SafeZoneH * 0.75), SafeZoneW * 0.14, SafeZoneH * 0.04]; ((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180022) ctrlCommit 0; //--- Bring back the button!
-		};
-		*/
-		
-		/*no satelite key needed
-		//--- Sat cam available?
-		_upgrades = (cti_Client_SideJoined) call CTI_CO_FNC_GetSideUpgrades;
-		_enable = [false, true] select (CTI_Base_SatelliteInRange && _upgrades select CTI_UPGRADE_SATELLITE > 0);
-		((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180014) ctrlEnable (if ((CTI_Base_SatelliteInRange && _upgrades select CTI_UPGRADE_SATELLITE > 0)) then {true} else {false});
-		if (_enable) then {((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180014) ctrlSetPosition [SafeZoneX + (SafeZoneW * 0.31), SafeZoneY + (SafeZoneH * 0.95), SafeZoneW * 0.14, SafeZoneH * 0.04]; ((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180014) ctrlCommit 0};
-		*/
-		
-		
-		if (isNil {uiNamespace getVariable "cti_dialog_ui_unitscam_viewmode"}) then {uiNamespace setVariable ["cti_dialog_ui_unitscam_viewmode", 0]};
-		_mode = "Normal";
-		switch (uiNamespace getVariable "cti_dialog_ui_unitscam_viewmode") do { case 1: {_mode = "NVG"; camUseNVG true }; };
-		((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180013) ctrlSetText _mode;
-		
 		
 		// Remote Control
-		//((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180024) ctrlEnable false;
 		((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180024) ctrlEnable (_ai call CTI_CL_FNC_CanRemoteUnit);
+
+		UCAMSWITCH=True;
+		execVM "Client\GUI\GUI_UCAMLOOP.sqf";
 		
 		
-		/*
-		//disable unflip key
-		((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180022) ctrlEnable false;
-		
-		//disable satelite key
-		((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180014) ctrlEnable false;
-		*/
-		
-		// Paradrop
-		_track call CTI_UI_UnitsCam_UpdateParaButton;
-		
-		
-		execVM "Client\GUI\GUI_UnitsCamera.sqf";
 	};
 	case "onUnitsLBSelChanged": {
 		_changeto = _this select 1;
@@ -158,12 +144,46 @@ switch (_action) do {
 		_origin = uiNamespace getVariable "cti_dialog_ui_unitscam_origin";
 		if (isNil '_origin') then { _origin = objNull };
 		
-		//--- Load the AI Members
-		_ais = (units _group - [leader _group]) call CTI_CO_FNC_GetLiveUnits;
+		//jump to player if clicked
+		UIcurrentUnit=leader _group;
 		
+		//--- Load the AI Members
+		_ais = (units _group - [leader _group]) call CTI_CO_FNC_GetLiveUnits;	
 		uiNamespace setVariable ["cti_dialog_ui_unitscam_groups_ai", _ais];
 		{
-			((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180101) lbAdd format["%1", _x];
+			private _ai_text = [];
+			{_ai_text pushback (parseNumber ((str _x splitString ":") select 1))} foreach _ais;
+			//--- Add AI vehicle status
+			_vehicle =  "";
+			_status = "";
+			_class=typeOf (vehicle _x);
+			_currentUnit = missionNamespace getVariable _class;
+			_unitdescription = _currentUnit select QUERYUNITLABEL;
+			
+			
+			if (isnull objectParent _x) then {
+			
+			if (_unitdescription=="")then{
+			_status = GetText (configFile >> "CfgVehicles" >> (typeOf (vehicle _x)) >> "displayName");
+			}else{_status=_unitdescription;};
+			
+			
+			} else {
+				_d=localize "STR_WF_DriverUC";_g=localize "STR_WF_GunnerUC";_c=localize "STR_WF_CommanderUC";
+				
+				if (_unitdescription=="")then{
+				_vehicle =  getText(configFile >> "CfgVehicles" >> typeOf objectParent _x >> "displayName");
+				}else{_vehicle=_unitdescription;};
+				
+				switch (true) do { 
+					case ((driver objectParent _x) isEqualto _x) : {_status = _d}; 
+					case ((gunner objectParent _x) isEqualto _x)  : {_status = _g };
+					case ((commander objectParent _x) isEqualto _x)  : {_status = _c };
+					default {_status = ""}; 
+				};	
+			}; 
+			((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180101) lbAdd format["%1 %2 %3", _ai_text select _forEachIndex, _status, _vehicle];
+
 			if (alive _origin && _x isEqualTo _origin) then {((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180101) lbSetCurSel _forEachIndex};
 		} forEach (_ais);
 		
@@ -178,61 +198,49 @@ switch (_action) do {
 					switch (uiNamespace getVariable "cti_dialog_ui_unitscam_camview") do { case "internal": {(vehicle leader _group) switchCamera "INTERNAL"}; case "ironsight": {(vehicle leader _group) switchCamera "GUNNER"}};
 					((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180011) ctrlSetText format["Feed: %1", leader _group];
 					uiNamespace setVariable ["cti_dialog_ui_unitscam_focus", leader _group];
-					[leader _group, "cti_dialog_ui_unitscam", 180017] call CTI_UI_SatelitteCamera_LoadEntityInformation;
+					
 				};
 			};
 		};
 		
 		// Remote Control
-		//((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180024) ctrlEnable false;
 		((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180024) ctrlEnable (_ai call CTI_CL_FNC_CanRemoteUnit);
+			
 		
-		
-		/*
-		//disable unflip key
-		((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180022) ctrlEnable false;
-		
-		//disable satelite key
-		((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180014) ctrlEnable false;
-		*/
-		
-		// Paradropping
-		(leader _group) call CTI_UI_UnitsCam_UpdateParaButton;
 	};
 	case "onUnitsAILBSelChanged": {
 		_changeto = _this select 1;
 		
 		
-		
 		_ai = (uiNamespace getVariable "cti_dialog_ui_unitscam_groups_ai") select _changeto;
 		if (alive _ai) then {
-			uiNamespace setVariable ["cti_dialog_ui_unitscam_focus", _ai];
-			switch (uiNamespace getVariable "cti_dialog_ui_unitscam_camview") do { case "internal": {vehicle _ai switchCamera "INTERNAL"}; case "ironsight": {vehicle _ai switchCamera "GUNNER"}};
+			
+			uiNamespace setVariable ["cti_dialog_ui_unitscam_focus", _ai];//needed for remote
+
+			//jump to ai if clicked
+			UIcurrentUnit=_ai;
+			
+			
 			((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180011) ctrlSetText format["Feed: %1", _ai];
-			[_ai, "cti_dialog_ui_unitscam", 180017] call CTI_UI_SatelitteCamera_LoadEntityInformation;
+			
 		};
 		// Remote Control
 		((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180024) ctrlEnable (_ai call CTI_CL_FNC_CanRemoteUnit);
-		/*
-		//disable unflip key
-		((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180022) ctrlEnable false;
+	
 		
-		//disable satelite key
-		((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180014) ctrlEnable false;
-		*/
 		
-		// Paradropping
-		_ai call CTI_UI_UnitsCam_UpdateParaButton;
 	};
 	case "onToggleGroup": {
 		_changeto = !(uiNamespace getVariable "cti_dialog_ui_unitscam_showgroups");
 		uiNamespace setVariable ["cti_dialog_ui_unitscam_showgroups", _changeTo];
 		
+		_hide=localize "STR_WF_HIDETEAMS"; 
+		_show=localize "STR_WF_SHOWTEAMS";
 		if (_changeto) then {
-			((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180007) ctrlSetText "Hide Teams";
+			((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180007) ctrlSetText _hide;
 			{((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl _x) ctrlShow true} forEach [180002, 180003, 180004, 180005, 180006, 180100, 180101];
 		} else {
-			((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180007) ctrlSetText "Show Teams";
+			((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180007) ctrlSetText _show;
 			{((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl _x) ctrlShow false} forEach [180002, 180003, 180004, 180005, 180006, 180100, 180101];
 		};
 	};
@@ -240,28 +248,18 @@ switch (_action) do {
 		_changeto = !(uiNamespace getVariable "cti_dialog_ui_unitscam_showmap");
 		uiNamespace setVariable ["cti_dialog_ui_unitscam_showmap", _changeTo];
 		
+		_hide=localize "STR_WF_HIDEMAP"; 
+		_show=localize "STR_WF_SHOWMAP";
+		
 		if (_changeto) then {
-			((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180008) ctrlSetText "Hide Map";
+			((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180008) ctrlSetText _hide;
 			{((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl _x) ctrlShow true} forEach [180009, 180010];
 		} else {
-			((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180008) ctrlSetText "Show Map";
+			((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180008) ctrlSetText _show;
 			{((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl _x) ctrlShow false} forEach [180009, 180010];
 		};
 	};
-	/*not needed
-	case "onToggleInfo": {
-		_changeto = !(uiNamespace getVariable "cti_dialog_ui_unitscam_showinfo");
-		uiNamespace setVariable ["cti_dialog_ui_unitscam_showinfo", _changeTo];
-		
-		if (_changeto) then {
-			((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180015) ctrlSetText "Hide Info";
-			{((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl _x) ctrlShow true} forEach [180016, 180018];
-		} else {
-			((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180015) ctrlSetText "Show Info";
-			{((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl _x) ctrlShow false} forEach [180016, 180018];
-		};
-	};
-	*/
+
 	case "onViewModeChanged": {
 		_mode = (uiNamespace getVariable "cti_dialog_ui_unitscam_viewmode") + 1;
 		if (_mode > 1) then { _mode = 0 };
@@ -272,23 +270,7 @@ switch (_action) do {
 		};
 		((uiNamespace getVariable "cti_dialog_ui_unitscam") displayCtrl 180013) ctrlSetText _mode;
 	};
-	case "onSatelliteCameraJump": {
-		_upgrades = (cti_Client_SideJoined) call CTI_CO_FNC_GetSideUpgrades;		
-		_track = uiNamespace getVariable "cti_dialog_ui_unitscam_focus";
-		if !(isNil '_track') then {
-			if (alive _track) then {
-				titleCut["","BLACK IN",1];
-				closeDialog 0;
-				if (_upgrades select CTI_UPGRADE_SATELLITE > 1) then {
-					uiNamespace setVariable ["cti_dialog_ui_satcam_origin", _track];
-					createDialog "CTI_RscSatelitteCamera";
-				} else {
-					uiNamespace setVariable ["cti_dialog_ui_basecam_origin", _track];
-					createDialog "CTI_RscBaseCamera";
-				};
-			};
-		};
-	};
+
 	case "onRemote": {
 		_who = uiNamespace getVariable "cti_dialog_ui_unitscam_focus";
 		if (_who call CTI_CL_FNC_CanRemoteUnit) then {
@@ -296,65 +278,23 @@ switch (_action) do {
 			(_who) spawn CTI_CL_FNC_RemoteControl;
 		};
 	};
-	case "onParadrop": {
-		_who = uiNamespace getVariable "cti_dialog_ui_unitscam_focus";
-		_flag = "";
-		
-		
-		if !(typeOf vehicle _who in CTI_PARADROP_PODS) then {
-			_flag = "Cannot paradrop. Unit must be in a valid pod";
-		};
-		
-		if (_flag isEqualTo "" && alive _who) then {
-			closeDialog 0;
-			(_who) spawn {
-				_vehicle = vehicle _this;
-				_dropPoint = (_vehicle call CTI_CL_FNC_MarkParadropLocation);
-				if (!isNil "_dropPoint" && _vehicle == vehicle _this && alive _this) then {
-					_price = _this call CTI_UI_UnitsCam_CalculatePodCost;
-					if (call CTI_CL_FNC_GetPlayerFunds >= _price) then {
-						{
-							_x setVariable ["cti_last_pos", [(_dropPoint) select 0, (_dropPoint) select 1, 0], true];
-							_x setVariable ["cti_last_town", _dropPoint call CTI_CO_FNC_GetClosestTown, true];
-						} forEach crew vehicle _this;
-						
-						
-						[group player, - _price] call CTI_CO_FNC_ChangeFunds;
-						if (local _vehicle) then {
-							[_vehicle, _dropPoint] spawn CTI_CO_FNC_ParadropVehicle;
-						} else {
-							[_vehicle, _dropPoint] remoteExec ["CTI_PVF_CO_RequestParadropVehicle", _vehicle];
-						};
-					};
-				};
-			};
-		} else {
-			hint _flag;
-		};
-	};
+	
 	case "onCamChange": {
 		_changeto = _this select 1;
-		_track = uiNamespace getVariable "cti_dialog_ui_unitscam_focus";
+		//_track = uiNamespace getVariable "cti_dialog_ui_unitscam_focus";
+		_track="whatever";
+		
 		
 		if !(isNil '_track') then {
 			switch (_changeto) do {
 				case "ironsight": {
-					CTI_UnitsCamera cameraEffect["TERMINATE","BACK"];
-					vehicle _track switchCamera "INTERNAL";
-					vehicle _track switchCamera "GUNNER";
-					uiNamespace setVariable ["cti_dialog_ui_unitscam_camview", "ironsight"];
+					UIcurrentMode="gunner";
 				};
 				case "internal": {
-					CTI_UnitsCamera cameraEffect["TERMINATE","BACK"];
-					vehicle _track switchCamera "INTERNAL";
-					uiNamespace setVariable ["cti_dialog_ui_unitscam_camview", "internal"];
+					UIcurrentMode="internal";
 				};
 				case "external": {
-					if (difficultyOption "thirdPersonView" isEqualTo 1) then {
-						vehicle _track switchCamera (uiNamespace getVariable "cti_dialog_ui_unitscam_camview_in");
-						CTI_UnitsCamera cameraEffect ["Internal", "back"];
-						uiNamespace setVariable ["cti_dialog_ui_unitscam_camview", "external"];
-					};
+					UIcurrentMode="external";
 				};
 			};
 		};
@@ -367,26 +307,22 @@ switch (_action) do {
 	};
 	
 	case "onUnitUnflip": {
-		_who = uiNamespace getVariable "cti_dialog_ui_unitscam_focus";
-		_who_vehicle = vehicle _who;
-		if (alive _who && speed _who_vehicle < 5 && (getPos _who_vehicle select 2) < 5 && !isPlayer _who) then {
-			_unflip = false;
-			if (call CTI_CL_FNC_IsPlayerCommander) then {
-				_unflip = true
-			} else {
-				if (_who in units player) then {_unflip = true};
-			};
-
-			if (_unflip) then {
-				_who_vehicle setPos [getPos _who_vehicle select 0, getPos _who_vehicle select 1, 1];
-				_who_vehicle setVelocity [0,0,1];
-			};
-		};
+	
+		if(!(isNil "UIcurrentUnit")) then {
+			if(!(isPlayer (UIcurrentUnit))) then {
+				_vehicle = vehicle UIcurrentUnit;			
+			
+				_vehicle setPos [getPos _vehicle select 0, getPos _vehicle select 1, 0.5];
+				_vehicle setVelocity [0,0,-0.5];				
+			};			
+		};	
+		
 	};
 	case "onUnload": {
-		CTI_UnitsCamera cameraEffect["TERMINATE","BACK"];
-		camDestroy CTI_UnitsCamera;
-		vehicle player switchCamera (uiNamespace getVariable "cti_dialog_ui_unitscam_camview_in");
-		showCinemaBorder true;
+
+	closeDialog 0;
+    ((player) Call cti_CO_FNC_GetUnitVehicle) switchCamera UIcurrentMode;
+	UCAMSWITCH=false;
+	
 	};
 };

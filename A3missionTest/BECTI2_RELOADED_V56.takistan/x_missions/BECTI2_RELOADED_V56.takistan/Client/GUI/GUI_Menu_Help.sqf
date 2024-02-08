@@ -87,7 +87,13 @@ Full changelog :<br/>
 - removed hudpatch <br/>
 - fixed repair camp with rtruck <br/>
 - fixed voting <br/>
-
+- ---------------- <br/>
+- added hudpatch option to headbugbutton <br/>
+- linked all units to stringtable (translate all to kyrillic possible now) <br/>
+- improved remote and unitcam <br/>
+- added full towndubbing for all 4 maps <br/>
+- fixed some altismap issues with camps <br/>
+- todo:EASA rework,stringtranslations <br/>
 
 
 ", missionNamespace getVariable "cti_MISSIONNAME"],

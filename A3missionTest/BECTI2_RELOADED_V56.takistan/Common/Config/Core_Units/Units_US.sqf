@@ -298,7 +298,7 @@ _u pushBack 'cwr3_b_m113a3_mev_des';//				---AMBU
 _u pushBack 'CUP_B_M1128_MGS_Woodland';
 _u pushBack 'CUP_B_M163_Vulcan_USA';
 _u pushBack 'pook_MLRS_BLUFOR';//					---ARTY
-_u pushBack 'pook_MAARS_M240';
+//_u pushBack 'pook_MAARS_M240';//not seen on list
 
 
 
@@ -314,7 +314,9 @@ _u pushBack 'pook_Pandur_AA_BLUFOR';
 
 _u pushBack 'pook_CAESAR_BLUFOR';//					---ARTY
 _u pushBack 'UK3CB_BAF_LandRover_Panama_Green_A';
-//_u pushBack 'pook_MAARS_M240';
+
+// both factions on lf4
+_u pushBack 'pook_MAARS_M240';
 
 //HQ VEHICLE---------------------need listed
 //_u pushBack 'CUP_B_LAV25_HQ_USMC';

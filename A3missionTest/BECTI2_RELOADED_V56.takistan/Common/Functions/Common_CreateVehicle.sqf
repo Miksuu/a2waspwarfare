@@ -15,7 +15,7 @@ if (typeName _position == "OBJECT") then {_position = getPos _position};
 if (typeName _side == "SIDE") then {_side = (_side) Call cti_CO_FNC_GetSideID};
 
 _vehicle = createVehicle [_type, _position, [], 7, _special];
-
+deleteVehicleCrew _vehicle;
 
 
 _vehicle  spawn {_this allowDamage false; sleep 10; _this allowDamage true};

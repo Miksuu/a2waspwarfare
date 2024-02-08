@@ -10,7 +10,7 @@
 	class NAME \
 	{ \
 		text = $STRDeployed; \
-		speech[] = {%1,##NAME##,"\Sounds\deployedWEST.wss"}; \
+		speech[] = {%1,##NAME##,"\Sounds\deployedWEST.ogg"}; \
 		class Arguments {class 1 {type = "simple";};class 2 {type = "simple";};}; \
 	};
 
@@ -18,7 +18,7 @@
 	class NAME \
 	{ \
 		text = $STRDeployed; \
-		speech[] = {%1,##NAME##,"\Sounds\deployedEAST.wss"}; \
+		speech[] = {%1,##NAME##,"\Sounds\deployedEAST.ogg"}; \
 		class Arguments {class 1 {type = "simple";};class 2 {type = "simple";};}; \
 	};
 
@@ -26,7 +26,7 @@
 	class NAME \
 	{ \
 		text = $STRMobilized; \
-		speech[] = {%1,##NAME##,"\Sounds\mobilizedWEST.wss"}; \
+		speech[] = {%1,##NAME##,"\Sounds\mobilizedWEST.ogg"}; \
 		class Arguments {class 1 {type = "simple";};class 2 {type = "simple";};}; \
 	};
 
@@ -34,7 +34,7 @@
 	class NAME \
 	{ \
 		text = $STRMobilized; \
-		speech[] = {%1,##NAME##,"\Sounds\mobilizedEAST.wss"}; \
+		speech[] = {%1,##NAME##,"\Sounds\mobilizedEAST.ogg"}; \
 		class Arguments {class 1 {type = "simple";};class 2 {type = "simple";};}; \
 	};
 
@@ -42,7 +42,7 @@
 	class NAME \
 	{ \
 		text = $STR##NAME##; \
-		speech[] = {%1,##NAME##,"\Sounds\newintelavailableEAST.wss"}; \
+		speech[] = {%1,##NAME##,"\Sounds\newintelavailableEAST.ogg"}; \
 		class Arguments {class 1 {type = "simple";};class 2 {type = "simple";};}; \
 	};
 
@@ -50,7 +50,7 @@
 	class NAME \
 	{ \
 		text = $STR##NAME##; \
-		speech[] = {%1,##NAME##,"\Sounds\newintelavailableWEST.wss"}; \
+		speech[] = {%1,##NAME##,"\Sounds\newintelavailableWEST.ogg"}; \
 		class Arguments {class 1 {type = "simple";};class 2 {type = "simple";};}; \
 	};
 
@@ -58,7 +58,7 @@
 	class NAME \
 	{ \
 		text = $STR##NAME##; \
-		speech[] = {"\Sounds\townEAST.wss","\Sounds\lostEAST.wss"}; \
+		speech[] = {%1, ##NAME##,,"\Sounds\lostEAST.ogg"}; \
 		class Arguments {class 1 {type = "simple";};class 2 {type = "simple";};}; \
 	};
 	
@@ -66,7 +66,7 @@
 	class NAME \
 	{ \
 		text = $STR##NAME##; \
-		speech[] = {"\Sounds\townWEST.wss","\Sounds\lostWEST.wss"}; \
+		speech[] = {%1, ##NAME##,,"\Sounds\lostWEST.ogg"}; \
 		class Arguments {class 1 {type = "simple";};class 2 {type = "simple";};}; \
 	};
 
@@ -74,7 +74,7 @@
 	class NAME \
 	{ \
 		text = $STR##NAME##; \
-		speech[] = {"\Sounds\townEAST.wss","\Sounds\capturedEAST.wss"}; \
+		speech[] = {%1, ##NAME##,,"\Sounds\capturedEAST.ogg"}; \
 		class Arguments {class 1 {type = "simple";};class 2 {type = "simple";};}; \
 	};
 
@@ -82,7 +82,7 @@
 	class NAME \
 	{ \
 		text = $STR##NAME##; \
-		speech[] = {"\Sounds\townWEST.wss","\Sounds\capturedWEST.wss"}; \
+		speech[] = {%1, ##NAME##,,"\Sounds\capturedWEST.ogg"}; \
 		class Arguments {class 1 {type = "simple";};class 2 {type = "simple";};}; \
 	};	
 	
@@ -98,7 +98,7 @@
 	class NAME \
 	{ \
 		text = $STR##NAME##; \
-		speech[] = {##NAME##,"\Sounds\hostilesdetectednearEAST.wss",%2}; \
+		speech[] = {##NAME##,"\Sounds\hostilesdetectednearEAST.ogg",%2}; \
 		class Arguments {class 1 {type = "simple";};class 2 {type = "simple";};}; \
 	};
 	
@@ -106,7 +106,7 @@
 	class NAME \
 	{ \
 		text = $STR##NAME##; \
-		speech[] = {##NAME##,"\Sounds\hostilesdetectednearWEST.wss",%2}; \
+		speech[] = {##NAME##,"\Sounds\hostilesdetectednearWEST.ogg",%2}; \
 		class Arguments {class 1 {type = "simple";};class 2 {type = "simple";};}; \
 	};
 
@@ -122,7 +122,7 @@
 	class NAME \
 	{ \
 		text = $##KEY##; \
-		speech[] = {%1, ##NAME##, "\Sounds\constructedEAST.wss"}; \
+		speech[] = {%1, ##NAME##, "\Sounds\constructedEAST.ogg"}; \
 		class Arguments {class 1 {type = "simple";};class 2 {type = "simple";};}; \
 	};
 	
@@ -130,7 +130,7 @@
 	class NAME \
 	{ \
 		text = $##KEY##; \
-		speech[] = {%1, ##NAME##, "\Sounds\constructedWEST.wss"}; \
+		speech[] = {%1, ##NAME##, "\Sounds\constructedWEST.ogg"}; \
 		class Arguments {class 1 {type = "simple";};class 2 {type = "simple";};}; \
 	};
 	
@@ -138,7 +138,7 @@
 	class NAME \
 	{ \
 		text = $##KEY##; \
-		speech[] = {%1, ##NAME##, "\Sounds\votingfornewcommanderEAST.wss"}; \
+		speech[] = {%1, ##NAME##, "\Sounds\votingfornewcommanderEAST.ogg"}; \
 		class Arguments {class 1 {type = "simple";};class 2 {type = "simple";};}; \
 	};
 	
@@ -146,7 +146,7 @@
 	class NAME \
 	{ \
 		text = $##KEY##; \
-		speech[] = {%1, ##NAME##, "\Sounds\votingfornewcommanderWEST.wss"}; \
+		speech[] = {%1, ##NAME##, "\Sounds\votingfornewcommanderWEST.ogg"}; \
 		class Arguments {class 1 {type = "simple";};class 2 {type = "simple";};}; \
 	};
 	
@@ -154,7 +154,7 @@
 	class NAME \
 	{ \
 		text = $##KEY##; \
-		speech[] = {%1, ##NAME##, "\Sounds\destroyedEAST.wss"}; \
+		speech[] = {%1, ##NAME##, "\Sounds\destroyedEAST.ogg"}; \
 		class Arguments {class 1 {type = "simple";};class 2 {type = "simple";};}; \
 	};
 	
@@ -162,7 +162,7 @@
 	class NAME \
 	{ \
 		text = $##KEY##; \
-		speech[] = {%1, ##NAME##, "\Sounds\destroyedWEST.wss"}; \
+		speech[] = {%1, ##NAME##, "\Sounds\destroyedWEST.ogg"}; \
 		class Arguments {class 1 {type = "simple";};class 2 {type = "simple";};}; \
 	};
 	
@@ -170,7 +170,7 @@
 	class NAME \
 	{ \
 		text = $##KEY##; \
-		speech[] = {%1, ##NAME##, "\Sounds\isunderattackEAST.wss"}; \
+		speech[] = {%1, ##NAME##, "\Sounds\isunderattackEAST.ogg"}; \
 		class Arguments {class 1 {type = "simple";};class 2 {type = "simple";};}; \
 	};
 	
@@ -178,7 +178,7 @@
 	class NAME \
 	{ \
 		text = $##KEY##; \
-		speech[] = {%1, ##NAME##, "\Sounds\isunderattackWEST.wss"}; \
+		speech[] = {%1, ##NAME##, "\Sounds\isunderattackWEST.ogg"}; \
 		class Arguments {class 1 {type = "simple";};class 2 {type = "simple";};}; \
 	};
 
@@ -190,7 +190,7 @@ class Sentences
   class CapturedNearEAST
   {
     text = "%1 captured near %2";
-	speech[] = {"\Sounds\strongpointEAST.wss", "\Sounds\capturednearEAST.wss", %2};	
+	speech[] = {"\Sounds\strongpointEAST.ogg", "\Sounds\capturednearEAST.ogg", %2};	
     class Arguments 
       {
         class 1 {type = "simple";};
@@ -201,7 +201,7 @@ class Sentences
   class CapturedNearWEST
   {
     text = "%1 captured near %2";
-	speech[] = {"\Sounds\strongpointWEST.wss", "\Sounds\capturednearWEST.wss", %2};	
+	speech[] = {"\Sounds\strongpointWEST.ogg", "\Sounds\capturednearWEST.ogg", %2};	
     class Arguments 
       {
         class 1 {type = "simple";};
@@ -212,14 +212,14 @@ class Sentences
   class LostAtEAST 
   {
     text = "%1 lost at %2";
-    speech[] = {"\Sounds\strongpointEAST.wss", "\Sounds\lostatEAST.wss", %2};	
+    speech[] = {"\Sounds\strongpointEAST.ogg", "\Sounds\lostatEAST.ogg", %2};	
     class Arguments {class 1 {type = "simple";};class 2 {type = "simple";};};
   };
   
   class LostAtWEST 
   {
     text = "%1 lost at %2";
-    speech[] = {"\Sounds\strongpointWEST.wss", "\Sounds\lostatWEST.wss", %2};	
+    speech[] = {"\Sounds\strongpointWEST.ogg", "\Sounds\lostatWEST.ogg", %2};	
     class Arguments {class 1 {type = "simple";};class 2 {type = "simple";};};
   };
   

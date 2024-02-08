@@ -108,7 +108,7 @@ class Mission
 {
 	class Intel
 	{
-		briefingName="BECTI2 RELOADED Sahrani V56 sv=20240124_2";
+		briefingName="BECTI2 RELOADED Sahrani V56 sv=20240206";
 		overviewText="Arma2 BECTI --> Arma3";
 		resistanceWest=0;
 		startWeather=0;
@@ -2801,7 +2801,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.60000002;
-				init="nullReturn = [this,""PlayaDePalomas"",""+"",10,40,400,""TinyTown1""] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
+				init="nullReturn = [this,""Playa de Palomas"",""+"",10,40,400,""TinyTown1""] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
 				name="PlayaDePalomas";
 			};
 			id=192;
@@ -6516,7 +6516,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.60000002;
-				init="nullReturn = [this,""SanPeregrino"",""+"",10,40,400,""TinyTown1""] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
+				init="nullReturn = [this,""San Peregrino"",""+"",10,40,400,""TinyTown1""] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
 				name="SanPeregrino";
 			};
 			id=380;
@@ -6649,7 +6649,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.60000002;
-				init="nullReturn = [this,""BajoValor"",""+"",10,40,400,""TinyTown1""] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
+				init="nullReturn = [this,""Bajo Valor"",""+"",10,40,400,""TinyTown1""] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
 				name="BajoValor";
 			};
 			id=386;
@@ -9455,7 +9455,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.60000002;
-				init="nullReturn = [this,""IslaDeVictoria"",""+"",10,40,400,""TinyTown1""] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
+				init="nullReturn = [this,""Isla de Victoria"",""+"",10,40,400,""TinyTown1""] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;";
 				name="IslaDeVictoria";
 			};
 			id=502;
