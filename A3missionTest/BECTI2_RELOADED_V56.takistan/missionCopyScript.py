@@ -3,7 +3,7 @@ import shutil
 
 # Global array variables
 EXCLUDED_FILES = {"mission.sqm", os.path.basename(__file__)}
-EXCLUDED_FOLDERS = set()
+EXCLUDED_FOLDERS = {"Townsound"}  # Townsound is now included in EXCLUDED_FOLDERS by default
 
 def copy_files(src_folder):
     global EXCLUDED_FILES, EXCLUDED_FOLDERS
@@ -37,7 +37,7 @@ def main():
     # Update global variables
     global EXCLUDED_FILES, EXCLUDED_FOLDERS
     EXCLUDED_FOLDERS.add(x_missions_path)
-    EXCLUDED_FOLDERS.add(os.path.join(current_directory, "Townsound"))  # Add Townsound to excluded folders
+    # Townsound is already included in EXCLUDED_FOLDERS, so no need to add it again here
 
     # Copying files
     files_to_copy = copy_files(current_directory)
