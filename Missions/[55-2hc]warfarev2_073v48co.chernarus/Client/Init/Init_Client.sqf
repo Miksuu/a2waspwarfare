@@ -577,7 +577,8 @@ switch (missionNamespace getVariable "WFBE_C_STRUCTURES_COLLIDING") do {
 
             	if ((typeOf _preview) isKindOf "StaticWeapon") then { _color = _colorGreen; };
 
-			if (_itemcategory == 0) then {
+			// To avoid trapping tanks or killing players with the MGnests, added a restriction for building mgs when enemies are near the base. 
+			if (_itemcategory == 0 || typeOf _preview == "MGNest") then {
 				Private ["_town","_townside","_eArea"];
 				_town = [_preview] Call GetClosestLocation;
 			    _townside =  (_town getVariable "sideID") Call GetSideFromID;
