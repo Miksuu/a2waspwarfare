@@ -4,6 +4,7 @@ import shutil
 # Global array variables
 EXCLUDED_FILES = {"mission.sqm", os.path.basename(__file__)}
 EXCLUDED_FOLDERS = {"Townsound"}  # Townsound is now included in EXCLUDED_FOLDERS by default
+PATH_TO_COPY = "x_missions"  # Global variable for x_missions path
 
 def copy_files(src_folder):
     global EXCLUDED_FILES, EXCLUDED_FOLDERS
@@ -32,7 +33,7 @@ def paste_files(target_folders, files_to_copy, src_folder):
 
 def main():
     current_directory = os.path.dirname(os.path.realpath(__file__))
-    x_missions_path = os.path.join(current_directory, "x_missions")
+    x_missions_path = os.path.join(current_directory, PATH_TO_COPY)
 
     # Update global variables
     global EXCLUDED_FILES, EXCLUDED_FOLDERS
