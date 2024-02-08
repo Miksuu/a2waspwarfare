@@ -114,6 +114,9 @@ _i = _i + [['','',5,0,0,0,'Fortification',0,'Civilians',[]]];
 
 //__________SPAWNMARKER NOW____________________
 
+_c = _c + ['Plastic_Pole_EP1'];
+_i = _i + [['B SPAWNPOINT','',15,0,0,0,'Strategic',0,'Civilians',[]]];
+
 _c = _c + ['HeliH'];
 _i = _i + [['LF SPAWNPOINT','',15,0,0,0,'Strategic',0,'Civilians',[]]];
 
