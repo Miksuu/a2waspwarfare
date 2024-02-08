@@ -145,6 +145,7 @@ _n = _n		+ ["Hedgehog_EP1"];
 _n = _n		+ ["HeliH"];
 _n = _n		+ ["HeliHRescue"];
 _n = _n		+ ["HeliHCivil"];
+_n = _n		+ ["Plastic_Pole_EP1"];
 
 
 _n = _n		+ [if (IS_chernarus_map_dependent) then {"Land_CamoNet_NATO"} else {"Land_CamoNet_NATO_EP1"}];

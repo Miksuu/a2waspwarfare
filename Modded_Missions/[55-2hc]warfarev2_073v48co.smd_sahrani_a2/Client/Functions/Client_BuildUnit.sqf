@@ -120,7 +120,29 @@ if (_factoryType in ["Aircraft"]) then {
 
 }else{//-------------------------------------------its barracks,found only 3 marker in a2 for now
 
-_position = [getPos _building,_distance,getDir _building + _direction] Call GetPositionFrom;
+	//--- Place Wheeled vehicles on Pads if avaiable.
+	Private ["_pads","_free","_dir","_no","_selpad"];
+	_pads = _building nearObjects ["Plastic_Pole_EP1", 250];
+	_free = [];
+	_dir = 0;
+	if (count _pads > 0) then {
+		for "_i" from 0 to (count _pads - 1) do {
+			_dir = getDir (_pads select _i);
+			_free = _free + [[getpos (_pads select _i), _dir]];
+		};
+	};
+	if (count _free > 0) then {
+		_selpad =_free  call BIS_fnc_selectRandom;
+		_position = [_selpad select 0 select 0,_selpad select 0 select 1,_selpad select 1];
+		_position set [2, .5];
+		_spawnpaddir=5;//dirswitch to prevent overwrite dir later
+		_direction=_selpad select 1;
+
+	}else{
+	_position = _building modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
+	_position set [2, .5];};
+
+//_position = [getPos _building,_distance,getDir _building + _direction] Call GetPositionFrom;
 
 };};};
 
