@@ -3,7 +3,7 @@ Private ['_c','_count','_d','_dir','_dis','_n','_s','_side','_t','_v'];
 _side = _this;
 
 /* Root Definition */
-_MHQ = "LAV25_HQ";
+_MHQ = "M1130_CV_EP1";
 _HQ = "M1130_HQ_unfolded_EP1";
 _BAR = "US_WarfareBBarracks_EP1";
 _LVF = "US_WarfareBLightFactory_EP1";
@@ -146,6 +146,7 @@ _n = _n		+ ["Hedgehog_EP1"];
 _n = _n		+ ["HeliH"];
 _n = _n		+ ["HeliHRescue"];
 _n = _n		+ ["HeliHCivil"];
+_n = _n		+ ["Plastic_Pole_EP1"];
 
 
 _n = _n		+ ["Land_CamoNet_NATO_EP1"];
