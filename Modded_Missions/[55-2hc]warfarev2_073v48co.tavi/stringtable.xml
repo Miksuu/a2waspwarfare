@@ -170,6 +170,13 @@
                 <Russian>Открыть отмычкой</Russian>
                 <Italian>Apri Serratura</Italian>
             </Key>
+            <Key ID="STR_WF_ACTION_Salvage">
+                <English>Salvage</English>
+                <French>Récupérer</French>
+                <German>Bergen</German>
+                <Russian>Спасение</Russian>
+                <Italian>Recupero</Italian>
+            </Key>
             <Key ID="STR_WF_ACTION_Repair">
                 <English>Repair</English>
                 <French>Réparer</French>
