@@ -577,19 +577,7 @@ switch (missionNamespace getVariable "WFBE_C_STRUCTURES_COLLIDING") do {
 
             	if ((typeOf _preview) isKindOf "StaticWeapon") then {
 					_color = _colorGreen; 
-
-					["DEBUG", Format ["%1 | %2", typeOf _preview, _preview]] Call WFBE_CO_FNC_LogContent;
-
-					// To avoid trapping tanks or killing players with the MGnests, added a restriction for building mgs when enemies are near the base.
-					_detected = (_area nearEntities [["Man", "Car", "Motorcycle", "Tank", "Air", "Ship"], missionNamespace getVariable "WFBE_C_BASE_AREA_RANGE"]) unitsBelowHeight 20;
-					{
-						
-						if ((_itemcategory != 0 || typeOf _preview isKindOf "WarfareBMGNest_M240_US_EP1" || typeOf _preview isKindOf "RU_WarfareBMGNest_PK") && side _x == _opposite_side) exitWith {
-							_color = _colorRed;
-							hintSilent parseText "<t color='#fb0808'> Enemies are detected near your base!</t>";
-						};
-					} forEach _detected;
-			};
+				};
 
 			if (_itemcategory == 0) then {
 				private ["_town", "_townside", "_eArea"];
