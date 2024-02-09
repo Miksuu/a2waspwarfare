@@ -122,7 +122,7 @@ if (_factoryType in ["Aircraft"]) then {
 
 	//--- Place Wheeled vehicles on Pads if avaiable.
 	Private ["_pads","_free","_dir","_no","_selpad"];
-	_pads = _building nearObjects ["Plastic_Pole_EP1", 250];
+	_pads = _building nearObjects ["Sr_border", 250];
 	_free = [];
 	_dir = 0;
 	if (count _pads > 0) then {
