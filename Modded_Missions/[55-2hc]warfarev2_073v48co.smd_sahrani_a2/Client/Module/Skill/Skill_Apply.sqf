@@ -21,6 +21,18 @@ switch (WFBE_SK_V_Type) do {
 			"", 
 			"time - WFBE_SK_V_LastUse_Repair > WFBE_SK_V_Reload_Repair"
 		];
+
+		/* Salvage Ability */
+		_unit addAction [
+			("<t color='#CC00CB'>" + localize 'STR_WF_ACTION_Salvage'+ "</t>"),
+			(WFBE_SK_V_Root + 'Salvage' + '.sqf'), 
+			[], 
+			80, 
+			false, 
+			true, 
+			"", 
+			"time - WFBE_SK_V_LastUse_Salvage > WFBE_SK_V_Reload_Salvage"
+		];
 	
 	_unit addAction ["<t color='#11ec52'>" + localize 'STR_WF_Repair_Camp' + "</t>",'Client\Action\Action_RepairCampEngineer.sqf', [], 97, false, true, '', 'alive _target'];
 	
