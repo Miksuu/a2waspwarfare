@@ -484,146 +484,166 @@ waitUntil {townInit};
 
 //--- Define the CoIn placement method.
 switch (missionNamespace getVariable "WFBE_C_STRUCTURES_COLLIDING") do {
-    //--- Smooth.
     case 1: {
-		missionNamespace setVariable ["WFBE_C_STRUCTURES_PLACEMENT_METHOD",{
-           		 Private ["_color","_itemcategory","_preview","_area","_eside"];
-			_itemcategory = _this select 0;
-			_preview = _this select 1;
-			_color = _this select 2;
+        ["DEBUG", Format ["Init_Client.sqf: Debug info [WFBE_C_STRUCTURES_COLLIDING] [%1]", missionNamespace getVariable "WFBE_C_STRUCTURES_COLLIDING"]] Call WFBE_CO_FNC_LogContent;
+        missionNamespace setVariable ["WFBE_C_STRUCTURES_PLACEMENT_METHOD", {
+            private ["_color", "_itemcategory", "_preview", "_area", "_eside"];
+            _itemcategory = _this select 0;
+            ["DEBUG", Format ["Init_Client.sqf: Debug info [_itemcategory] [%1]", _itemcategory]] Call WFBE_CO_FNC_LogContent;
+            _preview = _this select 1;
+            ["DEBUG", Format ["Init_Client.sqf: Debug info [_preview] [%1]", _preview]] Call WFBE_CO_FNC_LogContent;
+            _color = _this select 2;
+            ["DEBUG", Format ["Init_Client.sqf: Debug info [_color] [%1]", _color]] Call WFBE_CO_FNC_LogContent;
             _eside = if (side commanderTeam == west) then {east} else {west};
-            	_affected = ["Warfare_HQ_base_unfolded","Base_WarfareBBarracks","Base_WarfareBLightFactory","Base_WarfareBHeavyFactory",
-            					"Base_WarfareBAircraftFactory","Base_WarfareBUAVterminal","Base_WarfareBVehicleServicePoint","BASE_WarfareBAntiAirRadar"];
-			_area = [_preview,((sidejoined) Call WFBE_CO_FNC_GetSideLogic) getVariable "wfbe_basearea"] Call WFBE_CO_FNC_GetClosestEntity2;
+            ["DEBUG", Format ["Init_Client.sqf: Debug info [_eside] [%1]", _eside]] Call WFBE_CO_FNC_LogContent;
+            _affected = [
+                "Warfare_HQ_base_unfolded", "Base_WarfareBBarracks", "Base_WarfareBLightFactory", 
+                "Base_WarfareBHeavyFactory", "Base_WarfareBAircraftFactory", "Base_WarfareBUAVterminal", 
+                "Base_WarfareBVehicleServicePoint", "BASE_WarfareBAntiAirRadar"
+            ];
+            ["DEBUG", Format ["Init_Client.sqf: Debug info [_affected] [%1]", _affected]] Call WFBE_CO_FNC_LogContent;
+            _area = [_preview, ((sidejoined) call WFBE_CO_FNC_GetSideLogic) getVariable "wfbe_basearea"] call WFBE_CO_FNC_GetClosestEntity2;
+            ["DEBUG", Format ["Init_Client.sqf: Debug info [_area] [%1]", _area]] Call WFBE_CO_FNC_LogContent;
 
-            	if(_area getVariable 'avail' <= 0) then { _color = _colorRed };
-           		if (surfaceIsWater(position _preview)) then { _color = _colorRed };
+            if (_area getVariable 'avail' <= 0) then { _color = _colorRed };
+            ["DEBUG", Format ["Init_Client.sqf: Debug info [Area Availability] [%1]", _area getVariable 'avail']] Call WFBE_CO_FNC_LogContent;
+            if (surfaceIsWater(position _preview)) then { _color = _colorRed };
+            ["DEBUG", Format ["Init_Client.sqf: Debug info [Surface Water Check] [%1]", surfaceIsWater(position _preview)]] Call WFBE_CO_FNC_LogContent;
 
-			if ({_preview isKindOf _x} count _affected != 0) then {
-                	Private["_building","_sort","_strs","_lax","_lay"];
-                	_strs = ((position _preview) nearObjects ["House",25]) - [_preview];
-               		if (count _strs == 0) exitWith {};
-                	_sort = [_preview,_strs] Call SortByDistance;
-                	_building = _sort select 0;
-                	_lax=((boundingBox _building) select 1) select 0;
-                	_lay=((boundingBox _building) select 1) select 1;
-                	if(_preview distance _building < 1.5*(_lax max _lay)) then {
-				_color = _colorRed
-			} else{
-				_color = _colorGreen
-			};
-            	};
+            if ({_preview isKindOf _x} count _affected != 0) then {
+                private ["_building", "_sort", "_strs", "_lax", "_lay"];
+                _strs = ((position _preview) nearObjects ["House", 25]) - [_preview];
+                ["DEBUG", Format ["Init_Client.sqf: Debug info [_strs] [%1]", _strs]] Call WFBE_CO_FNC_LogContent;
+                if (count _strs == 0) exitWith {};
+                _sort = [_preview, _strs] call SortByDistance;
+                _building = _sort select 0;
+                ["DEBUG", Format ["Init_Client.sqf: Debug info [_building] [%1]", _building]] Call WFBE_CO_FNC_LogContent;
+                _lax = ((boundingBox _building) select 1) select 0;
+                _lay = ((boundingBox _building) select 1) select 1;
+                ["DEBUG", Format ["Init_Client.sqf: Debug info [_lax, _lay] [%1, %2]", _lax, _lay]] Call WFBE_CO_FNC_LogContent;
+                if (_preview distance _building < 1.5 * (_lax max _lay)) then {
+                    _color = _colorRed;
+                } else {
+                    _color = _colorGreen;
+                };
+                ["DEBUG", Format ["Init_Client.sqf: Debug info [Building Proximity Check] [%1]", (_preview distance _building < 1.5 * (_lax max _lay))]] Call WFBE_CO_FNC_LogContent;
+            };
 
-			if (_itemcategory == 2) then {
+            if (_itemcategory == 2) then {
+                private ["_i", "_factory", "_sorted", "_walls", "_factories", "_area", "_lx", "_ly", "_type", "_p", "_entities"];
+                _color = _colorGreen;
+                _walls = nearestObjects [_preview, [typeOf _preview], 2];
+                ["DEBUG", Format ["Init_Client.sqf: Debug info [_walls] [%1]", _walls]] Call WFBE_CO_FNC_LogContent;
 
-                	Private["_i","_factory","_sorted","_walls","_factories","_area","_lx","_ly","_type","_p","_entities"];
-
-                	_color = _colorGreen;
-                	_walls = nearestObjects [_preview,[typeOf _preview],2];
-
-                	if(count _walls > 1) then {_color = _colorRed} else{_color = _colorGreen};
-                if(count (nearestObjects [_preview,missionNamespace getVariable (Format["WFBE_%1DEFENSENAMES",sideJoined]),((((boundingbox _preview) select 1) select 0) max (((boundingbox _preview) select 1) select 1)) max 2] - [_preview]) > 0) then {_color = _colorRed} else{_color = _colorGreen};
-				_entities = (position _preview) nearEntities [['Man','Car','Motorcycle','Tank','Air','Ship'],12];
-				if ((count _entities > 0) && {side _x != sideJoined} count _entities !=0) then {_color = _colorRed};
-                _factories =	 nearestObjects[_preview,["Warfare_HQ_base_unfolded","WarfareBBaseStructure","Base_WarfareBContructionSite"],25];
-				if (count _factories == 0) exitWith {};
-                _sorted = [_preview,_factories] Call SortByDistance;
+                if (count _walls > 1) then { _color = _colorRed } else { _color = _colorGreen };
+                ["DEBUG", Format ["Init_Client.sqf: Debug info [Walls Count Check] [%1]", count _walls]] Call WFBE_CO_FNC_LogContent;
+                if (count (nearestObjects [_preview, missionNamespace getVariable (format ["WFBE_%1DEFENSENAMES", sideJoined]), ((((boundingBox _preview) select 1) select 0) max (((boundingBox _preview) select 1) select 1)) max 2] - [_preview]) > 0) then { _color = _colorRed } else { _color = _colorGreen };
+                ["DEBUG", Format ["Init_Client.sqf: Debug info [Defense Proximity Check] [%1]", count (nearestObjects [_preview, missionNamespace getVariable (format ["WFBE_%1DEFENSENAMES", sideJoined]), ((((boundingBox _preview) select 1) select 0) max (((boundingBox _preview) select 1) select 1)) max 2] - [_preview])]] Call WFBE_CO_FNC_LogContent;
+                _entities = (position _preview) nearEntities [['Man', 'Car', 'Motorcycle', 'Tank', 'Air', 'Ship'], 12];
+                ["DEBUG", Format ["Init_Client.sqf: Debug info [_entities] [%1]", _entities]] Call WFBE_CO_FNC_LogContent;
+                if ((count _entities > 0) && {side _x != sideJoined} count _entities != 0) then { _color = _colorRed };
+                ["DEBUG", Format ["Init_Client.sqf: Debug info [Entities Proximity Check] [%1]", ((count _entities > 0) && {side _x != sideJoined} count _entities != 0)]] Call WFBE_CO_FNC_LogContent;
+                _factories = nearestObjects [_preview, ["Warfare_HQ_base_unfolded", "WarfareBBaseStructure", "Base_WarfareBContructionSite"], 25];
+                ["DEBUG", Format ["Init_Client.sqf: Debug info [_factories] [%1]", _factories]] Call WFBE_CO_FNC_LogContent;
+                if (count _factories == 0) exitWith {};
+                _sorted = [_preview, _factories] call SortByDistance;
                 _factory = _sorted select 0;
-                _type=typeOf _factory;
-                _lx=((boundingbox _factory) select 1) select 0;
-                _ly=((boundingbox _factory) select 1) select 1;
+                ["DEBUG", Format ["Init_Client.sqf: Debug info [_factory] [%1]", _factory]] Call WFBE_CO_FNC_LogContent;
+                _type = typeOf _factory;
+                _lx = ((boundingBox _factory) select 1) select 0;
+                _ly = ((boundingBox _factory) select 1) select 1;
+                ["DEBUG", Format ["Init_Client.sqf: Debug info [_type, _lx, _ly] [%1, %2, %3]", _type, _lx, _ly]] Call WFBE_CO_FNC_LogContent;
 
                 switch (true) do {
-					case ( _factory isKindOf "Warfare_HQ_base_unfolded"):{_p=0.6};
-					case ( _factory isKindOf "Base_WarfareBBarracks"):{_p=0.57};
-					case ( _factory isKindOf "Base_WarfareBLightFactory"):{_p=0.6};
-					case ( _factory isKindOf "Base_WarfareBHeavyFactory"):{_p=0.54};
-					case ( _factory isKindOf "Base_WarfareBAircraftFactory"):{_p=0.74};
-					case ( _factory isKindOf "Base_WarfareBUAVterminal"):{_p=1};
-					case ( _factory isKindOf "Base_WarfareBContructionSite"):{_p=12};
+                    case (_factory isKindOf "Warfare_HQ_base_unfolded"): { _p = 0.6 };
+                    case (_factory isKindOf "Base_WarfareBBarracks"): { _p = 0.57 };
+                    case (_factory isKindOf "Base_WarfareBLightFactory"): { _p = 0.6 };
+                    case (_factory isKindOf "Base_WarfareBHeavyFactory"): { _p = 0.54 };
+                    case (_factory isKindOf "Base_WarfareBAircraftFactory"): { _p = 0.74 };
+                    case (_factory isKindOf "Base_WarfareBUAVterminal"): { _p = 1 };
+                    case (_factory isKindOf "Base_WarfareBContructionSite"): { _p = 12 };
+                    default: { _p = 1 };
+                };
+                ["DEBUG", Format ["Init_Client.sqf: Debug info [_p] [%1]", _p]] Call WFBE_CO_FNC_LogContent;
 
-					default {_p=1};
-				};
+                if (_preview distance _factory < _p * (_lx min _ly)) then { _color = _colorRed };
+                ["DEBUG", Format ["Init_Client.sqf: Debug info [Factory Proximity Check] [%1]", (_preview distance _factory < _p * (_lx min _ly))]] Call WFBE_CO_FNC_LogContent;
+            } else {
+                private ["_objects", "_sideEfacs", "_object"];
+                _sideEfacs = if (side commanderTeam == west) then {east} else {west};
+                ["DEBUG", Format ["Init_Client.sqf: Debug info [_sideEfacs] [%1]", _sideEfacs]] Call WFBE_CO_FNC_LogContent;
+                _objects = nearestObjects [_preview, ["WarfareBBaseStructure", "Base_WarfareBContructionSite"], 25];
+                ["DEBUG", Format ["Init_Client.sqf: Debug info [_objects] [%1]", _objects]] Call WFBE_CO_FNC_LogContent;
+                if (count _objects > 0) then {
+                    if (side (_objects select 0) == _sideEfacs && _preview distance (_objects select 0) < 10) then { _color = _colorRed };
+                    ["DEBUG", Format ["Init_Client.sqf: Debug info [Enemy Structures Proximity Check] [%1]", (side (_objects select 0) == _sideEfacs && _preview distance (_objects select 0) < 10)]] Call WFBE_CO_FNC_LogContent;
+                };
+            };
 
-                	if(_preview distance _factory < _p*(_lx min _ly)) then {_color = _colorRed};
+            if (_itemcategory == 3) then {
+                private ["_camos"];
+                _color = _colorGreen;
+                _camos = nearestObjects [_preview, [typeOf _preview], 25];
+                ["DEBUG", Format ["Init_Client.sqf: Debug info [_camos] [%1]", _camos]] Call WFBE_CO_FNC_LogContent;
 
-			}else{
-				private ["_objects","_sideEfacs","_object"];
-				_sideEfacs = if (side commanderTeam == west) then {east} else {west};
-				_objects = nearestObjects [_preview,["WarfareBBaseStructure","Base_WarfareBContructionSite"],25];
-				if (count _objects > 0) then {
-					if (side (_objects select 0) == _sideEfacs && _preview distance (_objects select 0) < 10)then {_color = _colorRed};
-				};
-			};
+                if (count _camos > 1) then {
+                    _color = _colorRed;
+                } else {
+                    _color = _colorGreen;
+                };
+                ["DEBUG", Format ["Init_Client.sqf: Debug info [Camos Count Check] [%1]", count _camos]] Call WFBE_CO_FNC_LogContent;
+            };
 
-			if (_itemcategory == 3) then {
-				Private["_camos"];
-				_color = _colorGreen;
-                _camos = nearestObjects [_preview,[typeOf _preview],25];
+            if (typeOf _preview == "Sign_Danger" && !isNull ([_preview, ((sidejoined) call WFBE_CO_FNC_GetSideLogic) getVariable "wfbe_basearea"] call WFBE_CO_FNC_GetClosestEntity2)) then {
+                _color = _colorRed;
+                hintSilent "Minefields are not allowed at base!";
+                ["DEBUG", Format ["Init_Client.sqf: Debug info [Minefield Check] [%1]", !isNull ([_preview, ((sidejoined) call WFBE_CO_FNC_GetSideLogic) getVariable "wfbe_basearea"] call WFBE_CO_FNC_GetClosestEntity2)]] Call WFBE_CO_FNC_LogContent;
+            };
+            if (_itemcategory != 0 && typeOf _preview isKindOf "Base_WarfareBVehicleServicePoint") then {
+                _color = _colorGreen;
+                ["DEBUG", Format ["Init_Client.sqf: Debug info [Vehicle Service Point Check] [%1]", (typeOf _preview isKindOf "Base_WarfareBVehicleServicePoint")]] Call WFBE_CO_FNC_LogContent;
+            };
 
-                	if(count _camos > 1) then {
-                    	_color = _colorRed
-                    } else{
-                	_color = _colorGreen};
-			};
+            if ((typeOf _preview) isKindOf "StaticWeapon") then {
+                _color = _colorGreen;
+                ["DEBUG", Format ["Init_Client.sqf: Debug info [Static Weapon Check] [%1]", ((typeOf _preview) isKindOf "StaticWeapon")]] Call WFBE_CO_FNC_LogContent;
+            };
 
-			if (typeOf _preview == "Sign_Danger" && !isNull ([_preview,((sidejoined) Call WFBE_CO_FNC_GetSideLogic) getVariable "wfbe_basearea"] Call WFBE_CO_FNC_GetClosestEntity2)) then {
-				_color = _colorRed;
-				hintsilent "Minefields are not allowed at base!";
-			};
-            	if (_itemcategory != 0 && typeOf _preview isKindOf "Base_WarfareBVehicleServicePoint") then {
-                	_color = _colorGreen;
-            	};
+            if (_itemcategory == 0) then {
+                private ["_town", "_townside", "_eArea"];
+                _town = [_preview] call GetClosestLocation;
+                ["DEBUG", Format ["Init_Client.sqf: Debug info [_town] [%1]", _town]] Call WFBE_CO_FNC_LogContent;
+                _townside = (_town getVariable "sideID") call GetSideFromID;
+                ["DEBUG", Format ["Init_Client.sqf: Debug info [_townside] [%1]", _townside]] Call WFBE_CO_FNC_LogContent;
+                _eArea = [_preview, ((_eside) call WFBE_CO_FNC_GetSideLogic) getVariable "wfbe_basearea"] call WFBE_CO_FNC_GetClosestEntity3;
+                if ((_preview distance _town < 600 && _townside != sideJoined) || !isNull _eArea) then {
+                    _color = _colorRed;
+                    hintSilent parseText "<t color='#fb0808'> You have entered a restricted area! Impossible to build here!</t>";
+                };
+            };
 
-            	if ((typeOf _preview) isKindOf "StaticWeapon") then {
-					_color = _colorGreen; 
+            if (! ((typeOf _preview) isKindOf "Warfare_HQ_base_unfolded")) then {
+                _current_side = side commanderTeam;
+                _opposite_side = east;
 
-					["DEBUG", Format ["%1 | %2", typeOf _preview, _preview]] Call WFBE_CO_FNC_LogContent;
+                if (_current_side == west) then {
+                    _opposite_side = east;
+                } else {
+                    _opposite_side = west;
+                };
 
-					// To avoid trapping tanks or killing players with the MGnests, added a restriction for building mgs when enemies are near the base.
-					_detected = (_area nearEntities [["Man", "Car", "Motorcycle", "Tank", "Air", "Ship"], missionNamespace getVariable "WFBE_C_BASE_AREA_RANGE"]) unitsBelowHeight 20;
-					{
-						
-						if ((_itemcategory != 0 || typeOf _preview isKindOf "WarfareBMGNest_M240_US_EP1" || typeOf _preview isKindOf "RU_WarfareBMGNest_PK") && side _x == _opposite_side) exitWith {
-							_color = _colorRed;
-							hintSilent parseText "<t color='#fb0808'> Enemies are detected near your base!</t>";
-						};
-					} forEach _detected;
-			};
+                _detected = (_area nearEntities [["Man", "Car", "Motorcycle", "Tank", "Air", "Ship"], missionNamespace getVariable "WFBE_C_BASE_AREA_RANGE"]) unitsBelowHeight 20;
+                {
+                    if ((_itemcategory != 0) && side _x == _opposite_side) exitWith {
+                        _color = _colorRed;
+                        hintSilent parseText "<t color='#fb0808'> Enemies are detected near your base!</t>";
+                    };
+                } forEach _detected;
+            };
 
-			if (_itemcategory == 0) then {
-				private ["_town", "_townside", "_eArea"];
-				_town = [_preview] call GetClosestLocation;
-				_townside = (_town getVariable "sideID") call GetSideFromID;
-				_eArea = [_preview, ((_eside) call WFBE_CO_FNC_GetSideLogic) getVariable "wfbe_basearea"] call WFBE_CO_FNC_GetClosestEntity3;
-				if ((_preview distance _town < 600 && _townside != sideJoined) || !isNull _eArea) then {
-					_color = _colorRed;
-					hintSilent parseText "<t color='#fb0808'> You have entered a restricted area! Impossible to build here!</t>";
-				};
-			};
-
-			if (! ((typeOf _preview) isKindOf "Warfare_HQ_base_unfolded")) then {
-				_current_side = side commanderTeam;
-				_opposite_side = east;
-
-				if (_current_side == west) then {
-					_opposite_side = east;
-				} else {
-					_opposite_side = west;
-				};
-
-				_detected = (_area nearEntities [["Man", "Car", "Motorcycle", "Tank", "Air", "Ship"], missionNamespace getVariable "WFBE_C_BASE_AREA_RANGE"]) unitsBelowHeight 20;
-				{
-					if ((_itemcategory != 0) && side _x == _opposite_side) exitWith {
-						_color = _colorRed;
-						hintSilent parseText "<t color='#fb0808'> Enemies are detected near your base!</t>";
-					};
-				} forEach _detected;
-			};
-
-			_color
-		}];
-	};
+            _color
+        }];
+    };
 };
 
 sleep 3;
