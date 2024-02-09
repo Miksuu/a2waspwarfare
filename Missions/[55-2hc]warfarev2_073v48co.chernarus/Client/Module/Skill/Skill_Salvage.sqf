@@ -1,5 +1,7 @@
 private["_salvagerRange","_percentage"];
 
+WFBE_SK_V_LastUse_Salvage = time;
+
 _salvagerRange = missionNamespace getVariable "WFBE_C_UNITS_SALVAGER_SCAVENGE_RANGE";
 _percentage = missionNamespace getVariable "WFBE_C_UNITS_SALVAGER_SCAVENGE_RATIO";
 
