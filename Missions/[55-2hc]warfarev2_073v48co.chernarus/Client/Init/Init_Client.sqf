@@ -577,37 +577,36 @@ switch (missionNamespace getVariable "WFBE_C_STRUCTURES_COLLIDING") do {
 
             	if ((typeOf _preview) isKindOf "StaticWeapon") then { _color = _colorGreen; };
 
-			// To avoid trapping tanks or killing players with the MGnests, added a restriction for building mgs when enemies are near the base. 
+			// To avoid trapping tanks or killing players with the MGnests, added a restriction for building mgs when enemies are near the base.
 			if (_itemcategory == 0) then {
-				Private ["_town","_townside","_eArea"];
-				_town = [_preview] Call GetClosestLocation;
-			    _townside =  (_town getVariable "sideID") Call GetSideFromID;
-			    _eArea = [_preview,((_eside) Call WFBE_CO_FNC_GetSideLogic) getVariable "wfbe_basearea"] Call WFBE_CO_FNC_GetClosestEntity3;
-	            if ((_preview distance _town < 600 && _townside != sideJoined) || !isNull _eArea) then {
+				private ["_town", "_townside", "_eArea"];
+				_town = [_preview] call GetClosestLocation;
+				_townside = (_town getVariable "sideID") call GetSideFromID;
+				_eArea = [_preview, ((_eside) call WFBE_CO_FNC_GetSideLogic) getVariable "wfbe_basearea"] call WFBE_CO_FNC_GetClosestEntity3;
+				if ((_preview distance _town < 600 && _townside != sideJoined) || !isNull _eArea) then {
 					_color = _colorRed;
-					 hintSilent parseText "<t color='#fb0808'> You have entered a restricted area ! Impossible to build here! </t>";
+					hintSilent parseText "<t color='#fb0808'> You have entered a restricted area! Impossible to build here!</t>";
 				};
-	        };
+			};
 
-            	if( !((typeOf _preview) iskindOf "Warfare_HQ_base_unfolded"))then{
-                    _current_side  = side commanderTeam;
-                    _opposite_side = east;
+			if (! ((typeOf _preview) isKindOf "Warfare_HQ_base_unfolded")) then {
+				_current_side = side commanderTeam;
+				_opposite_side = east;
 
-                    if(_current_side == west)then{
-                        _opposite_side = east;
-	} else{
-                        _opposite_side = west;
-	};
+				if (_current_side == west) then {
+					_opposite_side = east;
+				} else {
+					_opposite_side = west;
+				};
 
-            		_detected = (_area nearEntities [["Man","Car","Motorcycle","Tank","Air","Ship"], missionNamespace getVariable "WFBE_C_BASE_AREA_RANGE"]) unitsBelowHeight 20;
-            		{
-            			if(_itemcategory !=0 && side _x == _opposite_side)exitwith{
-            				_color = _colorRed;
-            				hintSilent parseText "<t color='#fb0808'> Enemies are detected near your base! </t>";
-            			};
-
-            		}foreach _detected;
-};
+				_detected = (_area nearEntities [["Man", "Car", "Motorcycle", "Tank", "Air", "Ship"], missionNamespace getVariable "WFBE_C_BASE_AREA_RANGE"]) unitsBelowHeight 20;
+				{
+					if (_itemcategory != 0 && side _x == _opposite_side) exitWith {
+						_color = _colorRed;
+						hintSilent parseText "<t color='#fb0808'> Enemies are detected near your base!</t>";
+					};
+				} forEach _detected;
+			};
 
 			_color
 		}];
