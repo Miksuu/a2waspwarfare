@@ -708,14 +708,19 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 
 						_find = _structures find _class;
 						if (_find != -1) then {
-							//--- Increment the buildings.
-							if ((_find - 1) > -1) then {
-								_current = WFBE_Client_Logic getVariable "wfbe_structures_live";
-								_current set [_find - 1, (_current select (_find-1)) + 1];
-								WFBE_Client_Logic setVariable ["wfbe_structures_live", _current, true];
-							};
+							_area = [_pos,((sidejoined) Call WFBE_CO_FNC_GetSideLogic) getVariable "wfbe_basearea"] Call WFBE_CO_FNC_GetClosestEntity2;
+							_get = _area getVariable 'avail';
+							
+							if (!isNull _area && _get > 0) then { 
+								//--- Increment the buildings.
+								if ((_find - 1) > -1) then {
+									_current = WFBE_Client_Logic getVariable "wfbe_structures_live";
+									_current set [_find - 1, (_current select (_find-1)) + 1];
+									WFBE_Client_Logic setVariable ["wfbe_structures_live", _current, true];
+								};
 
-							["RequestStructure", [sideJoined,_class,_pos,_dir]] Call WFBE_CO_FNC_SendToServer;
+								["RequestStructure", [sideJoined,_class,_pos,_dir]] Call WFBE_CO_FNC_SendToServer;
+							};
 						};
 
 						if (_class in _defenses) then {
