@@ -31,7 +31,7 @@ switch (WFBE_SK_V_Type) do {
 			false, 
 			true, 
 			"", 
-			"time - WFBE_SK_V_LastUse_Salvage > WFBE_SK_V_LastUse_Salvage"
+			"time - WFBE_SK_V_LastUse_Salvage > WFBE_SK_V_Reload_Salvage"
 		];
 	
 	_unit addAction ["<t color='#11ec52'>" + localize 'STR_WF_Repair_Camp' + "</t>",'Client\Action\Action_RepairCampEngineer.sqf', [], 97, false, true, '', 'alive _target'];
