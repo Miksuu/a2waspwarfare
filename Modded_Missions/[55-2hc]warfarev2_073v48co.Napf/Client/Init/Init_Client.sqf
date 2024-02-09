@@ -599,9 +599,11 @@ switch (missionNamespace getVariable "WFBE_C_STRUCTURES_COLLIDING") do {
 					_opposite_side = west;
 				};
 
+				["DEBUG", Format ["%1 | %2", typeOf _preview, _preview]] Call WFBE_CO_FNC_LogContent;
+
 				_detected = (_area nearEntities [["Man", "Car", "Motorcycle", "Tank", "Air", "Ship"], missionNamespace getVariable "WFBE_C_BASE_AREA_RANGE"]) unitsBelowHeight 20;
 				{
-					if ((_itemcategory != 0 || typeOf _preview == "WarfareBMGNest_M240_US_EP1" || typeOf _preview == "RU_WarfareBMGNest_PK") && side _x == _opposite_side) exitWith {
+					if ((_itemcategory != 0 || typeOf _preview isKindOf "WarfareBMGNest_M240_US_EP1" || typeOf _preview isKindOf "RU_WarfareBMGNest_PK") && side _x == _opposite_side) exitWith {
 						_color = _colorRed;
 						hintSilent parseText "<t color='#fb0808'> Enemies are detected near your base!</t>";
 					};
