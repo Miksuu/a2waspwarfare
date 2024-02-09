@@ -142,10 +142,10 @@ _n = _n		+ ["Hhedgehog_concreteBig"];
 _n = _n		+ ["Hedgehog_EP1"];
 
 //_____________SPAWNMARKER____________
+_n = _n		+ ["Plastic_Pole_EP1"];
 _n = _n		+ ["HeliH"];
 _n = _n		+ ["HeliHRescue"];
 _n = _n		+ ["HeliHCivil"];
-_n = _n		+ ["Plastic_Pole_EP1"];
 
 _n = _n		+ [if (IS_chernarus_map_dependent) then {"Land_CamoNet_EAST"} else {"Land_CamoNet_EAST_EP1"}];
 _n = _n		+ [if (IS_chernarus_map_dependent) then {"Land_CamoNetVar_EAST"} else {"Land_CamoNetVar_EAST_EP1"}];
