@@ -341,7 +341,13 @@ if ((typeOf _vehicle) isKindOf "Tank" || (typeOf _vehicle) isKindOf "Car") then 
 		if (((sideJoined) Call WFBE_CO_FNC_GetSideUpgrades) select WFBE_UP_IRSMOKE > 0) then { //--- Make sure that the unit is defined in IRS_Init and that the upgrade is available.
 			_get = missionNamespace getVariable Format ["%1_IRS", (typeOf _vehicle)];
 			if !(isNil '_get') then {
-				_vehicle setVariable ["wfbe_irs_flares", _get select 1, true];
+
+				_getSelectOne = _get select 1;
+
+				// Check if the vehicle has the 2nd upgrade for the IR Smoke. Double the amount of smoke if true.
+				if (((sideJoined) Call WFBE_CO_FNC_GetSideUpgrades) select WFBE_UP_IRSMOKE > 1) then { _getSelectOne = _getSelectOne * 2;};
+
+				_vehicle setVariable ["wfbe_irs_flares", _getSelectOne, true];
 				_vehicle addEventHandler ["incomingMissile", {_this spawn WFBE_CO_MOD_IRS_OnIncomingMissile}];
 			};
 		};
