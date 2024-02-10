@@ -2,7 +2,7 @@
 	Whenever a missile is shot at the tank...
 */
 
-Private ["_ammo","_lastFired","_projectile","_shooter","_vehicle"];
+Private ["_ammo","_lastFired","_projectile","_shooter","_vehicle","_upgrades","_irSmokeUpgradeLevel"];
 
 _vehicle = _this select 0;
 _ammo = _this select 1;
@@ -26,8 +26,24 @@ if (alive _vehicle) then {
 					_vehicle setVariable ["wfbe_irs_lastfired", time];
 					_vehicle setVariable ["wfbe_irs_flares", (_vehicle getVariable "wfbe_irs_flares") - 1, true];
 					if ((local player) && (player in crew _vehicle)) then {
-					    _vehicle vehicleChat Format[localize "STR_WF_CHAT_IRS_Deployed",_vehicle getVariable "wfbe_irs_flares"];
-					    playSound ["inboundMissileGround", true];
+						
+						_upgrades = (sideJoined) Call WFBE_CO_FNC_GetSideUpgrades;
+						_irSmokeUpgradeLevel = _upgrades select WFBE_UP_IRSMOKE;
+
+						// Play the regular sound if the upgrade level is less than 2 (just like before)
+						if (_irSmokeUpgradeLevel < 2) then {
+							_vehicle vehicleChat Format[localize "STR_WF_CHAT_IRS_Deployed",_vehicle getVariable "wfbe_irs_flares"];
+					    	playSound ["inboundMissileGround", true];
+						} 
+						// Play the continious sound effect if the upgrade level is 2 or higher
+						else { 
+							[_projectile] spawn {							
+							while {!(isNull _projectile)} do {
+								playSound["inboundMissileGround_cont",true];
+								sleep 0.1;
+								};
+							};
+						};
                     };
 				};
 			};
@@ -37,3 +53,4 @@ if (alive _vehicle) then {
 		if (local _projectile) then {[_vehicle, _projectile, _ammo] Spawn WFBE_CO_MOD_IRS_HandleMissile};
 	};
 };
+

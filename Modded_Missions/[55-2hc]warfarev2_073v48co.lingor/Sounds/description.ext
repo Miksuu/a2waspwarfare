@@ -69,6 +69,12 @@ class CfgSounds
         titles[] = {};
     };
 
+    class inboundMissileGround_cont {
+        name = "inboundMissileGround_cont";
+        sound[] = {"\Sounds\inboundMissileGround_cont-10.ogg", 10, 1};
+        titles[] = {};
+    };
+
     class newCommander {
         name = "newCommander";
         sound[] = {"\Sounds\newCommander-10.ogg", 10, 1};
