@@ -77,8 +77,7 @@ _vehicle = _vehicles select _index;
 _paratroopers = [];
 {
 	//--- Spawn the unit.
-	//_unit = [_x, _grp, [100,12000,0], _sideID] Call WFBE_CO_FNC_CreateUnit;
-	_unit = [_x, _playerTeam, [100,12000,0], _sideID] Call WFBE_CO_FNC_CreateUnit;	
+	_unit = [_x, _grp, [100,12000,0], _sideID] Call WFBE_CO_FNC_CreateUnit;
 	_unit moveInCargo _vehicle;
 	_built_inf = _built_inf + 1;
 	[_paratroopers, _unit] Call WFBE_CO_FNC_ArrayPush;
@@ -115,6 +114,7 @@ if (_greenlight) then {
 			_x action ["EJECT", _vehicle];
 			sleep _delay;
 			[leader _playerTeam, "HandleParatrooperMarkerCreation", [_x, _sideID]] Call WFBE_CO_FNC_SendToClient;
+			[_x] join (leader _playerTeam);
 		} forEach ((crew _vehicle) - [driver _vehicle, gunner _vehicle, commander _vehicle]);
 	} forEach _vehicles;
 	
