@@ -278,11 +278,11 @@
                 <Italian>ATTENZIONE! Un Missile Balistico intercontinentale è stato avvistato! Cinque minuti per avere un impatto!</Italian>
             </Key>
             <Key ID="STR_WF_CHAT_IRS_Deployed" >
-                <English>Deploying IR Smoke! %1 ammunitions remaining.</English>
-                <French>Déploiement de l'écran de fumée IR! %1 munitions restantes.</French>
-                <German>Deploying IR Smoke! %1 ammunitions remaining.</German>
-                <Russian>Активирована дымовая защита! %1 зарядов осталось.</Russian>
-                <Italian>Deploying IR Smoke! %1 ammunitions remaining.</Italian>
+                <English>Incoming missile, deploying IR Smoke! %1 ammunitions remaining.</English>
+                <French>Missile entrant, déploiement de fumée IR ! %1 munitions restantes.</French>
+                <German>Eingehende Rakete, IR-Rauch wird ausgelöst! Noch %1 Munition übrig.</German>
+                <Russian>Входящая ракета, развертывание ИК дыма! Осталось боеприпасов: %1.</Russian>
+                <Italian>Missile in arrivo, dispiegamento fumo IR! Munizioni rimanenti: %1.</Italian>
             </Key>
             <Key ID="STR_WF_CHAT_Penalty">
                 <English>$%1 Lost for a civilian neutralization! Go to the ophthalmologist...</English>
