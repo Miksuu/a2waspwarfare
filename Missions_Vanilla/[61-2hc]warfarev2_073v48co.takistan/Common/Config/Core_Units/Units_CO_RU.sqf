@@ -151,6 +151,7 @@ if (local player) then {['LIGHT', _side, _u] Call Compile preProcessFile 'Client
 if (IS_chernarus_map_dependent) then {
     _u 			= ['M113_TK_EP1'];
     _u = _u		+ ['BMP2_INS'];
+    _u = _u		+ ['BVP1_TK_ACR'];
     _u = _u		+ ['BMP3'];
     _u = _u		+ ['ZSU_INS'];
     _u = _u		+ ['T34_TK_EP1'];
@@ -163,6 +164,7 @@ if (IS_chernarus_map_dependent) then {
 } else {
     _u 			= ['M113_TK_EP1'];
     _u = _u		+ ['BMP2_TK_EP1'];
+    _u = _u		+ ['BVP1_TK_ACR'];
     _u = _u		+ ['BMP3'];
     _u = _u		+ ['ZSU_TK_EP1'];
     _u = _u		+ ['T34_TK_EP1'];
