@@ -556,6 +556,18 @@ switch (missionNamespace getVariable "WFBE_C_STRUCTURES_COLLIDING") do {
                 };
             };
 
+			// Prevent the building of the static defences when enemies are near
+			if (_itemcategory == 1) then {
+				_detected = (_area nearEntities[["Man", "Car", "Motorcycle", "Tank", "Air", "Ship"], missionNamespace getVariable "WFBE_C_BASE_AREA_RANGE"]) unitsBelowHeight 20;
+                {
+                    if (_itemcategory != 0 && side _x == _opposite_side) exitwith {
+                        _color = _colorRed;
+                        hintSilent parseText "<t color='#fb0808'> Enemies are detected near your base! </t>";
+                    };
+
+                } foreach _detected;
+			};
+
             if (_itemcategory == 3) then {
                 Private ["_camos"];
                 _color = _colorGreen;
