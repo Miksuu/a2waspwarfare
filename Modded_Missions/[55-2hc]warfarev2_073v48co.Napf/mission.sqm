@@ -3000,7 +3000,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Engineer (Repair, Camps restore)";
+					description="Engineer (Repair, Salvage, Camps restore)";
 					synchronizations[]={224};
 				};
 			};
@@ -3022,7 +3022,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Engineer (Repair, Camps restore)";
+					description="Engineer (Repair, Salvage, Camps restore)";
 					synchronizations[]={224};
 				};
 			};
@@ -3044,7 +3044,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Engineer (Repair, Camps restore)";
+					description="Engineer (Repair, Salvage, Camps restore)";
 					synchronizations[]={224};
 				};
 			};
@@ -3088,7 +3088,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Engineer (Repair, Camps restore)";
+					description="Engineer (Repair, Salvage, Camps restore)";
 					synchronizations[]={224};
 				};
 			};
@@ -3308,7 +3308,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Engineer (Repair, Camps restore)";
+					description="Engineer (Repair, Salvage, Camps restore)";
 					synchronizations[]={225};
 				};
 			};
@@ -3330,7 +3330,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Engineer (Repair, Camps restore)";
+					description="Engineer (Repair, Salvage, Camps restore)";
 					synchronizations[]={225};
 				};
 			};
@@ -3566,7 +3566,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Engineer (Repair, Camps restore)";
+					description="Engineer (Repair, Salvage, Camps restore)";
 					synchronizations[]={224};
 				};
 			};
@@ -3698,7 +3698,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Engineer (Repair, Camps restore)";
+					description="Engineer (Repair, Salvage, Camps restore)";
 					synchronizations[]={225};
 				};
 			};
@@ -3741,7 +3741,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Engineer (Repair, Camps restore)";
+					description="Engineer (Repair, Salvage, Camps restore)";
 					synchronizations[]={225};
 				};
 			};
@@ -3763,7 +3763,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Engineer (Repair, Camps restore)";
+					description="Engineer (Repair, Salvage, Camps restore)";
 					synchronizations[]={224};
 				};
 			};
@@ -3807,7 +3807,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Engineer (Repair, Camps restore)";
+					description="Engineer (Repair, Salvage, Camps restore)";
 					synchronizations[]={225};
 				};
 			};
@@ -3829,7 +3829,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Engineer (Repair, Camps restore)";
+					description="Engineer (Repair, Salvage, Camps restore)";
 					synchronizations[]={224};
 				};
 			};
@@ -3873,7 +3873,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Engineer (Repair, Camps restore)";
+					description="Engineer (Repair, Salvage, Camps restore)";
 					synchronizations[]={225};
 				};
 			};
@@ -3895,7 +3895,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Engineer (Repair, Camps restore)";
+					description="Engineer (Repair, Salvage, Camps restore)";
 					synchronizations[]={225};
 				};
 			};

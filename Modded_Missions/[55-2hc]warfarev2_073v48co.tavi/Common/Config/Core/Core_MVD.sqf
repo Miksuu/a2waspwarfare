@@ -16,7 +16,7 @@ _i = _i + [['','',330,7,-1,2,0,1,'MVD',[]]];
 
 // MVD_Soldier_AT acts as RPG-7VR soldier now
 _c = _c + ['MVD_Soldier_AT'];
-_i = _i + [['Rifleman (RPG-7 VR)','',350,7,-1,2,0,1,'MVD',[]]];
+_i = _i + [['Rifleman (RPG-7 VR)','',350,5,-1,2,0,1,'MVD',[]]];
 
 _c = _c + ['MVD_Soldier_Sniper'];
 _i = _i + [['','',350,7,-1,3,0,1,'MVD',[]]];

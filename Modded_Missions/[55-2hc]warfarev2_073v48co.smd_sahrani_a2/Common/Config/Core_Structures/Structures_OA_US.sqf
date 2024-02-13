@@ -143,6 +143,7 @@ _n = _n		+ ["Hhedgehog_concreteBig"];
 _n = _n		+ ["Hedgehog_EP1"];
 
 //_____________SPAWNMARKER____________
+_n = _n		+ ["Sr_border"];
 _n = _n		+ ["HeliH"];
 _n = _n		+ ["HeliHRescue"];
 _n = _n		+ ["HeliHCivil"];
