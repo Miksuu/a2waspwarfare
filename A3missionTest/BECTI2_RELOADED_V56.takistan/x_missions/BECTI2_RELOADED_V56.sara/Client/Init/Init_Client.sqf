@@ -1123,3 +1123,9 @@ _igiload = execVM "Client\Module\IgiLoad\IgiLoadInit.sqf";
 
 
 ["INITIALIZATION", Format ["Init_Client.sqf: Client initialization ended at [%1]", time]] Call cti_CO_FNC_LogContent;
+
+//set sat cam off from start,satview can be activated with button,if needed.a2 like map now
+waitUntil {visibleMap}; 
+ctrlActivate ((findDisplay 12) displayCtrl 107);
+
+

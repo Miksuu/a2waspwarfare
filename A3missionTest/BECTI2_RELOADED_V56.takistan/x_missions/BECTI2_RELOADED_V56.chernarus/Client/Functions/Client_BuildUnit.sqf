@@ -49,6 +49,7 @@ if (_factoryType isEqualTo 	"Barracks")then{
 			//private _double = _pad_man countType _no;
 			_dir = getDir (_pads select _i);
 			//if (_no isEqualTo [_pads select _i] || _double isEqualTo count _no) then {_free = _free + [[getpos (_pads select _i), _dir]];};
+			_free = _free + [[getpos (_pads select _i), _dir]];
 		};
 	};
 	if (count _free > 0) then {
@@ -83,6 +84,7 @@ if(_factoryType isEqualTo "Light")then{
 			//private _double = _pad_man countType _no;
 			_dir = getDir (_pads select _i);
 			//if (_no isEqualTo [_pads select _i] || _double isEqualTo count _no) then {_free = _free + [[getpos (_pads select _i), _dir]];};
+			_free = _free + [[getpos (_pads select _i), _dir]];
 		};
 	};
 	if (count _free > 0) then {
@@ -116,6 +118,7 @@ if(_factoryType isEqualTo "Heavy")then{
 			//private _double = _pad_man countType _no;
 			_dir = getDir (_pads select _i);
 			//if (_no isEqualTo [_pads select _i] || _double isEqualTo count _no) then {_free = _free + [[getpos (_pads select _i), _dir]];};
+			_free = _free + [[getpos (_pads select _i), _dir]];
 		};
 	};
 	if (count _free > 0) then {
@@ -144,6 +147,7 @@ if(_factoryType isEqualTo "Aircraft")then{
 			//private _double = _pad_man countType _no;
 			_dir = getDir (_pads select _i);
 			//if (_no isEqualTo [_pads select _i] || _double isEqualTo count _no) then {_free = _free + [[getpos (_pads select _i), _dir]];};
+			_free = _free + [[getpos (_pads select _i), _dir]];
 		};
 	};
 	if (count _free > 0) then {

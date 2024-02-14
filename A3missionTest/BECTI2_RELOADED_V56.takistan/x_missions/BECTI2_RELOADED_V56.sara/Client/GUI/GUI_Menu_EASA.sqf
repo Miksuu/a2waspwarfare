@@ -9,6 +9,10 @@ _sideID= str cti_Client_SideJoined;
 _pID=str player;
 _EASAvar="giveDATAtoEASA"+_sideID+_pID;
 _veh =missionNamespace getVariable _EASAvar;
+missionNamespace setvariable [_EASAvar,0];
+_type = typeOf _veh;
+
+
 
 //______________________________________________________________________________________________________________________________________________
 
@@ -26,663 +30,6 @@ _USContainer =["BTeamleader1","BTeamleader2","BTeamleader3","BEngineer1","BEngin
 
 
 
-_bulletsRU=[];
-_bulletsRU pushBack	"PylonWeapon_2000Rnd_65x39_belt";							//10/1/2
-_bulletsRU pushBack	"PylonWeapon_300Rnd_20mm_shells";							//60/6/1.6
-_bulletsRU pushBack	"pook_UPK23_250";											//60/30/0.3
-_bulletsRU pushBack	"CUP_PylonPod_250Rnd_TE2_Green_Tracer_GSh23_23mm_APHE_M";	//120/80/2
-_bulletsRU pushBack	"pook_UPK23_SU22";											//60/30/0.3
-
-
-
-
-_bulletsBLU=[];
-_bulletsBLU pushBack	"CUP_PylonPod_2000Rnd_TE5_Red_Tracer_762x51_M134A_M";		//12/1.2/1.5
-_bulletsBLU pushBack	"CUP_PylonPod_1200Rnd_TE1_Red_Tracer_GAU19A_M";				//32/1.5/1.5
-
-
-_bulletsUK=[];
-_bulletsUK pushBack	"UK3CB_BAF_PylonWeapon_1200Rnd_20mm_M621_HEI_T";				//40/10/2
-_bulletsUK pushBack	"CUP_PylonPod_1200Rnd_TE1_Red_Tracer_M621_20mm_HE_M";			//40/10/2
-
-
-_bulletsUS=[];
-_bulletsUS pushBack	"FIR_SUU23_P_1200rnd_M";										//25/15/3
-_bulletsUS pushBack	"CUP_PylonPod_1200Rnd_TE1_Red_Tracer_30x113mm_M789_HEDP_M";		//90/15/4
-
-
-
-
-
-
-_EASA_RU=_bulletsRU;
-
-_EASA_US=_bulletsBLU + _bulletsUS;
-
-_EASA_UK=_bulletsBLU + _bulletsUK;
-
-
-
-//____________________________________________________________________________________________________
-//ROCKETS
-//____________________________________________________________________________________________________
-
-_rocketsRU=[];
-_rocketsRU pushBack "pook_80mm_SMK_x5";
-_rocketsRU pushBack "pook_80mm_SMK_O_x5";
-_rocketsRU pushBack "pook_80mm_SMK_P_x5";
-_rocketsRU pushBack "CUP_PylonPod_7Rnd_S5_M"; 									//300/50/8
-_rocketsRU pushBack "CUP_PylonPod_16Rnd_S5_M"; 									//300/50/8
-_rocketsRU pushBack "CUP_PylonPod_32Rnd_S5_M"; 									//300/50/8
-_rocketsRU pushBack "pook_80mm_HE_x18"; 										//220/25/15
-_rocketsRU pushBack "CUP_PylonPod_20Rnd_S8N_M"; 								//400/60/15
-_rocketsRU pushBack "FIR_S8KOM_P_20rnd_M"; 										//650/75/15
-_rocketsRU pushBack "FIR_S8KOR_P_20rnd_M"; 										//650/75/15 //lock 2+16 laser
-_rocketsRU pushBack "FIR_S13_P_5rnd_M"; 										//950/450/20
-_rocketsRU pushBack "pook_S24_x1"; 												//2000/1000/25
-
-
-
-
-_rocketsUS=[];
-_rocketsUS pushBack "FIR_Hydra_M257_P_7rnd_M";
-_rocketsUS pushBack "FIR_Hydra_M278_P_7rnd_M";
-_rocketsUS pushBack "CUP_PylonPod_7Rnd_Rocket_FFAR_M"; 							//150/40/8
-_rocketsUS pushBack "CUP_PylonPod_19Rnd_Rocket_FFAR_M";							//150/40/8
-_rocketsUS pushBack "FIR_Hydra_P_7rnd_M";										//600/50/15
-_rocketsUS pushBack "FIR_Hydra_P_14rnd_M";										//600/50/15
-_rocketsUS pushBack "FIR_Hydra_P_19rnd_M";										//600/50/15
-_rocketsUS pushBack "FIR_Hydra_P_21rnd_M";										//600/50/15
-_rocketsUS pushBack "FIR_Hydra_P_38rnd_M";										//600/50/15
-_rocketsUS pushBack "FIR_Hydra_M247_P_7rnd_M";									//800/120/30
-_rocketsUS pushBack "FIR_Hydra_M247_P_14rnd_M";									//800/120/30
-_rocketsUS pushBack "FIR_Hydra_M247_P_19rnd_M";									//800/120/30
-_rocketsUS pushBack "FIR_Hydra_M247_P_38rnd_M";									//800/120/30
-_rocketsUS pushBack "FIR_Hydra_WP_P_7rnd_M";
-_rocketsUS pushBack "FIR_Hydra_WP_P_21rnd_M";
-
-
-_rocketsUK=[];
-_rocketsUK pushBack "CUP_PylonPod_12Rnd_CRV7_HE_M";								//200/50/10
-_rocketsUK pushBack "CUP_PylonPod_19Rnd_CRV7_HE_M";								//200/50/10
-_rocketsUK pushBack "UK3CB_BAF_PylonPod_12Rnd_CRV7_HEISAP";						//400/60/15
-_rocketsUK pushBack "UK3CB_BAF_PylonPod_19Rnd_CRV7_HEISAP";						//400/60/15
-_rocketsUK pushBack "CUP_PylonPod_12Rnd_CRV7_KEP_M";							//430/10/1
-_rocketsUK pushBack "CUP_PylonPod_19Rnd_CRV7_KEP_M";							//430/10/1
-_rocketsUK pushBack "CUP_PylonPod_12Rnd_CRV7_FAT_M";							//550/100/10
-_rocketsUK pushBack "CUP_PylonPod_19Rnd_CRV7_FAT_M";							//550/100/10
-_rocketsUK pushBack "FIR_CRV7_P_19rnd_M";										//600/50/15
-_rocketsUK pushBack "UK3CB_BAF_PylonPod_12Rnd_CRV7_FAT";						//800/8/3
-_rocketsUK pushBack "UK3CB_BAF_PylonPod_19Rnd_CRV7_FAT";						//800/8/3
-_rocketsUK pushBack "UK3CB_BAF_PylonPod_12Rnd_CRV7_PG_HEISAP";					//400/60/15 lock
-_rocketsUK pushBack "UK3CB_BAF_PylonPod_19Rnd_CRV7_PG_HEISAP";					//400/60/15 lock
-_rocketsUK pushBack "UK3CB_BAF_PylonPod_12Rnd_CRV7_PG_FAT";						//800/8/3 lock
-_rocketsUK pushBack "UK3CB_BAF_PylonPod_19Rnd_CRV7_PG_FAT";						//800/8/3 lock
-
-
-_rocketsBLU=[];
-	
-_rocketsBLU pushBack "FIR_Poniard_P_7rnd_M";							//600/50/15 2+16 5k
-_rocketsBLU pushBack "FIR_APKWS_P_7rnd_M";
-_rocketsBLU pushBack "FIR_APKWS_P_14rnd_M";
-_rocketsBLU pushBack "FIR_APKWS_P_19rnd_M";
-_rocketsBLU pushBack "FIR_APKWS_P_38rnd_M";
-	
-_rocketsBLU pushBack "FIR_APKWS_M282_P_7rnd_M";						 //800/120/1 2+16 5k
-_rocketsBLU pushBack "FIR_APKWS_M282_P_14rnd_M";
-_rocketsBLU pushBack "FIR_APKWS_M282_P_19rnd_M";
-_rocketsBLU pushBack "FIR_APKWS_M282_P_38rnd_M";
-	
-_rocketsBLU pushBack "FIR_APKWS_M247_P_7rnd_M";						//800/120/30 2+16 5k
-_rocketsBLU pushBack "FIR_APKWS_M247_P_14rnd_M";
-_rocketsBLU pushBack "FIR_APKWS_M247_P_19rnd_M";
-_rocketsBLU pushBack "FIR_APKWS_M247_P_38rnd_M";
-	
-	
-	
-_rocketsBLU pushBack "FIR_Zuni_P_4rnd_M";											//900/100/10
-_rocketsBLU pushBack "FIR_Zuni_P_8rnd_M";										//900/100/10
-_rocketsBLU pushBack "FIR_Zuni_Mk32_P_4rnd_M";									//900/200/25
-_rocketsBLU pushBack "FIR_Zuni_Mk32_P_8rnd_M";									//900/200/25
-	
-_rocketsBLU pushBack "FIR_LZuni_P_4rnd_M";										//900/400/20 2+16 4k
-_rocketsBLU pushBack "FIR_LZuni_P_8rnd_M";										//900/400/20 2+16 4k
-	
-	
-
-
-
-_EASA_RU=_EASA_RU + _rocketsRU;
-//{_EASA_RU pushBack _x}forEach _rocketsRU;
-
-_EASA_US=_EASA_US + _rocketsUS + _rocketsBLU;
-//{_EASA_US pushBack _x}forEach _rocketsUS;
-//{_EASA_US pushBack _x}forEach _rocketsBLU;
-
-_EASA_UK=_EASA_UK + _rocketsUK + _rocketsBLU;
-//{_EASA_UK pushBack _x}forEach _rocketsUK;
-//{_EASA_UK pushBack _x}forEach _rocketsBLU;
-
-
-
-//____________________________________________________________________________________________________
-//AA
-//____________________________________________________________________________________________________
-
-_AAmissilesBLU=[];
-
-_AAmissilesBLU pushBack "CUP_PylonPod_1Rnd_AIM_9L_LAU_Sidewinder_M";		//130/85/10 5k
-_AAmissilesBLU pushBack "CUP_PylonPod_2Rnd_AIM_9L_LAU_Sidewinder_M";	//130/85/10 5k
-
-_AAmissilesBLU pushBack "FIR_AIM9M_LAU115_P_1rnd_M";					//250/120/8 2+16
-_AAmissilesBLU pushBack "FIR_AIM9M_LAU115_P_2rnd_M";					//250/120/8 2+16
-
-
-
-
-_AAmissilesUS=[];
-
-_AAmissilesUS pushBack "FIR_AIM9X_LAU115_P_1rnd_M";					//250/120/8 2+16
-_AAmissilesUS pushBack "FIR_AIM9X_LAU115_P_2rnd_M";				//250/120/8 2+16
-
-_AAmissilesUS pushBack "FIR_AIM9X_P_F23A_3rnd_M";					//250/120/8 2+16
-_AAmissilesUS pushBack "FIR_AIM9X_EWP_4rnd_M";						//250/120/8 2+16
-
-_AAmissilesUS pushBack "CUP_PylonPod_1Rnd_AIM_120_AMRAAM_M";		//170/115/12 5k 8+16
-_AAmissilesUS pushBack "CUP_PylonPod_1Rnd_AIM_120_AMRAAM_INT_M";	//200/125/13 5k 8+16
-_AAmissilesUS pushBack "CUP_PylonPod_2Rnd_AIM_120_AMRAAM_M";		//200/125/13 5k 8+16
-_AAmissilesUS pushBack "PylonRack_Missile_AMRAAM_C_x1";			//200/125/13 12k
-_AAmissilesUS pushBack "PylonRack_Missile_AMRAAM_C_x2";			//200/125/13 12k
-_AAmissilesUS pushBack "PylonRack_Missile_AMRAAM_D_x1";			//200/125/13 13k
-_AAmissilesUS pushBack "PylonRack_Missile_AMRAAM_D_x2";			//200/125/13 13k
-_AAmissilesUS pushBack "FIR_AIM120A_LAU115_P_1rnd_M";				//280/140/13 8+16 AMRAAM
-_AAmissilesUS pushBack "FIR_AIM120A_LAU115_P_2rnd_M";				//280/140/13 8+16 AMRAAM
-_AAmissilesUS pushBack "FIR_AIM120B_LAU115_P_1rnd_M";				//280/140/13 8+16 AMRAAM
-_AAmissilesUS pushBack "FIR_AIM120_LAU115_P_1rnd_M";				//280/140/13 8+16 AMRAAM
-_AAmissilesUS pushBack "FIR_AIM120_LAU115_P_2rnd_M";				//280/140/13 8+16 AMRAAM
-_AAmissilesUS pushBack "FIR_AIM120_P_AMBER_2rnd_M";				//280/140/13 8+16 AMRAAM
-_AAmissilesUS pushBack "FIR_AIM120_P_F23A_3rnd_M";					//280/140/13 8+16 AMRAAM
-_AAmissilesUS pushBack "FIR_AIM120_EWP_4rnd_M";					//280/140/13 8+16 AMRAAM
-
-_AAmissilesUS pushBack "FIR_AIM7E_P_1rnd_M";						//250/120/13 8+16  10
-_AAmissilesUS pushBack "FIR_AIM7F_P_1rnd_M";						//250/120/13 8+16  11.5
-_AAmissilesUS pushBack "FIR_AIM7_P_1rnd_M";						//250/120/13 8+16  13
-
-_AAmissilesUS pushBack "FIR_AIM54_LAU93_P_1rnd_M";					//400/300/10 8+16 Phoenix
-
-
-_EASA_US=_EASA_US + _AAmissilesBLU +_AAmissilesUS;
-//{_EASA_US pushBack _x}forEach _AAmissilesBLU;
-//{_EASA_US pushBack _x}forEach _AAmissilesUS;
-
-
-_AAmissilesUK=[];
-_AAmissilesUK pushBack "FIR_AIM9P_P_1rnd_M";				//250/120/8 2+16 
-_AAmissilesUK pushBack "FIR_AIM9P_P_2rnd_M";				//250/120/8 2+16 
-_AAmissilesUK pushBack "FIR_IRIS_T_P_1rnd_M";				//250/120/8 2+16 
-_AAmissilesUK pushBack "PylonRack_1Rnd_AAA_missiles";		//200/100/7 2+16 ASRAAM
-_AAmissilesUK pushBack "FIR_AIM132_P_1rnd_M";				//250/120/8 2+8+16	ASRAAM
-_AAmissilesUK pushBack "FIR_Skyflash_P_1rnd_M";			//250/120/13 8+16
-_AAmissilesUK pushBack "FIR_Meteor_P_1rnd_M";				//280/140/13 8+16
-
-
-
-_EASA_UK=_EASA_UK + _AAmissilesBLU+_AAmissilesUK;
-//{_EASA_UK pushBack _x}forEach _AAmissilesBLU;
-//{_EASA_UK pushBack _x}forEach _AAmissilesUK;
-
-
-
-_AAmissilesRU=[];
-
-_AAmissilesRU pushBack "CUP_PylonPod_2Rnd_Igla_M";			//50/40/8 2+16 5.2k or
-_AAmissilesRU pushBack "pook_9M38_Heli_2xmag";				//70/40/8 16+2 5.2k mr
-_AAmissilesRU pushBack "pook_9M38_Heli_4xmag";				//70/40/8 16+2 5.2k mr
-_AAmissilesRU pushBack "pook_mag_R3_AA";					//100/50/18 5k 16+2 mr	
-_AAmissilesRU pushBack "pook_mag_R23T_AA";					//100/60/8 28k 16+2 mr
-_AAmissilesRU pushBack "pook_mag_R27T_AA";					//100/60/8 25k 16+2 mr
-_AAmissilesRU pushBack "FIR_R27ER_P_1rnd_M";				//280/140/13 8+16 13k or
-_AAmissilesRU pushBack "FIR_R27ET_P_1rnd_M";				//280/140/13 8+16 13k or
-_AAmissilesRU pushBack "pook_mag_R60_AA";					//100/60/8 5.5k 16+2 mr	
-_AAmissilesRU pushBack "pook_mag_R60_x2_L";
-_AAmissilesRU pushBack "pook_mag_R60_x2_R";
-_AAmissilesRU pushBack "FIR_R60M_P_1rnd_M";				//250/120/8 2+16 5k
-
-
-
-_AAmissilesRU pushBack "pook_mag_R73_AA";					//110/40/7 8k 16+2 mr
-_AAmissilesRU pushBack "pook_mag_R73_x2_L";
-_AAmissilesRU pushBack "pook_mag_R73_x2_R";
-_AAmissilesRU pushBack "CUP_PylonPod_1Rnd_R73_Vympel";		//140/90/8 2+16 6k mr
-_AAmissilesRU pushBack "PylonMissile_Missile_AA_R73_x1";	//140/95/10 2+16 6k or
-_AAmissilesRU pushBack "FIR_R73_P_1rnd_M";					//250/120/8 2+16 6k or
-_AAmissilesRU pushBack "PylonMissile_Missile_AA_R77_x1";	//200/125/13 8+16 12k or
-_AAmissilesRU pushBack "FIR_R77_P_1rnd_M";					//280/140/13 8+16 16k or
-_AAmissilesRU pushBack "pook_mag_R33_AA";					//480/80/10 50k 16+2 mr
-_AAmissilesRU pushBack "pook_mag_R33_AA_4x";				//480/80/10 50k 16+2 mr
-_AAmissilesRU pushBack "pook_mag_R37M_AA";					//480/80/10 99k 16+2 mr	
-_AAmissilesRU pushBack "pook_mag_R37M_AA_4x";				//480/80/10 99k 16+2 mr	
-_AAmissilesRU pushBack "pook_mag_R40T_AA";					//480/80/10 25k 16+2 mr
-_AAmissilesRU pushBack "pook_mag_R40R_AA";					//480/80/10 75k 16+2 mr
-
-
-
-_EASA_RU=_EASA_RU + _AAmissilesRU;
-//{_EASA_RU pushBack _x}forEach _AAmissilesRU;
-
-
-
-
-//____________________________________________________________________________________________________
-//BOMBS
-//____________________________________________________________________________________________________
-
-_BOMBSboth=[];
-
-_BOMBSboth pushBack "PylonRack_4Rnd_BombDemine_01_F";
-
-
-
-
-_BOMBSblu=[];
-
-_BOMBSblu pushBack "FIR_AGM154A_P_1rnd_M";
-_BOMBSblu pushBack "FIR_Scalpel_P_1rnd_M";
-_BOMBSblu pushBack "FIR_Scalpel_P_3rnd_M";
-
-_BOMBSblu pushBack "PylonRack_Bomb_SDB_x4";
-
-_BOMBSblu pushBack "FIR_GBU39_P_4rnd_M";
-_BOMBSblu pushBack "FIR_GBU39_EWP_4rnd_M";
-_BOMBSblu pushBack "FIR_GBU39_EWP_6rnd_M";
-_BOMBSblu pushBack "FIR_GBU53_P_4rnd_M";
-_BOMBSblu pushBack "FIR_GBU53_EWP_4rnd_M";
-_BOMBSblu pushBack "FIR_GBU53_EWP_6rnd_M";
-
-_BOMBSblu pushBack "PylonMissile_Bomb_GBU12_x1";
-_BOMBSblu pushBack "PylonMissile_1Rnd_Bomb_04_F";
-
-_BOMBSblu pushBack "UK3CB_BAF_PylonMissile_1Rnd_GBU12";
-_BOMBSblu pushBack "CUP_PylonPod_1Rnd_GBU12_M";
-_BOMBSblu pushBack "CUP_PylonPod_2Rnd_GBU12_M";
-_BOMBSblu pushBack "CUP_PylonPod_3Rnd_GBU12_M";
-_BOMBSblu pushBack "PylonMissile_1Rnd_Mk82_F";
-_BOMBSblu pushBack "CUP_PylonPod_1Rnd_Mk82_M";
-_BOMBSblu pushBack "CUP_PylonPod_2Rnd_Mk82_M";
-_BOMBSblu pushBack "CUP_PylonPod_3Rnd_Mk82_M";
-_BOMBSblu pushBack "PylonRack_Bomb_GBU12_x2";
-
-_BOMBSblu pushBack "FIR_GBU12_P_1rnd_M";
-_BOMBSblu pushBack "FIR_GBU12_P_3rnd_M";
-_BOMBSblu pushBack "FIR_EGBU12_P_3rnd_M";
-_BOMBSblu pushBack "FIR_PavewayIV_P_1rnd_M";
-_BOMBSblu pushBack "FIR_AGM154C_P_1rnd_M";
-
-_BOMBSblu pushBack "FIR_GBU12_PW1_P_1rnd_M";
-_BOMBSblu pushBack "FIR_GBU12_Navy_P_1rnd_M";
-_BOMBSblu pushBack "FIR_GBU12_P_2rnd_M";
-_BOMBSblu pushBack "FIR_GBU12_Navy_P_2rnd_M";
-_BOMBSblu pushBack "FIR_GBU12_Navy_P_3rnd_M";
-_BOMBSblu pushBack "FIR_EGBU12_P_1rnd_M";
-_BOMBSblu pushBack "FIR_EGBU12_P_2rnd_M";
-_BOMBSblu pushBack "FIR_EGBU12_Navy_P_2rnd_M";
-
-_BOMBSblu pushBack "FIR_GCS1_P_1rnd_M";
-
-//,"FIR_GBU38_P_1rnd_M";
-_BOMBSblu pushBack "FIR_GBU38_F15SE_P_1rnd_M";
-_BOMBSblu pushBack "FIR_GBU38_P_2rnd_M";
-_BOMBSblu pushBack "FIR_GBU38_P_3rnd_M";
-
-//,"FIR_GBU38_Navy_P_1rnd_M";
-_BOMBSblu pushBack "FIR_GBU38_P_F14_1rnd_M";
-_BOMBSblu pushBack "FIR_GBU38_Navy_P_2rnd_M";
-_BOMBSblu pushBack "FIR_GBU38_Navy_EWP_2rnd_M";
-
-//,"FIR_GBU54_P_1rnd_M"
-_BOMBSblu pushBack "FIR_GBU54_F15SE_P_1rnd_M";
-_BOMBSblu pushBack "FIR_GBU54_P_2rnd_M";
-_BOMBSblu pushBack "FIR_GBU54_P_3rnd_M";
-
-_BOMBSblu pushBack "FIR_GBU54_Navy_P_1rnd_M";
-_BOMBSblu pushBack "FIR_GBU54_Navy_P_2rnd_M";
-_BOMBSblu pushBack "FIR_GBU54_Navy_EWP_2rnd_M";
-
-_BOMBSblu pushBack "FIR_KGGB_P_1rnd_M";
-
-
-_BOMBSblu pushBack "FIR_Mk82_GP_P_1rnd_M";
-_BOMBSblu pushBack "FIR_Mk82_GP_P_3rnd_M";
-_BOMBSblu pushBack "FIR_Mk82_GP_TER9A_P_3rnd_M";
-_BOMBSblu pushBack "FIR_Mk82_GP_P_6rnd_M";
-
-_BOMBSblu pushBack "FIR_Mk82_GP_Navy_P_1rnd_M";
-_BOMBSblu pushBack "FIR_Mk82_GP_P_F14_1rnd_M";
-_BOMBSblu pushBack "FIR_Mk82_GP_Navy_P_2rnd_M";
-_BOMBSblu pushBack "FIR_Mk82_GP_Navy_P_6rnd_M";
-
-_BOMBSblu pushBack "FIR_Mk82_snakeye_P_1rnd_M";
-_BOMBSblu pushBack "FIR_Mk82_snakeye_P_3rnd_M";
-_BOMBSblu pushBack "FIR_Mk82_snakeye_P_6rnd_M";
-
-_BOMBSblu pushBack "FIR_Mk82_snakeye_Navy_P_1rnd_M";
-_BOMBSblu pushBack "FIR_Mk82_snakeye_P_F14_1rnd_M";
-_BOMBSblu pushBack "FIR_Mk82_snakeye_Navy_P_2rnd_M";
-
-_BOMBSblu pushBack "FIR_Mk82_AIR_P_1rnd_M";
-_BOMBSblu pushBack "FIR_Mk82_AIR_P_3rnd_M";
-_BOMBSblu pushBack "FIR_Mk82_AIR_P_6rnd_M";
-
-_BOMBSblu pushBack "FIR_GBU16_Navy_P_1rnd_M";
-_BOMBSblu pushBack "FIR_AGM62_Walleye1_P_1rnd_M";
-_BOMBSblu pushBack "FIR_AGM62_Walleye1ER_P_1rnd_M";
-_BOMBSblu pushBack "FIR_GBU16_Navy_P_F14_1rnd_M";
-_BOMBSblu pushBack "FIR_GBU16_Navy_P_2rnd_M";
-_BOMBSblu pushBack "FIR_GBU32_P_1rnd_M";
-_BOMBSblu pushBack "FIR_GBU32_Navy_P_F14_1rnd_M";
-_BOMBSblu pushBack "FIR_GBU32_Navy_P_2rnd_M";
-_BOMBSblu pushBack "FIR_GBU55_P_1rnd_M";
-_BOMBSblu pushBack "FIR_gbu55_F15SE_P_1rnd_M";
-_BOMBSblu pushBack "FIR_GBU55_Navy_P_1rnd_M";
-_BOMBSblu pushBack "FIR_gbu55_Navy_EWP_1rnd_M";
-_BOMBSblu pushBack "FIR_gbu55_Navy_P_2rnd_M";
-_BOMBSblu pushBack "FIR_Mk83_GP_Navy_P_1rnd_M";
-_BOMBSblu pushBack "FIR_Mk83_GP_Navy_P_F14_1rnd_M";
-_BOMBSblu pushBack "FIR_Mk83_GP_Navy_P_2rnd_M";
-
-_BOMBSblu pushBack "FIR_Mk83_AIR_Navy_P_1rnd_M";
-_BOMBSblu pushBack "FIR_Mk83_AIR_Navy_P_F14_1rnd_M";
-_BOMBSblu pushBack "FIR_Mk83_AIR_Navy_P_2rnd_M";
-
-
-_BOMBSblu pushBack "FIR_GBU24A_BLU118_P_1rnd_M";
-
-_BOMBSblu pushBack "FIR_AGM62_Walleye2ER_P_1rnd_M";
-_BOMBSblu pushBack "FIR_AGM62_Walleye2_P_1rnd_M";
-_BOMBSblu pushBack "FIR_GBU10_PW1_P_1rnd_M";
-_BOMBSblu pushBack "FIR_GBU10_P_1rnd_M";
-_BOMBSblu pushBack "FIR_GBU24A_P_1rnd_M";
-_BOMBSblu pushBack "FIR_GBU24B_P_1rnd_M";
-//_BOMBSblu pushBack "FIR_GBU24_EWP_P_1rnd_M";
-_BOMBSblu pushBack "FIR_GBU31_P_1rnd_M";
-_BOMBSblu pushBack "FIR_GBU31_Navy_P_1rnd_M";
-//_BOMBSblu pushBack "FIR_GBU31_EWP_P_1rnd_M";
-_BOMBSblu pushBack "FIR_Mk84_GP_P_1rnd_M";
-_BOMBSblu pushBack "FIR_Mk84_GP_Navy_P_1rnd_M";
-_BOMBSblu pushBack "FIR_Mk84_GP_P_F14_1rnd_M";
-_BOMBSblu pushBack "FIR_Mk84_AIR_P_1rnd_M";
-
-_BOMBSblu pushBack "FIR_MW1_P_1rnd_M";
-_BOMBSblu pushBack "FIR_CBU87_P_1rnd_M";
-_BOMBSblu pushBack "FIR_CBU87_P_BRU57_2rnd_M";
-_BOMBSblu pushBack "FIR_CBU87_F15E_Demo_P_6rnd_M";
-//,"FIR_CBU100_P_1rnd_M"
-_BOMBSblu pushBack "FIR_CBU100_P_F14_1rnd_M";
-_BOMBSblu pushBack "FIR_CBU100_P_TripleRack_3rnd_M";
-_BOMBSblu pushBack "FIR_CBU100_P_6rnd_M";
-_BOMBSblu pushBack "FIR_CBU103_P_1rnd_M";
-_BOMBSblu pushBack "FIR_CBU103_P_BRU57_2rnd_M";
-_BOMBSblu pushBack "FIR_BLU107_P_3rnd_M";
-_BOMBSblu pushBack "PylonMissile_1Rnd_BombCluster_01_F";
-_BOMBSblu pushBack "PylonRack_2Rnd_BombCluster_01_F";
-_BOMBSblu pushBack "PylonMissile_1Rnd_BombCluster_02_F";
-_BOMBSblu pushBack "PylonMissile_1Rnd_BombCluster_03_F";
-//_BOMBSblu pushBack "PylonMissile_2Rnd_BombCluster_03_F";
-
-
-
-_BOMBSopf=[
-
-"pook_FAB100_x1"
-,"pook_FAB100_x2"
-,"pook_FAB100_x3"
-,"pook_FAB100_x4"
-,"pook_FAB100_x6"
-
-//,"pook_KAB250_x1"
-//,"pook_KAB250_x2"
-,"CUP_PylonPod_1Rnd_KAB250_M"
-,"FIR_KAB250L_P_1rnd_M"
-
-,"su24_1Rnd_FAB250"
-,"su24_2Rnd_FAB250"
-,"su24_3Rnd_FAB250"
-,"su24_4Rnd_FAB250"
-,"su24_6Rnd_FAB250"
-,"tu22_9Rnd_FAB250"
-
-,"CUP_PylonPod_1Rnd_FAB250_M"
-,"FIR_FAB250_P_1rnd_M"
-,"pook_FAB250_x1"
-,"pook_FAB250_x2"
-,"pook_FAB250_x3"
-,"pook_FAB250_x4"
-,"pook_FAB250_x6"
-
-,"PylonMissile_Bomb_KAB250_x1"
-
-,"pook_KAB500L_x1"
-,"pook_KAB500SE_x1"
-,"pook_KAB500KR_x1"
-
-,"pook_FAB500_x1"
-,"pook_FAB500_x2"
-,"pook_FAB500_x4"
-,"pook_OFAB500_x1"
-,"pook_OFAB500_x2"
-,"pook_ODAB500_x1"
-,"pook_ODAB500_x2"
-
-,"pook_FAB500sh_x1"
-,"pook_FAB500sh_x2"
-,"FIR_KAB500L_P_1rnd_M"
-,"FIR_KAB500Kr_P_1rnd_M"
-,"FIR_KAB500SE_P_1rnd_M"
-,"pook_KAB1500L_x1"
-,"pook_KAB1500KR_x1"
-,"pook_FAB1500_x1"
-
-
-,"pook_RBK500AT_x1"
-,"pook_RBK500AT_x2"
-,"pook_RBK500AO_x1"
-,"pook_RBK500AO_x2"
-,"pook_RBK250AO_x1"
-,"pook_RBK250AO_x2"
-,"pook_RBK500SFU_x1"
-,"pook_RBK500SFU_x2"
-,"pook_BetAB500_x1"
-,"pook_BetAB500_x2"
-,"FIR_RBK250_P_1rnd_M"
-,"FIR_RBK500_SPBE_D_P_1rnd_M"
-,"pook_ZB500_x1"
-,"pook_ZB500_x2"
-,"pook_ZB250_x1"
-,"pook_ZB250_x2"
-,"PylonMissile_1Rnd_BombCluster_02_F"
-,"PylonMissile_1Rnd_BombCluster_02_cap_F"
-
-
-];
-
-
-//_EASA_RU=_EASA_RU+_BOMBSboth+_BOMBSopf;
-
-{_EASA_RU pushBack _x}forEach _BOMBSboth;
-{_EASA_RU pushBack _x}forEach _BOMBSopf;
-
-
-//_EASA_US=_EASA_US+_BOMBSboth+_BOMBSblu;
-
-{_EASA_US pushBack _x}forEach _BOMBSboth;
-{_EASA_US pushBack _x}forEach _BOMBSblu;
-
-//_EASA_UK=_EASA_UK+_BOMBSboth+_BOMBSblu;
-
-{_EASA_UK pushBack _x}forEach _BOMBSboth;
-{_EASA_UK pushBack _x}forEach _BOMBSblu;
-
-
-
-//____________________________________________________________________________________________________
-//AT MISSILES
-//____________________________________________________________________________________________________
-
-_ATmissileBLU=[
-
-"CUP_PylonPod_2Rnd_AGM114K_Hellfire_II_M"
-,"CUP_PylonPod_2Rnd_AGM114L_Hellfire_II_M"
-,"CUP_PylonPod_4Rnd_AGM114K_Hellfire_II_M"
-,"CUP_PylonPod_4Rnd_AGM114L_Hellfire_II_M"
-,"PylonMissile_1Rnd_LG_scalpel"
-,"PylonRack_1Rnd_LG_scalpel"
-,"PylonRack_3Rnd_LG_scalpel"
-,"PylonRack_4Rnd_LG_scalpel"
-,"Tornado_AWS_1Rnd_LG_scalpel"
-,"Tornado_AWS_3Rnd_LG_scalpel"
-,"Tornado_AWS_4Rnd_LG_scalpel"
-
-,"UK3CB_BAF_PylonRack_2Rnd_Hellfire_K"
-,"UK3CB_BAF_PylonRack_4Rnd_Hellfire_K"
-
-,"UK3CB_BAF_PylonRack_4Rnd_Hellfire_L"
-,"UK3CB_BAF_PylonRack_2Rnd_Hellfire_N"
-,"UK3CB_BAF_PylonRack_4Rnd_Hellfire_N"
-
-,"CUP_PylonPod_1Rnd_AGM65_Maverick_M"
-,"CUP_PylonPod_3Rnd_AGM65_Maverick_M"
-
-,"FIR_Brimstone_std_P_3rnd_M"
-,"FIR_Brimstone_type1_P_3rnd_M"
-,"FIR_Brimstone_type2_P_3rnd_M"
-,"FIR_Brimstone_DM_std_P_3rnd_M"
-,"FIR_Brimstone_DM_type1_P_3rnd_M"
-,"FIR_Brimstone_DM_type2_P_3rnd_M"
-
-,"PylonMissile_Missile_HARM_x1"
-,"PylonMissile_Missile_HARM_INT_x1"
-,"PylonRack_Missile_HARM_x1"
-,"FIR_AGM65H_P_1rnd_M"
-,"FIR_AGM65H_P_3rnd_M"
-,"FIR_AGM65D_P_1rnd_M"
-,"FIR_AGM65D_P_3rnd_M"
-,"FIR_AGM65B_P_1rnd_M"
-,"FIR_AGM65B_P_3rnd_M"
-,"FIR_AGM65D_P_2rnd_M"
-,"FIR_AGM65H_P_2rnd_M"
-
-,"FIR_AGM65F_P_1rnd_M"
-,"FIR_AGM65G_P_1rnd_M"
-,"FIR_AGM65K_P_1rnd_M"
-,"FIR_AGM65E_P_1rnd_M"
-,"FIR_AGM65E2_P_1rnd_M"
-,"FIR_AGM65L_P_1rnd_M"
-
-,"FIR_AGM88_P_1rnd_M"
-
-//,"FIR_AGM84_P_1rnd_M"
-,"FIR_AGM84D_P_1rnd_M"
-,"FIR_AGM84E_P_1rnd_M"
-,"FIR_AGM84K_P_1rnd_M"
-,"FIR_ASM1_P_1rnd_M"
-,"FIR_ASM2_P_1rnd_M"
-
-,"Tornado_AWS_StormShadow_P_1rnd_M"
-
-,"FIR_AGM123_P_1rnd_M"
-,"FIR_AGM158B_P_1rnd_M"
-
-
-];
-
-_ATmissileOPF=[
-
-"pook_mag_9K120F"
-,"pook_mag_9K120Fx4"
-,"pook_mag_9K120Fx2"
-,"CUP_PylonPod_2Rnd_AT2_M"
-,"CUP_PylonPod_2Rnd_AT6_M"
-,"CUP_PylonPod_4Rnd_Ataka_Empty_M"
-,"CUP_PylonPod_2Rnd_Ataka_M"
-,"CUP_PylonPod_6Rnd_Vikhr_M"
-,"pook_mag_9K120"
-,"pook_mag_9K120x4"
-,"pook_mag_9K120x2"
-
-,"pook_mag_KH28"
-,"pook_mag_KH31P"
-,"pook_mag_KH38_L"
-,"pook_mag_KH38_T"
-,"pook_mag_KH38_R"
-,"pook_mag_KH38_G"
-
-,"pook_mag_KH25MP"
-
-,"PylonMissile_Missile_AGM_KH25_x1"
-,"PylonMissile_Missile_AGM_KH25_INT_x1"
-,"pook_mag_KH31"
-,"CUP_PylonPod_1Rnd_Kh29_M"
-,"pook_mag_KH23M"
-
-,"pook_mag_KH25MTP"
-,"pook_mag_KH25ML"
-,"pook_mag_KH25MT"
-,"pook_mag_KH25MAE"
-,"pook_mag_KH25MSE"
-,"pook_mag_KH59"
-,"pook_mag_KH59M"
-,"pook_mag_KH59MK2"
-,"pook_mag_KH35"
-,"PylonMissile_Missile_KH58_x1"
-,"PylonMissile_Missile_KH58_INT_x1"
-
-,"FIR_9K121_P_8rnd_M"
-,"FIR_Kh25ML_P_1rnd_M"
-,"FIR_Kh25MT_P_1rnd_M"
-,"FIR_Kh25MTP_P_1rnd_M"
-,"FIR_Kh25MS_P_1rnd_M"
-,"pook_mag_KH61"
-,"FIR_Kh25MPU_P_1rnd_M"
-,"pook_mag_KH29D"
-,"pook_mag_KH29L"
-,"pook_mag_KH58"
-,"tu95_1Rnd_Kh65"
-,"tu95_2Rnd_Kh65"
-,"tu95_3Rnd_Kh65"
-,"tu95_1Rnd_Kh101"
-,"tu95_2Rnd_Kh101"
-,"tu95_1Rnd_3M80"
-,"tu95_1Rnd_Kh22"
-,"tu22_1Rnd_Kh22"
-,"tu95_1Rnd_Kh32"
-,"tu22_1Rnd_Kh32"
-
-,"tu95_1Rnd_Kh15S"
-,"tu95_1Rnd_Kh15P"
-,"tu16_1Rnd_KSR2"
-,"tu16_1Rnd_K10"
-,"tu95_1Rnd_Kh55"
-,"FIR_Kh29_P_1rnd_M"
-,"FIR_Kh29T_P_1rnd_M"
-,"FIR_Kh29D_P_1rnd_M"
-
-];
-
-
-//_EASA_RU=_EASA_RU+_ATmissileOPF;
-{_EASA_RU pushBack _x}forEach _ATmissileOPF;
-
-//_EASA_US=_EASA_US+_ATmissileBLU;
-{_EASA_US pushBack _x}forEach _ATmissileBLU;
-
-
-//_EASA_UK=_EASA_UK+_ATmissileBLU;
-{_EASA_UK pushBack _x}forEach _ATmissileBLU;
-
-/*
-*/
-//hint str _EASA_RU;
-
 
 
 _allPylonMags3=[];
@@ -691,12 +38,12 @@ _allPylonMags3=[];
 if (_pID in _USContainer) then {
 	
 	
-	_allPylonMags3=_EASA_US;
+	_allPylonMags3=EASA_US;
 	
 };
 if (_pID in _UKContainer) then {
 	//_sorted=_EASA_UK;
-	_allPylonMags3=_EASA_UK;
+	_allPylonMags3=EASA_UK;
 	
 	
 };
@@ -704,7 +51,7 @@ if (_pID in _UKContainer) then {
 if (_pID in _OpforContainer) then {
 //if ( _sideID isEqualto "EAST") then {	
 	
-	_allPylonMags3=_EASA_RU;
+	_allPylonMags3=EASA_RU;
 	
 	
 
@@ -714,7 +61,7 @@ if (_pID in _OpforContainer) then {
 //______________________________________________________________________________________________________________________________________________
 //______________________________________________________________________________________________________________________________________________
 //______________________________________________________________________________________________________________________________________________
-//______________________________________________________________________________________________________________________________________________
+//_______________________________________________________SET_CAM________________________________________________________________________________
 //______________________________________________________________________________________________________________________________________________
 //______________________________________________________________________________________________________________________________________________
 
@@ -734,15 +81,13 @@ _Etrack = _veh;
 		EASA_CTI_UnitsCamera cameraEffect ["Internal", "back"];
 
 
+//______________________________________________________________________________________________________________________________________________
+//______________________________________________________________________________________________________________________________________________
+//______________________________________________________________________________________________________________________________________________
+//_______________________________________________________INIT_OLD_PYLONSPACE____________________________________________________________________
+//______________________________________________________________________________________________________________________________________________
+//______________________________________________________________________________________________________________________________________________
 
-_sideID= str cti_Client_SideJoined;
-_pID=str player;
-_EASAvar="giveDATAtoEASA"+_sideID+_pID;
-missionNamespace setvariable [_EASAvar,0];
-
-_type = typeOf (vehicle player);
-
-//_type = typeOf _veh;
 
 
 _pylons = [];
@@ -753,12 +98,23 @@ _oldpylons = _veh getVariable "_pylons";
 if(!(isNil '_oldpylons' )) then { 
 	if (count _oldpylons > 0) then {
 		_pylons = +_oldpylons;
-		_rearmPrice = round((((missionNamespace getVariable _type) select QUERYUNITPRICE)/(missionNamespace getVariable "cti_C_UNITS_SUPPORT_REARM_PRICE"))*1.25);
-		_rearmPrice = round((_rearmPrice * (count _pylons)) / 2);
+		//_rearmPrice = round((((missionNamespace getVariable _type) select QUERYUNITPRICE)/(missionNamespace getVariable "cti_C_UNITS_SUPPORT_REARM_PRICE"))*1.25);
+		//_rearmPrice = round((_rearmPrice * (count _pylons)) / 2);
 	};
 };
 
+//______________________________________________________________________________________________________________________________________________
+//______________________________________________________________________________________________________________________________________________
+//______________________________________________________________________________________________________________________________________________
+//_______________________________________________________FUNCTIONS_SPACE________________________________________________________________________
+//______________________________________________________________________________________________________________________________________________
+//______________________________________________________________________________________________________________________________________________
+
+
+//create pylonlist
+EASA_get_pylonlist={//______________________________________________________________________________________________________________________________________________
 _ix = 0;
+lbClear 230033;
 private _allPylons = "true" configClasses (
 		configFile 
 		>> 
@@ -772,27 +128,29 @@ private _allPylons = "true" configClasses (
 		>> 
 		"pylons"
 		) apply {configName _x};
-
-
-
+_show_numbers=1;
 {
 	_strText = "";
 	_strSubText = getText (configFile >> "CfgMagazines" >> (getPylonMagazines _veh) select _ix >> "displayName");
+	/*
 	for "_i" from 0 to (count _pylons) - 1 do {			
 		if(((_pylons select _i) select 0) == _x) exitWith {
 			_strText = format["%1 (%2)", _x, getText (configFile >> "CfgMagazines" >> (_pylons select _i) select 1 >> "displayName")];			
 		};
 	};	
+	*/
 	
-	lbAdd[230033, format ["%1 (%2)", _x, _strSubText]];
+	
+	
+
+	
+	//lbAdd[230033, format ["%1 (%2)", _x, _strSubText]];
+	
+	lbAdd[230033, format ["%1 (%2)",(str _show_numbers), _strSubText]];
+	_show_numbers=_show_numbers+1;
 	
 	lbSetTooltip [230033, _ix, _strSubText];
-	
-	
-	
-	
-	
-	
+		
 	if(_strText != "") then {
 		lbSetColor [230033, _ix, [0.9333, 0.8980, 0.5451, 0.9]];
 	};
@@ -801,20 +159,199 @@ private _allPylons = "true" configClasses (
 	_ix = _ix + 1;
 } foreach _allPylons;
 
+};//______________________________________________________________________________________________________________________________________________
+
+call EASA_get_pylonlist;
 //hint parseText(localize 'STR_WF_INFO_EASA_HELP');
+
+EASA_remove_all={//______________________________________________________________________________________________________________________________________________
+
+//>remove all
+private _worklist=getAllPylonsInfo _veh;
+for "_i" from 0 to (count _worklist) - 1 do {
+private _activePylonMag = [_worklist#_i#3]; 
+private _weapon = _activePylonMag apply {getText ((configfile >> "CfgMagazines" >> _x >> "pylonWeapon"))}; 
+[_veh,[_weapon#0,_worklist#_i#2]] remoteexec ["removeWeaponTurret",_veh] ;
+[_veh,[_worklist#_i#3,_worklist#_i#2]] remoteexec ["removeMagazineTurret",_veh] ;
+[_veh,[_i + 1,"",true,_worklist#_i#2]] remoteexec ["setPylonLoadOut",_veh] ;
+[_veh,[_i + 1,0]] remoteexec ["SetAmmoOnPylon",_veh] ;
+};
+//to be sure, we make it in different way too now
+
+//>remove magazines
+private _activePylonMags = GetPylonMagazines _veh;
+	{
+		[_veh,[_foreachIndex + 1,"",true]] remoteexec ["setPylonLoadOut",_veh] ;
+		[_veh,[_foreachIndex + 1,0]] remoteexec ["SetAmmoOnPylon",_veh] ;
+	} forEach _activePylonMags;
+
+//>remove weapons
+private _nonpylonWeaponslist = [];
+{ _nonpylonWeaponslist append getArray (_x >> "weapons") } forEach ([_veh, configNull] call BIS_fnc_getTurrets);
+private _weapons=weapons _veh;
+private _activePylonMags = GetPylonMagazines _veh;
+private _weapons2 = _activePylonMags apply {getText ((configfile >> "CfgMagazines" >> _x >> "pylonWeapon"))}; 
+{if !(_x in _weapons) then{_weapons=_weapons + [_x];};}forEach _weapons2;
+{if (_x in _weapons) then{_weapons=_weapons - [_x];};
+}forEach _nonpylonWeaponslist;
+{ _veh removeWeaponGlobal _x } forEach (_weapons);
+
+};//______________________________________________________________________________________________________________________________________________
+
+
+
+EASA_get_loadout={//______________________________________________________________________________________________________________________________________________
+
+private _actual=getAllPylonsInfo _veh;
+//format=
+
+
+//[
+	//	[1,"PylonLeft1",[0],"PylonRack_4Rnd_LG_scalpel",4,"0:10000646"],
+	//	[2,"PylonLeft2",[0],"PylonRack_19Rnd_Rocket_Skyfire",19,"0:10000648"],
+	//	[3,"PylonRight2",[0],"PylonRack_19Rnd_Rocket_Skyfire",19,"0:10000649"],
+	//	[4,"PylonRight1",[0],"PylonRack_4Rnd_LG_scalpel",4,"0:10000650"]
+//]
+
+//convert to setPylonLoadOut format
+private _loadoutlist=[];
+_i=0;
+{
+_loadoutlist= _loadoutlist + [[_actual#_i#1,_actual#_i#3,true,_actual#_i#2]];
+
+_i=_i+1;
+}forEach _actual;
+
+_loadoutlist
+
+};//______________________________________________________________________________________________________________________________________________
+
+EASA_get_actual_owner={//______________________________________________________________________________________________________________________________________________
+private _relevant_pylon=_this;
+private _actual=getAllPylonsInfo _veh;
+private _owner=[];
+{
+if (_x#1 == _relevant_pylon)then{
+_owner=_owner+[_x#2];
+};
+
+}forEach _actual;
+_owner#0
+};//______________________________________________________________________________________________________________________________________________
+
+
+EASA_get_actual_magazine={//______________________________________________________________________________________________________________________________________________
+private _relevant_pylon=_this;
+private _actual=getAllPylonsInfo _veh;
+private _mag=[];
+{
+if (_x#1 == _relevant_pylon)then{
+_mag=_mag+[_x#3];
+};
+
+}forEach _actual;
+_mag#0
+};//______________________________________________________________________________________________________________________________________________
+
+
+
+EASA_create_full_loadout={//______________________________________________________________________________________________________________________________________________
+
+//[[lbData[230033, lbCurSel 230033], lbData[230034, lbCurSel 230034],true, _turretPath]] call EASA_create_full_loadout;
+private _partial=_this; //todo
+private _actual=call EASA_get_loadout;
+private _updated=[];
+
+
+for "_i" from 0 to (count _partial) - 1 do {
+{
+if (_partial#_i#0 == _x#0)then{//update
+
+_updated=_updated + [_partial#_i];
+}else{
+
+_updated=_updated + [_x];
+};
+
+}forEach _actual;
+
+};
+//systemchat str _upadated;
+_updated
+
+};//______________________________________________________________________________________________________________________________________________
+
+
+
+
+EASA_equip_loadout={//______________________________________________________________________________________________________________________________________________
+
+private _actualLoadout=_this;
+
+//check for full
+private _check=call EASA_get_loadout;
+if !((count _check) == (count _actualLoadout))then{
+
+_actualLoadout= _actualLoadout call EASA_create_full_loadout;
+};
+//clear all first (setPylonLoadOut dont removes old weapons)
+
+_veh call EASA_remove_all;
+
+
+//>add actual loadout
+/*
+for "_i" from 0 to (count _actualLoadout#0) - 1 do {
+[_veh,[_i + 1,_actualLoadout#0#_i,true,_actualLoadout#1#_i]] remoteexec ["setPylonLoadOut",_veh] ;
+};
+*/
+for "_i" from 0 to (count _actualLoadout) - 1 do {
+[_veh,[_actualLoadout#_i#0,_actualLoadout#_i#1,true,_actualLoadout#_i#3]] remoteexec ["setPylonLoadOut",_veh] ;
+};
+
+};//______________________________________________________________________________________________________________________________________________
+
+
+
+
+//______________________________________________________________________________________________________________________________________________
+//______________________________________________________________________________________________________________________________________________
+//______________________________________________________________________________________________________________________________________________
+//_______________________________________________________INIT_SPACE________________________________________________________________________
+//______________________________________________________________________________________________________________________________________________
+//______________________________________________________________________________________________________________________________________________
+
+//_new_system-->save first loadout
+
+_initloadout=_veh getVariable "Loadout";
+if (isNil '_initloadout' ) then { //save it for abort actions
+_initloadout=call EASA_get_loadout;
+_veh setVariable ["Loadout",_initloadout];
+
+
+};
+
+
 	
 
+//lbData[230035, lbCurSel 230035]
 lbAdd[230035, "FALSE"];
 lbAdd[230035, "TRUE"];
-
-
-lbSetCurSel [230035, 0];
+lbSetData[230035, 0, "[0]"];
+lbSetData[230035, 1, "[-1]"];
 
 if(count allTurrets [_veh, true] == 0) then {
+	//lbAdd[230035, "TRUE"];
 	lbSetCurSel [230035, 1];
 	ctrlEnable[230035, false];
-	};
+}else{
 
+
+
+};
+
+
+/*
 ctrlEnable[22004, false];
 ctrlSetText [230005, "$" + str(_rearmPrice)];
 
@@ -834,18 +371,58 @@ if(!(isNil '_oldpylons' ) ) then {
 	ctrlEnable[230007, false];
 	ctrlSetText [230006,"$0"];
 };
-
+*/
 //diag_log format["_pylons after check = %1", _pylons];
+
+
+ctrlEnable[230007 , true];//right button
+ctrlEnable[22004 , true];//save or purchase buton
+
+//______________________________________________________________________________________________________________________________________________
+//______________________________________________________________________________________________________________________________________________
+//______________________________________________________________________________________________________________________________________________
+//___LOOP______LOOP______LOOP______LOOP______LOOP______LOOP______LOOP______LOOP______LOOP______LOOP______LOOP______LOOP______LOOP______LOOP_____
+//______________________________________________________________________________________________________________________________________________
+//______________________________________________________________________________________________________________________________________________
+
+
 
 while {alive player && dialog} do {
 	sleep 0.1;
 	
-	if (side player != cti_Client_SideJoined) exitWith {closeDialog 0};
-	if !(dialog) exitWith {};
+	if (side player != cti_Client_SideJoined) exitWith {
+	closeDialog 0;
+	_initloadout call EASA_equip_loadout;
+	_veh setVariable ["Loadout",nil];
+	};
+	if !(dialog) exitWith {
+	_initloadout call EASA_equip_loadout;
+	_veh setVariable ["Loadout",nil];};
 	
 	
-	if (WF_MenuAction == 111) then {
+	if (WF_MenuAction == 111) then {//on pylon selected
 		WF_MenuAction = -1;		
+		
+		//get actual turret setting
+		_owner=lbData[230033, lbCurSel 230033] call EASA_get_actual_owner;
+		if (_owner#0 == 0)then{
+		//lbClear 230035;
+		//lbAdd[230035, "FALSE"];
+		//lbAdd[230035, "TRUE"];
+		lbSetCurSel [230035, 0];
+		};
+		if (_owner#0 == -1)then{
+		//lbClear 230035;
+		//lbAdd[230035, "FALSE"];
+		//lbAdd[230035, "TRUE"];
+		lbSetCurSel [230035, 1];
+		};
+		
+		//lbSetData[230033, _ix, _x];
+		//systemchat str _owner;
+		//lbSetCurSel [230033, lbData[230033, lbCurSel 230033]];
+		
+		
 		
 		_k = 0;
 		lbClear 230034;
@@ -1015,6 +592,8 @@ while {alive player && dialog} do {
 				_pSubtext=str _PRICE ;
 				_pSubtext=_pSubtext +"$";
 				
+				_pSubtext="0$";
+				
 				lbAdd[230034, format ["%1 (%2)", _displayName, _pSubtext]];
 				
 	
@@ -1148,6 +727,30 @@ while {alive player && dialog} do {
 		//} foreach _allPylonMags2;		
 		//} foreach _sorted;		
 	
+		//if actual in list,select it
+		
+		
+		//lbData[230034, lbCurSel 230034]//pylonmags
+		//lbSetCurSel [230035, 1];
+		_maglist=getPylonMagazines _veh;
+		//systemchat str lbData[230033, lbCurSel 230033];
+		private _check=lbData[230033, lbCurSel 230033] call EASA_get_actual_magazine;
+		if (_check in _allPylonMags3)then {//get index
+		private _index=0;
+		private _switch=2;
+		{
+		if ((_switch==2)&&!(_x==_check))then {
+		_index=_index+1;
+		}else{
+		if (_switch==2) then{_switch=5};
+		};
+		}forEach _allPylonMags3;
+		
+		lbSetCurSel [230034, _index];
+		}else{//some fueltanks not listed,just dont select it if you want keep it,we select 0 here
+		lbSetCurSel [230034, 0];
+		};
+		//systemchat str _check;
 	};
 	
 	/*
@@ -1178,15 +781,22 @@ while {alive player && dialog} do {
 	if (WF_MenuAction == 112) then {
 		WF_MenuAction = -1;						
 		
-		_turretPath = [0];
+		_turretPath = lbData[230033, lbCurSel 230033] call EASA_get_actual_owner;
+
 		
-		if(lbCurSel 230035 == 0) then {			
+		if(lbData[230035, lbCurSel 230035] == "[0]") then {	
 			_turretPath = [0];
-		}
-		else {			
-			_turretPath = [];
+		}else {			
+		_turretPath = [-1];
 		};
+
 		
+		
+		[[lbData[230033, lbCurSel 230033], lbData[230034, lbCurSel 230034],true, _turretPath]] call EASA_equip_loadout;
+		sleep .1;//need some sleep here to get actual not last one
+		call EASA_get_pylonlist;
+		
+		/*
 		if(count _pylons > 0) then {
 			//--If current pylon already in array do not pushBack to array, else set new value--
 			_exist = false;
@@ -1210,8 +820,8 @@ while {alive player && dialog} do {
 			lbSetColor [230033, lbCurSel 230033, [0.9333, 0.8980, 0.5451, 0.9]];			
 		};
 		
-		_rearmPrice = round((((missionNamespace getVariable _type) select QUERYUNITPRICE)/(missionNamespace getVariable "cti_C_UNITS_SUPPORT_REARM_PRICE"))*1.25);
-		_rearmPrice = round((_rearmPrice * (count _pylons)) / 2);		
+		//_rearmPrice = round((((missionNamespace getVariable _type) select QUERYUNITPRICE)/(missionNamespace getVariable "cti_C_UNITS_SUPPORT_REARM_PRICE"))*1.25);
+		//_rearmPrice = round((_rearmPrice * (count _pylons)) / 2);		
 		ctrlSetText [230005,"$"+str(_rearmPrice)];
 		
 		if(_rearmPrice <= Call cti_CL_FNC_GetPlayerFunds && (count _pylons > 0)) then {
@@ -1233,34 +843,43 @@ while {alive player && dialog} do {
 		};	
 		
 		ctrlSetText [230006,"$" + str(round(_rearmPrice / 2))];	
+		*/
+		
 	};
 	
 	//--Weapon control mode changed--
 	if (WF_MenuAction == 114) then {
 		WF_MenuAction = -1;		
 		
+	
 		_turretPath = [0];
-		
-		if(lbCurSel 230035 == 0) then {			
+		if(lbData[230035, lbCurSel 230035] == "[0]") then {			
 			_turretPath = [0];
 		}
-		else {			
-			_turretPath = [];
+		else {
+			
+			_turretPath = [-1];
 		};
 		
+		
+		
+		[[lbData[230033, lbCurSel 230033], lbData[230034, lbCurSel 230034],true, _turretPath]] call EASA_equip_loadout;
+		
+		/*
 		if(count _pylons > 0) then {			
 			for "_j" from 0 to (count _pylons) - 1 do {
 				if( (_pylons select _j) select 0 == lbData[230033, lbCurSel 230033]) exitWith {					
 					_pylons set [_j, [lbData[230033, lbCurSel 230033], lbData[230034, lbCurSel 230034], true, _turretPath]];					
 				};
 			};
-		};		
+		};
+			*/
 	};
 	
-	//--Remove from set--
+	//--Remove from set--doubleclick on pylon
 	if (WF_MenuAction == 102) then {
 		WF_MenuAction = -1;
-		
+		/*
 		_trysell_message = true;		
 		
 		if(count _pylons > 0) then {			
@@ -1274,8 +893,8 @@ while {alive player && dialog} do {
 		};
 		
 		if(count _pylons > 0) then {
-			_rearmPrice = round((((missionNamespace getVariable _type) select QUERYUNITPRICE)/(missionNamespace getVariable "cti_C_UNITS_SUPPORT_REARM_PRICE"))*1.25);
-			_rearmPrice = round((_rearmPrice * (count _pylons)) / 2);		
+			//_rearmPrice = round((((missionNamespace getVariable _type) select QUERYUNITPRICE)/(missionNamespace getVariable "cti_C_UNITS_SUPPORT_REARM_PRICE"))*1.25);
+			//_rearmPrice = round((_rearmPrice * (count _pylons)) / 2);		
 		}
 		else {
 			_rearmPrice = 0;
@@ -1305,13 +924,19 @@ while {alive player && dialog} do {
 		
 		if(_trysell_message) then {
 			//hint parseText(localize 'STR_WF_EASA_TRYSELL_MESSAGE');
-		};		
+		};	
+			*/
 	};
 	
 	//--Purchase Button--
 	if (WF_MenuAction == 101) then {
 		WF_MenuAction = -1;
 		
+		//save it
+		_initloadout=call EASA_get_loadout;
+		_veh setVariable ["Loadout",_initloadout];
+		
+		/*
 		-_rearmPrice Call cti_CL_FNC_ChangePlayerFunds;
 			
 		if(count _pylons > 0) then {
@@ -1319,20 +944,27 @@ while {alive player && dialog} do {
 			[_veh, _pylons] call cti_CO_FNC_Requip_AIR_VEH;
 		};
 		
+		
+		
 		if (WF_Debug) then {
 			diag_log format["Set pylons for %1 : %2", typeOf _veh, _pylons];
 		};
+		*/
 	};
 	
 	//--Rearm by default Button--
 	if (WF_MenuAction == 115) then {
 		WF_MenuAction = -1;
 		
+		_initloadout call EASA_equip_loadout;
+		
+		/*
 		-(round(_rearmPrice / 2)) Call cti_CL_FNC_ChangePlayerFunds;		
 		
 		cti_CO_FNC_RearmVehicle = Compile preprocessFileLineNumbers "Common\Functions\Common_RearmVehicle.sqf";
 		_veh setVariable ["_pylons", nil]; 
 		[_veh, side player] Spawn cti_CO_FNC_RearmVehicle;
+		*/
 	};
 };
 

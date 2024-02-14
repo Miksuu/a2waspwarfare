@@ -1,7 +1,0 @@
-easa fix
-	-remove old weapons if equip new
-	-build sensefull pricescript
-	-add template
-towndubbing
-	-create ogg for each town
-	-implement dubbing (looked like its made for just add sounds)
