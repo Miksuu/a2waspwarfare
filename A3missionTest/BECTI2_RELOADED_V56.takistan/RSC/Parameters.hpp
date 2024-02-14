@@ -289,9 +289,9 @@ class Params {
 	};
 	class cti_C_ENVIRONMENT_MAX_VIEW {
 		title = "$STR_WF_PARAMETER_ViewDistance";
-		values[] = {200,500,800,1000,1500,2000,2500,3000};
-		texts[] = {"200m","500m","800m","1000m","1500m","2000m","2500m","3000m"};
-		default = 3000;
+		values[] = {200,500,800,1000,1500,2000,2500,3000,6000};
+		texts[] = {"200m","500m","800m","1000m","1500m","2000m","2500m","3000m","6000m"};
+		default = 6000;
 	};
 	class cti_C_OBJECT_MAX_VIEW {
 		title = "$STR_WF_PARAMETER_ObjectDistanceLabel";
