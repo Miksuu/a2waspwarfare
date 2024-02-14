@@ -54,10 +54,10 @@ _currentFee = -1;
 
 //--- Support List.
 _lastSel = -1;
-_addToList = [localize 'STR_WF_TACTICAL_FastTravel',localize 'STR_WF_ICBM',localize 'STR_WF_TACTICAL_ParadropAmmo',localize 'STR_WF_TACTICAL_ParadropVehicle',localize 'STR_WF_TACTICAL_Paratroop',localize 'STR_WF_TACTICAL_UnitCam',localize 'STR_WF_TACTICAL_UAV',localize 'STR_WF_TACTICAL_UAVDestroy',localize 'STR_WF_TACTICAL_UAVRemoteControl'];
-_addToListID = ["Fast_Travel","ICBM","Paradrop_Ammo","Paradrop_Vehicle","Paratroopers","Units_Camera","UAV","UAV_Destroy","UAV_Remote_Control"];
-_addToListFee = [0,150000,9500,3500,8500,0,12500,0,0];
-_addToListInterval = [0,1000,800,600,900,0,0,0,0];
+_addToList = [localize 'STR_WF_TACTICAL_FastTravel',localize 'STR_WF_ICBM',localize 'STR_WF_TACTICAL_ParadropAmbu',localize 'STR_WF_TACTICAL_ParadropVehicle',localize 'STR_WF_TACTICAL_Paratroop',localize 'STR_WF_TACTICAL_UnitCam',localize 'STR_WF_TACTICAL_UAV',localize 'STR_WF_TACTICAL_UAVDestroy',localize 'STR_WF_TACTICAL_UAVRemoteControl'];
+_addToListID = ["Fast_Travel","ICBM","Paradrop_Ambu","Paradrop_Vehicle","Paratroopers","Units_Camera","UAV","UAV_Destroy","UAV_Remote_Control"];
+_addToListFee = [0,150000,10000,3500,8500,0,12500,0,0];
+_addToListInterval = [0,1000,600,600,900,0,0,0,0];
 
 for '_i' from 0 to count(_addToList)-1 do {
 	lbAdd [_listBox,_addToList select _i];
@@ -225,9 +225,9 @@ while {alive player && dialog} do {
 				_currentLevel = _currentUpgrades select WFBE_UP_PARATROOPERS;
 				_controlEnable = if (_funds >= _currentFee && _currentLevel > 0 && time - lastParaCall > _currentInterval) then {true} else {false};
 			};
-			case "Paradrop_Ammo": {
+			case "Paradrop_Ambu": {
 				_currentLevel = _currentUpgrades select WFBE_UP_SUPPLYPARADROP;
-				_controlEnable = if (_funds >= _currentFee && _currentLevel > 0 && time - lastSupplyCall > _currentInterval) then {true} else {false};
+				_controlEnable = if (_funds >= _currentFee && _currentLevel > 1 && time - lastSupplyCall > _currentInterval) then {true} else {false};
 			};
 			case "Paradrop_Vehicle": {
 				_currentLevel = _currentUpgrades select WFBE_UP_SUPPLYPARADROP;
@@ -273,7 +273,7 @@ while {alive player && dialog} do {
 				if !(scriptDone _textAnimHandler) then {terminate _textAnimHandler};
 				_textAnimHandler = [17022,localize 'STR_WF_TACTICAL_ClickOnMap',10,"ff9900"] spawn SetControlFadeAnim;
 			};
-			case "Paradrop_Ammo": {
+			case "Paradrop_Ambu": {
 				MenuAction = 10;
 				if !(scriptDone _textAnimHandler) then {terminate _textAnimHandler};
 				_textAnimHandler = [17022,localize 'STR_WF_TACTICAL_ClickOnMap',10,"ff9900"] spawn SetControlFadeAnim;
@@ -484,7 +484,7 @@ while {alive player && dialog} do {
 			lastSupplyCall = time;
 			-_currentFee Call ChangePlayerFunds;
 			_callPos = _map PosScreenToWorld[mouseX,mouseY];
-			["RequestSpecial", ["ParaAmmo",sideJoined,_callPos,clientTeam]] Call WFBE_CO_FNC_SendToServer;
+			["RequestSpecial", ["ParaAmbu",sideJoined,_callPos,clientTeam]] Call WFBE_CO_FNC_SendToServer;
 		};
 	};
 	

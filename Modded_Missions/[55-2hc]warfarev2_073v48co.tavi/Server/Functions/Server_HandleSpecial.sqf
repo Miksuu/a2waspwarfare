@@ -48,8 +48,8 @@ switch (_args select 0) do {
 		_args spawn KAT_ParaVehicles;
 	};
 
-	case "ParaAmmo": {
-		_args spawn KAT_ParaAmmo;
+	case "ParaAmbu": {
+		_args spawn KAT_ParaAmbu;
 	};
 
 	case "RespawnST": {
