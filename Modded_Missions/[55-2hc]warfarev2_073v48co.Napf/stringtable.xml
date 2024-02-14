@@ -2942,12 +2942,12 @@
                 <Russian>Быстрое перемещение</Russian>
                 <Italian>Fast Travel</Italian>
             </Key>
-            <Key ID="STR_WF_TACTICAL_ParadropAmmo">
-                <English>Paradrop - Ammunition</English>
-                <French>Parachutage - Munitions</French>
-                <German>Abwurf - Munition</German>
-                <Russian>Сброс - Аммуниция</Russian>
-                <Italian>Paradrop - Ammunition</Italian>
+            <Key ID="STR_WF_TACTICAL_ParadropAmbu">
+                <English>Paradrop - Ambulance</English>
+                <French>Parachutage - Ambulance</French>
+                <German>Abwurf - Krankenwagen</German>
+                <Russian>Сброс - Скорая помощь</Russian>
+                <Italian>Paradrop - Ambulanza</Italian>
             </Key>
             <Key ID="STR_WF_TACTICAL_ParadropVehicle">
                 <English>Paradrop - Repair Truck</English>
@@ -2967,7 +2967,7 @@
                 <English>Paradrop</English>
                 <French>Parachutage</French>
                 <German>Abwurf</German>
-                <Russian>Сброс боеприпасов</Russian>
+                <Russian>Сброс</Russian>
                 <Italian>Paradrop</Italian>
             </Key>
             <Key ID="STR_WF_TACTICAL_Price">
@@ -3706,11 +3706,11 @@
                 <Italian>This upgrade unlocks airlifting.&lt;br/&gt;&lt;br/&gt;This upgrade is a requirement for teams that want to use Airlifting.</Italian>
             </Key>
             <Key ID="STR_WF_UPGRADE_Paradrop_Desc">
-                <English>This upgrade unlocks supply paradrop.&lt;br/&gt;&lt;br/&gt;This allows the team to call a vehicle or ammo paradrop from the Tactical Center.</English>
-                <French>This upgrade unlocks supply paradrop.&lt;br/&gt;&lt;br/&gt;This allows the team to call a vehicle or ammo paradrop from the Tactical Center.</French>
-                <German>Dieses Upgrade schaltet den Abwurf frei.&lt;br/&gt;&lt;br/&gt;Dadurch kann das Team über das Tactical Center einen Abwurf (Fahrzeug / Munition) anfordern.</German>
-                <Russian>Эта модернизация разблокирует сброс боеприпасов по воздуху.&lt;br/&gt;&lt;br/&gt;Это позволяет команде вызвать транспортное средство или боеприпасы парашютом из Тактического центра.</Russian>
-                <Italian>This upgrade unlocks supply paradrop.&lt;br/&gt;&lt;br/&gt;This allows the team to call a vehicle or ammo paradrop from the Tactical Center.</Italian>
+                <English>This upgrade unlocks Repair Truck/Ambulance paradrop.&lt;br/&gt;&lt;br/&gt;This allows the team to call a vehicle paradrop from the Tactical Center.&lt;br/&gt; - Features per level:&lt;br/&gt;   Level 0 = No paradrop.&lt;br/&gt;   Level 1 = Unlocks Repair Truck paradrop.&lt;br/&gt;   Level 2 = Unlocks Ambulance paradrop.</English>
+                <French>Cette mise à niveau débloque le largage par parachute de camion de réparation/ambulance.&lt;br/&gt;&lt;br/&gt;Cela permet à l'équipe de demander un largage de véhicule depuis le Centre Tactique.&lt;br/&gt; - Fonctionnalités par niveau:&lt;br/&gt;   Niveau 0 = Pas de largage.&lt;br/&gt;   Niveau 1 = Débloque le largage de camion de réparation.&lt;br/&gt;   Niveau 2 = Débloque le largage d'ambulance.</French>
+                <German>Dieses Upgrade schaltet den Abwurf von Reparatur-LKW/Krankenwagen frei.&lt;br/&gt;&lt;br/&gt;Dadurch kann das Team einen Fahrzeugabwurf vom Taktischen Zentrum anfordern.&lt;br/&gt; - Funktionen pro Stufe:&lt;br/&gt;   Stufe 0 = Kein Abwurf.&lt;br/&gt;   Stufe 1 = Schaltet Reparatur-LKW Abwurf frei.&lt;br/&gt;   Stufe 2 = Schaltet Krankenwagen Abwurf frei.</German>
+                <Russian>Это улучшение разблокирует парашютную доставку ремонтного грузовика/скорой помощи.&lt;br/&gt;&lt;br/&gt;Это позволяет команде вызывать доставку транспортного средства из Тактического центра.&lt;br/&gt; - Особенности на каждом уровне:&lt;br/&gt;   Уровень 0 = Без сброса.&lt;br/&gt;   Уровень 1 = Разблокирует сброс ремонтного грузовика.&lt;br/&gt;   Уровень 2 = Разблокирует сброс скорой помощи.</Russian>
+                <Italian>Questo aggiornamento sblocca il paradrop di camion di riparazione/ambulanza.&lt;br/&gt;&lt;br/&gt;Questo permette alla squadra di richiedere un paradrop di veicoli dal Centro Tattico.&lt;br/&gt; - Caratteristiche per livello:&lt;br/&gt;   Livello 0 = Nessun paradrop.&lt;br/&gt;   Livello 1 = Sblocca il paradrop del camion di riparazione.&lt;br/&gt;   Livello 2 = Sblocca il paradrop dell'ambulanza.</Italian>
             </Key>
             <Key ID="STR_WF_UPGRADE_Paratroop_Desc">
                 <English>This upgrade unlocks paratroop.&lt;br/&gt;&lt;br/&gt;This allows the team to call paratroop drops from the Tactical Center.</English>

@@ -36,7 +36,7 @@ UpdateTeam = Compile preprocessFile "Server\Functions\Server_UpdateTeam.sqf";
 /* UpdateSupplyTruck = Compile preprocessFile "Server\AI\AI_UpdateSupplyTruck.sqf"; */
 
 //--- Support Functions.
-KAT_ParaAmmo = Compile preprocessFile "Server\Support\Support_ParaAmmo.sqf";
+KAT_ParaAmbu = Compile preprocessFile "Server\Support\Support_ParaAmbu.sqf";
 KAT_Paratroopers = Compile preprocessFile "Server\Support\Support_Paratroopers.sqf";
 KAT_ParaVehicles = Compile preprocessFile "Server\Support\Support_ParaVehicles.sqf";
 KAT_UAV = Compile preprocessFile "Server\Support\Support_UAV.sqf";
