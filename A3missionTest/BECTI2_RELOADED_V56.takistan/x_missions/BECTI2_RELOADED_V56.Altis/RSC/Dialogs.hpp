@@ -3326,6 +3326,7 @@ class RscDisplay_Parameters {
 class RscMenu_EASA {
 	movingEnable = 1;
 	idd = 23000;
+	
 	onLoad = "_this ExecVM ""Client\GUI\GUI_Menu_EASA.sqf""";
 	
 	class controlsBackground {
