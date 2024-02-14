@@ -22,7 +22,7 @@ class Params {
 		title = "$STR_WF_AI_SYSTEM";
 		values[] = {0,1,2};
 		texts[] = {"CLASSIC","ENVIROMENT","GLX-SYSTEM"};
-		default = 2;
+		default = 0;
 	
 	};
 	
