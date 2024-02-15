@@ -5,7 +5,9 @@ _pos = _this select 2;
 _dir = _this select 3;
 _manned = _this select 4;
 
-_index = (missionNamespace getVariable Format["cti_%1DEFENSENAMES",str _side]) find _defenseType;
-if (_index != -1) then {
+
+//indexcheck not needed here,uk statics build should be fixed now
+//_index = (missionNamespace getVariable Format["cti_%1DEFENSENAMES",str _side]) find _defenseType;
+//if (_index != -1) then {
 	[_defenseType,_side,_pos,_dir,_manned,false] Call cti_SE_FNC_ConstructDefense;
-};
+//};
