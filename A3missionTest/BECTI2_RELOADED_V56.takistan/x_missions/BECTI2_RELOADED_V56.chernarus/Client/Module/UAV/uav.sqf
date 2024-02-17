@@ -4,8 +4,9 @@ _logic = WF_Logic;
 if (!isNull playerUAV) then {if (!alive playerUAV) then {playerUAV = objNull}};
 if (!isNull playerUAV) exitWith {
 	//--- Disable targetting.
-	{(driver playerUAV) disableAI _x} forEach ["TARGET","AUTOTARGET"];
-	call WFVE_fnc_uav_interface;
+	//interface buggy
+	//{(driver playerUAV) disableAI _x} forEach ["TARGET","AUTOTARGET"];
+	//call WFVE_fnc_uav_interface;
 };
 
 if (isNil {missionNamespace getVariable Format ["cti_%1UAV",cti_Client_SideJoinedText]}) exitWith {};
@@ -58,7 +59,8 @@ _dir = 0;
 if !(isNil "_lastWP") then {deleteWaypoint _lastWP};
 
 //--- No need to preprocess those.
-call WFVE_fnc_uav_interface;
+//interface buggy
+//call WFVE_fnc_uav_interface;
 [_uav] spawn WFVE_fnc_uav_spotter;
 
 _spawn = [] spawn {};

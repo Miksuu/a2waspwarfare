@@ -93,7 +93,8 @@ if (_global) then {
 //_vehicle enableRopeAttach false;
 
 //ADD DAMAGEHANDLER FOR RES TOO + DISABLE VANILLA LIFT
-if (_side == cti_DEFENDER_ID) then {
+//if (_side == cti_DEFENDER_ID) then {
+if (isServer) then {//seems hq and startvehicle dont get it in old way on dedicated host
 _vehicle 	addEventHandler ["HandleDamage", {  
 	params ["_unit", "_selection", "_damage", "_source", "_projectile", "_hitIndex", "_instigator", "_hitPoint", "_directHit"]; 
 	

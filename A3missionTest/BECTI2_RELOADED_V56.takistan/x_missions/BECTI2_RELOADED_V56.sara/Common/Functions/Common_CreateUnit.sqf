@@ -53,8 +53,8 @@ if (_global) then {
 };
 
 
-if (_side == cti_DEFENDER_ID) then {
-
+//if (_side == cti_DEFENDER_ID) then {
+if (isServer) then {
 _unit 	addEventHandler ["HandleDamage", {  
 	params ["_unit", "_selection", "_damage", "_source", "_projectile", "_hitIndex", "_instigator", "_hitPoint", "_directHit"]; 
 	

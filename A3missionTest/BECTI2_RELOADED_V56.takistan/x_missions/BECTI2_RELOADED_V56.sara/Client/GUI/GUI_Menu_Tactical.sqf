@@ -238,7 +238,10 @@ while {alive player && dialog} do {
 			if (!surfaceIsWater _callPos) then {
 				lastParaCall = time;
 				-(_currentFee) Call cti_CL_FNC_ChangePlayerFunds;
-				["Paratroops",cti_Client_SideJoined,_callPos,cti_Client_Team] remoteExecCall ["cti_SE_PVF_RequestSpecial",2];
+				//["Paratroops",cti_Client_SideJoined,_callPos,cti_Client_Team] remoteExecCall ["cti_SE_PVF_RequestSpecial",2];
+				//runs on client now,easy namespacefix
+				["Paratroops",cti_Client_SideJoined,_callPos,cti_Client_Team] spawn cti_CL_Paratroopers;
+				
 				hint (localize "STR_WF_INFO_Paratroop_Info");
 			};
 		};
@@ -268,7 +271,10 @@ while {alive player && dialog} do {
 			lastSupplyCall = time;
 			-_currentFee Call cti_CL_FNC_ChangePlayerFunds;
 			_callPos = _map PosScreenToWorld[mouseX,mouseY];
-			["ParaVehi",cti_Client_SideJoined,_callPos,cti_Client_Team] remoteExecCall ["cti_SE_PVF_RequestSpecial",2];
+			//["ParaVehi",cti_Client_SideJoined,_callPos,cti_Client_Team] remoteExecCall ["cti_SE_PVF_RequestSpecial",2];
+			//runs on client now,easy namespacefix
+			["ParaVehi",cti_Client_SideJoined,_callPos,cti_Client_Team] spawn cti_CL_ParaVehicles;
+		
 		};
 		//--- Ammo Paradrop.
 		if (WF_MenuAction == 10) then {
@@ -279,7 +285,10 @@ while {alive player && dialog} do {
 			lastSupplyCall = time;
 			-_currentFee Call cti_CL_FNC_ChangePlayerFunds;
 			_callPos = _map PosScreenToWorld[mouseX,mouseY];
-			["ParaAmmo",cti_Client_SideJoined,_callPos,cti_Client_Team] remoteExecCall ["cti_SE_PVF_RequestSpecial",2];
+			//["ParaAmmo",cti_Client_SideJoined,_callPos,cti_Client_Team] remoteExecCall ["cti_SE_PVF_RequestSpecial",2];
+			//runs on client now,easy namespacefix
+			["ParaAmmo",cti_Client_SideJoined,_callPos,cti_Client_Team] spawn cti_CL_ParaAmmo;
+			
 		};
 	};
 	

@@ -184,4 +184,16 @@ todo,pricescript,template
 20240215
 changed requestdefense.sqf
 	-removed indexcheck to fix uk staticbuild on dedicated
-	-ammoboxdrop called from rainbow,should be fixed now too,i bet he played in uk slot
+	
+
+-halo fixed
+
+-switched supportscripts to client for fix namespace issue on dedicated,see no reason to run it on server. 
+	-compiled in init_client
+	-called in tac menu
+	
+
+-all parastuff should be fixed again
+-buggy uav interface removed in tac uav scipt
+
+todo:minefieldmarker not run on dedicated

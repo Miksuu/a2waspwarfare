@@ -88,10 +88,10 @@ cti_SE_FNC_SideMessage = Compile preprocessFile "Server\Functions\Server_SideMes
 cti_SE_FNC_SetTownPatrols = compile preprocessfilelinenumbers "Server\FSM\server_patrols.sqf";
 cti_SE_FNC_UpdateTeam = Compile preprocessFile "Server\Functions\Server_UpdateTeam.sqf";
 
-//--- Support Functions.
-KAT_ParaAmmo = Compile preprocessFile "Server\Support\Support_ParaAmmo.sqf";
-KAT_Paratroopers = Compile preprocessFile "Server\Support\Support_Paratroopers.sqf";
-KAT_ParaVehicles = Compile preprocessFile "Server\Support\Support_ParaVehicles.sqf";
+//--- Support Functions. para runs local now
+//KAT_ParaAmmo = Compile preprocessFile "Server\Support\Support_ParaAmmo.sqf";
+//KAT_Paratroopers = Compile preprocessFile "Server\Support\Support_Paratroopers.sqf";
+//KAT_ParaVehicles = Compile preprocessFile "Server\Support\Support_ParaVehicles.sqf";
 KAT_UAV = Compile preprocessFile "Server\Support\Support_UAV.sqf";
 
 cti_SE_FNC_AI_SetTownAttackPath = Compile preprocessFileLineNumbers "Server\Functions\Server_AI_SetTownAttackPath.sqf";
