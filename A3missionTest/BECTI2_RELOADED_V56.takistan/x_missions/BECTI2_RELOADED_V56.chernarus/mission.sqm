@@ -116,7 +116,7 @@ class Mission
 {
 	class Intel
 	{
-		briefingName="BECTI2 RELOADED CHERNARUS V56 sv=20240206";
+		briefingName="BECTI2 RELOADED CHERNARUS V56 sv=20240216";
 		overviewText="Arma2 BECTI --> Arma3";
 		resistanceWest=0;
 		startWeather=0;

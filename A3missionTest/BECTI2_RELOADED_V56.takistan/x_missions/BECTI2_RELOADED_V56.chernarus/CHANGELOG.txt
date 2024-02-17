@@ -159,3 +159,41 @@ if all translated we can name it v57
 	-gui_menu_help changelog update
 
 todo easa fix and rework
+
+20240212 
+-fixed padspawn
+-fixed getfactory
+-magazine lists replaced to init_commonconstants
+-modfix,removed hydra double weapon for cwr3 ah64-c in init_unit
+-reduced reamprice to 0
+---------
+-removed condition player==driver  for easa acces in gui_menu_service
+-changed pylonlist to callable function for update it later in gui_menu_easa
+
+-map starts like a2 now,if satview wanted there is button for activation
+----------
+20240212 
+-air equip fuctions added in gui_menu_easa
+-change temp on select added there (for visu feedback)
+-added updated pylonlist and pylons numbered now
+------------
+-added some stuff too,its good enough for testsession
+todo,pricescript,template
+
+
+20240215
+changed requestdefense.sqf
+	-removed indexcheck to fix uk staticbuild on dedicated
+	
+
+-halo fixed
+
+-switched supportscripts to client for fix namespace issue on dedicated,see no reason to run it on server. 
+	-compiled in init_client
+	-called in tac menu
+	
+
+-all parastuff should be fixed again
+-buggy uav interface removed in tac uav scipt
+
+todo:minefieldmarker not run on dedicated

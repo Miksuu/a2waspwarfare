@@ -6,10 +6,10 @@ _kind = _this select 1;
 _buildings = _this select 2;
 
 _list = [];
+_pattern_need_string_not_object=str _side;
 
 
-
-_type = (missionNamespace getVariable Format["cti_%1STRUCTURENAMES", _side]) select _kind;
+_type = (missionNamespace getVariable Format["cti_%1STRUCTURENAMES", _pattern_need_string_not_object]) select _kind;
 
 //_type = (Format["cti_%1STRUCTURENAMES",str _side] Call GetNamespace) select _kind;
 

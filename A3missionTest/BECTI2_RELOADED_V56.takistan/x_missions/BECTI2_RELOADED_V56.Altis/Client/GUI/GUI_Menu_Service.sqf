@@ -184,7 +184,8 @@ while {true} do {
 				_easaLevel = _currentUpgrades select cti_UP_EASA;
 				if (!(isNull _csp) && _easaLevel > 0) then {		
 					if (player distance _csp < (missionNamespace getVariable "cti_C_UNITS_SUPPORT_RANGE")) then {																	
-							if ((_veh isKindOf 'Air') && driver _veh == player) then { _enable = true; } else { _enable = false; };						
+							//if ((_veh isKindOf 'Air') && driver _veh == player) then { _enable = true; } else { _enable = false; };						
+					if ((_veh isKindOf 'Air') ) then { _enable = true; } else { _enable = false; };						
 					
 					_sideID= str cti_Client_SideJoined;
 					_pID=str player;

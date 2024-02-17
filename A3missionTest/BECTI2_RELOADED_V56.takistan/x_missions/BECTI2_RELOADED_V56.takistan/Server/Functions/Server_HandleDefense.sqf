@@ -3,9 +3,15 @@ _defense = _this select 0;
 _side = _this select 1;
 _team = _this select 2;
 _closest = _this select 3;
+
+_type_class_from_client=_this#4;//class namespace sended from client(to get uk defense manning)
+
 _ai_delegation_enabled = missionNamespace getVariable "cti_C_AI_DELEGATION";
-_commander = (_side) call GetCommanderTeam;
+//_commander = (_side) call GetCommanderTeam;
+_commander = (_side) call cti_CO_FNC_GetCommanderTeam;
 _soldier = nil;
+
+
 
 while {alive _defense} do {
 	if (isNull(gunner _defense) || !alive gunner _defense) then {
@@ -19,7 +25,9 @@ while {alive _defense} do {
 			_direction = (missionNamespace getVariable Format["cti_%1STRUCTUREDIRECTIONS",str _side]) select _index;
 			_position = [getPos _closest,_distance,getDir (_closest) + _direction] Call cti_CO_FNC_GetPositionFrom;
 
-			_type = missionNamespace getVariable Format ["cti_%1SOLDIER", _side];
+			//_type = missionNamespace getVariable Format ["cti_%1SOLDIER",str _side];
+			
+			_type=_type_class_from_client;//comes from defense builder atm,maybe com solution not bad in future
 			_use_server = true;
 
 			//if(_ai_delegation_enabled > 0)then{

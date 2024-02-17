@@ -147,6 +147,13 @@ if (_unit isKindOf "Ship") then { //--- Boats.(no ships for now)
 /*
 if (_unit isKindOf "Air") then { //--- Air units.
 	if ((getNumber (configFile >> 'CfgVehicles' >> _unit_kind >> 'transportSoldier')) > 0) then { //--- Transporters only.
+		//--- MODFIX
+		if (typeOf _unit == "cwr3_b_ah64")then{//remove double hydra bug
+		[_unit,["CUP_Vmlauncher_FFAR_veh_19Out",[-1]]] remoteexec ["removeWeaponTurret",_unit] ;
+		
+		};
+		
+		
 		//--- HALO action.
 		
 		
@@ -161,6 +168,12 @@ if (_unit isKindOf "Air") then { //--- Air units.
 
 if (_unit isKindOf "Air") then { //--- Air units.
 	//if ((getNumber (configFile >> 'CfgVehicles' >> _unit_kind >> 'transportSoldier')) > 0) then { //--- ALL AIR NOW,LIFE HAS MORE VALUE THAN $
+		//--- MODFIX
+		if (typeOf _unit == "cwr3_b_ah64")then{//remove double hydra bug
+		[_unit,["CUP_Vmlauncher_FFAR_veh_19Out",[-1]]] remoteexec ["removeWeaponTurret",_unit] ;
+		
+		};
+		
 		//--- HALO action.
 		
 		//_unit addAction ['EARPLUGS','Client\Module\Jumper\Earplugtoogle.sqf'];
