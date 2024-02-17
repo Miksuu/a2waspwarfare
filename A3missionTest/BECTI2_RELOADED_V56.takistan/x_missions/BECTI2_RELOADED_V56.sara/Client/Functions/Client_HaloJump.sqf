@@ -5,7 +5,7 @@ Parameters:
 1: (optional) AUTOOPEN -(boolean) true to auto open parachute at 150m
 2: (optional) SAVELOADOUT - (boolean) true to save backpack and its contents, and add a "fake" backpack to the front of the unit.
 */
-if (!isServer || isDedicated) exitWith {};
+//if (!isServer || isDedicated) exitWith {};
 
 //Parameters
 private ["_unit","_autoOpen","_saveLoadOut"]; 

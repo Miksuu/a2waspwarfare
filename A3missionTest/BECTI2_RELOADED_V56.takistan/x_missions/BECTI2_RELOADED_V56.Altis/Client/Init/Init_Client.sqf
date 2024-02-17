@@ -230,6 +230,11 @@ WSW_EndIntro = if(WF_Skip_Intro)then{true}else{false};
 
 setTerrainGrid 1;//nobody want see flying stones, so now we play all with max terraingrid.just reduce view for better fps.
 
+//--- Support Functions.
+cti_CL_ParaAmmo = Compile preprocessFile "Client\Functions\Client_Support_ParaAmmo.sqf";
+cti_CL_Paratroopers = Compile preprocessFile "Client\Functions\Client_Support_Paratroopers.sqf";
+cti_CL_ParaVehicles = Compile preprocessFile "Client\Functions\Client_Support_ParaVehicles.sqf";
+//KAT_UAV = Compile preprocessFile "Client\Functions\Support_UAV.sqf";
 
 
 

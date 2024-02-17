@@ -6,7 +6,13 @@ _position = _this select 2;
 _direction = _this select 3;
 _manned = _this select 4;
 _isAIQuery = _this select 5;
-_manRange = if (count _this > 6) then {_this select 6} else {missionNamespace getVariable "cti_C_BASE_DEFENSE_MANNING_RANGE"};
+_player_namespace_manningtype=if (count _this > 6) then {_this select 6}else {nil};
+
+//_manRange = if (count _this > 6) then {_this select 6} else {missionNamespace getVariable "cti_C_BASE_DEFENSE_MANNING_RANGE"};
+
+_manRange = missionNamespace getVariable "cti_C_BASE_DEFENSE_MANNING_RANGE";
+
+
 _sideID = (_side) Call cti_CO_FNC_GetSideID;
 
 _area = [_position,((_side) Call cti_CO_FNC_GetSideLogic) getVariable "cti_basearea"] Call cti_CO_FNC_GetClosestEntity4;// hintsilent format ["%1",_area];
@@ -241,7 +247,8 @@ if (_defense emptyPositions "gunner" > 0 && (((missionNamespace getVariable "cti
             _closest = ['BARRACKSTYPE',_buildings,_manRange,_side,_defense] Call cti_CO_FNC_BuildingInRange;
 
             //--- Manning Defenses.
-            if (alive _closest) then { [_defense,_side,_team,_closest] spawn cti_SE_FNC_HandleDefense; };
+            //if (alive _closest) then { [_defense,_side,_team,_closest] spawn cti_SE_FNC_HandleDefense; };
+			if (alive _closest) then { [_defense,_side,_team,_closest,_player_namespace_manningtype] spawn cti_SE_FNC_HandleDefense; };
         };
 	};
 };

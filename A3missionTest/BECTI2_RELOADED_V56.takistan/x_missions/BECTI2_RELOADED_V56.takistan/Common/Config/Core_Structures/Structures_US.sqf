@@ -128,7 +128,10 @@ for [{_count = count _v - 1},{_count >= 0},{_count = _count - 1}] do {
 
 {
 	missionNamespace setVariable [Format ["%1%2",_side, _x select 0], _x select 1];
+//} forEach [["HQ",_HQ],["BAR",_BAR],["LVF",_LVF],["CC",_CC],["HEAVY",_HEAVY],["SP",_SP],["AAR",_AAR],["ARR",_ARR]];
+//miksuu fix
 } forEach [["HQ",_HQ],["BAR",_BAR],["LVF",_LVF],["CC",_CC],["HEAVY",_HEAVY],["AIR",_AIR],["SP",_SP],["AAR",_AAR],["ARR",_ARR]];
+
 
 missionNamespace setVariable [Format["cti_%1MHQNAME", _side], _MHQ];
 missionNamespace setVariable [Format["cti_%1STRUCTURES", _side], _v];
@@ -144,34 +147,14 @@ missionNamespace setVariable [Format["cti_%1STRUCTURESCRIPTS", _side], _s];
 _UKContainer =[BTeamleader4,BTeamleader5,BEngineer4,BEngineer5,BMachinegunner4_1,BMachinegunner4_2,BMachinegunner5_1,BMachinegunner5_2,BMedic4,BMedic5,BSpecOps4,BSpecOps5];
 
 
-
-_n =  ['Fort_Nest'];
 //USvUK LEVEL0
-/*
-if (player in _UKContainer) then	{
-_n pushBack "cwr3_b_searchlight";
-_n pushBack "CUP_B_SearchLight_static_USMC";
-_n pushBack "CUP_B_M2StaticMG_MiniTripod_USMC";
-_n pushBack "CUP_B_M2StaticMG_USMC";
-_n pushBack "CUP_B_MK19_TriPod_USMC";
-} else {
-_n pushBack	"cwr3_b_uk_searchlight";
-_n pushBack "CUP_B_SearchLight_static_BAF_DDPM";
-_n pushBack "cwr3_b_uk_l7a2_low";
-_n pushBack "cwr3_b_uk_l111a1_low";
-_n pushBack "cwr3_b_uk_l111a1_high";
-_n pushBack "CUP_B_L111A1_MiniTripod_BAF_WDL";
-_n pushBack "CUP_B_L111A1_BAF_DDPM";
-_n pushBack "CUP_B_L134A1_TriPod_BAF_DDPM";
-};
-*/
 
 
 
 
 //makes less sense but just switch it to fix it ingame->fixed
 if (player in _UKContainer) then	{
-_n pushBack	"cwr3_b_uk_searchlight";
+_n =  ['cwr3_b_uk_searchlight'];
 _n pushBack "CUP_B_SearchLight_static_BAF_DDPM";
 _n pushBack "cwr3_b_uk_l7a2_low";
 _n pushBack "cwr3_b_uk_l111a1_low";
@@ -180,7 +163,7 @@ _n pushBack "CUP_B_L111A1_MiniTripod_BAF_WDL";
 _n pushBack "CUP_B_L111A1_BAF_DDPM";
 _n pushBack "CUP_B_L134A1_TriPod_BAF_DDPM";
 } else {
-_n pushBack "cwr3_b_searchlight";
+_n =  ['cwr3_b_searchlight'];
 _n pushBack "CUP_B_SearchLight_static_USMC";
 _n pushBack "CUP_B_M2StaticMG_MiniTripod_USMC";
 _n pushBack "CUP_B_M2StaticMG_USMC";
@@ -247,7 +230,7 @@ _n pushBack "CUP_I_TOW_TriPod_AAF";
 
 
 //Fortification
-
+_n = _n + ['Fort_Nest'];
 _n = _n + ['TK_WarfareBBarrier10xTall_EP1'];
 _n = _n + ['TK_WarfareBBarrier5x_EP1'];
 _n = _n + ['Land_HBarrier_large'];

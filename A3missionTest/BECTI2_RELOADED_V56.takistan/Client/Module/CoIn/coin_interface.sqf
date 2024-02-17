@@ -778,7 +778,12 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 					};
 
 					if (_itemclass in _defenses) then {
-						[cti_Client_SideJoined,_itemclass,_pos,_dir,manningDefense] remoteExecCall ["cti_SE_PVF_RequestDefense",2];
+						//[cti_Client_SideJoined,_itemclass,_pos,_dir,manningDefense] remoteExecCall ["cti_SE_PVF_RequestDefense",2];
+						//send the client namespace to here to get right units spawn for uk players
+						private _type_manning = missionNamespace getVariable Format ["cti_%1SOLDIER",str (side player)];
+			
+						
+						[cti_Client_SideJoined,_itemclass,_pos,_dir,manningDefense,_type_manning] remoteExecCall ["cti_SE_PVF_RequestDefense",2];
 
 						lastBuilt = _par;
 						_area = [_pos,((cti_Client_SideJoined) Call cti_CO_FNC_GetSideLogic) getVariable "cti_basearea"] Call cti_CO_FNC_GetClosestEntity2;
