@@ -1,4 +1,5 @@
 ---- ARMA 2 SERVER INFO ----
+
 IP: 49.12.144.168
 
 Port: 2302
