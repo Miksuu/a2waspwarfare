@@ -24,7 +24,7 @@ _pylonsEquipment = _this#1;
 
 
 
-AIR_CTI_remove_all={//______________________________________________________________________________________________________________________________________________
+EASA_remove_all={//______________________________________________________________________________________________________________________________________________
 
 //>remove all
 private _worklist=getAllPylonsInfo _veh;
@@ -60,7 +60,7 @@ private _weapons2 = _activePylonMags apply {getText ((configfile >> "CfgMagazine
 
 
 
-AIR_CTI_get_loadout={//______________________________________________________________________________________________________________________________________________
+EASA_get_loadout={//______________________________________________________________________________________________________________________________________________
 
 private _actual=getAllPylonsInfo _veh;
 //format=
@@ -86,7 +86,7 @@ _loadoutlist
 
 };//______________________________________________________________________________________________________________________________________________
 
-AIR_CTI_get_actual_owner={//______________________________________________________________________________________________________________________________________________
+EASA_get_actual_owner={//______________________________________________________________________________________________________________________________________________
 private _relevant_pylon=_this;
 private _actual=getAllPylonsInfo _veh;
 private _owner=[];
@@ -100,7 +100,7 @@ _owner#0
 };//______________________________________________________________________________________________________________________________________________
 
 
-AIR_CTI_get_actual_magazine={//______________________________________________________________________________________________________________________________________________
+EASA_get_actual_magazine={//______________________________________________________________________________________________________________________________________________
 private _relevant_pylon=_this;
 private _actual=getAllPylonsInfo _veh;
 private _mag=[];
@@ -115,11 +115,11 @@ _mag#0
 
 
 
-AIR_CTI_create_full_loadout={//______________________________________________________________________________________________________________________________________________
+EASA_create_full_loadout={//______________________________________________________________________________________________________________________________________________
 
 
 private _partial=_this;// [["pylons2","PylonMissile_Missile_AA_R77_x1",true,[0]],["pylons3","PylonMissile_Missile_AA_R77_x1",true,[0]]]
-private _actual=call AIR_CTI_get_loadout;
+private _actual=call EASA_get_loadout;
 private _updated=[];
 
 private _update_indexlimit=count _partial -1;
@@ -141,6 +141,26 @@ _updated=_updated + [_x];
 }forEach _actual;
 
 
+
+/*
+for "_i" from 0 to (count _partial) - 1 do {
+{
+if (_partial#_i#0 == _x#0)then{//update
+
+_updated=_updated + [_partial#_i];
+}else{
+
+_updated=_updated + [_x];
+};
+
+}forEach _actual;
+
+};
+
+*/
+
+
+//systemchat str _upadated;
 _updated
 
 };//______________________________________________________________________________________________________________________________________________
@@ -148,19 +168,19 @@ _updated
 
 
 
-AIR_CTI_equip_loadout={//______________________________________________________________________________________________________________________________________________
+EASA_equip_loadout={//______________________________________________________________________________________________________________________________________________
 
 private _actualLoadout=_this;
 
 //check for full
-private _check=call AIR_CTI_get_loadout;
+private _check=call EASA_get_loadout;
 if !((count _check) == (count _actualLoadout))then{
 
-_actualLoadout= _actualLoadout call AIR_CTI_create_full_loadout;
+_actualLoadout= _actualLoadout call EASA_create_full_loadout;
 };
 //clear all first (setPylonLoadOut dont removes old weapons)
 
-_veh call AIR_CTI_remove_all;
+_veh call EASA_remove_all;
 
 
 //>add actual loadout
@@ -179,6 +199,13 @@ for "_i" from 0 to (count _actualLoadout) - 1 do {
 //______________________________________________________________________________________________________________________________________________
 //______________________________________________________________________________________________________________________________________________
 
+//test format of _pylonsEquipment
+
+//works
+//_veh call EASA_remove_all;
+
+
+
 
 private _allPylons = "true" configClasses (
 		configFile 
@@ -196,7 +223,7 @@ private _allPylons = "true" configClasses (
 		
 	if (_pylonsEquipment#0#0 in _allPylons)then{//-->its string format
 
-		_pylonsEquipment call AIR_CTI_equip_loadout;
+		_pylonsEquipment call EASA_equip_loadout;
 		
 		}else{//-->its number input,just convert it here
 		
@@ -209,8 +236,42 @@ private _allPylons = "true" configClasses (
 		_converted= _converted+ [[_allPylons#_index,_pylonsEquipment#_i#1,true,_pylonsEquipment#_i#3]];
 		};
 			
-		_converted  call AIR_CTI_equip_loadout;
+		_converted  call EASA_equip_loadout;
 			
 		};
 		
 		
+//_veh = _this select 0;
+
+/*
+//--Given: vehicle pointer, pylons arr--
+functionDoLoadOut = {
+	_vh = _this select 0;
+	_plns = _this select 1;
+	for "_j" from 0 to (count _plns) - 1 do {
+		//_pylonConf = [];					
+		for "_k" from 0 to (count (_plns select _j)) - 1 do {
+			if(_k < 4) then {				
+				_vh setVariable[format['_p%1', _k], (_plns select _j) select _k];
+			};
+		};		
+		
+		if(!(isNil { _vh getVariable  '_p2'} ) && !(isNil { _vh getVariable '_p3'} )) then {			
+			_vh setPylonLoadOut[_vh getVariable '_p0', _vh getVariable '_p1', _vh getVariable '_p2', _vh getVariable '_p3'];
+		} else {
+			if(!(isNil { _vh getVariable  '_p2'} )) then {				
+				_vh setPylonLoadOut[_vh getVariable '_p0', _vh getVariable '_p1', _vh getVariable '_p2'];
+			} else {				
+				_vh setPylonLoadOut[_vh getVariable '_p0', _vh getVariable '_p1'];
+			};
+		};
+		
+		if(count (_plns select _j) == 5) then {			
+			_vh setAmmoOnPylon [_vh getVariable '_p0', (_plns select _j) select 4];			
+		};
+	};
+};
+
+[_veh, _pylonsEquipment] spawn functionDoLoadOut;
+
+*/

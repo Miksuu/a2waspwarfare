@@ -45,7 +45,7 @@ switch (typeOf _this) do
 	
 	case "CUP_O_Ka52_Blk_RU": {
 		
-		_this removeWeaponTurret ["CUP_Vmlauncher_S8_CCIP_veh",[-1]];
+		//_this removeWeaponTurret ["CUP_Vmlauncher_S8_CCIP_veh",[-1]];made in new requipscript now
 		_this addMagazineTurret ["CUP_230Rnd_TE1_Green_Tracer_30mmHEIF_2A42_M",[-1]];
 		_this addMagazineTurret ["CUP_230Rnd_TE1_Green_Tracer_30mmAPBC_2A42_M",[-1]];
 

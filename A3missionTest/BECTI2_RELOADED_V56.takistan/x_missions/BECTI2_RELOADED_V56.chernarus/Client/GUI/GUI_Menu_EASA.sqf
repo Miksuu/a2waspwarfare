@@ -263,6 +263,22 @@ private _actual=call EASA_get_loadout;
 private _updated=[];
 
 
+private _update_indexlimit=count _partial -1;
+private _i=0;
+{
+if (_partial#_i#0 == _x#0)then{//>update
+_updated=_updated + [_partial#_i];
+if (_i < _update_indexlimit)then{_i=_i+1;};
+}else{//>keep it
+_updated=_updated + [_x];
+};
+
+}forEach _actual;
+
+
+
+
+/*
 for "_i" from 0 to (count _partial) - 1 do {
 {
 if (_partial#_i#0 == _x#0)then{//update
@@ -276,6 +292,7 @@ _updated=_updated + [_x];
 }forEach _actual;
 
 };
+*/
 //systemchat str _upadated;
 _updated
 
