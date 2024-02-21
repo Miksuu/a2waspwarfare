@@ -41,7 +41,7 @@ if (isDedicated) then {
 	_killer_vehicle = vehicle _killer;
 	_killer_uid = getPlayerUID (leader _killer_group);
 
-	diag_log "PHASE 1";
+	//diag_log "PHASE 1";
 
 
 	if (_killer_side == sideEnemy) then { //--- Make sure the killer is not renegade, if so, get the side from the config.
@@ -49,7 +49,7 @@ if (isDedicated) then {
 		_killer_side = switch (getNumber(configFile >> "CfgVehicles" >> _killer_type >> "side")) do {case 0: {east}; case 1: {west}; case 2: {resistance}; default {civilian}};
 	};
 
-	diag_log "PHASE 2";
+	//diag_log "PHASE 2";
 
 
 	if (_killer_side == civilian) exitWith {}; //--- Side couldn't be determined? exit.
@@ -67,7 +67,7 @@ if (isDedicated) then {
 
 	_get = missionNamespace getVariable _killed_type; //--- Get the killed informations.
 
-	diag_log "PHASE 3";
+	//diag_log "PHASE 3";
 
 	if (!isNil '_get' && _killer_iswfteam) then { //--- Make sure that type killed type is defined in the core files and that the killer is a WF team.
 		if (_killer_side != _killed_side) then { //--- Normal kill.
@@ -91,8 +91,8 @@ if (isDedicated) then {
 					default {1};
 				};
 
-				diag_log "POINTS AWARDED:";
-				diag_log _points;
+				//diag_log "POINTS AWARDED:";
+				//diag_log _points;
 				
 				leader _killer_group addScore _points;
 
