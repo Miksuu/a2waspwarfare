@@ -9,7 +9,7 @@ Private ["_body"];
 _body = _this select 0;
 
 //--- EH are flushed on unit death, still, just make sure.
-player removeEventHandler ["killed", WFBE_PLAYERKEH];
+player removeMPEventHandler ["MPkilled", WFBE_PLAYERKEH];
 
 WFBE_Client_IsRespawning = true;
 
@@ -37,7 +37,7 @@ if (group player == WFBE_Client_Team) then {
 titleCut["","BLACK IN",1];
 
 //--- Re-add the KEH to the client.
-WFBE_PLAYERKEH = player addEventHandler ['Killed', {[_this select 0,_this select 1] Spawn WFBE_CL_FNC_OnKilled; [_this select 0,_this select 1, sideID] Spawn WFBE_CO_FNC_OnUnitKilled}];
+WFBE_PLAYERKEH = player addMPEventHandler ['MPKilled', {[_this select 0,_this select 1] Spawn WFBE_CL_FNC_OnKilled; [_this select 0,_this select 1, sideID] Spawn WFBE_CO_FNC_OnUnitKilled}];
 
 //--- Call the pre respawn routine.
 (player) Call PreRespawnHandler;
