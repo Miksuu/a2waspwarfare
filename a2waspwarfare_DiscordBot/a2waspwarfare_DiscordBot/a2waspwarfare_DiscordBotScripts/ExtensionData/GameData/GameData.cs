@@ -101,8 +101,8 @@ public class GameData
             emojiToJoin = EnumExtensions.GetEnumMemberAttrValue(EmojiName.BLUFORICON);
         }
 
-        message += "Skill: " + EnumExtensions.GetEnumMemberAttrValue(EmojiName.BLUFORICON) + skillWest +
-            " vs " + skillEast + EnumExtensions.GetEnumMemberAttrValue(EmojiName.OPFORICON);
+        message += "Skill: " + EnumExtensions.GetEnumMemberAttrValue(EmojiName.BLUFORICON) + " " + skillWest +
+            " vs " + skillEast + " " + EnumExtensions.GetEnumMemberAttrValue(EmojiName.OPFORICON) + "\n";
         message += emojiToJoin + " JOIN SIDE: " + sideToJoin.ToString() + " " + emojiToJoin + "\n\n";
         message += "Score: " + EnumExtensions.GetEnumMemberAttrValue(EmojiName.BLUFORICON) + exportedArgs[0] +
             " vs " + exportedArgs[1] + EnumExtensions.GetEnumMemberAttrValue(EmojiName.OPFORICON);
