@@ -331,7 +331,7 @@ sideHQ = _HQRadio;
 ["INITIALIZATION", "Init_Client.sqf: Radio announcer is initialized."] Call WFBE_CO_FNC_LogContent;
 
 /* Wait for a valid signal (Teamswaping) with failover */
-if (isMultiplayer && ((missionNamespace getVariable "WFBE_C_GAMEPLAY_TEAMSWAP_DISABLE") > 0 && !WF_Debug) && time > 7) then {
+if (isMultiplayer && (missionNamespace getVariable "WFBE_C_GAMEPLAY_TEAMSWAP_DISABLE") > 0 && time > 7) then {
 	Private ["_get","_timelaps"];
 	_get = true;
 
@@ -346,9 +346,9 @@ if (isMultiplayer && ((missionNamespace getVariable "WFBE_C_GAMEPLAY_TEAMSWAP_DI
 		if !(isNil '_get') exitWith {["INITIALIZATION", Format["Init_Client.sqf: [%1] Client [%2], Can join? [%3]",sideJoined,name player,_get]] Call WFBE_CO_FNC_LogContent};
 
 		_timelaps = _timelaps + 0.1;
-		if (_timelaps > 5) then {
+		if (_timelaps > 30) then {
 			_timelaps = 0;
-			["WARNING", Format["Init_Client.sqf: [%1] Client [%2] join is pending... no ACK was received from the server, a new request will be submited.",sideJoined,name player]] Call WFBE_CO_FNC_LogContent;
+			["WARNING", Format["Init_Client.sqf: [%1] Client [%2] join is pending... no ACK was received from the server, a new request will be submitted.",sideJoined,name player]] Call WFBE_CO_FNC_LogContent;
 			["RequestJoin", [player, sideJoined]] Call WFBE_CO_FNC_SendToServer;
 		};
 	};
@@ -356,8 +356,27 @@ if (isMultiplayer && ((missionNamespace getVariable "WFBE_C_GAMEPLAY_TEAMSWAP_DI
 	if !(_get) exitWith {
 		["WARNING", Format["Init_Client.sqf: [%1] Client [%2] has teamswapped/STACKED and is now being sent back to the lobby.",sideJoined,name player]] Call WFBE_CO_FNC_LogContent;
 
-		sleep 3;
+		12452 cutText [(localize 'STR_WF_CHAT_TeamstackOrTeamSwap'),"BLACK FADED",50000];
+		sleep 12;
 		failMission "END1";
+	};
+} else {
+	Private ["_hasConnectedAtLaunchACK","_timelaps"];
+	_timelaps = 0;
+	WFBE_CLIENT_HAS_CONNECTED_AT_LAUNCH = player;
+	publicVariableServer "WFBE_CLIENT_HAS_CONNECTED_AT_LAUNCH";
+	while {true} do {
+		sleep 0.1;
+		_hasConnectedAtLaunchACK = missionNamespace getVariable 'WFBE_P_HAS_CONNECTED_AT_LAUNCH_ACK';
+		if !(isNil '_hasConnectedAtLaunchACK') exitWith {["INITIALIZATION", Format["Init_Client.sqf: [%1] Client [%2], Can join? [%3]",sideJoined,name player,_hasConnectedAtLaunchACK]] Call WFBE_CO_FNC_LogContent};
+
+		_timelaps = _timelaps + 0.1;
+		if (_timelaps > 3) then {
+			_timelaps = 0;
+			["WARNING", Format["Init_Client.sqf: [%1] Client [%2] join is pending... no 'has connected at launch' ACK was received from the server, a new request will be submitted.",sideJoined,name player]] Call WFBE_CO_FNC_LogContent;
+			WFBE_CLIENT_HAS_CONNECTED_AT_LAUNCH = player;
+			publicVariableServer "WFBE_CLIENT_HAS_CONNECTED_AT_LAUNCH";
+		};
 	};
 };
 
@@ -467,7 +486,7 @@ if (WF_Debug) then {
 
 	//player addEventHandler ["HandleDamage", {false}];
 	// player setCaptive true;
-	player addEventHandler ["HandleDamage", {false;if (player != (_this select 3)) then {(_this select 3) setDammage 1}}]; //--- God-Slayer mode.
+	// player addEventHandler ["HandleDamage", {false;if (player != (_this select 3)) then {(_this select 3) setDammage 1}}]; //--- God-Slayer mode.
 };
 execVM "limitThirdPersonView.sqf";
 

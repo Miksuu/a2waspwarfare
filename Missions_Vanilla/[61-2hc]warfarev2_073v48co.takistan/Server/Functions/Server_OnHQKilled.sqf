@@ -61,7 +61,10 @@ if (_side != side _killer) then
     _score = 900; // HQ bounty award / 100*3
 
     // Change the score of the leader of the group upon killing the hq
-    ['SRVFNCREQUESTCHANGESCORE',[leader _killerGroup, score leader _killerGroup + _score]] Spawn WFBE_SE_FNC_HandlePVF;
+
+	(leader _killerGroup) addScore _score;
+
+    //['SRVFNCREQUESTCHANGESCORE',[leader _killerGroup, score leader _killerGroup + _score]] Spawn WFBE_SE_FNC_HandlePVF;
 };
 
 // Commented out for now, heavily bugged
