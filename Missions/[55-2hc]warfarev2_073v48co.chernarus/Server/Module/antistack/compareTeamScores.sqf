@@ -26,6 +26,7 @@ if (_side == west) then {
 			[leader group _player, "LocalizeMessage", ['Teamstack',_name,_uid,_side]] Call WFBE_CO_FNC_SendToClient;
 			diag_log "compareTeamScores: OPFOR total skill > BLUFOR total skill";
 		};
+	};
 };
 
 _canJoin
