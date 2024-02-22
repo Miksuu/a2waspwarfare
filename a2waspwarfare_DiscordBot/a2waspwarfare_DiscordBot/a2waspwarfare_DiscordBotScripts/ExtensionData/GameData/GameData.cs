@@ -134,7 +134,7 @@ public class GameData
 
         foreach (Player player in activePlayersOnSide)
         {
-            sideTotalSkill += (double)player.GetTotalScore() / player.GetTotalTicks();
+            sideTotalSkill += (double)player.GetSkillAsDouble(); // / player.GetTotalTicks();
         }
 
         sideTotalSkill = Math.Round(sideTotalSkill, 1);
