@@ -23,6 +23,8 @@ switch (_localize) do {
             sleep 0.5;
         };*/
 
+        diag_log "On Teamstack";
+
         waitUntil { !(isNil {missionNamespace getVariable "WFBE_BLUFOR_SCORE_JOIN"}) && !(isNil {missionNamespace getVariable "WFBE_OPFOR_SCORE_JOIN"}) };
 
         _totalSkillBLUFOR = missionNamespace getVariable "WFBE_BLUFOR_SCORE_JOIN";
@@ -39,6 +41,8 @@ switch (_localize) do {
             _txt = "ERROR! Couldn't retrieve team skill values for some reason. Try joining again and contact server admin if this happens again.";
         };
         */
+
+        diag_log "onTeamStack end";
     };
 	case "CommanderDisconnected": {_txt = Localize "strwfcommanderdisconnected"};
 	case "TacticalLaunch": {_txt = Localize "STR_WF_CHAT_ICBM_Launch"};

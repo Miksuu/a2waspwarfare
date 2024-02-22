@@ -9,11 +9,14 @@ _totalSkillOPFOR = _this select 5;
 
 _canJoin = true;
 
+diag_log "compareTeamScores";
+
 if (_side == west) then {
 	if (_totalSkillBLUFOR > _totalSkillOPFOR) then {
 		_canJoin = false;
 		["INFORMATION", Format["CompareTeamScores.sqf: BLUFOR total skill: %1, OPFOR total skill: %2, player (UID: %3) side: %4. Player can join: [%5]", _totalSkillBLUFOR, _totalSkillOPFOR, _uid, _side, _canJoin]] Call WFBE_CO_FNC_LogContent;
 		[leader group _player, "LocalizeMessage", ['Teamstack',_name,_uid,_side]] Call WFBE_CO_FNC_SendToClient;
+		diag_log "compareTeamScores: BLUFOR total skill > OPFOR total skill";
 	};
 } else {
 	if (_side == east) then {
@@ -21,8 +24,8 @@ if (_side == west) then {
 			_canJoin = false;
 			["INFORMATION", Format["CompareTeamScores.sqf: BLUFOR total skill: %1, OPFOR total skill: %2, player (UID: %3) side: %4. Player can join: [%5]", _totalSkillBLUFOR, _totalSkillOPFOR, _uid, _side, _canJoin]] Call WFBE_CO_FNC_LogContent;
 			[leader group _player, "LocalizeMessage", ['Teamstack',_name,_uid,_side]] Call WFBE_CO_FNC_SendToClient;
+			diag_log "compareTeamScores: OPFOR total skill > BLUFOR total skill";
 		};
-	};
 };
 
 _canJoin
