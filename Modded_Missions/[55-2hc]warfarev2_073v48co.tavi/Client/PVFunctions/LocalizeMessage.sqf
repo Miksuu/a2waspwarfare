@@ -3,8 +3,6 @@ Private["_localize","_txt","_totalSkillBLUFOR","_totalSkillOPFOR","_attempts"];
 _localize = _this select 0;
 _commandChat = true;
 _txt = "";
-_totalSkillBLUFOR = "";
-_totalSkillOPFOR = "";
 
 switch (_localize) do {
 	case "BuildingTeamkill": {_txt = Format [Localize "STR_WF_CHAT_Teamkill_Building",_this select 1, _this select 2, [_this select 3, 'displayName'] Call GetConfigInfo]};
@@ -23,10 +21,15 @@ switch (_localize) do {
             sleep 0.5;
         };*/
 
-        waitUntil { !(isNil {missionNamespace getVariable "WFBE_BLUFOR_SCORE_JOIN"}) && !(isNil {missionNamespace getVariable "WFBE_OPFOR_SCORE_JOIN"}) };
+        diag_log "On Teamstack";
 
-        _totalSkillBLUFOR = missionNamespace getVariable "WFBE_BLUFOR_SCORE_JOIN";
-        _totalSkillOPFOR = missionNamespace getVariable "WFBE_OPFOR_SCORE_JOIN";
+        //waitUntil { !(isNil {missionNamespace getVariable "WFBE_BLUFOR_SCORE_JOIN"}) && !(isNil {missionNamespace getVariable "WFBE_OPFOR_SCORE_JOIN"}) };
+
+        //_totalSkillBLUFOR = missionNamespace getVariable "WFBE_BLUFOR_SCORE_JOIN";
+        //_totalSkillOPFOR = missionNamespace getVariable "WFBE_OPFOR_SCORE_JOIN";
+
+        _totalSkillBLUFOR = _this select 3;
+        _totalSkillOPFOR = _this select 4;
 
         _totalSkillBLUFOR = [_totalSkillBLUFOR, 1] call BIS_fnc_cutDecimals;
         _totalSkillOPFOR = [_totalSkillOPFOR, 1] call BIS_fnc_cutDecimals;
@@ -39,6 +42,8 @@ switch (_localize) do {
             _txt = "ERROR! Couldn't retrieve team skill values for some reason. Try joining again and contact server admin if this happens again.";
         };
         */
+
+        diag_log "onTeamStack end";
     };
 	case "CommanderDisconnected": {_txt = Localize "strwfcommanderdisconnected"};
 	case "TacticalLaunch": {_txt = Localize "STR_WF_CHAT_ICBM_Launch"};
