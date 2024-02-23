@@ -89,26 +89,26 @@ public class GameData
     public string GenerateGameStatusMessage()
     {
         string message = string.Empty;
-        double skillWest = GetSideTotalSkill(Side.WEST);
-        double skillEast = GetSideTotalSkill(Side.EAST);
+        //double skillWest = GetSideTotalSkill(Side.WEST);
+        //double skillEast = GetSideTotalSkill(Side.EAST);
 
-        Side sideToJoin = GetSideWherePlayerShouldJoin(skillWest, skillEast);
+        //Side sideToJoin = GetSideWherePlayerShouldJoin(skillWest, skillEast);
 
-        string emojiToJoin = EnumExtensions.GetEnumMemberAttrValue(EmojiName.OPFORICON);
+        //string emojiToJoin = EnumExtensions.GetEnumMemberAttrValue(EmojiName.OPFORICON);
 
-        if (sideToJoin == Side.WEST)
-        {
-            emojiToJoin = EnumExtensions.GetEnumMemberAttrValue(EmojiName.BLUFORICON);
-        }
+        //if (sideToJoin == Side.WEST)
+        //{
+        //    emojiToJoin = EnumExtensions.GetEnumMemberAttrValue(EmojiName.BLUFORICON);
+        //}
 
-        message += "Skill: " + EnumExtensions.GetEnumMemberAttrValue(EmojiName.BLUFORICON) + " " + skillWest +
-            " vs " + skillEast + " " + EnumExtensions.GetEnumMemberAttrValue(EmojiName.OPFORICON) + "\n";
-        message += emojiToJoin + " JOIN SIDE: " + sideToJoin.ToString() + " " + emojiToJoin + "\n\n";
+        //message += "Skill: " + EnumExtensions.GetEnumMemberAttrValue(EmojiName.BLUFORICON) + " " + skillWest +
+        //    " vs " + skillEast + " " + EnumExtensions.GetEnumMemberAttrValue(EmojiName.OPFORICON) + "\n";
+        //message += emojiToJoin + " JOIN SIDE: " + sideToJoin.ToString() + " " + emojiToJoin + "\n\n";
         message += "Score: " + EnumExtensions.GetEnumMemberAttrValue(EmojiName.BLUFORICON) + exportedArgs[0] +
             " vs " + exportedArgs[1] + EnumExtensions.GetEnumMemberAttrValue(EmojiName.OPFORICON);
         message += "\nUptime: " + ConvertUpTimeToSecondsAsString();
 
-        message += "\n\nPlease balance the teams accordingly!";
+        // message += "\n\nPlease balance the teams accordingly!";
         return message;
     }
 
