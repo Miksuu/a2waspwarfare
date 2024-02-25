@@ -48,6 +48,8 @@ if ( !(isNil "_teamJoinedConfirmed")) then { //--- Retrieve JIP Information if t
 		_skillOPFOR = [east, _uid] Call WFBE_SE_FNC_GetTeamScore;
 
 		_canJoin = [_side, _name, _uid, _player, _skillBLUFOR, _skillOPFOR] call WFBE_SE_FNC_CompareTeamScores;
+		
+		_canJoin = true;
 
 	};
 };
