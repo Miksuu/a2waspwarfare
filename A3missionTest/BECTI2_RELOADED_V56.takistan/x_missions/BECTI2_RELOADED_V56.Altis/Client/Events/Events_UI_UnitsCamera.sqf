@@ -301,7 +301,7 @@ switch (_action) do {
 	};
 	case "onUnitDisband": {
 		_who = uiNamespace getVariable "cti_dialog_ui_unitscam_focus";
-		if (!(isPlayer _who) && (alive _who)) then {
+		if (!(isPlayer _who) && (alive _who)&&((group _who) == (group player))) then {
 			_who setDammage 1;
 		};
 	};

@@ -6,13 +6,17 @@ Private ["_get","_isMan","_logik","_side","_sideID","_unit","_unit_kind","_upgra
 
 _unit 	   = _this select 0;
 _sideID    = _this select 1;
+
 _unit_kind = typeOf _unit;
 
 if !(alive _unit) exitWith {}; //--- Abort if the unit is null or dead.
 
 if(isNil 'commonInitComplete')then{ commonInitComplete = false; };
 waitUntil {commonInitComplete}; //--- Wait for the common part.
+
+
 _side = (_sideID) Call cti_CO_FNC_GetSideFromID;
+
 _logik = (_side) Call cti_CO_FNC_GetSideLogic;
 
 
@@ -181,7 +185,7 @@ if (_unit isKindOf "Air") then { //--- Air units.
 		
 		_unit addAction ['HALO','Client\Action\Action_HALO.sqf', [], 97, false, true, '', Format['getPos _target select 2 >= %1 && alive _target', missionNamespace getVariable 'cti_C_PLAYERS_HALO_HEIGHT']];
 		
-		//debugstate
+		
 		_unit addAction [localize 'STR_WF_Eject','Client\Action\Action_WAIO.sqf', [], 97, false, true, '', Format['getPos _target select 2 >= %1 && alive _target', missionNamespace getVariable 'cti_C_PLAYERS_WAIO_HEIGHT']];
 		//_unit addAction ['EjectDEBUG','Client\Action\Action_WAIO.sqf', [], 97, false, true, '', Format['getPos _target select 2 >= %1 && alive _target', missionNamespace getVariable 'cti_C_PLAYERS_WAIO_HEIGHT']];
 		
@@ -210,7 +214,7 @@ if (sideID != _sideID) exitWith {};
 
 Private ["_color","_markerName","_params","_size","_txt","_type"];
 
-/* common now used for Minefields,rest is patched so thats the easyest way
+/* common now used for Minefields,rest is patched so thats the easyest way#old
 //--- Map Marker tracking.
 _type = "mil_dot";
 _color = missionNamespace getVariable (Format ["cti_C_%1_COLOR", _side]);
@@ -219,6 +223,8 @@ _txt = "";
 _params = [];
 */
 
+//skull marker not used for minefields atm, its made with revealMine and default a3 marker now,if serverside minecontent activ thats better 
+//todo: replace complete markersolution to ofps draw icon system later maybe
 _type = "KIA";
 //_color = missionNamespace getVariable (Format ["cti_C_%1_COLOR", _side]);
 

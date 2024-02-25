@@ -7,9 +7,9 @@ _direction = _this select 3;
 _manned = _this select 4;
 _isAIQuery = _this select 5;
 _player_namespace_manningtype=if (count _this > 6) then {_this select 6}else {nil};
-
+_player=if (count _this > 7) then {_this select 7}else {nil};
 //_manRange = if (count _this > 6) then {_this select 6} else {missionNamespace getVariable "cti_C_BASE_DEFENSE_MANNING_RANGE"};
-
+//found no call with manrange,seems like old unused case code
 _manRange = missionNamespace getVariable "cti_C_BASE_DEFENSE_MANNING_RANGE";
 
 
@@ -25,6 +25,9 @@ _defense setPos _position;
 _defense setVariable ["side" ,_side];
 ["INFORMATION", Format ["Construction_StationaryDefense.sqf: [%1] Defense [%2] has been constructed.", str _side, _type]] Call cti_CO_FNC_LogContent;
 
+//balanceinit is used for all vehicle requip now,exclude pylon stuff
+_defense call cti_CO_FNC_BalanceInit;
+
 //--- If it's a minefield, we exit the script while spawning it.
 if (_type == 'Sign_Danger') exitWith {
 	
@@ -38,8 +41,11 @@ if (_type == 'Sign_Danger') exitWith {
 		_toWorld = _defense modelToWorld _array;
 		_toWorld set[2,0];
 		_mine = createMine [_mineType, _toWorld,[], 0];
+		_side revealMine _mine;
+		_player addOwnedMine _mine;
+		
 		mines set [count mines, [_mine, time]];
-		[[[_mine,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", false, false] call BIS_fnc_MP;
+		[[[_mine,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", true, false] call BIS_fnc_MP;
 
 
 
@@ -56,8 +62,11 @@ if (_type == 'Sign_Danger') exitWith {
 		_toWorld = _defense modelToWorld _array;
 		_toWorld set[2,0];
 		_mine = createMine [_mineType, _toWorld,[], 0];
+		_side revealMine _mine;
+		_player addOwnedMine _mine;
+		
 		mines set [count mines, [_mine, time]];
-		[[[_mine,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", false, false] call BIS_fnc_MP;
+		[[[_mine,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", true, false] call BIS_fnc_MP;
 		
 	
 		_c = _c + 4;
@@ -72,8 +81,11 @@ if (_type == 'Sign_Danger') exitWith {
 		_toWorld = _defense modelToWorld _array;
 		_toWorld set[2,0];
 		_mine = createMine [_mineType, _toWorld,[], 0];
+		_side revealMine _mine;
+		_player addOwnedMine _mine;
+		
 		mines set [count mines, [_mine, time]];
-		[[[_mine,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", false, false] call BIS_fnc_MP;
+		[[[_mine,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", true, false] call BIS_fnc_MP;
 		
 	
 		
@@ -95,8 +107,11 @@ if (_type == 'Sign_DangerMines_ACR') exitWith {
 		_toWorld = _defense modelToWorld _array;
 		_toWorld set[2,0];
 		_mine = createMine [_mineType, _toWorld,[], 0];
+		_side revealMine _mine;
+		_player addOwnedMine _mine;
+		
 		mines set [count mines, [_mine, time]];
-		[[[_mine,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", false, false] call BIS_fnc_MP;
+		[[[_mine,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", true, false] call BIS_fnc_MP;
 		_c = _c + 4;
 	};
 
@@ -110,8 +125,11 @@ if (_type == 'Sign_DangerMines_ACR') exitWith {
 		_toWorld = _defense modelToWorld _array;
 		_toWorld set[2,0];
 		_mine = createMine [_mineType, _toWorld,[], 0];
+		_side revealMine _mine;
+		_player addOwnedMine _mine;
+		
 		mines set [count mines, [_mine, time]];
-		[[[_mine,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", false, false] call BIS_fnc_MP;
+		[[[_mine,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", true, false] call BIS_fnc_MP;
 		_c = _c + 4;
 	};
 
@@ -122,8 +140,11 @@ if (_type == 'Sign_DangerMines_ACR') exitWith {
 		_toWorld = _defense modelToWorld _array;
 		_toWorld set[2,0];
 		_mine = createMine [_mineType, _toWorld,[], 0];
+		_side revealMine _mine;
+		_player addOwnedMine _mine;
+		
 		mines set [count mines, [_mine, time]];
-		[[[_mine,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", false, false] call BIS_fnc_MP;
+		[[[_mine,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", true, false] call BIS_fnc_MP;
 		_c = _c + 4;
 	};
 	deleteVehicle _defense;
@@ -132,17 +153,17 @@ if (_type == 'Sign_DangerMines_ACR') exitWith {
 //Mapmarker for COIN Ammocrates
 if (_type == 'CUP_BOX_TK_WpsSpecial_F') then {
 
-[[[_defense,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", false, false] call BIS_fnc_MP;
+[[[_defense,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", true, false] call BIS_fnc_MP;
 };
 
 if (_type == 'CUP_BOX_US_ARMY_WpsSpecial_F') then {
 
-[[[_defense,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", false, false] call BIS_fnc_MP;
+[[[_defense,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", true, false] call BIS_fnc_MP;
 };
 
 if (_type == 'CUP_BOX_GB_WpsSpecial_F') then {
 
-[[[_defense,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", false, false] call BIS_fnc_MP;
+[[[_defense,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", true, false] call BIS_fnc_MP;
 };
 
 
@@ -161,9 +182,12 @@ pook_M777
 
 
 if (_type == 'CUP_O_2b14_82mm_RU') then {
+//[_defense, _sideID] ExecVM 'Common\Init\Init_Unit.sqf';
 
+
+//[_player,[_defense, _sideID]]remoteexec ['Common\Init\Init_Unit.sqf',_player];
  
-[[[_defense,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", false, false] call BIS_fnc_MP;
+[[[_defense,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", true, false] call BIS_fnc_MP;
 };
 
 
@@ -171,27 +195,31 @@ if (_type == 'CUP_O_2b14_82mm_RU') then {
 
 if (_type == 'CUP_O_D30_RU') then {
 
-[[[_defense,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", false, false] call BIS_fnc_MP;
+//[_player,[_defense, _sideID]]remoteexec ['Common\Init\Init_Unit.sqf',_player];
+
+[[[_defense,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", true, false] call BIS_fnc_MP;
 };
 
 if (_type == 'CUP_B_L16A2_BAF_DDPM') then {
 
-[[[_defense,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", false, false] call BIS_fnc_MP;
+//[_player,[_defense, _sideID]]remoteexec ['Common\Init\Init_Unit.sqf',_player];
+
+[[[_defense,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", true, false] call BIS_fnc_MP;
 };
 
 if (_type == 'cwr3_b_uk_l118') then {
-
-[[[_defense,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", false, false] call BIS_fnc_MP;
+//[_player,[_defense, _sideID]]remoteexec ['Common\Init\Init_Unit.sqf',_player];
+[[[_defense,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", true, false] call BIS_fnc_MP;
 };
 
 if (_type == 'CUP_B_M252_USMC') then {
-
-[[[_defense,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", false, false] call BIS_fnc_MP;
+//[_player,[_defense, _sideID]]remoteexec ['Common\Init\Init_Unit.sqf',_player];
+[[[_defense,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", true, false] call BIS_fnc_MP;
 };
 
 if (_type == 'pook_M777') then {
-
-[[[_defense,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", false, false] call BIS_fnc_MP;
+//[_player,[_defense, _sideID]]remoteexec ['Common\Init\Init_Unit.sqf',_player];
+[[[_defense,_sideID], "Common\Init\Init_Unit.sqf"], "BIS_fnc_execVM", true, false] call BIS_fnc_MP;
 };
 
 

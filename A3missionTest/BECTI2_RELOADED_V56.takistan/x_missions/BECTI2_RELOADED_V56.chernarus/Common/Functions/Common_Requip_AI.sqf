@@ -26,18 +26,22 @@ switch (typeOf _this) do
 	 */
 	 case "cwr3_o_spetsnaz_bizon_sd":{
 		
-		// toDo: adapt gear, inventory according to camo specification		
-		_this addMagazine "Laserbatteries";
-		_this addWeapon "CUP_LRTV";		
-	    _this additem "ItemGPS";
-		_this assignItem "ItemGPS";
+		
+		[_this,"Laserbatteries"] remoteexec ["addMagazine",_this];
+
+		[_this,"CUP_LRTV"] remoteexec ["addWeapon",_this];
+
+		[_this,"ItemGPS"] remoteexec ["additem",_this];
+
+		[_this,"ItemGPS"] remoteexec ["assignItem",_this];
+		
 	
 	};
 	
 	 case "CUP_O_RU_Soldier_HAT_EMR":{
 		
-		// toDo: adapt gear, inventory according to camo specification		
-		_this addSecondaryWeaponItem "Vorona_HE";
+		[_this,"Vorona_HE"] remoteexec ["addSecondaryWeaponItem",_this];
+		
 	};
 
 	

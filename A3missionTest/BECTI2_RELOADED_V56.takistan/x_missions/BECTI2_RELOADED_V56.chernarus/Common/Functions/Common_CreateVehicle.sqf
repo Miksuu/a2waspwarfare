@@ -41,7 +41,8 @@ if(_skin > 0) then {
 			
 			_txtIndex = 0;
 			{					
-				_vehicle setObjectTextureGlobal [_txtIndex, _x];
+				//_vehicle setObjectTextureGlobal [_txtIndex, _x];
+				[_vehicle,[_txtIndex, _x]] remoteexec ["setObjectTextureGlobal",_vehicle] ;
 				_txtIndex = _txtIndex + 1;
 			}	forEach (getArray (configfile >> "CfgVehicles" >> _type >> "textureSources" >> configName (_colorConfigs select _skin) >> "textures"));
 		};

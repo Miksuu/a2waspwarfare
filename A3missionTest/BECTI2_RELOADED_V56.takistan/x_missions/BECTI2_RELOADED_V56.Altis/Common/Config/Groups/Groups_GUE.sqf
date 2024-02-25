@@ -98,7 +98,16 @@ _l pushBack _u;
 
 _k pushBack "AA_Heavy";
 _u		= [selectRandom["cwr3_i_mtlb_sa13","BRDM2IMPAA_INDFOR","BRDM2IMP_9K31_INDFOR"]];
-_u = _u + [selectRandom["cwr3_i_bmp2_zu23","pook_ZSU_base_IND","pook_ZSU57_base_IND"]];
+//_u = _u + [selectRandom["cwr3_i_bmp2_zu23","pook_ZSU_base_IND","pook_ZSU57_base_IND"]];
+//changed 20240224 (soundbug)
+_u = _u + [selectRandom["cwr3_i_bmp2_zu23","CUP_I_ZSU23_Afghan_AAF","cwr3_i_mtlb_sa13"]];
+
+
+//added 20240221
+//removed 20240224
+//_u = _u + [selectRandom["pook_ZSUM4_base_IND","pook_ZSU_base_IND","CUP_I_ZSU23_Afghan_AAF"]];
+
+
 _l pushBack _u;
 
 _k pushBack "Mechanized";

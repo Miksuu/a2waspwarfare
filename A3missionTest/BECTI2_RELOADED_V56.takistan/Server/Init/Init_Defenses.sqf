@@ -166,7 +166,7 @@ missionNamespace setVariable ['cti_NEURODEF_RESISTANCE_LF', [
 	
 	//["pook_S60_base_IND",[14.29272,-16.55176,-0.0750008],173.098],
     
-	[[selectRandom["pook_S60_base_IND","CUP_I_D30_TK_GUE","CUP_I_M119_RACS"]]#0,[14.29272,-16.55176,-0.0750008],173.098],
+	[[selectRandom["CUP_B_RBS70_HIL","CUP_I_D30_TK_GUE","CUP_I_M119_RACS"]]#0,[14.29272,-16.55176,-0.0750008],173.098],
     
 	
 	["Land_HBarrier_1_F",[-6.09351,10.7854,0],285],
@@ -198,7 +198,7 @@ missionNamespace setVariable ['cti_NEURODEF_RESISTANCE_HF', [
     
 	//["pook_S60_base_IND",[-4.98901,-4.218,-0.0750008],120.098],
     
-	[[selectRandom["pook_S60_base_IND","CUP_I_D30_TK_GUE","CUP_I_M119_RACS"]]#0,[-4.98901,-4.218,-0.0750008],120.098],
+	[[selectRandom["CUP_B_RBS70_HIL","CUP_I_D30_TK_GUE","CUP_I_M119_RACS"]]#0,[-4.98901,-4.218,-0.0750008],120.098],
     
 
 	["Land_BagFence_Long_F",[5.10571,-12.4265,-0.000999451],180],
@@ -225,7 +225,7 @@ missionNamespace setVariable ['cti_NEURODEF_RESISTANCE_HF', [
     
 	//["pook_S60_base_IND",[-12,12,-0.0750008],190.098],
     
-	[[selectRandom["pook_S60_base_IND","CUP_I_D30_TK_GUE","pook_M777_IND"]]#0,[-12,12,-0.0750008],190.098],
+	[[selectRandom["CUP_B_RBS70_HIL","CUP_I_D30_TK_GUE","pook_M777_IND"]]#0,[-12,12,-0.0750008],190.098],
     
 
 	["Land_fort_bagfence_round",[-17.4263,13.7837,0],271.699]
@@ -271,17 +271,17 @@ missionNamespace setVariable ['cti_NEURODEF_RESISTANCE_AF', [
   
 
    //["pook_S60_base_IND",[15,0,-0.0750008],45],
-   [[selectRandom["pook_S60_base_IND","CUP_I_D30_TK_GUE","CUP_I_M119_RACS"]]#0,[15,0,-0.0750008],45],
+   [[selectRandom["CUP_B_RBS70_HIL","CUP_I_D30_TK_GUE","CUP_I_M119_RACS"]]#0,[15,0,-0.0750008],45],
    
    
     //["pook_S60_base_IND",[0,7,-0.0750008],345],
    
-   [[selectRandom["pook_S60_base_IND","pook_M777_IND","CUP_I_M119_RACS"]]#0,[4,9,-0.0750008],345],
+   [[selectRandom["CUP_B_RBS70_HIL","pook_M777_IND","CUP_I_M119_RACS"]]#0,[4,9,-0.0750008],345],
    
    
     //["pook_S60_base_IND",[-3,-16,-0.0750008],110],
    
-   [[selectRandom["pook_S60_base_IND","CUP_I_D30_TK_GUE","pook_M777_IND"]]#0,[-3,-16,-0.0750008],110],
+   [[selectRandom["CUP_B_RBS70_HIL","CUP_I_D30_TK_GUE","pook_M777_IND"]]#0,[-3,-16,-0.0750008],110],
    
 
    ["cwr3_i_zu23",[-14,-14,-0.0750008],220],

@@ -561,6 +561,17 @@ _artyarray = missionNamespace getVariable Format ["cti_%1_ARTILLERY_CLASSNAMES",
 	//--- Back Button.
 	if (WF_MenuAction == 30) exitWith { //---added-MrNiceGuy
 		WF_MenuAction = -1;
+		
+		{//---added-0=1 (to fix artymarker bug) 20240224
+		_track = (_x select 0);
+		_vehicle = (_x select 1);
+	
+		_vehicle setVariable ['cti_A_Tracked', nil];
+
+		deleteMarkerLocal Format ["cti_A_Large%1",_track];
+		deleteMarkerLocal Format ["cti_A_Small%1",_track];
+		} forEach _trackingArrayID;
+		
 		closeDialog 0;
 		createDialog "WF_Menu";
 	};

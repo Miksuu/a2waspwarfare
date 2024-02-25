@@ -4,7 +4,7 @@ _action = _this select 0;
 
 switch (_action) do {
 	case "onLoad": {
-		{((findDisplay 508000) displayCtrl 160001) lbAdd _x} forEach ["About the Mission", "Introduction", "Respawn", "Towns", "Base Structures and Functions", "Server Rules", "User Action Keys"];
+		{((findDisplay 508000) displayCtrl 160001) lbAdd _x} forEach ["About the Mission","Changelog", "Introduction", "Respawn", "Towns", "Base Structures and Functions", "Server Rules", "User Action Keys"];
 		((findDisplay 508000) displayCtrl 160001) lbSetCurSel 0;
 	};
 	case "onHelpLBSelChanged": {
@@ -87,7 +87,7 @@ Full changelog :<br/>
 - removed hudpatch <br/>
 - fixed repair camp with rtruck <br/>
 - fixed voting <br/>
-- ---------------- <br/>
+- -----20240206---- <br/>
 - added hudpatch option to headbugbutton <br/>
 - linked all units to stringtable (translate all to kyrillic possible now) <br/>
 - improved remote and unitcam <br/>
@@ -95,8 +95,29 @@ Full changelog :<br/>
 - fixed some altismap issues with camps <br/>
 - todo:EASA rework,stringtranslations <br/>
 
-
 ", missionNamespace getVariable "cti_MISSIONNAME"],
+//--------------------Changelog after 20240206
+"<t size='1.4' color='#2394ef' underline='true'>Changelog since 20240206</t><br />
+<br />
+<br />
+<br />
+- ----20240221---- <br/>
+- changed all local object requip to remoteexec <br/>
+
+- fixed slotproblem maybe<br/>
+- ----20240224---- <br/>
+- removed all soundbug weapons <br/>
+- fixed default spawn direction <br/>
+- fixed mapmarker for placed arty <br/>
+- fixed mapmarker for minefields <br/>
+- todo: add bounty for mines <br/>
+- ----20240225---- <br/>
+- fixed customchat on first init <br/>
+- added clear mapmarker for arty (a2 bug) <br/>
+- added map follows the unit for remotecam <br/>
+- added weapontoogle with mousewheel <br/>
+",
+
 //-------------------------------------Introductions
 "<t size='1.4' color='#2394ef' underline='true'>Introduction</t><br />
 <br />

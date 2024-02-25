@@ -35,7 +35,7 @@ if (_index != -1) then {
 	_position = [getPos _building,_distance,getDir _building + _direction] Call cti_CO_FNC_GetPositionFrom;
 	//_longest = missionNamespace getVariable Format ["cti_LONGEST%1BUILDTIME",_factoryType];
 
-	_spawnpaddir=2;//just switch dir if no pad there
+	//_spawnpaddir=2;//just switch dir if no pad there
 
 if (_factoryType isEqualTo 	"Barracks")then{
 	//--- Place Infantry on marker if available
@@ -59,13 +59,18 @@ if (_factoryType isEqualTo 	"Barracks")then{
 		
 		_position = [_selpad#0#0,_selpad#0#1,_selpad#1];
 		_position set [2, .5];
-		_spawnpaddir=5;//dirswitch to prevent overwrite dir later
+		//_spawnpaddir=5;//dirswitch to prevent overwrite dir later
 		_direction=_selpad select 1;
 		
 	}else{
-	_position = _building modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
-	_position set [2, .5];};
+	_factoryPosition = getPos _building;
+	_direction = -((((_position select 1) - (_factoryPosition select 1)) atan2 ((_position select 0) - (_factoryPosition select 0))) - 90);//--- model to world that later on.
 
+	
+	//_position = _building modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
+	_position set [2, .5];};
+	
+	
 
 
 
@@ -96,13 +101,17 @@ if(_factoryType isEqualTo "Light")then{
 		
 		_position = [_selpad#0#0,_selpad#0#1,_selpad#1];
 		_position set [2, .5];
-		_spawnpaddir=5;//dirswitch to prevent overwrite dir later
+		//_spawnpaddir=5;//dirswitch to prevent overwrite dir later
 		_direction=_selpad select 1;
 	}else{
-	_position = _building modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
+	_factoryPosition = getPos _building;
+	_direction = -((((_position select 1) - (_factoryPosition select 1)) atan2 ((_position select 0) - (_factoryPosition select 0))) - 90);//--- model to world that later on.
+
+	
+	//_position = _building modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
 	_position set [2, .5];};
 
-
+	
 
 	
 	
@@ -132,12 +141,17 @@ if(_factoryType isEqualTo "Heavy")then{
 		
 		_position = [_selpad#0#0,_selpad#0#1,_selpad#1];
 		_position set [2, .5];
-		_spawnpaddir=5;//dirswitch to prevent overwrite dir later
+		//_spawnpaddir=5;//dirswitch to prevent overwrite dir later
 		_direction=_selpad select 1;
 	}else{
-	_position = _building modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
+	_factoryPosition = getPos _building;
+	_direction = -((((_position select 1) - (_factoryPosition select 1)) atan2 ((_position select 0) - (_factoryPosition select 0))) - 90);//--- model to world that later on.
+
+	
+	//_position = _building modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
 	_position set [2, .5];};
-		
+	
+	
 		
 
 }else{//---------------------------------------------------------check for air
@@ -163,11 +177,18 @@ if(_factoryType isEqualTo "Aircraft")then{
 		
 		_position = [_selpad#0#0,_selpad#0#1,_selpad#1];
 		_position set [2, .5];
-		_spawnpaddir=5;//dirswitch to prevent overwrite dir later
+		//_spawnpaddir=5;//dirswitch to prevent overwrite dir later
 		_direction=_selpad select 1;
 	}else{
-	_position = _building modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
+	_factoryPosition = getPos _building;
+	_direction = -((((_position select 1) - (_factoryPosition select 1)) atan2 ((_position select 0) - (_factoryPosition select 0))) - 90);//--- model to world that later on.
+
+	
+	//_position = _building modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
 	_position set [2, .5];};
+	
+	
+	
 };};};};
 			
 
@@ -274,9 +295,9 @@ if (_isMan) then {
 
 	_factoryPosition = getPos _building;
 	
-	if (_spawnpaddir==2) then {//there is no spawnpad
-	_direction = -((((_position select 1) - (_factoryPosition select 1)) atan2 ((_position select 0) - (_factoryPosition select 0))) - 90);//--- model to world that later on.
-	};
+	//if (_spawnpaddir==2) then {//there is no spawnpad
+	//_direction = -((((_position select 1) - (_factoryPosition select 1)) atan2 ((_position select 0) - (_factoryPosition select 0))) - 90);//--- model to world that later on.
+	//};
 	_vehicle = [_unit, _position, sideID, _direction, _locked, nil, nil, nil, _unitdescription, _unitskin] Call cti_CO_FNC_CreateVehicle;
 	
 	cti_Client_Team reveal _vehicle;

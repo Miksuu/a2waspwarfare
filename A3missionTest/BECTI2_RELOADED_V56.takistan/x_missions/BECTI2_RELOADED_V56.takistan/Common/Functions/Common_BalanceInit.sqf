@@ -1,38 +1,144 @@
+//its possible to take vehicle from other player and objectspawner leave after that,so change to remote exec here too
+
+
+
+REMOVE_ALL={
+private _veh=_this;
+private _mags=magazines _veh;
+{[_veh,_x] remoteexec ["removeMagazineGlobal",_veh]} forEach (_mags);
+private _nonpylonWeaponslist = [];
+{ _nonpylonWeaponslist append getArray (_x >> "weapons") } forEach ([_veh, configNull] call BIS_fnc_getTurrets);
+{[_veh,_x] remoteexec ["removeWeaponGlobal",_veh]} forEach (_nonpylonWeaponslist);
+
+};
+//pook_ZSU_base_IND
+//pook_ZSU57_base_IND
 switch (typeOf _this) do 
-{
-	case "CUP_O_Ka60_Grey_RU": {
-		//_this removeWeapon ["CUP_Vmlauncher_S5_veh",[0]];
-	    
-		/*works but no easa possible
-		for "_i" from 1 to 10 do {
-		_this setPylonLoadout [_i, "", true];
-		};
-		*/
-		//_this setPylonLoadout ["pylon1", ""];
-		//_this setPylonLoadout ["pylon2", ""];
-		_this removeWeapon "CUP_Vmlauncher_S5_veh";
-		for "_i" from 1 to 2 do {
-		_this setPylonLoadout [_i, "", false];
-		};
+{	
+
+	case "cwr3_o_zu23": {//replaced pook zu and stuff to fix soundbug and give balance weapon for CRAM
+		_this call REMOVE_ALL;
+		[_this,["CUP_2000Rnd_23mm_AZP23_M",[0]]] remoteexec ["addMagazineTurret",_this];
+		[_this,["CUP_Vacannon_AZP23_veh",[0]]] remoteexec ["addWeaponTurret",_this];		
+			
+		
+	};
+	
+	
+	case "pook_ZSU57_base_IND": {
+		_this call REMOVE_ALL;
+		[_this,["CUP_2000Rnd_23mm_AZP23_M",[0]]] remoteexec ["addMagazineTurret",_this];
+		[_this,["CUP_Vacannon_AZP23_veh",[0]]] remoteexec ["addWeaponTurret",_this];		
+			
+		
+	};
+	
+	case "pook_ZSU_base_IND": {
+		_this call REMOVE_ALL;
+		
+		[_this,["CUP_2000Rnd_23mm_AZP23_M",[0]]] remoteexec ["addMagazineTurret",_this];
+		[_this,["CUP_Vacannon_AZP23_veh",[0]]] remoteexec ["addWeaponTurret",_this];		
+			
+		
+	};
+	
+	case "pook_ZSUM4_base_IND": {
+		_this call REMOVE_ALL;
+		
+		[_this,["CUP_2000Rnd_23mm_AZP23_M",[0]]] remoteexec ["addMagazineTurret",_this];
+		[_this,["CUP_Vacannon_AZP23_veh",[0]]] remoteexec ["addWeaponTurret",_this];		
+		[_veh,["CUP_2Rnd_Igla_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+		[_veh,["CUP_2Rnd_Igla_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+		[_veh,["CUP_2Rnd_Igla_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+		[_veh,["CUP_igla_twice_W",[0]]] remoteexec ["addWeaponTurret",_veh];
+		
+	};
+	
+	
+	case "pook_ZU23_base": {
+		
+		private _veh=_this;
+		[_veh,1000] remoteexec ["setMass",_veh];
+		_this call REMOVE_ALL;
+
+		[_veh,["CUP_100Rnd_23mm_AZP23_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+		[_veh,["CUP_100Rnd_23mm_AZP23_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+		[_veh,["CUP_Vacannon_2A14_veh",[0]]] remoteexec ["addWeaponTurret",_veh];
+		
+	};
+	case "pook_ZU23M_base": {
+		
+		private _veh=_this;
+		[_veh,1000] remoteexec ["setMass",_veh];
+		_this call REMOVE_ALL;
+
+		[_veh,["CUP_100Rnd_23mm_AZP23_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+		[_veh,["CUP_100Rnd_23mm_AZP23_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+		[_veh,["CUP_Vacannon_2A14_veh",[0]]] remoteexec ["addWeaponTurret",_veh];
+
+		[_veh,["CUP_2Rnd_Igla_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+		[_veh,["CUP_igla_twice_W",[0]]] remoteexec ["addWeaponTurret",_veh];
+		
+	};
+	
+	case "pook_S60_base_IND": {//add bushmaster to fix sound
+		
+		_this call REMOVE_ALL;
+		[_this,["CUP_150Rnd_TE1_Red_Tracer_25mm_M242_HE",[0]]] remoteexec ["addMagazineTurret",_this];
+		[_this,["CUP_150Rnd_TE1_Red_Tracer_25mm_M242_HE",[0]]] remoteexec ["addMagazineTurret",_this];
+		[_this,["CUP_Vacannon_M242_veh_LAV25",[0]]] remoteexec ["addWeaponTurret",_this];		
+					
+		
+	};
+	
+	case "pook_S60_base": {//add bushmaster to fix sound
+		_this call REMOVE_ALL;
+		[_this,["CUP_150Rnd_TE1_Red_Tracer_25mm_M242_HE",[0]]] remoteexec ["addMagazineTurret",_this];
+		[_this,["CUP_150Rnd_TE1_Red_Tracer_25mm_M242_HE",[0]]] remoteexec ["addMagazineTurret",_this];
+		[_this,["CUP_Vacannon_M242_veh_LAV25",[0]]] remoteexec ["addWeaponTurret",_this];		
+			
+		
 	};
 	
 	
 	
-	case "UK3CB_BAF_Apache_AH1_JS": {
-		_this removeMagazineTurret ["FakeMagazine",[-1]];
-		_this removeWeaponTurret ["UK3CB_BAF_Safe",[-1]];
+	
+	case "CUP_O_Ka60_Grey_RU": {
+
+		private _veh=_this;
+		private _worklist=getAllPylonsInfo _veh;
+		for "_i" from 0 to (count _worklist) - 1 do {
+		private _activePylonMag = [_worklist#_i#3]; 
+		private _weapon = _activePylonMag apply {getText ((configfile >> "CfgMagazines" >> _x >> "pylonWeapon"))}; 
+		[_veh,[_weapon#0,_worklist#_i#2]] remoteexec ["removeWeaponTurret",_veh] ;
+		[_veh,[_worklist#_i#3,_worklist#_i#2]] remoteexec ["removeMagazineTurret",_veh] ;
+		[_veh,[_i + 1,"",true,_worklist#_i#2]] remoteexec ["setPylonLoadOut",_veh] ;
+		[_veh,[_i + 1,0]] remoteexec ["SetAmmoOnPylon",_veh] ;
+		};
 		
-		_this removeMagazineTurret ["UK3CB_BAF_PylonPod_19Rnd_CRV7_HEISAP",[-1]];
-		_this removeWeaponTurret ["UK3CB_BAF_Missiles_CRV7_HEISAP",[-1]];
+		
+	};
+	
+	
+	
+	case "UK3CB_BAF_Apache_AH1_JS": {//asraam added with requipair too
+		[_this,["FakeMagazine",[-1]]] remoteexec ["removeMagazineTurret",_this];
+		[_this,["UK3CB_BAF_Safe",[-1]]] remoteexec ["removeWeaponTurret",_this];
+		
+		
+		[_this,["UK3CB_BAF_PylonPod_19Rnd_CRV7_HEISAP",[-1]]] remoteexec ["removeMagazineTurret",_this];
+		[_this,["UK3CB_BAF_Missiles_CRV7_HEISAP",[-1]]] remoteexec ["removeWeaponTurret",_this];
+		
+		
+		[_this,["UK3CB_BAF_1200Rnd_30mm_M230_HEDP_T",[0]]] remoteexec ["removeMagazineTurret",_this];
+		[_this,["UK3CB_BAF_CannonM230",[0]]] remoteexec ["removeWeaponTurret",_this];
 		
 		
 		
+		[_this,["UK3CB_BAF_1200Rnd_30mm_M230_HEDP_T",[-1]]] remoteexec ["addMagazineTurret",_this];
+		[_this,["UK3CB_BAF_CannonM230",[-1]]] remoteexec ["addWeaponTurret",_this];
 		
-		_this removeMagazineTurret ["UK3CB_BAF_1200Rnd_30mm_M230_HEDP_T",[0]];
-		_this removeWeaponTurret ["UK3CB_BAF_CannonM230",[0]];
 		
-		_this addMagazineTurret ["UK3CB_BAF_1200Rnd_30mm_M230_HEDP_T",[-1]];
-		_this addWeaponTurret ["UK3CB_BAF_CannonM230",[-1]];
 		
 		
 		
@@ -46,16 +152,23 @@ switch (typeOf _this) do
 	case "CUP_O_Ka52_Blk_RU": {
 		
 		//_this removeWeaponTurret ["CUP_Vmlauncher_S8_CCIP_veh",[-1]];made in new requipscript now
-		_this addMagazineTurret ["CUP_230Rnd_TE1_Green_Tracer_30mmHEIF_2A42_M",[-1]];
-		_this addMagazineTurret ["CUP_230Rnd_TE1_Green_Tracer_30mmAPBC_2A42_M",[-1]];
+		//_this addMagazineTurret ["CUP_230Rnd_TE1_Green_Tracer_30mmHEIF_2A42_M",[-1]];
+		//_this addMagazineTurret ["CUP_230Rnd_TE1_Green_Tracer_30mmAPBC_2A42_M",[-1]];
 
-		_this addMagazineTurret ["CUP_230Rnd_TE1_Green_Tracer_30mmAP_2A42_M",[-1]];
-		_this addMagazineTurret ["CUP_230Rnd_TE1_Green_Tracer_30mmHE_2A42_M",[-1]];
+		//_this addMagazineTurret ["CUP_230Rnd_TE1_Green_Tracer_30mmAP_2A42_M",[-1]];
+		//_this addMagazineTurret ["CUP_230Rnd_TE1_Green_Tracer_30mmHE_2A42_M",[-1]];
 
 
 
-		_this addWeaponTurret ["CUP_Vacannon_2A42_Ka50",[-1]];
-
+		//_this addWeaponTurret ["CUP_Vacannon_2A42_Ka50",[-1]];
+		
+		[_this,["CUP_230Rnd_TE1_Green_Tracer_30mmHEIF_2A42_M",[-1]]] remoteexec ["addMagazineTurret",_this];
+		[_this,["CUP_230Rnd_TE1_Green_Tracer_30mmAPBC_2A42_M",[-1]]] remoteexec ["addMagazineTurret",_this];
+		[_this,["CUP_230Rnd_TE1_Green_Tracer_30mmAP_2A42_M",[-1]]] remoteexec ["addMagazineTurret",_this];
+		[_this,["CUP_230Rnd_TE1_Green_Tracer_30mmHE_2A42_M",[-1]]] remoteexec ["addMagazineTurret",_this];
+		[_this,["CUP_Vacannon_2A42_Ka50",[-1]]] remoteexec ["addWeaponTurret",_this];
+		
+		
 	};
 	
 	
@@ -63,20 +176,39 @@ switch (typeOf _this) do
 	
 	
 	case "CUP_O_2S6M_RU": {
-		_this removeWeaponTurret ["CUP_Vmlauncher_9M311M_veh",[0]];
-		_this removeMagazineTurret ["CUP_8Rnd_9M311M_Tunguska_M",[0]];
-		_this addMagazineTurret ["magazine_Missile_rim116_x21",[0]];
-		_this addWeaponTurret ["weapon_rim116Launcher",[0]];
+		//_this removeWeaponTurret ["CUP_Vmlauncher_9M311M_veh",[0]];
+		//_this removeMagazineTurret ["CUP_8Rnd_9M311M_Tunguska_M",[0]];
+		//_this addMagazineTurret ["magazine_Missile_rim116_x21",[0]];
+		//_this addWeaponTurret ["weapon_rim116Launcher",[0]];
+		
+		
+		[_this,["CUP_8Rnd_9M311M_Tunguska_M",[0]]] remoteexec ["removeMagazineTurret",_this];
+		[_this,["CUP_Vmlauncher_9M311M_veh",[0]]] remoteexec ["removeWeaponTurret",_this];
+		
+		[_this,["weapon_rim116Launcher",[0]]] remoteexec ["addWeaponTurret",_this];
+		[_this,["magazine_Missile_rim116_x21",[0]]] remoteexec ["addMagazineTurret",_this];
+		
+		
 	};
 	
 	case "CUP_B_M6LineBacker_USA_W": {
-		_this removeWeaponTurret ["CUP_Vmlauncher_Stinger_vehicle_veh",[0]];
-		_this removeMagazineTurret ["CUP_4Rnd_Stinger_M",[0]];
-		_this removeMagazineTurret ["CUP_4Rnd_Stinger_M",[0]];
-		_this removeMagazineTurret ["CUP_4Rnd_Stinger_M",[0]];
+		[_this,["CUP_4Rnd_Stinger_M",[0]]] remoteexec ["removeMagazineTurret",_this];
+		[_this,["CUP_4Rnd_Stinger_M",[0]]] remoteexec ["removeMagazineTurret",_this];
+		[_this,["CUP_4Rnd_Stinger_M",[0]]] remoteexec ["removeMagazineTurret",_this];
+		[_this,["CUP_4Rnd_Stinger_M",[0]]] remoteexec ["removeMagazineTurret",_this];
+		[_this,["CUP_Vmlauncher_Stinger_vehicle_veh",[0]]] remoteexec ["removeWeaponTurret",_this];
 		
-		_this addMagazineTurret ["magazine_Missile_rim116_x21",[0]];
-		_this addWeaponTurret ["weapon_rim116Launcher",[0]];
+		//_this removeWeaponTurret ["CUP_Vmlauncher_Stinger_vehicle_veh",[0]];
+		//_this removeMagazineTurret ["CUP_4Rnd_Stinger_M",[0]];
+		//_this removeMagazineTurret ["CUP_4Rnd_Stinger_M",[0]];
+		//_this removeMagazineTurret ["CUP_4Rnd_Stinger_M",[0]];
+		
+		//_this addMagazineTurret ["magazine_Missile_rim116_x21",[0]];
+		//_this addWeaponTurret ["weapon_rim116Launcher",[0]];
+		
+		[_this,["weapon_rim116Launcher",[0]]] remoteexec ["addWeaponTurret",_this];
+		[_this,["magazine_Missile_rim116_x21",[0]]] remoteexec ["addMagazineTurret",_this];
+		
 	};
 	/*
 	case "pook_MLRS_BLUFOR": {

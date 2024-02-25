@@ -4924,6 +4924,24 @@
         <Italian>jump!</Italian>
 	 </Key>
 
+
+	  <Key ID="STR_BECTI2_toogle_primary">
+        <English>rifle</English>
+        <French>Fusils</French>
+        <German>Gewehr</German>
+        <Russian>винтовки</Russian>
+        <Italian>rifle</Italian>
+      </Key>
+
+	  <Key ID="STR_BECTI2_toogle_secondary">
+        <English>Missilelauncher</English>
+        <French>Lance-missiles</French>
+        <German>Raketenwerfer</German>
+        <Russian>Гранатометы</Russian>
+        <Italian>Missilelauncher</Italian>
+      </Key>
+
+
 <!--US BARRACKS UNITS BECTI2 stuff -->		
 	
 	<Key ID="STR_WF_US_B1">
@@ -9040,11 +9058,11 @@
         <Italian>ZU-23-M</Italian>
 	 </Key>
 	<Key ID="STR_WF_RU_CD22">
-        <English>ZU-23</English>
-        <French>ZU-23</French>
-        <German>ZU-23</German>
-        <Russian>ZU-23</Russian>
-        <Italian>ZU-23</Italian>
+        <English>ZU-23 (2000)</English>
+        <French>ZU-23 (2000)</French>
+        <German>ZU-23 (2000)</German>
+        <Russian>ZU-23 (2000)</Russian>
+        <Italian>ZU-23 (2000)</Italian>
 	 </Key>
 	<Key ID="STR_WF_RU_CD23">
         <English>S-60</English>
