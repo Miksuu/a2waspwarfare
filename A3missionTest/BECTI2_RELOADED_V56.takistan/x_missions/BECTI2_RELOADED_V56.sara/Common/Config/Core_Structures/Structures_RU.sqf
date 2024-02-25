@@ -185,12 +185,13 @@ _n = _n + ['O_Static_Designator_02_F'];
 _n = _n + ['O_Radar_System_02_F'];
 _n = _n + ['O_SAM_System_04_F'];
 
-
-_n = _n + ['pook_KS19_base'];
-_n = _n + ['pook_KS12_base'];
-_n = _n + ['pook_ZU23M_base'];
-_n = _n + ['pook_ZU23_base'];
-_n = _n + ['pook_S60_base'];
+//requiped with 2000 ammocount from zsu (fix pook soundbug)
+_n = _n + ['cwr3_o_zu23'];
+//_n = _n + ['pook_KS19_base'];//soundbug
+//_n = _n + ['pook_KS12_base'];
+//_n = _n + ['pook_ZU23M_base'];
+//_n = _n + ['pook_ZU23_base'];
+//_n = _n + ['pook_S60_base'];
 
 
 

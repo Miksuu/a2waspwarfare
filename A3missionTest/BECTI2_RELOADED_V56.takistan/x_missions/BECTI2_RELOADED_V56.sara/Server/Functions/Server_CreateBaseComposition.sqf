@@ -67,7 +67,9 @@ _afResBasePositions = _this select 3;
 
                 if(_type in cti_C_STATIC_DEFENCE_FOR_COMPOSITIONS)then{
                     _newObj = _type createVehicle [0,0,750];
-                    _newObj enableSimulation false;
+                    _newObj call cti_CO_FNC_BalanceInit;
+					
+					_newObj enableSimulation false;
                     _newObj setPos _newPos;
                     _newObj enableSimulation true;
                     _defences pushBack _newObj;
@@ -159,7 +161,9 @@ _afResBasePositions = _this select 3;
                 _newPos = [_posX + (_newRelPos select 0), _posY + (_newRelPos select 1), _z];
                 if(_type in cti_C_STATIC_DEFENCE_FOR_COMPOSITIONS)then{
                     _newObj = _type createVehicle [0,0,750];
-                    _newObj enableSimulation false;
+                    _newObj call cti_CO_FNC_BalanceInit;
+					
+					_newObj enableSimulation false;
                     _newObj setPos _newPos;
                     _newObj enableSimulation true;
                     _defences pushBack _newObj;
@@ -250,7 +254,9 @@ _afResBasePositions = _this select 3;
                 _newPos = [_posX + (_newRelPos select 0), _posY + (_newRelPos select 1), _z];
                 if(_type in cti_C_STATIC_DEFENCE_FOR_COMPOSITIONS)then{
                     _newObj = _type createVehicle [0,0,750];
-                    _newObj enableSimulation false;
+                    _newObj call cti_CO_FNC_BalanceInit;
+					
+					_newObj enableSimulation false;
                     _newObj setPos _newPos;
                     _newObj enableSimulation true;
                     _defences pushBack _newObj;

@@ -75,8 +75,12 @@ if(_sideJoined == _side)then{
 	_logic setVariable ["cti_teams", _teams, true];
 	_logic setVariable ["cti_teams_count", count _teams];
 	
-	missionNamespace setVariable [Format["cti_%1TEAMS",_sideJoined], _logic getVariable "cti_teams"];
-	cti_Client_Teams = missionNamespace getVariable Format['cti_%1TEAMS',_sideJoined];
+	//missionNamespace setVariable [Format["cti_%1TEAMS",_sideJoined], _logic getVariable "cti_teams"];
+	//cti_Client_Teams = missionNamespace getVariable Format['cti_%1TEAMS',_sideJoined];
+	
+	missionNamespace setVariable [Format["cti_%1TEAMS",str _sideJoined], _logic getVariable "cti_teams"];
+	cti_Client_Teams = missionNamespace getVariable Format['cti_%1TEAMS',str _sideJoined];
+	
 	cti_Client_Teams_Count = count cti_Client_Teams;
 };
 

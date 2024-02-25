@@ -327,8 +327,9 @@ while {true} do {
 				_colorTextures pushback (getArray (configfile >> "CfgVehicles" >> typeof _veh >> "textureSources" >> configName (_colorConfigs select (lbCurSel 20015)) >> "textures"));
 				
 				_txtIndex = 0;
-				{					
-					_veh setObjectTextureGlobal [_txtIndex, _x];
+				{	
+					[_veh,[_txtIndex, _x]] remoteexec ["setObjectTextureGlobal",_veh] ;
+					//_veh setObjectTextureGlobal [_txtIndex, _x];
 					_txtIndex = _txtIndex + 1;
 				}	forEach (_colorTextures select 0);
 			};

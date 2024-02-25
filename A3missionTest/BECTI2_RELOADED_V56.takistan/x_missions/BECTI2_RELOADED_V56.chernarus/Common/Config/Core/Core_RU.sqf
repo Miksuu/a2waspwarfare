@@ -782,11 +782,15 @@ _c = _c + ['CUP_O_D30_RU'];	_i = _i + [[localize "STR_WF_RU_CD15",'',6400,0,1,0,
 
 _c = _c + ['O_Static_Designator_02_F'];_i = _i + [[localize "STR_WF_RU_CD16",'',750,0,1,0,'Defense80',0,'whatever',[]]];
 
-_c = _c + ['pook_S60_base'];	_i = _i + [[localize "STR_WF_RU_CD23",'',1400,0,1,0,'Defense80',0,'whatever',[]]];
-_c = _c + ['pook_ZU23_base'];	_i = _i + [[localize "STR_WF_RU_CD22",'',450,0,1,0,'Defense80',0,'whatever',[]]];
-_c = _c + ['pook_ZU23M_base'];	_i = _i + [[localize "STR_WF_RU_CD21",'',600,0,1,0,'Defense80',0,'whatever',[]]];
-_c = _c + ['pook_KS12_base'];	_i = _i + [[localize "STR_WF_RU_CD20",'',1050,0,1,0,'Defense80',0,'whatever',[]]];
-_c = _c + ['pook_KS19_base'];	_i = _i + [[localize "STR_WF_RU_CD19",'',1175,0,1,0,'Defense80',0,'whatever',[]]];
+//_c = _c + ['pook_S60_base'];	_i = _i + [[localize "STR_WF_RU_CD23",'',1400,0,1,0,'Defense80',0,'whatever',[]]];//changed weapons to fix soundbug
+
+
+
+_c = _c + ['cwr3_o_zu23'];	_i = _i + [[localize "STR_WF_RU_CD22",'',950,0,1,0,'Defense80',0,'whatever',[]]];
+//_c = _c + ['pook_ZU23_base'];	_i = _i + [[localize "STR_WF_RU_CD22",'',450,0,1,0,'Defense80',0,'whatever',[]]];
+//_c = _c + ['pook_ZU23M_base'];	_i = _i + [[localize "STR_WF_RU_CD21",'',600,0,1,0,'Defense80',0,'whatever',[]]];
+//_c = _c + ['pook_KS12_base'];	_i = _i + [[localize "STR_WF_RU_CD20",'',1050,0,1,0,'Defense80',0,'whatever',[]]];//removed because pook ammo soundbug
+//_c = _c + ['pook_KS19_base'];	_i = _i + [[localize "STR_WF_RU_CD19",'',1175,0,1,0,'Defense80',0,'whatever',[]]];
 
 
 _c = _c + ['O_Radar_System_02_F'];	_i = _i + [[localize "STR_WF_RU_CD17",'',3800,0,1,0,'Defense80',0,'whatever',[]]];

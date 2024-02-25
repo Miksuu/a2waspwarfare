@@ -1,0 +1,71 @@
+//names
+
+SwitchPrimary
+SwitchHandgun
+SwitchSecondary
+
+//fire the actions
+inputAction "SwitchPrimary";
+inputAction "SwitchHandgun";
+inputAction "SwitchSecondary";
+
+//conditions #weapon class name or "" if no primary weapon f.e.
+
+((currentWeapon player)==(primaryWeapon player))
+
+((currentWeapon player)==(secondaryWeapon player))
+
+((currentWeapon player)==(handgunWeapon  player))
+
+//c for primary option
+(!((primaryWeapon player)=="")&&!((currentWeapon player)==(primaryWeapon player)))
+
+(!((secondaryWeapon player)=="")&&!((currentWeapon player)==(secondaryWeapon player)))
+
+(!((handgunWeapon player)=="")&&!((currentWeapon player)==(handgunWeapon player)))
+
+//addaction
+
+object addAction [title, script, arguments, priority, showWindow, hideOnUse, shortcut, condition, positionInModel, radius, radiusView, showIn3D, available, textDefault, textToolTip]
+
+//actions
+player addAction [(localize "STR_BECTI2_toogle_primary"),{inputAction "SwitchPrimary";},[],0.5,false,true,'',(!((primaryWeapon player)=="")&&!((currentWeapon player)==(primaryWeapon player)))];
+player addAction [(localize "STR_WF_TOOLTIP_FilterButtonSidearm"),{inputAction "SwitchHandgun";},[],0.5,false,true,'',(!((handgunWeapon player)=="")&&!((currentWeapon player)==(handgunWeapon player)))];
+player addAction [(localize "STR_BECTI2_toogle_secondary"),{inputAction "SwitchSecondary";},[],0.5,false,true,'',(!((secondaryWeapon player)=="")&&!((currentWeapon player)==(secondaryWeapon player)))];
+
+
+
+	  <Key ID="STR_BECTI2_toogle_primary">
+        <English>rifle</English>
+        <French>Fusils</French>
+        <German>Gewehr</German>
+        <Russian>винтовки</Russian>
+        <Italian>rifle</Italian>
+      </Key>
+
+	  <Key ID="STR_BECTI2_toogle_secondary">
+        <English>Missilelauncher</English>
+        <French>Lance-missiles</French>
+        <German>Raketenwerfer</German>
+        <Russian>Гранатометы</Russian>
+        <Italian>Missilelauncher</Italian>
+      </Key>
+
+
+
+
+
+	  <Key ID="STR_WF_TOOLTIP_FilterButtonSecondary">
+        <English>Missilelauncher, Backpacks, Bags, Lasermarker</English>
+        <French>Lance-missiles, Sac à dos, Désignateur laser, tout y est!</French>
+        <German>Raketenwerfer, Rucksäcke, Taschen, Lasermarker</German>
+        <Russian>Гранатометы, Рюкзаки, Сумки, Лазерные целеуказатели</Russian>
+        <Italian>Missilelauncher, Backpacks, Bags, Lasermarker</Italian>
+      </Key>
+
+
+
+
+
+ addAction ["<t color='#11ec52'>" + localize 'STR_WF_Destroy_Camp' + "</t>",'Client\Action\Action_DestroyCampEngineer.sqf',[],97,false,true,'','[player] call CTI_CL_FNC_Client_GetNearestCamp'];
+addAction [(localize "STR_WASP_actions_fastrep"),(CTI_SK_V_Root + 'LR' + '.sqf'), [], 80, false, true, "", "(time - CTI_SK_V_LastUse_LR > CTI_SK_V_Reload_LR)&&((cursorTarget isKindOf 'Landvehicle' )|| (cursorTarget isKindOf 'Air'))&&(player distance cursorTarget<5)"];

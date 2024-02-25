@@ -210,7 +210,7 @@ class Mission
 	assetType="Free";
 	class Intel
 	{
-		briefingName="BECTI2 RELOADED Takistan V56 sv=20240218";
+		briefingName="BECTI2 RELOADED Takistan V56 sv=20240225_main";
 		overviewText="Arma2 BECTI --> Arma3";
 		resistanceWest=0;
 		startWeather=0;
@@ -702,7 +702,7 @@ class Mission
 			{
 				skill=0.60000002;
 				init="call{nullReturn = [this,""Sultansafe"",""+"",10,50,500,[""SmallTown1"",""SmallTown2""]] execVM ""Common\Init\Init_Town.sqf"";this enableSimulation false;}";
-				name="Sultansafee";
+				name="Sultansafe";
 			};
 			id=2248;
 			type="LocationFOB_F";

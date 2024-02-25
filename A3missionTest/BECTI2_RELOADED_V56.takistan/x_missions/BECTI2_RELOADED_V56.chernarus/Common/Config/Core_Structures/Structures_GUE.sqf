@@ -121,7 +121,10 @@ _n pushBack "cwr3_i_ags30";
 _n pushBack "cwr3_i_spg9";
 
 _n pushBack "cwr3_i_zu23";
-_n pushBack "pook_S60_base_IND";
+//_n pushBack "pook_S60_base_IND";
+
+_n pushBack "CUP_B_RBS70_HIL";
+
 _n pushBack "CUP_I_Type072_Turret";
 
 
