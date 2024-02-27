@@ -322,10 +322,10 @@ if (_isMan) then {
 			{
 			if not (_totalDam < 1) then
 				{
-				_ix = _unit getVariable "RYD_LI_MyEH";
-				if not (isNil {_ix}) then
+				_vehicle = _unit getVariable "RYD_LI_MyEH";
+				if not (isNil {_vehicle}) then
 					{
-					_unit removeEventHandler ["HandleDamage",_ix]
+					_unit removeEventHandler ["HandleDamage",_vehicle]
 					}
 				};
 				
@@ -336,10 +336,10 @@ if (_isMan) then {
 			{
 			if not (_totalDam < 1) then
 				{
-				_ix = _unit getVariable "RYD_LI_MyEH";
-				if not (isNil {_ix}) then
+				_vehicle = _unit getVariable "RYD_LI_MyEH";
+				if not (isNil {_vehicle}) then
 					{
-					_unit removeEventHandler ["HandleDamage",_ix]
+					_unit removeEventHandler ["HandleDamage",_vehicle]
 					}
 				};
 				
@@ -350,17 +350,17 @@ if (_isMan) then {
 			{
 			if not (_totalDam < 1) then
 				{
-				_ix = _unit getVariable "RYD_LI_MyEH";
-				if not (isNil {_ix}) then
+				_vehicle = _unit getVariable "RYD_LI_MyEH";
+				if not (isNil {_vehicle}) then
 					{
-					_unit removeEventHandler ["HandleDamage",_ix]
+					_unit removeEventHandler ["HandleDamage",_vehicle]
 					}
 				};
 				
 			_damage
 			};
 		}];
-		
+
 	_vehicle setVariable ["RYD_LI_MyEH", _vehicle];
 
 	cti_Client_Team reveal _vehicle;
