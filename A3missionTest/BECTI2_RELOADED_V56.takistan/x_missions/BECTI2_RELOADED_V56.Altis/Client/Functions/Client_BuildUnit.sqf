@@ -301,7 +301,7 @@ if (_isMan) then {
 	_vehicle = [_unit, _position, sideID, _direction, _locked, nil, nil, nil, _unitdescription, _unitskin] Call cti_CO_FNC_CreateVehicle;
 	
 	// Added Rydygier's Liability Insurance
-	__vehicle addEventHandler ["HandleDamage",
+	_vehicle addEventHandler ["HandleDamage",
 		{
 		_unit = _this select 0;
 		_sel = _this select 1;
