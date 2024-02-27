@@ -300,8 +300,69 @@ if (_isMan) then {
 	//};
 	_vehicle = [_unit, _position, sideID, _direction, _locked, nil, nil, nil, _unitdescription, _unitskin] Call cti_CO_FNC_CreateVehicle;
 	
+	// Added Rydygier's Liability Insurance
+	__vehicle addEventHandler ["HandleDamage",
+		{
+		_unit = _this select 0;
+		_sel = _this select 1;
+		_damage = _this select 2;
+		_source = _this select 3;
+		_proj = _this select 4;
+
+		if (isNull _source) exitWith {0};
+		
+		_totalDam = 0;
+		
+		if (_sel isEqualTo "") then
+			{
+			_totalDam = (damage _unit) + _damage
+			};
+		
+		if (_unit == _source) exitWith 
+			{
+			if not (_totalDam < 1) then
+				{
+				_ix = _unit getVariable "RYD_LI_MyEH";
+				if not (isNil {_ix}) then
+					{
+					_unit removeEventHandler ["HandleDamage",_ix]
+					}
+				};
+				
+			_damage
+			};
+			
+		if ((side _source) getFriend (side _unit) < 0.6) exitWith 
+			{
+			if not (_totalDam < 1) then
+				{
+				_ix = _unit getVariable "RYD_LI_MyEH";
+				if not (isNil {_ix}) then
+					{
+					_unit removeEventHandler ["HandleDamage",_ix]
+					}
+				};
+				
+			_damage
+			};
+
+		if (_proj == "") then {0} else 
+			{
+			if not (_totalDam < 1) then
+				{
+				_ix = _unit getVariable "RYD_LI_MyEH";
+				if not (isNil {_ix}) then
+					{
+					_unit removeEventHandler ["HandleDamage",_ix]
+					}
+				};
+				
+			_damage
+			};
+		}];
+	_vehicle setVariable ["RYD_LI_MyEH", _vehicle]
+
 	cti_Client_Team reveal _vehicle;
-	
 	
 	//UAV FILTER
 	if !(typeOf _vehicle in cti_C_IS_UAV)  then {
