@@ -14,6 +14,7 @@ if !(isNull _object) then {
 	_group = if (_isMan) then {group _object} else {grpNull};
 	if !(_isMan) then {_object removeAllEventHandlers "hit"};
 	_object removeAllEventHandlers "killed";
+	_object removeAllMPEventHandlers "MPKilled";
 
 	//--- Override?.
 	_delay = missionNamespace getVariable "WFBE_C_UNITS_BODIES_TIMEOUT";
