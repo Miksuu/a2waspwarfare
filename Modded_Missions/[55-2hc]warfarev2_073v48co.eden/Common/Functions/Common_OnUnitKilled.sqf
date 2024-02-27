@@ -41,16 +41,10 @@ if (isDedicated) then {
 	_killer_vehicle = vehicle _killer;
 	_killer_uid = getPlayerUID (leader _killer_group);
 
-	//diag_log "PHASE 1";
-
-
 	if (_killer_side == sideEnemy) then { //--- Make sure the killer is not renegade, if so, get the side from the config.
 		if !(_killer isKindOf "Man") then {_killer_type = typeOf effectiveCommander(vehicle _killer)};
 		_killer_side = switch (getNumber(configFile >> "CfgVehicles" >> _killer_type >> "side")) do {case 0: {east}; case 1: {west}; case 2: {resistance}; default {civilian}};
 	};
-
-	//diag_log "PHASE 2";
-
 
 	if (_killer_side == civilian) exitWith {}; //--- Side couldn't be determined? exit.
 
@@ -67,15 +61,12 @@ if (isDedicated) then {
 
 	_get = missionNamespace getVariable _killed_type; //--- Get the killed informations.
 
-	//diag_log "PHASE 3";
-
 	if (!isNil '_get' && _killer_iswfteam) then { //--- Make sure that type killed type is defined in the core files and that the killer is a WF team.
 		if (_killer_side != _killed_side) then { //--- Normal kill.
 			if (isPlayer (leader _killer_group)) then { //--- The team is lead by a player.
 				_killer_award = objNull;
 				if !(_killer_isplayer) then { //--- An AI is the killer.
 					_killer_award = _killer;
-					diag_log "Killer award: _killer";
 				};
 				
 				_points = switch (true) do {
@@ -93,6 +84,10 @@ if (isDedicated) then {
 
 				//diag_log "POINTS AWARDED:";
 				//diag_log _points;
+
+				if (_points <= 0) then {
+					["WARNING", Format ["Common_OnUnitKilled.sqf: Negative score update detected! _killed_side = [%1], _killed = [%2], _killer = [%3], _killed_type = [%4], _killer_type = [%5], _points = [%6].", _killed_side, _killed, _killer, _killed_type, _killer_type, _points]] Call WFBE_CO_FNC_LogContent;
+				};
 				
 				leader _killer_group addScore _points;
 
