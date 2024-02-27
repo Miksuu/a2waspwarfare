@@ -41,7 +41,7 @@ _vehicle addEventHandler ["HandleDamage",
     _proj = _this select 4;
     _hitIndex = _this select 5;
 
-    _prevDamage = if(_hitIndex < 0) then {damage _vehicle} else {_vehicle getHitIndex _hitIndex};
+    _prevDamage = if(_hitIndex < 0) then {damage _unit} else {_unit getHitIndex _hitIndex};
 
 	//diag_log _source;
 	//diag_log side _source;
