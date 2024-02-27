@@ -29,6 +29,68 @@ _vehicle setVectorUp surfaceNormal position _vehicle;
 _vehicle call cti_CO_FNC_BalanceInit;
 _vehicle call cti_CO_FNC_Change_Vehicle_Texture;
 
+// Added Rydygier's Liability Insurance
+_vehicle addEventHandler ["HandleDamage",
+	{
+	_unit = _this select 0;
+	_sel = _this select 1;
+	_damage = _this select 2;
+	_source = _this select 3;
+	_proj = _this select 4;
+
+	if (isNull _source) exitWith {0};
+	
+	_totalDam = 0;
+	
+	if (_sel isEqualTo "") then
+		{
+		_totalDam = (damage _unit) + _damage
+		};
+	
+	if (_unit == _source) exitWith 
+		{
+		if not (_totalDam < 1) then
+			{
+			_vehicle = _unit getVariable "RYD_LI_MyEH";
+			if not (isNil {_vehicle}) then
+				{
+				_unit removeEventHandler ["HandleDamage",_vehicle]
+				}
+			};
+			
+		_damage
+		};
+		
+	if ((side _source) getFriend (side _unit) < 0.6) exitWith 
+		{
+		if not (_totalDam < 1) then
+			{
+			_vehicle = _unit getVariable "RYD_LI_MyEH";
+			if not (isNil {_vehicle}) then
+				{
+				_unit removeEventHandler ["HandleDamage",_vehicle]
+				}
+			};
+			
+		_damage
+		};
+
+	if (_proj == "") then {0} else 
+		{
+		if not (_totalDam < 1) then
+			{
+			_vehicle = _unit getVariable "RYD_LI_MyEH";
+			if not (isNil {_vehicle}) then
+				{
+				_unit removeEventHandler ["HandleDamage",_vehicle]
+				}
+			};
+			
+		_damage
+		};
+	}];
+
+	_vehicle setVariable ["RYD_LI_MyEH", _vehicle];
 
 //[_vehicle] execVM "Client\Module\IgiLoad\IgiLoad.sqf";
 
