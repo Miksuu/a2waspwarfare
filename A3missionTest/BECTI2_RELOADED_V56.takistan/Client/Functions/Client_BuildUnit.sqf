@@ -360,7 +360,8 @@ if (_isMan) then {
 			_damage
 			};
 		}];
-	_vehicle setVariable ["RYD_LI_MyEH", _vehicle]
+		
+	_vehicle setVariable ["RYD_LI_MyEH", _vehicle];
 
 	cti_Client_Team reveal _vehicle;
 	
