@@ -93,6 +93,8 @@ if (_defense emptyPositions "gunner" > 0 && (((missionNamespace getVariable "WFB
 			_buildings = (_side) Call WFBE_CO_FNC_GetSideStructures;
 			_closest = ['BARRACKSTYPE',_buildings,_manRange,_side,_defense] Call BuildingInRange;
 
+			["DEBUG", Format ["Construction_StationaryDefense.sqf: [%1] | [%2] | [%3]", _buildings, _closest, alive _closest]] Call WFBE_CO_FNC_LogContent;
+
 			//--- Manning Defenses.
 			if (alive _closest) then {
 				[_defense,_side,_team,_closest] Spawn HandleDefense;
