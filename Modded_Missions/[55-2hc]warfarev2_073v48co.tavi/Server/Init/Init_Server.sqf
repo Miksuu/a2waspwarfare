@@ -633,6 +633,8 @@ WF_Logic setVariable ["emptyVehicles",[],true];
 //--- Base Area (grouped base)
 if ((missionNamespace getVariable "WFBE_C_BASE_AREA") > 0) then {[] execVM "Server\FSM\basearea.sqf"};
 
+if (LOG_CONTENT_STATE == "ACTIVATED") then {[] execVM "Server\FSM\groupMonitor.sqf"};
+
 //--- ALICE Module.
 if ((missionNamespace getVariable "WFBE_C_MODULE_BIS_ALICE") > 0) then {
 	_type = if (WF_A2_Vanilla) then {'AliceManager'} else {'Alice2Manager'};
