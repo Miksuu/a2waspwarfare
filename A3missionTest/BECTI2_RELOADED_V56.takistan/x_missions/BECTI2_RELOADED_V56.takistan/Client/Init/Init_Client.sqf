@@ -723,8 +723,10 @@ if ((getPlayerUID player in cti_RESERVEDUIDS)) then {
 
 (player) Call cti_SK_FNC_Apply;
 
-
-
+//add a2 like weapontoogle
+player addAction [(localize "STR_BECTI2_toogle_primary"),{_state=player weaponState (primaryWeapon player);player selectWeapon [_state#0, _state#1, _state#2];},[],0.5,false,true,'','(((primaryWeapon player)!="") && ((currentWeapon player)!=(primaryWeapon player)))'];
+player addAction [(localize "STR_WF_TOOLTIP_FilterButtonSidearm"),{_state=player weaponState (handgunWeapon player);player selectWeapon [_state#0, _state#1, _state#2];},[],0.5,false,true,'','(((handgunWeapon player)!="") && ((currentWeapon player)!=(handgunWeapon player)))'];
+player addAction [(localize "STR_BECTI2_toogle_secondary"),{_state=player weaponState (secondaryWeapon player);player selectWeapon [_state#0, _state#1, _state#2];},[],0.5,false,true,'','(((secondaryWeapon player)!="") && ((currentWeapon player)!=(secondaryWeapon player)))'];
 
 
 //camp repair
@@ -1126,11 +1128,45 @@ if(!WF_Skip_Intro)then{
 // call compile preprocessFileLineNumbers 
 _igiload = execVM "Client\Module\IgiLoad\IgiLoadInit.sqf";
 
+//custom radio init fix
+//RADIOBLOCK
+
+_OTEAM1=[OTeamleader1,OEngineer1,OMachinegunner1_1,OMachinegunner1_2,OMedic1,OSpecOps1];
+_OTEAM2=[OTeamleader2,OEngineer2,OMachinegunner2_1,OMachinegunner2_2,OMedic2,OSpecOps2];
+_OTEAM3=[OTeamleader3,OEngineer3,OMachinegunner3_1,OMachinegunner3_2,OMedic3,OSpecOps3];
+_OTEAM4=[OTeamleader4,OEngineer4,OMachinegunner4_1,OMachinegunner4_2,OMedic4,OSpecOps4];
+_OTEAM5=[OTeamleader5,OEngineer5,OMachinegunner5_1,OMachinegunner5_2,OMedic5,OSpecOps5];
+
+_BTEAM1=[BTeamleader1,BEngineer1,BMachinegunner1_1,BMachinegunner1_2,BMedic1,BSpecOps1];
+_BTEAM2=[BTeamleader2,BEngineer2,BMachinegunner2_1,BMachinegunner2_2,BMedic2,BSpecOps2];
+_BTEAM3=[BTeamleader3,BEngineer3,BMachinegunner3_1,BMachinegunner3_2,BMedic3,BSpecOps3];
+_BTEAM4=[BTeamleader4,BEngineer4,BMachinegunner4_1,BMachinegunner4_2,BMedic4,BSpecOps4];
+_BTEAM5=[BTeamleader5,BEngineer5,BMachinegunner5_1,BMachinegunner5_2,BMedic5,BSpecOps5];
+
+_unit=player;
+if (_unit in _OTEAM1) then	{1 radioChannelAdd [_unit];};
+if (_unit in _OTEAM2) then	{2 radioChannelAdd [_unit];};
+if (_unit in _OTEAM3) then	{3 radioChannelAdd [_unit];};
+if (_unit in _OTEAM4) then	{4 radioChannelAdd [_unit];};
+if (_unit in _OTEAM5) then	{5 radioChannelAdd [_unit];};
+
+if (_unit in _BTEAM1) then	{6 radioChannelAdd [_unit];};
+if (_unit in _BTEAM2) then	{7 radioChannelAdd [_unit];};
+if (_unit in _BTEAM3) then	{8 radioChannelAdd [_unit];};
+if (_unit in _BTEAM4) then	{9 radioChannelAdd [_unit];};
+if (_unit in _BTEAM5) then	{10 radioChannelAdd [_unit];};
+
+//_____END RADIOUPDATE
+
+
+
+
 
 ["INITIALIZATION", Format ["Init_Client.sqf: Client initialization ended at [%1]", time]] Call cti_CO_FNC_LogContent;
 
 //set sat cam off from start,satview can be activated with button,if needed.a2 like map now
 waitUntil {visibleMap}; 
 ctrlActivate ((findDisplay 12) displayCtrl 107);
+
 
 

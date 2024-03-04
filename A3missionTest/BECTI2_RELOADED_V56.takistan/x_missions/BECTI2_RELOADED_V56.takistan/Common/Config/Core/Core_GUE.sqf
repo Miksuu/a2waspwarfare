@@ -593,6 +593,10 @@ _i pushBack ['','',1800,30,-2,1,2,0,'Guerilla',[]];
 
 _c pushBack 'pook_ZSU_base_IND';
 _i pushBack ['','',1800,30,-2,1,2,0,'Guerilla',[]];
+//added 20240221
+_c pushBack 'pook_ZSUM4_base_IND';
+_i pushBack ['','',1800,30,-2,1,2,0,'Guerilla',[]];
+
 
 _c pushBack 'CUP_I_T55_TK_GUE';
 _i pushBack ['','',1800,30,-2,1,2,0,'Guerilla',[]];
@@ -749,7 +753,11 @@ _i pushBack ['','',300,0,1,0,'Defense',0,'Guerilla',[]];
 _c pushBack 'cwr3_i_zu23';
 _i pushBack ['','',600,0,1,0,'Defense',0,'Guerilla',[]];
 
-_c pushBack 'pook_S60_base_IND';
+//_c pushBack 'pook_S60_base_IND';
+//_i pushBack ['','',700,0,1,0,'Defense',0,'Guerilla',[]];
+//replaced to fix soundbug on dedicaded
+
+_c pushBack 'CUP_B_RBS70_HIL';
 _i pushBack ['','',700,0,1,0,'Defense',0,'Guerilla',[]];
 
 _c pushBack 'CUP_I_Type072_Turret';

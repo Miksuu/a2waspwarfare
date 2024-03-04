@@ -270,6 +270,12 @@ if (local player) then {['LIGHT', _side, _u] Call Compile preProcessFile 'Client
 
 _u 			= ['CUP_I_ZSU23_Afghan_AAF'];
 _u pushBack 'pook_ZSU57_base_IND';
+
+//added 20240221
+_u pushBack 'pook_ZSU_base_IND';
+_u pushBack 'pook_ZSUM4_base_IND';
+
+
 _u pushBack 'CUP_I_T55_TK_GUE';
 _u pushBack 'CUP_I_T72_NAPA';
 _u pushBack 'cwr3_i_m41a1';

@@ -108,7 +108,7 @@ class Mission
 {
 	class Intel
 	{
-		briefingName="BECTI2 RELOADED Sahrani V56 sv=20240216";
+		briefingName="BECTI2 RELOADED Sahrani V56 sv=20240225";
 		overviewText="Arma2 BECTI --> Arma3";
 		resistanceWest=0;
 		startWeather=0;

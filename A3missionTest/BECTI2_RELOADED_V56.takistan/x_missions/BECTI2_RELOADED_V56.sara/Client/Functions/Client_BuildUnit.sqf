@@ -32,9 +32,10 @@ if (_index != -1) then {
 	_distance = (missionNamespace getVariable Format ["cti_%1STRUCTUREDISTANCES",cti_Client_SideJoinedText]) select _index;
 	_direction = (missionNamespace getVariable Format ["cti_%1STRUCTUREDIRECTIONS",cti_Client_SideJoinedText]) select _index;
 	_factoryType = (missionNamespace getVariable Format ["cti_%1STRUCTURES",cti_Client_SideJoinedText]) select _index;
-	
+	_position = [getPos _building,_distance,getDir _building + _direction] Call cti_CO_FNC_GetPositionFrom;
+	//_longest = missionNamespace getVariable Format ["cti_LONGEST%1BUILDTIME",_factoryType];
 
-
+	//_spawnpaddir=2;//just switch dir if no pad there
 
 if (_factoryType isEqualTo 	"Barracks")then{
 	//--- Place Infantry on marker if available
@@ -58,11 +59,18 @@ if (_factoryType isEqualTo 	"Barracks")then{
 		
 		_position = [_selpad#0#0,_selpad#0#1,_selpad#1];
 		_position set [2, .5];
+		//_spawnpaddir=5;//dirswitch to prevent overwrite dir later
+		_direction=_selpad select 1;
 		
 	}else{
-	_position = _building modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
-	_position set [2, .5];};
+	_factoryPosition = getPos _building;
+	_direction = -((((_position select 1) - (_factoryPosition select 1)) atan2 ((_position select 0) - (_factoryPosition select 0))) - 90);//--- model to world that later on.
 
+	
+	//_position = _building modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
+	_position set [2, .5];};
+	
+	
 
 
 
@@ -93,11 +101,17 @@ if(_factoryType isEqualTo "Light")then{
 		
 		_position = [_selpad#0#0,_selpad#0#1,_selpad#1];
 		_position set [2, .5];
+		//_spawnpaddir=5;//dirswitch to prevent overwrite dir later
+		_direction=_selpad select 1;
 	}else{
-	_position = _building modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
+	_factoryPosition = getPos _building;
+	_direction = -((((_position select 1) - (_factoryPosition select 1)) atan2 ((_position select 0) - (_factoryPosition select 0))) - 90);//--- model to world that later on.
+
+	
+	//_position = _building modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
 	_position set [2, .5];};
 
-
+	
 
 	
 	
@@ -127,10 +141,17 @@ if(_factoryType isEqualTo "Heavy")then{
 		
 		_position = [_selpad#0#0,_selpad#0#1,_selpad#1];
 		_position set [2, .5];
+		//_spawnpaddir=5;//dirswitch to prevent overwrite dir later
+		_direction=_selpad select 1;
 	}else{
-	_position = _building modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
+	_factoryPosition = getPos _building;
+	_direction = -((((_position select 1) - (_factoryPosition select 1)) atan2 ((_position select 0) - (_factoryPosition select 0))) - 90);//--- model to world that later on.
+
+	
+	//_position = _building modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
 	_position set [2, .5];};
-		
+	
+	
 		
 
 }else{//---------------------------------------------------------check for air
@@ -156,9 +177,18 @@ if(_factoryType isEqualTo "Aircraft")then{
 		
 		_position = [_selpad#0#0,_selpad#0#1,_selpad#1];
 		_position set [2, .5];
+		//_spawnpaddir=5;//dirswitch to prevent overwrite dir later
+		_direction=_selpad select 1;
 	}else{
-	_position = _building modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
+	_factoryPosition = getPos _building;
+	_direction = -((((_position select 1) - (_factoryPosition select 1)) atan2 ((_position select 0) - (_factoryPosition select 0))) - 90);//--- model to world that later on.
+
+	
+	//_position = _building modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
 	_position set [2, .5];};
+	
+	
+	
 };};};};
 			
 
@@ -207,8 +237,11 @@ while {_unique != _queu select 0 && alive _building && !isNull _building} do {
 		if (_ret > _longest) then {
 			if (count _queu > 0) then {
 				_queu = _building getVariable "queu";
-				_index = _queu find (_queu select 0);
-				if(_index > -1)then{_queu deleteAt _index};
+				
+				//_index = _queu find (_queu select 0);
+				//if(_index > -1)then{_queu deleteAt _index};
+				_queu = _queu - [_queu select 0];
+				
 				_building setVariable ["queu",_queu,true];
 			};
 		};
@@ -224,8 +257,12 @@ if (_show) then {hint(parseText(Format [localize "STR_WF_INFO_BuyEffective",_uni
 sleep _waitTime;
 
 _queu = _building getVariable "queu";
-_index = _queu find _unique;
-if(_index > -1)then{_queu deleteAt _index};
+
+//buildtime bug,back to a2 solution here too
+//_index = _queu find _unique;
+//if(_index > -1)then{_queu deleteAt _index};
+_queu = _queu - [_unique];
+
 _building setVariable ["queu",_queu,true];
 
 _group = group player;
@@ -257,8 +294,10 @@ if (_isMan) then {
 	_locked = _vehi select 4;
 
 	_factoryPosition = getPos _building;
-	_direction = -((((_position select 1) - (_factoryPosition select 1)) atan2 ((_position select 0) - (_factoryPosition select 0))) - 90);//--- model to world that later on.
 	
+	//if (_spawnpaddir==2) then {//there is no spawnpad
+	//_direction = -((((_position select 1) - (_factoryPosition select 1)) atan2 ((_position select 0) - (_factoryPosition select 0))) - 90);//--- model to world that later on.
+	//};
 	_vehicle = [_unit, _position, sideID, _direction, _locked, nil, nil, nil, _unitdescription, _unitskin] Call cti_CO_FNC_CreateVehicle;
 	
 	cti_Client_Team reveal _vehicle;

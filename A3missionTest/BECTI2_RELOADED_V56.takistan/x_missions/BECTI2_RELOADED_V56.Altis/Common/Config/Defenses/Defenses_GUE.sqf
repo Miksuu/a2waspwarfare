@@ -29,14 +29,18 @@ _o  pushBack  600;
 _t  pushBack  "Defense";
 _k  pushBack  "AA";
 
-
+/*changed to CUP_B_RBS70_HIL(soundbug)
 _c  pushBack  'pook_S60_base_IND';
 _n  pushBack  '';
 _o  pushBack  700;
 _t  pushBack  "Defense";
 _k  pushBack  "AT";
-
-
+*/
+_c  pushBack  'CUP_B_RBS70_HIL';
+_n  pushBack  '';
+_o  pushBack  700;
+_t  pushBack  "Defense";
+_k  pushBack  "AT";
 
 //--- Defenses management for towns.
 if (isServer) then {[_side, _c, _k] Call Compile preprocessFile "Common\Config\Config_Defenses_Towns.sqf"};

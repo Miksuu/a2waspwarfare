@@ -196,4 +196,36 @@ changed requestdefense.sqf
 -all parastuff should be fixed again
 -buggy uav interface removed in tac uav scipt
 
-todo:minefieldmarker not run on dedicated
+20240218
+-requip init air loadout changed to new system
+-buildtime and direction fixed
+
+20240220
+-changed all requip stuff to remoteexec on object
+todo:change textures on objects in same way
+-added balanceinit call to statics too (target change weapon for s60 to bushmaster)#soundfix
+
+20240221
+-change textures on objects o remoteexec on object
+-changed weapons or removed all pook soundbugs
+20240222
+-update gui_menuhelp for ingamechangelog
+-added player group condition for remotecam remove ai
+
+todo:minefieldmarker not run on dedicated#done todo:fix bounty trigger for minefields maybe
+todo: customchat not loads on first init #done
+todo:replace s60 and ks19 with CUP_B_RBS70_HIL to remove soundbug#done
+-update gui_menuhelp for ingamechangelog
+- ----20240224---- <br/>
+- removed all soundbug weapons <br/>
+- fixed default spawn direction <br/>
+- fixed mapmarker for placed arty <br/>
+- fixed mapmarker for minefields <br/>
+
+
+-made new changelog in gui_menuhelp,about mission was full
+
+todo: fix artymarker,if x is used need delete(a2 bug).if down need delete too #done todo:test it
+todo: remotecam need map pos update for onunitclicked
+
+todo:change coin pos to driver vehicle on rtruck

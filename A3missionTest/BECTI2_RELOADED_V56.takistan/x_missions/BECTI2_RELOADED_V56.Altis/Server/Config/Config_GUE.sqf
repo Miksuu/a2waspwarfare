@@ -129,7 +129,9 @@ _resTeamTypes pushback 3;
 
 _d		= ["Mechanized AA - Shilka"];
 
-_u		= [selectRandom["CUP_I_ZSU23_Afghan_AAF","pook_ZSU57_base_IND","pook_2S5_INDFOR"]];
+//_u		= [selectRandom["CUP_I_ZSU23_Afghan_AAF","pook_ZSU57_base_IND","pook_2S5_INDFOR"]];
+//changed 20240224 (soundbug) maybe affected too
+_u		= [selectRandom["CUP_I_ZSU23_Afghan_AAF","pook_2S5_INDFOR"]];
 
 
 _resTeamTemplates pushBack _u;

@@ -1,0 +1,224 @@
+
+
+_listUnits = missionNamespace getVariable Format ['CTI_%1%2UNITS',CTI_Client_SideJoinedText,_type];
+Barracks
+Light
+Heavy
+Aircraft
+
+
+CTI_Client_SideJoinedText=str (side player);
+_listUnits1 = missionNamespace getVariable Format ['CTI_%1%2UNITS',CTI_Client_SideJoinedText,"Barracks"];
+_listUnits2 = missionNamespace getVariable Format ['CTI_%1%2UNITS',CTI_Client_SideJoinedText,"Light"];
+_listUnits3 = missionNamespace getVariable Format ['CTI_%1%2UNITS',CTI_Client_SideJoinedText,"Heavy"];
+_listUnits4 = missionNamespace getVariable Format ['CTI_%1%2UNITS',CTI_Client_SideJoinedText,"Aircraft"];
+_all=_listUnits1+_listUnits2+_listUnits3+_listUnits4;
+
+
+if 
+_currentUnit = missionNamespace getVariable _unit;
+_unitdescription = _currentUnit select QUERYUNITLABEL;
+
+//--- Update factories.
+	if (_updateList) then {
+		switch (_type) do {
+			//--- Specials.
+			case 'Depot': {
+				_sorted = [[vehicle player, missionNamespace getVariable "CTI_C_TOWNS_PURCHASE_RANGE"] Call CTI_CL_FNC_GetClosestDepot];
+			};
+			case 'Airport': {
+				_sorted = [[vehicle player, missionNamespace getVariable "CTI_C_UNITS_PURCHASE_HANGAR_RANGE"] Call CTI_CL_FNC_GetClosestAirport];
+			};
+			//--- Factories
+			default {
+				_buildings = (CTI_Client_SideJoined) Call CTI_CO_FNC_GetSideStructures;
+				_factories = [CTI_Client_SideJoined,missionNamespace getVariable Format ['CTI_%1%2TYPE',CTI_Client_SideJoinedText,_type],_buildings] Call CTI_CO_FNC_GetFactories;
+				_sorted = [vehicle player,_factories] Call CTI_CO_FNC_SortByDistance;
+				_closest = _sorted select 0;
+				_countAlive = count _factories;
+			};
+		};
+//-----
+_veh=this;
+_non = [];
+{ _non append getArray (_x >> "weapons") } forEach ([_veh, configNull] call BIS_fnc_getTurrets);
+
+
+
+
+
+//mora weapon
+autocannon_30mm
+
+140Rnd_30mm_MP_shells_Tracer_Yellow
+
+140Rnd_30mm_MP_shells_Tracer_Green
+
+//requip pook shilka		
+//lav
+CUP_Vacannon_M242_veh_LAV25
+
+CUP_60Rnd_TE1_Red_Tracer_25mm_M242_APDS
+CUP_150Rnd_TE1_Red_Tracer_25mm_M242_HE
+
+//strela
+CUP_launch_9K32Strela
+[_veh,["CUP_launch_9K32Strela_Loaded",[0]]] remoteexec ["addWeaponTurret",_veh];
+[_veh,["CUP_Strela_2_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+[_veh,["CUP_Strela_2_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+[_veh,["CUP_Strela_2_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+
+//pook zu
+_veh=this;
+_mags=magazines _veh;
+{[_veh,_x] remoteexec ["removeMagazineGlobal",_veh];} forEach (_mags);
+_nonpylonWeaponslist = [];
+{ _nonpylonWeaponslist append getArray (_x >> "weapons") } forEach ([_veh, configNull] call BIS_fnc_getTurrets);
+{[_veh,_x] remoteexec ["removeWeaponGlobal",_veh];} forEach (_nonpylonWeaponslist);
+
+[_veh,["CUP_100Rnd_23mm_AZP23_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+[_veh,["CUP_100Rnd_23mm_AZP23_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+[_veh,["CUP_Vacannon_2A14_veh",[0]]] remoteexec ["addWeaponTurret",_veh];
+
+[_veh,["CUP_2Rnd_Igla_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+[_veh,["CUP_igla_twice_W",[0]]] remoteexec ["addWeaponTurret",_veh];
+
+
+[_veh,["CUP_launch_9K32Strela_Loaded",[0]]] remoteexec ["addWeaponTurret",_veh];
+[_veh,["CUP_Strela_2_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+[_veh,["CUP_Strela_2_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+[_veh,["CUP_Strela_2_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+
+
+[_veh,["CUP_100Rnd_23mm_AZP23_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+
+
+[_veh,["CUP_100Rnd_23mm_AZP23_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+[_veh,["CUP_Vacannon_2A14_veh",[0]]] remoteexec ["addWeaponTurret",_veh];			
+
+
+
+CUP_100Rnd_23mm_AZP23_M
+CUP_Vacannon_2A14_veh
+
+
+//bmp1 (only shoot ground)
+CUP_Vacannon_2A28
+
+CUP_PG15V
+CUP_OG15V
+
+//pb (only ground)
+cwr3_vacannon_d56ts
+
+cwr3_20rnd_heat_d56ts_m
+cwr3_20rnd_he_d56ts_m
+
+//d30 at  (only ground)
+
+CUP_Vcannon_D30AT_veh
+
+CUP_30Rnd_122mmAT_D30_M
+CUP_30Rnd_122mmHE_D30_M
+CUP_30Rnd_122mmWP_D30_M
+
+_veh=this;
+_nonpylonWeaponslist = [];
+{ _nonpylonWeaponslist append getArray (_x >> "weapons") } forEach ([_veh, configNull] call BIS_fnc_getTurrets);
+{ _veh removeWeaponGlobal _x } forEach (_nonpylonWeaponslist);
+
+
+//__________________________________REMOVE ALL__________________________________
+_veh=this;
+_mags=magazines _veh;
+{[_veh,_x] remoteexec ["removeMagazineGlobal",_veh];} forEach (_mags);
+_nonpylonWeaponslist = [];
+{ _nonpylonWeaponslist append getArray (_x >> "weapons") } forEach ([_veh, configNull] call BIS_fnc_getTurrets);
+{[_veh,_x] remoteexec ["removeWeaponGlobal",_veh];} forEach (_nonpylonWeaponslist);
+
+//add
+[_veh,["CUP_2Rnd_Igla_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+[_veh,["CUP_2Rnd_Igla_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+[_veh,["CUP_2Rnd_Igla_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+		[_veh,["CUP_igla_twice_W",[0]]] remoteexec ["addWeaponTurret",_veh];
+		
+[_veh,["CUP_2000Rnd_23mm_AZP23_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+[_veh,["CUP_Vacannon_AZP23_veh",[0]]] remoteexec ["addWeaponTurret",_veh];			
+		
+
+
+
+		
+			CUP_2000Rnd_23mm_AZP23_M
+	CUP_Vacannon_AZP23_veh
+//__________________________________________________________________________________________________________________________________________	
+
+//s60 #done
+_veh=this;
+_mags=magazines _veh;
+{[_veh,_x] remoteexec ["removeMagazineGlobal",_veh];} forEach (_mags);
+_nonpylonWeaponslist = [];
+{ _nonpylonWeaponslist append getArray (_x >> "weapons") } forEach ([_veh, configNull] call BIS_fnc_getTurrets);
+{[_veh,_x] remoteexec ["removeWeaponGlobal",_veh];} forEach (_nonpylonWeaponslist);
+
+[_veh,["CUP_150Rnd_TE1_Red_Tracer_25mm_M242_HE",[0]]] remoteexec ["addMagazineTurret",_veh];
+[_veh,["CUP_Vacannon_M242_veh_LAV25",[0]]] remoteexec ["addWeaponTurret",_veh];		
+
+
+//pook zu #done
+_veh=this;
+_mags=magazines _veh;
+{[_veh,_x] remoteexec ["removeMagazineGlobal",_veh];} forEach (_mags);
+_nonpylonWeaponslist = [];
+{ _nonpylonWeaponslist append getArray (_x >> "weapons") } forEach ([_veh, configNull] call BIS_fnc_getTurrets);
+{[_veh,_x] remoteexec ["removeWeaponGlobal",_veh];} forEach (_nonpylonWeaponslist);
+
+[_veh,["CUP_100Rnd_23mm_AZP23_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+[_veh,["CUP_100Rnd_23mm_AZP23_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+[_veh,["CUP_Vacannon_2A14_veh",[0]]] remoteexec ["addWeaponTurret",_veh];
+
+[_veh,["CUP_2Rnd_Igla_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+[_veh,["CUP_igla_twice_W",[0]]] remoteexec ["addWeaponTurret",_veh];
+
+//__________________________________________________________________________________________________________________________________________
+//ks-19
+_veh=this;
+_mags=magazines _veh;
+{[_veh,_x] remoteexec ["removeMagazineGlobal",_veh];} forEach (_mags);
+_nonpylonWeaponslist = [];
+{ _nonpylonWeaponslist append getArray (_x >> "weapons") } forEach ([_veh, configNull] call BIS_fnc_getTurrets);
+{[_veh,_x] remoteexec ["removeWeaponGlobal",_veh];} forEach (_nonpylonWeaponslist);
+
+[_veh,["CUP_30Rnd_122mmAT_D30_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+[_veh,["CUP_Vcannon_D30AT_veh",[0]]] remoteexec ["addWeaponTurret",_veh];		
+
+
+
+
+
+
+[_veh,["cwr3_20rnd_heat_d56ts_m",[0]]] remoteexec ["addMagazineTurret",_veh];
+[_veh,["cwr3_vacannon_d56ts",[0]]] remoteexec ["addWeaponTurret",_veh];		
+
+
+[_veh,["CUP_PG15V",[0]]] remoteexec ["addMagazineTurret",_veh];
+[_veh,["CUP_Vacannon_2A28",[0]]] remoteexec ["addWeaponTurret",_veh];		
+
+
+
+
+
+[_veh,["140Rnd_30mm_MP_shells_Tracer_Yellow",[0]]] remoteexec ["addMagazineTurret",_veh];
+[_veh,["autocannon_30mm",[0]]] remoteexec ["addWeaponTurret",_veh];		
+
+
+
+
+
+
+
+
+[_veh,["CUP_2000Rnd_23mm_AZP23_M",[0]]] remoteexec ["addMagazineTurret",_veh];
+[_veh,["CUP_Vacannon_AZP23_veh",[0]]] remoteexec ["addWeaponTurret",_veh];		
+
+	CUP_B_RBS70_HIL	

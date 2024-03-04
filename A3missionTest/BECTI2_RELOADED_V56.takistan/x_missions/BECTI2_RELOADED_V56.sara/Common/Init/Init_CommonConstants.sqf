@@ -437,8 +437,9 @@ CTI_ARTY_SCRIPTBLACKLIST=["CUP_O_2b14_82mm_RU",'CUP_B_M252_USMC','CUP_B_L16A2_BA
 	                                        'Land_BagFence_Long_F','Land_BagFence_Round_F',''];
 	
 	//composition located in server/init/init_defenses
-	cti_C_STATIC_DEFENCE_FOR_COMPOSITIONS = ['pook_M777_IND','CUP_I_D30_TK_GUE','CUP_I_M119_RACS','cwr3_i_dshkm_high',"I_HMG_02_high_F","CUP_I_M2StaticMG_RACS",'cwr3_i_zu23','pook_S60_base_IND',"CUP_I_2b14_82mm_NAPA"];
+	//cti_C_STATIC_DEFENCE_FOR_COMPOSITIONS = ['pook_M777_IND','CUP_I_D30_TK_GUE','CUP_I_M119_RACS','cwr3_i_dshkm_high',"I_HMG_02_high_F","CUP_I_M2StaticMG_RACS",'cwr3_i_zu23','pook_S60_base_IND',"CUP_I_2b14_82mm_NAPA"];
 	
+	cti_C_STATIC_DEFENCE_FOR_COMPOSITIONS = ['pook_M777_IND','CUP_I_D30_TK_GUE','CUP_I_M119_RACS','cwr3_i_dshkm_high',"I_HMG_02_high_F","CUP_I_M2StaticMG_RACS",'cwr3_i_zu23','CUP_B_RBS70_HIL',"CUP_I_2b14_82mm_NAPA"];
 	
 
 	

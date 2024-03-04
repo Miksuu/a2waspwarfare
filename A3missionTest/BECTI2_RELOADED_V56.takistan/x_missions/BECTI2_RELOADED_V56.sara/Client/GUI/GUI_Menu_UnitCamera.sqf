@@ -3,6 +3,8 @@ _display = _this select 0;
 WF_MenuAction = -1;
 mouseButtonUp = -1;
 
+
+
 _cameraModes = ["Internal","External","Gunner","Group"];
 
 _n = 1;

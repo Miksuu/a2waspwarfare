@@ -210,7 +210,7 @@ class Mission
 	assetType="Free";
 	class Intel
 	{
-		briefingName="BECTI2 RELOADED Takistan V56 sv=20240216_main";
+		briefingName="BECTI2 RELOADED Takistan V56 sv=20240225_main";
 		overviewText="Arma2 BECTI --> Arma3";
 		resistanceWest=0;
 		startWeather=0;
