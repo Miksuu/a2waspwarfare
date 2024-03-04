@@ -66,14 +66,14 @@ if (_side != side _killer) then
 
 // Commented out for now, heavily bugged
 // Marty : Marking HQ wreck on map 
-//_marker_name 		= "HQ_WRECK_" + str(_side) ;
-//_marker_position 	= getPos _structure ;
-//_markerType 		= "Flag";
-//_markerText 		= "HQ WRECK must be repaired";
-//_markerColor 		= "ColorRed";
-//_markerSide			= _side;
+_marker_name 		= "HQ_WRECK_" + str(_side) ;
+_marker_position 	= getPos _structure ;
+_markerType 		= "Flag";
+_markerText 		= "HQ WRECK must be repaired";
+_markerColor 		= "ColorRed";
+_markerSide			= _side;
 
-//[_marker_name, _marker_position, _markerType, _markerText, _markerColor, _markerSide] call WF_createMarker ;
+[_marker_name, _marker_position, _markerType, _markerText, _markerColor, _markerSide] call WF_createMarker ;
 
 // Marty : updating hq wreck mark in case of moron moving it for some reasons (very rare but some do it)
 //if (_side == west) then
