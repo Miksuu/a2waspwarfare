@@ -69,21 +69,18 @@ WFBE_SE_FNC_SupplyMissionStarted = Call Compile preprocessFileLineNumbers "Serve
 WFBE_SE_FNC_PlayerObjectsList = Call Compile preprocessFileLineNumbers "Server\Module\supplyMission\playerObjectsList.sqf";
 //WFBE_SE_FNC_MASH_MARKER = Call Compile preprocessFileLineNumbers "Server\Module\MASH\MASHMarker.sqf";
 WFBE_SE_FNC_SupplyMissionTimerForTown = Compile preprocessFileLineNumbers "Server\Module\supplyMission\supplyMissionTimerForTown.sqf";
-WFBE_SE_FNC_CallDatabaseRetrieve = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseRetrieve.sqf";
-WFBE_SE_FNC_CallDatabaseStore = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseStore.sqf";
-WFBE_SE_FNC_CallDatabaseStoreSide = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseStoreSide.sqf";
-WFBE_SE_FNC_GetTeamScore = Compile preprocessFileLineNumbers "Server\Module\AntiStack\getTeamScore.sqf";
-WFBE_SE_FNC_CountPlayerScores = Compile preprocessFileLineNumbers "Server\Module\AntiStack\countPlayerScores.sqf";
-WFBE_SE_FNC_CompareTeamScores = Compile preprocessFileLineNumbers "Server\Module\AntiStack\compareTeamScores.sqf";
-WFBE_SE_FNC_CallDatabaseSendPlayerList = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseSendPlayerList.sqf";
-WFBE_SE_FNC_GetTeamScoreMonitor = Compile preprocessFileLineNumbers "Server\Module\AntiStack\getTeamScoreMonitor.sqf";
-WFBE_SE_PVEH_ClientHasConnectedAtLaunch = Call Compile preprocessFileLineNumbers "Server\Module\AntiStack\clientHasConnectedAtLaunch.sqf";
+// WFBE_SE_FNC_CallDatabaseRetrieve = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseRetrieve.sqf";
+// WFBE_SE_FNC_CallDatabaseStore = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseStore.sqf";
+// WFBE_SE_FNC_CallDatabaseStoreSide = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseStoreSide.sqf";
+// WFBE_SE_FNC_GetTeamScore = Compile preprocessFileLineNumbers "Server\Module\AntiStack\getTeamScore.sqf";
+// WFBE_SE_FNC_CountPlayerScores = Compile preprocessFileLineNumbers "Server\Module\AntiStack\countPlayerScores.sqf";
+// WFBE_SE_FNC_CompareTeamScores = Compile preprocessFileLineNumbers "Server\Module\AntiStack\compareTeamScores.sqf";
+// WFBE_SE_FNC_CallDatabaseSendPlayerList = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseSendPlayerList.sqf";
+// WFBE_SE_FNC_GetTeamScoreMonitor = Compile preprocessFileLineNumbers "Server\Module\AntiStack\getTeamScoreMonitor.sqf";
+// WFBE_SE_PVEH_ClientHasConnectedAtLaunch = Call Compile preprocessFileLineNumbers "Server\Module\AntiStack\clientHasConnectedAtLaunch.sqf";
 WFBE_SE_FNC_SupplyMissionActive = Compile preprocessFileLineNumbers "Server\Module\supplyMission\supplyMissionActive.sqf";
 WFBE_SE_FNC_ChangeSideSupply = Call Compile preprocessFileLineNumbers "Server\Functions\Server_ChangeSideSupply.sqf";
 WFBE_SE_PV_RequestSupplyValue = Call Compile preprocessFileLineNumbers "Server\Functions\Server_PV_RequestSupplyValue.sqf";
-WFBE_SE_FNC_CallDatabaseRequestSideTotalSkill = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseRequestSideTotalSkill.sqf";
-WFBE_SE_FNC_CallDatabaseFlushPlayerList = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseFlushPlayerList.sqf";
-// WFBE_SE_FNC_CallDatabaseSetMap = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseSetMap.sqf";
 
 //--- Define Headless Client functions (server ones).
 if (ARMA_VERSION >= 162 && ARMA_RELEASENUMBER >= 101334 || ARMA_VERSION > 162) then {
@@ -648,13 +645,6 @@ if ((missionNamespace getVariable "WFBE_C_MODULE_BIS_ALICE") > 0) then {
 
 // Execute the server fps script on a seperate thread
 [] ExecVM "Server\GUI\serverFpsGUI.sqf";
-
-[] execVM "Server\Module\serverFPS\monitorServerFPS.sqf";
-
-[] execVM "Server\Module\AntiStack\countPlayerScores.sqf";
-
-[] execVM "Server\Module\AntiStack\monitorTeamToJoin.sqf";
-
 
 ["INITIALIZATION", Format ["Init_Server.sqf: Server initialization ended at [%1]", time]] Call WFBE_CO_FNC_LogContent;
 
