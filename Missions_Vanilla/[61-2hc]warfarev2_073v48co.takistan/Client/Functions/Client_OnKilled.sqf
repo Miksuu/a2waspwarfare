@@ -9,7 +9,7 @@ Private ["_body"];
 _body = _this select 0;
 
 //--- EH are flushed on unit death, still, just make sure.
-player removeEventHandler ["killed", WFBE_PLAYERKEH];
+player removeEventHandler ["Killed", WFBE_PLAYERKEH];
 
 WFBE_Client_IsRespawning = true;
 
