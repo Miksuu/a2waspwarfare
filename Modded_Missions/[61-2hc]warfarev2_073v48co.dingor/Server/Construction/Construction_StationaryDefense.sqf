@@ -11,6 +11,7 @@ _sideID = (_side) Call GetSideID;
 
 _area = [_position,((_side) Call WFBE_CO_FNC_GetSideLogic) getVariable "wfbe_basearea"] Call WFBE_CO_FNC_GetClosestEntity4; hintsilent format ["%1",_area];
 _availweapons = _area getVariable "weapons";
+["DEBUG", Format ["Construction_StationaryDefense.sqf: Area [%1] | Available Weapons [%2]", _area, _availweapons]] Call WFBE_CO_FNC_LogContent;
 
 _defense = createVehicle [_type, _position, [], 0, "NONE"];
 _defense setDir _direction;
