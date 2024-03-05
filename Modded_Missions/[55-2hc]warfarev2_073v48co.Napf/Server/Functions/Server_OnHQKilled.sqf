@@ -5,13 +5,17 @@
 		- Shooter
 */
 
-Private ["_building","_dammages","_dammages_current","_get","_killer","_logik","_origin","_structure","_structure_kind","_killerGroup"];
+Private ["_building","_dammages","_dammages_current","_get","_killer","_logik","_origin","_structure","_structure_kind","_killerGroup","_structureSide"];
 
 _structure = _this select 0;
 _killer = _this select 1;
 
 _structure_kind = typeOf _structure;
 _side = _structure getVariable "wfbe_side";
+_structureSide = side _structure;
+
+["DEBUG (Server_OnHQKilled.sqf)", Format ["%1 | %2", _side, _structureSide]] Call WFBE_CO_FNC_LogContent;
+
 _logik = (_side) Call WFBE_CO_FNC_GetSideLogic;
 _killerGroup = group _killer;
 
@@ -64,20 +68,19 @@ if (_side != side _killer) then
     ['SRVFNCREQUESTCHANGESCORE',[leader _killerGroup, score leader _killerGroup + _score]] Spawn WFBE_SE_FNC_HandlePVF;
 };
 
-// Commented out for now, heavily bugged
 // Marty : Marking HQ wreck on map 
-_marker_name 		= "HQ_WRECK_" + str(_side) ;
+_marker_name 		= "HQ_WRECK_" + str(_structureSide) ;
 _marker_position 	= getPos _structure ;
 _markerType 		= "Flag";
 _markerText 		= "HQ WRECK must be repaired";
 _markerColor 		= "ColorRed";
-_markerSide			= _side;
+_markerSide			= _structureSide;
 
 [_marker_name, _marker_position, _markerType, _markerText, _markerColor, _markerSide] call WF_createMarker ;
 
 // Marty: begin of marker hq update when wreck is moved 
 // Marty : updating hq wreck mark in case of moving it (very rare case)
-if (_side == west) then
+if (_structureSide == west) then
 {
 	
 	//_IS_WEST_HQ_WRECK_ALIVE = false;
@@ -102,7 +105,7 @@ if (_side == west) then
 
 };
 
-if (_side == east) then
+if (_structureSide == east) then
 {
 	
 	missionNamespace setVariable ["IS_EAST_HQ_WRECK_ALIVE", false];
