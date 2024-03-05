@@ -89,7 +89,7 @@ if (_defense emptyPositions "gunner" > 0 && (((missionNamespace getVariable "WFB
 	[_defense] Spawn WFBE_SE_FNC_HandleEmptyVehicle;
 	if (_manned) then {
 		_alives = (units _team) Call GetLiveUnits;
-		if (!isNil "_availweapons" && (count _alives < _availweapons || _isAIQuery)) then {
+		if (count _alives < _availweapons || _isAIQuery) then {
 			_buildings = (_side) Call WFBE_CO_FNC_GetSideStructures;
 			_closest = ['BARRACKSTYPE',_buildings,_manRange,_side,_defense] Call BuildingInRange;
 
