@@ -133,8 +133,11 @@ while {!cti_GameOver} do {
                             {
                                 if !(isNil '_x') then {
                                     if !(isNull _x) then {
-                                        {deleteVehicle _x} forEach units _x;
-                                        deleteGroup _x;
+                                        //{deleteVehicle _x} forEach units _x;2024_0227
+                                        
+										{_x call CTI_CO_FNC_DELETE} forEach units _x;
+										
+										deleteGroup _x;
                                     };
                                 };
                             } forEach (_town getVariable 'cti_town_teams');
@@ -166,7 +169,9 @@ while {!cti_GameOver} do {
 					{
 						if !(isNil '_x') then {
 							if !(isNull _x) then {
-								{deleteVehicle _x} forEach units _x;
+								//{deleteVehicle _x} forEach units _x;2024_0227
+								{_x call CTI_CO_FNC_DELETE} forEach units _x;
+								
 								deleteGroup _x;
 							};
 						};
@@ -175,7 +180,11 @@ while {!cti_GameOver} do {
 					//--- Teams vehicles.
 					{
 						if (alive _x) then {
-							if (!(isPlayer leader group _x)) then {deleteVehicle _x};
+							if (!(isPlayer leader group _x)) then {
+							
+							//deleteVehicle _x//2024_0227
+							_x call CTI_CO_FNC_DELETE
+							};
 						};
 					} forEach (_town getVariable 'cti_active_vehicles');
 

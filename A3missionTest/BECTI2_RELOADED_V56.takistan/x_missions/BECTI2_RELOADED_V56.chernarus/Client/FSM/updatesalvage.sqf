@@ -35,7 +35,9 @@ while {!cti_GameOver || !(alive _vehicle)} do {
 				_overAllCost = _overAllCost + _salvageCost;
 				(Format [localize 'STR_WF_CHAT_Salvaged_Unit',_salvageCost,[typeOf _x,'displayName'] Call cti_CO_FNC_GetConfigInfo]) Call cti_CL_FNC_GroupChatMessage;
 		
-				deleteVehicle _x;
+				//deleteVehicle _x;//all vehiclestuff need crew delete 2024_0227
+				_x call CTI_CO_FNC_DELETE;
+				
 			};
 		} foreach _wrecks;
 

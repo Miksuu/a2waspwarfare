@@ -26,7 +26,9 @@ _onAreaRemoved = {
 				if (alive _unit) then {
 					if (isNil {(group _unit) getVariable "cti_funds"}) then {
 						_unit setPos (getPosATL _x);
-						deleteVehicle _unit;
+						
+						//deleteVehicle _unit;2024_0227
+						_unit call CTI_CO_FNC_DELETE;
 					} else {
 						_delete = false;
 					};

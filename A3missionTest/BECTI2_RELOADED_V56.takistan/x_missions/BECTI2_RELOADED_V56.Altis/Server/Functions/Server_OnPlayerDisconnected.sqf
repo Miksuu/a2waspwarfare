@@ -29,7 +29,11 @@ if (_name == '__SERVER__' || _uid == '' || local player) exitWith {};
 //--- Player had any objects created?
 _get = missionNamespace getVariable Format ["cti_CLIENT_%1_OBJECTS", _uid];
 if !(isNil '_get') then {
-	{if !(isNil '_x') then {deleteVehicle _x}} forEach _get;
+	{if !(isNil '_x') then {
+	//deleteVehicle _x//2024_0227
+	_x call CTI_CO_FNC_DELETE
+	
+	}} forEach _get;
 	missionNamespace setVariable [Format ["cti_CLIENT_%1_OBJECTS", _uid], nil];
 };
 
@@ -86,13 +90,19 @@ if !(isNull(assignedVehicle _old_unit)) then {
 //--- Eject the unit if it's in the HQ.
 _hq = (_side) Call cti_CO_FNC_GetSideHQ;
 if (vehicle _old_unit == _hq) then {_old_unit action ["EJECT", _hq]};
-deleteVehicle _old_unit;
+
+//deleteVehicle _old_unit;//2024_0227
+_old_unit call CTI_CO_FNC_DELETE;
 
 //--- If we choose not to keep the current units during this session, then we simply remove them.
 ["INFORMATION", Format ["Server_PlayerDisconnected.sqf: Player [%1] [%2] units are now being removed for AI Team [%3].", _name, _uid, _team]] Call cti_CO_FNC_LogContent;
 _units = units _team;
 _units = _units + ([_team,false] Call cti_CO_FNC_GetTeamVehicles) - [_hq];
-{if (!isPlayer _x && !(_x in playableUnits)) then {deleteVehicle _x}} forEach _units;
+{if (!isPlayer _x && !(_x in playableUnits)) then {
+//deleteVehicle _x//2024_0227
+_x call CTI_CO_FNC_DELETE
+
+}} forEach _units;
 
 
 //--- We save the disconnect client funds.

@@ -69,7 +69,9 @@ if (!_deployed) then {
 	
 	["INFORMATION", Format ["Construction_HQSite.sqf: [%1] MHQ has been deployed.", _sideText]] Call cti_CO_FNC_LogContent;
 	
-	deleteVehicle _HQ;
+	//deleteVehicle _HQ;2024_0227
+	_HQ call CTI_CO_FNC_DELETE;
+	
 } else {
 	_position = getPosATL _HQ;
 	_direction = getDir _HQ;

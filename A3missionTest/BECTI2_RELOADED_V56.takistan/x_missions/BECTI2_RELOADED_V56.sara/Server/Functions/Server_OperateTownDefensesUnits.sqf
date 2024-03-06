@@ -56,14 +56,23 @@ switch (_action) do {
 				_unit = gunner _defense;
 				if !(isNull _unit) then { //--- Make sure that we do not remove a player's unit.
 					if (alive _unit) then {
-						if (isNil {(group _unit) getVariable "cti_funds"}) then {_unit setPos (getPosATL _x);	deleteVehicle _unit};
+						if (isNil {(group _unit) getVariable "cti_funds"}) then {_unit setPos (getPosATL _x);	
+						//deleteVehicle _unit////2024_0227
+						_unit call CTI_CO_FNC_DELETE
+						
+						};
 					} else {
-						_unit setPos (getPosATL _x); deleteVehicle _unit;
+						_unit setPos (getPosATL _x); 
+						//deleteVehicle _unit;2024_0227
+						_unit call CTI_CO_FNC_DELETE;
 					};
 				};
 			};
 			if !(isNil {_x getVariable "cti_defense_operator"}) then { //--- Delete the original gunner if he's still around.
-				if (alive(_x getVariable "cti_defense_operator")) then {deleteVehicle (_x getVariable "cti_defense_operator")};
+				if (alive(_x getVariable "cti_defense_operator")) then {
+				//deleteVehicle (_x getVariable "cti_defense_operator")//2024_0227
+				(_x getVariable "cti_defense_operator") call CTI_CO_FNC_DELETE
+				};
 				_x setVariable ["cti_defense_operator", nil];
 			};
 		} forEach (_town getVariable "cti_town_defenses") + (_town getVariable "cti_town_defenses_composition");

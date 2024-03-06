@@ -75,7 +75,10 @@ _get = missionNamespace getVariable format["cti_JIP_USER%1",_uid];
 ["INFORMATION", Format ["Server_PlayerConnected.sqf: Team [%1] units are now being removed for player [%1] [%2].", _team, _name, _uid]] Call cti_CO_FNC_LogContent;
 _units = units _team;
 _units = _units + ([_team,false] Call cti_CO_FNC_GetTeamVehicles);
-{if (!isPlayer _x && !(_x in playableUnits)) then {deleteVehicle _x}} forEach _units;
+{if (!isPlayer _x && !(_x in playableUnits)) then {
+//deleteVehicle _x//2024_0227
+_x call CTI_CO_FNC_DELETE
+}} forEach _units;
 
 
 //--- We 'Sanitize' the player, we remove the waypoints and we heal him.

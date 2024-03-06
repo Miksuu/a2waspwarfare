@@ -107,6 +107,13 @@ while {true} do {
 	if (time - _starttime > 900) exitWith {};//delete all after 15min
 };
 
-deleteVehicle _pilot;
-deleteVehicle _vehicle;
+//deleteVehicle _pilot;
+//deleteVehicle _vehicle;
+
+//all vehiclestuff need crew delete 2024_0227
+_pilot call CTI_CO_FNC_DELETE;
+
+_vehicle call CTI_CO_FNC_DELETE;
+
+
 deleteGroup _grp;

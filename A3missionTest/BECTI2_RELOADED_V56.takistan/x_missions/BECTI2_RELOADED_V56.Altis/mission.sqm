@@ -116,7 +116,7 @@ class Mission
 {
 	class Intel
 	{
-		briefingName="BECTI2 RELOADED Altis V56 sv=20240225";
+		briefingName="BECTI2 RELOADED Altis V56 sv=20240227";
 		overviewText="Arma2 BECTI --> Arma3";
 		resistanceWest=0;
 		timeOfChanges=1800.0002;
@@ -4483,7 +4483,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="OTeamleader1";
 						description="Russian Federation [ Team 1 ]@Teamleader (MORE AI)";
 						isPlayable=1;
@@ -4546,7 +4546,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="OEngineer1";
 						description="Russian Federation [ Team 1 ]@Engineer (FULL REPAIR, FAST CAMP DESTROY)";
 						isPlayable=1;
@@ -4611,7 +4611,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false; }";
 						name="OMachinegunner1_1";
 						description="Russian Federation [ Team 1 ]@Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -4676,7 +4676,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="OMedic1";
 						description="Russian Federation [ Team 1 ]@Medic (REPAIR CAMP)";
 						isPlayable=1;
@@ -4752,7 +4752,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false; }";
 						name="OMachinegunner1_2";
 						description="Russian Federation [ Team 1 ]@Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -4817,7 +4817,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false; this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;  }";
 						name="OSpecOps1";
 						description="Russian Federation [ Team 1 ]@SpecOps (LOCKPICK, CAMP REPAIR, UAVHACK)";
 						isPlayable=1;
@@ -4893,7 +4893,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="OTeamleader2";
 						description="Russian Federation [ Team 2 ]@Teamleader (MORE AI)";
 						isPlayable=1;
@@ -4958,7 +4958,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="OEngineer2";
 						description="Russian Federation [ Team 2 ]@Engineer (FULL REPAIR, FAST CAMP DESTROY)";
 						isPlayable=1;
@@ -5021,7 +5021,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false; }";
 						name="OMachinegunner2_1";
 						description="Russian Federation [ Team 2 ]@Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -5084,7 +5084,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="OMedic2";
 						description="Russian Federation [ Team 2 ]@Medic (REPAIR CAMP)";
 						isPlayable=1;
@@ -5147,7 +5147,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false; }";
 						name="OMachinegunner2_2";
 						description="Russian Federation [ Team 2 ]@Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -5210,7 +5210,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }]; }";
+						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;  }";
 						name="OSpecOps2";
 						description="Russian Federation [ Team 2 ]@SpecOps (LOCKPICK, CAMP REPAIR, UAVHACK)";
 						isPlayable=1;
@@ -5275,7 +5275,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="OTeamleader3";
 						description="Russian Federation [ Team 3 ]@Teamleader (MORE AI)";
 						isPlayable=1;
@@ -5338,7 +5338,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="OEngineer3";
 						description="Russian Federation [ Team 3 ]@Engineer (FULL REPAIR, FAST CAMP DESTROY)";
 						isPlayable=1;
@@ -5401,7 +5401,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false; }";
 						name="OMachinegunner3_1";
 						description="Russian Federation [ Team 3 ]@Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -5477,7 +5477,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="OMedic3";
 						description="Russian Federation [ Team 3 ]@Medic (REPAIR CAMP)";
 						isPlayable=1;
@@ -5542,7 +5542,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false; }";
 						name="OMachinegunner3_2";
 						description="Russian Federation [ Team 3 ]@Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -5605,7 +5605,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false; this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;  }";
 						name="OSpecOps3";
 						description="Russian Federation [ Team 3 ]@SpecOps (LOCKPICK, CAMP REPAIR, UAVHACK)";
 						isPlayable=1;
@@ -5668,7 +5668,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="OTeamleader4";
 						description="Russian Federation [ Team 4 ]@Teamleader (MORE AI)";
 						isPlayable=1;
@@ -5731,7 +5731,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="OEngineer4";
 						description="Russian Federation [ Team 4 ]@Engineer (FULL REPAIR, FAST CAMP DESTROY)";
 						isPlayable=1;
@@ -5809,7 +5809,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false; }";
 						name="OMachinegunner4_1";
 						description="Russian Federation [ Team 4 ]@Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -5874,7 +5874,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="OMedic4";
 						description="Russian Federation [ Team 4 ]@Medic (REPAIR CAMP)";
 						isPlayable=1;
@@ -5939,7 +5939,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false; }";
 						name="OMachinegunner4_2";
 						description="Russian Federation [ Team 4 ]@Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -6015,7 +6015,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }]; }";
+						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;  }";
 						name="OSpecOps4";
 						description="Russian Federation [ Team 4 ]@SpecOps (LOCKPICK, CAMP REPAIR, UAVHACK)";
 						isPlayable=1;
@@ -6080,7 +6080,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="OTeamleader5";
 						description="Russian Federation [ Team 5 ]@Teamleader (MORE AI)";
 						isPlayable=1;
@@ -6143,7 +6143,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="OEngineer5";
 						description="Russian Federation [ Team 5 ]@Engineer (FULL REPAIR, FAST CAMP DESTROY)";
 						isPlayable=1;
@@ -6208,7 +6208,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false; }";
 						name="OMachinegunner5_1";
 						description="Russian Federation [ Team 5 ]@Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -6273,7 +6273,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="OMedic5";
 						description="Russian Federation [ Team 5 ]@Medic (REPAIR CAMP)";
 						isPlayable=1;
@@ -6338,7 +6338,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false; }";
 						name="OMachinegunner5_2";
 						description="Russian Federation [ Team 5 ]@Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -6402,7 +6402,7 @@ class Mission
 					flags=7;
 					class Attributes
 					{
-						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }]; }";
+						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;  }";
 						name="OSpecOps5";
 						description="Russian Federation [ Team 5 ]@SpecOps (LOCKPICK, CAMP REPAIR, UAVHACK)";
 						isPlayable=1;
@@ -8070,7 +8070,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="BTeamleader1";
 						description="United States of America [ Team 1 ]@US Teamleader (MORE AI)";
 						isPlayable=1;
@@ -8134,7 +8134,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="BEngineer1";
 						description="United States of America [ Team 1 ]@US Engineer (FULL REPAIR, FAST CAMP DESTROY)";
 						isPlayable=1;
@@ -8198,7 +8198,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false; }";
 						name="BMachinegunner1_1";
 						description="United States of America [ Team 1 ]@US Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -8262,7 +8262,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="BMedic1";
 						description="United States of America [ Team 1 ]@US Medic (REPAIR CAMP)";
 						isPlayable=1;
@@ -8326,7 +8326,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false; }";
 						name="BMachinegunner1_2";
 						description="United States of America [ Team 1 ]@US Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -8392,7 +8392,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }]; }";
+						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;  }";
 						name="BSpecOps1";
 						description="United States of America [ Team 1 ]@US SpecOps (LOCKPICK, CAMP REPAIR, UAVHACK)";
 						isPlayable=1;
@@ -8456,7 +8456,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="BTeamleader2";
 						description="United States of America [ Team 2 ]@US Teamleader (MORE AI)";
 						isPlayable=1;
@@ -8520,7 +8520,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="BEngineer2";
 						description="United States of America [ Team 2 ]@US Engineer (FULL REPAIR, FAST CAMP DESTROY)";
 						isPlayable=1;
@@ -8584,7 +8584,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false; }";
 						name="BMachinegunner2_1";
 						description="United States of America [ Team 2 ]@US Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -8648,7 +8648,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="BMedic2";
 						description="United States of America [ Team 2 ]@US Medic (REPAIR CAMP)";
 						isPlayable=1;
@@ -8712,7 +8712,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false; }";
 						name="BMachinegunner2_2";
 						description="United States of America [ Team 2 ]@US Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -8778,7 +8778,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }]; }";
+						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;  }";
 						name="BSpecOps2";
 						description="United States of America [ Team 2 ]@US SpecOps (LOCKPICK, CAMP REPAIR, UAVHACK)";
 						isPlayable=1;
@@ -8842,7 +8842,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="BTeamleader3";
 						description="United States of America [ Team 3 ]@US Teamleader (MORE AI)";
 						isPlayable=1;
@@ -8906,7 +8906,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="BEngineer3";
 						description="United States of America [ Team 3 ]@US Engineer (FULL REPAIR, FAST CAMP DESTROY)";
 						isPlayable=1;
@@ -8970,7 +8970,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false; }";
 						name="BMachinegunner3_1";
 						description="United States of America [ Team 3 ]@US Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -9034,7 +9034,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="BMedic3";
 						description="United States of America [ Team 3 ]@US Medic (REPAIR CAMP)";
 						isPlayable=1;
@@ -9098,7 +9098,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false; }";
 						name="BMachinegunner3_2";
 						description="United States of America [ Team 3 ]@US Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -9164,7 +9164,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false; this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;  }";
 						name="BSpecOps3";
 						description="United States of America [ Team 3 ]@US SpecOps (LOCKPICK, CAMP REPAIR, UAVHACK)";
 						isPlayable=1;
@@ -9230,7 +9230,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="BTeamleader4";
 						description="United Kingdom [ Team 1 ]@UK Teamleader (MORE AI)";
 						isPlayable=1;
@@ -9294,7 +9294,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="BEngineer4";
 						description="United Kingdom [ Team 1 ]@UK Engineer (FULL REPAIR, FAST CAMP DESTROY)";
 						isPlayable=1;
@@ -9358,7 +9358,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false; }";
 						name="BMachinegunner4_1";
 						description="United Kingdom [ Team 1 ]@UK Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -9424,7 +9424,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="BMedic4";
 						description="United Kingdom [ Team 1 ]@UK Medic (REPAIR CAMP)";
 						isPlayable=1;
@@ -9488,7 +9488,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false; }";
 						name="BMachinegunner4_2";
 						description="United Kingdom [ Team 1 ]@UK Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -9554,7 +9554,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }]; }";
+						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;  }";
 						name="BSpecOps4";
 						description="United Kingdom [ Team 1 ]@UK SpecOps (LOCKPICK, CAMP REPAIR, UAVHACK)";
 						isPlayable=1;
@@ -9620,7 +9620,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="BTeamleader5";
 						description="United Kingdom [ Team 2 ]@UK Teamleader (MORE AI)";
 						isPlayable=1;
@@ -9684,7 +9684,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="BEngineer5";
 						description="United Kingdom [ Team 2 ]@UK Engineer (FULL REPAIR, FAST CAMP DESTROY)";
 						isPlayable=1;
@@ -9748,7 +9748,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false; }";
 						name="BMachinegunner5_1";
 						description="United Kingdom [ Team 2 ]@UK Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -9814,7 +9814,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this; " \n "this enableSimulation false; }";
 						name="BMedic5";
 						description="United Kingdom [ Team 2 ]@UK Medic (REPAIR CAMP)";
 						isPlayable=1;
@@ -9880,7 +9880,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }];}";
+						init="call{ " \n "removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;this setUnitRecoilCoefficient 0.25; " \n "this enableSimulation false; }";
 						name="BMachinegunner5_2";
 						description="United Kingdom [ Team 2 ]@UK Machinegunner ( LESS RECOIL)";
 						isPlayable=1;
@@ -9946,7 +9946,7 @@ class Mission
 					class Attributes
 					{
 						rank="COLONEL";
-						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;this addEventHandler [""HandleDamage"", {   " \n " params [""_unit"", ""_selection"", ""_damage"", ""_source"", ""_projectile"", ""_hitIndex"", ""_instigator"", ""_hitPoint"", ""_directHit""];  " \n "_damage =_damage * SCALE_DAMAGE_COEFF;  " \n "_damage  " \n "  }]; }";
+						init="call{ " \n " removeAllWeapons this;  " \n "removeAllItems this;  " \n "removeAllAssignedItems this;      " \n "removeBackpack this;    " \n "removeGoggles this;  " \n "this setUnitTrait [""UAVHacker"",true]; " \n "this enableSimulation false;  }";
 						name="BSpecOps5";
 						description="United Kingdom [ Team 2 ]@UK SpecOps (LOCKPICK, CAMP REPAIR, UAVHACK)";
 						isPlayable=1;

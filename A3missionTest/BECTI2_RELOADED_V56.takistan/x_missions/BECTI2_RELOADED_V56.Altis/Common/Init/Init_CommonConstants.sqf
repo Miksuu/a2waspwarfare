@@ -484,6 +484,8 @@ CTI_ARTY_SCRIPTBLACKLIST=["CUP_O_2b14_82mm_RU",'CUP_B_M252_USMC','CUP_B_L16A2_BA
 //--- Damage COEFF for all units
 
 	SCALE_DAMAGE_COEFF= 1.5;
+
+	Terraindamage_Scale_COEFF=0.1;
 	
 //--- Zeta Cargo by Benny.
 

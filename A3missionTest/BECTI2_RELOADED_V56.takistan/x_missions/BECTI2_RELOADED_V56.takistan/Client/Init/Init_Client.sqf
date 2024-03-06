@@ -724,9 +724,9 @@ if ((getPlayerUID player in cti_RESERVEDUIDS)) then {
 (player) Call cti_SK_FNC_Apply;
 
 //add a2 like weapontoogle
-player addAction [(localize "STR_BECTI2_toogle_primary"),{_state=player weaponState (primaryWeapon player);player selectWeapon [_state#0, _state#1, _state#2];},[],0.5,false,true,'','(((primaryWeapon player)!="") && ((currentWeapon player)!=(primaryWeapon player)))'];
-player addAction [(localize "STR_WF_TOOLTIP_FilterButtonSidearm"),{_state=player weaponState (handgunWeapon player);player selectWeapon [_state#0, _state#1, _state#2];},[],0.5,false,true,'','(((handgunWeapon player)!="") && ((currentWeapon player)!=(handgunWeapon player)))'];
-player addAction [(localize "STR_BECTI2_toogle_secondary"),{_state=player weaponState (secondaryWeapon player);player selectWeapon [_state#0, _state#1, _state#2];},[],0.5,false,true,'','(((secondaryWeapon player)!="") && ((currentWeapon player)!=(secondaryWeapon player)))'];
+player addAction [(localize "STR_BECTI2_toogle_primary"),{_state=player weaponState (primaryWeapon player);player selectWeapon [_state#0, _state#1, _state#2];},[],0.5,false,true,'','(((primaryWeapon player)!="") && ((currentWeapon player)!=(primaryWeapon player))&&(vehicle player==player))'];
+player addAction [(localize "STR_WF_TOOLTIP_FilterButtonSidearm"),{_state=player weaponState (handgunWeapon player);player selectWeapon [_state#0, _state#1, _state#2];},[],0.5,false,true,'','(((handgunWeapon player)!="") && ((currentWeapon player)!=(handgunWeapon player))&&(vehicle player==player))'];
+player addAction [(localize "STR_BECTI2_toogle_secondary"),{_state=player weaponState (secondaryWeapon player);player selectWeapon [_state#0, _state#1, _state#2];},[],0.5,false,true,'','(((secondaryWeapon player)!="") && ((currentWeapon player)!=(secondaryWeapon player))&&(vehicle player==player))'];
 
 
 //camp repair

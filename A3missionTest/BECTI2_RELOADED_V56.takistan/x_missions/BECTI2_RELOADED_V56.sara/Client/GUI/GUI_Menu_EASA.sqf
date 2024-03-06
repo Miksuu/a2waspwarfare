@@ -699,7 +699,7 @@ while {alive player && dialog} do {
 				//_parentslist=[ configFile >> 'CfgAmmo' >> _ammoclass, true ] call BIS_fnc_returnParents; 
 				//_STRparents= str _parentslist;
 				
-				//_STR_Mag_class=str _x;
+				_STR_Mag_class=str _x;
 				
 				//_tSubtext= format['%1<br/>%2<br/>%3<br/>%4',_locktype2,_hit2,_hiti2,_Lockrange]];
 				
@@ -723,8 +723,8 @@ while {alive player && dialog} do {
 				//,toString [13, 10]
 				//,_STRparents
 				
-				//,toString [13, 10]
-				//,_STR_Mag_class
+				,toString [13, 10]
+				,_STR_Mag_class
 				
 				
 				];

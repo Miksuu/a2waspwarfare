@@ -38,8 +38,14 @@ _c=_unit in OUTSIDE_SYNC_ECM_AREA_VEHICLES;//need be case handled
 _d=_unit in ECM_SYNC_AREA_VEHICLES;//everytime
 
 
-_case1=(_a==_c);//true if inf fire from in to out
-_case2=(_b==_c);//true if veh fire from in to out
+//_case1=(_a==_c);//true if inf fire from in to out
+//_case2=(_b==_c);//true if veh fire from in to out
+
+//fixed false==false
+_case1=((_a==_c)&&(_a==true));//true if inf fire from in to out
+_case2=((_b==_c)&&(_b==true));//true if veh fire from in to out
+
+
 
 //['chat',ECM_SYNC_AREA_UNITS] remoteExecCall ["cti_CL_FNC_LocalizeMessage"];
 
