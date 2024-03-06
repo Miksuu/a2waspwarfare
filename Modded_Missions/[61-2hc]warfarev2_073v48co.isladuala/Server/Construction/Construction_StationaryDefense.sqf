@@ -11,7 +11,6 @@ _sideID = (_side) Call GetSideID;
 
 _area = [_position,((_side) Call WFBE_CO_FNC_GetSideLogic) getVariable "wfbe_basearea"] Call WFBE_CO_FNC_GetClosestEntity4; hintsilent format ["%1",_area];
 _availweapons = _area getVariable "weapons";
-["DEBUG", Format ["Construction_StationaryDefense.sqf: Area [%1] | Available Weapons [%2]", _area, _availweapons]] Call WFBE_CO_FNC_LogContent;
 
 _defense = createVehicle [_type, _position, [], 0, "NONE"];
 _defense setDir _direction;
@@ -72,7 +71,6 @@ _defense addEventHandler ['handleDamage',{if ((_this select 4) isKindOf "BulletB
 
 Call Compile Format ["_defense addEventHandler ['Killed',{[_this select 0,_this select 1,%1] Spawn WFBE_CO_FNC_OnUnitKilled}]",_sideID];
 
-// Insert a fix for the repair truck building, causing _area and availweapons to be null
 if (!isNull _area) {
 	if (_defense emptyPositions "gunner" > 0 && (((missionNamespace getVariable "WFBE_C_BASE_DEFENSE_MAX_AI") > 0) || _isAIQuery)) then {
 		Private ["_alives","_check","_closest","_team"];
@@ -96,8 +94,6 @@ if (!isNull _area) {
 				_buildings = (_side) Call WFBE_CO_FNC_GetSideStructures;
 				_closest = ['BARRACKSTYPE',_buildings,_manRange,_side,_defense] Call BuildingInRange;
 
-				["DEBUG", Format ["Construction_StationaryDefense.sqf: [%1] | [%2] | [%3]", _buildings, _closest, alive _closest]] Call WFBE_CO_FNC_LogContent;
-
 				//--- Manning Defenses.
 				if (alive _closest) then {
 					[_defense,_side,_team,_closest] Spawn HandleDefense;
@@ -105,18 +101,16 @@ if (!isNull _area) {
 			};
 		};
 	};
-};
 
-
-
-if ((missionNamespace getVariable "WFBE_C_ARTILLERY_UI") > 0) then {
-	Private ["_isAC","_isVeh"];
-	_isVeh = getNumber(configFile >> "CfgVehicles" >> typeOf(_defense) >> "ARTY_IsArtyVehicle");
-	_isAC = getNumber(configFile >> "CfgVehicles" >> typeOf(_defense) >> "artilleryScanner");
-	if (_isVeh == 1 || _isAC == 1) then {
-		_defense setVehicleInit "[this] ExecVM 'Common\Common_InitArtillery.sqf'";
-		processInitCommands;
-		["INFORMATION", Format ["Construction_StationaryDefense.sqf: [%1] Artillery [%2] has been given the BIS ARTY UI interface.", str _side, _type]] Call WFBE_CO_FNC_LogContent;
+	if ((missionNamespace getVariable "WFBE_C_ARTILLERY_UI") > 0) then {
+		Private ["_isAC","_isVeh"];
+		_isVeh = getNumber(configFile >> "CfgVehicles" >> typeOf(_defense) >> "ARTY_IsArtyVehicle");
+		_isAC = getNumber(configFile >> "CfgVehicles" >> typeOf(_defense) >> "artilleryScanner");
+		if (_isVeh == 1 || _isAC == 1) then {
+			_defense setVehicleInit "[this] ExecVM 'Common\Common_InitArtillery.sqf'";
+			processInitCommands;
+			["INFORMATION", Format ["Construction_StationaryDefense.sqf: [%1] Artillery [%2] has been given the BIS ARTY UI interface.", str _side, _type]] Call WFBE_CO_FNC_LogContent;
+		};
 	};
 };
 
