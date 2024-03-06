@@ -65,10 +65,7 @@ if ((!isNull _killer) && (isPlayer _killer)) then
        _score = _score * 3;
 
        // Change the score of the leader of the group upon killing a factory
-       
-       (leader _killerGroup) addScore _score;
-       
-       // ['SRVFNCREQUESTCHANGESCORE',[leader _killerGroup, score leader _killerGroup + _score]] Spawn WFBE_SE_FNC_HandlePVF;
+       ['SRVFNCREQUESTCHANGESCORE',[leader _killerGroup, score leader _killerGroup + _score]] Spawn WFBE_SE_FNC_HandlePVF;
     };
 };
 

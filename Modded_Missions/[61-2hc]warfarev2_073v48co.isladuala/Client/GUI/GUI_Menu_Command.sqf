@@ -332,7 +332,7 @@ while {alive player && dialog} do {
 					_selected = clientTeams select (_x - 1);
 					if (alive (leader _selected) && isPlayer(leader _selected)) then {
 						// if (WF_A2_Vanilla) then {
-							[getPlayerUID(leader _selected), "SetTask", [_taskType,_taskTime,_taskTimeLabel,_position]] Call WFBE_CO_FNC_SendToClients;
+							// [getPlayerUID(leader _selected), "SetTask", [_taskType,_taskTime,_taskTimeLabel,_position]] Call WFBE_CO_FNC_SendToClients;
 						// } else {
 							// [leader _selected, "SetTask", [_taskType,_taskTime,_taskTimeLabel,_position]] Call WFBE_CO_FNC_SendToClient;
 						// };
