@@ -674,6 +674,7 @@ if (isnil "IL_Variables") then
 	
 	,"cwr3_i_spg9"	
 	,"cwr3_i_zu23"
+	,"CUP_B_RBS70_HIL"
 //RU	
 	,"O_Quadbike_01_F"	
 	,"pook_MRK27BT"	
@@ -707,6 +708,9 @@ if (isnil "IL_Variables") then
 	
 	
 	,"CUP_O_ZU23_RU"
+	
+	,"cwr3_o_zu23"
+	
 	,"pook_ZU23_base"
 	,"pook_ZU23M_base"		
 //UK_US
@@ -1993,7 +1997,7 @@ if (isnil "IL_Procedures") then
 			sleep 0.25;
 		};
 		
-
+		
 		
 		_obj AttachTo [_veh, _to];
 		
@@ -2160,7 +2164,13 @@ if (isnil "IL_Procedures") then
 		_counter = 0;
 		_done = false;
 		_turn = false;
-
+		
+		//prevent despawn of wrecks if loaded and ai is driver (needed for supersalvage function if implemented)
+		
+		if (damage _v==1)then{//check arma wreckmanager and remove it
+		if (isInRemainsCollector _v) then {
+		removeFromRemainsCollector [_v];};
+		};
 		
 
 		if ((_obj_type in IL_Supported_Vehicles_MAZ) && (_doors == "B")) then
@@ -2659,6 +2669,13 @@ if (isnil "IL_Procedures") then
 		_turn = false;
 		_skip = true;
 		_obj_lst = [];
+
+		//get it to despawnlist again (needed for supersalvage function if implemented)
+		
+		if (damage _v==1)then{//check arma wreckmanager and remove it
+		if !(isInRemainsCollector _v) then {
+		addToRemainsCollector  [_v];};
+		};
 
 		_obj_type = (typeOf _v);
 

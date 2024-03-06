@@ -37,7 +37,13 @@ while {alive _vehicle} do {
 	sleep 20;
 	
 	_timer = if (({alive _x} count crew _vehicle) > 0) then {0} else {_timer + 20};
-	if (_timer > _delay) exitWith {deleteVehicle _vehicle};
+	if (_timer > _delay) exitWith {
+	
+	//maybe dead ai dont count,just be sure here
+	//deleteVehicle _vehicle//2024_0227
+	_vehicle call CTI_CO_FNC_DELETE
+	
+	};
 };
 
 _index = emptyQueu find _vehicle;

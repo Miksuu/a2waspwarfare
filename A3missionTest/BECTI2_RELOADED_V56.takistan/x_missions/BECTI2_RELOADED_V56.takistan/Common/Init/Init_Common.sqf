@@ -5,6 +5,9 @@ Private ['_count'];
 // only used in common_getteamartillery.sqf
 CTI_CO_FNC_ArrayPush = compileFinal preprocessFileLineNumbers "Common\Functions\Common_ArrayPush.sqf";
 
+// delete condition (local ghost fix)-for replace all deleteVehicle stuff 
+CTI_CO_FNC_DELETE= Compile preprocessFile "Common\Functions\Common_Delete.sqf";
+
 
 // mapmarkerfix
 

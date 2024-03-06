@@ -1,213 +1,32 @@
-//gui patch added by 0=1
-/*
-profilenamespace setvariable ['map_blufor_b',0.6]; 
-profilenamespace setvariable ['map_independent_a',1.0]; 
-profilenamespace setvariable ['map_unknown_presetdefault',"PresetA3"]; 
-profilenamespace setvariable ['map_unknown_b',0.0];
-profilenamespace setvariable ['igui_grid_stance_x',1.1738367]; 
-profilenamespace setvariable ['igui_grid_vehicle_y',-0.08675383]; 
-profilenamespace setvariable ['igui_grid_bar_y',0.9082354]; 
-profilenamespace setvariable ['igui_grid_comm_x',-0.28267977]; 
-profilenamespace setvariable ['igui_grid_gaugestability_x',0.6275]; 
-profilenamespace setvariable ['igui_grid_mission_y',0.6682354]; 
-profilenamespace setvariable ['gui_grid_center_x',-0.099999994]; 
-profilenamespace setvariable ['rscdisplayconfigure_cursel',0.0];
-profilenamespace setvariable ['igui_tactping_rgb_a',1.0]; 
-profilenamespace setvariable ['map_blufor_r',0.0];
-profilenamespace setvariable ['map_independent_b',0.0];
-profilenamespace setvariable ['map_unknown_r',0.7];
-profilenamespace setvariable ['subtitles_text_presetdefault',"White"]; 
-profilenamespace setvariable ['igui_grid_stance_y',-0.087843135]; 
-profilenamespace setvariable ['igui_grid_comm_y',0.24901968];
-profilenamespace setvariable ['igui_grid_gaugestability_y',0.6202354];
-profilenamespace setvariable ['igui_grid_custominforight_w',0.3]; 
-profilenamespace setvariable ['igui_grid_custominforight_h',0.39999998];
-profilenamespace setvariable ['gui_grid_center_y',0.0]; 
-profilenamespace setvariable ['igui_bcg_rgb_g',0.2588]; 
-profilenamespace setvariable ['igui_text_rgb_preset',"PresetA2"];
-profilenamespace setvariable ['igui_tactping_rgb_b',0.2];
-profilenamespace setvariable ['map_independent_presetdefault',"PresetA3"];
-profilenamespace setvariable ['map_independent_r',0.0]; 
-profilenamespace setvariable ['map_unknown_preset',"PresetA3"]; 
-profilenamespace setvariable ['subtitles_text_g',1.0]; 
-profilenamespace setvariable ['igui_grid_custominforight_x',-0.2839542];
-profilenamespace setvariable ['iguipresetdefault',"Arma3"];
-profilenamespace setvariable ['igui_warning_rgb_presetdefault',"PresetA3"];
-profilenamespace setvariable ['igui_tactping_rgb_r',1.0];
-profilenamespace setvariable ['map_blufor_presetdefault',"PresetA3"];
-profilenamespace setvariable ['igui_grid_custominforight_y',0.078300744];
-profilenamespace setvariable ['guipresetdefault',"Arma3"];
-profilenamespace setvariable ['igui_grid_gaugealt_w',0.0];
-profilenamespace setvariable ['igui_grid_gaugealt_h',0.0];
-profilenamespace setvariable ['igui_tactping_rgb_presetdefault',"PresetA3"];
-profilenamespace setvariable ['igui_tactping_rgb_preset',"PresetA2"];
-profilenamespace setvariable ['map_blufor_preset',"PresetA3"];
-profilenamespace setvariable ['igui_grid_gaugealt_x',0.14749998]; 
-profilenamespace setvariable ['rscdisplaygameoptions_listtagscursel',0.0]; 
-profilenamespace setvariable ['igui_grid_notification_w',0.0]; 
-profilenamespace setvariable ['igui_grid_notification_h',0.0]; 
-profilenamespace setvariable ['igui_grid_gaugecompass_w',0.0]; 
-profilenamespace setvariable ['igui_grid_gaugecompass_h',0.0]; 
-profilenamespace setvariable ['igui_warning_rgb_a',1.0];
-profilenamespace setvariable ['igui_error_rgb_preset',"PresetA2"]; 
-profilenamespace setvariable ['gui_bcg_rgb_a',0.8]; 
-profilenamespace setvariable ['map_blufor_g',0.3];
-profilenamespace setvariable ['map_civilian_presetdefault',"PresetA3"]; 
-profilenamespace setvariable ['map_civilian_a',1.0]; 
-profilenamespace setvariable ['map_unknown_g',0.6];
-profilenamespace setvariable ['igui_grid_notification_x',0.32]; 
-profilenamespace setvariable ['igui_grid_gaugealt_y',0.6202354]; 
-profilenamespace setvariable ['igui_grid_gaugecompass_x',0.8675]; 
-profilenamespace setvariable ['iguipreset',""];
-profilenamespace setvariable ['igui_text_rgb_a',1.0];
-profilenamespace setvariable ['igui_warning_rgb_b',0.0]; 
-profilenamespace setvariable ['igui_error_rgb_a',1.0]; 
-profilenamespace setvariable ['gui_bcg_rgb_b',0.08];
-profilenamespace setvariable ['gui_titletext_rgb_presetdefault',"PresetRCgold"]; 
-profilenamespace setvariable ['map_independent_g',0.5]; 
-profilenamespace setvariable ['map_civilian_b',0.5];
-profilenamespace setvariable ['igui_grid_notification_y',0.17176467]; 
-profilenamespace setvariable ['igui_grid_gaugecompass_y',0.6202354]; 
-profilenamespace setvariable ['igui_grid_gaugehorizon_w',0.0]; 
-profilenamespace setvariable ['igui_grid_gaugehorizon_h',0.0];
-profilenamespace setvariable ['igui_bcg_rgb_presetdefault',"PresetA3"]; 
-profilenamespace setvariable ['igui_text_rgb_b',0.47];
-profilenamespace setvariable ['igui_warning_rgb_r',0.863];
-profilenamespace setvariable ['igui_error_rgb_presetdefault',"PresetA3"]; 
-profilenamespace setvariable ['igui_error_rgb_b',0.0196]; 
-profilenamespace setvariable ['igui_tactping_rgb_g',0.8]; 
-profilenamespace setvariable ['gui_bcg_rgb_r',0.035628892]; 
-profilenamespace setvariable ['gui_titletext_rgb_a',1.0];
-profilenamespace setvariable ['map_opfor_presetdefault',"PresetA3"]; 
-profilenamespace setvariable ['map_opfor_a',1.0];
-profilenamespace setvariable ['map_civilian_r',0.4];
-profilenamespace setvariable ['subtitles_background_preset',"White"]; 
-profilenamespace setvariable ['subtitles_background_a',0.0];
-profilenamespace setvariable ['igui_grid_gaugehorizon_x',0.38750002]; 
-profilenamespace setvariable ['guipreset',""];
-profilenamespace setvariable ['igui_grid_custominfoleft_w',0.3];
-profilenamespace setvariable ['igui_grid_custominfoleft_h',0.39999998]; 
-profilenamespace setvariable ['igui_text_rgb_presetdefault',"PresetA3"]; 
-profilenamespace setvariable ['igui_text_rgb_r',0.6];
-profilenamespace setvariable ['igui_error_rgb_r',0.706]; 
-profilenamespace setvariable ['gui_titletext_rgb_b',0.0];
-profilenamespace setvariable ['map_opfor_preset',"PresetA3"]; 
-profilenamespace setvariable ['map_opfor_b',0.0];
-profilenamespace setvariable ['subtitles_background_b',0.0];
-profilenamespace setvariable ['igui_grid_gaugehorizon_y',0.6202354]; 
-profilenamespace setvariable ['igui_grid_custominfoleft_x',0.9872224]; 
-profilenamespace setvariable ['igui_grid_hint_w',0.0]; 
-profilenamespace setvariable ['igui_grid_hint_h',0.0]; 
-profilenamespace setvariable ['igui_grid_menu_w',0.135]; 
-profilenamespace setvariable ['igui_grid_menu_h',0.432];
-profilenamespace setvariable ['igui_grid_gaugespeed_w',0.0]; 
-profilenamespace setvariable ['igui_grid_gaugespeed_h',0.0]; 
-profilenamespace setvariable ['gui_titletext_rgb_r',0.0]; 
-profilenamespace setvariable ['map_opfor_r',0.5];
-profilenamespace setvariable ['subtitles_background_r',0.0]; 
-profilenamespace setvariable ['igui_grid_hint_x',0.8943138]; 
-profilenamespace setvariable ['igui_grid_menu_x',-0.28261447];
-profilenamespace setvariable ['igui_grid_gaugespeed_x',-0.09250003];
-profilenamespace setvariable ['igui_grid_custominfoleft_y',0.045621037];
-profilenamespace setvariable ['igui_grid_weapon_w',0.3];
-profilenamespace setvariable ['igui_grid_weapon_h',0.17999999];
-profilenamespace setvariable ['igui_grid_stamina_w',0.3];
-profilenamespace setvariable ['igui_grid_stamina_h',0.04];
-profilenamespace setvariable ['subtitles_background_presetdefault',"White"];
-profilenamespace setvariable ['subtitles_text_preset',"White"];
-profilenamespace setvariable ['igui_grid_weapon_x',0.8741046];
-profilenamespace setvariable ['igui_grid_stamina_x',0.333255];
-profilenamespace setvariable ['igui_grid_hint_y',0.15176468];
-profilenamespace setvariable ['igui_grid_menu_y',0.4897603];
-profilenamespace setvariable ['igui_grid_gaugespeed_y',0.6202354];
-profilenamespace setvariable ['gui_grid_w',1.2]; 
-profilenamespace setvariable ['gui_grid_h',1.0];
-profilenamespace setvariable ['igui_bcg_rgb_a',0.75];
-profilenamespace setvariable ['igui_warning_rgb_g',0.584];
-profilenamespace setvariable ['gui_bcg_rgb_preset',""];
-profilenamespace setvariable ['gui_bcg_rgb_g',0.448111]; 
-profilenamespace setvariable ['gui_titletext_rgb_preset',""];
-profilenamespace setvariable ['map_civilian_g',0.0]; 
-profilenamespace setvariable ['subtitles_text_a',1.0];
-profilenamespace setvariable ['igui_grid_weapon_y',-0.087843165];
-profilenamespace setvariable ['igui_grid_stamina_y',-0.092902005];
-profilenamespace setvariable ['igui_grid_chat_w',0.6];
-profilenamespace setvariable ['igui_grid_chat_h',0.19999999];
-profilenamespace setvariable ['gui_grid_x',-0.28431377];
-profilenamespace setvariable ['igui_bcg_rgb_b',0.149];
-profilenamespace setvariable ['igui_text_rgb_g',0.84];
-profilenamespace setvariable ['igui_error_rgb_g',0.0745]; 
-profilenamespace setvariable ['gui_bcg_rgb_presetdefault',"PresetRCgold"];
-profilenamespace setvariable ['subtitles_text_b',1.0];
-profilenamespace setvariable ['igui_grid_chat_x',-0.047614455]; 
-profilenamespace setvariable ['gui_grid_y',0.08823538]; 
-profilenamespace setvariable ['igui_bcg_rgb_preset',"PresetA2"];
-profilenamespace setvariable ['igui_bcg_rgb_r',0.1882]; 
-profilenamespace setvariable ['gui_titletext_rgb_g',0.0];
-profilenamespace setvariable ['map_opfor_g',0.0];
-profilenamespace setvariable ['map_independent_preset',"PresetA3"];
-profilenamespace setvariable ['subtitles_background_g',0.0];
-profilenamespace setvariable ['subtitles_text_r',1.0];
-profilenamespace setvariable ['igui_grid_chat_y',0.70854044];
-profilenamespace setvariable ['igui_grid_vehicle_w',0.3];
-profilenamespace setvariable ['igui_grid_vehicle_h',0.17999999]; 
-profilenamespace setvariable ['igui_grid_bar_w',0.0]; 
-profilenamespace setvariable ['igui_grid_bar_h',0.0];
-profilenamespace setvariable ['igui_grid_mission_w',0.0]; 
-profilenamespace setvariable ['igui_grid_mission_h',0.0];
-profilenamespace setvariable ['igui_warning_rgb_preset',"PresetA2"];
-profilenamespace setvariable ['map_blufor_a',1.0];
-profilenamespace setvariable ['map_civilian_preset',"PresetA3"]; 
-profilenamespace setvariable ['map_unknown_a',1.0];
-profilenamespace setvariable ['igui_grid_vehicle_x',-0.2840196]; 
-profilenamespace setvariable ['igui_grid_bar_x',-0.25431377]; 
-profilenamespace setvariable ['igui_grid_mission_x',0.6543138]; 
-profilenamespace setvariable ['gui_grid_center_w',1.2]; 
-profilenamespace setvariable ['gui_grid_center_h',1.0];
-profilenamespace setvariable ['igui_grid_stance_w',0.11100001];
-profilenamespace setvariable ['igui_grid_stance_h',0.148];
-profilenamespace setvariable ['igui_grid_comm_w',0.045];
-profilenamespace setvariable ['igui_grid_comm_h',0.59999996]; 
-profilenamespace setvariable ['igui_grid_gaugestability_w',0.0];
-profilenamespace setvariable ['igui_grid_gaugestability_h',0.0];
-*/
 
-//["<img image='PathToImageHere' />",0,0.5,99999,5,0,9459] spawn bis_fnc_dynamicText;
-//9459 cutText ["","PLAIN",0]
+/*todo
+//seems like server dont get the slotvariables from mission.sqm,so we add it here for server too
+if (isServer)then{
+_allslots=playableUnits;//[o oteamleader1,...
 
-//player need set menu scale on big now (HUD IS MADE FOR BIG SETTING)
-/*
-_uiscale= getResolution;
-_uiscale=_uiscale#5;
-if (!((_uiscale) > 0.84)|| !((_uiscale) < 0.86))  then {
-	//titleText ["PLEASE SET YOUR MENU SCALE ON BIG NOW AND JOIN AGAIN AFTER ARMA RESTART", "BLACK FADED", 20];
-	titleText ["PLEASE SET YOUR MENU SCALE ON LARGE NOW AND JOIN AGAIN AFTER ARMA RESTART", "PLAIN", 20];
-	["<img align = 'center' img size='18' image='RSC\Pictures\helppicture.paa' />",0,0,99999,5,0,9459] spawn bis_fnc_dynamicText;
-	9459 cutText ["","PLAIN",0];
-	
-	
-	sleep 20;
-	failMission "END1";
+OTeamleader1
+OTeamleader2
+OTeamleader3
+OTeamleader4
+OTeamleader5
+OEngineer1
+OEngineer2
+OEngineer3
+OEngineer4
+OEngineer5
+
+
+
+BTeamleader1,BTeamleader2,BTeamleader3,BTeamleader4,BTeamleader5,
+						,BEngineer1,BEngineer2,BEngineer3,BEngineer4,BEngineer5,
+		OMachinegunner1_1,OMachinegunner1_2,OMachinegunner2_1,OMachinegunner2_2,OMachinegunner3_1,OMachinegunner3_2,OMachinegunner4_1,OMachinegunner4_2,OMachinegunner5_1,OMachinegunner5_2,
+		BMachinegunner1_1,BMachinegunner1_2,BMachinegunner2_1,BMachinegunner2_2,BMachinegunner3_1,BMachinegunner3_2,BMachinegunner4_1,BMachinegunner4_2,BMachinegunner5_1,BMachinegunner5_2,
+		OMedic1,OMedic2,OMedic3,OMedic4,OMedic5,BMedic1,BMedic2,BMedic3,BMedic4,BMedic5,
+		OSpecOps1,OSpecOps2,OSpecOps3,OSpecOps4,OSpecOps5,BSpecOps1,BSpecOps2,BSpecOps3,BSpecOps4,BSpecOps5
+
 };
+
 */
-//set map texture off at start
-//ctrlActivate ((findDisplay 12) displayCtrl 107);
-
-
-//#define CA_UI_ACTION			{0.9,0.9,0.9,0.4}
-
-//#define COLOR_TASK_BACKGROUND_UNASSIGNED_RGB		1,1,1
-//#define COLOR_TASK_BACKGROUND_UNASSIGNED_A		1
-
-//#define CA_IGUI_GreenDark		{0.259,0.463,0.149, 1} 
-
-//#define CA_UI_element_background	Color_White
-//#define CA_UI_background		{0.6, 0.6, 0.6, 0.4}
-
-//#define COLOR_TASK_ICON_UNASSIGNED_RGB		1,1,1
-//#define COLOR_TASK_ICON_UNASSIGNED_A		0.5
-
-//end gui patch
 
 
 //--- Define which 'part' of the game to run.

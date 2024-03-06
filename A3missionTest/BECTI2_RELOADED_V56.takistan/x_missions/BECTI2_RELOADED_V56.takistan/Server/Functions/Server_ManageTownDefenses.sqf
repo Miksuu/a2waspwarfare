@@ -20,7 +20,12 @@ _sideID = (_side) Call cti_CO_FNC_GetSideID;
 		_spawn = true;
 	} else {
 		if (!alive _defense || _sideID_old != _sideID) then { //--- Remove if non-null.
-			if !(isNull _defense) then {deleteVehicle _defense};
+			if !(isNull _defense) then {
+			
+			//deleteVehicle _defense//2024_0227
+			_defense call CTI_CO_FNC_DELETE
+			
+			};
 			_spawn = true;
 		};
 	};
@@ -34,7 +39,10 @@ _sideID = (_side) Call cti_CO_FNC_GetSideID;
 	_defense = _x getVariable "cti_defense";
     if !(isNil '_defense') then {
         if (!alive _defense || (_sideID_old != -1 &&_sideID_old != _sideID)) then { //--- Remove if non-null.
-            if !(isNull _defense) then {deleteVehicle _defense};
+            if !(isNull _defense) then {
+			//deleteVehicle _defense//2024_0227
+			_defense call CTI_CO_FNC_DELETE
+			};
         };
     };
 } forEach (_town getVariable "cti_town_defenses_composition");

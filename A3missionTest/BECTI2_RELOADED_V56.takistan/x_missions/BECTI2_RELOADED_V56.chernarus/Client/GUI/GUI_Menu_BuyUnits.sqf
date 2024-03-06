@@ -529,7 +529,10 @@ if !(_isInfantry) then {
 		for "_h" from 0 to ((count _allparents)-1) do{
 		_makeAtempOBJECT=_allparents#_h createVehicle [0,0,0]; 
 		_componentsData =listvehiclesensors _makeAtempOBJECT; 
-		deleteVehicle _makeAtempOBJECT;		
+		
+		//deleteVehicle _makeAtempOBJECT;	2024_0227	
+		_makeAtempOBJECT call CTI_CO_FNC_DELETE;
+		
 		for "_i" from 0 to ((count _componentsData)-1) do{
 		_components pushBackUnique _componentsData#_i#0;
 		_components pushBackUnique _componentsData#_i#1;

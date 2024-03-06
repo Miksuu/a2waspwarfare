@@ -20,9 +20,12 @@ if(count(Headless_Client_Towns) > 0) then {
 					if !(isNull _x) then {
 						{
 							_vehicle = vehicle _x;
-							deleteVehicle _x;
+							//deleteVehicle _x;2024_0227
+							_x call CTI_CO_FNC_DELETE;
 							if!(isNil "_vehicle") then {
-								deleteVehicle _vehicle;
+							
+								//deleteVehicle _vehicle;2024_0227
+								_vehicle call CTI_CO_FNC_DELETE;
 							}
 						} forEach units _x;
 						deleteGroup _x;
@@ -32,7 +35,11 @@ if(count(Headless_Client_Towns) > 0) then {
 			} forEach _town_teams;
 			
 			{
-				if (!(isPlayer leader group _x)) then {deleteVehicle _x};
+				if (!(isPlayer leader group _x)) then {
+				
+				//deleteVehicle _x//2024_0227
+				_x call CTI_CO_FNC_DELETE
+				};
 			} forEach (_town_vehicles);
 			
 			_town setVariable ['cti_town_teams', []];

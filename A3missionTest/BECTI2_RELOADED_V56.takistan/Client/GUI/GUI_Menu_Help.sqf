@@ -116,6 +116,17 @@ Full changelog :<br/>
 - added clear mapmarker for arty (a2 bug) <br/>
 - added map follows the unit for remotecam <br/>
 - added weapontoogle with mousewheel <br/>
+- ----20240227---- <br/>
+- fixed terraindamage (terrain damage scaled with 0.1 atm) <br/>
+- fixed weapontoogle option inside of vehicle <br/>
+- added soundbug replacement statics to igiload <br/>
+- local ghost ai problem should be fixed now <br/>
+- added switch to remove loaded wrecks from wreckmanager (prepare for supersalvage)<br/>
+- todo:change slotsystem to a2 solution to fix ghostslots<br/>
+- ----20240303---- <br/>
+- fixed misslelock <br/>
+- removed damage eventhandler <br/>
+- enabled classname in easa tooltip <br/>
 ",
 
 //-------------------------------------Introductions

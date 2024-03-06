@@ -182,13 +182,18 @@ if (_greenlight) then {
 	};
 } else {
 	//--- Everything failed, remove the paratroopers.
-	{deleteVehicle _x} forEach _paratroopers;
+	//{deleteVehicle _x} forEach _paratroopers;
+	
+	{_x call CTI_CO_FNC_DELETE} forEach _paratroopers;
 };
 
 //--- In any case, cleanup the transporters.
 {
-	{deleteVehicle _x} forEach crew _x;//--- Remove the crew.
-	deleteVehicle _x;//--- Remove the vehicle.
+	//{deleteVehicle _x} forEach crew _x;//--- Remove the crew.	2024_0227
+	{_x call CTI_CO_FNC_DELETE} forEach crew _x;
+	
+	//deleteVehicle _x;//--- Remove the vehicle. 2024_0227
+	_x call CTI_CO_FNC_DELETE;
 } forEach _vehicles;
 
 //---- Clear the group.

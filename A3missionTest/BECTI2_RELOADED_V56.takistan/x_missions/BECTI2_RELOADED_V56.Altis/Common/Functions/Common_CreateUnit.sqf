@@ -55,14 +55,22 @@ if (_global) then {
 
 //if (_side == cti_DEFENDER_ID) then {
 if (isServer) then {
+/*need fix
 _unit 	addEventHandler ["HandleDamage", {  
 	params ["_unit", "_selection", "_damage", "_source", "_projectile", "_hitIndex", "_instigator", "_hitPoint", "_directHit"]; 
 	
-	_damage =_damage * SCALE_DAMAGE_COEFF; 
-	
-	_damage 
-	  }];
 
+	private _s=side _source;
+	
+	if ((_s== resistance)||(_s==east)||(_s==west))then{
+	_damage =_damage * SCALE_DAMAGE_COEFF; 
+	_damage
+	}else{//its terraindamage
+	_damage =_damage * Terraindamage_Scale_COEFF; 
+	_damage
+	};
+	  }];
+*/
 
 };
 
