@@ -73,8 +73,7 @@ _defense addEventHandler ['handleDamage',{if ((_this select 4) isKindOf "BulletB
 Call Compile Format ["_defense addEventHandler ['Killed',{[_this select 0,_this select 1,%1] Spawn WFBE_CO_FNC_OnUnitKilled}]",_sideID];
 
 // Insert a fix for the repair truck building, causing _area and availweapons to be null
-if (!(isNull _area)) 
-{
+if (!isNull _area) {
 	if (_defense emptyPositions "gunner" > 0 && (((missionNamespace getVariable "WFBE_C_BASE_DEFENSE_MAX_AI") > 0) || _isAIQuery)) then {
 		Private ["_alives","_check","_closest","_team"];
 		_team = _area getVariable "DefenseTeam";
