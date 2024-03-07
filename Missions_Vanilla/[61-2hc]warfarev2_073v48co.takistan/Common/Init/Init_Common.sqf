@@ -3,6 +3,7 @@
 Private ['_count'];
 
 // --- additional handlers
+HandleBombDrop = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleBombDrop.sqf";
 HandleRocketTraccer = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleRocketTracer.sqf";
 HandleCommanderReload = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleCommanderReload.sqf";
 HandleReload = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleReload.sqf";
