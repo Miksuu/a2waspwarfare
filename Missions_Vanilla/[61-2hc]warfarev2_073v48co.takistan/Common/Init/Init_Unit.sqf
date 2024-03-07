@@ -100,6 +100,9 @@ if (_unit isKindOf "Air") then { //--- Air units.
 
 	if (_unit isKindOf "Plane") then { //--- Planes.
 		_unit addAction [localize "STR_WF_TaxiReverse","Client\Action\Action_TaxiReverse.sqf", [], 92, false, true, "", 'driver _target == _this && alive _target && speed _target < 4 && speed _target > -4 && getPos _target select 2 < 4'];
+
+		// Remove mk82's and fab250s that reach over 3000 meters
+		_unit addEventHandler ['Fired',{_this spawn HandleBombDrop;}];
 	};
 };
 
