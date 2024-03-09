@@ -26,6 +26,9 @@ if !(isNil '_bd') then {
 _timeStart = time;
 _ran = round(random((count _ranPos)-1));
 _grp = createGroup _side;
+
+["DEBUG (Support_ParaAmbu.sqf)", Format ["%1 | %2", [missionNamespace getVariable Format ["WFBE_%1PARAAMBU",str _side], [str _side]]]] Call WFBE_CO_FNC_LogContent;
+
 _vehicle = createVehicle [missionNamespace getVariable Format ["WFBE_%1PARAAMBU",str _side],(_ranPos select _ran), [], (_ranDir select _ran), "FLY"];
 [str _side,'VehiclesCreated',1] Call UpdateStatistics;
 [str _side,'UnitsCreated',1] Call UpdateStatistics;
@@ -42,7 +45,7 @@ _vehicle setVehicleInit Format["[this,%1] ExecVM 'Common\Init\Init_Unit.sqf';",_
 processInitCommands;
 _vehicle flyInHeight (300 + random(75));
 _cargo = (crew _vehicle) - [driver _vehicle, gunner _vehicle, commander _vehicle];
-_cargoVehicle = [missionNamespace getVariable Format ["WFBE_%1PARAAMBU", _side], [0,0,50] ,_sideID, 0, false] Call WFBE_CO_FNC_CreateVehicle;
+_cargoVehicle = [missionNamespace getVariable Format ["WFBE_%1PARAVEHICARGO", _side], [0,0,50] ,_sideID, 0, false] Call WFBE_CO_FNC_CreateVehicle;
 _cargoVehicle attachTo [_vehicle,[0,0,-3]];
 
 emptyQueu = emptyQueu + [_cargoVehicle];
