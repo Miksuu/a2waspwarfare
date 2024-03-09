@@ -43,9 +43,9 @@ missionNamespace setVariable [Format["WFBE_C_UPGRADES_%1_COSTS", _side], [
 	[[250,0],[650,0],[1200,0],[2100,0],[2400,0]], //--- Gear
 	[[750,0]], //--- Build Ammo
 	[[4000,0]], //--- EASA
-	[[2000,0]], //--- Supply Paradrop
+	[[2000,0],[6000,0]], //--- Paradrop
 	[[2500,0],[3500,0],[6000,0]], //--- Artillery Ammo
-	[[3000,0]], //--- IR Smoke
+	[[3000,0],[9000,0]], //--- IR Smoke
 	[[7500,0]], //--- Aircraft AA Missiles
 	[[5000,0],[12500,0]] //--- Anti Air Radar
 ]];
@@ -67,9 +67,9 @@ missionNamespace setVariable [Format["WFBE_C_UPGRADES_%1_LEVELS", _side], [
 	5, //--- Gear
 	1, //--- Build Ammo
 	1, //--- EASA
-	1, //--- Supply Paradrop
+	2, //--- Paradrop
 	3, //--- Artillery Ammo
-	1, //--- IR Smoke
+	2, //--- IR Smoke
 	1, //--- Aircraft AA Missiles
 	2  //--- Anti Air Radar
 ]];
@@ -97,13 +97,13 @@ missionNamespace setVariable [Format["WFBE_C_UPGRADES_%1_LINKS", _side], [
 	[[],[],[],[],[]], //--- Gear
 	[[WFBE_UP_GEAR,5]], //--- Build Ammo
 	[[WFBE_UP_AIR,1]], //--- EASA
-	[[WFBE_UP_AIRLIFT,1]], //--- Supply Paradrop
+	[[WFBE_UP_AIRLIFT,1],[]], //--- Paradrop
 	[
 		[[WFBE_UP_GEAR,1],[WFBE_UP_HEAVY,1]],
 		[[WFBE_UP_GEAR,2],[WFBE_UP_HEAVY,2]],
 		[[WFBE_UP_GEAR,3],[WFBE_UP_HEAVY,3]]
 	], //--- Artillery Ammo
-	[[WFBE_UP_HEAVY, 3]], //--- IR Smoke
+	[[WFBE_UP_HEAVY, 3],[]], //--- IR Smoke
 	[[WFBE_UP_AIR, 3]], //--- Aircraft AA Missiles
 	[[],[]] //--- Anti Air Radar
 ]];
@@ -125,9 +125,9 @@ missionNamespace setVariable [Format["WFBE_C_UPGRADES_%1_TIMES", _side], [
 	[25,50,75,100,125], //--- Gear
 	[40], //--- Build Ammo
 	[90], //--- EASA
-	[50], //--- Supply Paradrop
+	[50,100], //--- Paradrop
 	[60,120,180], //--- Artillery Ammo
-	[120], //--- IR Smoke
+	[120,180], //--- IR Smoke
 	[120], //--- Aircraft AA Missiles
 	[50,125] //--- Anti Air Radar
 ]];

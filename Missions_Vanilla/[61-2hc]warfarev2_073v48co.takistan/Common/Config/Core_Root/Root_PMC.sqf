@@ -27,7 +27,7 @@ missionNamespace setVariable [Format["WFBE_%1PARACHUTELEVEL3", _side],['Soldier_
 missionNamespace setVariable [Format["WFBE_%1PARACARGO", _side], 'Ka60_PMC'];//--- Paratroopers, Vehicle.
 missionNamespace setVariable [Format["WFBE_%1REPAIRTRUCK", _side], 'V3S_Repair_TK_GUE_EP1'];//--- Repair Truck model.
 missionNamespace setVariable [Format["WFBE_%1STARTINGVEHICLES", _side], ['V3S_TK_GUE_EP1','Offroad_DSHKM_TK_GUE_EP1']];//--- Starting Vehicles.
-missionNamespace setVariable [Format["WFBE_%1PARAAMMO", _side], ['TKBasicAmmunitionBox_EP1','TKBasicWeapons_EP1','TKLaunchers_EP1']];//--- Supply Paradropping, Dropped Ammunition.
+missionNamespace setVariable [Format["WFBE_%1PARAAMBU", _side], ['V3S_TK_GUE_EP1']];//--- Supply Paradropping, Dropped Ambulance
 missionNamespace setVariable [Format["WFBE_%1PARAVEHICARGO", _side], 'SUV_PMC'];//--- Supply Paradropping, Dropped Vehicle.
 missionNamespace setVariable [Format["WFBE_%1PARAVEHI", _side], 'Ka60_PMC'];//--- Supply Paradropping, Vehicle
 missionNamespace setVariable [Format["WFBE_%1PARACHUTE", _side], 'ParachuteMediumEast_EP1'];//--- Supply Paradropping, Parachute Model.
