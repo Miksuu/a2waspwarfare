@@ -42,7 +42,7 @@ _vehicle setVehicleInit Format["[this,%1] ExecVM 'Common\Init\Init_Unit.sqf';",_
 processInitCommands;
 _vehicle flyInHeight (300 + random(75));
 _cargo = (crew _vehicle) - [driver _vehicle, gunner _vehicle, commander _vehicle];
-_cargoVehicle = [missionNamespace getVariable Format ["WFBE_%1PARAAMBU", _side], [0,0,50] ,_sideID, 0, false] Call WFBE_CO_FNC_CreateVehicle;
+_cargoVehicle = [missionNamespace getVariable Format ["WFBE_%1PARAVEHICARGO", _side], [0,0,50] ,_sideID, 0, false] Call WFBE_CO_FNC_CreateVehicle;
 _cargoVehicle attachTo [_vehicle,[0,0,-3]];
 
 emptyQueu = emptyQueu + [_cargoVehicle];
