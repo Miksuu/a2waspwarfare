@@ -278,11 +278,11 @@
                 <Italian>ATTENZIONE! Un Missile Balistico intercontinentale è stato avvistato! Cinque minuti per avere un impatto!</Italian>
             </Key>
             <Key ID="STR_WF_CHAT_IRS_Deployed" >
-                <English>Deploying IR Smoke! %1 ammunitions remaining.</English>
-                <French>Déploiement de l'écran de fumée IR! %1 munitions restantes.</French>
-                <German>Deploying IR Smoke! %1 ammunitions remaining.</German>
-                <Russian>Активирована дымовая защита! %1 зарядов осталось.</Russian>
-                <Italian>Deploying IR Smoke! %1 ammunitions remaining.</Italian>
+                <English>Incoming missile, deploying IR Smoke! %1 ammunitions remaining.</English>
+                <French>Missile entrant, déploiement de fumée IR ! %1 munitions restantes.</French>
+                <German>Eingehende Rakete, IR-Rauch wird ausgelöst! Noch %1 Munition übrig.</German>
+                <Russian>Входящая ракета, развертывание ИК дыма! Осталось боеприпасов: %1.</Russian>
+                <Italian>Missile in arrivo, dispiegamento fumo IR! Munizioni rimanenti: %1.</Italian>
             </Key>
             <Key ID="STR_WF_CHAT_Penalty">
                 <English>$%1 Lost for a civilian neutralization! Go to the ophthalmologist...</English>
@@ -3748,11 +3748,11 @@
                 <Italian>This upgrade unlocks EASA.&lt;br/&gt;&lt;br/&gt;This allows the team using EASA to change the primary loadout of aircraft.&lt;br/&gt; - Bomb&lt;br/&gt; - AT Guided Missile&lt;br/&gt; - AA Guided Missile</Italian>
             </Key>
             <Key ID="STR_WF_UPGRADE_IRS_Desc" >
-                <English>The IR smoke improve the current smoke deployment system.&lt;br/&gt;&lt;br/&gt; All vehicles equiped with this system have a chance to dodge IR Locked projectile as long as they remain in the deployed smoke.</English>
-                <French>L'écran de fumée IR améliore les véhicules disposant d'un système de déploiement de fumée standard.&lt;br/&gt;&lt;br/&gt; Tout véhicule équipé de ce système a une chance d'éviter les projectiles IR tant qu'il reste dans l'écran de fumée.</French>
-                <German>The IR smoke improve the current smoke deployment system.&lt;br/&gt;&lt;br/&gt; All vehicles equiped with this system have a chance to dodge IR Locked projectile as long as they remain in the deployed smoke.</German>
-                <Russian>The IR smoke improve the current smoke deployment system.&lt;br/&gt;&lt;br/&gt; All vehicles equiped with this system have a chance to dodge IR Locked projectile as long as they remain in the deployed smoke.</Russian>
-                <Italian>The IR smoke improve the current smoke deployment system.&lt;br/&gt;&lt;br/&gt; All vehicles equiped with this system have a chance to dodge IR Locked projectile as long as they remain in the deployed smoke.</Italian>
+                <English>The IR smoke improve the current smoke deployment system.&lt;br/&gt;&lt;br/&gt; All vehicles equiped with this system have a chance to dodge IR Locked projectile as long as they remain in the deployed smoke.&lt;br/&gt; - Features per level:&lt;br/&gt;   Level 0 = No smoke/warning&lt;br/&gt;   Level 1 = 3 charges of smoke and single audio warning upon missile launch&lt;br/&gt;   Level 2 = 6 charges of smoke and continious audio warning while missile is guiding towards you.</English>
+                <French>Le fumigène IR améliore le système actuel de déploiement de fumée.&lt;br/&gt;&lt;br/&gt; Tous les véhicules équipés de ce système ont une chance d'éviter les projectiles verrouillés par IR tant qu'ils restent dans la fumée déployée.&lt;br/&gt; - Caractéristiques par niveau :&lt;br/&gt;   Niveau 0 = Pas de fumée/avertissement&lt;br/&gt;   Niveau 1 = 3 charges de fumée et un avertissement sonore unique lors du lancement du missile&lt;br/&gt;   Niveau 2 = 6 charges de fumée et avertissement sonore continu tant que le missile vous guide.</French>
+                <German>Der IR-Rauch verbessert das aktuelle Rauchverteilungssystem.&lt;br/&gt;&lt;br/&gt; Alle Fahrzeuge, die mit diesem System ausgestattet sind, haben die Chance, IR-gesperrte Projektile zu umgehen, solange sie im ausgestoßenen Rauch bleiben.&lt;br/&gt; - Merkmale pro Stufe:&lt;br/&gt;   Stufe 0 = Kein Rauch/Warnung&lt;br/&gt;   Stufe 1 = 3 Rauchladungen und eine einzelne akustische Warnung beim Raketenstart&lt;br/&gt;   Stufe 2 = 6 Rauchladungen und kontinuierliche akustische Warnung, während die Rakete auf Sie zusteuert.</German>
+                <Russian>Дымовая завеса ИК улучшает текущую систему развертывания дыма.&lt;br/&gt;&lt;br/&gt; Все транспортные средства, оснащенные этой системой, имеют шанс уклониться от захваченных ИК-проекторов, пока они остаются в развернутом дыму.&lt;br/&gt; - Особенности на каждом уровне:&lt;br/&gt;   Уровень 0 = Нет дыма/предупреждения&lt;br/&gt;   Уровень 1 = 3 заряда дыма и одно звуковое предупреждение при запуске ракеты&lt;br/&gt;   Уровень 2 = 6 зарядов дыма и непрерывное звуковое предупреждение, пока ракета направляется к вам.</Russian>
+                <Italian>Il fumo IR migliora l'attuale sistema di dispiegamento del fumo.&lt;br/&gt;&lt;br/&gt; Tutti i veicoli dotati di questo sistema hanno la possibilità di schivare proiettili bloccati da IR finché rimangono nel fumo dispiegato.&lt;br/&gt; - Caratteristiche per livello:&lt;br/&gt;   Livello 0 = Nessun fumo/avviso&lt;br/&gt;   Livello 1 = 3 cariche di fumo e un unico avviso audio al lancio del missile&lt;br/&gt;   Livello 2 = 6 cariche di fumo e avviso audio continuo mentre il missile è in fase di guida verso di te.</Italian>
             </Key>
             <!--UnitCamera Menu - ALL DONE-->
             <Key ID="STR_WF_UNITCAM_CamMode">
