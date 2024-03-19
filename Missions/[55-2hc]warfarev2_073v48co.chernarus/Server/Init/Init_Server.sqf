@@ -85,7 +85,6 @@ WFBE_SE_PV_RequestSupplyValue = Call Compile preprocessFileLineNumbers "Server\F
 //--- Define Headless Client functions (server ones).
 if (ARMA_VERSION >= 162 && ARMA_RELEASENUMBER >= 101334 || ARMA_VERSION > 162) then {
 	WFBE_CO_FNC_DelegateAITownHeadless = Compile preprocessFileLineNumbers "Server\Functions\Server_DelegateAITownHeadless.sqf";
-	WFBE_CO_FNC_DelegateAIHeadless = Compile preprocessFileLineNumbers "Server\Functions\Server_DelegateAIHeadless.sqf";
 	WFBE_CO_FNC_DelegateAIStaticDefenceHeadless = Compile preprocessFileLineNumbers "Server\Functions\Server_DelegateAIStaticDefenceHeadless.sqf";
 };
 
@@ -486,8 +485,6 @@ _barrack_amount = 0;
 //     _barrack_amount = 0;
 // };
 
-ResBuyUnit = Compile preprocessFile "Server\Functions\Server_ResBuyUnit.sqf";
-
 _start_position_array = [];
 
 // if (IS_chernarus_map_dependent) then {
@@ -557,18 +554,6 @@ _selected_pos_array = [];
 for [{_c = 0},{_c < _barrack_amount},{_c = _c + 1}] do {
 	_startG = _start_position_array select (random (count(_start_position_array)));
 	_selected_pos_array = _selected_pos_array + [_startG];
-};
-
-for [{_count = 0},{_count < _barrack_amount},{_count = _count + 1}] do {
-
-	[resistance,_selected_pos_array select _count, _count] spawn {
-		_side = _this select 0;
-		_startLoc = _this select 1;
-		_bar_count = _this select 2;
-		[_side,_startLoc, _bar_count] ExecVM "Server\FSM\server_res_bases.sqf"
-	};
-
-	["INITIALIZATION", "Init_Server.sqf: res base is initialized."] Call WFBE_CO_FNC_LogContent;
 };
 
 _selected_pos_array = [];
