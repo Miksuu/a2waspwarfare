@@ -74,6 +74,16 @@ missionNamespace setVariable [Format["WFBE_C_UPGRADES_LABELS"], [
 	localize 'STR_WF_UPGRADE_AirAA',
 	localize 'STR_WF_UPGRADE_AntiAirRadar'
 ]];
+missionNamespace setVariable [Format["WFBE_C_Buildings_LABELS"], [
+	localize 'RB_Barracks',
+	localize 'RB_Light_Factory',
+	localize 'RB_Command_Center',
+	localize 'RB_Aircraft_factory',
+	localize 'RB_Air_Defense_Radar',
+	localize 'RB_Artillery_Radar',
+	localize 'RB_Service_Point',
+]];
+
 missionNamespace setVariable [Format["WFBE_C_UPGRADES_DESCRIPTIONS"], [
 	localize 'STR_WF_UPGRADE_barracks_Desc',
 	localize 'STR_WF_UPGRADE_lightfactory_Desc',
