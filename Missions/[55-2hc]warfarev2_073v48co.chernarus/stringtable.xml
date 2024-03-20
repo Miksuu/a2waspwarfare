@@ -4400,35 +4400,59 @@
             </Key>
             <Key ID="RB_Barracks">
                 <English>Barracks</English>
-                <Russian>Barracks</Russian>
+                <Russian>Казармы</Russian>
+                <French>Casernes</French>
+                <German>Kasernen</German>
+                <Italian>Caserme</Italian>
             </Key>
             <Key ID="RB_Light_Factory">
                 <English>Light Factory</English>
-                <Russian>Light Factory</Russian>
+                <Russian>Легкий завод</Russian>
+                <French>Usine légère</French>
+                <German>Leichtfabrik</German>
+                <Italian>Fabbrica leggera</Italian>
             </Key>
             <Key ID="RB_Heavy_Factory">
                 <English>Heavy Factory</English>
-                <Russian>Heavy Factory</Russian>
+                <Russian>Тяжелый завод</Russian>
+                <French>Usine lourde</French>
+                <German>Schwerfabrik</German>
+                <Italian>Fabbrica pesante</Italian>
             </Key>
             <Key ID="RB_Command_Center">
                 <English>Command Center</English>
-                <Russian>Command Center</Russian>
+                <Russian>Командный центр</Russian>
+                <French>Centre de commandement</French>
+                <German>Kommandozentrale</German>
+                <Italian>Centro di comando</Italian>
             </Key>
             <Key ID="RB_Aircraft_factory">
                 <English>Aircraft factory</English>
-                <Russian>Aircraft factory</Russian>
+                <Russian>Завод авиационной техники</Russian>
+                <French>Usine d'avions</French>
+                <German>Flugzeugfabrik</German>
+                <Italian>Fabbrica di aerei</Italian>
             </Key>
             <Key ID="RB_Air_Defense_Radar">
                 <English>AAR</English>
-                <Russian>AAR</Russian>
+                <Russian>РЛС ПВО</Russian>
+                <French>Radar de défense aérienne</French>
+                <German>Luftverteidigungsradar</German>
+                <Italian>Radar di difesa aerea</Italian>
             </Key>
             <Key ID="RB_Artillery_Radar">
                 <English>Artillery Radar</English>
-                <Russian>Artillery Radar</Russian>
+                <Russian>Радар артиллерии</Russian>
+                <French>Radar d'artillerie</French>
+                <German>Artillerieradar</German>
+                <Italian>Radar d'artiglieria</Italian>
             </Key>
             <Key ID="RB_Headquarters">
                 <English>Headquarters</English>
-                <Russian>Headquarters</Russian>
+                <Russian>Штаб-квартира</Russian>
+                <French>Quartier général</French>
+                <German>Hauptquartier</German>
+                <Italian>Quartier generale</Italian>
             </Key>
             <Key ID="RB_Field_Hospital">
                 <English>Field Hospital</English>
@@ -4436,7 +4460,10 @@
             </Key>
             <Key ID="RB_Service_Point">
                 <English>Service Point</English>
-                <Russian>Service Point</Russian>
+                <Russian>Пункт обслуживания</Russian>
+                <French>Point de service</French>
+                <German>Servicepunkt</German>
+                <Italian>Punto di servizio</Italian>
             </Key>
 
             <Key ID="STR_WF_PARAMETER_BuildingRestorerInterval">
