@@ -37,7 +37,9 @@ if (alive _vehicle) then {
 						} 
 						// Play the continious sound effect if the upgrade level is 2 or higher
 						else { 
-							[_projectile] spawn {							
+							[_projectile] spawn {
+							_projectile = _this select 0;
+											
 							while {!(isNull _projectile)} do {
 								playSound["inboundMissileGround_cont",true];
 								sleep 0.1;
