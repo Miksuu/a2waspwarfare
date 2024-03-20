@@ -9,4 +9,5 @@ _index = (missionNamespace getVariable Format ["WFBE_%1STRUCTURENAMES",str _side
 if (_index != -1) then {
 	_script = (missionNamespace getVariable Format ["WFBE_%1STRUCTURESCRIPTS",str _side]) select _index;
 	[_structureType,_side,_pos,_dir,_index] ExecVM (Format["Server\Construction\Construction_%1.sqf",_script]);
+	[_side, "HandleSpecial", ['building-started', _structureType]] Call WFBE_CO_FNC_SendToClients;
 };
