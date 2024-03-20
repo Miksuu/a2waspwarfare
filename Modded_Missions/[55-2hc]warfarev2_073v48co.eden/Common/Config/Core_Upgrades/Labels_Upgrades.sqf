@@ -81,7 +81,7 @@ missionNamespace setVariable [Format["WFBE_C_BUILDINGS_LABELS"], [
 	localize 'RB_Aircraft_factory',
 	localize 'RB_Air_Defense_Radar',
 	localize 'RB_Artillery_Radar',
-	localize 'RB_Service_Point',
+	localize 'RB_Service_Point'
 ]];
 
 missionNamespace setVariable [Format["WFBE_C_UPGRADES_DESCRIPTIONS"], [
