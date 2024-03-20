@@ -117,12 +117,38 @@ WFBE_CL_FNC_Upgrade_Started = {
 };
 
 WFBE_CL_FNC_Building_Started = {
-	Private ["_building"];
+	Private ["_building", "_localisedBuilding"];
 	_building = _this select 0;
 
-	["DEBUG (Client_FNC_Special.sqf)", Format ["Building: %1", _building]] Call WFBE_CO_FNC_LogContent;
+	_localisedBuilding = "";
 
-	Format[Localize "STR_WF_CHAT_Building_Started_Message", _building] Call CommandChatMessage;
+	switch (_building) do {
+		case "Barracks": {
+			_localisedBuilding = localize "RB_Barracks";
+		};
+		case "Light": {
+			_localisedBuilding = localize "RB_Light_Factory";
+		};
+		case "CommandCenter": {
+			_localisedBuilding = localize "RB_Command_Center";
+		};
+		case "Heavy": {
+			_localisedBuilding = localize "RB_Heavy_Factory";
+		};
+		case "Aircraft": {
+			_localisedBuilding = localize "RB_Aircraft_factory";
+		};
+		case "ServicePoint": {
+			_localisedBuilding = localize "RB_Service_Point";
+		};
+		case "AARadar": {
+			_localisedBuilding = localize "STR_WF_UPGRADE_AntiAirRadar";
+		};
+	};
+
+	["DEBUG (Client_FNC_Special.sqf)", Format ["Building: %1", _localisedBuilding]] Call WFBE_CO_FNC_LogContent;
+
+	Format[Localize "STR_WF_CHAT_Building_Started_Message", _localisedBuilding] Call CommandChatMessage;
 };
 
 WFBE_CL_FNC_Upgrade_Complete = {
