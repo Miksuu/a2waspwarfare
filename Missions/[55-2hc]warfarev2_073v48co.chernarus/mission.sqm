@@ -4659,24 +4659,45 @@ class Mission
 	};
 	class Markers
 	{
-		items=3;
+		items=5;
 		class Item0
 		{
-			position[]={14155.423,17.164606,2797.7344};
+			position[]={15491.06,276.31659,15198.396};
 			name="WestTempRespawnMarker";
 			type="Empty";
 		};
 		class Item1
 		{
-			position[]={13616.443,32.674095,3345.4595};
+			position[]={15404.811,268.35049,15293.424};
 			name="EastTempRespawnMarker";
 			type="Empty";
 		};
 		class Item2
 		{
-			position[]={13818.272,27.086155,3012.8872};
+			position[]={15462.453,273.34991,15264.496};
 			name="GuerTempRespawnMarker";
 			type="Empty";
+		};
+		class Item3
+		{
+			position[]={15440.639,280.58911,15237.345};
+			name="DEADSPAWNS";
+			text="DEADSPAWNS, DO NOT ENTER!!!";
+			type="mil_dot";
+			colorName="ColorRed";
+			a=4;
+			b=4;
+		};
+		class Item4
+		{
+			position[]={15439.297,280.64081,15237.346};
+			name="DEADSPAWNS_1";
+			text="DEADSPAWNS, DO NOT ENTER!!!";
+			markerType="ELLIPSE";
+			type="mil_dot";
+			colorName="ColorRed";
+			a=80;
+			b=80;
 		};
 	};
 };
