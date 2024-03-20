@@ -122,7 +122,7 @@ WFBE_CL_FNC_Building_Started = {
 
 	["DEBUG (Client_FNC_Special.sqf)", Format ["Building: %1", _building]] Call WFBE_CO_FNC_LogContent;
 
-	(Format [Localize "STR_WF_CHAT_Building_Started_Message",(missionNamespace getVariable "WFBE_C_BUILDINGS_LABELS") select _building]) Call CommandChatMessage;
+	Format[Localize "STR_WF_CHAT_Building_Started_Message", _building] Call CommandChatMessage;
 };
 
 WFBE_CL_FNC_Upgrade_Complete = {
