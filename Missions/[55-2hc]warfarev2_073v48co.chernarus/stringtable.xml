@@ -417,6 +417,13 @@
                 <Russian>%1 модернизация завершена, достигнут уровень %2.</Russian>
                 <Italian>Aggiornamento %1 Completato, %1 è ora a Livello %2.</Italian>
             </Key>
+            <Key ID="STR_WF_CHAT_Building_Started_Message">
+                <English>Construction of %1 has been started.</English>
+                <French>La construction de %1 a commencé.</French>
+                <German>Die Bauung von %1 wurde gestartet.</German>
+                <Russian>Строительство %1 началось.</Russian>
+                <Italian>La costruzione di %1 è stata avviata.</Italian>
+            </Key>
             <Key ID="STR_WF_CHAT_VoteForNewCommander">
                 <English>%1 is the Commander.</English>
                 <French>%1 est le Commandeur.</French>

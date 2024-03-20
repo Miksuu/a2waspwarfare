@@ -116,6 +116,13 @@ WFBE_CL_FNC_Upgrade_Started = {
 	(Format [Localize "STR_WF_CHAT_Upgrade_Started_Message",(missionNamespace getVariable "WFBE_C_UPGRADES_LABELS") select _upgrade, _level]) Call CommandChatMessage;
 };
 
+WFBE_CL_FNC_Building_Started = {
+	Private ["_building"];
+	_building = _this select 0;
+
+	(Format [Localize "STR_WF_CHAT_Building_Started_Message",(missionNamespace getVariable "WFBE_C_UPGRADES_LABELS") select _upgrade, _level]) Call CommandChatMessage;
+};
+
 WFBE_CL_FNC_Upgrade_Complete = {
 	Private ["_upgrade","_level"];
 	_upgrade = _this select 0;
