@@ -144,6 +144,9 @@ WFBE_CL_FNC_Building_Started = {
 		case "AARadar": {
 			_localisedBuilding = localize "STR_WF_UPGRADE_AntiAirRadar";
 		};
+		default {
+			_localisedBuilding = "Unknown";
+		};
 	};
 
 	["DEBUG (Client_FNC_Special.sqf)", Format ["Building: %1", _localisedBuilding]] Call WFBE_CO_FNC_LogContent;
