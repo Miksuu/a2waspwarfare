@@ -43,7 +43,7 @@ if (alive _vehicle) then {
 											
 							while {!(isNull _projectile)} do {
 								playSound["inboundMissileGround_cont",true];
-								sleep 0.1;
+								sleep 0.04;
 								};
 							};
 						};
