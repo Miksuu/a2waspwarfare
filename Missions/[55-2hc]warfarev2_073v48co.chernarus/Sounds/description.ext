@@ -3,6 +3,18 @@ class CfgSounds
 {
     sounds[] = {};
     
+    class aaRadarBuildSound {
+        name = "aaRadarBuildSound";
+        sound[] = {"\Sounds\aaRadarBuildSound-7.ogg", 7, 1};
+        titles[] = {};
+    };
+
+    class aircraftFactoryBuildSound {
+        name = "aircraftFactoryBuildSound";
+        sound[] = {"\Sounds\aircraftFactoryBuildSound-7.ogg", 7, 1};
+        titles[] = {};
+    };
+
     class ARTY_cooldown_over {
         name = "ARTY_cooldown_over";
         sound[] = {"\Sounds\ARTY_cooldown_over-8.ogg", 8, 1};
@@ -27,6 +39,12 @@ class CfgSounds
         titles[] = {};
     };
 
+    class barracksBuildSound {
+        name = "barracksBuildSound";
+        sound[] = {"\Sounds\barracksBuildSound-7.ogg", 7, 1};
+        titles[] = {};
+    };
+
     class Bipod_ON {
         name = "Bipod_ON";
         sound[] = {"\Sounds\Bipod_ON-10.ogg", 10, 1};
@@ -39,9 +57,21 @@ class CfgSounds
         titles[] = {};
     };
 
+    class commandCenterBuildSound {
+        name = "commandCenterBuildSound";
+        sound[] = {"\Sounds\commandCenterBuildSound-7.ogg", 7, 1};
+        titles[] = {};
+    };
+
     class commanderNotification {
         name = "commanderNotification";
         sound[] = {"\Sounds\commanderNotification-10.ogg", 10, 1};
+        titles[] = {};
+    };
+
+    class heavyFactoryBuildSound {
+        name = "heavyFactoryBuildSound";
+        sound[] = {"\Sounds\heavyFactoryBuildSound-7.ogg", 7, 1};
         titles[] = {};
     };
 
@@ -75,9 +105,21 @@ class CfgSounds
         titles[] = {};
     };
 
+    class lightFactoryBuildSound {
+        name = "lightFactoryBuildSound";
+        sound[] = {"\Sounds\lightFactoryBuildSound-7.ogg", 7, 1};
+        titles[] = {};
+    };
+
     class newCommander {
         name = "newCommander";
         sound[] = {"\Sounds\newCommander-10.ogg", 10, 1};
+        titles[] = {};
+    };
+
+    class servicePointBuildSound {
+        name = "servicePointBuildSound";
+        sound[] = {"\Sounds\servicePointBuildSound-7.ogg", 7, 1};
         titles[] = {};
     };
 };
