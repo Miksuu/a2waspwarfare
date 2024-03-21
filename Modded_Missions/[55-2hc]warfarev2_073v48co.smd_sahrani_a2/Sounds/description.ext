@@ -99,15 +99,15 @@ class CfgSounds
         titles[] = {};
     };
 
-<<<<<<< HEAD
     class inboundMissileGround_cont {
         name = "inboundMissileGround_cont";
         sound[] = {"\Sounds\inboundMissileGround_cont-10.ogg", 10, 1};
-=======
+        titles[] = {};
+    };
+
     class lightFactoryBuildSound {
         name = "lightFactoryBuildSound";
         sound[] = {"\Sounds\lightFactoryBuildSound-7.ogg", 7, 1};
->>>>>>> BuildingAnnouncementMessages
         titles[] = {};
     };
 
