@@ -125,24 +125,31 @@ WFBE_CL_FNC_Building_Started = {
 	switch (_building) do {
 		case "Barracks": {
 			_localisedBuilding = localize "RB_Barracks";
+			playSound ["barracksBuildSound",true];
 		};
 		case "Light": {
 			_localisedBuilding = localize "RB_Light_Factory";
+			playSound ["lightFactoryBuildSound",true];
 		};
 		case "CommandCenter": {
 			_localisedBuilding = localize "RB_Command_Center";
+			playSound ["commandCenterBuildSound",true];
 		};
 		case "Heavy": {
 			_localisedBuilding = localize "RB_Heavy_Factory";
+			playSound ["heavyFactoryBuildSound",true];
 		};
 		case "Aircraft": {
 			_localisedBuilding = localize "RB_Aircraft_factory";
+			playSound ["aircraftFactoryBuildSound",true];
 		};
 		case "ServicePoint": {
 			_localisedBuilding = localize "RB_Service_Point";
+			playSound ["servicePointBuildSound",true];
 		};
 		case "AARadar": {
 			_localisedBuilding = localize "STR_WF_UPGRADE_AntiAirRadar";
+			playSound ["aaRadarBuildSound",true];
 		};
 		default {
 			_localisedBuilding = "Unknown";
