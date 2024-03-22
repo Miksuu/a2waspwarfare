@@ -116,6 +116,51 @@ WFBE_CL_FNC_Upgrade_Started = {
 	(Format [Localize "STR_WF_CHAT_Upgrade_Started_Message",(missionNamespace getVariable "WFBE_C_UPGRADES_LABELS") select _upgrade, _level]) Call CommandChatMessage;
 };
 
+WFBE_CL_FNC_Building_Started = {
+	Private ["_building", "_localisedBuilding"];
+	_building = _this select 0;
+
+	_localisedBuilding = "";
+
+	switch (_building) do {
+		case "Barracks": {
+			_localisedBuilding = localize "RB_Barracks";
+			playSound ["barracksBuildSound",true];
+		};
+		case "Light": {
+			_localisedBuilding = localize "RB_Light_Factory";
+			playSound ["lightFactoryBuildSound",true];
+		};
+		case "CommandCenter": {
+			_localisedBuilding = localize "RB_Command_Center";
+			playSound ["commandCenterBuildSound",true];
+		};
+		case "Heavy": {
+			_localisedBuilding = localize "RB_Heavy_Factory";
+			playSound ["heavyFactoryBuildSound",true];
+		};
+		case "Aircraft": {
+			_localisedBuilding = localize "RB_Aircraft_factory";
+			playSound ["aircraftFactoryBuildSound",true];
+		};
+		case "ServicePoint": {
+			_localisedBuilding = localize "RB_Service_Point";
+			playSound ["servicePointBuildSound",true];
+		};
+		case "AARadar": {
+			_localisedBuilding = localize "STR_WF_UPGRADE_AntiAirRadar";
+			playSound ["aaRadarBuildSound",true];
+		};
+		default {
+			_localisedBuilding = "Unknown";
+		};
+	};
+
+	["DEBUG (Client_FNC_Special.sqf)", Format ["Building: %1", _localisedBuilding]] Call WFBE_CO_FNC_LogContent;
+
+	Format[Localize "STR_WF_CHAT_Building_Started_Message", _localisedBuilding] Call CommandChatMessage;
+};
+
 WFBE_CL_FNC_Upgrade_Complete = {
 	Private ["_upgrade","_level"];
 	_upgrade = _this select 0;

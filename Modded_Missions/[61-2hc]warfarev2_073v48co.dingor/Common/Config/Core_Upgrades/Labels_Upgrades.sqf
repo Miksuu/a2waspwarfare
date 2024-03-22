@@ -74,6 +74,7 @@ missionNamespace setVariable [Format["WFBE_C_UPGRADES_LABELS"], [
 	localize 'STR_WF_UPGRADE_AirAA',
 	localize 'STR_WF_UPGRADE_AntiAirRadar'
 ]];
+
 missionNamespace setVariable [Format["WFBE_C_UPGRADES_DESCRIPTIONS"], [
 	localize 'STR_WF_UPGRADE_barracks_Desc',
 	localize 'STR_WF_UPGRADE_lightfactory_Desc',
