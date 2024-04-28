@@ -1,4 +1,4 @@
-Private ['_dir','_index','_pos','_script','_side','_structure','_structureType'];
+Private ['_dir','_index','_pos','_script','_side','_structure','_structureType','_structures','_structuresNames','_rlType'];
 
 _side = _this select 0;
 _structureType = _this select 1;
