@@ -5,6 +5,12 @@ _structureType = _this select 1;
 _pos = _this select 2;
 _dir = _this select 3;
 
+_structures = missionNamespace getVariable Format ['WFBE_%1STRUCTURES',str _side];
+_structuresNames = missionNamespace getVariable Format ['WFBE_%1STRUCTURENAMES',str _side];
+_rlType = _structures select (_structuresNames find _structureType);
+
+[_side, "HandleSpecial", ['building-started', _rlType]] Call WFBE_CO_FNC_SendToClients;
+
 _index = (missionNamespace getVariable Format ["WFBE_%1STRUCTURENAMES",str _side]) find _structureType;
 if (_index != -1) then {
 	_script = (missionNamespace getVariable Format ["WFBE_%1STRUCTURESCRIPTS",str _side]) select _index;

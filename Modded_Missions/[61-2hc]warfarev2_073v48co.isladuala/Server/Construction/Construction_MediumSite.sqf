@@ -14,13 +14,12 @@ _time = ((missionNamespace getVariable Format ["WFBE_%1STRUCTURETIMES",str _side
 
 _siteName = missionNamespace getVariable Format["WFBE_%1CONSTRUCTIONSITE",str _side];
 
+// Refactor to get the parameters from RequestStructure.sqf, no need to run duplicate code
 _structures = missionNamespace getVariable Format ['WFBE_%1STRUCTURES',str _side];
 _structuresNames = missionNamespace getVariable Format ['WFBE_%1STRUCTURENAMES',str _side];
 _rlType = _structures select (_structuresNames find _type);
 
 ["DEBUG (Construction_MediumSite.sqf)", Format ["Variables - Type: %1, Side: %2, Position: %3, Direction: %4, Index: %5, Logik: %6, SideID: %7, Time: %8, SiteName: %9, Structures: %10, StructuresNames: %11, RLType: %12", _type, _side, _position, _direction, _index, _logik, _sideID, _time, _siteName, _structures, _structuresNames, _rlType]] Call WFBE_CO_FNC_LogContent;
-
-[_side, "HandleSpecial", ['building-started', _rlType]] Call WFBE_CO_FNC_SendToClients;
 
 _startTime = time;
 _timeNextUpdate = _startTime + _time;
