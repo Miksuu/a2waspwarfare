@@ -39,11 +39,10 @@ if(side _unit == east && !(_unit hasWeapon "NVGoggles")) then {
 	_unit addWeapon "NVGoggles";
 };
 
-if(!isNil 'Zeta_Lifter')then{
-	if (_unit_kind in Zeta_Lifter) then { //--- Units that can lift vehicles.
-		if (_upgrades select WFBE_UP_AIRLIFT > 0) then {_unit addAction [localize "STR_WF_Lift", 'Client\Module\ZetaCargo\Zeta_Hook.sqf']};
-	};
+if (_unit_kind in Zeta_Lifter) then { //--- Units that can lift vehicles.
+	if (_upgrades select WFBE_UP_AIRLIFT > 0) then {_unit addAction [localize "STR_WF_Lift", 'Client\Module\ZetaCargo\Zeta_Hook.sqf']};
 };
+
 if (_unit_kind in (missionNamespace getVariable "WFBE_REPAIRTRUCKS")) then { //--- Repair Trucks.
 	//--- Build action.
 	_unit addAction [localize 'STR_WF_BuildMenu_Repair','Client\Action\Action_BuildRepair.sqf', [], 99, false, true, '', Format['side group player == side _target && alive _target && player distance _target <= %1', missionNamespace getVariable 'WFBE_C_UNITS_REPAIR_TRUCK_RANGE']];
