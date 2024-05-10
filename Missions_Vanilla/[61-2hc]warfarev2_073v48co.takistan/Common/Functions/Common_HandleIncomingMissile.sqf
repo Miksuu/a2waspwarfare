@@ -9,7 +9,7 @@ if (isNull _missile) exitWith {};
 _irLock = getNumber(configFile >> "CfgAmmo" >> _ammo >> "irLock"); //--- Get the ammo type.
 //if (_irLock == 0) then {if (_ammo in ["Bo_FAB_250","Bo_Mk82"]) then {_irLock = 1}}; //--- Dumb bomb workaround (rocket simulation).
 
-if (_irLock == 1) then { //--- IR Lock is affected
+if (_irLock == 1 || _ammo in ["Bo_FAB_250","Bo_Mk82"]) then {
 	_source = getPos _source;
 	_distance = _unit distance _source;
 	
