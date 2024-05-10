@@ -9,7 +9,11 @@ _structures = missionNamespace getVariable Format ['WFBE_%1STRUCTURES',str _side
 _structuresNames = missionNamespace getVariable Format ['WFBE_%1STRUCTURENAMES',str _side];
 _rlType = _structures select (_structuresNames find _structureType);
 
-[_side, "HandleSpecial", ['building-started', _rlType]] Call WFBE_CO_FNC_SendToClients;
+["DEBUG (RequestStructure.sqf)", Format ["Building: %1", _rlType]] Call WFBE_CO_FNC_LogContent;
+
+if (_rlType in ["Barracks", "Light", "CommandCenter", "Heavy", "Aircraft", "ServicePoint", "AARadar"]) then {
+    [_side, "HandleSpecial", ['building-started', _rlType]] Call WFBE_CO_FNC_SendToClients;
+};
 
 _index = (missionNamespace getVariable Format ["WFBE_%1STRUCTURENAMES",str _side]) find _structureType;
 if (_index != -1) then {
