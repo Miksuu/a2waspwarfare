@@ -1,0 +1,11 @@
+- Basic mechanics for the commander (using mhq, base limits, repairing and buying new hq).
+- Defences
+- Shortcut usage
+- Spawn markers usage
+- Explain every upgrade in detail
+- Money management
+- Situational awareness (for example taking advantage of spotters providing information to make better tactical and strategical decisions)
+- How to deal with team losing motivation, working with scarce resources to try to bring the game back to your favour 
+- Common base positions, how to choose between them depending on the situation too
+- Tactics (Flanking with HQ, lifting to build a counterbase, airbases, etc)
+- Strategy (How to evaluate your current position and what you will be able to achieve with the current resources, upgrade order, risk management, calculated aggression)
