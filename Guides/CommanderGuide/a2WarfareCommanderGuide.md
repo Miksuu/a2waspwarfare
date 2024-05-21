@@ -135,8 +135,6 @@ Increases the supply capacity, ensuring units can be resupplied more efficiently
 ## - UAV
 Enables the deployment and use of Unmanned Aerial Vehicles for reconnaissance and support missions.
 - Level 1: [INSERT LEVEL DESCRIPTION HERE]
-``` &#8203;``【oaicite:0】``&#8203;
-
 
 # Money Management
 ## - Resource Allocation
