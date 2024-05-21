@@ -1,73 +1,194 @@
 Game Guide: Commander's Handbook
 
-# Basic Mechanics for the Commander
-## Using MHQ
-The Mobile Headquarters (MHQ) serves as a mobile spawn point and command center. Position it strategically to support frontline operations.
-## Base Limits
-Each team can only have a limited number of bases. Plan and place them wisely to cover key areas and support your team's movements.
-## Repairing and Buying New HQ
-Ensure your HQ is always repaired to avoid losing it. When resources allow, invest in additional HQs to increase your operational flexibility.
+# Glossary:
+B = barracks, 
+etc...
 
-# Defences
-## Turrets
-Place turrets to defend critical points.
-## Walls and Barriers
+# Introduction
+- This guide will help you to be effective as a commander in the game.
+- It will cover the basic mechanics, and the strategy for the game.
+- It will be a good way to learn the game, and to improve your skills.
+- I made it not only because I want better opponents to play against, but also because I want to help players who are really struggling to be effective as a commander in the game.
+- This way, we can have more engaging matches, and to have more fun playing the game.
+- I will be updating this guide with feedback from the players, so if you have any suggestions, or if you think that something is missing, please let me know in the Discord server
+
+# Commander description
+- The commander will decide his team strategy
+
+[autocomplete result, might be useful to some extent]
+- The commander will be able to move the MHQ to a new location
+- The commander will be able to deploy the MHQ to a new location
+- The commander will be able to build a new bases
+- The commander will be able to upgrade his teams tech
+- The commander will be able to repair the MHQ
+- The commander will be able to repair the bases [add complete section for this]
+- The commander will be able to sell the bases
+[generate more here as the guide progresses]
+
+# Basic Mechanics for the Commander
+
+- You should always have an active player commander. AI commander feature has been removed from the mission and replaced with "No commander" instead.
+- If you see this, don't be afraid to take the commander role, if no one else is willing to! Hopefully this guide will help you to be effective as possible on this role!
+- Having a commander is always better than having no commander.
+- Commander gains significant more cash, based on how many towns you have
+[explain this how much more, etc]
+
+
+[Add to seperate section?]
+- voting mechanics
+- Player with most votes will win.
+- However, if the vote goes even, no commander will be assigned
+-add more here
+- You are able to pass the commander with the vote menu to any other person instantly, instead of them having to vote for it.
+
+## Mobile Headquarters (MHQ)
+
+{Add lav25hq.png and btr90hq.png here}
+
+- The Mobile Headquarters (MHQ) serves as a mobile spawn point 
+- Position it strategically to support frontline operations.
+- Commander will be moving the MHQ and deploying it in good places to build bases (LAV-25(HQ) on BLUFOR, and BTR90(HQ) on OPFOR)
+- This vehicle is the most important vehicle in your team, and moving it strategically is crucial to maintaining your team's position to get advantage in the economy, and denying the enemies chances to attack your towns and bases.
+
+### HQ repair mechanics
+- On the early stages in the game if the vehicle is destroyed, game is most likely lost.
+- However, this depends on how many players you have on your team, be sure to check the advanced money transfer menu for your teams resources before deciding the sell and lose the game
+{take image from here, add it to git}
+- If you happen to lose this vehicle. You can always repair it with 25k supplies
+and with the repair truck, 
+- Mark is created automatically for your team for the lost HQ wreck
+
+### Buying new HQ
+- The alternate way to buy hq is to buy with 200 000 cash at the town center
+- this can be only be done once.
+- Buying hq will drop your all towns SV to 10, so you will have lower supply output for a while. If your supply upgrade is higher, this helps you recover from it.
+
+## Base building
+
+### Deploying HQ
+ -The HQ can be deployed at any time,
+ - aslong you have 500 supplies, and you are not near a town which you don't own [resistance, enemy town], or enemy base.
+ - You should not deploy it inside a building at all, as this is against the rules, as it is with factories. However, you can wall it fully and place a camo net in top of it
+ {insert image of fully walled hq here}
+
+### Building factories
+- Optimal placement (outside of the line of the fire of the enemy, behind a terrain)
+- Make sure that all of the production factories are accessible on foot
+- Production factories like B,LF,HF,AF. must have a entrance. 
+- Unlike HQ, CC, AAR must not have a entrance.
+- On flat terrain, consider placement of the hq to be on the middle to be covered by the other factories [thanks copilot++, lmao]
+
+### Base and factory limits
+- Each team can only have 3 bases.
+- Plan and place them wisely to cover key areas and support your team's movements.
+- Each team can only have 2 production factories [list them here] and command centers.
+- However, you can have 4 service points and AAR's
+
+### Spawn Markers Usage
+Position spawn markers on the base.
+- non destructible
+- allows factories to be built not near the roads
+- Be sure to check that the spawn marker is not too far away from the factory.
+
+## Defences
+### Static defences
+Place statics to defend critical points.
+- List different type of statics here
+
+### Walls and Barriers
 Use these to create choke points and slow down enemy advances.
-## Mines
-Deploy mines in likely enemy approach paths to damage and deter them.
+- List the walls here
+- Be sure not to over do it, might limit your players and AI's mobility.
+- Walls are created automatically when building a factory (you can disable this by using hotkey x)
 
 # Shortcut Usage
 ## Hotkeys
 Familiarize yourself with all command and build hotkeys to improve your efficiency.
-## Quick Commands
-Use quick commands to relay information and orders to your team without delay.
+[INSERT ALL OF THE HOTKEYS HERE]
 
-# Spawn Markers Usage
-## Placing Spawn Markers
-Position spawn markers close to objectives but in safe areas to minimize spawn kills.
-## Managing Spawn Points
-Rotate and manage spawn points based on the flow of battle to maintain pressure or retreat as needed.
+# When the game starts
+- As the game starts, a voting menu will popup 
+{insert image here, the old one had outdated UI}
+- You can always change the commander from wf menu by voting, [link to the basic mechanics, or remove this part]
+
+# FACTORY TYPES
+
+[Make H2 and explain in detail]
+
+- B
+- LF
+- HF
+- AF
+- CC (place near roads if your team does supply missions)
+- AAR
+- SP
 
 [WIP, FIX THE DESCRIPTIONS THAT THE LLM GUESSED]
 # Detailed Upgrade Explanations
+
+[GATHER DATA FROM ALL THE UPGRADE COSTS, RUN WITH GPT TO EDIT THE TEXT]
+
 ## Aircraft Factory
 Allows the production of various aircraft to support ground operations and provide air superiority.
 ### Level 1
-[INSERT LEVEL DESCRIPTION HERE]
+- Basic helicopters with lift capabilities uh60, mi8
+- Blufor mv22 [check this?]
 ### Level 2
-[INSERT LEVEL DESCRIPTION HERE]
+- Ambulance helicopters uh60, mi8
+- Light attack helicopters such as ah-6j, uh1h
 ### Level 3
-[INSERT LEVEL DESCRIPTION HERE]
+- First proper attack helicopters and attack jets
+- a10a, su25a (but they don't have guided weaponry without easa, and even with this it's very limited)
+- Upgrade easa with this level to make them a lot better to certain purposes
 ### Level 4
-[INSERT LEVEL DESCRIPTION HERE]
+- A lot better attack helicopters and attack jets, such as a10c, su25t with guided weaponry
 ### Level 5
-[INSERT LEVEL DESCRIPTION HERE]
+- The best air superiority fighters in the game such as F-35 and Su-34
+- Best attack helicopters with most guided weaponry available in the game such as AH-1Z and Ka-52.
+- They can also get sidewinder missiles. However these missiles are not as powerful as in the jets due to the balance changes made to our missions
 
 ## Airlift
 Enables the transportation of units and supplies via air, increasing mobility and logistical flexibility.
 
+- Very useful to get as commander to lift the hq to build another base. 
+- With AF1 and this upgrade you can lift the HQ around the map.
+- Very cheap upgrade combination to get
+- You don't need to build helipad if you are near a airfield which has a hangar. With AF1, you can produce mv22 or MI8 out of the hangar.
+- Just make sure that you have upgraded the airlift before buying the vehicle.
+- The upgrade time is 30 seconds, so you can buy the vehicle and click upgrade after that. 
+- If the vehicle production is ready when the upgrade is complete, you get the airlift capability
+
 ## Ambulance Range
 Extends the operational range of ambulances, ensuring medical support can reach more distant units.
 
+- Make sure to upgrade this especially if your team is utilising the ambulance and really needs the range.
+- Depending on the use case, such as which town is being captured, or if a based is being attacked (depending on the terrain etc, how close they need to drive it), this might not be needed at all.
+
 [Make a table instead of a list of levels]
 
-### Level 1
-[INSERT LEVEL DESCRIPTION HERE]
-### Level 2
-[INSERT LEVEL DESCRIPTION HERE]
+Level 0: 250
+Level 1: 350
+Level 2: 500
 
 ## Ammunition
-Increases the ammunition capacity for units, allowing them to sustain longer engagements without resupply.
+Allows you to place ammunition boxes for your units to use them for rearm.
+
+- pretty useless imo, usually upgrading this last when supply capped at 50000
 
 ## Anti Air Radar
 Enhances radar systems to detect and track enemy aircraft more effectively, improving air defense capabilities.
+
+- We added this upgrade to the mission recently
+- Useful late game upgrade
+
 ### Level 1
 [INSERT LEVEL DESCRIPTION HERE]
 ### Level 2
 [INSERT LEVEL DESCRIPTION HERE]
 
 ## Artillery Ammunition
-Boosts the ammunition capacity for artillery units, enabling prolonged bombardment and support fire.
+- research this in custom game
+
 ### Level 1
 [INSERT LEVEL DESCRIPTION HERE]
 ### Level 2
@@ -77,6 +198,8 @@ Boosts the ammunition capacity for artillery units, enabling prolonged bombardme
 
 ## Artillery Reloading
 Speeds up the reloading process for artillery units, increasing their rate of fire and overall effectiveness.
+
+- Depending if your team is using artillery, this might be useful upgrade to get
 
 [Make a table instead of a list of levels]
 
@@ -95,6 +218,14 @@ Speeds up the reloading process for artillery units, increasing their rate of fi
 
 ## Barracks
 Upgrades the barracks to train and house more infantry units, expanding your ground forces.
+
+- gets you better units too!
+- Really useful with soldier slot, since you can get a lot more out of it.
+
+[Table for units per level]
+[Table for units per level with soldier slot]
+- explain that commander gets flat +10
+
 ### Level 1
 [INSERT LEVEL DESCRIPTION HERE]
 ### Level 2
@@ -104,33 +235,64 @@ Upgrades the barracks to train and house more infantry units, expanding your gro
 
 ## EASA
 Loadout System
+- explain how the EASA produces different loadouts for the planes
 
 ## Gear
 Improves the equipment and gear for units, enhancing their combat effectiveness and survivability.
+
+[Temp, go over in game for thing such as machineguns]
+### Level 0
+- basic guns
+- m136 rpg18
 ### Level 1
-[INSERT LEVEL DESCRIPTION HERE]
+- a bit more better guns
+- GPS
+- nlaw? [temp, check this]
+- rpg with v rockets
 ### Level 2
-[INSERT LEVEL DESCRIPTION HERE]
+- Alot more better guns such as M14 and FN FAL
+- rpg with vl rockets
+- Rangefinder
 ### Level 3
-[INSERT LEVEL DESCRIPTION HERE]
+- Snipers with better sights
+- MAAWS
+- rpg with vr rockets
 ### Level 4
-[INSERT LEVEL DESCRIPTION HERE]
+- long range snipers
+- Laser designator (useful with AF4!)
+- SMAW for both teams (for balance)
 ### Level 5
-[INSERT LEVEL DESCRIPTION HERE]
+- Thermal guns
+- Javelin, Metis
 
 ## Heavy Factory
 Allows the production of heavy vehicles and tanks, providing powerful armored support for ground operations.
+
+### Level 0
+- av7 m113
+- not worth it, don't build HF for this
 ### Level 1
-[INSERT LEVEL DESCRIPTION HERE]
+- Bradley with the gun without launcher
+- BVP-1 (good AI in it, great for capturing towns)
 ### Level 2
-[INSERT LEVEL DESCRIPTION HERE]
+- Vehicles with good launchers like tow, konkurs
+- Bradley with launcher
+- BMP-2 with launcher
 ### Level 3
-[INSERT LEVEL DESCRIPTION HERE]
+- Main battle tanks such as M1 Abrams and T-72
+- Warrior (very powerful as AI too, great for capturing towns)
+- BMP 3
 ### Level 4
-[INSERT LEVEL DESCRIPTION HERE]
+- M1A2 TUSK
+- The best tanks in the game such as T-90
+- Best air defence with M6 Linebacker and Tunguska
 
 ## ICBM
 Enables the deployment of Intercontinental Ballistic Missiles, offering strategic long-range strike capabilities.
+- Might be useful if you are very ahead and the enemy is defending their base on very advantageous position.
+- Can suddenly become very good money sink and cause you to lose all of your money trying to nuke your way to victory, not advised.
+[Maybe write more about this in some other section]
+- Launch one when the enemy is able to surprise you with a counter base for example, and you would lose the game without it.
 
 ## IR Smoke
 The IR smoke improves the current smoke deployment system.
@@ -141,22 +303,37 @@ The IR smoke improves the current smoke deployment system.
 
 ## Light Factory
 Allows the production of light vehicles and support units, increasing mobility and versatility.
+
+[Go through the list of vehicles and explain them in detail, make notes]
+
+## Level 0
+- Cars etc.
 ### Level 1
-[INSERT LEVEL DESCRIPTION HERE]
+- Some basic light vehicles with guns, usually not worth to upgrade to this level only.
 ### Level 2
-[INSERT LEVEL DESCRIPTION HERE]
+- Ambulance
+- Repair truck (can be used for repair the HQ!)
 ### Level 3
-[INSERT LEVEL DESCRIPTION HERE]
+- Lav-25
+- Pandur without launcher
+- BTR-90 without launcher
 ### Level 4
-[INSERT LEVEL DESCRIPTION HERE]
+- Pandur with launcher
+- BTR-90 with launcher
 
 ## Paradrop
 Enables the deployment of units via parachute, allowing rapid insertion behind enemy lines.
-### Level 1
-[INSERT LEVEL DESCRIPTION HERE]
+- Allows you to call a paratrop of a vehicle, or repair truck
+- Might be useful if you have lost your HQ, and don't have access to a repair truck anymore.
+- Also useful for parachuting a repair truck to build a service point for attack helicopters to rearm.
 
 ## Paratroops
 Improves the capabilities and equipment of paratrooper units, enhancing their effectiveness in airborne operations.
+
+[Go through the each of the paratrooper units and explain them in detail, make notes]
+
+[Make a table units per level, explain which kind of units you get too]
+
 ### Level 1
 [INSERT LEVEL DESCRIPTION HERE]
 ### Level 2
@@ -165,7 +342,10 @@ Improves the capabilities and equipment of paratrooper units, enhancing their ef
 [INSERT LEVEL DESCRIPTION HERE]
 
 ## Supply
-Increases the supply capacity, ensuring units can be resupplied more efficiently and effectively.
+
+- Increases the rate by which the towns gain supplies
+- When you are capturing towns (especially the big SV ones) early game, this upgrade can be very beneficial to boost them to their max SV value as soon as possible
+- Useful if you just bought a new HQ, to get them back up as soon as possible.
 
 [TEMP, MAYBE NO NEED TO DESCRIBE EACH OF THE LEVELS]
 
@@ -179,47 +359,75 @@ Increases the supply capacity, ensuring units can be resupplied more efficiently
 ## UAV
 Enables the deployment and use of Unmanned Aerial Vehicles for reconnaissance and support missions.
 
+- Currently BLUFOR uav is very useful when there are not a lot of anti air around, since it gets hellfires.
+- OPFOR uav, not so much.
+
 # Money Management
 ## Resource Allocation
-Balance spending between immediate needs (repairs, defenses) and long-term investments (upgrades, additional HQs).
+- artillery
+- at soldiers
+- air
+- defences
+
+## Sharing for the team
+- This is useful since as commander you get more money.
+- Be sure to check the menu to make sure that your teammates have enough money to buy units they need {insert image here}
+
+[Maybe remove this section, since it's not really needed if you keep spending you are most likely to gain advantage]
 ## Saving for Critical Moments
 Keep a reserve of resources to react to unexpected threats or capitalize on enemy weaknesses.
 
 # Situational Awareness
 ## Using Spotters
-Deploy spotters to gather intel on enemy movements and positions.
+- Deploy spotters to gather intel on enemy movements and positions.
 ## Adapting Tactics
-Adjust your strategies based on the information provided by spotters to outmaneuver and outthink the enemy.
+- Adjust your strategies based on the information provided by spotters to outmaneuver and outthink the enemy.
+
+## Using helicopter/plane radar
+- spotting possible HQ lift {insert image here}
 
 # Dealing with Team Losing Motivation
 ## Boost Morale
 Encourage and communicate positively with your team to keep spirits high.
 ## Efficient Resource Use
-Make the most of scarce resources by prioritizing critical repairs and upgrades.
+Make the most of scarce resources.
 ## Comeback Strategies
 Focus on defensive plays and capitalize on enemy mistakes to turn the tide.
+- turtle a bit, if you fall back and for example build in a city, the enemy might get bored if you defend well against their attacks
+- Although be careful, they might send you an ICBM to crush your dreams of winning the game. More on that in the [Nuclear Warfare section]
 
 # Common Base Positions
-## Central Locations
-Ideal for quick reinforcement and support.
-## Flanking Positions
-Useful for attacking the enemy from unexpected angles.
 ## High Ground
 Provides a tactical advantage with increased visibility and defense.
+
+## Central Locations
+Ideal for quick reinforcement and support.
+- Insert positions for Chernarus and taki here with {images}
+
+## Flanking Positions
+Useful for attacking the enemy from unexpected angles.
 
 # Choosing Base Positions
 ## Based on Situation
 Evaluate the current battlefield dynamics and choose positions that maximize your strategic advantages.
 ## Resource Proximity
 Ensure bases are near resources to streamline your supply chain.
+- supply mission, cc placement
 
 # Tactics
-## Flanking with HQ
-Move your HQ to flank enemy positions and create new fronts.
-## Lifting to Build a Counterbase
+# Build a Counterbase
 Relocate your HQ to quickly set up a counterbase in response to enemy movements.
+
+- counterbase examples
+- What happens when it becomes a counterbase war?
+
 ## Airbases
 Utilize airbases for rapid deployment and air superiority.
+- It might be a good idea to have one air base in the end game
+- Since you can build three bases, but factories are limited at two.
+- Not all bases need aircraft factory, however service point on all of them is a good thing to have in the endgame
+- Not all airbases need to be on the actual runways, you can place them anywhere you want.
+- make an {image} of the airbase placement, roads, etc. where light aircraft can take off from
 
 # Strategy
 ## Evaluating Position
@@ -230,3 +438,13 @@ Prioritize upgrades that will provide immediate benefits while planning for long
 Weigh the risks and benefits of aggressive actions versus defensive plays.
 ## Calculated Aggression
 Strike when the odds are in your favor and avoid unnecessary risks that could lead to significant losses.
+## Nuclear Warfare
+Use nuclear warfare to destroy enemy infrastructure and capital.
+- see the video on the Taviana example
+- explain how to act in situation (lift hq asap, gain high ground etc.)
+
+
+# Conclusion
+- Keep on practising
+- If you are a new commander, it's a good idea to practise when server is not very populated.
+- You can always pass the role later to more experienced commander if you feel unconfortable on continuing, but don't be too afraid to fail.
