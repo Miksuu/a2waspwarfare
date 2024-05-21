@@ -31,39 +31,78 @@ Rotate and manage spawn points based on the flow of battle to maintain pressure 
 # Detailed Upgrade Explanations
 ## - Aircraft Factory
 Allows the production of various aircraft to support ground operations and provide air superiority.
+- Level 1: [INSERT LEVEL DESCRIPTION HERE]
+- Level 2: [INSERT LEVEL DESCRIPTION HERE]
+- Level 3: [INSERT LEVEL DESCRIPTION HERE]
+- Level 4: [INSERT LEVEL DESCRIPTION HERE]
+- Level 5: [INSERT LEVEL DESCRIPTION HERE]
 
 ## - Airlift
 Enables the transportation of units and supplies via air, increasing mobility and logistical flexibility.
+- Level 1: [INSERT LEVEL DESCRIPTION HERE]
+- Level 2: [INSERT LEVEL DESCRIPTION HERE]
 
 ## - Ambulance Range
 Extends the operational range of ambulances, ensuring medical support can reach more distant units.
+- Level 1: [INSERT LEVEL DESCRIPTION HERE]
+- Level 2: [INSERT LEVEL DESCRIPTION HERE]
 
 ## - Ammunition
 Increases the ammunition capacity for units, allowing them to sustain longer engagements without resupply.
+- Level 1: [INSERT LEVEL DESCRIPTION HERE]
+- Level 2: [INSERT LEVEL DESCRIPTION HERE]
+- Level 3: [INSERT LEVEL DESCRIPTION HERE]
+- Level 4: [INSERT LEVEL DESCRIPTION HERE]
+- Level 5: [INSERT LEVEL DESCRIPTION HERE]
+- Level 6: [INSERT LEVEL DESCRIPTION HERE]
 
 ## - Anti Air Radar
 Enhances radar systems to detect and track enemy aircraft more effectively, improving air defense capabilities.
+- Level 1: [INSERT LEVEL DESCRIPTION HERE]
+- Level 2: [INSERT LEVEL DESCRIPTION HERE]
+- Level 3: [INSERT LEVEL DESCRIPTION HERE]
 
 ## - Artillery Ammunition
 Boosts the ammunition capacity for artillery units, enabling prolonged bombardment and support fire.
+- Level 1: [INSERT LEVEL DESCRIPTION HERE]
+- Level 2: [INSERT LEVEL DESCRIPTION HERE]
 
 ## - Artillery Reloading
 Speeds up the reloading process for artillery units, increasing their rate of fire and overall effectiveness.
+- Level 1: [INSERT LEVEL DESCRIPTION HERE]
+- Level 2: [INSERT LEVEL DESCRIPTION HERE]
+- Level 3: [INSERT LEVEL DESCRIPTION HERE]
 
 ## - Barracks
 Upgrades the barracks to train and house more infantry units, expanding your ground forces.
+- Level 1: [INSERT LEVEL DESCRIPTION HERE]
+- Level 2: [INSERT LEVEL DESCRIPTION HERE]
 
 ## - EASA
 Enhances the Electronic Attack and Support Aircraft capabilities, improving electronic warfare and support operations.
+- Level 1: [INSERT LEVEL DESCRIPTION HERE]
+- Level 2: [INSERT LEVEL DESCRIPTION HERE]
+- Level 3: [INSERT LEVEL DESCRIPTION HERE]
+- Level 4: [INSERT LEVEL DESCRIPTION HERE]
+- Level 5: [INSERT LEVEL DESCRIPTION HERE]
 
 ## - Gear
 Improves the equipment and gear for units, enhancing their combat effectiveness and survivability.
+- Level 1: [INSERT LEVEL DESCRIPTION HERE]
+- Level 2: [INSERT LEVEL DESCRIPTION HERE]
+- Level 3: [INSERT LEVEL DESCRIPTION HERE]
+- Level 4: [INSERT LEVEL DESCRIPTION HERE]
 
 ## - Heavy Factory
 Allows the production of heavy vehicles and tanks, providing powerful armored support for ground operations.
+- Level 1: [INSERT LEVEL DESCRIPTION HERE]
+- Level 2: [INSERT LEVEL DESCRIPTION HERE]
+- Level 3: [INSERT LEVEL DESCRIPTION HERE]
+- Level 4: [INSERT LEVEL DESCRIPTION HERE]
 
 ## - ICBM
 Enables the deployment of Intercontinental Ballistic Missiles, offering strategic long-range strike capabilities.
+- Level 1: [INSERT LEVEL DESCRIPTION HERE]
 
 ## - IR Smoke
 The IR smoke improves the current smoke deployment system.
@@ -72,18 +111,32 @@ The IR smoke improves the current smoke deployment system.
 
 ## - Light Factory
 Allows the production of light vehicles and support units, increasing mobility and versatility.
+- Level 1: [INSERT LEVEL DESCRIPTION HERE]
+- Level 2: [INSERT LEVEL DESCRIPTION HERE]
+- Level 3: [INSERT LEVEL DESCRIPTION HERE]
+- Level 4: [INSERT LEVEL DESCRIPTION HERE]
 
 ## - Paradrop
 Enables the deployment of units via parachute, allowing rapid insertion behind enemy lines.
+- Level 1: [INSERT LEVEL DESCRIPTION HERE]
 
 ## - Paratroops
 Improves the capabilities and equipment of paratrooper units, enhancing their effectiveness in airborne operations.
+- Level 1: [INSERT LEVEL DESCRIPTION HERE]
+- Level 2: [INSERT LEVEL DESCRIPTION HERE]
+- Level 3: [INSERT LEVEL DESCRIPTION HERE]
 
 ## - Supply
 Increases the supply capacity, ensuring units can be resupplied more efficiently and effectively.
+- Level 1: [INSERT LEVEL DESCRIPTION HERE]
+- Level 2: [INSERT LEVEL DESCRIPTION HERE]
+- Level 3: [INSERT LEVEL DESCRIPTION HERE]
 
 ## - UAV
 Enables the deployment and use of Unmanned Aerial Vehicles for reconnaissance and support missions.
+- Level 1: [INSERT LEVEL DESCRIPTION HERE]
+``` &#8203;``【oaicite:0】``&#8203;
+
 
 # Money Management
 ## - Resource Allocation
