@@ -29,14 +29,61 @@ Position spawn markers close to objectives but in safe areas to minimize spawn k
 Rotate and manage spawn points based on the flow of battle to maintain pressure or retreat as needed.
 
 # Detailed Upgrade Explanations
-## - Upgrade A
-Enhances your firepower, giving you an edge in direct confrontations.
-## - Upgrade B
-Improves defensive capabilities, allowing you to hold positions longer.
-## - Upgrade C
-Increases resource generation, boosting your economy and enabling faster tech advancement.
-## - Upgrade D
-Expands unit capacity, letting you field larger armies.
+## - Aircraft Factory
+Allows the production of various aircraft to support ground operations and provide air superiority.
+
+## - Airlift
+Enables the transportation of units and supplies via air, increasing mobility and logistical flexibility.
+
+## - Ambulance Range
+Extends the operational range of ambulances, ensuring medical support can reach more distant units.
+
+## - Ammunition
+Increases the ammunition capacity for units, allowing them to sustain longer engagements without resupply.
+
+## - Anti Air Radar
+Enhances radar systems to detect and track enemy aircraft more effectively, improving air defense capabilities.
+
+## - Artillery Ammunition
+Boosts the ammunition capacity for artillery units, enabling prolonged bombardment and support fire.
+
+## - Artillery Reloading
+Speeds up the reloading process for artillery units, increasing their rate of fire and overall effectiveness.
+
+## - Barracks
+Upgrades the barracks to train and house more infantry units, expanding your ground forces.
+
+## - EASA
+Enhances the Electronic Attack and Support Aircraft capabilities, improving electronic warfare and support operations.
+
+## - Gear
+Improves the equipment and gear for units, enhancing their combat effectiveness and survivability.
+
+## - Heavy Factory
+Allows the production of heavy vehicles and tanks, providing powerful armored support for ground operations.
+
+## - ICBM
+Enables the deployment of Intercontinental Ballistic Missiles, offering strategic long-range strike capabilities.
+
+## - IR Smoke
+The IR smoke improves the current smoke deployment system.
+- Level 1: 4 charges of smoke and single audio warning upon missile launch.
+- Level 2: 8 charges of smoke and continuous audio warning while missile is guiding towards you.
+
+## - Light Factory
+Allows the production of light vehicles and support units, increasing mobility and versatility.
+
+## - Paradrop
+Enables the deployment of units via parachute, allowing rapid insertion behind enemy lines.
+
+## - Paratroops
+Improves the capabilities and equipment of paratrooper units, enhancing their effectiveness in airborne operations.
+
+## - Supply
+Increases the supply capacity, ensuring units can be resupplied more efficiently and effectively.
+
+## - UAV
+Enables the deployment and use of Unmanned Aerial Vehicles for reconnaissance and support missions.
 
 # Money Management
 ## - Resource Allocation
