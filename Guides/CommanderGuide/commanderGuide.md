@@ -10,7 +10,8 @@ etc...
 - It will be a good way to learn the game, and to improve your skills.
 - I made it not only because I want better opponents to play against, but also because I want to help players who are really struggling to be effective as a commander in the game.
 - This way, we can have more engaging matches, and to have more fun playing the game.
-- I will be updating this guide with feedback from the players, so if you have any suggestions, or if you think that something is missing, please let me know in the Discord server
+- I will be updating this guide with feedback from the players, so if you have any suggestions, or if you think that something is missing, please let me know in the Discord server.
+- Add some words for the players who have supported the server for a long time, and the haters.
 
 # Commander description
 - The commander will decide his team strategy
