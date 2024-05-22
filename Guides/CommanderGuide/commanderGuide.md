@@ -44,7 +44,8 @@ etc...
 
 ## Mobile Headquarters (MHQ)
 
-{Add lav25hq.png and btr90hq.png here}
+![LAV-25 HQ](https://github.com/Miksuu/a2waspwarfare/blob/CommanderGuideMarkdown/Guides/CommanderGuide/images/lav25hq.png)
+![BTR-90 HQ](https://github.com/Miksuu/a2waspwarfare/blob/CommanderGuideMarkdown/Guides/CommanderGuide/images/btr90hq.png)
 
 - The Mobile Headquarters (MHQ) serves as a mobile spawn point 
 - Position it strategically to support frontline operations.
