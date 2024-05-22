@@ -73,7 +73,10 @@ and with the repair truck,
  - You should not deploy it inside a building at all, as this is against the rules, as it is with factories. However, you can wall it fully and place a camo net in top of it
  {insert image of fully walled hq here}
 
-### Building factories
+### Placing factories
+- You can rotate the factories using the CTRL key. If you don't plan on using the spawn marker, make sure that the sign from the factory is on the road for LF and HF, and on open field for AF.
+- So vehicles don't get stuck in a forest, for example.
+
 - Optimal placement (outside of the line of the fire of the enemy, behind a terrain)
 - Make sure that all of the production factories are accessible on foot
 - Production factories like B,LF,HF,AF. must have a entrance. 
@@ -91,6 +94,7 @@ Position spawn markers on the base.
 - non destructible
 - allows factories to be built not near the roads
 - Be sure to check that the spawn marker is not too far away from the factory.
+- Also you can't build them if the enemy is close to your base, so be sure to check this before you place your factories.
 
 ## Defences
 ### Static defences
@@ -112,6 +116,43 @@ Familiarize yourself with all command and build hotkeys to improve your efficien
 - As the game starts, a voting menu will popup 
 {insert image here, the old one had outdated UI}
 - You can always change the commander from wf menu by voting, [link to the basic mechanics, or remove this part]
+- You can either build a base somewhere, or drive hq to a town to capture it
+- Watch the position you started, and think about where you could build the base.
+- Think about center control, stealth, and where you can capture the most towns to gain supply advantage.
+- Refer to the [good places to build bases on section] for good places to build bases.
+
+## Driving HQ to a town to capture it
+- Alternatively, you can drive a hq near town and capture it, 600m meters is the town activation range.
+- I'd not suggest drive closer, unless you have a terrain to use, so the enemy tanks or at infantry won't kill you and game won't end short.
+- Try to drive it as close as you can to the camp.
+- After capturing the town, you can always deploy hq inside it.
+- Towns are good place for bases, due to the extra defences given by the town, and usually the buildings, where you can place your factories betwen them for extra cover for them.
+- However, town bases do not provide any stealth for your base, as enemy could find it while capturing towns.
+
+## Building the first base 
+- Once the HQ is deployed, with 6000 supply start which is default, you can build:
+- B, LF or HF and CC
+- Make sure to not make a mistake of building building such as Aircraft Factory, Service Point or Anti Air Radar as they are not needed for the first base.
+- LF will provide you with light vehicles and although you can get supply trucks with LF0 nowadays, it can be quite a big advantage in the early game if someone uses supply trucks to provide supplies for your base.
+- HF will provide you with heavy vehicles such as tanks.
+
+- Be sure to start with CC build, so it becomes ready as soon as possible, since usually before you can produce the good units, you will need to wait for some time for the upgrades to complete.
+- This way you can complete the upgrades the fastest way.
+- Place the CC near a road, if you want that AI supply trucks can access it.
+- Place the CC the most towards the center of the map, so the coverage will be the best.
+- Alternatively you can try to hide it if you want that it lasts for a very long time (if the enemy doesn't ever spot your base, and you sell it before they do)
+- Depending of what you chose between LF and HF, as soon as the CC is ready, you can start upgrading that factory.
+- If you chose to build the LF: upgrade to LF3 asap
+- If you chose to build the HF: upgrade to HF1 asap
+- When the upgrade is done, buy yourself one of the vehicles with only a gunner.
+- Then fill up the queue with driver and gunner bots of the same vehicle, and go capture a town with it.
+- If you chose a soldier slot, you will get significantly more units for this purpose.
+
+- Next things to upgrade are definitely Gear 2 and barracks 1, or supply 1 if you are capturing towns very fast.
+- Gear 2 and barracks 1, especially with LF3 since you'll have the supplies for it almost ready after upgrading LF3.
+- This way you can get even more units and some basic gear for yourself.
+- More on the [upgrade order section]
+
 
 # FACTORY TYPES
 
@@ -121,7 +162,15 @@ Familiarize yourself with all command and build hotkeys to improve your efficien
 - LF
 - HF
 - AF
-- CC (place near roads if your team does supply missions)
+## Command Center
+- Place near roads if your team does supply missions.
+- 4800m circular range around the building, in all directions, including when you are high up in the sky.
+
+- If you can hide one inside a base that's at the center of the map, that's good.
+- For example if you sell a base that enemies have not spotted, they might never know that a CC was there, and might take them for a very long time to figure it out.
+- Giving you free CC coverage from the center of the map for a very long time, or rest of the game.
+
+
 - AAR
 - SP
 
@@ -364,7 +413,14 @@ Enables the deployment and use of Unmanned Aerial Vehicles for reconnaissance an
 - Currently BLUFOR uav is very useful when there are not a lot of anti air around, since it gets hellfires.
 - OPFOR uav, not so much.
 
-# Money Management
+# Income and money management
+
+## Slots
+- Even though soldier slot is recommended for the commander since you can get so many units to for example act as spotters for you, engineer slot can be good too.
+- If you selected an engineer slot, you can salvage vehicles with the scroll menu.
+- This can be very useful especially if your base is under attack, and vehicles are being destroyed left and right
+- Remember to send the money back to your team though.
+
 ## Resource Allocation
 - artillery
 - at soldiers
@@ -380,6 +436,11 @@ Enables the deployment and use of Unmanned Aerial Vehicles for reconnaissance an
 Keep a reserve of resources to react to unexpected threats or capitalize on enemy weaknesses.
 
 # Situational Awareness
+
+## First contact
+- Track where their units players are moving
+- Will be useful for decision making in regards moving the HQ
+
 ## Using Spotters
 - Deploy spotters to gather intel on enemy movements and positions.
 ## Adapting Tactics
@@ -413,8 +474,8 @@ Useful for attacking the enemy from unexpected angles.
 ## Based on Situation
 Evaluate the current battlefield dynamics and choose positions that maximize your strategic advantages.
 ## Resource Proximity
-Ensure bases are near resources to streamline your supply chain.
-- supply mission, cc placement
+Ensure bases are near to towns to streamline your supply chain.
+- supply mission, cc placement near road
 
 # Tactics
 # Build a Counterbase
