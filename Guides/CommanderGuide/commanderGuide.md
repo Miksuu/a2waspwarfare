@@ -36,9 +36,7 @@ etc...
 - Commander gains significant more cash, based on how many towns you have
 [explain this how much more, etc]
 
-
-[Add to seperate section?]
-- voting mechanics
+## Voting Mechanics
 - Player with most votes will win.
 - However, if the vote goes even, no commander will be assigned
 -add more here
