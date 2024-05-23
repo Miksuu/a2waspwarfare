@@ -186,6 +186,7 @@ Familiarize yourself with all command and build hotkeys to improve your efficien
 - Cost: 700 supply
 
 - If moving from a base location (especially one that is near an airfield), if possible, be sure to leave a service point there, it might become handly later.
+- Reminder that you can buy service points with money too, for 5500$ each. This can be done from the Strategic menu.
 
 
 
