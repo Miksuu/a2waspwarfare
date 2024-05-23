@@ -21,19 +21,12 @@ etc...
 
 # Commander description
 - The commander will decide his team strategy
-- Will take care of the HQ vehicle, and build bases with it.
+- Will take care of the HQ vehicle, moving it around the map, and upon deploying it, build bases with it.
 - Placing these bases in strategic positions is crucial to the commander.
 - Upgrade tech to make those bases more useful in terms of what they can produce
-
-[autocomplete result, might be useful to some extent]
-- The commander will be able to move the MHQ to a new location
-- The commander will be able to deploy the MHQ to a new location
-- The commander will be able to build a new bases
-- The commander will be able to upgrade his teams tech
 - The commander will be able to repair the MHQ
 - The commander will be able to repair the bases [add complete section for this]
 - The commander will be able to sell the bases
-[generate more here as the guide progresses]
 
 # Basic Mechanics for the Commander
 
