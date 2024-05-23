@@ -1,7 +1,13 @@
 Game Guide: Commander's Handbook
 
 # Glossary:
-B = barracks, 
+B = Barracks
+LF = Light Factory
+HF = Heavy Factory
+AF = Aircraft Factory
+CC = Command Center
+AAR = Anti Air Radar
+SP = Service Point
 etc...
 
 # Introduction
