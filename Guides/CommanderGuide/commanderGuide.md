@@ -15,6 +15,9 @@ etc...
 
 # Commander description
 - The commander will decide his team strategy
+- Will take care of the HQ vehicle, and build bases with it.
+- Placing these bases in strategic positions is crucial to the commander.
+- Upgrade tech to make those bases more useful in terms of what they can produce
 
 [autocomplete result, might be useful to some extent]
 - The commander will be able to move the MHQ to a new location
@@ -154,15 +157,24 @@ Familiarize yourself with all command and build hotkeys to improve your efficien
 - More on the [upgrade order section]
 
 
-# FACTORY TYPES
+# BUILDING TYPES
 
 [Make H2 and explain in detail]
 
-- B
-- LF
-- HF
-- AF
+## B
+- Cost: 200 supply
+
+## LF
+- Cost: 600 supply
+
+## HF
+- Cost: 2800 supply
+
+## AF
+- Cost: 4400 supply
+
 ## Command Center
+- Cost: 1200 supply
 - Place near roads if your team does supply missions.
 - 4800m circular range around the building, in all directions, including when you are high up in the sky.
 
@@ -170,9 +182,17 @@ Familiarize yourself with all command and build hotkeys to improve your efficien
 - For example if you sell a base that enemies have not spotted, they might never know that a CC was there, and might take them for a very long time to figure it out.
 - Giving you free CC coverage from the center of the map for a very long time, or rest of the game.
 
+## Anti Air Radar (AAR)
+- Cost: 3200 supply
 
-- AAR
-- SP
+## Service Point (SP)
+- Cost: 700 supply
+
+- If moving from a base location (especially one that is near an airfield), if possible, be sure to leave a service point there, it might become handly later.
+
+
+
+
 
 [WIP, FIX THE DESCRIPTIONS THAT THE LLM GUESSED]
 # Detailed Upgrade Explanations
