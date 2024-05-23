@@ -156,8 +156,6 @@ Familiarize yourself with all command and build hotkeys to improve your efficien
 
 # BUILDING TYPES
 
-[Make H2 and explain in detail]
-
 ## B
 - Cost: 200 supply
 
