@@ -50,6 +50,10 @@ _i = _i + [['','',240,5,-1,2,0,1,'Czech',[]]];
 _c = _c + ['CZ_Soldier_SL_DES_EP1'];
 _i = _i + [['','',220,5,-1,3,0,1,'Czech',[]]];
 
+// Woodland MAAWS soldier (Czech)
+_c = _c + ['CZ_Soldier_AT_Wdl_ACR'];
+_i = _i + [['','',450,5,-1,2,0,1,'Czech',[]]];
+
 /* Light Vehicles */
 _c = _c + ['ATV_CZ_EP1'];
 _i = _i + [['','',175,15,-2,0,1,0,'Czech',[]]];
