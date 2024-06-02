@@ -49,6 +49,16 @@ if (_type == "MVD_Soldier_AT") then {
 	_unit addMagazine "PG7VR";
 };
 
+// Remove the HEDP rocket from the MAAWS soldiers, and replace it with the HEAT rocket
+if (_type == "CZ_Soldier_AT_Wdl_ACR") then {
+	_unit removeMagazine "R_MEEWS_HEDP";
+	_unit addMagazine "R_MEEWS_HEAT";
+};
+if (_type == "US_Soldier_AT_EP1") then {
+	_unit removeMagazine "R_MEEWS_HEDP";
+	_unit addMagazine "R_MEEWS_HEAT";
+};
+
 if (_global) then {
 	if (_side != WFBE_DEFENDER_ID || WFBE_ISTHREEWAY) then {
 		if ((missionNamespace getVariable "WFBE_C_UNITS_TRACK_INFANTRY") > 0) then {
