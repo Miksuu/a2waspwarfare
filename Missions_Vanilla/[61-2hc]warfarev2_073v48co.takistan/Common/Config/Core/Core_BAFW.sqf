@@ -6,94 +6,94 @@ _i = [];
 
 /* Infantry */
 _c = _c + ['BAF_Soldier_AA_W'];
-_i = _i + [['','',410,6,-1,2,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',410,6,0,2,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_AAA_W'];
-_i = _i + [['','',190,6,-1,2,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',190,6,0,2,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_AAT_W'];
-_i = _i + [['','',190,4,-1,2,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',190,4,0,2,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_AHAT_W'];
-_i = _i + [['','',190,6,-1,3,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',190,6,0,3,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_AAR_W'];
-_i = _i + [['','',190,5,-1,2,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',190,5,0,2,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_AMG_W'];
-_i = _i + [['','',190,6,-1,1,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',190,6,0,1,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_AT_W'];
-_i = _i + [['AT Specialist (NLAW)','',650,6,-1,2,0,1,'British (Woodland)',[]]];
+_i = _i + [['AT Specialist (NLAW)','',650,6,0,2,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_HAT_W'];
-_i = _i + [['','',1050,6,-1,3,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',1050,6,0,3,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_AR_W'];
-_i = _i + [['','',210,5,-1,2,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',210,5,0,2,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_crewman_W'];
-_i = _i + [['','',125,5,-1,0,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',125,5,0,0,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_EN_W'];
-_i = _i + [['','',230,5,-1,1,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',230,5,0,1,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_GL_W'];
-_i = _i + [['','',170,5,-1,0,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',170,5,0,0,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_FAC_W'];
-_i = _i + [['','',375,6,-1,3,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',375,6,0,3,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_MG_W'];
-_i = _i + [['','',210,5,-1,0,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',210,5,0,0,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_scout_W'];
-_i = _i + [['','',340,6,-1,2,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',340,6,0,2,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_Marksman_W'];
-_i = _i + [['','',370,6,-1,3,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',370,6,0,3,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_Medic_W'];
-_i = _i + [['','',200,6,-1,0,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',200,6,0,0,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_Officer_W'];
-_i = _i + [['','',265,6,-1,2,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',265,6,0,2,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Pilot_W'];
-_i = _i + [['','',125,6,-1,0,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',125,6,0,0,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_W'];
-_i = _i + [['','',155,6,-1,0,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',155,6,0,0,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_ASoldier_W'];
-_i = _i + [['','',160,6,-1,0,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',160,6,0,0,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_L_W'];
-_i = _i + [['','',130,6,-1,0,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',130,6,0,0,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_N_W'];
-_i = _i + [['','',175,6,-1,1,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',175,6,0,1,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_SL_W'];
-_i = _i + [['','',235,6,-1,2,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',235,6,0,2,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_SniperN_W'];
-_i = _i + [['','',390,6,-1,3,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',390,6,0,3,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_SniperH_W'];
-_i = _i + [['','',420,6,-1,2,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',420,6,0,2,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_Sniper_W'];
-_i = _i + [['','',395,6,-1,2,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',395,6,0,2,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_spotter_W'];
-_i = _i + [['','',340,6,-1,2,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',340,6,0,2,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_spotterN_W'];
-_i = _i + [['','',350,6,-1,2,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',350,6,0,2,0,1,'British (Woodland)',[]]];
 
 _c = _c + ['BAF_Soldier_TL_W'];
-_i = _i + [['','',245,6,-1,1,0,1,'British (Woodland)',[]]];
+_i = _i + [['','',245,6,0,1,0,1,'British (Woodland)',[]]];
 
 /* Light Vehicles */
 _c = _c + ['BAF_ATV_W'];
