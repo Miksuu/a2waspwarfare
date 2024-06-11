@@ -7,7 +7,6 @@ _missile = nearestObject [_source,_ammo];
 if (isNull _missile) exitWith {};
 
 _irLock = getNumber(configFile >> "CfgAmmo" >> _ammo >> "irLock"); //--- Get the ammo type.
-//if (_irLock == 0) then {if (_ammo in ["Bo_FAB_250","Bo_Mk82"]) then {_irLock = 1}}; //--- Dumb bomb workaround (rocket simulation).
 
 ["DEBUG (Common_HandleIncomingMissile.sqf)", Format ["AmmoType: %1", _ammo]] Call WFBE_CO_FNC_LogContent;
 
