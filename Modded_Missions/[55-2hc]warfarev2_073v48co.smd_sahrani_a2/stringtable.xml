@@ -1619,6 +1619,24 @@
                 <Russian>Геймплей: Цветовая Схема Карты</Russian>
                 <Italian>Gameplay: Map Coloration</Italian>
             </Key>
+            <Key ID="STR_WF_PARAMETER_BombAltitude">
+                <English>Gameplay: Limitation of bomb dropping.</English>
+                <French>JOUABILITÉ: Limitation du largage des bombes.</French>
+                <German>Spielbarkeit: Einschränkung des Bombenabwurfs.</German>
+                <Russian>Играбельность: Ограничение сброса бомб.</Russian>
+                <Italian>Giocabilità: Limitazione del rilascio delle bombe.</Italian>
+                <Spanish>Jugabilidad: Limitación del lanzamiento de bombas.</Spanish>
+            </Key>
+            
+            <Key ID="STR_WF_MESSAGE_BombAltitudeRestriction">
+                <English>You cannot drop bombs at this altitude</English>
+                <French>Vous ne pouvez pas larguer de bombes à cette altitude</French>
+                <German>Sie können in dieser Höhe keine Bomben abwerfen</German>
+                <Russian>Вы не можете сбрасывать бомбы на этой высоте</Russian>
+                <Italian>Non puoi sganciare bombe a questa altitudine</Italian>
+                <Spanish>No puedes lanzar bombas a esta altitud</Spanish>
+            </Key>
+
             <Key ID="STR_WF_PARAMETER_MissileRange">
                 <English>GAMEPLAY: Missile Range Limitation</English>
                 <French>JOUABILITÉ: Limitation de la distance des Missiles.</French>
