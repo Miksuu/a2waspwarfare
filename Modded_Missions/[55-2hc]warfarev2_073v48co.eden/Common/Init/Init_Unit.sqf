@@ -101,8 +101,9 @@ if (_unit isKindOf "Air") then { //--- Air units.
 
 	if (_unit isKindOf "Plane") then { //--- Planes.
 		_unit addAction [localize "STR_WF_TaxiReverse","Client\Action\Action_TaxiReverse.sqf", [], 92, false, true, "", 'driver _target == _this && alive _target && speed _target < 4 && speed _target > -4 && getPos _target select 2 < 4'];
-		_unit addEventHandler ['Fired', {_this Spawn HandleShootBombs}]; //--- Marty : Handle missiles and bombs.
 	};
+
+	_unit addEventHandler ['Fired', {_this Spawn HandleShootBombs}]; //--- Marty : Handle missiles and bombs.
 	
 };
 
