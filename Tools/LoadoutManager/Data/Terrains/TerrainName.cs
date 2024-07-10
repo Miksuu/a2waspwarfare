@@ -8,9 +8,6 @@ public enum TerrainName
     [EnumMember(Value = "Takistan")]
     TAKISTAN,
 
-    [EnumMember(Value = "Tasmania")]
-    TASMANIA2010,
-
     [EnumMember(Value = "Dingor")]
     DINGOR,
 

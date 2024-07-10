@@ -21,9 +21,6 @@ public abstract class BaseTerrain : InterfaceTerrain
     //public bool isModdedTerrain { get; set; }
     public TerrainModStatus terrainModStatus { get; set; }
 
-    // Could be removed after Tasmania is fixed
-    public bool skipProcessing { get; set; }
-
     public bool isNavalTerrain { get; set; }
 
     // The directory the game sees, added here after refactoring the EnumMember for The Discord bot usage
@@ -33,12 +30,6 @@ public abstract class BaseTerrain : InterfaceTerrain
     public void WriteAndUpdateTerrainFiles(
         string _easaFileString, string _commonBalanceFileString, string _aircraftDisplayNameStrings, string _addedAircraftDamageModelChanges, string _coreModFile = "")
     {
-        if (skipProcessing) 
-        {
-            Console.WriteLine("Skipping processing for " + terrainName);
-            return;
-        }
-
         string destinationDirectory = DetermineDestinationDirectory();
 
         if (terrainName == TerrainName.CHERNARUS)
