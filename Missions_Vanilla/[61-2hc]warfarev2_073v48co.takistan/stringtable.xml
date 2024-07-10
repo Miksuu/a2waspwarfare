@@ -1629,12 +1629,12 @@
             </Key>
             
             <Key ID="STR_WF_MESSAGE_BombAltitudeRestriction">
-                <English>You cannot drop bombs at this altitude</English>
-                <French>Vous ne pouvez pas larguer de bombes à cette altitude</French>
-                <German>Sie können in dieser Höhe keine Bomben abwerfen</German>
-                <Russian>Вы не можете сбрасывать бомбы на этой высоте</Russian>
-                <Italian>Non puoi sganciare bombe a questa altitudine</Italian>
-                <Spanish>No puedes lanzar bombas a esta altitud</Spanish>
+                <English>You cannot drop unguided bombs at this altitude</English>
+                <French>Vous ne pouvez pas larguer de bombes non guidées à cette altitude</French>
+                <German>Sie können in dieser Höhe keine ungelenkten Bomben abwerfen</German>
+                <Russian>Вы не можете сбрасывать неуправляемые бомбы на этой высоте</Russian>
+                <Italian>Non puoi sganciare bombe non guidate a questa altitudine</Italian>
+                <Spanish>No puedes lanzar bombas no guiadas a esta altitud</Spanish>
             </Key>
 
             <Key ID="STR_WF_PARAMETER_MissileRange">
