@@ -12,7 +12,7 @@ _ammo 			= _this select 4;	// example : B_30mm_AP
 _magazine 		= _this select 5;	// example : 250Rnd_30mmAP_2A42
 _projectile 	= _this select 6;	// Object of the projectile that was shot. Example : 1057951: tracer_green.p3d
 
-if (!(_ammo in ["Bo_FAB_250","Bo_Mk82", "Bo_GBU12_LGB_F35", "Bo_GBU12_LGB"])) exitWith {}; // if ammo have no bombs, we quit.
+if (!(_ammo in ["Bo_FAB_250","Bo_Mk82"])) exitWith {}; // if ammo have no bombs, we quit.
 
 _objPosition = getPos _unit_who_shot;
 _objAltitude = _objPosition select 2;
