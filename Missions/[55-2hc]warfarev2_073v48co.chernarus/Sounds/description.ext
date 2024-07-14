@@ -69,6 +69,12 @@ class CfgSounds
         titles[] = {};
     };
 
+        class radiationSound {
+        name = "radiationSound";
+        sound[] = {"\Sounds\radiation_Sound.ogg", 5, 1};
+        titles[] = {};
+    };
+
     class heavyFactoryBuildSound {
         name = "heavyFactoryBuildSound";
         sound[] = {"\Sounds\heavyFactoryBuildSound-7.ogg", 7, 1};

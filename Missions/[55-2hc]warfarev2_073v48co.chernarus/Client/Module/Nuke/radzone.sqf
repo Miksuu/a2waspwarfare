@@ -10,6 +10,9 @@ _target = _this select 0;
 		{
 			_x setDammage (getDammage _x +  0.03);
 			{_x setDammage  (getDammage _x + 0.05)} forEach crew _x;
+
+			playSound "radiationSound";
+			
 		} forEach _array;
 		sleep (5 + random 5);
 	};
