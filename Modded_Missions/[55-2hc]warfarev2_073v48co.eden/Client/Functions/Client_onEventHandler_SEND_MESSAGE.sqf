@@ -29,7 +29,9 @@ if (playerSide == _side_who_receive_message) then
 
 	// Send a text and audio message to all clients who are supposed to receive it.
 	systemChat _messageText; 
-	playSound _messageSoundName;
+	//playSound _messageSoundName;
+	playSound [_messageSoundName, true];
+	//player say3D _messageSoundName;
 };
 
 
