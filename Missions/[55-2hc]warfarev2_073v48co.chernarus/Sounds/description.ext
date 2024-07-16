@@ -69,12 +69,6 @@ class CfgSounds
         titles[] = {};
     };
 
-        class radiationSound {
-        name = "radiationSound";
-        sound[] = {"\Sounds\radiation_Sound.ogg", 5, 1};
-        titles[] = {};
-    };
-
     class heavyFactoryBuildSound {
         name = "heavyFactoryBuildSound";
         sound[] = {"\Sounds\heavyFactoryBuildSound-7.ogg", 7, 1};
@@ -120,6 +114,12 @@ class CfgSounds
     class newCommander {
         name = "newCommander";
         sound[] = {"\Sounds\newCommander-10.ogg", 10, 1};
+        titles[] = {};
+    };
+
+    class radiation_Sound {
+        name = "radiation_Sound";
+        sound[] = {"\Sounds\radiation_Sound-5.ogg", 5, 1};
         titles[] = {};
     };
 
