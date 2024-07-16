@@ -117,9 +117,9 @@ class CfgSounds
         titles[] = {};
     };
 
-    class radiation_Sound {
-        name = "radiation_Sound";
-        sound[] = {"\Sounds\radiation_Sound-5.ogg", 5, 1};
+    class radiationSound {
+        name = "radiationSound";
+        sound[] = {"\Sounds\radiationSound-5.ogg", 5, 1};
         titles[] = {};
     };
 
