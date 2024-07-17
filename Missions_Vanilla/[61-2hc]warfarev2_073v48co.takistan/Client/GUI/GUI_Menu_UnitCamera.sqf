@@ -24,7 +24,6 @@ _n = 1;
 		_n = _n + 1;
 	};
 } forEach clientTeams;
-// Marty end.
 
 _player_group = group player; 
 _id = clientTeams find _player_group; 
@@ -36,9 +35,10 @@ _currentUnit switchCamera _currentMode;
 _units = (Units (group player) - [player]) Call GetLiveUnits;
 
 {
-    lbAdd[21004, Format ["(%1) %2", getText (configFile >> "CfgVehicles" >> (typeOf (vehicle _x)) >> "displayName"), name _x]];
+	_unitNumber = (_x) Call GetAIDigit;
+	lbAdd[21004,Format["[%1] (%2) %3", _unitNumber, GetText (configFile >> "CfgVehicles" >> (typeOf (vehicle _x)) >> "displayName"),name _x]];
 } forEach _units;
-
+// Marty end.
 
 _type = if (!(difficultyEnabled "3rdPersonView")) then {["Internal"]} else {["Internal","External","Ironsight","Group"]};
 {lbAdd[21006,_x]} forEach _type;
@@ -79,9 +79,10 @@ while {true} do {
 		_units = (Units (group _selected) - [_selected]) Call GetLiveUnits;
 		lbClear 21004;
 		{
-			lbAdd[21004,Format["(%1) %2", GetText (configFile >> "CfgVehicles" >> (typeOf (vehicle _x)) >> "displayName"),name _x]];
+			_unitNumber = (_x) Call GetAIDigit;
+			lbAdd[21004,Format["[%1] (%2) %3", _unitNumber, GetText (configFile >> "CfgVehicles" >> (typeOf (vehicle _x)) >> "displayName"),name _x]];			
 		} forEach _units;
-		_cameraSwap = true;
+		_cameraSwap = true; 
 	};
 	// Marty end.
 	

@@ -18,6 +18,10 @@ onEventHandler_MARKER_CREATION = compile preprocessFileLineNumbers "Client\Funct
 OnEventHandler_ICBM_Launch = Compile preprocessFileLineNumbers "Client\Module\Nuke\OnEventHandler_ICBM_Launch.sqf";
 "ICBM_launched" addPublicVariableEventHandler {_this call OnEventHandler_ICBM_Launch};
 
+// Marty : player radiated Event Handler
+OnEventHandler_player_radiated = Compile preprocessFileLineNumbers "Client\Module\Nuke\OnEventHandler_player_radiated.sqf";
+"PLAYER_RADIATED" addPublicVariableEventHandler {_this call OnEventHandler_player_radiated};
+
 //marty : initialize AFK kick time by default
 if !(isMultiplayer) then {missionNamespace setVariable ["WFBE_C_AFK_TIME", 10]}; // useful when testing solo.
 _inactivityTimeout = missionNamespace getVariable "WFBE_C_AFK_TIME";

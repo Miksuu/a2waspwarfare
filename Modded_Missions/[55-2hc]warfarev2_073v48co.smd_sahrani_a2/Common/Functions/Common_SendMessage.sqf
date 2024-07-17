@@ -27,7 +27,8 @@ if (playerSide == _side_who_receive_message) then
 	};
 
 	systemChat _messageText; 
-	playSound _messageSoundName;
+	//playSound _messageSoundName;
+	playSound [_messageSoundName, true];
 };
 
 // Broadcasting the publicVariable SEND_MESSAGE in order to trigger the EH running on every client.
