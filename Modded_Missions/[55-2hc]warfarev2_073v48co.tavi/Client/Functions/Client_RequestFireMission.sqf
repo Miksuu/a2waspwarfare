@@ -3,6 +3,7 @@ Private ["_count","_destination","_index","_type","_units", "_arty_countdown"];
 _destination 	= _this select 0;
 _index 			= _this select 1;
 _arty_countdown = _this select 2;
+_arty_radius    = _this select 3;
 
 _units = [group player, false, _index, WFBE_Client_SideJoinedText] Call GetTeamArtillery;
 _type = ((missionNamespace getVariable Format ['WFBE_%1_ARTILLERY_CLASSNAMES', WFBE_Client_SideJoinedText]) select _index) find (typeOf (_units select 0));
@@ -16,15 +17,18 @@ if (count _units < 1 || _type < 0) exitWith {};
 // {if (!someAmmo _x) then {[_x, sideJoined] Call RearmVehicle}} forEach _units;
 
 //Marty : add artillery marker on map with the player name who call it
-_marker_name 	= format["ARTY_%1", diag_tickTime];
-_markerPosition = _destination;
-_markerType		= "Destroy";
-_markerText 	= format["ARTY [%1]", name player];
-_markerColor	= "ColorRed";
-_markerSide		= playerSide;
+_marker_name 	    = format["ARTY_%1", diag_tickTime];
+_markerPosition     = _destination;
+_markerType		    = "Destroy";
+_markerText 	    = format["ARTY [%1]", name player];
+_markerColor	    = "ColorRed";
+_markerSide		    = playerSide;
+_markerRadius       = _arty_radius;
+_marker_ellipse_name= format["Elipse_%1", _marker_name];
 
-[_marker_name, _markerPosition, _markerType, _markerText, _markerColor, _markerSide] call WF_createMarker ;
+[_marker_name, _markerPosition, _markerType, _markerText, _markerColor, _markerSide, _marker_ellipse_name,_markerRadius ] call WF_createMarker ;
 [_marker_name, 80] call WFBE_CL_FNC_Delete_Marker ; // marker is removed after some time in seconds. Predifined time prevent weird exitwith condition in the arty script that could make the marker never removed!
+[_marker_ellipse_name, 80] call WFBE_CL_FNC_Delete_Marker ; 
 
 //Send audio + text message to the team side to warn them
 _playerName 	= name player;
