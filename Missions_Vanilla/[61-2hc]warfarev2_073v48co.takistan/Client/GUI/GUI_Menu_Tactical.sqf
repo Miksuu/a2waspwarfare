@@ -504,7 +504,7 @@ while {alive player && dialog} do {
 		_units = [Group player,false,lbCurSel(17008),sideJoinedText] Call GetTeamArtillery;
 		if (Count _units > 0) then {
 			fireMissionTime = time;
-			[GetMarkerPos "artilleryMarker",lbCurSel(17008), _fireTime] Spawn RequestFireMission;
+			[GetMarkerPos "artilleryMarker",lbCurSel(17008), _fireTime, artyRange] Spawn RequestFireMission;
 			
 		} else {
 			hint (localize "STR_WF_INFO_NoArty");
