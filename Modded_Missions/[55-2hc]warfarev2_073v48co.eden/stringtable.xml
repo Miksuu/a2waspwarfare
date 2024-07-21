@@ -1636,6 +1636,14 @@
                 <Italian>Non puoi sganciare bombe non guidate a questa altitudine</Italian>
                 <Spanish>No puedes lanzar bombas no guiadas a esta altitud</Spanish>
             </Key>
+            <Key ID="STR_WF_MESSAGE_BombNoLaserTarget">
+                <English>You cannot drop laser-guided bombs without a laser target at this altitude</English>
+                <French>Vous ne pouvez pas larguer de bombes guidées laser sans cible laser à cette altitude</French>
+                <German>Sie können in dieser Höhe keine lasergesteuerten Bomben ohne Laserziel abwerfen</German>
+                <Russian>Вы не можете сбрасывать лазерно-управляемые бомбы без лазерной цели на этой высоте</Russian>
+                <Italian>Non puoi sganciare bombe guidate laser senza un bersaglio laser a questa altitudine</Italian>
+                <Spanish>No puedes lanzar bombas guiadas por láser sin un objetivo láser a esta altitud</Spanish>
+            </Key>
 
             <Key ID="STR_WF_PARAMETER_MissileRange">
                 <English>GAMEPLAY: Missile Range Limitation</English>
