@@ -83,7 +83,7 @@ class Params {
 		title = "$STR_WF_PARAMETER_AutoDefense_Range";
 		values[] = {50,100,150,200,250,300,350,400,450,500,600,700,800,900,1000};
 		texts[] = {"50m","100m","150m","200m","250m","300m","350m","400m","450m","500m","600m","700m","800m","900m","1000m"};
-		default = 300;
+		default = 350;
 	};
 	class WFBE_C_STRUCTURES_MAX {
 		title = "$STR_WF_PARAMETER_BuildingsLimit";
