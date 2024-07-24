@@ -1637,6 +1637,15 @@
                 <Spanish>No puedes lanzar bombas no guiadas a esta altitud</Spanish>
             </Key>
 
+            <Key ID="STR_WF_MESSAGE_BombDistanceRestriction">
+                <English>You cannot drop unguided bombs at this distance</English>
+                <French>Vous ne pouvez pas larguer de bombes non guidées à cette distance</French>
+                <German>Sie können in dieser Entfernung keine ungelenkten Bomben abwerfen</German>
+                <Russian>Вы не можете сбрасывать неуправляемые бомбы на этом расстоянии</Russian>
+                <Italian>Non puoi sganciare bombe non guidate a questa distanza</Italian>
+                <Spanish>No puedes lanzar bombas no guiadas a esta distancia</Spanish>
+            </Key>
+
             <Key ID="STR_WF_PARAMETER_MissileRange">
                 <English>GAMEPLAY: Missile Range Limitation</English>
                 <French>JOUABILITÉ: Limitation de la distance des Missiles.</French>
