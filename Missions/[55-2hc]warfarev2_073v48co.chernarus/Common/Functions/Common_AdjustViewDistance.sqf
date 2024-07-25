@@ -19,11 +19,13 @@ if (_key in (actionKeys "User18")) then
     if (_toggle_auto_distance_view) then 
     {
         missionNamespace setVariable ["TOOGLE_AUTO_DISTANCE_VIEW", false]; // deactivate the feature.
-        hint "automatic view distance is now OFF.";
+        "Automatic view distance is now OFF" call GroupChatMessage;
+        playSound ["autoViewDistanceToggledOff",true];
     }else 
     {
         missionNamespace setVariable ["TOOGLE_AUTO_DISTANCE_VIEW", true]; // activate the feature.
-        hint "automatic view distance is now ON.";
+        "Automatic view distance is now ON" call GroupChatMessage;
+        playSound ["autoViewDistanceToggledOn",true];
     };
    
 };

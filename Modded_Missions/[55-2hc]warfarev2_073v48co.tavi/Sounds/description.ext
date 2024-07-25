@@ -39,6 +39,18 @@ class CfgSounds
         titles[] = {};
     };
 
+    class autoViewDistanceToggledOff {
+        name = "autoViewDistanceToggledOff";
+        sound[] = {"\Sounds\autoViewDistanceToggledOff-1.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class autoViewDistanceToggledOn {
+        name = "autoViewDistanceToggledOn";
+        sound[] = {"\Sounds\autoViewDistanceToggledOn-1.ogg", 1, 1};
+        titles[] = {};
+    };
+
     class barracksBuildSound {
         name = "barracksBuildSound";
         sound[] = {"\Sounds\barracksBuildSound-7.ogg", 7, 1};
