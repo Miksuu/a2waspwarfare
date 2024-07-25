@@ -15,7 +15,7 @@ _adjustViewDistanceBy = 1000;
 if (_key in (actionKeys "User18")) then 
 {
     _toggle_auto_distance_view = missionNamespace getVariable "TOOGLE_AUTO_DISTANCE_VIEW";
-    diag_log format[ "1. DEBUG _toggle_auto_distance_view = %1 | type = %2", _toggle_auto_distance_view, typeName _toggle_auto_distance_view ];
+    //diag_log format[ "1. DEBUG _toggle_auto_distance_view = %1 | type = %2", _toggle_auto_distance_view, typeName _toggle_auto_distance_view ];
     if (_toggle_auto_distance_view) then 
     {
         missionNamespace setVariable ["TOOGLE_AUTO_DISTANCE_VIEW", false]; // deactivate the feature.
