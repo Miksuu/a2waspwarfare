@@ -148,6 +148,9 @@ if (ARMA_VERSION >= 162 && ARMA_RELEASENUMBER > 97105 || ARMA_VERSION > 162) the
 	Call Compile preprocessFileLineNumbers "Client\Init\Init_ProfileVariables.sqf";
 };
 
+// Marty : auto distance view feature deactivated at client start.
+missionNamespace setVariable ["TOOGLE_AUTO_DISTANCE_VIEW", false];
+
 //--- Queue Protection.
 missionNamespace setVariable ['WFBE_C_QUEUE_BARRACKS',0];
 missionNamespace setVariable ['WFBE_C_QUEUE_BARRACKS_MAX',10];

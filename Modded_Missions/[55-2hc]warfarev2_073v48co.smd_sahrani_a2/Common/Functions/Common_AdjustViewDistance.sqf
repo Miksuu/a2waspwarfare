@@ -4,11 +4,30 @@ This script allows the player to adjust view distance with the custom action key
 TODO: Adjustable by slider that how much the view distance will change per key press
 
 Author: Miksuu
+contributors : Marty.
 */
 Private ["_key","_adjustViewDistanceBy","_newViewDistanceToBeSet"];
 _key = _this select 1;
 
 _adjustViewDistanceBy = 1000;
+
+//--- Marty: Automatic view distance feature
+if (_key in (actionKeys "User18")) then 
+{
+    _toggle_auto_distance_view = missionNamespace getVariable "TOOGLE_AUTO_DISTANCE_VIEW";
+    diag_log format[ "1. DEBUG _toggle_auto_distance_view = %1 | type = %2", _toggle_auto_distance_view, typeName _toggle_auto_distance_view ];
+    if (_toggle_auto_distance_view) then 
+    {
+        missionNamespace setVariable ["TOOGLE_AUTO_DISTANCE_VIEW", false]; // deactivate the feature.
+        hint "automatic view distance is now OFF.";
+    }else 
+    {
+        missionNamespace setVariable ["TOOGLE_AUTO_DISTANCE_VIEW", true]; // activate the feature.
+        hint "automatic view distance is now ON.";
+    };
+   
+};
+//Marty end.
 
 //--- Decrease View Distance
 if (_key in (actionKeys "User19")) then {

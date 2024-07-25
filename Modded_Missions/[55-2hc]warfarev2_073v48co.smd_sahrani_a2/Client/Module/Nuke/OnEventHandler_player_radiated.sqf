@@ -12,9 +12,6 @@
 private["_PLAYER_radiated"];
 
 _PLAYER_radiated = _this select 1;
-diag_log format[ "1. DEBUG _PLAYER_radiated = %1 | type = %2", _PLAYER_radiated, typeName _PLAYER_radiated ];
-diag_log format[ "2. DEBUG player = %1 | type = %2", player, typeName player ];
-
 
 if (player == _PLAYER_radiated) then 
 {
