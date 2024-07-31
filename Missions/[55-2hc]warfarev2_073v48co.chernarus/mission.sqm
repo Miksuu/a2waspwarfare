@@ -4827,10 +4827,11 @@ class Mission
 					id=304;
 					side="CIV";
 					vehicle="Policeman";
+					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
 					text="camera_1";
-					init="this allowdamage false; this exec ""camera.sqs"";";
+					init="this allowdamage false";
 					description="DO NOT ENTER THIS SLOT!!!";
 				};
 			};
