@@ -33,7 +33,7 @@ class Mission
 	};
 	class Groups
 	{
-		items=125;
+		items=126;
 		class Item0
 		{
 			side="LOGIC";
@@ -4812,6 +4812,26 @@ class Mission
 					vehicle="LocationLogicStart";
 					leader=1;
 					skill=0.60000002;
+				};
+			};
+		};
+		class Item125
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={1922.4326,545.40918,15298.248};
+					id=304;
+					side="CIV";
+					vehicle="Policeman";
+					leader=1;
+					skill=0.60000002;
+					text="camera_1";
+					init="this allowdamage false; this exec ""camera.sqs"";";
+					description="DO NOT ENTER THIS SLOT!!!";
 				};
 			};
 		};
