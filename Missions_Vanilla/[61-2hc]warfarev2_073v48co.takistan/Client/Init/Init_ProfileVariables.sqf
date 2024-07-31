@@ -14,6 +14,14 @@ if !(isNil '_profile_var') then {
 		};
 	};
 };
+
+//--- Target FPS
+_profile_var = profileNamespace getVariable "WFBE_TARGET_FPS";
+if !(isNil '_profile_var') then {
+	if (typeName _profile_var == "SCALAR") then {
+		missionNamespace setVariable ["AUTO_DISTANCE_VIEW_TARGET_FPS", _profile_var];
+	};
+};
 	
 //--- Terrain Grid.
 _profile_var = profileNamespace getVariable "WFBE_PERSISTENT_CONST_TERRAIN_GRID";

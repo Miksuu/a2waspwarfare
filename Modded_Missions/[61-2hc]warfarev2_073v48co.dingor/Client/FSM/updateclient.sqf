@@ -1,4 +1,4 @@
-private["_lastCommanderTeam","_changeCommander","_timer"];
+private["_toggle_auto_distance_view","_lastCommanderTeam","_changeCommander","_timer"];
 
 commanderTeam = (sideJoined) Call WFBE_CO_FNC_GetCommanderTeam;
 
@@ -29,7 +29,16 @@ _inactivityTimeout = _inactivityTimeout * 60; // Convert the given time from min
 
 if (WF_Debug) then {_inactivityTimeout = _inactivityTimeout * 99999};
 
+AutomaticViewDistance = compile preprocessFile "Common\Functions\Common_AutomaticViewDistance.sqf";
+
 while {!gameOver} do {
+
+	//Marty : automatic adjusting distance view. The distance view of the client is adjusted automatically to reach the fps target.
+	_toggle_auto_distance_view = missionNamespace getVariable "TOOGLE_AUTO_DISTANCE_VIEW";
+		if (_toggle_auto_distance_view) then 
+	{
+		call AutomaticViewDistance; 
+	};
 
 	//Marty : check the inactivity (AFK, Away From Keyboard) and kick the player after too long time elapsed
 	// calculate the elapsed time from last action of the player 
