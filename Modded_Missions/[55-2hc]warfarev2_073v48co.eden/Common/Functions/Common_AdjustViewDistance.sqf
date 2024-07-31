@@ -4,7 +4,7 @@ This script allows the player to adjust view distance or target FPS with the cus
 Author: Miksuu
 Contributors: Marty
 */
-Private ["_key","_adjustViewDistanceBy","_newViewDistanceToBeSet","_adjustTargetFpsBy"];
+Private ["_key","_adjustViewDistanceBy","_newViewDistanceToBeSet","_adjustTargetFpsBy","_savedViewDistance"];
 _key = _this select 1;
 
 _adjustViewDistanceBy = 1000;
@@ -21,8 +21,11 @@ if (_key in (actionKeys "User18")) then
         missionNamespace setVariable ["TOOGLE_AUTO_DISTANCE_VIEW", false]; // deactivate the feature.
         "Automatic view distance is now OFF" call GroupChatMessage;
         playSound ["autoViewDistanceToggledOff",true];
+        _savedViewDistance = missionNamespace getVariable "SAVED_VIEW_DISTANCE";
+        setViewDistance _savedViewDistance;
     } else 
     {
+        missionNamespace setVariable ["SAVED_VIEW_DISTANCE", viewDistance];
         missionNamespace setVariable ["TOOGLE_AUTO_DISTANCE_VIEW", true]; // activate the feature.
         "Automatic view distance is now ON" call GroupChatMessage;
         playSound ["autoViewDistanceToggledOn",true];
