@@ -4888,10 +4888,10 @@ class Mission
 			position[]={6996.5112,271.79788,6543.7539};
 			a=20000;
 			b=20000;
-			activationBy="CIV";
-			activationType="CIV D";
+			activationBy="ALPHA";
 			interruptable=1;
 			age="UNKNOWN";
+			expCond="(player == camera_1)";
 			expActiv="foo = [player, player, ""null""] execVM ""Client\Module\spect\specta.sqf""";
 			class Effects
 			{
