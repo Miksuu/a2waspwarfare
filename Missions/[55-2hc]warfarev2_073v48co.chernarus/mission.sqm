@@ -4880,6 +4880,24 @@ class Mission
 			b=80;
 		};
 	};
+	class Sensors
+	{
+		items=1;
+		class Item0
+		{
+			position[]={6996.5112,271.79788,6543.7539};
+			a=20000;
+			b=20000;
+			activationBy="CIV";
+			activationType="CIV D";
+			interruptable=1;
+			age="UNKNOWN";
+			expActiv="foo = [player, player, ""null""] execVM ""Client\Module\spect\specta.sqf""";
+			class Effects
+			{
+			};
+		};
+	};
 };
 class Intro
 {
