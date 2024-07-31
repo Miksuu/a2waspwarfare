@@ -55,6 +55,9 @@
 //--- Titles contains the titles (overlay).
 #include "Rsc\Titles.hpp"
 
+// Include spectating script resource
+#include "Client\Module\spect\spectating.hpp"
+
 //--- Include Identities (OA/CO Only).
 #ifndef VANILLA
   #include "Rsc\Identities.hpp"

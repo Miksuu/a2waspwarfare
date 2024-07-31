@@ -213,6 +213,13 @@ if (isHeadLessClient) then {
 	execVM "Headless\Init\Init_HC.sqf";
 };
 
+KEGsShownSides = [civilian];
+
+//--- Run the Kegetys spectator module.
+if (isCameraClient) then {
+	[] execVM "Client\Module\spect\specta_init.sqf";
+};
+
 /* Marty : old wasp script using resources unecessarely. Will be removed after some days if its ok.
 //// Wasp part
 WASP_procInitComm=Compile PreprocessFile "WASP\common\procInitComm.sqf";
