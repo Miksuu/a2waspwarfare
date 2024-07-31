@@ -217,6 +217,7 @@ KEGsShownSides = [civilian];
 
 //--- Run the Kegetys spectator module.
 if (isCameraClient) then {
+	diag_log "CAMERA: isCameraClient";
 	[] execVM "Client\Module\spect\specta_init.sqf";
 };
 
