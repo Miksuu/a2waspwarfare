@@ -9,24 +9,29 @@
 	_max_distance_view = 6000;
 	_min_distance_view = 500;
 
-	_player_fps =  diag_fps;
+	_player_fps = diag_fps;
 	_player_view_distance = viewDistance;
 	
 	if (_player_fps < _min_fps_targeted) then 
 	{
 		_player_view_distance = _player_view_distance - 200;
-		if (_player_view_distance > _min_distance_view) then 
-		{
-			setViewDistance _player_view_distance;
-			//systemChat format ["%1 m distance view", _player_view_distance];
-		};
-	};
-
-	if (_player_fps > _max_fps_targeted) then 
+		_player_view_distance = _player_view_distance max _min_distance_view;
+		setViewDistance _player_view_distance;
+		//systemChat format ["%1 m distance view", _player_view_distance];
+	}
+	else
 	{
-		_player_view_distance = _player_view_distance + 300;
-		if (_player_view_distance < _max_distance_view) then // we do not increase the distance view beabove the maximum limit.
+		if (_player_view_distance < _max_distance_view) then
 		{
+			if (_player_fps > _max_fps_targeted) then 
+			{
+				_player_view_distance = _player_view_distance + 300;
+			}
+			else
+			{
+				_player_view_distance = _player_view_distance + 50;
+			};
+			_player_view_distance = _player_view_distance min _max_distance_view;
 			setViewDistance _player_view_distance;
 			//systemChat format ["%1 m distance view", _player_view_distance];
 		};
