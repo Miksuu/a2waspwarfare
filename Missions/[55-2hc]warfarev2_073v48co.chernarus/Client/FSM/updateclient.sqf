@@ -31,9 +31,6 @@ if (WF_Debug) then {_inactivityTimeout = _inactivityTimeout * 99999};
 
 AutomaticViewDistance = compile preprocessFile "Common\Functions\Common_AutomaticViewDistance.sqf";
 
-// Set the default target fps to 60, SAVE THIS LATER TO THE PROFILE
-missionNamespace setVariable ["AUTO_DISTANCE_VIEW_TARGET_FPS", 60];
-
 while {!gameOver} do {
 
 	//Marty : automatic adjusting distance view. The distance view of the client is adjusted automatically to reach the fps target.

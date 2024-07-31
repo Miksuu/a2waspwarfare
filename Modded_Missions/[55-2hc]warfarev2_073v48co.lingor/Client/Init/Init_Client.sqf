@@ -9,6 +9,9 @@ WFBE_Client_SideJoined = sideJoined;
 WFBE_Client_SideJoinedText = sideJoinedText;
 WFBE_Allow_HostileGearSaving = true;
 
+// Set the default target fps to 60
+missionNamespace setVariable ["AUTO_DISTANCE_VIEW_TARGET_FPS", 60];
+
 player call Compile preprocessFileLineNumbers "WASP\rpg_dropping\DropRPG.sqf";
 //--- Position the client on the temp spawn (Common is not yet init'd so we call is straigh away).
 player setPos ([getMarkerPos Format["%1TempRespawnMarker",sideJoinedText],1,10] Call Compile preprocessFile "Common\Functions\Common_GetRandomPosition.sqf");

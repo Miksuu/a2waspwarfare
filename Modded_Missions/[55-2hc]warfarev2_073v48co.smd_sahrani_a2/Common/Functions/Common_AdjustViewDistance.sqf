@@ -36,6 +36,7 @@ if (_key in (actionKeys "User18")) then
 if (_key in (actionKeys "User19")) then {
     if (_toggle_auto_distance_view) then {
         _auto_distance_view_target_fps = (_auto_distance_view_target_fps - _adjustTargetFpsBy) max 30;
+        if !(isNil 'WFBE_CO_FNC_SetProfileVariable') then {['WFBE_TARGET_FPS', _auto_distance_view_target_fps] Call WFBE_CO_FNC_SetProfileVariable; _need_save = true};
         missionNamespace setVariable ["AUTO_DISTANCE_VIEW_TARGET_FPS", _auto_distance_view_target_fps];
         (format ["Target FPS has been set to be min. %1 max %2", _auto_distance_view_target_fps - 2, _auto_distance_view_target_fps + 2]) call GroupChatMessage;
     } else {
@@ -55,6 +56,7 @@ if (_key in (actionKeys "User20")) then {
     if (_toggle_auto_distance_view) then {
         _auto_distance_view_target_fps = (_auto_distance_view_target_fps + _adjustTargetFpsBy) min 240;
         missionNamespace setVariable ["AUTO_DISTANCE_VIEW_TARGET_FPS", _auto_distance_view_target_fps];
+        if !(isNil 'WFBE_CO_FNC_SetProfileVariable') then {['WFBE_TARGET_FPS', _auto_distance_view_target_fps] Call WFBE_CO_FNC_SetProfileVariable; _need_save = true};
         (format ["Target FPS has been set to be min. %1 max %2", _auto_distance_view_target_fps - 2, _auto_distance_view_target_fps + 2]) call GroupChatMessage;
     } else {
         if (newViewDistance == 0) then {
