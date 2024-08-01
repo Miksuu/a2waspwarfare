@@ -474,14 +474,14 @@ sleep 1;
 // ["INITIALIZATION", "Init_Client.sqf: Vote system is initialized."] Call WFBE_CO_FNC_LogContent;
 // if ((WFBE_Client_Logic getVariable "wfbe_votetime") > 0) then {createDialog "WFBE_VoteMenu"};
 
-/* Debug System - Client */
-if (WF_Debug) then {
-	onMapSingleClick "vehicle player setpos _pos;(vehicle player) setVelocity [0,0,-0.1];diag_log getpos player;"; //--- Teleport
+// /* Debug System - Client */
+// if (WF_Debug) then {
+// 	onMapSingleClick "vehicle player setpos _pos;(vehicle player) setVelocity [0,0,-0.1];diag_log getpos player;"; //--- Teleport
 
-	//player addEventHandler ["HandleDamage", {false}];
-	// player setCaptive true;
-	player addEventHandler ["HandleDamage", {false;if (player != (_this select 3)) then {(_this select 3) setDammage 1}}]; //--- God-Slayer mode.
-};
+// 	//player addEventHandler ["HandleDamage", {false}];
+// 	// player setCaptive true;
+// 	player addEventHandler ["HandleDamage", {false;if (player != (_this select 3)) then {(_this select 3) setDammage 1}}]; //--- God-Slayer mode.
+// };
 execVM "limitThirdPersonView.sqf";
 
 if ((missionNamespace getVariable "WFBE_C_ARTILLERY_UI") > 0) then {[] ExecVM "ca\modules\ARTY\data\scripts\init.sqf"}; //--- Artillery UI.
