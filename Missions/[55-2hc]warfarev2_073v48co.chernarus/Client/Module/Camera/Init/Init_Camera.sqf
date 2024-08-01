@@ -295,7 +295,7 @@ if ((missionNamespace getVariable "WFBE_C_ECONOMY_INCOME_SYSTEM") in [3,4]) then
 //if ((missionNamespace getVariable "WFBE_C_UNITS_TRACK_LEADERS") > 0) then {[] execVM "Client\FSM\updateteamsmarkers.sqf"};
 [] execVM "Client\Module\Camera\FSM\CAM_updatebothteamsmarkers.sqf";
 
-[] execFSM "Client\Module\Camera\FSM\CAM_client_both_title_capture.fsm";
+[] execFSM "Client\Module\Camera\FSM\CAM_client_both_title_capture.sqf";
 /* Don't pause the client initialization process. */
 [] Spawn {
 	waitUntil {townInit};
