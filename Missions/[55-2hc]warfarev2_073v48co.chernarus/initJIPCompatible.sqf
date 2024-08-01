@@ -60,13 +60,13 @@ if (isHeadLessClient) then {["INITIALIZATION", "initJIPCompatible.sqf: Detected 
 isCameraClient = Call Compile preprocessFileLineNumbers "Client\Module\Camera\Functions\Cam_IsCameraClient.sqf";
 if (isCameraClient) then {
     _playerUID = getPlayerUID player;
-    ["INITIALIZATION", format["initJIPCompatible.sqf: Detected a camera client. Checking GUIDs next. Player UID: %1", _playerUID]] Call WFBE_CO_FNC_LogContent;
+    ["INITIALIZATION", format["initJIPCompatible.sqf: Detected a camera client. Checking UIDs next. Player UID: %1", _playerUID]] Call WFBE_CO_FNC_LogContent;
     
-    _authorizedGUIDs = [
-        "4984c3515912537144e5b84980bbd3e4" // Miksuu
+    _authorizedUIDs = [
+        "76561198032301689" // Miksuu
     ];
     
-    if !(_playerUID in _authorizedGUIDs) then {
+    if !(_playerUID in _authorizedUIDs) then {
         ["INITIALIZATION", format["initJIPCompatible.sqf: Unauthorized camera client detected. Booting client. Player UID: %1", _playerUID]] Call WFBE_CO_FNC_LogContent;
         endMission "END1";
     };
