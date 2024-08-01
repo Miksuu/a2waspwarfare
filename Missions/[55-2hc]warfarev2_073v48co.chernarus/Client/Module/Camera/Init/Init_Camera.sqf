@@ -334,21 +334,21 @@ Call Compile "enableEngineArtillery false;";
 //--- Add the briefing (notes).
 //[] Call Compile preprocessFile "briefing.sqf";
 
-//--- HQ Radio system.
-waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_radio_hq"}};
-_HQRadio = WFBE_Client_Logic getVariable "wfbe_radio_hq";
-["INITIALIZATION", Format["Init_Client.sqf: Initialized the Radio Announcer [%1]", _HQRadio]] Call WFBE_CO_FNC_LogContent;
-waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_radio_hq_id"}};
-WFBE_V_HQTopicSide = WFBE_Client_Logic getVariable "wfbe_radio_hq_id";
-["INITIALIZATION", Format["Init_Client.sqf: Initializing the Radio Announcer Identity [%1]", WFBE_V_HQTopicSide]] Call WFBE_CO_FNC_LogContent;
-_HQRadio setIdentity WFBE_V_HQTopicSide;
-_HQRadio setRank "COLONEL";
-_HQRadio setGroupId ["HQ"];
-_HQRadio kbAddTopic [WFBE_V_HQTopicSide,"Client\kb\hq.bikb","Client\kb\hq.fsm",{call compile preprocessFileLineNumbers "Client\kb\hq.sqf"}];
-player kbAddTopic [WFBE_V_HQTopicSide,"Client\kb\hq.bikb","Client\kb\hq.fsm",{call compile preprocessFileLineNumbers "Client\kb\hq.sqf"}];
-sideHQ = _HQRadio;
+// //--- HQ Radio system.
+// waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_radio_hq"}};
+// _HQRadio = WFBE_Client_Logic getVariable "wfbe_radio_hq";
+// ["INITIALIZATION", Format["Init_Client.sqf: Initialized the Radio Announcer [%1]", _HQRadio]] Call WFBE_CO_FNC_LogContent;
+// waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_radio_hq_id"}};
+// WFBE_V_HQTopicSide = WFBE_Client_Logic getVariable "wfbe_radio_hq_id";
+// ["INITIALIZATION", Format["Init_Client.sqf: Initializing the Radio Announcer Identity [%1]", WFBE_V_HQTopicSide]] Call WFBE_CO_FNC_LogContent;
+// _HQRadio setIdentity WFBE_V_HQTopicSide;
+// _HQRadio setRank "COLONEL";
+// _HQRadio setGroupId ["HQ"];
+// _HQRadio kbAddTopic [WFBE_V_HQTopicSide,"Client\kb\hq.bikb","Client\kb\hq.fsm",{call compile preprocessFileLineNumbers "Client\kb\hq.sqf"}];
+// player kbAddTopic [WFBE_V_HQTopicSide,"Client\kb\hq.bikb","Client\kb\hq.fsm",{call compile preprocessFileLineNumbers "Client\kb\hq.sqf"}];
+// sideHQ = _HQRadio;
 
-["INITIALIZATION", "Init_Client.sqf: Radio announcer is initialized."] Call WFBE_CO_FNC_LogContent;
+// ["INITIALIZATION", "Init_Client.sqf: Radio announcer is initialized."] Call WFBE_CO_FNC_LogContent;
 
 /* Wait for a valid signal (Teamswaping) with failover */
 if (isMultiplayer && ((missionNamespace getVariable "WFBE_C_GAMEPLAY_TEAMSWAP_DISABLE") > 0 && !WF_Debug) && time > 7) then {
