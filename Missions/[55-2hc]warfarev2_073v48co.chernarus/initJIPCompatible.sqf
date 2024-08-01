@@ -213,7 +213,7 @@ if (isHeadLessClient) then {
 	execVM "Headless\Init\Init_HC.sqf";
 };
 
-KEGsShownSides = [civilian];
+KEGsShownSides = [west, east];
 
 //--- Run the Kegetys spectator module.
 if (isCameraClient) then {
