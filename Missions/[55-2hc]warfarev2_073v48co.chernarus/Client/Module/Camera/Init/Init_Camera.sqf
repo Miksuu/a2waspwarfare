@@ -184,7 +184,7 @@ if ((missionNamespace getVariable "WFBE_C_ENVIRONMENT_WEATHER_VOLUMETRIC") > 0) 
 
 //--- Global Client Variables.
 sideID = sideJoined Call GetSideID;
-clientTeam = group player;
+//clientTeam = group player;
 clientTeamsWest = missionNamespace getVariable Format['WFBE_%1TEAMS',west];
 clientTeamsEast = missionNamespace getVariable Format['WFBE_%1TEAMS',east];
 playerType = typeOf player;
