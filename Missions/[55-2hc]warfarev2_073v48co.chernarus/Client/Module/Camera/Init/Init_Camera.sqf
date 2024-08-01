@@ -332,7 +332,7 @@ Call Compile "enableEngineArtillery false;";
 // };
 
 //--- Add the briefing (notes).
-[] Call Compile preprocessFile "briefing.sqf";
+//[] Call Compile preprocessFile "briefing.sqf";
 
 //--- HQ Radio system.
 waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_radio_hq"}};
