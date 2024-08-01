@@ -398,26 +398,26 @@ Call Compile "enableEngineArtillery false;";
 
 // ["INITIALIZATION", Format["Init_Client.sqf: Client spawn location has been determined at [%1].", _base]] Call WFBE_CO_FNC_LogContent;
 
-/* Position the client at the previously defined location */
-player setPos ([_base,20,30] Call GetRandomPosition);
+// /* Position the client at the previously defined location */
+// player setPos ([_base,20,30] Call GetRandomPosition);
 
 /* HQ Building Init. */
-waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_hq_deployed"}};
-["INITIALIZATION", "Init_Client.sqf: Initializing COIN Module."] Call WFBE_CO_FNC_LogContent;
-_isDeployed = (sideJoined) Call WFBE_CO_FNC_GetSideHQDeployStatus;
-if (_isDeployed) then {
-	[missionNamespace getVariable "WFBE_C_BASE_COIN_AREA_HQ_DEPLOYED",true,MCoin] Call Compile preprocessFile "Client\Init\Init_Coin.sqf";
-} else {
-	[missionNamespace getVariable "WFBE_C_BASE_COIN_AREA_HQ_UNDEPLOYED",false,MCoin] Call Compile preprocessFile "Client\Init\Init_Coin.sqf";
-};
+// waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_hq_deployed"}};
+// ["INITIALIZATION", "Init_Client.sqf: Initializing COIN Module."] Call WFBE_CO_FNC_LogContent;
+// _isDeployed = (sideJoined) Call WFBE_CO_FNC_GetSideHQDeployStatus;
+// if (_isDeployed) then {
+// 	[missionNamespace getVariable "WFBE_C_BASE_COIN_AREA_HQ_DEPLOYED",true,MCoin] Call Compile preprocessFile "Client\Init\Init_Coin.sqf";
+// } else {
+// 	[missionNamespace getVariable "WFBE_C_BASE_COIN_AREA_HQ_UNDEPLOYED",false,MCoin] Call Compile preprocessFile "Client\Init\Init_Coin.sqf";
+// };
 
-//--- Add Killed EH to the HQ on each client if needed (JIP), skip LAN host.
-if (!isServer && !_isDeployed) then {
-	[] spawn {
-		waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_hq"}};
-		(WFBE_Client_SideJoined Call WFBE_CO_FNC_GetSideHQ) addEventHandler ["killed", {["RequestSpecial", ["process-killed-hq", _this]] Call WFBE_CO_FNC_SendToServer}];
-	};
-};
+// //--- Add Killed EH to the HQ on each client if needed (JIP), skip LAN host.
+// if (!isServer && !_isDeployed) then {
+// 	[] spawn {
+// 		waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_hq"}};
+// 		(WFBE_Client_SideJoined Call WFBE_CO_FNC_GetSideHQ) addEventHandler ["killed", {["RequestSpecial", ["process-killed-hq", _this]] Call WFBE_CO_FNC_SendToServer}];
+// 	};
+// };
 
 _greenList = [];
 {_greenList = _greenList + [missionNamespace getVariable Format ["%1%2",WFBE_Client_SideJoinedText,_x]]} forEach ["BAR","LVF","HEAVY","AIR"];
