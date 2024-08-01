@@ -201,7 +201,10 @@ WFBE_Parameters_Ready = true; //--- All parameters are set and ready.
 
 if (!isCameraClient) then {
     ExecVM "Common\Init\Init_Common.sqf"; //--- Execute the common files.
+} else {
+	ExecVM "Client\Module\Camera\Init\Init_Common_On_Camera.sqf";
 };
+
 ExecVM "Common\Init\Init_Towns.sqf"; //--- Execute the towns file.
 
 //--- Server initialization.
