@@ -62,7 +62,6 @@ SupportHeal = Compile preprocessFile "Client\Functions\Client_SupportHeal.sqf";
 SupportRearm = Compile preprocessFile "Client\Functions\Client_SupportRearm.sqf";
 SupportRefuel = Compile preprocessFile "Client\Functions\Client_SupportRefuel.sqf";
 SupportRepair = Compile preprocessFile "Client\Functions\Client_SupportRepair.sqf";
-// TaskSystem = Compile preprocessFile "Client\Functions\Client_TaskSystem.sqf";
 TitleTextMessage = Compile preprocessFile "Client\Functions\Client_TitleTextMessage.sqf";
 UIChangeComboBuyUnits = Compile preprocessFile "Client\Functions\Client_UIChangeComboBuyUnits.sqf";
 UIFillListBuyUnits = Compile preprocessFile "Client\Functions\Client_UIFillListBuyUnits.sqf";
