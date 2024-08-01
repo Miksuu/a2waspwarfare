@@ -226,12 +226,22 @@ if (isHeadLessClient) then {
 	execVM "Headless\Init\Init_HC.sqf";
 };
 
+//--- Run the Kegetys spectator module.
 KEGsShownSides = [west, east];
 
-//--- Run the Kegetys spectator module.
 if (isCameraClient) then {
-	diag_log "CAMERA: isCameraClient";
+	//diag_log "CAMERA: isCameraClient";
 	[] execVM "Client\Module\spect\specta_init.sqf";
+
+		waitUntil {!isNil 'WFBE_PRESENTSIDES'}; //--- Await for teams to be set before processing the client init.
+	{
+		_logik = (_x) Call WFBE_CO_FNC_GetSideLogic;
+		waitUntil {!isNil {_logik getVariable "wfbe_teams"}};
+		missionNamespace setVariable [Format["WFBE_%1TEAMS",_x], _logik getVariable "wfbe_teams"];
+	} forEach WFBE_PRESENTSIDES;
+
+	["INITIALIZATION", "initJIPCompatible.sqf: Executing the Camera Initialization."] Call WFBE_CO_FNC_LogContent;
+	execVM "Client\Module\Camera\Init\Init_Camera.sqf";
 };
 
 /* Marty : old wasp script using resources unecessarely. Will be removed after some days if its ok.
