@@ -317,10 +317,10 @@ Call Compile "enableEngineArtillery false;";
 	["INITIALIZATION", "Init_Client.sqf: Initializing the Available Actions FSM"] Call WFBE_CO_FNC_LogContent;
 	//[] execFSM "Client\FSM\updateavailableactions.fsm";
 	/* Resources Handler */
-	if !((missionNamespace getVariable "WFBE_C_ECONOMY_INCOME_SYSTEM") in [3,4]) then {
-		["INITIALIZATION", "Init_Client.sqf: Initializing the Resources SQF"] Call WFBE_CO_FNC_LogContent;
-		(sideJoined) execVM "Client\FSM\resources_cli.sqf";
-	};
+	// if !((missionNamespace getVariable "WFBE_C_ECONOMY_INCOME_SYSTEM") in [3,4]) then {
+	// 	["INITIALIZATION", "Init_Client.sqf: Initializing the Resources SQF"] Call WFBE_CO_FNC_LogContent;
+	// 	(sideJoined) execVM "Client\FSM\resources_cli.sqf";
+	// };
 };
 
 [] Spawn {
