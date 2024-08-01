@@ -109,7 +109,8 @@ WFBE_CO_FNC_GetClosestEntity = Compile preprocessFileLineNumbers "Common\Functio
 WFBE_CO_FNC_GetClosestEntity2 = Compile preprocessFileLineNumbers "Common\Functions\Common_GetClosestEntity2.sqf";
 WFBE_CO_FNC_GetClosestEntity3 = Compile preprocessFileLineNumbers "Common\Functions\Common_GetClosestEntity3.sqf";
 WFBE_CO_FNC_GetClosestEntity4 = Compile preprocessFileLineNumbers "Common\Functions\Common_GetClosestEntity4.sqf";
-WFBE_CO_FNC_GetConfigEntry = Compile preprocessFileLineNumbers "Common\Functions\Common_GetConfigEntry.sqf";
+// DISABLED, USEFUL FOR LATER ON IF NEEDED TO SHOW BOTH TEAMS UPGRADES
+//WFBE_CO_FNC_GetConfigEntry = Compile preprocessFileLineNumbers "Common\Functions\Common_GetConfigEntry.sqf";
 WFBE_CO_FNC_GetDirTo = Compile preprocessFileLineNumbers "Common\Functions\Common_GetDirTo.sqf";
 WFBE_CO_FNC_GetEmptyPosition = Compile preprocessFileLineNumbers "Common\Functions\Common_GetEmptyPosition.sqf";
 WFBE_CO_FNC_GetLiveUnits = Compile preprocessFileLineNumbers "Common\Functions\Common_GetLiveUnits.sqf";
