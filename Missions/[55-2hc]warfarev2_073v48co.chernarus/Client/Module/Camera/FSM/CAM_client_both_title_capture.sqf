@@ -27,10 +27,10 @@ _town_capture_mode = missionNamespace getVariable "WFBE_C_TOWNS_CAPTURE_MODE";
 diag_log format["TITLECAPTURE: _town_capture_mode initialized to %1", _town_capture_mode];
 
 while {!WFBE_GameOver} do {
-	_nearest = [player,towns] Call WFBE_CO_FNC_GetClosestEntity;
-	diag_log format["TITLECAPTURE: _nearest: %1", _nearest];
 	_selectedCamera = KEGscameras select LastSelectedCamera;
 	diag_log format["TITLECAPTURE: _selectedCamera: %1", _selectedCamera];
+	_nearest = [_selectedCamera,towns] Call WFBE_CO_FNC_GetClosestEntity;
+	diag_log format["TITLECAPTURE: _nearest: %1", _nearest];
 	_update = if (_selectedCamera distance _nearest < (_nearest getVariable "range")) then {true} else {false};
 	diag_log format["TITLECAPTURE: _update: %1", _update];
 	
