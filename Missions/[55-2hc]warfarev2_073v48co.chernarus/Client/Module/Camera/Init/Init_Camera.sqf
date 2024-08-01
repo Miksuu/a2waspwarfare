@@ -428,8 +428,8 @@ Call Compile "enableEngineArtillery false;";
 
 // /* Zeta Cargo Lifter. */
 // [] Call Compile preprocessFile "Client\Module\ZetaCargo\Zeta_Init.sqf";
-/* Set Groups ID. */
-[] Call Compile preprocessFile "Client\Functions\Client_SetGroupsID.sqf";
+// /* Set Groups ID. */
+// [] Call Compile preprocessFile "Client\Functions\Client_SetGroupsID.sqf";
 
 sleep 1;
 
