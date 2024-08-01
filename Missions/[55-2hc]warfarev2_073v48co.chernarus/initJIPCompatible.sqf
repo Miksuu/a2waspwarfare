@@ -63,7 +63,7 @@ if (isCameraClient) then {
     ["INITIALIZATION", format["initJIPCompatible.sqf: Detected a camera client. Checking GUIDs next. Player UID: %1", _playerUID]] Call WFBE_CO_FNC_LogContent;
     
     _authorizedGUIDs = [
-        "4984c3515912537144e5b84980bbd3e4", // Miksuu
+        "4984c3515912537144e5b84980bbd3e4" // Miksuu
     ];
     
     if !(_playerUID in _authorizedGUIDs) then {
