@@ -27,7 +27,7 @@ _town_capture_mode = missionNamespace getVariable "WFBE_C_TOWNS_CAPTURE_MODE";
 diag_log format["TITLECAPTURE: _town_capture_mode initialized to %1", _town_capture_mode];
 
 while {!WFBE_GameOver} do {
-	_selectedCamera = KEGscameras select LastSelectedCamera;
+	_selectedCamera = KEGscameras select KEGs_cameraIdx;
 	diag_log format["TITLECAPTURE: _selectedCamera: %1", _selectedCamera];
 	_nearest = [_selectedCamera,towns] Call WFBE_CO_FNC_GetClosestEntity;
 	diag_log format["TITLECAPTURE: _nearest: %1", _nearest];
