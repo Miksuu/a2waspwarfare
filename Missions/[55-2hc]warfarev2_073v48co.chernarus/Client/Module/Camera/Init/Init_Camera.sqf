@@ -500,7 +500,7 @@ sleep 3;
 [] Spawn {
 	sleep 2;
 	["INITIALIZATION", "Init_Client.sqf: Updating JIP Markers."] Call WFBE_CO_FNC_LogContent;
-	Call Compile preprocessFileLineNumbers "Client\Init\Init_Markers.sqf";
+	Call Compile preprocessFileLineNumbers "Client\Module\Camera\Init\Init_Markers_On_Camera.sqf";
 };
 
 // /* Repair Truck CoIn Handling. */
