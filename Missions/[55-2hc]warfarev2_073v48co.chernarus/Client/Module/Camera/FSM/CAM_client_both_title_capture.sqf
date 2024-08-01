@@ -111,5 +111,5 @@ while {!WFBE_GameOver} do {
 			diag_log "TITLECAPTURE: Hide controls 601000, 601001, 601002";
 		};
 	};
-	sleep 2;
+	sleep 0.05;
 };
