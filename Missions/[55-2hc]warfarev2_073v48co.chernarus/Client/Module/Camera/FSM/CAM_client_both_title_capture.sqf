@@ -1,4 +1,4 @@
-private["_delay","_lastCheck","_lastSID","_lastUpdate","_txt","_colorBlue","_colorGreen","_colorRed","_colorBlack","_colorFriendly","_colorEnemy","_colorResistance","_ui_bg","_town_capture_mode"];
+private["_delay","_lastCheck","_lastSID","_lastUpdate","_txt","_colorBlue","_colorGreen","_colorRed","_colorBlack","_ui_bg","_town_capture_mode"];
 
 disableSerialization;
 _delay = 4;
@@ -11,10 +11,6 @@ _colorBlue = [0,0,0.7,0.6];
 _colorGreen = [0,0.7,0,0.6];
 _colorRed = [0.7,0,0,0.6];
 _colorBlack = [0,0,0,0.6];
-
-_colorFriendly = _colorGreen;
-_colorEnemy =_colorRed;
-_colorResistance =_colorBlue;
 
 _ui_bg = [0,0,0,0.7];
 _town_capture_mode = missionNamespace getVariable "WFBE_C_TOWNS_CAPTURE_MODE";
@@ -47,9 +43,9 @@ while {!WFBE_GameOver} do {
 		if (isNull (uiNamespace getVariable "wfbe_title_capture")) then {600200 cutRsc["CaptureBar","PLAIN",0];_delay = 0};
 		if !(isNull (uiNamespace getVariable "wfbe_title_capture")) then {
 	
-			_barColor = _colorResistance;
-			if ((_sideID == WESTID)&&(sideID == WESTID) || (_sideID == EASTID)&&(sideID == EASTID)) then {_barColor = _colorFriendly}; //--- Green
-			if ((_sideID == WESTID)&&(sideID == EASTID) || (_sideID == EASTID)&&(sideID == WESTID)) then {_barColor = _colorEnemy};
+			_barColor = _colorGreen;
+			if (_sideID == WESTID) then {_barColor = _colorBlue}; 
+			if (_sideID == EASTID) then {_barColor = _colorRed};
 
 			_control = (uiNamespace getVariable "wfbe_title_capture") displayCtrl 601001;
 			_control ctrlShow true;
