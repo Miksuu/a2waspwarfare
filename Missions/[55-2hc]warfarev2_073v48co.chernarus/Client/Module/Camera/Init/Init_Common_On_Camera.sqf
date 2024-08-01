@@ -73,7 +73,7 @@ SetTeamType = Compile preprocessFileLineNumbers "Common\Functions\Common_SetTeam
 SpawnTurrets = Compile preprocessFileLineNumbers "Common\Functions\Common_SpawnTurrets.sqf";
 SortByDistance = Compile preprocessFileLineNumbers "Common\Functions\Common_SortByDistance.sqf";
 UpdateStatistics = Compile preprocessFileLineNumbers "Common\Functions\Common_UpdateStatistics.sqf";
-UseStationaryDefense = Compile preprocessFileLineNumbers "Common\Functions\Common_UseStationaryDefense.sqf";
+//UseStationaryDefense = Compile preprocessFileLineNumbers "Common\Functions\Common_UseStationaryDefense.sqf";
 TrashObject = Compile preprocessFile "Common\Functions\Common_TrashObject.sqf";
 
 // Module: Arty
