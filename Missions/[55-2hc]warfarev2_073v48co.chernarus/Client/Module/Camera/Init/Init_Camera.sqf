@@ -206,6 +206,7 @@ _display displayAddEventHandler ["KeyDown","_this call keyPressedForAdjustingVie
 //(vehicle player) addEventHandler ["Fired",{_this Spawn HandleAT}];
 execVM "WASP\global_marking_monitor.sqf";
 //WFBE_Client_Logic = (WFBE_Client_SideJoined) Call WFBE_CO_FNC_GetSideLogic;
+WFBE_Client_Logic_BothSides = Call WFBE_CO_FNC_GetSideLogicBothSides;
 //WFBE_Client_SideID = sideID;
 //WFBE_Client_Color = switch (WFBE_Client_SideJoined) do { case west: {missionNamespace getVariable "WFBE_C_WEST_COLOR"}; case east: {missionNamespace getVariable "WFBE_C_EAST_COLOR"}; case resistance: {missionNamespace getVariable "WFBE_C_GUER_COLOR"}};
 // WFBE_Client_Team = clientTeam;
@@ -305,7 +306,9 @@ Call Compile "enableEngineArtillery false;";
 	/* Handle the map town markers */
 	["INITIALIZATION", "Init_Client.sqf: Initializing the Towns Marker FSM"] Call WFBE_CO_FNC_LogContent;
 	[] execVM "Client\Module\Camera\FSM\CAM_updatebothtownmarkers.sqf";
-	waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_structures"}};
+	{
+		waitUntil {!isNil {_x getVariable "wfbe_structures"}};
+	} forEach (WFBE_Client_Logic_BothSides);
 	// if ((missionNamespace getVariable "WFBE_C_ECONOMY_CURRENCY_SYSTEM") == 0) then {
 	// 	waitUntil {!isNil {missionNamespace getVariable format ["wfbe_supply_%1", sideJoinedText]}};
 	// };
