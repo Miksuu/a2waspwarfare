@@ -426,8 +426,8 @@ Call Compile "enableEngineArtillery false;";
 // /* Options menu. */
 // Options = player addAction ["<t color='#42b6ff'>" + (localize "STR_WF_Options") + "</t>","Client\Action\Action_Menu.sqf", "", 1, false, true, "", "_target == player"];
 
-/* Zeta Cargo Lifter. */
-[] Call Compile preprocessFile "Client\Module\ZetaCargo\Zeta_Init.sqf";
+// /* Zeta Cargo Lifter. */
+// [] Call Compile preprocessFile "Client\Module\ZetaCargo\Zeta_Init.sqf";
 /* Set Groups ID. */
 [] Call Compile preprocessFile "Client\Functions\Client_SetGroupsID.sqf";
 
