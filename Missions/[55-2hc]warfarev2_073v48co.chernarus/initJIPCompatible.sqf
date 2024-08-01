@@ -199,7 +199,9 @@ if (ARMA_VERSION >= 162 && ARMA_RELEASENUMBER >= 101334 || ARMA_VERSION > 162) t
 
 WFBE_Parameters_Ready = true; //--- All parameters are set and ready.
 
-ExecVM "Common\Init\Init_Common.sqf"; //--- Execute the common files.
+if (!isCameraClient) then {
+    ExecVM "Common\Init\Init_Common.sqf"; //--- Execute the common files.
+};
 ExecVM "Common\Init\Init_Towns.sqf"; //--- Execute the towns file.
 
 //--- Server initialization.
