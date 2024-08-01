@@ -5,12 +5,12 @@ _label = "";
 _count = 1;
 
 bothClientTeams = clientTeamsWest + clientTeamsEast;
-
 {
 	_marker = Format["%1AdvancedSquad%2Marker",_sideText,_count];
 	createMarkerLocal [_marker,[0,0,0]];
 	_marker setMarkerTypeLocal "Arrow";
-	_marker setMarkerColorLocal "ColorBlack";
+	_markerColor = if (side _x == west) then {"ColorBlue"} else {"ColorRed"};
+	_marker setMarkerColorLocal _markerColor;
 	_marker setMarkerDirLocal 0;
 	_marker setMarkerSizeLocal [0.7,0.7];
 	_count = _count +1;
