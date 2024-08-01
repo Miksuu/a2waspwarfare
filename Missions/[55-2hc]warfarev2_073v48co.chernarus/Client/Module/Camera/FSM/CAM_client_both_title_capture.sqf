@@ -16,8 +16,8 @@ _ui_bg = [0,0,0,0.7];
 _town_capture_mode = missionNamespace getVariable "WFBE_C_TOWNS_CAPTURE_MODE";
 
 while {!WFBE_GameOver} do {
-	if (!isNil "KEGscameras") then {
-		_selectedCamera = KEGscameras select KEGs_cameraIdx;
+	if (!isNil "KEGscameras" && !isNil "KEGs_cameraIdx") then {
+		_selectedCamera = KEGscameras select (KEGs_cameraIdx max 0);
 		if (!isNil "_selectedCamera") then {
 			_nearest = [_selectedCamera,towns] Call WFBE_CO_FNC_GetClosestEntity;
 			_update = if (_selectedCamera distance _nearest < (_nearest getVariable "range")) then {true} else {false};
