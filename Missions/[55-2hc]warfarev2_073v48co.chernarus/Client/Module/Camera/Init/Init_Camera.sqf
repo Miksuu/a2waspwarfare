@@ -315,7 +315,7 @@ Call Compile "enableEngineArtillery false;";
 	// missionNamespace setVariable ["wfbe_supply", missionNamespace getVariable Format ["wfbe_supply_%1", sideJoinedText]];
 	/* Handle the client actions */
 	["INITIALIZATION", "Init_Client.sqf: Initializing the Available Actions FSM"] Call WFBE_CO_FNC_LogContent;
-	[] execFSM "Client\FSM\updateavailableactions.fsm";
+	//[] execFSM "Client\FSM\updateavailableactions.fsm";
 	/* Resources Handler */
 	if !((missionNamespace getVariable "WFBE_C_ECONOMY_INCOME_SYSTEM") in [3,4]) then {
 		["INITIALIZATION", "Init_Client.sqf: Initializing the Resources SQF"] Call WFBE_CO_FNC_LogContent;
