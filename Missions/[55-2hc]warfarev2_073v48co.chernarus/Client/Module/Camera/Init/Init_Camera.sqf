@@ -323,13 +323,13 @@ Call Compile "enableEngineArtillery false;";
 	// };
 };
 
-[] Spawn {
-	Private ["_commanderTeam"];
-	waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_commander"}};
-	/* Commander Handling */
-	["INITIALIZATION", "Init_Client.sqf: Initializing the Commander Update FSM"] Call WFBE_CO_FNC_LogContent;
-	[] ExecVM "Client\FSM\updateclient.sqf";
-};
+// [] Spawn {
+// 	Private ["_commanderTeam"];
+// 	waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_commander"}};
+// 	/* Commander Handling */
+// 	["INITIALIZATION", "Init_Client.sqf: Initializing the Commander Update FSM"] Call WFBE_CO_FNC_LogContent;
+// 	[] ExecVM "Client\FSM\updateclient.sqf";
+// };
 
 //--- Add the briefing (notes).
 [] Call Compile preprocessFile "briefing.sqf";
