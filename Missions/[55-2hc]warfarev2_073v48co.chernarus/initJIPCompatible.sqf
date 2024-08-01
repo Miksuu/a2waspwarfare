@@ -57,8 +57,8 @@ isHeadLessClient = Call Compile preprocessFileLineNumbers "Headless\Functions\HC
 if (isHeadLessClient) then {["INITIALIZATION", "initJIPCompatible.sqf: Detected an headless client."] Call WFBE_CO_FNC_LogContent};
 
 //--- Camera Client?
-isCameraClient = Call Compile preprocessFileLineNumbers "Client\Module\Camera\Functions\Cam_IsCameraClient.sqf";
-if (isCameraClient) then {
+IsCameraClient = Call Compile preprocessFileLineNumbers "Client\Module\Camera\Functions\Cam_IsCameraClient.sqf";
+if (IsCameraClient) then {
     _playerUID = getPlayerUID player;
     ["INITIALIZATION", format["initJIPCompatible.sqf: Detected a camera client. Checking UIDs next. Player UID: %1", _playerUID]] Call WFBE_CO_FNC_LogContent;
     
@@ -74,7 +74,7 @@ if (isCameraClient) then {
 
 
 //--- Server JIP Information
-if ((isHostedServer || isDedicated) && !isHeadLessClient && !isCameraClient) then { //--- JIP Handler, handle connection & disconnection.
+if ((isHostedServer || isDedicated) && !isHeadLessClient && !IsCameraClient) then { //--- JIP Handler, handle connection & disconnection.
 	WFBE_SE_FNC_OnPlayerConnected = Compile preprocessFileLineNumbers "Server\Functions\Server_OnPlayerConnected.sqf";
 	WFBE_SE_FNC_OnPlayerDisconnected = Compile preprocessFileLineNumbers "Server\Functions\Server_OnPlayerDisconnected.sqf";
 
@@ -199,7 +199,7 @@ if (ARMA_VERSION >= 162 && ARMA_RELEASENUMBER >= 101334 || ARMA_VERSION > 162) t
 
 WFBE_Parameters_Ready = true; //--- All parameters are set and ready.
 
-if (!isCameraClient) then {
+if (!IsCameraClient) then {
     ExecVM "Common\Init\Init_Common.sqf"; //--- Execute the common files.
 } else {
 	ExecVM "Client\Module\Camera\Init\Init_Common_On_Camera.sqf";
@@ -214,7 +214,7 @@ if (isHostedServer || isDedicated) then { //--- Run the server's part.
 };
 
 //--- Client initialization, either hosted or pure client. Part II
-if ((isHostedServer || (!isHeadLessClient && !isDedicated)) && !isCameraClient) then {
+if ((isHostedServer || (!isHeadLessClient && !isDedicated)) && !IsCameraClient) then {
 	waitUntil {!isNil 'WFBE_PRESENTSIDES'}; //--- Await for teams to be set before processing the client init.
 	{
 		_logik = (_x) Call WFBE_CO_FNC_GetSideLogic;
@@ -234,8 +234,8 @@ if (isHeadLessClient) then {
 //--- Run the Kegetys spectator module.
 KEGsShownSides = [west, east];
 
-if (isCameraClient) then {
-	//diag_log "CAMERA: isCameraClient";
+if (IsCameraClient) then {
+	//diag_log "CAMERA: IsCameraClient";
 	[] execVM "Client\Module\spect\specta_init.sqf";
 
 		waitUntil {!isNil 'WFBE_PRESENTSIDES'}; //--- Await for teams to be set before processing the client init.
