@@ -1,4 +1,4 @@
-private["_delay","_lastCheck","_lastSID","_lastUpdate","_txt","_colorBlue","_colorGreen","_colorRed","_colorBlack","_ui_bg","_town_capture_mode"];
+Private ["_delay","_lastCheck","_lastSID","_lastUpdate","_txt","_colorBlue","_colorGreen","_colorRed","_colorBlack","_ui_bg","_town_capture_mode"];
 
 disableSerialization;
 _delay = 4;
