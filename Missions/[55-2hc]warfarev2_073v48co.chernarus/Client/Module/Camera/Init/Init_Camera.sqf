@@ -382,21 +382,21 @@ Call Compile "enableEngineArtillery false;";
 // };
 
 /* Get the client starting location */
-["INITIALIZATION", "Init_Client.sqf: Retrieving the client spawn location."] Call WFBE_CO_FNC_LogContent;
-_base = objNull;
-if (time < 30) then {
-	waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_startpos"}};
-	_base = WFBE_Client_Logic getVariable "wfbe_startpos";
-} else {
-	waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_hq"}};
-	waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_structures"}};
-	_base = (sideJoined) Call WFBE_CO_FNC_GetSideHQ;
-	_buildings = (sideJoined) Call WFBE_CO_FNC_GetSideStructures;
+// ["INITIALIZATION", "Init_Client.sqf: Retrieving the client spawn location."] Call WFBE_CO_FNC_LogContent;
+// _base = objNull;
+// if (time < 30) then {
+// 	waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_startpos"}};
+// 	_base = WFBE_Client_Logic getVariable "wfbe_startpos";
+// } else {
+// 	waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_hq"}};
+// 	waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_structures"}};
+// 	_base = (sideJoined) Call WFBE_CO_FNC_GetSideHQ;
+// 	_buildings = (sideJoined) Call WFBE_CO_FNC_GetSideStructures;
 
-    if (count _buildings > 0) then {_base = _buildings select ((count _buildings) - 1)};
-};
+//     if (count _buildings > 0) then {_base = _buildings select ((count _buildings) - 1)};
+// };
 
-["INITIALIZATION", Format["Init_Client.sqf: Client spawn location has been determined at [%1].", _base]] Call WFBE_CO_FNC_LogContent;
+// ["INITIALIZATION", Format["Init_Client.sqf: Client spawn location has been determined at [%1].", _base]] Call WFBE_CO_FNC_LogContent;
 
 /* Position the client at the previously defined location */
 player setPos ([_base,20,30] Call GetRandomPosition);
