@@ -1,27 +1,12 @@
-private["_tcarm","_units","_canCollectSupply"];
-
-_tcarm = missionNamespace getVariable "WFBE_C_PLAYERS_MARKER_TOWN_RANGE";
+private["_tcarm","_canCollectSupply"];
 
 diag_log "TOWNMARKER: Starting town marker update loop";
-
+_selectedCamera = KEGscameras select KEGs_cameraIdx;
 while {!gameOver} do {
-	_units = (Units Group player) Call GetLiveUnits;
-	diag_log format["TOWNMARKER: Found %1 live units in player's group", count _units];
 
 	{
 		_town = _x;
-		_range = (_town getVariable "range") * _tcarm;
 		_visible = true;
-		
-		// if ((_town getVariable "sideID") == sideID) then {
-		// 	_visible = true;
-		// 	diag_log format["TOWNMARKER: Town %1 is owned by player's side", _town];
-		// } else {
-		// 	{if (_town distance _x < _range) exitWith {_visible = true}} forEach _units;
-		// 	if (_visible) then {
-		// 		diag_log format["TOWNMARKER: Town %1 is visible to player's units", _town];
-		// 	};
-		// };
 		
 		_marker = Format ["WFBE_%1_CityMarker", str _town];
 		
