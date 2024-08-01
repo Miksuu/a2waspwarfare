@@ -203,7 +203,7 @@ _display = findDisplay 46;
 _display displayAddEventHandler ["KeyDown","_this call keyPressed"];
 _display displayAddEventHandler ["KeyDown","_this call keyPressedForAdjustingViewDistance"];
 
-(vehicle player) addEventHandler ["Fired",{_this Spawn HandleAT}];
+//(vehicle player) addEventHandler ["Fired",{_this Spawn HandleAT}];
 execVM "WASP\global_marking_monitor.sqf";
 WFBE_Client_Logic = (WFBE_Client_SideJoined) Call WFBE_CO_FNC_GetSideLogic;
 WFBE_Client_SideID = sideID;
