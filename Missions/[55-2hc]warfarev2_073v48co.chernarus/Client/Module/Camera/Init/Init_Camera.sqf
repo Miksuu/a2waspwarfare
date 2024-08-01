@@ -503,8 +503,8 @@ sleep 3;
 	Call Compile preprocessFileLineNumbers "Client\Init\Init_Markers.sqf";
 };
 
-/* Repair Truck CoIn Handling. */
-[missionNamespace getVariable "WFBE_C_BASE_COIN_AREA_REPAIR",false,RCoin,"REPAIR"] Call Compile preprocessFile "Client\Init\Init_Coin.sqf";
+// /* Repair Truck CoIn Handling. */
+// [missionNamespace getVariable "WFBE_C_BASE_COIN_AREA_REPAIR",false,RCoin,"REPAIR"] Call Compile preprocessFile "Client\Init\Init_Coin.sqf";
 
 /* A new player come to reinforce the battlefield */
 [sideJoinedText,'UnitsCreated',1] Call UpdateStatistics;
