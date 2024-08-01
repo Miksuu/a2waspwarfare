@@ -11,17 +11,17 @@ while {!gameOver} do {
 	{
 		_town = _x;
 		_range = (_town getVariable "range") * _tcarm;
-		_visible = false;
+		_visible = true;
 		
-		if ((_town getVariable "sideID") == sideID) then {
-			_visible = true;
-			diag_log format["TOWNMARKER: Town %1 is owned by player's side", _town];
-		} else {
-			{if (_town distance _x < _range) exitWith {_visible = true}} forEach _units;
-			if (_visible) then {
-				diag_log format["TOWNMARKER: Town %1 is visible to player's units", _town];
-			};
-		};
+		// if ((_town getVariable "sideID") == sideID) then {
+		// 	_visible = true;
+		// 	diag_log format["TOWNMARKER: Town %1 is owned by player's side", _town];
+		// } else {
+		// 	{if (_town distance _x < _range) exitWith {_visible = true}} forEach _units;
+		// 	if (_visible) then {
+		// 		diag_log format["TOWNMARKER: Town %1 is visible to player's units", _town];
+		// 	};
+		// };
 		
 		_marker = Format ["WFBE_%1_CityMarker", str _town];
 		
