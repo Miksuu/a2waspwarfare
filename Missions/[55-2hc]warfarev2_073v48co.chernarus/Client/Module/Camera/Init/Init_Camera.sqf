@@ -34,8 +34,8 @@ missionNamespace setVariable ["AUTO_DISTANCE_VIEW_TARGET_FPS", 60];
 //    				_result
 //   			};
 
-player addeventhandler ["HandleDamage",format ["_this Call %1", _rearmor]];
-[] execVM "Common\Functions\Common_Bipod.sqf";
+// player addeventhandler ["HandleDamage",format ["_this Call %1", _rearmor]];
+// [] execVM "Common\Functions\Common_Bipod.sqf";
 
 BoundariesIsOnMap = Compile preprocessFile "Client\Functions\Client_IsOnMap.sqf";
 BoundariesHandleOnMap = Compile preprocessFile "Client\Functions\Client_HandleOnMap.sqf";
