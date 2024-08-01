@@ -83,7 +83,7 @@ if ((isHostedServer || isDedicated) && !isHeadLessClient && !isCameraClient) the
 };
 
 //--- Client initialization, either hosted or pure client. Part I
-if ((isHostedServer || (!isHeadLessClient && !isDedicated)) && !isCameraClient) then {
+if (isHostedServer || (!isHeadLessClient && !isDedicated)) then {
 	["INITIALIZATION", "initJIPCompatible.sqf: Client detected... waiting for non null result..."] Call WFBE_CO_FNC_LogContent;
 	waitUntil {!isNull player};
 	["INITIALIZATION", "initJIPCompatible.sqf: Client is not null..."] Call WFBE_CO_FNC_LogContent;
