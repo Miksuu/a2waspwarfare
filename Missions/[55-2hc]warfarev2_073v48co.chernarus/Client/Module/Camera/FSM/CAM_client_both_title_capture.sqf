@@ -29,7 +29,9 @@ diag_log format["TITLECAPTURE: _town_capture_mode initialized to %1", _town_capt
 while {!WFBE_GameOver} do {
 	_nearest = [player,towns] Call WFBE_CO_FNC_GetClosestEntity;
 	diag_log format["TITLECAPTURE: _nearest: %1", _nearest];
-	_update = if (player distance _nearest < (_nearest getVariable "range") && alive player) then {true} else {false};
+	_selectedCamera = KEGscameras select LastSelectedCamera;
+	diag_log format["TITLECAPTURE: _selectedCamera: %1", _selectedCamera];
+	_update = if (_selectedCamera distance _nearest < (_nearest getVariable "range")) then {true} else {false};
 	diag_log format["TITLECAPTURE: _update: %1", _update];
 	
 	if(_update && !WFBE_GameOver)then{
