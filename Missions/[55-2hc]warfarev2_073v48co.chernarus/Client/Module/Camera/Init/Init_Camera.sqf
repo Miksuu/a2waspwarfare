@@ -281,7 +281,8 @@ if (isNil "RUBGPS") then {RUBGPS = 1};
 if (isNil "RUBOSD") then {RUBOSD = 1};
 
 /* HUD MODULE */
-ExecVM "Client\Client_UpdateRHUD.sqf";
+// DISABLED, USEFUL FOR LATER ON IF NEEDED TO SHOW BOTH TEAMS COMMANDER, SV MIN, ETC.
+//ExecVM "Client\Client_UpdateRHUD.sqf";
 
 //--- Disable Artillery Computer.
 Call Compile "enableEngineArtillery false;";
