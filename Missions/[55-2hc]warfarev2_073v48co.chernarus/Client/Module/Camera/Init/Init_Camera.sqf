@@ -205,9 +205,9 @@ _display displayAddEventHandler ["KeyDown","_this call keyPressedForAdjustingVie
 
 //(vehicle player) addEventHandler ["Fired",{_this Spawn HandleAT}];
 execVM "WASP\global_marking_monitor.sqf";
-WFBE_Client_Logic = (WFBE_Client_SideJoined) Call WFBE_CO_FNC_GetSideLogic;
-WFBE_Client_SideID = sideID;
-WFBE_Client_Color = switch (WFBE_Client_SideJoined) do { case west: {missionNamespace getVariable "WFBE_C_WEST_COLOR"}; case east: {missionNamespace getVariable "WFBE_C_EAST_COLOR"}; case resistance: {missionNamespace getVariable "WFBE_C_GUER_COLOR"}};
+//WFBE_Client_Logic = (WFBE_Client_SideJoined) Call WFBE_CO_FNC_GetSideLogic;
+//WFBE_Client_SideID = sideID;
+//WFBE_Client_Color = switch (WFBE_Client_SideJoined) do { case west: {missionNamespace getVariable "WFBE_C_WEST_COLOR"}; case east: {missionNamespace getVariable "WFBE_C_EAST_COLOR"}; case resistance: {missionNamespace getVariable "WFBE_C_GUER_COLOR"}};
 // WFBE_Client_Team = clientTeam;
 // WFBE_Client_Teams = clientTeams;
 // WFBE_Client_Teams_Count = count WFBE_Client_Teams;
