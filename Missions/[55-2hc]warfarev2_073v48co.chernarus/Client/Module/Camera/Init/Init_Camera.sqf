@@ -507,10 +507,7 @@ sleep 3;
 // [missionNamespace getVariable "WFBE_C_BASE_COIN_AREA_REPAIR",false,RCoin,"REPAIR"] Call Compile preprocessFile "Client\Init\Init_Coin.sqf";
 
 /* A new player come to reinforce the battlefield */
-[sideJoinedText,'UnitsCreated',1] Call UpdateStatistics;
-
-/* Towns Task System */
-// ["TownAddComplete"] Spawn TaskSystem;
+[sideJoinedText,'UnitsCreated',1] Call UpdateStatistics;;
 
 /* Client death handler. */
 // WFBE_PLAYERKEH = player addEventHandler ['Killed', {[_this select 0,_this select 1] Spawn WFBE_CL_FNC_OnKilled; [_this select 0,_this select 1, sideID] Spawn WFBE_CO_FNC_OnUnitKilled}];
