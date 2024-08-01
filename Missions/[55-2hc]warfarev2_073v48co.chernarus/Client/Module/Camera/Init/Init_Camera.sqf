@@ -272,7 +272,7 @@ enableTeamSwitch false;
 ExecVM "Common\Config\Core_Upgrades\Labels_Upgrades.sqf";
 
 //--- Update the player.
-if (isMultiplayer) then {["RequestSpecial", ["update-teamleader", WFBE_Client_Team, player]] Call WFBE_CO_FNC_SendToServer};
+//if (isMultiplayer) then {["RequestSpecial", ["update-teamleader", WFBE_Client_Team, player]] Call WFBE_CO_FNC_SendToServer};
 
 /* HUD ON/OFF VALUE */
 if (isNil "RUBHUD") then {RUBHUD = true};
