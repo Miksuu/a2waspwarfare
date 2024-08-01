@@ -34,7 +34,7 @@ while {!gameOver} do {
     
     // diag_log "TOWNMARKER: Finished updating all town markers";
     // diag_log "TOWNMARKER: Sleeping for 5 seconds before next update";
-    //sleep 5;
+    sleep 5;
 };
 
 // diag_log "TOWNMARKER: Exiting town marker update loop";
