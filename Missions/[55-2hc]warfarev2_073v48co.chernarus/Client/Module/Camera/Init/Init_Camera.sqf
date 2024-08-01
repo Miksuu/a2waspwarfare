@@ -433,41 +433,41 @@ Call Compile "enableEngineArtillery false;";
 
 sleep 1;
 
-//--- Make sure that player is always the leader.
-if (leader(group player) != player) then {(group player) selectLeader player};
+// //--- Make sure that player is always the leader.
+// if (leader(group player) != player) then {(group player) selectLeader player};
 
-/* Override player's Gear.*/
-// [player,Format ["WFBE_%1DEFAULTWEAPONS",sideJoinedText] Call GetNamespace,Format ["WFBE_%1DEFAULTAMMO",sideJoinedText] Call GetNamespace] Call EquipLoadout;
-/* Skill Module. */
-[] Call Compile preprocessFile "Client\Module\Skill\Skill_Init.sqf";
+// /* Override player's Gear.*/
+// // [player,Format ["WFBE_%1DEFAULTWEAPONS",sideJoinedText] Call GetNamespace,Format ["WFBE_%1DEFAULTAMMO",sideJoinedText] Call GetNamespace] Call EquipLoadout;
+// /* Skill Module. */
+// [] Call Compile preprocessFile "Client\Module\Skill\Skill_Init.sqf";
 
 
-_default = [];
-switch (WFBE_SK_V_Type) do {
-case "Spotter": {_default = missionNamespace getVariable Format["WFBE_%1_DefaultGearSpot", WFBE_Client_SideJoinedText]};
-case "Officer": {_default = missionNamespace getVariable Format["WFBE_%1_DefaultGearOfficer", WFBE_Client_SideJoinedText]};
-case "Soldier": {_default = missionNamespace getVariable Format["WFBE_%1_DefaultGearSoldier", WFBE_Client_SideJoinedText]};
-case "Engineer": {_default = missionNamespace getVariable Format["WFBE_%1_DefaultGearEngineer", WFBE_Client_SideJoinedText]};
-case "SpecOps": {_default = missionNamespace getVariable Format["WFBE_%1_DefaultGearLock", WFBE_Client_SideJoinedText]};
-case "Medic": {_default = missionNamespace getVariable Format["WFBE_%1_DefaultGearMedic", WFBE_Client_SideJoinedText]};
-};
+// _default = [];
+// switch (WFBE_SK_V_Type) do {
+// case "Spotter": {_default = missionNamespace getVariable Format["WFBE_%1_DefaultGearSpot", WFBE_Client_SideJoinedText]};
+// case "Officer": {_default = missionNamespace getVariable Format["WFBE_%1_DefaultGearOfficer", WFBE_Client_SideJoinedText]};
+// case "Soldier": {_default = missionNamespace getVariable Format["WFBE_%1_DefaultGearSoldier", WFBE_Client_SideJoinedText]};
+// case "Engineer": {_default = missionNamespace getVariable Format["WFBE_%1_DefaultGearEngineer", WFBE_Client_SideJoinedText]};
+// case "SpecOps": {_default = missionNamespace getVariable Format["WFBE_%1_DefaultGearLock", WFBE_Client_SideJoinedText]};
+// case "Medic": {_default = missionNamespace getVariable Format["WFBE_%1_DefaultGearMedic", WFBE_Client_SideJoinedText]};
+// };
 
-//_default = missionNamespace getVariable Format["WFBE_%1_DefaultGear", WFBE_Client_SideJoinedText];
-if (count _default <= 3) then {
-	[player, _default select 0, _default select 1, _default select 2] Call WFBE_CO_FNC_EquipUnit;
-} else {
-	[player, _default select 0, _default select 1, _default select 2, _default select 3, _default select 4] Call WFBE_CO_FNC_EquipUnit;
-};
+// //_default = missionNamespace getVariable Format["WFBE_%1_DefaultGear", WFBE_Client_SideJoinedText];
+// if (count _default <= 3) then {
+// 	[player, _default select 0, _default select 1, _default select 2] Call WFBE_CO_FNC_EquipUnit;
+// } else {
+// 	[player, _default select 0, _default select 1, _default select 2, _default select 3, _default select 4] Call WFBE_CO_FNC_EquipUnit;
+// };
 
-/* Default gear menu filler. */
-WF_Logic setVariable ['filler','primary'];
+// /* Default gear menu filler. */
+// WF_Logic setVariable ['filler','primary'];
 
-/* Skill Module. */
-[] Call Compile preprocessFile "Client\Module\Skill\Skill_Init.sqf";
-(player) Call WFBE_SK_FNC_Apply;
+// /* Skill Module. */
+// [] Call Compile preprocessFile "Client\Module\Skill\Skill_Init.sqf";
+// (player) Call WFBE_SK_FNC_Apply;
 
-[] execVM "WASP\baserep\init.sqf";
-[] execVM "WASP\actions\AddActions.sqf";
+// [] execVM "WASP\baserep\init.sqf";
+// [] execVM "WASP\actions\AddActions.sqf";
 
 /* Vote System, define whether a vote is already running or not */
 waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_votetime"}};
