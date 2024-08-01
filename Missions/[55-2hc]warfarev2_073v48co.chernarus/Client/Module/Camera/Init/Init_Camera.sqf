@@ -350,36 +350,36 @@ Call Compile "enableEngineArtillery false;";
 
 // ["INITIALIZATION", "Init_Client.sqf: Radio announcer is initialized."] Call WFBE_CO_FNC_LogContent;
 
-/* Wait for a valid signal (Teamswaping) with failover */
-if (isMultiplayer && ((missionNamespace getVariable "WFBE_C_GAMEPLAY_TEAMSWAP_DISABLE") > 0 && !WF_Debug) && time > 7) then {
-	Private ["_get","_timelaps"];
-	_get = true;
+// /* Wait for a valid signal (Teamswaping) with failover */
+// if (isMultiplayer && ((missionNamespace getVariable "WFBE_C_GAMEPLAY_TEAMSWAP_DISABLE") > 0 && !WF_Debug) && time > 7) then {
+// 	Private ["_get","_timelaps"];
+// 	_get = true;
 
-	sleep (random 0.1);
+// 	sleep (random 0.1);
 
-	["RequestJoin", [player, sideJoined]] Call WFBE_CO_FNC_SendToServer;
+// 	["RequestJoin", [player, sideJoined]] Call WFBE_CO_FNC_SendToServer;
 
-	_timelaps = 0;
-	while {true} do {
-		sleep 0.1;
-		_get = missionNamespace getVariable 'WFBE_P_CANJOIN';
-		if !(isNil '_get') exitWith {["INITIALIZATION", Format["Init_Client.sqf: [%1] Client [%2], Can join? [%3]",sideJoined,name player,_get]] Call WFBE_CO_FNC_LogContent};
+// 	_timelaps = 0;
+// 	while {true} do {
+// 		sleep 0.1;
+// 		_get = missionNamespace getVariable 'WFBE_P_CANJOIN';
+// 		if !(isNil '_get') exitWith {["INITIALIZATION", Format["Init_Client.sqf: [%1] Client [%2], Can join? [%3]",sideJoined,name player,_get]] Call WFBE_CO_FNC_LogContent};
 
-		_timelaps = _timelaps + 0.1;
-		if (_timelaps > 5) then {
-			_timelaps = 0;
-			["WARNING", Format["Init_Client.sqf: [%1] Client [%2] join is pending... no ACK was received from the server, a new request will be submited.",sideJoined,name player]] Call WFBE_CO_FNC_LogContent;
-			["RequestJoin", [player, sideJoined]] Call WFBE_CO_FNC_SendToServer;
-		};
-	};
+// 		_timelaps = _timelaps + 0.1;
+// 		if (_timelaps > 5) then {
+// 			_timelaps = 0;
+// 			["WARNING", Format["Init_Client.sqf: [%1] Client [%2] join is pending... no ACK was received from the server, a new request will be submited.",sideJoined,name player]] Call WFBE_CO_FNC_LogContent;
+// 			["RequestJoin", [player, sideJoined]] Call WFBE_CO_FNC_SendToServer;
+// 		};
+// 	};
 
-	if !(_get) exitWith {
-		["WARNING", Format["Init_Client.sqf: [%1] Client [%2] has teamswapped/STACKED and is now being sent back to the lobby.",sideJoined,name player]] Call WFBE_CO_FNC_LogContent;
+// 	if !(_get) exitWith {
+// 		["WARNING", Format["Init_Client.sqf: [%1] Client [%2] has teamswapped/STACKED and is now being sent back to the lobby.",sideJoined,name player]] Call WFBE_CO_FNC_LogContent;
 
-		sleep 3;
-		failMission "END1";
-	};
-};
+// 		sleep 3;
+// 		failMission "END1";
+// 	};
+// };
 
 /* Get the client starting location */
 ["INITIALIZATION", "Init_Client.sqf: Retrieving the client spawn location."] Call WFBE_CO_FNC_LogContent;
