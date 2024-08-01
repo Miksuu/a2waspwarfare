@@ -423,8 +423,8 @@ Call Compile "enableEngineArtillery false;";
 // {_greenList = _greenList + [missionNamespace getVariable Format ["%1%2",WFBE_Client_SideJoinedText,_x]]} forEach ["BAR","LVF","HEAVY","AIR"];
 // missionNamespace setVariable ["COIN_UseHelper", _greenList];
 
-/* Options menu. */
-Options = player addAction ["<t color='#42b6ff'>" + (localize "STR_WF_Options") + "</t>","Client\Action\Action_Menu.sqf", "", 1, false, true, "", "_target == player"];
+// /* Options menu. */
+// Options = player addAction ["<t color='#42b6ff'>" + (localize "STR_WF_Options") + "</t>","Client\Action\Action_Menu.sqf", "", 1, false, true, "", "_target == player"];
 
 /* Zeta Cargo Lifter. */
 [] Call Compile preprocessFile "Client\Module\ZetaCargo\Zeta_Init.sqf";
