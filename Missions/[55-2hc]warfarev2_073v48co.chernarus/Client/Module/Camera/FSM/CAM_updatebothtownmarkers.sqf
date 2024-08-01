@@ -1,8 +1,4 @@
-private["_tcarm","_canCollectSupply"];
-
 diag_log "TOWNMARKER: Starting town marker update loop";
-_selectedCamera = KEGscameras select KEGs_cameraIdx;
-diag_log format["TOWNMARKER: Selected camera: %1", _selectedCamera];
 
 while {!gameOver} do {
     diag_log "TOWNMARKER: Starting new iteration of marker update loop";
@@ -38,7 +34,7 @@ while {!gameOver} do {
     
     diag_log "TOWNMARKER: Finished updating all town markers";
     diag_log "TOWNMARKER: Sleeping for 5 seconds before next update";
-    sleep 5;
+    //sleep 5;
 };
 
 diag_log "TOWNMARKER: Exiting town marker update loop";
