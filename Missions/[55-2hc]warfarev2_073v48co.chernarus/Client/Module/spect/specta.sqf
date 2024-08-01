@@ -150,7 +150,7 @@ if(!isNull _foo) then {
 // Spawn thread to display help reminder after a few seconds
 [] spawn {sleep(3);if(dialog) then {cutText["\n\n\n\n\nPress F1 for help","PLAIN DOWN", 0.75]}};
 
-LastSelectedCamera = 0;
+_camSelLast = 0;
 _tgtSelLast = 0;
 _mouseLastX = 0.5;
 _mouseLastY = 0.5;
@@ -174,32 +174,32 @@ while{dialog} do {
 while{dialog} do {
 	call {
 		// Check for listbox selections
-		if(LastSelectedCamera != lbCurSel _cLBCameras) then {
+		if(_camSelLast != lbCurSel _cLBCameras) then {
 			_cs = lbCurSel _cLBCameras;
-			if(_cs == _cLbSeparator) then {_cs = LastSelectedCamera};
+			if(_cs == _cLbSeparator) then {_cs = _camSelLast};
 			// Special for toggling missile camera 
 			if(_cs == _cLbMissileCam) then {
 				KEGsUseMissileCam = !KEGsUseMissileCam;
-				_cs = LastSelectedCamera;
+				_cs = _camSelLast;
 			};
 			// Special for toggling NVG
 			if(_cs == _cLbToggleNVG) then {
 				KEGsUseNVG = !KEGsUseNVG;
-				_cs = LastSelectedCamera;
+				_cs = _camSelLast;
 			};			
 			// Special for toggling tags
 			if(_cs == _cLbToggleTags) then {
 				KEGsTags = !KEGsTags;
 				["ToggleTags", [KEGsTags, (_cameras select KEGs_cameraIdx)]] call spectate_events;
-				_cs = LastSelectedCamera;
+				_cs = _camSelLast;
 			};			
 			// Special for toggling AI filter
 			if(_cs == _cLbToggleAiFilter) then {
 				KEGsAIfilter = !KEGsAIfilter;
-				_cs = LastSelectedCamera;				
+				_cs = _camSelLast;				
 				KEGsNeedUpdateLB = true; // Request listbox update
 			};			
-			if(_cs != LastSelectedCamera) then {
+			if(_cs != _camSelLast) then {
 				// Selected another camera - disable dropped cam
 				KEGsDroppedCamera = false;
 			};
@@ -676,7 +676,7 @@ while{dialog} do {
 		
 		_mouseLastX = KEGsMouseCoord select 0;
 		_mouseLastY = KEGsMouseCoord select 1;
-		LastSelectedCamera = lbCurSel _cLBCameras;
+		_camSelLast = lbCurSel _cLBCameras;
 		_tgtSelLast = lbCurSel _cLBTargets;
 		_lastTgt = KEGs_tgtIdx;		
 	};	
