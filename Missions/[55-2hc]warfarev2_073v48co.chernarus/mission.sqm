@@ -4889,6 +4889,7 @@ class Mission
 			a=20;
 			b=20;
 			activationBy="ALPHA";
+			repeating=1;
 			interruptable=1;
 			age="UNKNOWN";
 			expCond="(player == camera_1)";
