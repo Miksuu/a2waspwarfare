@@ -4831,7 +4831,7 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="camera_1";
-					init="this allowdamage false; foo = [this, this, ""null""] execVM ""Client\Module\spect\specta.sqf""";
+					init="this allowdamage false;";
 					description="DO NOT ENTER THIS SLOT!!!";
 				};
 			};
