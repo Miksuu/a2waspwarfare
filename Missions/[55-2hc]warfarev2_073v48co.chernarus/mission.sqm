@@ -4831,7 +4831,7 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="camera_1";
-					init="this allowdamage false";
+					init="this allowdamage false; foo = [player, player, ""null""] execVM ""Client\Module\spect\specta.sqf""";
 					description="DO NOT ENTER THIS SLOT!!!";
 				};
 			};
@@ -4878,25 +4878,6 @@ class Mission
 			colorName="ColorRed";
 			a=80;
 			b=80;
-		};
-	};
-	class Sensors
-	{
-		items=1;
-		class Item0
-		{
-			position[]={1932.5709,545.88806,15300.895};
-			a=20;
-			b=20;
-			activationBy="ALPHA";
-			repeating=1;
-			interruptable=1;
-			age="UNKNOWN";
-			expCond="(player == camera_1)";
-			expActiv="if(side player == civilian)then{foo = [player, player, ""null""] execVM ""Client\Module\spect\specta.sqf""}";
-			class Effects
-			{
-			};
 		};
 	};
 };
