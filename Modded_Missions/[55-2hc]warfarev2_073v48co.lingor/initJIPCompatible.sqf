@@ -57,11 +57,24 @@ isHeadLessClient = Call Compile preprocessFileLineNumbers "Headless\Functions\HC
 if (isHeadLessClient) then {["INITIALIZATION", "initJIPCompatible.sqf: Detected an headless client."] Call WFBE_CO_FNC_LogContent};
 
 //--- Camera Client?
-isCameraClient = Call Compile preprocessFileLineNumbers "Client\Module\Camera\Functions\Cam_IsCameraClient.sqf";
-if (isCameraClient) then {["INITIALIZATION", "initJIPCompatible.sqf: Detected a camera client."] Call WFBE_CO_FNC_LogContent};
+IsCameraClient = Call Compile preprocessFileLineNumbers "Client\Module\Camera\Functions\Cam_IsCameraClient.sqf";
+if (IsCameraClient) then {
+    _playerUID = getPlayerUID player;
+    ["INITIALIZATION", format["initJIPCompatible.sqf: Detected a camera client. Checking UIDs next. Player UID: %1", _playerUID]] Call WFBE_CO_FNC_LogContent;
+    
+    _authorizedUIDs = [
+        "76561198032301689" // Miksuu
+    ];
+    
+    if !(_playerUID in _authorizedUIDs) then {
+        ["INITIALIZATION", format["initJIPCompatible.sqf: Unauthorized camera client detected. Booting client. Player UID: %1", _playerUID]] Call WFBE_CO_FNC_LogContent;
+        endMission "END1";
+    };
+};
+
 
 //--- Server JIP Information
-if ((isHostedServer || isDedicated) && !isHeadLessClient && !isCameraClient) then { //--- JIP Handler, handle connection & disconnection.
+if ((isHostedServer || isDedicated) && !isHeadLessClient && !IsCameraClient) then { //--- JIP Handler, handle connection & disconnection.
 	WFBE_SE_FNC_OnPlayerConnected = Compile preprocessFileLineNumbers "Server\Functions\Server_OnPlayerConnected.sqf";
 	WFBE_SE_FNC_OnPlayerDisconnected = Compile preprocessFileLineNumbers "Server\Functions\Server_OnPlayerDisconnected.sqf";
 
@@ -70,7 +83,7 @@ if ((isHostedServer || isDedicated) && !isHeadLessClient && !isCameraClient) the
 };
 
 //--- Client initialization, either hosted or pure client. Part I
-if ((isHostedServer || (!isHeadLessClient && !isDedicated)) && !isCameraClient) then {
+if (isHostedServer || (!isHeadLessClient && !isDedicated)) then {
 	["INITIALIZATION", "initJIPCompatible.sqf: Client detected... waiting for non null result..."] Call WFBE_CO_FNC_LogContent;
 	waitUntil {!isNull player};
 	["INITIALIZATION", "initJIPCompatible.sqf: Client is not null..."] Call WFBE_CO_FNC_LogContent;
@@ -186,7 +199,12 @@ if (ARMA_VERSION >= 162 && ARMA_RELEASENUMBER >= 101334 || ARMA_VERSION > 162) t
 
 WFBE_Parameters_Ready = true; //--- All parameters are set and ready.
 
-ExecVM "Common\Init\Init_Common.sqf"; //--- Execute the common files.
+if (!IsCameraClient) then {
+    ExecVM "Common\Init\Init_Common.sqf"; //--- Execute the common files.
+} else {
+	ExecVM "Client\Module\Camera\Init\Init_Common_On_Camera.sqf";
+};
+
 ExecVM "Common\Init\Init_Towns.sqf"; //--- Execute the towns file.
 
 //--- Server initialization.
@@ -196,7 +214,7 @@ if (isHostedServer || isDedicated) then { //--- Run the server's part.
 };
 
 //--- Client initialization, either hosted or pure client. Part II
-if ((isHostedServer || (!isHeadLessClient && !isDedicated)) && !isCameraClient) then {
+if ((isHostedServer || (!isHeadLessClient && !isDedicated)) && !IsCameraClient) then {
 	waitUntil {!isNil 'WFBE_PRESENTSIDES'}; //--- Await for teams to be set before processing the client init.
 	{
 		_logik = (_x) Call WFBE_CO_FNC_GetSideLogic;
@@ -213,12 +231,22 @@ if (isHeadLessClient) then {
 	execVM "Headless\Init\Init_HC.sqf";
 };
 
-KEGsShownSides = [civilian];
-
 //--- Run the Kegetys spectator module.
-if (isCameraClient) then {
-	diag_log "CAMERA: isCameraClient";
+KEGsShownSides = [west, east];
+
+if (IsCameraClient) then {
+	//diag_log "CAMERA: IsCameraClient";
 	[] execVM "Client\Module\spect\specta_init.sqf";
+
+		waitUntil {!isNil 'WFBE_PRESENTSIDES'}; //--- Await for teams to be set before processing the client init.
+	{
+		_logik = (_x) Call WFBE_CO_FNC_GetSideLogic;
+		waitUntil {!isNil {_logik getVariable "wfbe_teams"}};
+		missionNamespace setVariable [Format["WFBE_%1TEAMS",_x], _logik getVariable "wfbe_teams"];
+	} forEach WFBE_PRESENTSIDES;
+
+	["INITIALIZATION", "initJIPCompatible.sqf: Executing the Camera Initialization."] Call WFBE_CO_FNC_LogContent;
+	execVM "Client\Module\Camera\Init\Init_Camera.sqf";
 };
 
 /* Marty : old wasp script using resources unecessarely. Will be removed after some days if its ok.

@@ -55,7 +55,7 @@ _minZoom = 2;
 
 // Unit sides shown - Show all if sides not set
 if(format["%1", KEGsShownSides] == "scalar bool array string 0xe0ffffef") then {
-	KEGsShownSides = [west, east, resistance, civilian];
+	KEGsShownSides = [west, east];
 };
 
 deathCam = [];
