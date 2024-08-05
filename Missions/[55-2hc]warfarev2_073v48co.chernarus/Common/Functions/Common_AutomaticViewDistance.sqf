@@ -4,8 +4,8 @@
 */
 	_auto_distance_view_target_fps = missionNamespace getVariable "AUTO_DISTANCE_VIEW_TARGET_FPS";
 
-	_min_fps_targeted = _auto_distance_view_target_fps - 2; //we aim this fps at least.
-	_max_fps_targeted = _auto_distance_view_target_fps + 2;
+	_min_fps_targeted = _auto_distance_view_target_fps - 4; //we aim this fps at least.
+	_max_fps_targeted = _auto_distance_view_target_fps + 4;
 	_max_distance_view = 6000;
 	_min_distance_view = 500;
 
