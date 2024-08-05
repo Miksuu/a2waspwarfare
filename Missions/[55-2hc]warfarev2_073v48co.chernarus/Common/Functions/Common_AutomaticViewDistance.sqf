@@ -1,5 +1,6 @@
 /*
-	Author : Marty. 
+	Author : Marty.
+	Contributor : Miksuu.
 	Function that automatically adjust the view distance according to an FPS target.
 */
 	_auto_distance_view_target_fps = missionNamespace getVariable "AUTO_DISTANCE_VIEW_TARGET_FPS";
