@@ -35,7 +35,7 @@ while {!gameOver} do {
 
 	//Marty : automatic adjusting distance view. The distance view of the client is adjusted automatically to reach the fps target.
 	_toggle_auto_distance_view = missionNamespace getVariable "TOOGLE_AUTO_DISTANCE_VIEW";
-		if (_toggle_auto_distance_view) then 
+	if (_toggle_auto_distance_view && !visibleMap) then 
 	{
 		call AutomaticViewDistance; 
 	};

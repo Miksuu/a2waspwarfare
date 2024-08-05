@@ -64,13 +64,22 @@ BIS_UAV_HELI_keydown = {
 		while {markertype format ['_user_defined_UAV_MARKER_%1',_id] != ''} do {
 			_id = _id + 1;
 		};
-		_worldpos = screentoworld [0.5,0.5];
-		_marker = createmarker [format ['_user_defined_UAV_MARKER_%1',_id],_worldpos];
-		_marker setmarkertype 'mil_destroy';
-		_marker setmarkercolor 'colorred';
-		_marker setmarkersize [0.5,0.5];
+		// _worldpos = screentoworld [0.5,0.5];
+		// _marker = createmarker [format ['_user_defined_UAV_MARKER_%1',_id],_worldpos];
+		// _marker setmarkertype 'mil_destroy';
+		// _marker setmarkercolor 'colorred';
+		// _marker setmarkersize [0.5,0.5];
 		_markertime = [daytime] call bis_fnc_timetostring;
-		_marker setmarkertext format ['UAV %1: %2',_id,_markertime];
+		// _marker setmarkertext format ['UAV %1: %2',_id,_markertime];
+		
+		_marker_name = format ['_user_defined_UAV_MARKER_%1',_id];
+		_markerPosition = screentoworld [0.5,0.5];
+		_markerType = 'mil_destroy';
+		_markerText = format ['UAV %1: %2',_id,_markertime];
+		_markerColor = 'ColorRed';
+		_markerSide = playerSide;
+		
+		[_marker_name, _markerPosition, _markerType, _markerText, _markerColor, _markerSide] call WF_createMarker;
 	};
 
 	//--- UP
