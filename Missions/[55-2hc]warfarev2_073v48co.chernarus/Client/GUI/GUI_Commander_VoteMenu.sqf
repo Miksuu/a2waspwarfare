@@ -27,24 +27,29 @@ while {alive player && dialog} do {
 		_index = lnbCurSelRow 509100;
 	};
 
-	if (WFBE_MenuAction == 2) then{
+	if (WFBE_MenuAction == 2) then {
 		WFBE_MenuAction = -1;
 
 		_player_name = lnbText [509100,[_index, 0]];
+		diag_log format ["GUI_Commander_VoteMenu: Selected player name: %1", _player_name];
 
 		{
 			if (isPlayer leader _x) then {
 				if(_player_name == name leader (_x)) exitWith {
-					_voted_commander =  group leader (_x);
+					_voted_commander = group leader (_x);
+					diag_log format ["GUI_Commander_VoteMenu: Voted commander set to: %1", _voted_commander];
 				};
 				if(_player_name == "No Commander") exitWith {
 					_voted_commander = objNull;
+					diag_log "GUI_Commander_VoteMenu: Voted for No Commander";
 				};
 			};
 		} forEach WFBE_Client_Teams;
 
+		diag_log format ["GUI_Commander_VoteMenu: Sending RequestNewCommander with parameters: [%1, %2]", side group player, _voted_commander];
 		["RequestNewCommander", [side group player, _voted_commander]] Call WFBE_CO_FNC_SendToServer;
 		voted = true;
+		diag_log "GUI_Commander_VoteMenu: Vote cast, closing dialog";
 		closeDialog 0;
 	};
 
