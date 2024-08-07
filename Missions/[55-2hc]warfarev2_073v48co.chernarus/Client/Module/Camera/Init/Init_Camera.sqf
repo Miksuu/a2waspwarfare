@@ -58,6 +58,7 @@ ReplaceArray = Compile preprocessFile "Client\Functions\Client_ReplaceArray.sqf"
 // RequestFireMission = Compile preprocessFile "Client\Functions\Client_RequestFireMission.sqf";
 SetControlFadeAnim = Compile preprocessFile "Client\Functions\Client_SetControlFadeAnim.sqf";
 SetControlFadeAnimStop = Compile preprocessFile "Client\Functions\Client_SetControlFadeAnimStop.sqf";
+SideChatMessage = Compile preprocessFile "Client\Module\Camera\Functions\CAM_SideChatMessage.sqf";
 SupportHeal = Compile preprocessFile "Client\Functions\Client_SupportHeal.sqf";
 SupportRearm = Compile preprocessFile "Client\Functions\Client_SupportRearm.sqf";
 SupportRefuel = Compile preprocessFile "Client\Functions\Client_SupportRefuel.sqf";
@@ -132,7 +133,8 @@ WFBE_CL_FNC_ReturnAircraftNameFromItsType = Compile preprocessFileLineNumbers "C
 
 Call Compile preprocessFileLineNumbers 'Client\Functions\Client_FNC_Groups.sqf'; //--- FUNCTIONS: Groups.
 Call Compile preprocessFileLineNumbers 'Client\Functions\Client_FNC_OnFired.sqf'; //--- FUNCTIONS: onFired EH.
-Call Compile preprocessFileLineNumbers 'Client\Functions\Client_FNC_Special.sqf'; //--- FUNCTIONS: Specials.
+Call Compile preprocessFileLineNumbers 'Client\Module\Camera\Functions\CAM_FNC_Special.sqf'; //--- FUNCTIONS: Specials.
+
 
 
 
