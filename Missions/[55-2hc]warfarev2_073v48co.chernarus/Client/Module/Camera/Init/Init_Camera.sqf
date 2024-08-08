@@ -477,7 +477,7 @@ sleep 1;
 
 // /* Debug System - Client */
 // if (WF_Debug) then {
-// 	onMapSingleClick "vehicle player setpos _pos;(vehicle player) setVelocity [0,0,-0.1];diag_log getpos player;"; //--- Teleport
+// 	onMapSingleClick "vehicle player setpos _pos;(vehicle player) setVelocity [0,0,-0.1];// diag_log getpos player;"; //--- Teleport
 
 // 	//player addEventHandler ["HandleDamage", {false}];
 // 	// player setCaptive true;
