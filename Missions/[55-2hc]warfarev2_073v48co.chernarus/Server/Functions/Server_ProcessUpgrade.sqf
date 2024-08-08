@@ -45,7 +45,8 @@ _logic setVariable ["wfbe_upgrades", _upgrades, true];
 _logic setVariable ["wfbe_upgrading", false, true];
 
 [_side, "NewIntelAvailable"] Spawn SideMessage;
-// [_side, "LocalizeMessage", ['UpgradeComplete', _upgrade_id, _upgrade_level + 1]] Call WFBE_CO_FNC_SendToClients;
-[_side, "HandleSpecial", ['upgrade-complete', _upgrade_id, _upgrade_level + 1]] Call WFBE_CO_FNC_SendToClients;
 
-//todo log.
+[_side, "HandleSpecial", ['upgrade-complete', _upgrade_id, _upgrade_level + 1]] Call WFBE_CO_FNC_SendToClients;
+if (TOURNAMENT_MODE_ENABLED) then {
+    [civilian, "HandleSpecialSpectators", ["cam_upgrade-complete", _upgrade_id, _upgrade_level + 1, _side]] Call WFBE_CO_FNC_SendToSpectators;
+};

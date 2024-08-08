@@ -124,3 +124,52 @@ WFBE_CAM_FNC_Upgrade_Started = {
 		//playSound ["eastUpgradeStartedSound", true];
 	};
 };
+
+WFBE_CAM_FNC_Upgrade_Complete = {
+	Private ["_upgrade", "_level", "_side"];
+	_upgrade = _this select 0;
+	_level = _this select 1;
+	_side = _this select 2;
+
+	_message = Format [Localize "STR_WF_CHAT_Upgrade_Complete_Message_Spectator", (missionNamespace getVariable "WFBE_C_UPGRADES_LABELS") select _upgrade, _level];
+
+    // TODO: Add sound for each of the upgrades
+
+	if (_side == west) then {
+		[_message, _side] Call SideChatMessage;
+		// switch (_upgrade) do {
+		// 	case WFBE_UP_BARRACKS: { playSound ["westBarracksUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_LIGHT: { playSound ["westLightUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_HEAVY: { playSound ["westHeavyUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_AIR: { playSound ["westAirUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_PARATROOPERS: { playSound ["westParatroopersUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_UAV: { playSound ["westUAVUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_SUPPLYRATE: { playSound ["westSupplyRateUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_RESPAWNRANGE: { playSound ["westRespawnRangeUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_ARTYTIMEOUT: { playSound ["westArtyTimeoutUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_ICBM: { playSound ["westICBMUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_GEAR: { playSound ["westGearUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_AMMOCRATE: { playSound ["westAmmoCrateUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_EASA: { playSound ["westEASAUpgradeCompleteSound", true]; };
+		// 	default { playSound ["westDefaultUpgradeCompleteSound", true]; };
+		// };
+	} else {
+		[_message, _side] Call CommandChatMessage;
+		// switch (_upgrade) do {
+		// 	case WFBE_UP_BARRACKS: { playSound ["eastBarracksUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_LIGHT: { playSound ["eastLightUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_HEAVY: { playSound ["eastHeavyUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_AIR: { playSound ["eastAirUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_PARATROOPERS: { playSound ["eastParatroopersUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_UAV: { playSound ["eastUAVUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_SUPPLYRATE: { playSound ["eastSupplyRateUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_RESPAWNRANGE: { playSound ["eastRespawnRangeUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_ARTYTIMEOUT: { playSound ["eastArtyTimeoutUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_ICBM: { playSound ["eastICBMUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_GEAR: { playSound ["eastGearUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_AMMOCRATE: { playSound ["eastAmmoCrateUpgradeCompleteSound", true]; };
+		// 	case WFBE_UP_EASA: { playSound ["eastEASAUpgradeCompleteSound", true]; };
+		// 	default { playSound ["eastDefaultUpgradeCompleteSound", true]; };
+		// };
+	};
+};

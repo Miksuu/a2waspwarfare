@@ -11,6 +11,7 @@ switch (_request) do {
     case "cam_new-commander-assigned": {_args spawn WFBE_CAM_FNC_Commander_Assigned};
     case "cam_building-started": {_args spawn WFBE_CAM_FNC_Building_Started};
     case "cam_upgrade-started": {_args spawn WFBE_CAM_FNC_Upgrade_Started};
+    case "cam_upgrade-complete": {_args spawn WFBE_CAM_FNC_Upgrade_Complete};
 };
 
 diag_log "[WFBE_CAM_HandleSpecialSpectators] Finished processing request";
