@@ -40,7 +40,7 @@ switch (_type) do {
 			KEGsDroppedCamera = false; 
 			if(ctrlVisible _cMapFull) then {
 				comment "Full map -> Small map";
-				[] spawn {sleep(0.01);["ToggleMap",0] call spectate_events;["ToggleMap",0] call spectate_events;};
+				[] spawn {sleep(0.25);["ToggleMap",0] call spectate_events;["ToggleMap",0] call spectate_events;};
 			}
 		};
 		deletevehicle _dummy;
