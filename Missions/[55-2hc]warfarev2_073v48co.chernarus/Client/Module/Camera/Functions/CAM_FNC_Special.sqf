@@ -100,9 +100,9 @@ WFBE_CAM_FNC_Building_Started = {
 		["DEBUG (Client_FNC_Special.sqf)", Format ["Building: %1 for side %2", _localisedBuilding, _side]] Call WFBE_CO_FNC_LogContent;
 		_message = Format[Localize "STR_WF_CHAT_Building_Started_Message_Spectator", _localisedBuilding];
 		if (_side == west) then {
-			[_message, _side] Call SideChatMessage;
+			_message Call SideChatMessage;
 		} else {
-			[_message, _side] Call CommandChatMessage;
+			_message Call CommandChatMessage;
 		};
 	};
 };
@@ -117,10 +117,10 @@ WFBE_CAM_FNC_Upgrade_Started = {
 	
     // TODO: Add sound for each of the upgrades
 	if (_side == west) then {
-		[_message, _side] Call SideChatMessage;
+		_message Call SideChatMessage;
 		//playSound ["westUpgradeStartedSound", true];
 	} else {
-		[_message, _side] Call CommandChatMessage;
+		_message Call CommandChatMessage;
 		//playSound ["eastUpgradeStartedSound", true];
 	};
 };
@@ -136,7 +136,7 @@ WFBE_CAM_FNC_Upgrade_Complete = {
     // TODO: Add sound for each of the upgrades
 
 	if (_side == west) then {
-		[_message, _side] Call SideChatMessage;
+		_message Call SideChatMessage;
 		// switch (_upgrade) do {
 		// 	case WFBE_UP_BARRACKS: { playSound ["westBarracksUpgradeCompleteSound", true]; };
 		// 	case WFBE_UP_LIGHT: { playSound ["westLightUpgradeCompleteSound", true]; };
@@ -181,7 +181,7 @@ WFBE_CAM_FNC_Town_Captured = {
     _town_side_value_new = _this select 2;
 
     // _message = Format [Localize "STR_WF_CHAT_Town_Captured", _location, _sideID, _newSID];
-    // [_message, _side] Call SideChatMessage;
+    // _message Call SideChatMessage;
    
     _sv = _town getVariable "supplyValue";
 
@@ -199,13 +199,13 @@ WFBE_CAM_FNC_Town_Captured = {
 
     switch (_side_captured) do {
         case west: {
-            [Format[Localize "STR_WF_CHAT_Town_Captured", _town getVariable "name", _side_captured]] Call SideChatMessage;
+            Format[Localize "STR_WF_CHAT_Town_Captured", _town getVariable "name", _side_captured] Call SideChatMessage;
         };
         case east: {
-            [Format[Localize "STR_WF_CHAT_Town_Captured", _town getVariable "name", _side_captured]] Call CommandChatMessage;
+            Format[Localize "STR_WF_CHAT_Town_Captured", _town getVariable "name", _side_captured] Call CommandChatMessage;
         };
         case resistance: {
-            [Format[Localize "STR_WF_CHAT_Town_Captured", _town getVariable "name", _side_captured]] Call GroupChatMessage;
+            Format[Localize "STR_WF_CHAT_Town_Captured", _town getVariable "name", _side_captured] Call GroupChatMessage;
         };
     };
 
