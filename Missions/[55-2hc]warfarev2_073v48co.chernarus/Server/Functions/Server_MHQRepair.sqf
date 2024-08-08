@@ -69,3 +69,5 @@ if (_side == east) then
 };
 
 ["INFORMATION", Format ["Server_MHQRepair.sqf: [%1] MHQ has been repaired.", _sideText]] Call WFBE_CO_FNC_LogContent;
+
+// TODO: Add message to the spectators about repairing the HQ
