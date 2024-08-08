@@ -271,8 +271,7 @@ hangarInRange = false;
 enableTeamSwitch false;
 
 //--- Import the client side upgrade informations.
-// DISABLED, USEFUL FOR LATER ON IF NEEDED TO SHOW BOTH TEAMS UPGRADES
-//ExecVM "Common\Config\Core_Upgrades\Labels_Upgrades.sqf";
+ExecVM "Common\Config\Core_Upgrades\Labels_Upgrades.sqf";
 
 //--- Update the player.
 //if (isMultiplayer) then {["RequestSpecial", ["update-teamleader", WFBE_Client_Team, player]] Call WFBE_CO_FNC_SendToServer};
