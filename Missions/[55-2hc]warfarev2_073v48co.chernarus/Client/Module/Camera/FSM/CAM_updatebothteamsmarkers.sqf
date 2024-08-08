@@ -4,12 +4,16 @@ _sideText = sideJoinedText;
 _label = "";
 _count = 1;
 
+_colorBlue = [0.00, 0.30, 0.60, 1.00];
+_colorGreen = [0.00, 0.50, 0.00, 1.00];
+_colorRed = [0.50, 0.00, 0.00, 1.00];
+
 // bothClientTeams = clientTeamsWest + clientTeamsEast;
 {
 	_marker = Format["%1AdvancedSquad%2Marker",_sideText,_count];
 	createMarkerLocal [_marker,[0,0,0]];
 	_marker setMarkerTypeLocal "Arrow";
-	_markerColor = if (side _x == west) then {"ColorBlue"} else {"ColorRed"};
+	_markerColor = if (side _x == west) then {_colorBlue} else {_colorRed};
 	_marker setMarkerColorLocal _markerColor;
 	_marker setMarkerDirLocal 0;
 	_marker setMarkerSizeLocal [0.7,0.7];
