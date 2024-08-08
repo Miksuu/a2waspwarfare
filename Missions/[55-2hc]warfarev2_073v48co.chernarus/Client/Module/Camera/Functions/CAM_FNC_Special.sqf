@@ -98,7 +98,7 @@ WFBE_CAM_FNC_Building_Started = {
 
 	if (_localisedBuilding != "Unknown") then {
 		["DEBUG (Client_FNC_Special.sqf)", Format ["Building: %1 for side %2", _localisedBuilding, _side]] Call WFBE_CO_FNC_LogContent;
-		_message = Format[Localize "STR_WF_CHAT_Building_Started_Message_Spectator", _localisedBuilding];
+		_message = Format[Localize "STR_WF_CHAT_Building_Started_Message_Spectator", _localisedBuilding, _side];
 		if (_side == west) then {
 			_message Call SideChatMessage;
 		} else {
