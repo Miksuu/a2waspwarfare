@@ -13,6 +13,7 @@ switch (_request) do {
     case "cam_upgrade-started": {_args spawn WFBE_CAM_FNC_Upgrade_Started};
     case "cam_upgrade-complete": {_args spawn WFBE_CAM_FNC_Upgrade_Complete};
     case "cam_town-captured": {_args spawn WFBE_CAM_FNC_Town_Captured};
+    case "cam_hq-mobilized": {_args spawn WFBE_CAM_FNC_HQ_Mobilized};
 };
 
 diag_log "[WFBE_CAM_HandleSpecialSpectators] Finished processing request";

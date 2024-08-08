@@ -276,3 +276,10 @@ WFBE_CAM_FNC_Town_Captured = {
         // };
     // };
 };
+
+WFBE_CAM_FNC_HQ_Mobilized = {
+    Private ["_MHQ","_side"];
+    _side = _this select 0;
+    _MHQ = _this select 1;
+    [_side,"Mobilized", ["Base", _MHQ]] Spawn SideMessage;
+};
