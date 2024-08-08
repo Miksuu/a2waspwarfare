@@ -281,5 +281,7 @@ WFBE_CAM_FNC_HQ_Mobilized = {
     Private ["_MHQ","_side"];
     _side = _this select 0;
     _MHQ = _this select 1;
+    diag_log format ["WFBE_CAM_FNC_HQ_Mobilized - _side: %1", _side];
+    diag_log format ["WFBE_CAM_FNC_HQ_Mobilized - _MHQ: %1", _MHQ];
     [_side,"Mobilized", ["Base", _MHQ]] Spawn SideMessage;
 };

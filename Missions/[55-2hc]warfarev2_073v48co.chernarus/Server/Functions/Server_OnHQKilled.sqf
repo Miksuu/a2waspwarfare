@@ -140,5 +140,5 @@ _markerSide			= _side;
 /*
 _msg = format ["Server_OnHQKilled.sqf: _this = %1", _this];
 player sideChat _msg;
-diag_log _msg;
+//diag_log _msg;
 */

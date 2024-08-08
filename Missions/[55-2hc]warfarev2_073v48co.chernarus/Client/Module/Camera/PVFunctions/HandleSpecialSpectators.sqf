@@ -5,7 +5,7 @@ _args = +_this;
 _args set [0, "**NIL**"];
 _args = _args - ["**NIL**"]; //--- Strip the action request from the arguments.
 
-diag_log format["[WFBE_CAM_HandleSpecialSpectators] _request: %1, _args: %2", _request, _args];
+// diag_log format["[WFBE_CAM_HandleSpecialSpectators] _request: %1, _args: %2", _request, _args];
 
 switch (_request) do {
     case "cam_new-commander-assigned": {_args spawn WFBE_CAM_FNC_Commander_Assigned};
@@ -16,4 +16,4 @@ switch (_request) do {
     case "cam_hq-mobilized": {_args spawn WFBE_CAM_FNC_HQ_Mobilized};
 };
 
-diag_log "[WFBE_CAM_HandleSpecialSpectators] Finished processing request";
+// diag_log "[WFBE_CAM_HandleSpecialSpectators] Finished processing request";
