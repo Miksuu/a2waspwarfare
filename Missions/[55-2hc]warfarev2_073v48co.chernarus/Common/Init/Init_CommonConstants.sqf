@@ -334,9 +334,15 @@ switch (true) do {
 
 //--- Overall mission coloration.
 if (IsCameraClient) then {
-    missionNamespace setVariable ["WFBE_C_WEST_COLOR", "ColorBlue"];
-    missionNamespace setVariable ["WFBE_C_EAST_COLOR", "ColorRed"];
-    missionNamespace setVariable ["WFBE_C_GUER_COLOR", "ColorGreen"];
+
+	// Replace with global var
+	_colorBlue = [0.00, 0.30, 0.60, 1.00];
+	_colorGreen = [0.00, 0.50, 0.00, 1.00];
+	_colorRed = [0.50, 0.00, 0.00, 1.00];
+
+    missionNamespace setVariable ["WFBE_C_WEST_COLOR", _colorBlue];
+    missionNamespace setVariable ["WFBE_C_EAST_COLOR", _colorRed];
+    missionNamespace setVariable ["WFBE_C_GUER_COLOR", _colorGreen];
     missionNamespace setVariable ["WFBE_C_CIV_COLOR", "ColorYellow"];
     missionNamespace setVariable ["WFBE_C_UNKNOWN_COLOR", "ColorBlue"];
 } else {
