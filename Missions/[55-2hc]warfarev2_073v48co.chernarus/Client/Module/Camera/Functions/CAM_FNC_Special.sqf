@@ -113,7 +113,7 @@ WFBE_CAM_FNC_Upgrade_Started = {
 	_level = _this select 1;
 	_side = _this select 2;
 
-	_message = Format [Localize "STR_WF_CHAT_Upgrade_Started_Message_Spectator", (missionNamespace getVariable "WFBE_C_UPGRADES_LABELS") select _upgrade, _level];
+	_message = Format [Localize "STR_WF_CHAT_Upgrade_Started_Message_Spectator", (missionNamespace getVariable "WFBE_C_UPGRADES_LABELS") select _upgrade, _level, _side];
 	
     // TODO: Add sound for each of the upgrades
 	if (_side == west) then {
@@ -131,7 +131,7 @@ WFBE_CAM_FNC_Upgrade_Complete = {
 	_level = _this select 1;
 	_side = _this select 2;
 
-	_message = Format [Localize "STR_WF_CHAT_Upgrade_Complete_Message_Spectator", (missionNamespace getVariable "WFBE_C_UPGRADES_LABELS") select _upgrade, _level];
+	_message = Format [Localize "STR_WF_CHAT_Upgrade_Complete_Message_Spectator", (missionNamespace getVariable "WFBE_C_UPGRADES_LABELS") select _upgrade, _level, _side];
 
     // TODO: Add sound for each of the upgrades
 

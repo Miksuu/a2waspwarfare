@@ -313,18 +313,19 @@
                 <Italian>È iniziata la costruzione di %1 per la fazione %2.</Italian>
             </Key>
             <Key ID="STR_WF_CHAT_Upgrade_Started_Message_Spectator">
-                <English>%1 upgrade has started for %2 side.</English>
+                <English>%1 upgrade Level %2 has started for %3 side.</English>
                 <French>L'amélioration de %1 a commencé pour le côté %2.</French>
                 <German>Das Upgrade von %1 hat für die %2 Seite begonnen.</German>
                 <Russian>Начато улучшение %1 для стороны %2.</Russian>
                 <Italian>È iniziato l'aggiornamento di %1 per la fazione %2.</Italian>
             </Key>
             <Key ID="STR_WF_CHAT_Upgrade_Complete_Message_Spectator">
-                <English>%1 upgrade has been completed for %2 side.</English>
-                <French>L'amélioration de %1 a été terminée pour le côté %2.</French>
-                <German>Das Upgrade von %1 wurde für die %2 Seite abgeschlossen.</German>
-                <Russian>Улучшение %1 завершено для стороны %2.</Russian>
-                <Italian>L'aggiornamento di %1 è stato completato per la fazione %2.</Italian>
+                <English>%1 upgrade Level %2 has been completed for %3 side.</English>
+                <French>L'amélioration %1 de niveau %2 a été terminée pour le camp %3.</French>
+                <German>Das Upgrade %1 der Stufe %2 wurde für die %3 Seite abgeschlossen.</German>
+                <Russian>Улучшение %1 уровня %2 завершено для стороны %3.</Russian>
+                <Italian>L'aggiornamento %1 di livello %2 è stato completato per la fazione %3.</Italian>
+            </Key>
             </Key>
             <Key ID="STR_WF_CHAT_PlayerCommander"><!--shared U-->
                 <English>You are the new Commander! Good luck! &lt;br/&gt;&lt;br/&gt;If you're new to commanding: &lt;br/&gt;&lt;br/&gt;It's important to build some factories in Construction Menu (HQ) (mouse scroll, you also need to be right next to the friendly HQ) but it's often even more important to do upgrades: >> WF menu (use your mouse scroll again) -> Factory Upgrade. &lt;br/&gt;&lt;br/&gt;Spend your supply carefully and build only necessary factories and focus on the relevant technology upgrades. &lt;br/&gt;&lt;br/&gt;You can also move the base if needed by undeploying HQ (if not undeployed already), moving it to another position and deploying it there. &lt;br/&gt;&lt;br/&gt;Don't worry too much, you'll learn by doing and you can always ask for guidance! </English>
