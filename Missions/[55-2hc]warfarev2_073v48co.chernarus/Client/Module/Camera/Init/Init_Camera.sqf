@@ -271,7 +271,7 @@ hangarInRange = false;
 enableTeamSwitch false;
 
 //--- Import the client side upgrade informations.
-ExecVM "Common\Config\Core_Upgrades\Labels_Upgrades.sqf";
+ExecVM "Client\Module\Camera\Config\Core_Upgrades\CAM_Labels_Upgrades.sqf";
 
 //--- Update the player.
 //if (isMultiplayer) then {["RequestSpecial", ["update-teamleader", WFBE_Client_Team, player]] Call WFBE_CO_FNC_SendToServer};
