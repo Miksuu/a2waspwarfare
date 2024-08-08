@@ -106,3 +106,21 @@ WFBE_CAM_FNC_Building_Started = {
 		};
 	};
 };
+
+WFBE_CAM_FNC_Upgrade_Started = {
+	Private ["_upgrade", "_level", "_side"];
+	_upgrade = _this select 0;
+	_level = _this select 1;
+	_side = _this select 2;
+
+	_message = Format [Localize "STR_WF_CHAT_Upgrade_Started_Message_Spectator", (missionNamespace getVariable "WFBE_C_UPGRADES_LABELS") select _upgrade, _level];
+	
+    // TODO: Add sound for each of the upgrades
+	if (_side == west) then {
+		[_message, _side] Call SideChatMessage;
+		//playSound ["westUpgradeStartedSound", true];
+	} else {
+		[_message, _side] Call CommandChatMessage;
+		//playSound ["eastUpgradeStartedSound", true];
+	};
+};

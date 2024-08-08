@@ -10,6 +10,7 @@ diag_log format["[WFBE_CAM_HandleSpecialSpectators] _request: %1, _args: %2", _r
 switch (_request) do {
     case "cam_new-commander-assigned": {_args spawn WFBE_CAM_FNC_Commander_Assigned};
     case "cam_building-started": {_args spawn WFBE_CAM_FNC_Building_Started};
+    case "cam_upgrade-started": {_args spawn WFBE_CAM_FNC_Upgrade_Started};
 };
 
 diag_log "[WFBE_CAM_HandleSpecialSpectators] Finished processing request";
