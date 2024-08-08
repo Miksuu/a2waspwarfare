@@ -7,9 +7,9 @@ _lastSID = -1;
 _lastUpdate = time;
 _txt = "";
 
-_colorBlue = [0,0,0.7,0.6];
-_colorGreen = [0,0.7,0,0.6];
-_colorRed = [0.7,0,0,0.6];
+_colorBlue = [0.00, 0.30, 0.60, 1.00];
+_colorGreen = [0.00, 0.50, 0.00, 1.00];
+_colorRed = [0.50, 0.00, 0.00, 1.00];
 _colorBlack = [0,0,0,0.6];
 
 _ui_bg = [0,0,0,0.7];
