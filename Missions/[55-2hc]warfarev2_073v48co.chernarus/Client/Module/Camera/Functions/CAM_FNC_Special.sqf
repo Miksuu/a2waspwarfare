@@ -195,6 +195,8 @@ WFBE_CAM_FNC_Town_Captured = {
     _townMarker = Format ["WFBE_%1_CityMarker", _town];
     _townMarker setMarkerColorLocal _color;
 
+    // Todo: add sound for each of the sides
+
     switch (_side_captured) do {
         case west: {
             [Format[Localize "STR_WF_CHAT_Town_Captured", _town getVariable "name", _side_captured]] Call SideChatMessage;
