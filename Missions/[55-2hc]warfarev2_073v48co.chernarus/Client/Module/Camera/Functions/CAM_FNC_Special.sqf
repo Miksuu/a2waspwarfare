@@ -154,7 +154,7 @@ WFBE_CAM_FNC_Upgrade_Complete = {
 		// 	default { playSound ["westDefaultUpgradeCompleteSound", true]; };
 		// };
 	} else {
-		[_message, _side] Call CommandChatMessage;
+		_message Call CommandChatMessage;
 		// switch (_upgrade) do {
 		// 	case WFBE_UP_BARRACKS: { playSound ["eastBarracksUpgradeCompleteSound", true]; };
 		// 	case WFBE_UP_LIGHT: { playSound ["eastLightUpgradeCompleteSound", true]; };
