@@ -4,7 +4,6 @@ _sideText = sideJoinedText;
 _label = "";
 _count = 1;
 
-// Replace with global var
 _colorBlue = [0.00, 0.30, 0.60, 1.00];
 _colorGreen = [0.00, 0.50, 0.00, 1.00];
 _colorRed = [0.50, 0.00, 0.00, 1.00];
