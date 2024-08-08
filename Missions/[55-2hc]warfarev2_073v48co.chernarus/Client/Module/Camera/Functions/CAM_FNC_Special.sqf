@@ -1,3 +1,6 @@
+// Prompt:
+// Transform this function to use the new CommandChatMessage and SideChatMessage functions with side parameter, just like in the following functions: WFBE_CAM_FNC_Commander_Assigned, WFBE_CAM_FNC_Building_Started. It should have different sounds for each side too, for each of the items.
+
 WFBE_CAM_FNC_Commander_Assigned = {
     Private["_commanderTeam", "_text", "_side"];
     _commanderTeam = _this select 0;
@@ -22,4 +25,84 @@ WFBE_CAM_FNC_Commander_Assigned = {
         _text Call CommandChatMessage;
         diag_log format["WFBE_CAM_FNC_Commander_Assigned: Not west side, calling CommandChatMessage with text: %1", _text];
     };
+};
+
+WFBE_CAM_FNC_Building_Started = {
+	Private ["_building", "_localisedBuilding", "_side"];
+	_building = _this select 0;
+	_side = _this select 1;
+
+	_localisedBuilding = "";
+
+	switch (_building) do {
+		case "Barracks": {
+			_localisedBuilding = localize "RB_Barracks";
+			if (_side == west) then {
+				// playSound ["westBarracksBuildSound", true];
+			} else {
+				// playSound ["eastBarracksBuildSound", true];
+			};
+		};
+		case "Light": {
+			_localisedBuilding = localize "RB_Light_Factory";
+			if (_side == west) then {
+				// playSound ["westLightFactoryBuildSound", true];
+			} else {
+				// playSound ["eastLightFactoryBuildSound", true];
+			};
+		};
+		case "CommandCenter": {
+			_localisedBuilding = localize "RB_Command_Center";
+			if (_side == west) then {
+				// playSound ["westCommandCenterBuildSound", true];
+			} else {
+				// playSound ["eastCommandCenterBuildSound", true];
+			};
+		};
+		case "Heavy": {
+			_localisedBuilding = localize "RB_Heavy_Factory";
+			if (_side == west) then {
+				// playSound ["westHeavyFactoryBuildSound", true];
+			} else {
+				// playSound ["eastHeavyFactoryBuildSound", true];
+			};
+		};
+		case "Aircraft": {
+			_localisedBuilding = localize "RB_Aircraft_factory";
+			if (_side == west) then {
+				// playSound ["westAircraftFactoryBuildSound", true];
+			} else {
+				// playSound ["eastAircraftFactoryBuildSound", true];
+			};
+		};
+		case "ServicePoint": {
+			_localisedBuilding = localize "RB_Service_Point";
+			if (_side == west) then {
+				// playSound ["westServicePointBuildSound", true];
+			} else {
+				// playSound ["eastServicePointBuildSound", true];
+			};
+		};
+		case "AARadar": {
+			_localisedBuilding = localize "STR_WF_UPGRADE_AntiAirRadar";
+			if (_side == west) then {
+				// playSound ["westAARadarBuildSound", true];
+			} else {
+				// playSound ["eastAARadarBuildSound", true];
+			};
+		};
+		default {
+			_localisedBuilding = "Unknown";
+		};
+	};
+
+	if (_localisedBuilding != "Unknown") then {
+		["DEBUG (Client_FNC_Special.sqf)", Format ["Building: %1 for side %2", _localisedBuilding, _side]] Call WFBE_CO_FNC_LogContent;
+		_message = Format[Localize "STR_WF_CHAT_Building_Started_Message_Spectator", _localisedBuilding];
+		if (_side == west) then {
+			[_message, _side] Call SideChatMessage;
+		} else {
+			[_message, _side] Call CommandChatMessage;
+		};
+	};
 };

@@ -8,13 +8,8 @@ _args = _args - ["**NIL**"]; //--- Strip the action request from the arguments.
 diag_log format["[WFBE_CAM_HandleSpecialSpectators] _request: %1, _args: %2", _request, _args];
 
 switch (_request) do {
-    case "cam_new-commander-assigned": {
-        diag_log format["[WFBE_CAM_HandleSpecialSpectators] Spawning WFBE_CAM_FNC_Commander_Assigned with args: %1", _args];
-        _args spawn WFBE_CAM_FNC_Commander_Assigned
-    };
-    default {
-        diag_log format["[WFBE_CAM_HandleSpecialSpectators] Unknown request: %1", _request];
-    };
+    case "cam_new-commander-assigned": {_args spawn WFBE_CAM_FNC_Commander_Assigned};
+    case "cam_building-started": {_args spawn WFBE_CAM_FNC_Building_Started};
 };
 
 diag_log "[WFBE_CAM_HandleSpecialSpectators] Finished processing request";
