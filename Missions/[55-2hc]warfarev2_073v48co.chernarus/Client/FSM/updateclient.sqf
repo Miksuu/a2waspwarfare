@@ -34,7 +34,7 @@ AutomaticViewDistance = compile preprocessFile "Common\Functions\Common_Automati
 while {!gameOver} do {
 
 	// Marty : update HQ wreck marker on map in case a player join after the game already begin or if the wreck is moved.
-	if (sideJoined == west) then 
+	if (playerSide == west) then 
 	{
 		_is_west_hq_alive = missionNamespace getVariable ["IS_WEST_HQ_ALIVE", true]; // if hq is not already killed, we set the variable to true by default meaning hq is still alived. // if hq is not already killed, we set the variable to true by default meaning hq is still alived.
 
@@ -56,7 +56,7 @@ while {!gameOver} do {
 
 	};
 
-	if (sideJoined == east) then 
+	if (playerSide == east) then 
 	{
 		_is_east_hq_alive = missionNamespace getVariable ["IS_EAST_HQ_ALIVE", true]; // if hq is not already killed, we set the variable to true by default meaning hq is still alived.
 

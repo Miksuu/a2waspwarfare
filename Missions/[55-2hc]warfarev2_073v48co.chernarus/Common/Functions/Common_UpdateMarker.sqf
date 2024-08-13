@@ -22,4 +22,5 @@ _markerName setMarkerTypeLocal _markerType;
 _markerName setMarkerTextLocal _markerText;
 _markerName setMarkerColorLocal _markerColor;
 _markerPosition = getPos _markerObject ;
-_markerName setMarkerPos _markerPosition ;
+//_markerName setMarkerPos _markerPosition ;
+_markerName setMarkerPosLocal _markerPosition ;
