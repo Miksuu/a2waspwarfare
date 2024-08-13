@@ -33,6 +33,51 @@ AutomaticViewDistance = compile preprocessFile "Common\Functions\Common_Automati
 
 while {!gameOver} do {
 
+	// Marty : update HQ wreck marker on map in case a player join after the game already begin or if the wreck is moved.
+	if (sideJoined == west) then 
+	{
+		_is_west_hq_alive = missionNamespace getVariable ["IS_WEST_HQ_ALIVE", true]; // if hq is not already killed, we set the variable to true by default meaning hq is still alived. // if hq is not already killed, we set the variable to true by default meaning hq is still alived.
+
+		if (!_is_west_hq_alive) then // hq marker wreck is created if hq is already dead when client join the game. 
+		{
+			_MARKER_infos = missionNamespace getVariable Format["HQ_WEST_MARKER_INFOS"]; // get the wreck marker infos from the public variable that was created oneventhqkilled.
+
+			// Extract the value from the array to get specific infos for the marker creation :
+			_markerName 			= _MARKER_infos select 0;
+			_markerPosition			= _MARKER_infos select 1;
+			_markerType				= _MARKER_infos select 2;
+			_markerText				= _MARKER_infos select 3;
+			_markerColor			= _MARKER_infos select 4;
+			_side_who_see_marker 	= _MARKER_infos select 5;
+			_hq 					= _MARKER_infos select 6;
+		
+			[_hq,_markerName,_markerType,_markerText,_markerColor] call UpdateMarker;
+		};
+
+	};
+
+	if (sideJoined == east) then 
+	{
+		_is_east_hq_alive = missionNamespace getVariable ["IS_EAST_HQ_ALIVE", true]; // if hq is not already killed, we set the variable to true by default meaning hq is still alived.
+
+		if (!_is_east_hq_alive) then // hq marker wreck is created if it is dead. 
+		{
+			_MARKER_infos = missionNamespace getVariable Format["HQ_EAST_MARKER_INFOS"]; // get the wreck marker infos from the public variable that was created oneventhqkilled.
+
+			// Extract the value from the array to get specific infos for the marker creation :
+			_markerName 			= _MARKER_infos select 0;
+			_markerPosition			= _MARKER_infos select 1;
+			_markerType				= _MARKER_infos select 2;
+			_markerText				= _MARKER_infos select 3;
+			_markerColor			= _MARKER_infos select 4;
+			_side_who_see_marker 	= _MARKER_infos select 5;
+			_hq 					= _MARKER_infos select 6;
+
+			[_hq,_markerName,_markerType,_markerText,_markerColor] call UpdateMarker;
+	};
+
+};
+	
 	//Marty : automatic adjusting distance view. The distance view of the client is adjusted automatically to reach the fps target.
 	_toggle_auto_distance_view = missionNamespace getVariable "TOOGLE_AUTO_DISTANCE_VIEW";
 	if (_toggle_auto_distance_view && !visibleMap) then 

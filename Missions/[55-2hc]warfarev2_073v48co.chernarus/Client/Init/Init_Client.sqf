@@ -37,6 +37,7 @@ _rearmor = {
 player addeventhandler ["HandleDamage",format ["_this Call %1", _rearmor]];
 [] execVM "Common\Functions\Common_Bipod.sqf";
 
+UpdateMarker = Compile preprocessFile "Common\Functions\Common_UpdateMarker.sqf";
 BoundariesIsOnMap = Compile preprocessFile "Client\Functions\Client_IsOnMap.sqf";
 BoundariesHandleOnMap = Compile preprocessFile "Client\Functions\Client_HandleOnMap.sqf";
 BuildUnit = Compile preprocessFile "Client\Functions\Client_BuildUnit.sqf";
