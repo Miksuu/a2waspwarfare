@@ -433,15 +433,17 @@ while {alive player && dialog} do {
 			_obj = "HeliHEmpty" createVehicle _callPos; 
 			
 			//--- Marty : Creating the ICBM marker on map for the commander who give the order:
-			// Marty : Marking HQ wreck on map 
-			_ICBM_marker_name 		= "HQ_WRECK_" + str(time) ;
+			_ICBM_marker_name 		= "ICBM_" + str(time) ;
 			_ICBM_markerPosition 	= position _obj ;
 			_ICBM_markerType 		= "mil_warning";
 			_ICBM_markerText 		= "ICBM by commander";
 			_ICBM_markerColor 		= "ColorRed";
 			_ICBM_markerSide		= playerSide;
+			_ICBM_markerRadius      = missionNamespace getVariable "ICBM_DAMAGE_RADIUS";
+			_ICBM_marker_elipse_name = format["Elipse_%1", _ICBM_marker_name];
 
-			[_ICBM_marker_name, _ICBM_markerPosition, _ICBM_markerType, _ICBM_markerText, _ICBM_markerColor, _ICBM_markerSide] call WF_createMarker ;
+			[_ICBM_marker_name, _ICBM_markerPosition, _ICBM_markerType, _ICBM_markerText, _ICBM_markerColor, _ICBM_markerSide, _ICBM_marker_elipse_name, _ICBM_markerRadius] call WF_createMarker ;
+
 
 			// Marty : Messages text and audio to be sent : 
 			if (playerSide == east) then 
@@ -462,7 +464,7 @@ while {alive player && dialog} do {
 			_time_before_ICBM_impact = missionNamespace getVariable "WFBE_ICBM_TIME_TO_IMPACT"; // time in minutes.
 			_time_before_ICBM_impact = _time_before_ICBM_impact * 60 ;							// time in seconds.
 			[_ICBM_marker_name,_time_before_ICBM_impact] call WFBE_CL_FNC_Delete_Marker ;			// delete the marker. 
-				
+			[_ICBM_marker_elipse_name,_time_before_ICBM_impact] call WFBE_CL_FNC_Delete_Marker ;	// delete the elipse marker.
 		};
 		//--- Vehicle Paradrop.
 		if (MenuAction == 9) then {
