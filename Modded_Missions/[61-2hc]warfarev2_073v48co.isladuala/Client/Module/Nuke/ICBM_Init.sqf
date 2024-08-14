@@ -1,3 +1,6 @@
+missionNamespace setVariable ["ICBM_DAMAGE_RADIUS",800]; 	// Marty.
+missionNamespace setVariable ["ICBM_RADIATION_RADIUS",900]; // Marty.
+
 if (local player) then {
 	Nuke = Compile preprocessFile "Client\Module\Nuke\nuke.sqf";
 	NukeIncoming = Compile preprocessFile "Client\Module\Nuke\nukeincoming.sqf";

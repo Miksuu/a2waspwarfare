@@ -58,6 +58,7 @@ ReplaceArray = Compile preprocessFile "Client\Functions\Client_ReplaceArray.sqf"
 // RequestFireMission = Compile preprocessFile "Client\Functions\Client_RequestFireMission.sqf";
 SetControlFadeAnim = Compile preprocessFile "Client\Functions\Client_SetControlFadeAnim.sqf";
 SetControlFadeAnimStop = Compile preprocessFile "Client\Functions\Client_SetControlFadeAnimStop.sqf";
+SideChatMessage = Compile preprocessFile "Client\Module\Camera\Functions\CAM_SideChatMessage.sqf";
 SupportHeal = Compile preprocessFile "Client\Functions\Client_SupportHeal.sqf";
 SupportRearm = Compile preprocessFile "Client\Functions\Client_SupportRearm.sqf";
 SupportRefuel = Compile preprocessFile "Client\Functions\Client_SupportRefuel.sqf";
@@ -132,7 +133,8 @@ WFBE_CL_FNC_ReturnAircraftNameFromItsType = Compile preprocessFileLineNumbers "C
 
 Call Compile preprocessFileLineNumbers 'Client\Functions\Client_FNC_Groups.sqf'; //--- FUNCTIONS: Groups.
 Call Compile preprocessFileLineNumbers 'Client\Functions\Client_FNC_OnFired.sqf'; //--- FUNCTIONS: onFired EH.
-Call Compile preprocessFileLineNumbers 'Client\Functions\Client_FNC_Special.sqf'; //--- FUNCTIONS: Specials.
+Call Compile preprocessFileLineNumbers 'Client\Module\Camera\Functions\CAM_FNC_Special.sqf'; //--- FUNCTIONS: Specials.
+
 
 
 
@@ -269,8 +271,7 @@ hangarInRange = false;
 enableTeamSwitch false;
 
 //--- Import the client side upgrade informations.
-// DISABLED, USEFUL FOR LATER ON IF NEEDED TO SHOW BOTH TEAMS UPGRADES
-//ExecVM "Common\Config\Core_Upgrades\Labels_Upgrades.sqf";
+ExecVM "Client\Module\Camera\Config\Core_Upgrades\CAM_Labels_Upgrades.sqf";
 
 //--- Update the player.
 //if (isMultiplayer) then {["RequestSpecial", ["update-teamleader", WFBE_Client_Team, player]] Call WFBE_CO_FNC_SendToServer};
@@ -476,7 +477,7 @@ sleep 1;
 
 // /* Debug System - Client */
 // if (WF_Debug) then {
-// 	onMapSingleClick "vehicle player setpos _pos;(vehicle player) setVelocity [0,0,-0.1];diag_log getpos player;"; //--- Teleport
+// 	onMapSingleClick "vehicle player setpos _pos;(vehicle player) setVelocity [0,0,-0.1];// diag_log getpos player;"; //--- Teleport
 
 // 	//player addEventHandler ["HandleDamage", {false}];
 // 	// player setCaptive true;

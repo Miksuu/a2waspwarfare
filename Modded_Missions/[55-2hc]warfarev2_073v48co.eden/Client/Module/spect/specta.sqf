@@ -7,6 +7,8 @@ _player = _this select 0;
 _killer = _this select 1;
 _seagull = _this select 2;
 
+disableSerialization;
+
 // If seagull is valid we came from the respawn scene
 if(typeName _seagull != "string") then {
 	_seagull setpos[-1000, -1000, 1000];

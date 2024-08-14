@@ -51,6 +51,10 @@ _logic setVariable ["wfbe_commander", _commander, true];
 //--- Notify the clients.
 [_side, "HandleSpecial", ["commander-vote", _commander]] Call WFBE_CO_FNC_SendToClients;
 
+if (TOURNAMENT_MODE_ENABLED) then {
+    [civilian, "HandleSpecialSpectators", ["cam_new-commander-assigned", _commander, _side]] Call WFBE_CO_FNC_SendToSpectators;
+};
+
 //--- Process the AI Commander FSM if it's not running.
 if !(isNull _commander) then {
 	if (_logic getVariable "wfbe_aicom_running") then {_logic setVariable ["wfbe_aicom_running", false]};

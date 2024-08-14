@@ -13,6 +13,9 @@ _rlType = _structures select (_structuresNames find _structureType);
 
 if (_rlType in ["Barracks", "Light", "CommandCenter", "Heavy", "Aircraft", "ServicePoint", "AARadar"]) then {
     [_side, "HandleSpecial", ['building-started', _rlType]] Call WFBE_CO_FNC_SendToClients;
+	if (TOURNAMENT_MODE_ENABLED) then {
+    	[civilian, "HandleSpecialSpectators", ["cam_building-started", _rlType, _side]] Call WFBE_CO_FNC_SendToSpectators;
+	};
 };
 
 _index = (missionNamespace getVariable Format ["WFBE_%1STRUCTURENAMES",str _side]) find _structureType;

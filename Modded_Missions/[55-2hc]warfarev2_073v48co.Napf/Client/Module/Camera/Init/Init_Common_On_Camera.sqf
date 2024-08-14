@@ -141,6 +141,7 @@ WFBE_CO_FNC_RemoveCountermeasures = if !(WF_A2_Vanilla) then {Compile preprocess
 WFBE_CO_FNC_SendToClient = if !(WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Common\Functions\Common_SendToClient.sqf"} else {{}};
 WFBE_CO_FNC_SendToClients = Compile preprocessFileLineNumbers "Common\Functions\Common_SendToClients.sqf";
 WFBE_CO_FNC_SendToServer = if (WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Common\Functions\Common_SendToServer.sqf"} else {Compile preprocessFileLineNumbers "Common\Functions\Common_SendToServerOptimized.sqf"};
+WFBE_CO_FNC_SendToSpectators = Compile preprocessFileLineNumbers "Client\Module\Camera\Functions\CAM_SendToSpectators.sqf";
 WFBE_CO_FNC_SetTurretsMagazines = if !(WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Common\Functions\Common_SetTurretsMagazines.sqf"} else {{}};
 WFBE_CO_FNC_SortByDistance = Compile preprocessFileLineNumbers "Common\Functions\Common_SortByDistance.sqf";
 WFBE_CO_FNC_WaypointPatrol = Compile preprocessFileLineNumbers "Common\Functions\Common_WaypointPatrol.sqf";
@@ -285,7 +286,7 @@ Call Compile preprocessFileLineNumbers Format["Common\Config\Core_Root\Root_%1.s
 Call Compile preprocessFileLineNumbers Format["Common\Config\Core_Root\Root_%1.sqf", _team_east];
 
 //--- Common Exec.
-Call Compile preprocessFileLineNumbers "Common\Init\Init_PublicVariables.sqf";
+Call Compile preprocessFileLineNumbers "Client\Module\Camera\Init\Init_PublicVariables_On_Camera.sqf";
 
 //--- Import the desired defenses. (todo, Replace the old defense init by this one).
 Call Compile preprocessFileLineNumbers Format["Common\Config\Defenses\Defenses_%1.sqf",_grpWest];

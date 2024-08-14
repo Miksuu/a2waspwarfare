@@ -98,6 +98,9 @@ if (!_deployed) then {
 		//--- [>1.62] Set the HQ to be local to the commander.
 	 _commanderTeam = (_side) Call WFBE_CO_FNC_GetCommanderTeam;
 
+	if (TOURNAMENT_MODE_ENABLED) then {
+		[civilian, "HandleSpecialSpectators", ["cam_hq-mobilized", _side, _MHQ]] Call WFBE_CO_FNC_SendToSpectators;
+	};
 };
 
 /* Handle the LAG. */

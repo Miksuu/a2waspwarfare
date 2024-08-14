@@ -12,12 +12,18 @@ LOG_CONTENT_STATE = "";
 	LOG_CONTENT_STATE = "NOT ACTIVATED";
 #endif
 
+// Be sure to add #define WF_TOURNAMENT_MODE in version.sqf to enable tournament mode, before the LoadoutManager generates it.
+// This is a global variable that can be used to determine if the tournament mode is enabled.
+// Do not use during regular gameplay, might cause performance degradation through messages that are being sent to the civ slot.
+TOURNAMENT_MODE_ENABLED = false;
+#ifdef WF_TOURNAMENT_MODE
+	TOURNAMENT_MODE_ENABLED = true;
+#endif
+
 IS_naval_map = false;
 #ifdef IS_NAVAL_MAP
 	IS_naval_map = true; // if the map can support boats then global variable boolean is true.
 #endif
-
-
 
 startingDistance = STARTING_DISTANCE;
 
@@ -30,6 +36,7 @@ diag_log format ["## Mission Name: [%1]", WF_MISSIONNAME];
 diag_log format ["## Starting Distance: [%1]", startingDistance];
 diag_log format ["## Max players Defined: [%1]", WF_MAXPLAYERS];
 diag_log format ["## LOG CONTENT : [%1]", LOG_CONTENT_STATE];
+diag_log format ["## TOURNAMENT MODE : [%1]", TOURNAMENT_MODE_ENABLED];
 for '_i' from 0 to 3 do {diag_log "################################"};
 
 townModeSet = false;

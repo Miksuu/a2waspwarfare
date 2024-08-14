@@ -208,6 +208,10 @@ while {!WFBE_GameOver} do {
 			_location setVariable ["sideID",_newSID,true];
 
 			[nil, "TownCaptured", [_location, _sideID, _newSID]] Call WFBE_CO_FNC_SendToClients;
+			if (TOURNAMENT_MODE_ENABLED) then {
+				[civilian, "HandleSpecialSpectators", ["cam_town-captured", _location, _sideID, _newSID]] Call WFBE_CO_FNC_SendToSpectators;
+			};
+
 			if ((missionNamespace getVariable "WFBE_C_CAMPS_CREATE") > 0) then {[_location, _sideID, _newSID] Spawn WFBE_SE_FNC_SetCampsToSide};
 
 			//--- Clear the town defenses, units first then replace the defenses if needed.

@@ -18,6 +18,10 @@ _upgrade_time = ((missionNamespace getVariable Format["WFBE_C_UPGRADES_%1_TIMES"
 
 if (_upgrade_isplayer) then {
 	[_side, "HandleSpecial", ['upgrade-started', _upgrade_id, _upgrade_level + 1]] Call WFBE_CO_FNC_SendToClients;
+	if (TOURNAMENT_MODE_ENABLED) then {
+    	[civilian, "HandleSpecialSpectators", ["cam_upgrade-started", _upgrade_id, _upgrade_level + 1, _side]] Call WFBE_CO_FNC_SendToSpectators;
+	};
+
 	//--- Store the sync.
 	missionNamespace setVariable [Format["WFBE_upgrade_%1_%2_%3_sync", str _side, _upgrade_id, _upgrade_level], false];
 
@@ -41,7 +45,8 @@ _logic setVariable ["wfbe_upgrades", _upgrades, true];
 _logic setVariable ["wfbe_upgrading", false, true];
 
 [_side, "NewIntelAvailable"] Spawn SideMessage;
-// [_side, "LocalizeMessage", ['UpgradeComplete', _upgrade_id, _upgrade_level + 1]] Call WFBE_CO_FNC_SendToClients;
-[_side, "HandleSpecial", ['upgrade-complete', _upgrade_id, _upgrade_level + 1]] Call WFBE_CO_FNC_SendToClients;
 
-//todo log.
+[_side, "HandleSpecial", ['upgrade-complete', _upgrade_id, _upgrade_level + 1]] Call WFBE_CO_FNC_SendToClients;
+if (TOURNAMENT_MODE_ENABLED) then {
+    [civilian, "HandleSpecialSpectators", ["cam_upgrade-complete", _upgrade_id, _upgrade_level + 1, _side]] Call WFBE_CO_FNC_SendToSpectators;
+};
