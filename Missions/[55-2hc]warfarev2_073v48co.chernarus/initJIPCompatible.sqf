@@ -70,7 +70,8 @@ if (IsCameraClient) then {
     ["INITIALIZATION", format["initJIPCompatible.sqf: Detected a camera client. Checking UIDs next. Player UID: %1", _playerUID]] Call WFBE_CO_FNC_LogContent;
     
     _authorizedUIDs = [
-        "76561198032301689" // Miksuu
+        "76561198032301689", // Miksuu
+		"76561198046825568"  // Zwanon
     ];
     
     if !(_playerUID in _authorizedUIDs) then {
