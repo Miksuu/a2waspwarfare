@@ -30,6 +30,7 @@ HandleDefense = Compile preprocessFile "Server\Functions\Server_HandleDefense.sq
 HandleSpecial = Compile preprocessFile "Server\Functions\Server_HandleSpecial.sqf";
 MHQRepair = Compile preprocessFile "Server\Functions\Server_MHQRepair.sqf";
 SideMessage = Compile preprocessFile "Server\Functions\Server_SideMessage.sqf";
+CameraSideMessage = Compile preprocessFile "Client\Module\Camera\Functions\CAM_SideMessage.sqf";
 SetTownPatrols = compile preprocessfilelinenumbers "Server\FSM\server_patrols.sqf";
 
 UpdateTeam = Compile preprocessFile "Server\Functions\Server_UpdateTeam.sqf";
@@ -388,6 +389,8 @@ emptyQueu = [];
 		_radio_hq1 kbAddTopic [_radio_hq_id, "Client\kb\hq.bikb","Client\kb\hq.fsm", {call compile preprocessFileLineNumbers "Client\kb\hq.sqf"}];
 		_logik setVariable ["wfbe_radio_hq_id", _radio_hq_id, true];
 
+		diag_log format ["CAMDEBUG: _radio_hq_id: %1", _radio_hq_id];
+
 		//--- Starting vehicles.
 		{
 			_vehicle = [_x, getPos _hq, _sideID, 0, false] Call WFBE_CO_FNC_CreateVehicle;
@@ -477,6 +480,37 @@ _vehicle addAction ["<t color='"+"#00E4FF"+"'>STEALTH ON</t>","Client\Module\Eng
 		_logik setVariable ["wfbe_teams_count", count _teams];
 	};
 } forEach [[_present_east, east, _startE],[_present_west, west, _startW]];
+
+// Spectator camera stuff
+// _CIV_logik = (civilian) Call WFBE_CO_FNC_GetSideLogic;
+// diag_log ["CAMDEBUG: _CIV_logik", _CIV_logik];
+
+// _CIV_radio_hq1 = (createGroup sideLogic) createUnit ["Logic",[0,0,0],[],0,"NONE"];
+// diag_log ["CAMDEBUG: _CIV_radio_hq1", _CIV_radio_hq1];
+
+// _CIV_radio_hq2 = (createGroup sideLogic) createUnit ["Logic",[0,0,0],[],0,"NONE"];
+// diag_log ["CAMDEBUG: _CIV_radio_hq2", _CIV_radio_hq2];
+
+// [_CIV_radio_hq1] joinSilent (createGroup sideLogic);
+// [_CIV_radio_hq2] joinSilent (createGroup sideLogic);
+
+// _CIV_logik setVariable ["wfbe_radio_hq", _CIV_radio_hq1, true];
+// _CIV_logik setVariable ["wfbe_radio_hq_rec", _CIV_radio_hq2];
+
+// diag_log ["CAMDEBUG: Done with setting up the radio HQ for civ on the server side"];
+
+// _CIV_announcers = missionNamespace getVariable Format ["WFBE_%1_RadioAnnouncers", civilian];
+// diag_log ["CAMDEBUG: _CIV_announcers", _CIV_announcers];
+
+// _CIV_radio_hq_id = (_CIV_announcers) select floor(random (count _CIV_announcers));
+// diag_log ["CAMDEBUG: _CIV_radio_hq_id", _CIV_radio_hq_id];
+
+// _CIV_radio_hq1 setIdentity _CIV_radio_hq_id;
+// _CIV_radio_hq1 setRank 'COLONEL';
+// _CIV_radio_hq1 setGroupId ["HQ"];
+// _CIV_radio_hq1 kbAddTopic [_CIV_radio_hq_id, "Client\kb\hq.bikb","Client\kb\hq.fsm", {call compile preprocessFileLineNumbers "Client\kb\hq.sqf"}];
+// _CIV_logik setVariable ["wfbe_radio_hq_id", _CIV_radio_hq_id, true];
+// Spectator camera stuff END
 
 [] Call Compile preprocessFile "Server\Config\Config_GUE.sqf";
 

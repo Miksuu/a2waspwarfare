@@ -100,6 +100,7 @@ if (!_deployed) then {
 
 	if (TOURNAMENT_MODE_ENABLED) then {
 		[civilian, "HandleSpecialSpectators", ["cam_hq-mobilized", _side, _MHQ]] Call WFBE_CO_FNC_SendToSpectators;
+		//[_side,"Mobilized", ["Base", _MHQ]] Spawn CameraSideMessage;
 	};
 };
 

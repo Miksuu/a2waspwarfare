@@ -1,5 +1,5 @@
 // Prompt:
-// Transform this function to use the new CommandChatMessage and SideChatMessage functions with side parameter, just like in the following functions: WFBE_CAM_FNC_Commander_Assigned, WFBE_CAM_FNC_Building_Started. It should have different sounds for each side too, for each of the items.
+// Transform this function to use the new CommandChatMessage and SideChatMessage functions with side parameter, just like in the following functions: WFBE_CAM_FNC_Commander_Assigned, WFBE_CAM_FNC_Building_Started. It should have different sounds for each side too, for each of the items. Make sure that the message is called in following format: _message Call [Side/Command/Group}ChatMessage;
 
 WFBE_CAM_FNC_Commander_Assigned = {
     Private["_commanderTeam", "_text", "_side"];
@@ -283,6 +283,9 @@ WFBE_CAM_FNC_HQ_Mobilized = {
     _MHQ = _this select 1;
     diag_log format ["WFBE_CAM_FNC_HQ_Mobilized - _side: %1", _side];
     diag_log format ["WFBE_CAM_FNC_HQ_Mobilized - _MHQ: %1", _MHQ];
-    //[_side,"Mobilized", ["Base", _MHQ]] Spawn SideMessage;
+	//WFHQ_RU0
+	//player kbTell [missionNamespace getVariable "WFBE_HQ_RADIO_WEST", missionNamespace getVariable "WFBE_HQ_RADIO_TOPIC_EAST", "Mobilized", ["1", "", str(_MHQ getVariable "name"), ["Headquarters"]], true];
+    player kbTell [missionNamespace getVariable "WFBE_HQ_RADIO_WEST", missionNamespace getVariable "WFBE_HQ_RADIO_TOPIC_EAST", "OrderSentAll",["1","","All",["all"]],["2","","moving to position",["HC_MovingToPosition"]],["3","","over.",["Over1"]],true];
+	//[_side,"Mobilized", ["Base", _MHQ]] Spawn SideMessage;
     // -> Send server message instead
 };

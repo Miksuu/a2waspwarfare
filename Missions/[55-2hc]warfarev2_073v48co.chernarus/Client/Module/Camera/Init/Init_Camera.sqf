@@ -335,21 +335,104 @@ Call Compile "enableEngineArtillery false;";
 //--- Add the briefing (notes).
 //[] Call Compile preprocessFile "briefing.sqf";
 
-// //--- HQ Radio system.
-// waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_radio_hq"}};
-// _HQRadio = WFBE_Client_Logic getVariable "wfbe_radio_hq";
-// ["INITIALIZATION", Format["Init_Client.sqf: Initialized the Radio Announcer [%1]", _HQRadio]] Call WFBE_CO_FNC_LogContent;
-// waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_radio_hq_id"}};
-// WFBE_V_HQTopicSide = WFBE_Client_Logic getVariable "wfbe_radio_hq_id";
-// ["INITIALIZATION", Format["Init_Client.sqf: Initializing the Radio Announcer Identity [%1]", WFBE_V_HQTopicSide]] Call WFBE_CO_FNC_LogContent;
-// _HQRadio setIdentity WFBE_V_HQTopicSide;
-// _HQRadio setRank "COLONEL";
-// _HQRadio setGroupId ["HQ"];
-// _HQRadio kbAddTopic [WFBE_V_HQTopicSide,"Client\kb\hq.bikb","Client\kb\hq.fsm",{call compile preprocessFileLineNumbers "Client\kb\hq.sqf"}];
-// player kbAddTopic [WFBE_V_HQTopicSide,"Client\kb\hq.bikb","Client\kb\hq.fsm",{call compile preprocessFileLineNumbers "Client\kb\hq.sqf"}];
-// sideHQ = _HQRadio;
+// --- HQ Radio system for all sides
+missionNamespace setVariable ["WFBE_HQ_RADIO_WEST", nil];
+missionNamespace setVariable ["WFBE_HQ_RADIO_EAST", nil];
+missionNamespace setVariable ["WFBE_HQ_RADIO_TOPIC_WEST", nil];
+missionNamespace setVariable ["WFBE_HQ_RADIO_TOPIC_EAST", nil];
 
-// ["INITIALIZATION", "Init_Client.sqf: Radio announcer is initialized."] Call WFBE_CO_FNC_LogContent;
+{
+    diag_log format ["CAMDEBUG: Starting initialization for side %1", _x];
+    
+    waitUntil {!isNil {_x getVariable "wfbe_radio_hq"}};
+    _HQRadio = _x getVariable "wfbe_radio_hq";
+    diag_log format ["CAMDEBUG: Retrieved HQ Radio %1 for side %2", _HQRadio, _x];
+    ["INITIALIZATION", Format["Init_Camera.sqf: Initialized the Radio Announcer [%1] for side [%2]", _HQRadio, _x]] Call WFBE_CO_FNC_LogContent;
+    
+    waitUntil {!isNil {_x getVariable "wfbe_radio_hq_id"}};
+    _HQTopicSide = _x getVariable "wfbe_radio_hq_id";
+    diag_log format ["CAMDEBUG: Retrieved HQ Topic Side %1 for side %2", _HQTopicSide, _x];
+    ["INITIALIZATION", Format["Init_Camera.sqf: Initializing the Radio Announcer Identity [%1] for side [%2]", _HQTopicSide, _x]] Call WFBE_CO_FNC_LogContent;
+    
+    _HQRadio setIdentity _HQTopicSide;
+    diag_log format ["CAMDEBUG: Set identity %1 for HQ Radio", _HQTopicSide];
+    
+    _HQRadio setRank "COLONEL";
+    diag_log "CAMDEBUG: Set rank COLONEL for HQ Radio";
+    
+    _HQRadio setGroupId ["HQ"];
+    diag_log "CAMDEBUG: Set group ID 'HQ' for HQ Radio";
+    
+    _HQRadio kbAddTopic [_HQTopicSide,"Client\kb\hq.bikb","Client\kb\hq.fsm",{call compile preprocessFileLineNumbers "Client\kb\hq.sqf"}];
+    diag_log format ["CAMDEBUG: Added kb topic %1 to HQ Radio", _HQTopicSide];
+    
+    player kbAddTopic [_HQTopicSide,"Client\kb\hq.bikb","Client\kb\hq.fsm",{call compile preprocessFileLineNumbers "Client\kb\hq.sqf"}];
+    diag_log format ["CAMDEBUG: Added kb topic %1 to player", _HQTopicSide];
+    
+    // Set the appropriate WFBE_HQ variable based on the side
+    switch (_x) do {
+        case WFBE_L_BLU: { 
+            missionNamespace setVariable ["WFBE_HQ_RADIO_WEST", _HQRadio];
+            missionNamespace setVariable ["WFBE_HQ_RADIO_TOPIC_WEST", _HQTopicSide];
+            diag_log format ["CAMDEBUG: Set WFBE_HQ_RADIO_WEST to %1 and WFBE_HQ_RADIO_TOPIC_WEST to %2", _HQRadio, _HQTopicSide];
+        };
+        case WFBE_L_OPF: { 
+            missionNamespace setVariable ["WFBE_HQ_RADIO_EAST", _HQRadio];
+            missionNamespace setVariable ["WFBE_HQ_RADIO_TOPIC_EAST", _HQTopicSide];
+            diag_log format ["CAMDEBUG: Set WFBE_HQ_RADIO_EAST to %1 and WFBE_HQ_RADIO_TOPIC_EAST to %2", _HQRadio, _HQTopicSide];
+        };
+        default {
+            diag_log format ["CAMDEBUG ERROR: Side %1 not found or not recognized", _x];
+        };
+    };
+    diag_log format ["CAMDEBUG: Finished initialization for side %1", _x];
+} forEach WFBE_Client_Logic_AllSides;
+
+["INITIALIZATION", "Init_Camera.sqf: Radio announcer is initialized for all sides."] Call WFBE_CO_FNC_LogContent;
+diag_log "CAMDEBUG: Radio announcer initialization completed for all sides";
+
+// //--- HQ Radio system for the spectator camera
+// diag_log ["CAMDEBUG: Starting HQ Radio system initialization"];
+
+// waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_radio_hq"}};
+// diag_log ["CAMDEBUG: WFBE_Client_Logic wfbe_radio_hq is not nil"];
+
+// _HQRadio = WFBE_Client_Logic getVariable "wfbe_radio_hq";
+// diag_log ["CAMDEBUG: _HQRadio retrieved", _HQRadio];
+
+// ["INITIALIZATION", Format["Init_Client.sqf: Initialized the Radio Announcer [%1]", _HQRadio]] Call WFBE_CO_FNC_LogContent;
+// diag_log ["CAMDEBUG: WFBE_CO_FNC_LogContent called for Radio Announcer initialization"];
+
+// waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_radio_hq_id"}};
+// diag_log ["CAMDEBUG: WFBE_Client_Logic wfbe_radio_hq_id is not nil"];
+
+// WFBE_V_HQTopicSide = WFBE_Client_Logic getVariable "wfbe_radio_hq_id";
+// diag_log ["CAMDEBUG: WFBE_V_HQTopicSide retrieved", WFBE_V_HQTopicSide];
+
+// Probably not needed, since we are only receiver here
+// ["INITIALIZATION", Format["Init_Client.sqf: Initializing the Radio Announcer Identity [%1]", WFBE_V_HQTopicSide]] Call WFBE_CO_FNC_LogContent;
+// diag_log ["CAMDEBUG: WFBE_CO_FNC_LogContent called for Radio Announcer Identity initialization"];
+
+// _HQRadio setIdentity WFBE_V_HQTopicSide;
+// diag_log ["CAMDEBUG: _HQRadio setIdentity", WFBE_V_HQTopicSide];
+
+// _HQRadio setRank "COLONEL";
+// diag_log ["CAMDEBUG: _HQRadio setRank", "COLONEL"];
+
+// _HQRadio setGroupId ["HQ"];
+// diag_log ["CAMDEBUG: _HQRadio setGroupId", "HQ"];
+
+// _HQRadio kbAddTopic [WFBE_V_HQTopicSide,"Client\kb\hq.bikb","Client\kb\hq.fsm",{call compile preprocessFileLineNumbers "Client\kb\hq.sqf"}];
+// diag_log ["CAMDEBUG: _HQRadio kbAddTopic", WFBE_V_HQTopicSide];
+
+// player kbAddTopic [WFBE_V_HQTopicSide,"Client\kb\hq.bikb","Client\kb\hq.fsm",{call compile preprocessFileLineNumbers "Client\kb\hq.sqf"}];
+// diag_log ["CAMDEBUG: player kbAddTopic", WFBE_V_HQTopicSide];
+
+// sideHQ = _HQRadio;
+// diag_log ["CAMDEBUG: sideHQ assigned", sideHQ];
+
+// diag_log ["CAMDEBUG: HQ Radio system initialization completed"];
+
 
 // /* Wait for a valid signal (Teamswaping) with failover */
 // if (isMultiplayer && ((missionNamespace getVariable "WFBE_C_GAMEPLAY_TEAMSWAP_DISABLE") > 0 && !WF_Debug) && time > 7) then {

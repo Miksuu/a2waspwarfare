@@ -4,17 +4,18 @@ _side = _this select 0;
 _message = _this select 1;
 _parameters = if (count _this > 2) then {_this select 2} else {[]};
 
-_logik = (_side) Call WFBE_CO_FNC_GetSideLogic;
+_logikReceivingSide = (civilian) Call WFBE_CO_FNC_GetSideLogic;
+_logikSendingSide = (_side) Call WFBE_CO_FNC_GetSideLogic;
 
-_speaker = _logik getVariable "wfbe_radio_hq";
-_receiver = _logik getVariable "wfbe_radio_hq_rec";
-_topicSide = _logik getVariable "wfbe_radio_hq_id";
+_speaker = _logikSendingSide getVariable "wfbe_radio_hq";
+_receiver = _logikReceivingSide getVariable "wfbe_radio_hq_rec";
+_topicSide = _logikSendingSide getVariable "wfbe_radio_hq_id";
 
-diag_log format ["original_CAMDEBUG: _side: %1, _message: %2, _parameters: %3, _logik: %4, _speaker: %5, _receiver: %6, _topicSide: %7", 
-    _side, _message, _parameters, _logik, _speaker, _receiver, _topicSide];
+diag_log format ["CAMDEBUG: _side: %1, _message: %2, _parameters: %3, _logikReceivingSide: %4, _logikSendingSide: %5, _speaker: %6, _receiver: %7, _topicSide: %8", 
+    _side, _message, _parameters, _logikReceivingSide, _logikSendingSide, _speaker, _receiver, _topicSide];
 
 switch (true) do {
-	case (_message in ["Lost","Captured","HostilesDetectedNear"]): {
+	case (_message in ["Captured","HostilesDetectedNear"]): {
 		_locRaw = str _parameters;
 		_rlName = _parameters getVariable "name";
 		
@@ -23,7 +24,7 @@ switch (true) do {
 
 		_speaker kbTell [_receiver, _topicSide, _message,["1","",_rlName,[_dub]],true];
 	};
-	case (_message in ["CapturedNear","LostAt"]): {
+	case (_message in ["CapturedNear"]): {
 		_locRaw = str (_parameters select 1);
 		_rlName = (_parameters select 1) getVariable "name";
 
@@ -57,11 +58,5 @@ switch (true) do {
 			_value = _dub;
 		};
 		_speaker kbTell [_receiver, _topicSide, _message,["1","",_localizedString,[_value]],true];
-	};
-	case (_message in ["VotingForNewCommander","NewIntelAvailable","MMissionFailed","NewMissionAvailable"]): {
-		_speaker kbTell [_receiver, _topicSide, _message, true]
-	};
-	case (_message in ["MMissionComplete","ExtractionTeam","ExtractionTeamCancel"]): {
-		_speaker kbTell [_receiver, _topicSide, _message,["1","",_parameters select 0,[_parameters select 1]],true];
 	};
 };
