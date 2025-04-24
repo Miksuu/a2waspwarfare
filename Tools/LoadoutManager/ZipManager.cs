@@ -77,7 +77,7 @@ public class ZipManager
         }
 
         ProcessStartInfo p = new ProcessStartInfo();
-        p.FileName = "7za.exe";
+        p.FileName = sevenZipPath;
         p.Arguments = $"a -t7z \"{_destinationFile}\" \"{_sourceDirectory}\\*\" -mx=9";
         p.WindowStyle = ProcessWindowStyle.Hidden;
         Process x = Process.Start(p);
