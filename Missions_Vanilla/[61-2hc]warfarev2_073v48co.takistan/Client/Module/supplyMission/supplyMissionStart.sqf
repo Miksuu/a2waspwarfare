@@ -1,4 +1,4 @@
-private ['_sourceTown', '_TownSupplyLastMission', '_associatedSupplyTruck', '_supplyAmount','_supplyMissionAlreadyActiveInTown'];
+private ['_sourceTown', '_TownSupplyLastMission', '_associatedSupplyTruck', '_supplyAmount', '_supplyMissionAlreadyActiveInTown', '_cursorTarget'];
 
 _sourceTown = call GetClosestFriendlyLocation;
 WFBE_CL_VAR_ASSOCIATED_SUPPLY_TRUCK = objNull;
@@ -13,8 +13,10 @@ if (_supplyMissionAlreadyActiveInTown) exitWith {
     format ["This town doesn't have enough supplies to be collected yet! You can start a supply mission in towns that have [+SUPPLY] added after their SV on map."] call GroupChatMessage;
 };
 
-if (typeOf cursorTarget in ['WarfareSupplyTruck_RU', 'WarfareSupplyTruck_USMC', 'WarfareSupplyTruck_INS', 'WarfareSupplyTruck_Gue', 'WarfareSupplyTruck_CDF', 'UralSupply_TK_EP1', 'MtvrSupply_DES_EP1']) then {
-    WFBE_CL_VAR_ASSOCIATED_SUPPLY_TRUCK = cursorTarget;
+_cursorTarget = cursorTarget;
+
+if (typeOf _cursorTarget in ['WarfareSupplyTruck_RU', 'WarfareSupplyTruck_USMC', 'WarfareSupplyTruck_INS', 'WarfareSupplyTruck_Gue', 'WarfareSupplyTruck_CDF', 'UralSupply_TK_EP1', 'MtvrSupply_DES_EP1'] && (_cursorTarget distance player < 50)) then {
+    WFBE_CL_VAR_ASSOCIATED_SUPPLY_TRUCK = _cursorTarget;
     WFBE_CL_VAR_ASSOCIATED_SUPPLY_TRUCK setVariable ["SupplyFromTown", _sourceTown, true];
 
     _supplyAmount = (_sourceTown getVariable "supplyValue") * WFBE_C_ECONOMY_SUPPLY_MISSION_MULTIPLIER;
