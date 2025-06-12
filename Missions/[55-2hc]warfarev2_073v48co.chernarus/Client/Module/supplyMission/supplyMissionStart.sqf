@@ -27,6 +27,10 @@ if (typeOf _cursorTarget in ['WarfareSupplyTruck_RU', 'WarfareSupplyTruck_USMC',
     WFBE_Client_PV_SupplyMissionStarted = [player, WFBE_CL_VAR_ASSOCIATED_SUPPLY_TRUCK, _sourceTown, sideJoined];
     publicVariableServer "WFBE_Client_PV_SupplyMissionStarted";
     
+} else {
+    if (_cursorTarget distance player >= 50) then {
+        format ["Your supply truck is too far away to collect the supply from this town!"] call GroupChatMessage;
+    };
 };
 
 sleep 0.1;
