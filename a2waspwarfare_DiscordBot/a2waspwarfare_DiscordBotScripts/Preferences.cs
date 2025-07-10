@@ -9,6 +9,7 @@ public sealed class Preferences
     public ulong GuildID;
     public ulong[] AuthorizedUserIDs { get; set; } = new ulong[0];
     public ulong? GameStatusChannelID { get; set; }
+    public ulong? GameStatusMessageID { get; set; }
 
     public static Preferences Instance
     {

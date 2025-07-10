@@ -42,9 +42,34 @@ public static class CommandHandler
 
             // Set the current channel as the game status channel
             Preferences.Instance.GameStatusChannelID = command.Channel.Id;
+            
+            // Create the initial status message immediately
+            var embed = CreateGameStatusEmbed();
+            var message = await command.Channel.SendMessageAsync(embed: embed);
+            
+            // Save the message ID for future updates
+            Preferences.Instance.GameStatusMessageID = message.Id;
             Preferences.Instance.SaveToFile();
+            
             await command.RespondAsync($"This channel (<#{command.Channel.Id}>) is now set for game status updates!", ephemeral: true);
-            Log.WriteLine($"Game status channel set to {command.Channel.Id} by user {userId}", LogLevel.DEBUG);
+            Log.WriteLine($"Game status channel set to {command.Channel.Id} with message ID {message.Id} by user {userId}", LogLevel.DEBUG);
         }
+    }
+
+    private static Embed CreateGameStatusEmbed()
+    {
+        var embedBuilder = new EmbedBuilder()
+            .WithTitle("🎮 Game Status Update")
+            .WithColor(Color.Blue)
+            .WithTimestamp(DateTimeOffset.UtcNow);
+
+        // Add game status information here
+        // This is where you would integrate with your game data
+        embedBuilder.AddField("Status", "🟢 Online", true);
+        embedBuilder.AddField("Players", "0/100", true);
+        embedBuilder.AddField("Map", "Takistan", true);
+        embedBuilder.AddField("Next Update", DateTime.UtcNow.AddMinutes(1).ToString("HH:mm UTC"), true);
+
+        return embedBuilder.Build();
     }
 }

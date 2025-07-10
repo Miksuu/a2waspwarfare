@@ -41,9 +41,11 @@ public class GameStatusUpdater
         }
 
         var gameStatusChannelId = Preferences.Instance.GameStatusChannelID;
-        if (gameStatusChannelId == null)
+        var gameStatusMessageId = Preferences.Instance.GameStatusMessageID;
+        
+        if (gameStatusChannelId == null || gameStatusMessageId == null)
         {
-            Log.WriteLine("No game status channel configured, skipping update", LogLevel.DEBUG);
+            Log.WriteLine("No game status channel or message configured, skipping update", LogLevel.DEBUG);
             return;
         }
 
@@ -61,17 +63,32 @@ public class GameStatusUpdater
             return;
         }
 
-        // Create the game status message
+        // Create the updated game status embed
         var embed = CreateGameStatusEmbed();
         
         try
         {
-            await channel.SendMessageAsync(embed: embed);
-            Log.WriteLine($"Game status updated in channel {gameStatusChannelId}", LogLevel.DEBUG);
+            // Try to get and modify the existing message
+            var message = await channel.GetMessageAsync(gameStatusMessageId.Value);
+            if (message is IUserMessage userMessage)
+            {
+                await userMessage.ModifyAsync(msg => msg.Embed = embed);
+                Log.WriteLine($"Game status message {gameStatusMessageId} updated in channel {gameStatusChannelId}", LogLevel.DEBUG);
+            }
+            else
+            {
+                Log.WriteLine($"Could not find message {gameStatusMessageId}, it may have been deleted", LogLevel.WARNING);
+                // Message doesn't exist anymore, reset the message ID
+                Preferences.Instance.GameStatusMessageID = null;
+                Preferences.Instance.SaveToFile();
+            }
         }
         catch (Exception ex)
         {
-            Log.WriteLine($"Failed to send game status update: {ex.Message}", LogLevel.ERROR);
+            Log.WriteLine($"Failed to update game status message: {ex.Message}", LogLevel.ERROR);
+            // If message update fails, reset the message ID so a new one can be created
+            Preferences.Instance.GameStatusMessageID = null;
+            Preferences.Instance.SaveToFile();
         }
     }
 
