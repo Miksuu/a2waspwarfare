@@ -6,8 +6,6 @@ public class ProgramRuntime
 {
     DiscordSocketClient client;
 
-    public static EventManager eventManager = new EventManager();
-
     public async Task ProgramRuntimeTask()
     {
         LogLevelNormalization.InitLogLevelNormalizationStrings();
