@@ -3,10 +3,10 @@
 [DataContract]
 public class GameData
 {
-    // File paths
-    public static string dbPath = @"C:\a2waspwarfare\Data";
+    // File paths - now using FileConfiguration for consistency
+    public static string dbPath = FileConfiguration.MainAppNameDataDirectory;
     public static string dbFileName = "database.json";
-    public static string dbPathWithFileName = dbPath + @"\" + dbFileName;
+    public static string dbPathWithFileName = Path.Combine(dbPath, dbFileName);
 
     public static GameData Instance
     {
