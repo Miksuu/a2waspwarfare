@@ -18,7 +18,7 @@ public class ProgramRuntime
             Log.WriteLine("Failed to deserialize DiscordBotDatabase", LogLevel.ERROR);
             return;
         }
-        Database.SetInstance(discordBotDatabase);
+        //Database.SetInstance(discordBotDatabase);
 
         // Set up client and return it
         client = BotReference.SetClientRefAndReturnIt();
