@@ -10,6 +10,7 @@ public sealed class Preferences
     public ulong[] AuthorizedUserIDs { get; set; } = new ulong[0];
     public ulong? GameStatusChannelID { get; set; }
     public ulong? GameStatusMessageID { get; set; }
+    public string? DataSourcePath { get; set; }
 
     public static Preferences Instance
     {
@@ -33,14 +34,17 @@ public sealed class Preferences
         }
     }
 
+    public static void SaveToFile()
+    {
+        lock (padlock)
+        {
+            string json = JsonConvert.SerializeObject(Instance, Formatting.Indented);
+            File.WriteAllText("preferences.json", json);
+        }
+    }
+
     public bool IsUserAuthorized(ulong userId)
     {
         return AuthorizedUserIDs.Contains(userId);
-    }
-
-    public void SaveToFile()
-    {
-        string json = JsonConvert.SerializeObject(this, Formatting.Indented);
-        File.WriteAllText("preferences.json", json);
     }
 }

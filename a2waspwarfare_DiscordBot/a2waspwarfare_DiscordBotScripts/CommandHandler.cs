@@ -76,9 +76,9 @@ public static class CommandHandler
                 
                 Log.WriteLine($"Status message created with ID: {message.Id}", LogLevel.DEBUG);
                 
-                // Save the message ID for future updates
-                Preferences.Instance.GameStatusMessageID = message.Id;
-                Preferences.Instance.SaveToFile();
+                            // Save the message ID for future updates
+            Preferences.Instance.GameStatusMessageID = message.Id;
+            Preferences.SaveToFile();
                 
                 Log.WriteLine("Preferences saved, sending response...", LogLevel.DEBUG);
                 

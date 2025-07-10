@@ -3,5 +3,7 @@
   "AuthorizedUserIDs": [
     111788167195033600
   ],
-  "GameStatusChannelID": null
+  "GameStatusChannelID": null,
+  "GameStatusMessageID": null,
+  "DataSourcePath": "C:\\a2waspwarfare\\Data"
 } 

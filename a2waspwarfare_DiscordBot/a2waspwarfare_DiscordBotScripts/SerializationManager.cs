@@ -9,7 +9,7 @@ public static class SerializationManager
     static SemaphoreSlim semaphore = new SemaphoreSlim(1);
 
     // The single JSON file to use for all serialization
-    private static readonly string DatabaseJsonFilePath = Path.Combine(FileConfiguration.MainAppNameDataDirectory, "database.json");
+    private static string DatabaseJsonFilePath => Path.Combine(FileConfiguration.DataSourcePath, "database.json");
 
     // You must provide your own instance to serialize and a way to set the deserialized instance.
     // This class now only handles reading/writing the JSON file at DatabaseJsonFilePath.
@@ -21,9 +21,9 @@ public static class SerializationManager
         {
             Log.WriteLine("SERIALIZING DB", LogLevel.SERIALIZATION);
 
-            if (!Directory.Exists(FileConfiguration.MainAppNameDataDirectory))
+            if (!Directory.Exists(FileConfiguration.DataSourcePath))
             {
-                Directory.CreateDirectory(FileConfiguration.MainAppNameDataDirectory);
+                Directory.CreateDirectory(FileConfiguration.DataSourcePath);
             }
 
             try
@@ -75,9 +75,9 @@ public static class SerializationManager
             Log.WriteLine("DESERIALIZING DB", LogLevel.SERIALIZATION);
 
             // Ensure the directory exists
-            if (!Directory.Exists(FileConfiguration.MainAppNameDataDirectory))
+            if (!Directory.Exists(FileConfiguration.DataSourcePath))
             {
-                Directory.CreateDirectory(FileConfiguration.MainAppNameDataDirectory);
+                Directory.CreateDirectory(FileConfiguration.DataSourcePath);
             }
 
             try

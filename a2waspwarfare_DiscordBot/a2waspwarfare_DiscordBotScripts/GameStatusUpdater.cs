@@ -99,7 +99,7 @@ public class GameStatusUpdater
                 Log.WriteLine($"Could not find message {gameStatusMessageId}, it may have been deleted", LogLevel.WARNING);
                 // Message doesn't exist anymore, reset the message ID
                 Preferences.Instance.GameStatusMessageID = null;
-                Preferences.Instance.SaveToFile();
+                Preferences.SaveToFile();
             }
         }
         catch (Exception ex)
@@ -107,7 +107,7 @@ public class GameStatusUpdater
             Log.WriteLine($"Failed to update game status message: {ex.Message}", LogLevel.ERROR);
             // If message update fails, reset the message ID so a new one can be created
             Preferences.Instance.GameStatusMessageID = null;
-            Preferences.Instance.SaveToFile();
+            Preferences.SaveToFile();
         }
     }
 
