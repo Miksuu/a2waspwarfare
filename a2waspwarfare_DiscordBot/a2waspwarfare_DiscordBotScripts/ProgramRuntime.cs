@@ -12,7 +12,13 @@ public class ProgramRuntime
         // Do not use the logging system before this !!!
 
         // Load the data from the file
-        SerializationManager.DeSerializeDatabases();
+        var discordBotDatabase = SerializationManager.DeSerializeDatabase<DiscordBotDatabase>();
+        if (discordBotDatabase == null)
+        {
+            Log.WriteLine("Failed to deserialize DiscordBotDatabase", LogLevel.ERROR);
+            return;
+        }
+        Database.SetInstance(discordBotDatabase);
 
         // Set up client and return it
         client = BotReference.SetClientRefAndReturnIt();

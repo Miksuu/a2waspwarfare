@@ -8,37 +8,44 @@ public static class SerializationManager
 {
     static SemaphoreSlim semaphore = new SemaphoreSlim(1);
 
-    public static async Task SerializeDB()
+    // The single JSON file to use for all serialization
+    private static readonly string DatabaseJsonFilePath = Path.Combine(FileConfiguration.MainAppNameDataDirectory, "database.json");
+
+    // You must provide your own instance to serialize and a way to set the deserialized instance.
+    // This class now only handles reading/writing the JSON file at DatabaseJsonFilePath.
+
+    public static async Task SerializeDB<T>(T instance)
     {
         await semaphore.WaitAsync();
         try
         {
-            Log.WriteLine("SERIALIZING DBs", LogLevel.SERIALIZATION);
-
-            Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
-            serializer.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
-            serializer.NullValueHandling = Newtonsoft.Json.NullValueHandling.Include;
-            serializer.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All;
-            serializer.Formatting = Newtonsoft.Json.Formatting.Indented;
-            serializer.ObjectCreationHandling = ObjectCreationHandling.Replace;
-            serializer.ContractResolver = new DataMemberContractResolver();
+            Log.WriteLine("SERIALIZING DB", LogLevel.SERIALIZATION);
 
             if (!Directory.Exists(FileConfiguration.MainAppNameDataDirectory))
             {
                 Directory.CreateDirectory(FileConfiguration.MainAppNameDataDirectory);
             }
 
-            foreach (var dbInstance in listOfDatabaseInstances)
+            try
             {
-                try
+                // Set up serializer settings
+                var serializerSettings = new JsonSerializerSettings
                 {
-                    dbInstance.SerializeDatabase(serializer, dbInstance.GetType());
-                }
-                catch (Exception ex)
-                {
-                    Log.WriteLine(ex.Message, LogLevel.ERROR);
-                    continue;
-                }
+                    NullValueHandling = NullValueHandling.Include,
+                    TypeNameHandling = TypeNameHandling.All,
+                    Formatting = Formatting.Indented,
+                    ObjectCreationHandling = ObjectCreationHandling.Replace,
+                    ContractResolver = new DataMemberContractResolver()
+                };
+                serializerSettings.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
+
+                // Serialize the provided instance to the JSON file at DatabaseJsonFilePath
+                string json = JsonConvert.SerializeObject(instance, typeof(T), serializerSettings);
+                File.WriteAllText(DatabaseJsonFilePath, json);
+            }
+            catch (Exception ex)
+            {
+                Log.WriteLine(ex.Message, LogLevel.ERROR);
             }
         }
         catch (Exception ex)
@@ -61,24 +68,40 @@ public static class SerializationManager
         }
     }
 
-    public static void DeSerializeDatabases()
+    public static T? DeSerializeDatabase<T>() where T : class
     {
         try
         {
-            Log.WriteLine("SERIALIZING DB", LogLevel.SERIALIZATION);
+            Log.WriteLine("DESERIALIZING DB", LogLevel.SERIALIZATION);
 
-            foreach (var dbInstance in listOfDatabaseInstances)
+            try
             {
-                try
+                if (!File.Exists(DatabaseJsonFilePath))
                 {
-                    var type = dbInstance.GetType();
-                    dbInstance.DeSerializeDatabase(type);
+                    Log.WriteLine("Database file not found: " + DatabaseJsonFilePath, LogLevel.WARNING);
+                    return null;
                 }
-                catch (Exception ex)
+
+                string json = File.ReadAllText(DatabaseJsonFilePath);
+
+                // Set up deserializer settings
+                var serializerSettings = new JsonSerializerSettings
                 {
-                    Log.WriteLine(ex.Message, LogLevel.ERROR);
-                    continue;
-                }
+                    TypeNameHandling = TypeNameHandling.All,
+                    NullValueHandling = NullValueHandling.Include,
+                    ObjectCreationHandling = ObjectCreationHandling.Replace,
+                    ContractResolver = new DataMemberContractResolver()
+                };
+                serializerSettings.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
+
+                var deserialized = JsonConvert.DeserializeObject(json, typeof(T), serializerSettings) as T;
+
+                return deserialized;
+            }
+            catch (Exception ex)
+            {
+                Log.WriteLine(ex.Message, LogLevel.ERROR);
+                return null;
             }
         }
         catch (Exception ex)
