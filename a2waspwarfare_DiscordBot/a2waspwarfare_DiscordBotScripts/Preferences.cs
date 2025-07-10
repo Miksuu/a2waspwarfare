@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 public sealed class Preferences
 {
@@ -12,6 +13,7 @@ public sealed class Preferences
     public ulong? GameStatusMessageID { get; set; }
     public string? DataSourcePath { get; set; }
     public bool a3Mode { get; set; } = false;
+    public string LogLevelString { get; set; } = "debug";
 
     public static Preferences Instance
     {
@@ -47,5 +49,22 @@ public sealed class Preferences
     public bool IsUserAuthorized(ulong userId)
     {
         return AuthorizedUserIDs.Contains(userId);
+    }
+    
+    public LogLevel GetLogLevel()
+    {
+        switch (LogLevelString?.ToLowerInvariant())
+        {
+            case "error": return LogLevel.ERROR;
+            case "warning": return LogLevel.WARNING;
+            case "important": return LogLevel.IMPORTANT;
+            case "serialization": return LogLevel.SERIALIZATION;
+            case "debug": return LogLevel.DEBUG;
+            case "add_verbose": return LogLevel.ADD_VERBOSE;
+            case "set_verbose": return LogLevel.SET_VERBOSE;
+            case "get_verbose": return LogLevel.GET_VERBOSE;
+            case "verbose": return LogLevel.VERBOSE;
+            default: return LogLevel.DEBUG;
+        }
     }
 }
