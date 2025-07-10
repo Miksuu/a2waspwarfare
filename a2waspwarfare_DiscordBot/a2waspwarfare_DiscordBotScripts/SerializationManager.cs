@@ -23,9 +23,9 @@ public static class SerializationManager
             serializer.ObjectCreationHandling = ObjectCreationHandling.Replace;
             serializer.ContractResolver = new DataMemberContractResolver();
 
-            if (!Directory.Exists(DatabasePaths.mainAppnameDataDirectory))
+            if (!Directory.Exists(FileConfiguration.MainAppNameDataDirectory))
             {
-                Directory.CreateDirectory(DatabasePaths.mainAppnameDataDirectory);
+                Directory.CreateDirectory(FileConfiguration.MainAppNameDataDirectory);
             }
 
             foreach (var dbInstance in listOfDatabaseInstances)
