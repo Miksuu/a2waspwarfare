@@ -5,8 +5,6 @@ using System.Runtime.CompilerServices;
 
 public static class Log
 {
-    public static string logsPath = ".logs/";
-
     public static void WriteLine(
         string _message,
         LogLevel _logLevel = LogLevel.VERBOSE,
@@ -62,7 +60,7 @@ public static class Log
 
     private static void WriteToFileLogFile(LogLevel _logLevel, string _logMessage, string _scriptName)
     {
-        FileManager.CheckIfDirectoryExistsAndAppendToTheFile(logsPath, _logLevel.ToString(), _logMessage);
-        FileManager.CheckIfDirectoryExistsAndAppendToTheFile(logsPath, "EVERYTHING", _logMessage);
+        FileManager.CheckIfDirectoryExistsAndAppendToTheFile(FileConfiguration.LogsPath, _logLevel.ToString(), _logMessage);
+        FileManager.CheckIfDirectoryExistsAndAppendToTheFile(FileConfiguration.LogsPath, "EVERYTHING", _logMessage);
     }
 }
