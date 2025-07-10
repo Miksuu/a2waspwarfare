@@ -54,7 +54,7 @@ public class ProgramRuntime
 
                 await GameDataDeSerialization.DeSerializeGameDataFromExtension();
 
-                //await SetupProgramListenersAndSchedulers();
+                await SetupProgramListenersAndSchedulers();
 
                 //new GameDataUpdateEvent(eventManager.ClassScheduledEvents);
             }
@@ -68,24 +68,17 @@ public class ProgramRuntime
         await Task.Delay(-1);
     }
 
-    // private async Task SetupProgramListenersAndSchedulers()
-    // {
-    //     // Creates the categories and the channels from the interfaces
-    //     // (dependant on the data from CreateLeaguesOnStartupIfNecessary())
-    //     await CategoryAndChannelManager.CreateCategoriesAndChannelsForTheDiscordServer();
+    private async Task SetupProgramListenersAndSchedulers()
+    {
+        // Install commands - temporarily disabled until framework is properly referenced
+        await CommandHandler.InstallCommandsAsync();
 
-    //     // Creates the league references to the database
-    //     //await LeagueManager.CreateLeaguesOnStartupIfNecessary();
+        // Start game status updater
+        var gameStatusUpdater = new GameStatusUpdater();
+        gameStatusUpdater.StartGameStatusUpdates(client);
 
-    //     await SetupEventScheduler();
-
-    //     //await SerializationManager.SerializeUsersOnTheServer();
-    //     await SerializationManager.SerializeDB();
-
-    //     SetupListeners();
-
-    //     await CommandHandler.InstallCommandsAsync();
-    // }
+        Log.WriteLine("Program listeners and schedulers setup completed", LogLevel.DEBUG);
+    }
 
     // private async Task SetupEventScheduler()
     // {

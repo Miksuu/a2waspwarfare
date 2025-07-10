@@ -7,6 +7,8 @@ public sealed class Preferences
     private static readonly object padlock = new object();
 
     public ulong GuildID;
+    public ulong[] AuthorizedUserIDs { get; set; } = new ulong[0];
+    public ulong? GameStatusChannelID { get; set; }
 
     public static Preferences Instance
     {
@@ -28,5 +30,16 @@ public sealed class Preferences
         {
             instance = value;
         }
+    }
+
+    public bool IsUserAuthorized(ulong userId)
+    {
+        return AuthorizedUserIDs.Contains(userId);
+    }
+
+    public void SaveToFile()
+    {
+        string json = JsonConvert.SerializeObject(this, Formatting.Indented);
+        File.WriteAllText("preferences.json", json);
     }
 }
