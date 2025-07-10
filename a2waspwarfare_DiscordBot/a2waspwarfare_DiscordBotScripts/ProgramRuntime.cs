@@ -51,24 +51,24 @@ public class ProgramRuntime
         await Task.Delay(-1);
     }
 
-    private async Task SetupProgramListenersAndSchedulers()
-    {
-        // Creates the categories and the channels from the interfaces
-        // (dependant on the data from CreateLeaguesOnStartupIfNecessary())
-        await CategoryAndChannelManager.CreateCategoriesAndChannelsForTheDiscordServer();
+    // private async Task SetupProgramListenersAndSchedulers()
+    // {
+    //     // Creates the categories and the channels from the interfaces
+    //     // (dependant on the data from CreateLeaguesOnStartupIfNecessary())
+    //     await CategoryAndChannelManager.CreateCategoriesAndChannelsForTheDiscordServer();
 
-        // Creates the league references to the database
-        //await LeagueManager.CreateLeaguesOnStartupIfNecessary();
+    //     // Creates the league references to the database
+    //     //await LeagueManager.CreateLeaguesOnStartupIfNecessary();
 
-        await SetupEventScheduler();
+    //     await SetupEventScheduler();
 
-        //await SerializationManager.SerializeUsersOnTheServer();
-        await SerializationManager.SerializeDB();
+    //     //await SerializationManager.SerializeUsersOnTheServer();
+    //     await SerializationManager.SerializeDB();
 
-        SetupListeners();
+    //     SetupListeners();
 
-        await CommandHandler.InstallCommandsAsync();
-    }
+    //     await CommandHandler.InstallCommandsAsync();
+    // }
 
     private async Task SetupEventScheduler()
     {
