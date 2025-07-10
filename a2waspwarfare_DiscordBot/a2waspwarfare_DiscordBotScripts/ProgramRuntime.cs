@@ -37,14 +37,14 @@ public class ProgramRuntime
 
                 await GameDataDeSerialization.DeSerializeGameDataFromExtension();
 
-                await SetupProgramListenersAndSchedulers();
+                //await SetupProgramListenersAndSchedulers();
 
                 //new GameDataUpdateEvent(eventManager.ClassScheduledEvents);
             }
-            else
-            {
-                HandleBotReconnection();
-            }
+            // else
+            // {
+            //     //HandleBotReconnection();
+            // }
         };
 
         // Block this task until the program is closed.
@@ -78,17 +78,17 @@ public class ProgramRuntime
     //     secondThread.Start();
     // }
 
-    private void HandleBotReconnection() 
-    { 
-        Log.WriteLine("Bot was already connected!", LogLevel.WARNING);
+    // private void HandleBotReconnection() 
+    // { 
+    //     Log.WriteLine("Bot was already connected!", LogLevel.WARNING);
 
-        client.ButtonExecuted -= ButtonHandler.HandleButtonPress;
+    //     client.ButtonExecuted -= ButtonHandler.HandleButtonPress;
 
-        SetupListeners();
-    }
+    //     SetupListeners();
+    // }
 
-    private void SetupListeners()
-    {
-        client.ButtonExecuted += ButtonHandler.HandleButtonPress;
-    }
+    // private void SetupListeners()
+    // {
+    //     client.ButtonExecuted += ButtonHandler.HandleButtonPress;
+    // }
 }
