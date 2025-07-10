@@ -1,5 +1,5 @@
 Copyright (C) 2016 Spayker
-Copyright (C) 2024 Miksuu
+Copyright (C) 2025 Miksuu
 
 By contributing to this repository, you agree that all your contributions will be deemed made under the license associated with this repository. Furthermore, you acknowledge and agree that, with the exception of the rights granted below for use in other projects, all contributions to this repository, once submitted, become the property of the repository owner. The repository owner has the sole right to copy, distribute, modify, merge, publish, sublicense, and/or sell copies of the contributed materials, and to permit persons to whom the materials are furnished to do so, subject to the terms of the license associated with this repository.
 
