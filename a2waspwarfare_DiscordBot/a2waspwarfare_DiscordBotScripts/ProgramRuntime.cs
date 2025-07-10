@@ -28,12 +28,12 @@ public class ProgramRuntime
             {
                 BotReference.Instance.ConnectionState = true;
                 Log.WriteLine("Bot is connected!", LogLevel.DEBUG);
-                
+
                 await GameDataDeSerialization.DeSerializeGameDataFromExtension();
 
                 await SetupProgramListenersAndSchedulers();
 
-                new GameDataUpdateEvent(eventManager.ClassScheduledEvents);
+                //new GameDataUpdateEvent(eventManager.ClassScheduledEvents);
             }
             else
             {
