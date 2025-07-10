@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 public static class Log
 {
-    public static string logsPath = DatabasePaths.mainAppnameDirectory + @"\Logs\";
+    public static string logsPath = ".logs/";
 
     public static void WriteLine(
         string _message,
