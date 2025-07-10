@@ -28,17 +28,7 @@ public class ProgramRuntime
             {
                 BotReference.Instance.ConnectionState = true;
                 Log.WriteLine("Bot is connected!", LogLevel.DEBUG);
-
-                // !!!
-                // ONLY FOR TESTING, DELETES ALL CHANNELS AND CATEGORIES
-                // !!!
-
-                //await DevTools.DeleteAllCategoriesChannelsAndRoles();
-
-                // !!!
-                // ONLY FOR TESTING, DELETES ALL CHANNELS AND CATEGORIES
-                // !!!
-
+                
                 await GameDataDeSerialization.DeSerializeGameDataFromExtension();
 
                 await SetupProgramListenersAndSchedulers();
