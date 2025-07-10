@@ -6,6 +6,5 @@
   "GameStatusChannelID": null,
   "GameStatusMessageID": null,
   "DataSourcePath": "C:\\a2waspwarfare\\Data",
-  "a3Mode": false,
-  "LogLevel": "debug"
+  "a3Mode": false
 } 
