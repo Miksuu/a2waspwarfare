@@ -68,27 +68,66 @@ public static class SerializationManager
         }
     }
 
-    public static string DeSerializeDatabase()
+    public static GameData DeSerializeDatabase()
     {
         try
         {
             Log.WriteLine("DESERIALIZING DB", LogLevel.SERIALIZATION);
 
+            // Ensure the directory exists
+            if (!Directory.Exists(FileConfiguration.MainAppNameDataDirectory))
+            {
+                Directory.CreateDirectory(FileConfiguration.MainAppNameDataDirectory);
+            }
+
             try
             {
                 if (!File.Exists(DatabaseJsonFilePath))
                 {
-                    Log.WriteLine("Database file not found: " + DatabaseJsonFilePath, LogLevel.WARNING);
-                    return null;
+                    Log.WriteLine("Database file not found: " + DatabaseJsonFilePath + ". Creating new database.", LogLevel.WARNING);
+                    
+                    // Create a new GameData instance
+                    var newDatabase = new GameData();
+                    
+                    // Serialize it to create the file
+                    SerializeDB(newDatabase).Wait();
+                    
+                    Log.WriteLine("Created new database file: " + DatabaseJsonFilePath, LogLevel.DEBUG);
+                    return newDatabase;
                 }
 
                 string json = File.ReadAllText(DatabaseJsonFilePath);
-                return json;
+                
+                // Set up deserializer settings
+                var serializerSettings = new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Include,
+                    TypeNameHandling = TypeNameHandling.All,
+                    ObjectCreationHandling = ObjectCreationHandling.Replace,
+                    ContractResolver = new DataMemberContractResolver()
+                };
+                serializerSettings.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
+
+                // Deserialize the JSON back to GameData
+                var database = JsonConvert.DeserializeObject<GameData>(json, serializerSettings);
+                
+                if (database == null)
+                {
+                    Log.WriteLine("Failed to deserialize database from JSON. Creating new database.", LogLevel.WARNING);
+                    database = new GameData();
+                    SerializeDB(database).Wait();
+                }
+                
+                return database;
             }
             catch (Exception ex)
             {
-                Log.WriteLine(ex.Message, LogLevel.ERROR);
-                return null;
+                Log.WriteLine("Error reading database file: " + ex.Message + ". Creating new database.", LogLevel.ERROR);
+                
+                // Create a new database if there's any error
+                var newDatabase = new GameData();
+                SerializeDB(newDatabase).Wait();
+                return newDatabase;
             }
         }
         catch (Exception ex)
