@@ -6,7 +6,7 @@ using System.Text;
 [DataContract]
 public class logString
 {
-    [DataMember] private string _value;
+    [DataMember] private string? _value = null;
 
     public logString() { }
     public logString(string value)
@@ -15,12 +15,12 @@ public class logString
         _value = value;
     }
 
-    public string GetParameter()
+    public string? GetParameter()
     {
         return _value;
     }
 
-    public string GetValue(
+    public string? GetValue(
         [CallerFilePath] string _filePath = "",
         [CallerMemberName] string _memberName = "",
         [CallerLineNumber] int _lineNumber = 0)
