@@ -25,8 +25,23 @@ public class ProgramRuntime
         // Set up client and return it
         client = BotReference.SetClientRefAndReturnIt();
 
+        // Check if token file exists
+        if (!File.Exists("token.txt"))
+        {
+            Log.WriteLine("Token file 'token.txt' not found in the application directory. Please create this file with your Discord bot token.", LogLevel.ERROR);
+            return;
+        }
+
         // Reads token from the same directory as the .exe
         var token = File.ReadAllText("token.txt");
+        
+        // Check if token is empty or whitespace
+        if (string.IsNullOrWhiteSpace(token))
+        {
+            Log.WriteLine("Token file 'token.txt' is empty. Please add your Discord bot token to this file.", LogLevel.ERROR);
+            return;
+        }
+        
         await client.LoginAsync(TokenType.Bot, token);
         await client.StartAsync();
 
