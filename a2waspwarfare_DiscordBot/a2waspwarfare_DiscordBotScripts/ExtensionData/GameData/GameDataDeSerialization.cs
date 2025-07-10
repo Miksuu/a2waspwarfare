@@ -9,11 +9,8 @@ public static class GameDataDeSerialization
     {
         Log.WriteLine(nameof(GameData) + " DESERIALIZATION STARTING!", LogLevel.SERIALIZATION);
 
-        FileManager.CheckIfFileAndPathExistsAndCreateItIfNecessary(GameData.dbPath, GameData.dbFileName);
-
-        string json = File.ReadAllText(GameData.dbPathWithFileName);
-
-        HandleGameDataCreationOrLoading(json);
+        // Load game data directly from file using preferences path
+        GameData.Instance = GameData.LoadFromFile();
 
         Log.WriteLine(nameof(GameData) + " DESERIALIZATION DONE!", LogLevel.SERIALIZATION);
 
@@ -25,7 +22,6 @@ public static class GameDataDeSerialization
     {
         if (_json == "0")
         {
-            //FileManager.CheckIfFileAndPathExistsAndCreateItIfNecessary(dbPath, dbFileName);
             GameData.Instance = new();
             Log.WriteLine("json was " + _json + ", creating a new db instance", LogLevel.DEBUG);
 

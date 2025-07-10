@@ -1,13 +1,9 @@
 ﻿using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 [DataContract]
 public class GameData
 {
-    // File paths - now using FileConfiguration for consistency
-    public static string dbPath = FileConfiguration.MainAppNameDataDirectory;
-    public static string dbFileName = "database.json";
-    public static string dbPathWithFileName = Path.Combine(dbPath, dbFileName);
-
     public static GameData Instance
     {
         get
@@ -32,6 +28,48 @@ public class GameData
     private static readonly object padlock = new object();
 
     [DataMember] private string[] exportedArgs = new string[4];
+
+    public static GameData LoadFromFile()
+    {
+        try
+        {
+            var dataPath = Preferences.Instance.DataSourcePath ?? @"C:\a2waspwarfare\Data";
+            var filePath = Path.Combine(dataPath, "database.json");
+            
+            Log.WriteLine($"Loading GameData from: {filePath}", LogLevel.DEBUG);
+
+            if (!File.Exists(filePath))
+            {
+                Log.WriteLine($"Database file not found: {filePath}. Using default GameData.", LogLevel.WARNING);
+                return new GameData();
+            }
+
+            string json = File.ReadAllText(filePath);
+            
+            var serializerSettings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Include,
+                TypeNameHandling = TypeNameHandling.All,
+                ObjectCreationHandling = ObjectCreationHandling.Replace
+            };
+
+            var gameData = JsonConvert.DeserializeObject<GameData>(json, serializerSettings);
+            
+            if (gameData == null)
+            {
+                Log.WriteLine("Failed to deserialize GameData from JSON. Using default GameData.", LogLevel.WARNING);
+                return new GameData();
+            }
+            
+            Log.WriteLine("GameData loaded successfully", LogLevel.DEBUG);
+            return gameData;
+        }
+        catch (Exception ex)
+        {
+            Log.WriteLine($"Error loading GameData: {ex.Message}. Using default GameData.", LogLevel.ERROR);
+            return new GameData();
+        }
+    }
 
     public string GetGameMapAndPlayerCountWithEmoji()
     {

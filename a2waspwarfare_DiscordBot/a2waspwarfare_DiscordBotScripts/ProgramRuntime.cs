@@ -11,16 +11,8 @@ public class ProgramRuntime
         LogLevelNormalization.InitLogLevelNormalizationStrings();
         // Do not use the logging system before this !!!
 
-        // Load the data from the file
-        var gameData = SerializationManager.DeSerializeDatabase();
-        if (gameData == null)
-        {
-            Log.WriteLine("Failed to deserialize GameData", LogLevel.ERROR);
-            return;
-        }
-        
-        // Set the GameData instance
-        GameData.Instance = gameData;
+        // Load the initial game data
+        GameData.Instance = GameData.LoadFromFile();
 
         // Set up client and return it
         client = BotReference.SetClientRefAndReturnIt();
