@@ -54,6 +54,14 @@ public static class CommandHandler
                 
                 Log.WriteLine("Creating initial status message...", LogLevel.DEBUG);
                 
+                // Update channel name first
+                var newChannelName = GameData.Instance.GetGameMapAndPlayerCountWithEmojiForChannelName();
+                if (command.Channel is SocketGuildChannel guildChannel)
+                {
+                    await guildChannel.ModifyAsync(ch => ch.Name = newChannelName);
+                    Log.WriteLine($"Channel name updated to: {newChannelName}", LogLevel.DEBUG);
+                }
+                
                 // Create the initial status message immediately
                 var embed = CreateGameStatusEmbed();
                 var message = await command.Channel.SendMessageAsync(embed: embed);

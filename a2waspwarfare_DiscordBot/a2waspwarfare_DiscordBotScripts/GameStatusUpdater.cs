@@ -75,6 +75,11 @@ public class GameStatusUpdater
         
         try
         {
+            // Update channel name first
+            var newChannelName = GameData.Instance.GetGameMapAndPlayerCountWithEmojiForChannelName();
+            await guild.GetChannel(gameStatusChannelId.Value).ModifyAsync(ch => ch.Name = newChannelName);
+            Log.WriteLine($"Channel name updated to: {newChannelName}", LogLevel.DEBUG);
+            
             // Try to get and modify the existing message
             var message = await channel.GetMessageAsync(gameStatusMessageId.Value);
             if (message is IUserMessage userMessage)
