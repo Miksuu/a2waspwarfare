@@ -11,6 +11,7 @@ public sealed class Preferences
     public ulong? GameStatusChannelID { get; set; }
     public ulong? GameStatusMessageID { get; set; }
     public string? DataSourcePath { get; set; }
+    public bool a3Mode { get; set; } = false;
 
     public static Preferences Instance
     {

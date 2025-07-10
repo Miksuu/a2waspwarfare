@@ -82,7 +82,15 @@ public class GameData
             playerCount = exportedArgs[4];
         }
         
-        string maxPlayerCount = terrainInstance.DetermineMissionTypeIfItsForestOrDesertAndGetThePlayerCount();
+        string maxPlayerCount;
+        if (Preferences.Instance.a3Mode)
+        {
+            maxPlayerCount = "40"; // A3 mode always uses 40 max players
+        }
+        else
+        {
+            maxPlayerCount = terrainInstance.DetermineMissionTypeIfItsForestOrDesertAndGetThePlayerCount();
+        }
 
         string terrainEmoji = EnumExtensions.GetEnumMemberAttrValue(EmojiName.EVERGREENTREE);
 
@@ -106,7 +114,15 @@ public class GameData
             playerCount = exportedArgs[4];
         }
         
-        string maxPlayerCount = terrainInstance.DetermineMissionTypeIfItsForestOrDesertAndGetThePlayerCount();
+        string maxPlayerCount;
+        if (Preferences.Instance.a3Mode)
+        {
+            maxPlayerCount = "40"; // A3 mode always uses 40 max players
+        }
+        else
+        {
+            maxPlayerCount = terrainInstance.DetermineMissionTypeIfItsForestOrDesertAndGetThePlayerCount();
+        }
 
         string terrainEmoji = EnumExtensions.GetEnumMemberAttrValue(EmojiName.EVERGREENTREE);
 
