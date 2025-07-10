@@ -79,6 +79,13 @@ public class GameStatusUpdater
             var newChannelName = GameData.Instance.GetGameMapAndPlayerCountWithEmojiForChannelName();
             await guild.GetChannel(gameStatusChannelId.Value).ModifyAsync(ch => ch.Name = newChannelName);
             Log.WriteLine($"Channel name updated to: {newChannelName}", LogLevel.DEBUG);
+
+            // Update bot status
+            if (client != null)
+            {
+                await client.SetGameAsync(newChannelName, null, ActivityType.Playing);
+                Log.WriteLine($"Bot status updated to: {newChannelName}", LogLevel.DEBUG);
+            }
             
             // Try to get and modify the existing message
             var message = await channel.GetMessageAsync(gameStatusMessageId.Value);

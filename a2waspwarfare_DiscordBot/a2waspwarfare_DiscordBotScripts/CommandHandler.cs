@@ -60,6 +60,14 @@ public static class CommandHandler
                 {
                     await guildChannel.ModifyAsync(ch => ch.Name = newChannelName);
                     Log.WriteLine($"Channel name updated to: {newChannelName}", LogLevel.DEBUG);
+
+                    // Update bot status
+                    var client = BotReference.GetClientRef();
+                    if (client != null)
+                    {
+                        await client.SetGameAsync(newChannelName, null, ActivityType.Playing);
+                        Log.WriteLine($"Bot status updated to: {newChannelName}", LogLevel.DEBUG);
+                    }
                 }
                 
                 // Create the initial status message immediately
