@@ -8,49 +8,35 @@ using System.Reflection;
 using System.Collections.Concurrent;
 
 [DataContract]
-public class GAMESTATUSMESSAGE : BaseMessage
+public class GameStatusMessage
 {
-    public GAMESTATUSMESSAGE()
+    string MessageEmbedTitle = "Game Status [insert map here]";
+    string MessageDescription = "Not updated yet";
+    Color MessageEmbedColor = Color.Black;
+
+    public string GenerateMessage()
     {
-        thisInterfaceMessage.MessageName = MessageName.GAMESTATUSMESSAGE;
-
-        thisInterfaceMessage.MessageButtonNamesWithAmount = new ConcurrentDictionary<ButtonName, int>(
-            new ConcurrentBag<KeyValuePair<ButtonName, int>>()
-            {
-            });
-
-        thisInterfaceMessage.MessageEmbedTitle = "Game Status [insert map here]";
-    }
-
-    protected override void GenerateButtons(ComponentBuilder _component, ulong _leagueCategoryId)
-    {
-        base.GenerateRegularButtons(_component, _leagueCategoryId);
-    }
-
-    public override Task<string> GenerateMessage(ulong _leagueCategoryId = 0)
-    {
-        thisInterfaceMessage.MessageEmbedTitle = GameData.Instance.GetGameMapAndPlayerCountWithEmoji();
-        thisInterfaceMessage.MessageDescription = GameData.Instance.GenerateGameStatusMessage();
+        MessageEmbedTitle = GameData.Instance.GetGameMapAndPlayerCountWithEmoji();
+        MessageDescription = GameData.Instance.GenerateGameStatusMessage();
         ChangeMessageColorDependingOnTheCurrentWorldName();
 
-        return Task.FromResult(thisInterfaceMessage.MessageDescription);
+        return MessageDescription;
     }
 
-    public override string GenerateMessageFooter()
+    public string GenerateMessageFooter()
     {
         return "Last updated at: " + DateTime.UtcNow.ToLongTimeString() + " " + DateTime.UtcNow.ToLongDateString() + " (GMT+0)";
     }
 
-    // Add array here of custom maps later
     private void ChangeMessageColorDependingOnTheCurrentWorldName()
     {
         if (GameData.Instance.GetInterfaceTerrainFromWorldName().TerrainType == TerrainType.FOREST)
         {
-            thisInterfaceMessage.MessageEmbedColor = Color.DarkGreen;
+            MessageEmbedColor = Color.DarkGreen;
             return;
         }
 
         // Takistan/desert maps
-        thisInterfaceMessage.MessageEmbedColor = Color.Gold;
+        MessageEmbedColor = Color.Gold;
     }
 }
