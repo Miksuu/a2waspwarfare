@@ -94,17 +94,15 @@ public class GameStatusUpdater
 
     private Embed CreateGameStatusEmbed()
     {
-        var embedBuilder = new EmbedBuilder()
-            .WithTitle("🎮 Game Status Update")
-            .WithColor(Color.Blue)
-            .WithTimestamp(DateTimeOffset.UtcNow);
+        var gsm = new GameStatusMessage();
+        gsm.GenerateMessage();
 
-        // Add game status information here
-        // This is where you would integrate with your game data
-        embedBuilder.AddField("Status", "🟢 Online", true);
-        embedBuilder.AddField("Players", "0/100", true);
-        embedBuilder.AddField("Map", "Takistan", true);
-        embedBuilder.AddField("Next Update", DateTime.UtcNow.AddMinutes(1).ToString("HH:mm UTC"), true);
+        var embedBuilder = new EmbedBuilder()
+            .WithTitle(gsm.MessageEmbedTitle)
+            .WithDescription(gsm.MessageDescription)
+            .WithColor(gsm.MessageEmbedColor)
+            .WithFooter(gsm.GenerateMessageFooter())
+            .WithTimestamp(DateTimeOffset.UtcNow);
 
         return embedBuilder.Build();
     }

@@ -30,46 +30,107 @@ public static class CommandHandler
 
     private static async Task SlashCommandHandler(SocketSlashCommand command)
     {
-        if (command.CommandName.ToLower() == "setup")
+        try
         {
-            ulong userId = command.User.Id;
-            if (!Preferences.Instance.IsUserAuthorized(userId))
+            Log.WriteLine($"Received slash command: {command.CommandName} from user {command.User.Id}", LogLevel.DEBUG);
+            
+            if (command.CommandName.ToLower() == "setup")
             {
-                await command.RespondAsync("You are not authorized to use this command.", ephemeral: true);
-                Log.WriteLine($"Unauthorized user {userId} attempted to use /setup.", LogLevel.WARNING);
-                return;
-            }
+                ulong userId = command.User.Id;
+                
+                Log.WriteLine($"Processing /setup command for user {userId}", LogLevel.DEBUG);
+                
+                if (!Preferences.Instance.IsUserAuthorized(userId))
+                {
+                    await command.RespondAsync("You are not authorized to use this command.", ephemeral: true);
+                    Log.WriteLine($"Unauthorized user {userId} attempted to use /setup.", LogLevel.WARNING);
+                    return;
+                }
 
-            // Set the current channel as the game status channel
-            Preferences.Instance.GameStatusChannelID = command.Channel.Id;
+                Log.WriteLine("User is authorized, setting up game status channel...", LogLevel.DEBUG);
+
+                // Set the current channel as the game status channel
+                Preferences.Instance.GameStatusChannelID = command.Channel.Id;
+                
+                Log.WriteLine("Creating initial status message...", LogLevel.DEBUG);
+                
+                // Create the initial status message immediately
+                var embed = CreateGameStatusEmbed();
+                var message = await command.Channel.SendMessageAsync(embed: embed);
+                
+                Log.WriteLine($"Status message created with ID: {message.Id}", LogLevel.DEBUG);
+                
+                // Save the message ID for future updates
+                Preferences.Instance.GameStatusMessageID = message.Id;
+                Preferences.Instance.SaveToFile();
+                
+                Log.WriteLine("Preferences saved, sending response...", LogLevel.DEBUG);
+                
+                await command.RespondAsync($"This channel (<#{command.Channel.Id}>) is now set for game status updates!", ephemeral: true);
+                Log.WriteLine($"Game status channel set to {command.Channel.Id} with message ID {message.Id} by user {userId}", LogLevel.DEBUG);
+            }
+            else
+            {
+                await command.RespondAsync("Unknown command.", ephemeral: true);
+                Log.WriteLine($"Unknown command received: {command.CommandName}", LogLevel.WARNING);
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.WriteLine($"Error in SlashCommandHandler: {ex.Message}", LogLevel.ERROR);
+            Log.WriteLine($"Stack trace: {ex.StackTrace}", LogLevel.ERROR);
             
-            // Create the initial status message immediately
-            var embed = CreateGameStatusEmbed();
-            var message = await command.Channel.SendMessageAsync(embed: embed);
-            
-            // Save the message ID for future updates
-            Preferences.Instance.GameStatusMessageID = message.Id;
-            Preferences.Instance.SaveToFile();
-            
-            await command.RespondAsync($"This channel (<#{command.Channel.Id}>) is now set for game status updates!", ephemeral: true);
-            Log.WriteLine($"Game status channel set to {command.Channel.Id} with message ID {message.Id} by user {userId}", LogLevel.DEBUG);
+            try
+            {
+                if (!command.HasResponded)
+                {
+                    await command.RespondAsync("An error occurred while processing your command. Please check the logs.", ephemeral: true);
+                }
+            }
+            catch (Exception responseEx)
+            {
+                Log.WriteLine($"Failed to send error response: {responseEx.Message}", LogLevel.ERROR);
+            }
         }
     }
 
     private static Embed CreateGameStatusEmbed()
     {
-        var embedBuilder = new EmbedBuilder()
-            .WithTitle("🎮 Game Status Update")
-            .WithColor(Color.Blue)
-            .WithTimestamp(DateTimeOffset.UtcNow);
+        try
+        {
+            Log.WriteLine("Creating GameStatusMessage...", LogLevel.DEBUG);
+            var gsm = new GameStatusMessage();
+            
+            Log.WriteLine("Generating message content...", LogLevel.DEBUG);
+            gsm.GenerateMessage();
 
-        // Add game status information here
-        // This is where you would integrate with your game data
-        embedBuilder.AddField("Status", "🟢 Online", true);
-        embedBuilder.AddField("Players", "0/100", true);
-        embedBuilder.AddField("Map", "Takistan", true);
-        embedBuilder.AddField("Next Update", DateTime.UtcNow.AddMinutes(1).ToString("HH:mm UTC"), true);
+            Log.WriteLine($"Message title: {gsm.MessageEmbedTitle}", LogLevel.DEBUG);
+            Log.WriteLine($"Message description length: {gsm.MessageDescription?.Length ?? 0}", LogLevel.DEBUG);
 
-        return embedBuilder.Build();
+            var embedBuilder = new EmbedBuilder()
+                .WithTitle(gsm.MessageEmbedTitle)
+                .WithDescription(gsm.MessageDescription)
+                .WithColor(gsm.MessageEmbedColor)
+                .WithFooter(gsm.GenerateMessageFooter())
+                .WithTimestamp(DateTimeOffset.UtcNow);
+
+            Log.WriteLine("Embed created successfully", LogLevel.DEBUG);
+            return embedBuilder.Build();
+        }
+        catch (Exception ex)
+        {
+            Log.WriteLine($"Error creating game status embed: {ex.Message}", LogLevel.ERROR);
+            Log.WriteLine($"Stack trace: {ex.StackTrace}", LogLevel.ERROR);
+            
+            // Return a fallback embed
+            var fallbackEmbed = new EmbedBuilder()
+                .WithTitle("🎮 Game Status Update")
+                .WithDescription("Error retrieving game status. Please check logs.")
+                .WithColor(Color.Red)
+                .WithFooter($"Error occurred at: {DateTime.UtcNow:HH:mm:ss UTC}")
+                .WithTimestamp(DateTimeOffset.UtcNow);
+
+            return fallbackEmbed.Build();
+        }
     }
 }

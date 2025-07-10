@@ -36,7 +36,14 @@ public class GameData
     public string GetGameMapAndPlayerCountWithEmoji()
     {
         var terrainInstance = GetInterfaceTerrainFromWorldName();
-        string playerCount = GameData.Instance.exportedArgs[4];
+        
+        // Fix array bounds issue and add fallback values
+        string playerCount = "0";
+        if (exportedArgs != null && exportedArgs.Length > 4 && !string.IsNullOrEmpty(exportedArgs[4]))
+        {
+            playerCount = exportedArgs[4];
+        }
+        
         string maxPlayerCount = terrainInstance.DetermineMissionTypeIfItsForestOrDesertAndGetThePlayerCount();
 
         string terrainEmoji = EnumExtensions.GetEnumMemberAttrValue(EmojiName.EVERGREENTREE);
@@ -53,7 +60,14 @@ public class GameData
     public string GetGameMapAndPlayerCountWithEmojiForChannelName()
     {
         var terrainInstance = GetInterfaceTerrainFromWorldName();
-        string playerCount = GameData.Instance.exportedArgs[4];
+        
+        // Fix array bounds issue and add fallback values
+        string playerCount = "0";
+        if (exportedArgs != null && exportedArgs.Length > 4 && !string.IsNullOrEmpty(exportedArgs[4]))
+        {
+            playerCount = exportedArgs[4];
+        }
+        
         string maxPlayerCount = terrainInstance.DetermineMissionTypeIfItsForestOrDesertAndGetThePlayerCount();
 
         string terrainEmoji = EnumExtensions.GetEnumMemberAttrValue(EmojiName.EVERGREENTREE);
@@ -78,6 +92,13 @@ public class GameData
 
     public InterfaceTerrain GetInterfaceTerrainFromWorldName()
     {
+        // Check if exportedArgs is properly populated
+        if (exportedArgs == null || exportedArgs.Length < 3 || string.IsNullOrEmpty(exportedArgs[2]))
+        {
+            // Return a default terrain if no data is available
+            return (InterfaceTerrain)EnumExtensions.GetInstance("TAKISTAN");
+        }
+        
         return (InterfaceTerrain)EnumExtensions.GetInstance(exportedArgs[2]);
     }
 
@@ -85,8 +106,18 @@ public class GameData
     {
         string message = string.Empty;
 
-        message += "Score: " + EnumExtensions.GetEnumMemberAttrValue(EmojiName.BLUFORICON) + exportedArgs[0] +
-            " vs " + exportedArgs[1] + EnumExtensions.GetEnumMemberAttrValue(EmojiName.OPFORICON);
+        // Add fallback values for score
+        string bluforScore = "0";
+        string opforScore = "0";
+        
+        if (exportedArgs != null && exportedArgs.Length > 1)
+        {
+            if (!string.IsNullOrEmpty(exportedArgs[0])) bluforScore = exportedArgs[0];
+            if (!string.IsNullOrEmpty(exportedArgs[1])) opforScore = exportedArgs[1];
+        }
+
+        message += "Score: " + EnumExtensions.GetEnumMemberAttrValue(EmojiName.BLUFORICON) + bluforScore +
+            " vs " + opforScore + EnumExtensions.GetEnumMemberAttrValue(EmojiName.OPFORICON);
         message += "\nUptime: " + ConvertUpTimeToSecondsAsString();
 
         message += "\n\nPlease balance the teams accordingly!";
@@ -95,7 +126,17 @@ public class GameData
 
     private string ConvertUpTimeToSecondsAsString()
     {
-        return TimeService.ReturnTimeLeftAsStringFromTheTimeTheActionWillTakePlaceWithTimeLeft(
-            ulong.Parse(exportedArgs[3]));
+        // Add fallback for uptime
+        if (exportedArgs == null || exportedArgs.Length < 4 || string.IsNullOrEmpty(exportedArgs[3]))
+        {
+            return "00:00:00";
+        }
+        
+        if (ulong.TryParse(exportedArgs[3], out ulong uptime))
+        {
+            return TimeService.ReturnTimeLeftAsStringFromTheTimeTheActionWillTakePlaceWithTimeLeft(uptime);
+        }
+        
+        return "00:00:00";
     }
 }
