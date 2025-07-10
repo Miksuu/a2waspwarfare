@@ -70,13 +70,13 @@ public class ProgramRuntime
     //     await CommandHandler.InstallCommandsAsync();
     // }
 
-    private async Task SetupEventScheduler()
-    {
-        await Database.GetInstance<DiscordBotDatabase>().EventScheduler.CheckCurrentTimeAndExecuteScheduledEvents(true);
+    // private async Task SetupEventScheduler()
+    // {
+    //     await Database.GetInstance<DiscordBotDatabase>().EventScheduler.CheckCurrentTimeAndExecuteScheduledEvents(true);
 
-        Thread secondThread = new Thread(Database.GetInstance<DiscordBotDatabase>().EventScheduler.EventSchedulerLoop);
-        secondThread.Start();
-    }
+    //     Thread secondThread = new Thread(Database.GetInstance<DiscordBotDatabase>().EventScheduler.EventSchedulerLoop);
+    //     secondThread.Start();
+    // }
 
     private void HandleBotReconnection() 
     { 
