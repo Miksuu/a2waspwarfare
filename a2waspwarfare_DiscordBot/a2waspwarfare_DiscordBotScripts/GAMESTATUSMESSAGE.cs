@@ -12,7 +12,7 @@ public class GameStatusMessage
 {
     string MessageEmbedTitle = "Game Status [insert map here]";
     string MessageDescription = "Not updated yet";
-    Color MessageEmbedColor = Color.Black;
+    Color MessageEmbedColor = Color.Gold;
 
     public string GenerateMessage()
     {
