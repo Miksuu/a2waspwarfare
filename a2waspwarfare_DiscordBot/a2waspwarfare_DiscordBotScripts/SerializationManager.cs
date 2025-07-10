@@ -68,7 +68,7 @@ public static class SerializationManager
         }
     }
 
-    public static T? DeSerializeDatabase<T>() where T : class
+    public static string DeSerializeDatabase()
     {
         try
         {
@@ -83,20 +83,7 @@ public static class SerializationManager
                 }
 
                 string json = File.ReadAllText(DatabaseJsonFilePath);
-
-                // Set up deserializer settings
-                var serializerSettings = new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.All,
-                    NullValueHandling = NullValueHandling.Include,
-                    ObjectCreationHandling = ObjectCreationHandling.Replace,
-                    ContractResolver = new DataMemberContractResolver()
-                };
-                serializerSettings.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
-
-                var deserialized = JsonConvert.DeserializeObject(json, typeof(T), serializerSettings) as T;
-
-                return deserialized;
+                return json;
             }
             catch (Exception ex)
             {
