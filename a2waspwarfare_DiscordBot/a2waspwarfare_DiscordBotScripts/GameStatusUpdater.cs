@@ -63,6 +63,13 @@ public class GameStatusUpdater
             return;
         }
 
+        // Always load the latest game data from file
+        var latestGameData = SerializationManager.DeSerializeDatabase();
+        if (latestGameData != null)
+        {
+            GameData.Instance = latestGameData;
+        }
+
         // Create the updated game status embed
         var embed = CreateGameStatusEmbed();
         

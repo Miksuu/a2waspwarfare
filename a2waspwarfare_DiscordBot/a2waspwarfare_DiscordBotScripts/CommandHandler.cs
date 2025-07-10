@@ -96,41 +96,23 @@ public static class CommandHandler
 
     private static Embed CreateGameStatusEmbed()
     {
-        try
+        // Always load the latest game data from file
+        var latestGameData = SerializationManager.DeSerializeDatabase();
+        if (latestGameData != null)
         {
-            Log.WriteLine("Creating GameStatusMessage...", LogLevel.DEBUG);
-            var gsm = new GameStatusMessage();
-            
-            Log.WriteLine("Generating message content...", LogLevel.DEBUG);
-            gsm.GenerateMessage();
-
-            Log.WriteLine($"Message title: {gsm.MessageEmbedTitle}", LogLevel.DEBUG);
-            Log.WriteLine($"Message description length: {gsm.MessageDescription?.Length ?? 0}", LogLevel.DEBUG);
-
-            var embedBuilder = new EmbedBuilder()
-                .WithTitle(gsm.MessageEmbedTitle)
-                .WithDescription(gsm.MessageDescription)
-                .WithColor(gsm.MessageEmbedColor)
-                .WithFooter(gsm.GenerateMessageFooter())
-                .WithTimestamp(DateTimeOffset.UtcNow);
-
-            Log.WriteLine("Embed created successfully", LogLevel.DEBUG);
-            return embedBuilder.Build();
+            GameData.Instance = latestGameData;
         }
-        catch (Exception ex)
-        {
-            Log.WriteLine($"Error creating game status embed: {ex.Message}", LogLevel.ERROR);
-            Log.WriteLine($"Stack trace: {ex.StackTrace}", LogLevel.ERROR);
-            
-            // Return a fallback embed
-            var fallbackEmbed = new EmbedBuilder()
-                .WithTitle("🎮 Game Status Update")
-                .WithDescription("Error retrieving game status. Please check logs.")
-                .WithColor(Color.Red)
-                .WithFooter($"Error occurred at: {DateTime.UtcNow:HH:mm:ss UTC}")
-                .WithTimestamp(DateTimeOffset.UtcNow);
 
-            return fallbackEmbed.Build();
-        }
+        var gsm = new GameStatusMessage();
+        gsm.GenerateMessage();
+
+        var embedBuilder = new EmbedBuilder()
+            .WithTitle(gsm.MessageEmbedTitle)
+            .WithDescription(gsm.MessageDescription)
+            .WithColor(gsm.MessageEmbedColor)
+            .WithFooter(gsm.GenerateMessageFooter())
+            .WithTimestamp(DateTimeOffset.UtcNow);
+
+        return embedBuilder.Build();
     }
 }
