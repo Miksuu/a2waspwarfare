@@ -8,7 +8,7 @@ public static class CommandHandler
     {
         try
         {
-            Log.WriteLine("Registering /setup command.", LogLevel.DEBUG);
+            Log.WriteLine("Registering /setup and /cleanup commands.", LogLevel.DEBUG);
             var client = BotReference.GetClientRef();
 
             // Register the /setup command (no options, uses current channel)
@@ -16,10 +16,16 @@ public static class CommandHandler
                 .WithName("setup")
                 .WithDescription("Set this channel as the game status update channel (authorized users only)");
 
+            // Register the /cleanup command to remove duplicate messages
+            var cleanupCommand = new SlashCommandBuilder()
+                .WithName("cleanup")
+                .WithDescription("Remove duplicate status messages (authorized users only)");
+
             await client.Rest.CreateGuildCommand(setupCommand.Build(), Preferences.Instance.GuildID);
+            await client.Rest.CreateGuildCommand(cleanupCommand.Build(), Preferences.Instance.GuildID);
 
             client.SlashCommandExecuted += SlashCommandHandler;
-            Log.WriteLine("/setup command registered.", LogLevel.DEBUG);
+            Log.WriteLine("/setup and /cleanup commands registered.", LogLevel.DEBUG);
         }
         catch (Exception ex)
         {
@@ -111,6 +117,68 @@ public static class CommandHandler
                 
                 await command.RespondAsync($"This channel (<#{command.Channel.Id}>) is now set for game status updates!", ephemeral: true);
                 Log.WriteLine($"Game status channel set to {command.Channel.Id} with message ID {message?.Id} by user {userId}", LogLevel.DEBUG);
+            }
+            else if (command.CommandName.ToLower() == "cleanup")
+            {
+                ulong userId = command.User.Id;
+                
+                Log.WriteLine($"Processing /cleanup command for user {userId}", LogLevel.DEBUG);
+                
+                if (!Preferences.Instance.IsUserAuthorized(userId))
+                {
+                    await command.RespondAsync("You are not authorized to use this command.", ephemeral: true);
+                    Log.WriteLine($"Unauthorized user {userId} attempted to use /cleanup.", LogLevel.WARNING);
+                    return;
+                }
+
+                await command.DeferAsync(ephemeral: true);
+
+                try
+                {
+                    var botId = BotReference.GetClientRef().CurrentUser.Id;
+                    var messages = await command.Channel.GetMessagesAsync(50).FlattenAsync();
+                    
+                    var botStatusMessages = messages.Where(m => 
+                        m.Author.Id == botId && 
+                        m.Embeds.Any(e => 
+                            e.Title?.Contains("Chernarus", StringComparison.OrdinalIgnoreCase) == true ||
+                            e.Title?.Contains("Takistan", StringComparison.OrdinalIgnoreCase) == true ||
+                            e.Description?.Contains("Score:", StringComparison.OrdinalIgnoreCase) == true
+                        )
+                    ).ToList();
+
+                    if (botStatusMessages.Count <= 1)
+                    {
+                        await command.FollowupAsync("No duplicate messages found to clean up.", ephemeral: true);
+                        return;
+                    }
+
+                    // Keep the newest message, delete the rest
+                    var messagesToDelete = botStatusMessages.Skip(1);
+                    int deletedCount = 0;
+
+                    foreach (var oldMessage in messagesToDelete)
+                    {
+                        try
+                        {
+                            await oldMessage.DeleteAsync();
+                            deletedCount++;
+                            Log.WriteLine($"Deleted duplicate status message {oldMessage.Id}", LogLevel.DEBUG);
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.WriteLine($"Failed to delete message {oldMessage.Id}: {ex.Message}", LogLevel.WARNING);
+                        }
+                    }
+
+                    await command.FollowupAsync($"Cleaned up {deletedCount} duplicate status messages.", ephemeral: true);
+                    Log.WriteLine($"Cleaned up {deletedCount} duplicate messages by user {userId}", LogLevel.DEBUG);
+                }
+                catch (Exception ex)
+                {
+                    Log.WriteLine($"Error during cleanup: {ex.Message}", LogLevel.ERROR);
+                    await command.FollowupAsync("Failed to clean up messages. Check bot permissions.", ephemeral: true);
+                }
             }
             else
             {

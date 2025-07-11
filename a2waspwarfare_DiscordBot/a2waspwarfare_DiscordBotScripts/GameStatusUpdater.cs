@@ -7,6 +7,10 @@ public class GameStatusUpdater
     private System.Timers.Timer? updateTimer;
     private DiscordSocketClient? client;
     private const int UPDATE_INTERVAL_SECONDS = 60; // Update every 60 seconds - change this for different intervals
+    private readonly SemaphoreSlim updateSemaphore = new SemaphoreSlim(1, 1); // Prevent multiple updates at once
+    private const int DISCORD_TIMEOUT_MS = 30000; // 30 second timeout for Discord operations
+    private int consecutiveTimeouts = 0;
+    private const int MAX_CONSECUTIVE_TIMEOUTS = 3; // Only create new message after 3 consecutive timeouts
 
     public void StartGameStatusUpdates(DiscordSocketClient _client)
     {
@@ -17,18 +21,19 @@ public class GameStatusUpdater
         updateTimer.Elapsed += OnUpdateTimerElapsed;
         updateTimer.AutoReset = true;
         updateTimer.Enabled = true; // More reliable than Start()
-        
-        // Immediate first update, then every 60 seconds
-        _ = Task.Run(async () => {
-            await Task.Delay(1000); // Wait 1 second for bot to fully initialize
-            await UpdateGameStatus(); // First immediate update
-        });
 
-        Log.WriteLine($"Game status updater started - will update immediately, then every {UPDATE_INTERVAL_SECONDS} seconds", LogLevel.DEBUG);
+        Log.WriteLine($"Game status updater started - will update every {UPDATE_INTERVAL_SECONDS} seconds", LogLevel.DEBUG);
     }
 
     private async void OnUpdateTimerElapsed(object? sender, ElapsedEventArgs e)
     {
+        // Prevent multiple updates from running simultaneously
+        if (!await updateSemaphore.WaitAsync(100)) // Don't wait long, just skip if busy
+        {
+            Log.WriteLine("Skipping update - previous update still in progress", LogLevel.DEBUG);
+            return;
+        }
+
         try
         {
             Log.WriteLine($"Timer elapsed - starting update at {DateTime.Now:HH:mm:ss}", LogLevel.DEBUG);
@@ -38,6 +43,10 @@ public class GameStatusUpdater
         catch (Exception ex)
         {
             Log.WriteLine($"Error in game status update: {ex.Message}", LogLevel.ERROR);
+        }
+        finally
+        {
+            updateSemaphore.Release();
         }
     }
 
@@ -80,47 +89,84 @@ public class GameStatusUpdater
         
         try
         {
-            // Update channel name first
+            // Update channel name first (with timeout)
             var newChannelName = GameData.Instance.GetGameMapAndPlayerCountWithEmojiForChannelName();
-            await guild.GetChannel(gameStatusChannelId.Value).ModifyAsync(ch => ch.Name = newChannelName);
-            Log.WriteLine($"Channel name updated to: {newChannelName}", LogLevel.DEBUG);
+            using (var cts = new CancellationTokenSource(DISCORD_TIMEOUT_MS))
+            {
+                await guild.GetChannel(gameStatusChannelId.Value).ModifyAsync(ch => ch.Name = newChannelName, new RequestOptions { CancelToken = cts.Token });
+                Log.WriteLine($"Channel name updated to: {newChannelName}", LogLevel.DEBUG);
+            }
 
-            // Update bot status
+            // Update bot status (with timeout)
             if (client != null)
             {
-                await client.SetGameAsync(newChannelName, null, ActivityType.Playing);
-                Log.WriteLine($"Bot status updated to: {newChannelName}", LogLevel.DEBUG);
+                using (var cts = new CancellationTokenSource(DISCORD_TIMEOUT_MS))
+                {
+                    await client.SetGameAsync(newChannelName, null, ActivityType.Playing);
+                    Log.WriteLine($"Bot status updated to: {newChannelName}", LogLevel.DEBUG);
+                }
             }
             
             // Try to get and modify the existing message, or create a new one if it doesn't exist
             if (gameStatusMessageId.HasValue)
             {
-                var existingMessage = await channel.GetMessageAsync(gameStatusMessageId.Value);
-                if (existingMessage is IUserMessage userMessage)
+                try
                 {
-                    await userMessage.ModifyAsync(msg => msg.Embed = embed);
-                    Log.WriteLine($"Game status message {gameStatusMessageId} updated in channel {gameStatusChannelId}", LogLevel.DEBUG);
+                    using (var cts = new CancellationTokenSource(DISCORD_TIMEOUT_MS))
+                    {
+                        var existingMessage = await channel.GetMessageAsync(gameStatusMessageId.Value, CacheMode.AllowDownload, new RequestOptions { CancelToken = cts.Token });
+                        if (existingMessage is IUserMessage userMessage)
+                        {
+                            await userMessage.ModifyAsync(msg => msg.Embed = embed, new RequestOptions { CancelToken = cts.Token });
+                            Log.WriteLine($"Game status message {gameStatusMessageId} updated in channel {gameStatusChannelId}", LogLevel.DEBUG);
+                            consecutiveTimeouts = 0; // Reset timeout counter on success
+                        }
+                        else
+                        {
+                            Log.WriteLine($"Could not find message {gameStatusMessageId}, it may have been deleted. Creating new message.", LogLevel.WARNING);
+                            await CreateNewStatusMessage(channel, embed, gameStatusChannelId.Value);
+                        }
+                    }
                 }
-                else
+                catch (TaskCanceledException)
                 {
-                    Log.WriteLine($"Could not find message {gameStatusMessageId}, it may have been deleted. Creating new message.", LogLevel.WARNING);
-                    // Message doesn't exist anymore, create a new one
-                    await CreateNewStatusMessage(channel, embed, gameStatusChannelId.Value);
+                    consecutiveTimeouts++;
+                    Log.WriteLine($"Timeout updating message (#{consecutiveTimeouts}). Will retry next update.", LogLevel.WARNING);
+                    
+                    // Only reset message ID after multiple consecutive timeouts
+                    if (consecutiveTimeouts >= MAX_CONSECUTIVE_TIMEOUTS)
+                    {
+                        Log.WriteLine($"Too many consecutive timeouts ({consecutiveTimeouts}). Will create new message next time.", LogLevel.ERROR);
+                        Preferences.Instance.GameStatusMessageID = null;
+                        Preferences.SaveToFile();
+                        consecutiveTimeouts = 0;
+                    }
+                    return; // Don't create new message on timeout
                 }
             }
             else
             {
                 Log.WriteLine("No game status message ID configured, creating new message", LogLevel.DEBUG);
-                // No message ID set, create a new message
                 await CreateNewStatusMessage(channel, embed, gameStatusChannelId.Value);
             }
+        }
+        catch (TaskCanceledException)
+        {
+            consecutiveTimeouts++;
+            Log.WriteLine($"Timeout during update operation (#{consecutiveTimeouts}). Will retry next update.", LogLevel.WARNING);
         }
         catch (Exception ex)
         {
             Log.WriteLine($"Failed to update game status message: {ex.Message}", LogLevel.ERROR);
-            // If message update fails, reset the message ID so a new one can be created next time
-            Preferences.Instance.GameStatusMessageID = null;
-            Preferences.SaveToFile();
+            // Only reset message ID for non-timeout errors after multiple attempts
+            consecutiveTimeouts++;
+            if (consecutiveTimeouts >= MAX_CONSECUTIVE_TIMEOUTS)
+            {
+                Log.WriteLine($"Multiple consecutive errors ({consecutiveTimeouts}). Resetting message ID.", LogLevel.ERROR);
+                Preferences.Instance.GameStatusMessageID = null;
+                Preferences.SaveToFile();
+                consecutiveTimeouts = 0;
+            }
         }
     }
 
@@ -128,71 +174,33 @@ public class GameStatusUpdater
     {
         try
         {
-            // Clean up old status messages from this bot to prevent duplicates
-            await CleanupOldStatusMessages(channel);
-            
-            var newMessage = await channel.SendMessageAsync(embed: embed);
-            
-            Log.WriteLine($"New status message created with ID: {newMessage.Id}", LogLevel.DEBUG);
-            
-            // Save the new message ID for future updates
-            Preferences.Instance.GameStatusMessageID = newMessage.Id;
-            Preferences.SaveToFile();
-            
-            Log.WriteLine($"New game status message {newMessage.Id} created in channel {channelId}", LogLevel.DEBUG);
+            using (var cts = new CancellationTokenSource(DISCORD_TIMEOUT_MS))
+            {
+                var newMessage = await channel.SendMessageAsync(embed: embed, options: new RequestOptions { CancelToken = cts.Token });
+                
+                Log.WriteLine($"New status message created with ID: {newMessage.Id}", LogLevel.DEBUG);
+                
+                // Save the new message ID for future updates
+                Preferences.Instance.GameStatusMessageID = newMessage.Id;
+                Preferences.SaveToFile();
+                
+                Log.WriteLine($"New game status message {newMessage.Id} created in channel {channelId}", LogLevel.DEBUG);
+                consecutiveTimeouts = 0; // Reset timeout counter on success
+            }
+        }
+        catch (TaskCanceledException)
+        {
+            consecutiveTimeouts++;
+            Log.WriteLine($"Timeout creating new status message (#{consecutiveTimeouts}). Will retry next update.", LogLevel.WARNING);
         }
         catch (Exception ex)
         {
             Log.WriteLine($"Failed to create new status message: {ex.Message}", LogLevel.ERROR);
-            // Reset the message ID so we can try again next time
-            Preferences.Instance.GameStatusMessageID = null;
-            Preferences.SaveToFile();
+            consecutiveTimeouts++;
         }
     }
 
-    private async Task CleanupOldStatusMessages(IMessageChannel channel)
-    {
-        try
-        {
-            var botId = client?.CurrentUser?.Id;
-            if (botId == null) return;
 
-            // Get recent messages from this channel
-            var messages = await channel.GetMessagesAsync(50).FlattenAsync();
-            
-            // Find messages from this bot that look like status messages
-            var botStatusMessages = messages.Where(m => 
-                m.Author.Id == botId && 
-                m.Embeds.Any(e => 
-                    e.Title?.Contains("Chernarus", StringComparison.OrdinalIgnoreCase) == true ||
-                    e.Title?.Contains("Takistan", StringComparison.OrdinalIgnoreCase) == true ||
-                    e.Description?.Contains("Score:", StringComparison.OrdinalIgnoreCase) == true
-                )
-            ).ToList();
-
-            // Delete old status messages (keep only the most recent one if any)
-            if (botStatusMessages.Count > 1)
-            {
-                var messagesToDelete = botStatusMessages.Skip(1); // Keep the newest, delete the rest
-                foreach (var oldMessage in messagesToDelete)
-                {
-                    try
-                    {
-                        await oldMessage.DeleteAsync();
-                        Log.WriteLine($"Deleted old status message {oldMessage.Id}", LogLevel.DEBUG);
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.WriteLine($"Failed to delete old message {oldMessage.Id}: {ex.Message}", LogLevel.WARNING);
-                    }
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            Log.WriteLine($"Error during cleanup of old status messages: {ex.Message}", LogLevel.WARNING);
-        }
-    }
 
     private Embed CreateGameStatusEmbed()
     {
@@ -218,6 +226,7 @@ public class GameStatusUpdater
             updateTimer = null;
         }
 
+        updateSemaphore.Dispose();
         Log.WriteLine("Game status updater stopped", LogLevel.DEBUG);
     }
 } 
