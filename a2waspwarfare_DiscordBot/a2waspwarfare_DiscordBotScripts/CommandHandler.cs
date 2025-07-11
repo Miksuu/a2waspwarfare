@@ -72,18 +72,45 @@ public static class CommandHandler
                 
                 // Create the initial status message immediately
                 var embed = CreateGameStatusEmbed();
-                var message = await command.Channel.SendMessageAsync(embed: embed);
+                Discord.Rest.RestUserMessage? message = null;
                 
-                Log.WriteLine($"Status message created with ID: {message.Id}", LogLevel.DEBUG);
-                
-                            // Save the message ID for future updates
-            Preferences.Instance.GameStatusMessageID = message.Id;
-            Preferences.SaveToFile();
+                try
+                {
+                    message = await command.Channel.SendMessageAsync(embed: embed);
+                    
+                    Log.WriteLine($"Status message created with ID: {message.Id}", LogLevel.DEBUG);
+                    
+                    // Save the message ID for future updates
+                    Preferences.Instance.GameStatusMessageID = message.Id;
+                    Preferences.SaveToFile();
+                }
+                catch (Discord.Net.HttpException httpEx)
+                {
+                    Log.WriteLine($"Discord API Error: {httpEx.Message}", LogLevel.ERROR);
+                    Log.WriteLine($"Error Code: {httpEx.HttpCode}", LogLevel.ERROR);
+                    
+                    string errorMessage = httpEx.HttpCode switch
+                    {
+                        System.Net.HttpStatusCode.Forbidden => "Bot doesn't have permission to send messages in this channel. Please check bot permissions.",
+                        System.Net.HttpStatusCode.TooManyRequests => "Rate limited by Discord. Please wait a moment and try again.",
+                        System.Net.HttpStatusCode.InternalServerError => "Discord server error. Please try again later.",
+                        _ => $"Discord API error: {httpEx.Message}"
+                    };
+                    
+                    await command.RespondAsync(errorMessage, ephemeral: true);
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    Log.WriteLine($"Unexpected error sending message: {ex.Message}", LogLevel.ERROR);
+                    await command.RespondAsync("Failed to send status message. Please check bot permissions.", ephemeral: true);
+                    return;
+                }
                 
                 Log.WriteLine("Preferences saved, sending response...", LogLevel.DEBUG);
                 
                 await command.RespondAsync($"This channel (<#{command.Channel.Id}>) is now set for game status updates!", ephemeral: true);
-                Log.WriteLine($"Game status channel set to {command.Channel.Id} with message ID {message.Id} by user {userId}", LogLevel.DEBUG);
+                Log.WriteLine($"Game status channel set to {command.Channel.Id} with message ID {message?.Id} by user {userId}", LogLevel.DEBUG);
             }
             else
             {
