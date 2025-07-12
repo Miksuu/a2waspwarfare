@@ -1,24 +1,6 @@
-Tools/LoadoutManager/bin/Debug/net7.0/
-
-Tools/LoadoutManager/obj/Debug/net7.0/
-
-Tools/LoadoutManager/.vs/LoadoutManager/FileContentIndex/
-
-Tools/LoadoutManager/.vs/LoadoutManager/v17/
-
-Tools/LoadoutManager/.vs/LoadoutManager/DesignTimeBuild/
-
-Tools/LoadoutManager/.vs/
-
-Tools/LoadoutManager/obj/
-
-Tools/LoadoutManager/bin/Release/net7.0/
-
 Missions/\[55-2hc\]warfarev2_073v48co.chernarus/version.sqf
 
 Missions/\[61-2hc\]warfarev2_073v48co.takistan/version.sqf
-
-Tools/LoadoutManager/bin/SERVER_DEBUG/net7.0/
 
 Modded_Missions/\[55-2hc\]warfarev2_073v48co.eden/version.sqf
 
@@ -36,14 +18,6 @@ Modded_Missions/\[61-2hc\]warfarev2_073v48co.isladuala/version.sqf
 
 Modded_Missions/\[55-2hc\]warfarev2_073v48co.Napf/version.sqf
 
-Tools/LoadoutManager/PromptLibrary
-
-Tools/LoadoutManager/bin/AIRWAR_DEBUG/
-
-Tools/LoadoutManager/bin/AIRWAR_RELEASE/
-
-Tools/LoadoutManager/bin/AIRWAR_SERVER_DEBUG/
-
 Arma_2_CO-163_ConfigFiles/
 
 Missions_Vanilla/\[61-2hc\]warfarev2_073v48co.takistan/version.sqf
@@ -51,5 +25,3 @@ Missions_Vanilla/\[61-2hc\]warfarev2_073v48co.takistan/version.sqf
 TempZippingDirectory/
 
 _MISSIONS.7z
-
-Tools/LoadoutManager/bin/
