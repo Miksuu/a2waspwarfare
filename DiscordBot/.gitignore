@@ -4,3 +4,11 @@
 bin/Debug/net9.0/
 
 obj/
+
+.data/
+
+.logs/
+
+token.txt
+
+preferences.json
