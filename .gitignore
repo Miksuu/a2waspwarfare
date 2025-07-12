@@ -75,3 +75,11 @@ TempZippingDirectory/
 _MISSIONS.7z
 
 Tools/LoadoutManager/bin/
+
+a2waspwarfare_DiscordBot/.data/
+
+a2waspwarfare_DiscordBot/.logs/
+
+a2waspwarfare_DiscordBot/token.txt
+
+a2waspwarfare_DiscordBot/preferences.json
