@@ -7,8 +7,8 @@
     <ProjectGuid>{C7369F5A-8D0C-4838-AE62-16B39B4E1847}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>a2waspwarfare_Extension</RootNamespace>
-    <AssemblyName>a2waspwarfare_Extension</AssemblyName>
+    <RootNamespace>Extension</RootNamespace>
+    <AssemblyName>Extension</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
