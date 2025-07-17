@@ -10,7 +10,6 @@ public class GameStatusUpdater
     private readonly SemaphoreSlim updateSemaphore = new SemaphoreSlim(1, 1); // Prevent multiple updates at once
     private const int DISCORD_TIMEOUT_MS = 30000; // 30 second timeout for Discord operations
     private int consecutiveTimeouts = 0;
-    private const int MAX_CONSECUTIVE_TIMEOUTS = 3; // Only create new message after 3 consecutive timeouts
 
     public void StartGameStatusUpdates(DiscordSocketClient _client)
     {
@@ -133,14 +132,8 @@ public class GameStatusUpdater
                     consecutiveTimeouts++;
                     Log.WriteLine($"Timeout updating message (#{consecutiveTimeouts}). Will retry next update.", LogLevel.WARNING);
                     
-                    // Only reset message ID after multiple consecutive timeouts
-                    if (consecutiveTimeouts >= MAX_CONSECUTIVE_TIMEOUTS)
-                    {
-                        Log.WriteLine($"Too many consecutive timeouts ({consecutiveTimeouts}). Will create new message next time.", LogLevel.ERROR);
-                        Preferences.Instance.GameStatusMessageID = null;
-                        Preferences.SaveToFile();
-                        consecutiveTimeouts = 0;
-                    }
+                    // Log the timeout but don't reset message ID - just continue trying with the same message ID
+                    Log.WriteLine($"Consecutive timeouts count: {consecutiveTimeouts}", LogLevel.DEBUG);
                     return; // Don't create new message on timeout
                 }
             }
@@ -154,19 +147,14 @@ public class GameStatusUpdater
         {
             consecutiveTimeouts++;
             Log.WriteLine($"Timeout during update operation (#{consecutiveTimeouts}). Will retry next update.", LogLevel.WARNING);
+            Log.WriteLine($"Consecutive timeouts count: {consecutiveTimeouts}", LogLevel.DEBUG);
         }
         catch (Exception ex)
         {
             Log.WriteLine($"Failed to update game status message: {ex.Message}", LogLevel.ERROR);
-            // Only reset message ID for non-timeout errors after multiple attempts
+            // Log the error but don't reset message ID - just continue trying with the same message ID
             consecutiveTimeouts++;
-            if (consecutiveTimeouts >= MAX_CONSECUTIVE_TIMEOUTS)
-            {
-                Log.WriteLine($"Multiple consecutive errors ({consecutiveTimeouts}). Resetting message ID.", LogLevel.ERROR);
-                Preferences.Instance.GameStatusMessageID = null;
-                Preferences.SaveToFile();
-                consecutiveTimeouts = 0;
-            }
+            Log.WriteLine($"Consecutive errors count: {consecutiveTimeouts}", LogLevel.DEBUG);
         }
     }
 
@@ -192,11 +180,13 @@ public class GameStatusUpdater
         {
             consecutiveTimeouts++;
             Log.WriteLine($"Timeout creating new status message (#{consecutiveTimeouts}). Will retry next update.", LogLevel.WARNING);
+            Log.WriteLine($"Consecutive timeouts count: {consecutiveTimeouts}", LogLevel.DEBUG);
         }
         catch (Exception ex)
         {
             Log.WriteLine($"Failed to create new status message: {ex.Message}", LogLevel.ERROR);
             consecutiveTimeouts++;
+            Log.WriteLine($"Consecutive errors count: {consecutiveTimeouts}", LogLevel.DEBUG);
         }
     }
 
