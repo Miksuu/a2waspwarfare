@@ -57,5 +57,9 @@ while {!gameOver} do {
 
 		_count = _count + 1;
 	} forEach clientTeams;
+<<<<<<<< HEAD:Missions_Vanilla/[61-2hc]warfarev2_073v48co.takistan/Client/FSM/updateteamsmarkers.sqf
 	sleep 0.05;
+========
+	sleep 0.2;
+>>>>>>>> AntiStackPreparation:Missions/[55-2hc]warfarev2_073v48co.chernarus/Client/FSM/updateteamsmarkers.sqf
 };

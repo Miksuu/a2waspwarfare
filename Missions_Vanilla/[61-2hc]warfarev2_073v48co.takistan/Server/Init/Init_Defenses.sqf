@@ -4,14 +4,11 @@ missionNamespace setVariable ['WFBE_NEURODEF_BARRACKS_WALLS',[
 	['Land_HBarrier_large',[8,10,0],90],
 	['Land_HBarrier_large',[8,-7.5,0],90],
 	['Land_HBarrier_large',[5,-11,0],180],
-	['Land_HBarrier_large',[0.5,-11,0],180],
 	['Land_HBarrier_large',[-6,-11,0],180],
 	['Land_HBarrier_large',[-9.5,-7.5,0],90],
 	['Land_HBarrier_large',[-9.5,2.5,0],90],
 	['Land_HBarrier_large',[5,13,0],180],
-	['Land_HBarrier_large',[0.5,13,0],180],
-	['Land_HBarrier_large',[-6,13,0],180],
-	['Land_HBarrier_large',[-9.5,9.5,0],90]
+	['Land_HBarrier_large',[-6,13,0],180]
 ]];
 
 missionNamespace setVariable ['WFBE_NEURODEF_LIGHT_WALLS',[
@@ -19,13 +16,10 @@ missionNamespace setVariable ['WFBE_NEURODEF_LIGHT_WALLS',[
 	['Land_HBarrier_large',[10,9,0],-90],
 	['Land_HBarrier_large',[10,-8.5,0],90],
 	['Land_HBarrier_large',[7,-12,0],180],
-	['Land_HBarrier_large',[0,-12,0],180],
 	['Land_HBarrier_large',[-7,-12,0],180],
 	['Land_HBarrier_large',[7,12,0],180],
-	['Land_HBarrier_large',[0,12,0],180],
 	['Land_HBarrier_large',[-7,12,0],180],
 	['Land_HBarrier_large',[-11,-9,0],90],
-	['Land_HBarrier_large',[-11,-1.5,0],90],
 	['Land_HBarrier_large',[-11,6,0],90],
 	['Land_HBarrier_large',[-11,9,0],90]
 ]];
@@ -41,6 +35,7 @@ missionNamespace setVariable ['WFBE_NEURODEF_COMMANDCENTER_WALLS',[
 ]];
 
 missionNamespace setVariable ['WFBE_NEURODEF_SERVICEPOINT_WALLS',[
+
 ]];
 
 missionNamespace setVariable ['WFBE_NEURODEF_HEAVY_WALLS',[
@@ -49,15 +44,12 @@ missionNamespace setVariable ['WFBE_NEURODEF_HEAVY_WALLS',[
 	['Land_HBarrier_large',[14,-8.5,0],90],
 	['Land_HBarrier_large',[14,-11,0],90],
 	['Land_HBarrier_large',[11,-14.5,0],180],
-	['Land_HBarrier_large',[4.5,-14.5,0],180],
 	['Land_HBarrier_large',[-3,-14.5,0],180],
 	['Land_HBarrier_large',[-10.5,-14.5,0],180],
 	['Land_HBarrier_large',[-14,-11,0],90],
-	['Land_HBarrier_large',[-14,-3.5,0],90],
 	['Land_HBarrier_large',[-14,4,0],90],
 	['Land_HBarrier_large',[-14,9.5,0],90],
 	['Land_HBarrier_large',[11,13,0],180],
-	['Land_HBarrier_large',[3.5,13,0],180],
 	['Land_HBarrier_large',[-4,13,0],180],
 	['Land_HBarrier_large',[-11,13,0],-180]
 ]];
@@ -67,13 +59,10 @@ missionNamespace setVariable ['WFBE_NEURODEF_AIRCRAFT_WALLS',[
 	['Land_HBarrier_large',[10,9,0],-90],
 	['Land_HBarrier_large',[10,-8.5,0],90],
 	['Land_HBarrier_large',[7,-12,0],180],
-	['Land_HBarrier_large',[0,-12,0],180],
 	['Land_HBarrier_large',[-7,-12,0],180],
 	['Land_HBarrier_large',[7,12,0],180],
-	['Land_HBarrier_large',[0,12,0],180],
 	['Land_HBarrier_large',[-7,12,0],180],
 	['Land_HBarrier_large',[-11,-9,0],90],
-	['Land_HBarrier_large',[-11,-1.5,0],90],
 	['Land_HBarrier_large',[-11,6,0],90],
 	['Land_HBarrier_large',[-11,9,0],90]
 ]];

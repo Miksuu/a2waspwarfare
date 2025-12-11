@@ -1,3 +1,5 @@
+private ["_enemy_side"];
+
 disableSerialization;
 
 _display = _this select 0;
@@ -54,7 +56,7 @@ _currentFee = -1;
 _lastSel = -1;
 _addToList = [localize 'STR_WF_TACTICAL_FastTravel',localize 'STR_WF_ICBM',localize 'STR_WF_TACTICAL_ParadropAmmo',localize 'STR_WF_TACTICAL_ParadropVehicle',localize 'STR_WF_TACTICAL_Paratroop',localize 'STR_WF_TACTICAL_UnitCam',localize 'STR_WF_TACTICAL_UAV',localize 'STR_WF_TACTICAL_UAVDestroy',localize 'STR_WF_TACTICAL_UAVRemoteControl'];
 _addToListID = ["Fast_Travel","ICBM","Paradrop_Ammo","Paradrop_Vehicle","Paratroopers","Units_Camera","UAV","UAV_Destroy","UAV_Remote_Control"];
-_addToListFee = [0,150000,9500,3500,6500,0,12500,0,0];
+_addToListFee = [0,75000,9500,3500,8500,0,12500,0,0];
 _addToListInterval = [0,1000,800,600,900,0,0,0,0];
 
 for '_i' from 0 to count(_addToList)-1 do {
@@ -98,7 +100,7 @@ MenuAction = -1;
 mouseButtonUp = -1;
 
 while {alive player && dialog} do {
-	if (side player != sideJoined) exitWith {deleteMarkerLocal _marker;deleteMarkerLocal _area;{deleteMarkerLocal _x} forEach _markers;closeDialog 0};
+	if (side group player != sideJoined) exitWith {deleteMarkerLocal _marker;deleteMarkerLocal _area;{deleteMarkerLocal _x} forEach _markers;closeDialog 0};
 	if (!dialog) exitWith {deleteMarkerLocal _marker;deleteMarkerLocal _area;{deleteMarkerLocal _x} forEach _markers};
 	
 	_currentUpgrades = (sideJoined) Call WFBE_CO_FNC_GetSideUpgrades;
@@ -210,7 +212,7 @@ while {alive player && dialog} do {
 				};
 			};
 			case "ICBM": {
-				if ((missionNamespace getVariable "WFBE_C_MODULE_WFBE_ICBM") > 0) then {
+				if ((missionNamespace getVariable "WFBE_C_MODULE_WFBE_ICBM") > 0 && !(IS_air_war_event)) then {
 					_commander = false;
 					if (!isNull(commanderTeam)) then {
 						if (commanderTeam == group player) then {_commander = true};
@@ -318,6 +320,7 @@ while {alive player && dialog} do {
 			_marker setMarkerPosLocal artyPos;
 			_area setMarkerPosLocal artyPos;
 			_requestRangedList = true;
+
 		};
 		//--- Paratroops.
 		if (MenuAction == 3) then {
@@ -427,12 +430,41 @@ while {alive player && dialog} do {
 			MenuAction = -1;
 			-_currentFee Call ChangePlayerFunds;
 			_callPos = _map PosScreenToWorld[mouseX,mouseY];
-			_obj = "HeliHEmpty" createVehicle _callPos;
-			_nukeMarker = createMarkerLocal ["icbmstrike", position _obj];
-			_nukeMarker setMarkerTypeLocal "mil_warning";
-			_nukeMarker setMarkerTextLocal "ICBM";
-			_nukeMarker setMarkerColorLocal "ColorRed";
-			[_obj,_nukeMarker] Spawn NukeIncomming;
+			_obj = "HeliHEmpty" createVehicle _callPos; 
+			
+			//--- Marty : Creating the ICBM marker on map for the commander who give the order:
+			_ICBM_marker_name 		= "ICBM_" + str(time) ;
+			_ICBM_markerPosition 	= position _obj ;
+			_ICBM_markerType 		= "mil_warning";
+			_ICBM_markerText 		= "ICBM by commander";
+			_ICBM_markerColor 		= "ColorRed";
+			_ICBM_markerSide		= playerSide;
+			_ICBM_markerRadius      = missionNamespace getVariable "ICBM_DAMAGE_RADIUS";
+			_ICBM_marker_elipse_name = format["Elipse_%1", _ICBM_marker_name];
+
+			[_ICBM_marker_name, _ICBM_markerPosition, _ICBM_markerType, _ICBM_markerText, _ICBM_markerColor, _ICBM_markerSide, _ICBM_marker_elipse_name, _ICBM_markerRadius] call WF_createMarker ;
+
+
+			// Marty : Messages text and audio to be sent : 
+			if (playerSide == east) then 
+			{
+				_enemy_side = west;
+			}else 
+			{
+				_enemy_side = east;
+			};
+
+			[playerSide]  call ICBM_FriendySide_Message ;	// Text and audio to be sent to the friendly side. 
+			[_enemy_side] call ICBM_EnemySide_Message ;		// Text and audio to be sent to the enemy side. 
+
+			// Initiate the launch
+			[_obj,_ICBM_marker_name] Spawn NukeIncoming;
+			
+			//remove ICBM marker after countdown elapsed
+			_time_before_ICBM_impact = missionNamespace getVariable "WFBE_ICBM_TIME_TO_IMPACT"; // time in minutes.
+			_time_before_ICBM_impact = _time_before_ICBM_impact * 60 ;							// time in seconds.
+			[_ICBM_marker_name,_time_before_ICBM_impact] call WFBE_CL_FNC_Delete_Marker ;			// delete the marker. 
+			[_ICBM_marker_elipse_name,_time_before_ICBM_impact] call WFBE_CL_FNC_Delete_Marker ;	// delete the elipse marker.
 		};
 		//--- Vehicle Paradrop.
 		if (MenuAction == 9) then {
@@ -474,7 +506,8 @@ while {alive player && dialog} do {
 		_units = [Group player,false,lbCurSel(17008),sideJoinedText] Call GetTeamArtillery;
 		if (Count _units > 0) then {
 			fireMissionTime = time;
-			[GetMarkerPos "artilleryMarker",lbCurSel(17008)] Spawn RequestFireMission;
+			[GetMarkerPos "artilleryMarker",lbCurSel(17008), _fireTime, artyRange] Spawn RequestFireMission;
+			
 		} else {
 			hint (localize "STR_WF_INFO_NoArty");
 		};			

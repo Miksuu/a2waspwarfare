@@ -1,4 +1,4 @@
-﻿_color = "#00ff00";
+_color = "#00ff00";
 _dam = (1 - getDammage obj)*100;
 _dr = 100 - _dam;
 
@@ -16,7 +16,7 @@ for "_j" from 0 to 1 do
     _dam = (1 - getDammage obj)*100;
 	if ( _dam > 67) then {_color = "#00ff00";} else {
     if ( _dam > 37) then {_color = "#ffe400"} else {_color = "#ff0000"}};
-    _text = composeText [   
+    _text = composeText [
     parseText format ["<t size='1'>%1</t><br /><t size='1.2'>%2:</t><t size='1.2' color='%3' align='center'> %4 %5</t>",(baseb select objnum) select 1,localize "RB_state",_color ,str (_dam), "%"]
     ];
     hintSilent _text;

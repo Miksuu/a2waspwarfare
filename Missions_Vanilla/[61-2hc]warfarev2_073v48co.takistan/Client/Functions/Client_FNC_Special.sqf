@@ -12,7 +12,7 @@ WFBE_CL_FNC_Commander_Assigned = {
 		_text = Format[localize "STR_WF_CHAT_VoteForNewCommander",name (leader _commanderTeam)];
 		if (group player == _commanderTeam) then {_text = localize "STR_WF_CHAT_PlayerCommanderTitleText"};
 	}else{
-		_logic = (side player) Call WFBE_CO_FNC_GetSideLogic;
+		_logic = (side group player) Call WFBE_CO_FNC_GetSideLogic;
 		_logic setVariable ["wfbe_commander", _commanderTeam, true];
 	};
 
@@ -114,6 +114,52 @@ WFBE_CL_FNC_Upgrade_Started = {
 	_level = _this select 1;
 
 	(Format [Localize "STR_WF_CHAT_Upgrade_Started_Message",(missionNamespace getVariable "WFBE_C_UPGRADES_LABELS") select _upgrade, _level]) Call CommandChatMessage;
+};
+
+WFBE_CL_FNC_Building_Started = {
+	Private ["_building", "_localisedBuilding"];
+	_building = _this select 0;
+
+	_localisedBuilding = "";
+
+	switch (_building) do {
+		case "Barracks": {
+			_localisedBuilding = localize "RB_Barracks";
+			playSound ["barracksBuildSound",true];
+		};
+		case "Light": {
+			_localisedBuilding = localize "RB_Light_Factory";
+			playSound ["lightFactoryBuildSound",true];
+		};
+		case "CommandCenter": {
+			_localisedBuilding = localize "RB_Command_Center";
+			playSound ["commandCenterBuildSound",true];
+		};
+		case "Heavy": {
+			_localisedBuilding = localize "RB_Heavy_Factory";
+			playSound ["heavyFactoryBuildSound",true];
+		};
+		case "Aircraft": {
+			_localisedBuilding = localize "RB_Aircraft_factory";
+			playSound ["aircraftFactoryBuildSound",true];
+		};
+		case "ServicePoint": {
+			_localisedBuilding = localize "RB_Service_Point";
+			playSound ["servicePointBuildSound",true];
+		};
+		case "AARadar": {
+			_localisedBuilding = localize "STR_WF_UPGRADE_AntiAirRadar";
+			playSound ["aaRadarBuildSound",true];
+		};
+		default {
+			_localisedBuilding = "Unknown";
+		};
+	};
+
+	if (_localisedBuilding != "Unknown") then {
+		["DEBUG (Client_FNC_Special.sqf)", Format ["Building: %1", _localisedBuilding]] Call WFBE_CO_FNC_LogContent;
+		Format[Localize "STR_WF_CHAT_Building_Started_Message", _localisedBuilding] Call CommandChatMessage;
+	};
 };
 
 WFBE_CL_FNC_Upgrade_Complete = {

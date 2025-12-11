@@ -24,7 +24,7 @@ _c = _c + ['BAF_Soldier_AMG_DDPM'];
 _i = _i + [['','',190,6,-1,1,0,1,'British (Desert)',[]]];
 
 _c = _c + ['BAF_Soldier_AT_DDPM'];
-_i = _i + [['','',360,6,-1,3,0,1,'British (Desert)',[]]];
+_i = _i + [['','',650,6,-1,1,0,1,'British (Desert)',[]]];
 
 _c = _c + ['BAF_Soldier_HAT_DDPM'];
 _i = _i + [['','',1050,6,-1,3,0,1,'British (Desert)',[]]];
@@ -95,7 +95,7 @@ _i = _i + [['','',725,21,-2,2,1,0,'British (Desert)',[]]];
 
 /* Heavy Vehicles */
 _c = _c + ['BAF_FV510_D'];
-_i = _i + [['','',6000,30,-2,3,2,0,'British (Desert)',[]]];
+_i = _i + [['','',6500,30,-2,3,2,0,'British (Desert)',[]]];
 
 for '_z' from 0 to (count _c)-1 do {
 	if (isClass (configFile >> 'CfgVehicles' >> (_c select _z))) then {

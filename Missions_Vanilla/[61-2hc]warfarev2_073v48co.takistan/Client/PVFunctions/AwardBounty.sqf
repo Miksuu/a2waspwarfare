@@ -13,7 +13,6 @@ if ((_name == "BRDM-2 (ATGM)") && (_faction == "Insurgents")) then {
 	_name = "BRDM-2 (Igla AA)";
 };
 
-
 _bounty = switch  (true) do {
                     case (_type isKindOf "Man"): {round((_get select QUERYUNITPRICE) *0.7* (missionNamespace getVariable "WFBE_C_UNITS_BOUNTY_COEF"));};
 

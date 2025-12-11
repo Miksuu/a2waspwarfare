@@ -69,7 +69,7 @@ while {alive player && dialog} do {
 		};
 	};
 
-	if ((((uiNamespace getVariable "wfbe_display_vote") displayCtrl 500100) lnbText [0, 1]) != str(_voteArray select 0)) then {lnbSetText [500100, [0, 1], str(_voteArray select 0)]}; //--- AI Commander
+	if ((((uiNamespace getVariable "wfbe_display_vote") displayCtrl 500100) lnbText [0, 1]) != str(_voteArray select 0)) then {lnbSetText [500100, [0, 1], str(_voteArray select 0)]}; //--- No Commander
 
 	for '_i' from 1 to ((lnbSize 500100) select 0)-1 do { //--- Update the UI list properties (name / votes) for players.
 		_value = lnbValue [500100,[_i, 0]];

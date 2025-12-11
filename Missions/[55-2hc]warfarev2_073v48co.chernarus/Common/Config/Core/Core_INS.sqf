@@ -29,8 +29,9 @@ _i = _i + [['','',180,4,-1,1,0,1,'Insurgents',[]]];
 _c = _c + ['Ins_Soldier_MG'];
 _i = _i + [['','',190,4,-1,1,0,1,'Insurgents',[]]];
 
+// Ins_Soldier_AT acts as Dragon soldier now
 _c = _c + ['Ins_Soldier_AT'];
-_i = _i + [['','',220,6,-1,1,0,1,'Insurgents',[]]];
+_i = _i + [['AT Specialist (Dragon)','',600,6,-1,2,0,1,'Insurgents',[]]];
 
 _c = _c + ['Ins_Soldier_AA'];
 _i = _i + [['','',300,6,-1,2,0,1,'Insurgents',[]]];
@@ -106,23 +107,23 @@ _c = _c + ['UralRefuel_INS'];
 _i = _i + [['','',500,21,-2,1,1,0,'Insurgents',[]]];
 
 _c = _c + ['WarfareSupplyTruck_INS'];
-_i = _i + [['','',550,21,-2,1,1,0,'Insurgents',[]]];
+_i = _i + [['','',550,21,-2,0,1,0,'Insurgents',[]]];
 
 _c = _c + ['BRDM2_INS'];
 _i = _i + [['','',1200,25,-2,3,1,0,'Insurgents',[]]];
 
 _c = _c + ['BRDM2_ATGM_INS'];
-_i = _i + [['','',1650,25,-2,3,1,0,'Insurgents',[]]];
+_i = _i + [['BRDM (Igla)','',2150,25,-2,3,1,0,'Insurgents',[]]];
 
 _c = _c + ['Ural_ZU23_INS'];
-_i = _i + [['','',1750,20,-2,3,1,0,'Insurgents',[]]];
+_i = _i + [['','',1100,20,-2,3,1,0,'Insurgents',[]]];
 
 _c = _c + ['GRAD_INS'];
-_i = _i + [['','',5300,35,-2,5,1,0,'Insurgents',[]]];
+_i = _i + [['','',6800,35,-2,5,1,0,'Insurgents',[]]];
 
 /* Heavy Vehicles */
 _c = _c + ['BMP2_Ambul_INS'];
-_i = _i + [['','',3950,20,-2,0,2,0,'Insurgents',[]]];
+_i = _i + [['','',3950,20,-2,1,2,0,'Insurgents',[]]];
 
 _c = _c + ['BMP2_INS'];
 _i = _i + [['','',3400,28,-2,2,2,0,'Insurgents',[]]];
@@ -135,13 +136,13 @@ _i = _i + [['','',5200,35,-2,3,2,0,'Insurgents',[]]];
 
 /* Air Vehicles */
 _c = _c + ['Mi17_Ins'];
-_i = _i + [['','',8800,35,-2,1,3,0,'Insurgents',[]]];
+_i = _i + [['','',8800,30,-2,1,3,0,'Insurgents',[]]];
 
 _c = _c + ['Mi17_medevac_Ins'];
-_i = _i + [['','',9120,35,-2,1,3,0,'Insurgents',[]]];
+_i = _i + [['','',9800,30,-2,2,3,0,'Insurgents',[]]];
 
 _c = _c + ['Su25_Ins'];
-_i = _i + [['SU-25 (KH29)','',42640,55,-2,4,3,0,'Insurgents',[]]];
+_i = _i + [['Su-25A','',25584,45,-2,3,3,0,'Insurgents',[]]];
 
 /* Static Defenses */
 _c = _c + ['Ins_WarfareBMGNest_PK'];

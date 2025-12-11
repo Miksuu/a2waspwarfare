@@ -5,7 +5,7 @@ _ignoreVehicle=_this select 2;
 _vehicle=if(count _this>3)then{_this select 3}
 else{objNull};
 
-_maxGrad='WFBE_COINMAXGRADIENT' Call GetNamespace;_minDist='WFBE_COINMINDISTANCE' Call GetNamespace;
+_maxGrad='cti_COINMAXGRADIENT' Call GetNamespace;_minDist='cti_COINMINDISTANCE' Call GetNamespace;
 _isFlat=_position isFlatEmpty[0.00001,0,24,10,0,false,_vehicle];
 if(count _isFlat==0)exitWith{false};
 _flat=true;_list=_position nearObjects _radius;

@@ -7,7 +7,6 @@ createCenter resistance;
 resistance setFriend [west,0];
 resistance setFriend [east,0];
 
-
 AIBuyUnit = Compile preprocessFile "Server\Functions\Server_BuyUnit.sqf";
 if (WF_A2_Vanilla) then {AISquadRespawn = Compile preprocessFile "Server\AI\AI_SquadRespawn.sqf"};
 if !(WF_A2_Vanilla) then {AIAdvancedRespawn = Compile preprocessFile "Server\AI\AI_AdvancedRespawn.sqf"};
@@ -85,12 +84,11 @@ WFBE_SE_PV_RequestSupplyValue = Call Compile preprocessFileLineNumbers "Server\F
 WFBE_SE_FNC_CallDatabaseRequestSideTotalSkill = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseRequestSideTotalSkill.sqf";
 WFBE_SE_FNC_CallDatabaseFlushPlayerList = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseFlushPlayerList.sqf";
 WFBE_SE_FNC_CallDatabaseSetMap = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseSetMap.sqf";
-
+WFBE_SE_FNC_AwardScorePlayer = Compile preprocessFileLineNumbers "Server\Functions\Server_AwardScorePlayer.sqf";
 
 //--- Define Headless Client functions (server ones).
 if (ARMA_VERSION >= 162 && ARMA_RELEASENUMBER >= 101334 || ARMA_VERSION > 162) then {
 	WFBE_CO_FNC_DelegateAITownHeadless = Compile preprocessFileLineNumbers "Server\Functions\Server_DelegateAITownHeadless.sqf";
-	WFBE_CO_FNC_DelegateAIHeadless = Compile preprocessFileLineNumbers "Server\Functions\Server_DelegateAIHeadless.sqf";
 	WFBE_CO_FNC_DelegateAIStaticDefenceHeadless = Compile preprocessFileLineNumbers "Server\Functions\Server_DelegateAIStaticDefenceHeadless.sqf";
 };
 
@@ -175,7 +173,7 @@ WF_Logic setVariable ["wfbe_spawnpos", _locationLogics];
 Private ["_i", "_maxAttempts", "_minDist", "_rPosE", "_rPosW", "_setEast", "_setGuer", "_setWest", "_startE", "_startG", "_startW"];
 _i = 0;
 _maxAttempts = 2000;
-_minDist = missionNamespace getVariable 'WFBE_C_BASE_STARTING_DISTANCE';
+_minDist = startingDistance;
 _startW = [0,0,0];
 _startE = [0,0,0];
 _startG = [0,0,0];
@@ -283,6 +281,8 @@ if (_use_random) then {
 
 ["INITIALIZATION", Format ["Init_Server.sqf: Starting location mode is on [%1].",missionNamespace getVariable "WFBE_C_BASE_STARTING_MODE"]] Call WFBE_CO_FNC_LogContent;
 
+[] execVM "Server\CallExtensions\GlobalGameStats.sqf";
+
 emptyQueu = [];
 
 //--- Global sides initialization.
@@ -304,12 +304,14 @@ emptyQueu = [];
 		_hq setVariable ["wfbe_structure_type", "Headquarters"];
 		_hq addEventHandler ['killed', {_this Spawn WFBE_SE_FNC_OnHQKilled}];
 		_hq addEventHandler ["hit",{_this Spawn BuildingDamaged}];
-                if (_side == west)then{
-	           _hq setVehicleInit "this setObjectTexture [0,""Textures\lavbody_coD.paa""]";
-	           _hq setVehicleInit "this setObjectTexture [1,""Textures\lavbody2_coD.paa""]";
-	           _hq setVehicleInit "this setObjectTexture [2,""Textures\lav_hq_coD.paa""]";
-	            processinitcommands;
-	        };
+
+        if (_side == west && !(IS_chernarus_map_dependent))then{
+	        _hq setVehicleInit "this setObjectTexture [0,""Textures\lavbody_coD.paa""]";
+	        _hq setVehicleInit "this setObjectTexture [1,""Textures\lavbody2_coD.paa""]";
+	        _hq setVehicleInit "this setObjectTexture [2,""Textures\lav_hq_coD.paa""]";
+			processinitcommands;
+		};
+
 		//--- HQ Friendly Fire handler.
 		//if ((missionNamespace getVariable "WFBE_C_GAMEPLAY_HANDLE_FRIENDLYFIRE") > 0) then {_hq addEventHandler ['handleDamage',{[_this select 0,_this select 2,_this select 3] Call BuildingHandleDamages}]};
 
@@ -360,7 +362,7 @@ emptyQueu = [];
 			_logik setVariable ["wfbe_ai_supplytrucks", []];
 			[_side] Spawn UpdateSupplyTruck;
 		};
-		if ((missionNamespace getVariable "WFBE_C_RESPAWN_MASH") > 0) then {_logik setVariable ["wfbe_mash", objNull]};
+		if ((missionNamespace getVariable "WFBE_C_RESPAWN_MASH") > 0) then {_logik setVariable ["wfbe_mash", objNull, true]};
 		if ((missionNamespace getVariable "WFBE_C_ECONOMY_CURRENCY_SYSTEM") == 0) then {missionNamespace setVariable [format ["wfbe_supply_%1", str _side], missionNamespace getVariable Format ["WFBE_C_ECONOMY_SUPPLY_START_%1", _side]]};
 		if ((missionNamespace getVariable "WFBE_C_ECONOMY_INCOME_SYSTEM") in [3,4]) then {
 			_logik setVariable ["wfbe_commander_percent", if ((missionNamespace getVariable "WFBE_C_ECONOMY_INCOME_PERCENT_MAX") < 70) then {missionNamespace getVariable "WFBE_C_ECONOMY_INCOME_PERCENT_MAX"} else {70}, true];
@@ -460,6 +462,15 @@ _vehicle addAction ["<t color='"+"#00E4FF"+"'>STEALTH ON</t>","Client\Module\Eng
 					[_group, "towns"] Call SetTeamMoveMode;
 					[_group, [0,0,0]] Call SetTeamMovePos;
 
+
+					if(isPlayer (leader (group _x)))then{
+						_procedureName = "INSERT_PLAYER";
+						_nickname = name (leader (group _x));
+						_game_guid = getPlayerUID (leader (group _x));
+						_side = side (leader (group _x));
+						_money = _group getVariable "wfbe_funds";
+					};
+
 					["INITIALIZATION", Format["Init_Server.sqf: [%1] Team [%2] was initialized.", _side, _group]] Call WFBE_CO_FNC_LogContent;
 				};
 
@@ -471,56 +482,8 @@ _vehicle addAction ["<t color='"+"#00E4FF"+"'>STEALTH ON</t>","Client\Module\Eng
 	};
 } forEach [[_present_east, east, _startE],[_present_west, west, _startW]];
 
-//// Resistance base operational
-_barrack_amount = 2;
-ResBuyUnit = Compile preprocessFile "Server\Functions\Server_ResBuyUnit.sqf";
-_start_position_array = [
-	[3590.26,1351.93,-366.774],
-	[5631.62,2078.92,-375.691],
-	[8634.35,1433,-413.747],
-	[9577.12,4540.79,-433.645],
-	[11983.1,2918.1,-393.606],
-	[10740.2,5799.17,-344.851],
-	[9648.1,5922.52,-310.485],
-	[7241.53,6412.26,-350.999],
-	[4208.3,4494.93,-251.197],
-	[2895.52,3409.43,-320.887],
-	[633.824,4650.69,-425.365],
-	[1019.35,6193.82,-346.709],
-	[5049.7,6882.12,-301.08],
-	[7517.29,7531.28,-226.796],
-	[3337.01,7503.49,-248.396],
-	[4224.42,7754.88,-277.888],
-	[3822.42,9226.77,-130.493],
-	[4110.47,10840.3,-36.8218],
-	[1835.27,10711.6,-325.014],
-	[11896.4,11351.9,-102.837],
-	[11591.2,7780,-318.703],
-	[9099.64,7599.32,-289.032],
-	[10739.5,5828.72,-342.877]
-];
-
-_selected_pos_array = [];
 [] Call Compile preprocessFile "Server\Config\Config_GUE.sqf";
-for [{_c = 0},{_c < _barrack_amount},{_c = _c + 1}] do {
-	_startG = _start_position_array select (random (count(_start_position_array)));
-	_selected_pos_array = _selected_pos_array + [_startG];
-};
 
-for [{_count = 0},{_count < _barrack_amount},{_count = _count + 1}] do {
-
-	[resistance,_selected_pos_array select _count, _count] spawn {
-		_side = _this select 0;
-		_startLoc = _this select 1;
-		_bar_count = _this select 2;
-		[_side,_startLoc, _bar_count] ExecVM "Server\FSM\server_res_bases.sqf"
-	};
-
-	["INITIALIZATION", "Init_Server.sqf: res base is initialized."] Call WFBE_CO_FNC_LogContent;
-};
-
-_selected_pos_array = [];
-_start_position_array = [];
 serverInitFull = true;
 
 // run one global server town script to process supply updates in each town
@@ -581,6 +544,8 @@ WF_Logic setVariable ["emptyVehicles",[],true];
 //--- Base Area (grouped base)
 if ((missionNamespace getVariable "WFBE_C_BASE_AREA") > 0) then {[] execVM "Server\FSM\basearea.sqf"};
 
+//if (LOG_CONTENT_STATE == "ACTIVATED") then {[] execVM "Server\FSM\groupsMonitor.sqf"};
+
 //--- ALICE Module.
 if ((missionNamespace getVariable "WFBE_C_MODULE_BIS_ALICE") > 0) then {
 	_type = if (WF_A2_Vanilla) then {'AliceManager'} else {'Alice2Manager'};
@@ -588,6 +553,9 @@ if ((missionNamespace getVariable "WFBE_C_MODULE_BIS_ALICE") > 0) then {
 
 	["INITIALIZATION", "Init_Server.sqf: BIS ALICE is defined."] Call WFBE_CO_FNC_LogContent;
 };
+
+// Execute the server fps script on a seperate thread
+[] ExecVM "Server\GUI\serverFpsGUI.sqf";
 
 ["INITIALIZATION", Format ["Init_Server.sqf: Server initialization ended at [%1]", time]] Call WFBE_CO_FNC_LogContent;
 

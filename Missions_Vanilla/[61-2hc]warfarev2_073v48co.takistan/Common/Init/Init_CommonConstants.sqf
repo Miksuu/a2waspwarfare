@@ -54,6 +54,7 @@ WFBE_UP_SUPPLYPARADROP = 16;
 WFBE_UP_ARTYAMMO = 17;
 WFBE_UP_IRSMOKE = 18;
 WFBE_UP_AIRAAM = 19;
+WFBE_UP_AAR = 20;
 
 /*
 	### Working with the missionNamespace ###
@@ -84,7 +85,13 @@ with missionNamespace do {
 	WFBE_C_ARTILLERY_AMMO_RANGE_LASER = 175; //--- Artillery laser rounds detection range (Per Shell).
 	WFBE_C_ARTILLERY_AMMO_RANGE_SADARM = 200; //--- Artillery SADARM rounds operative range (Per Shell).
 	WFBE_C_ARTILLERY_AREA_MAX = 300; //---  Maximum spread area of artillery support.
-	WFBE_C_ARTILLERY_INTERVALS = [400, 350, 300, 250]; //--- Delay between each fire mission for each upgrades.
+	if WF_Debug then 
+	{
+		WFBE_C_ARTILLERY_INTERVALS = [15, 15, 15, 15, 15, 15, 15]; // In debug mod, arty reload is set to 15 seconds.
+	} else 
+	{
+		WFBE_C_ARTILLERY_INTERVALS = [550, 500, 450, 400, 350, 300, 250]; //--- Delay between each fire mission for each upgrades.
+	};
 
 	//--- Base
 	if (isNil "WFBE_C_BASE_AREA") then {WFBE_C_BASE_AREA = 2}; //--- Force the bases to be grouped by areas.
@@ -115,7 +122,7 @@ with missionNamespace do {
 	WFBE_C_CAMPS_CAPTURE_RATE_MAX = 25;
 	WFBE_C_CAMPS_RANGE = 10;
 	WFBE_C_CAMPS_RANGE_PLAYERS = 5;
-	WFBE_C_CAMPS_REPAIR_DELAY = 20;
+	WFBE_C_CAMPS_REPAIR_DELAY = 15;
 	WFBE_C_CAMPS_REPAIR_PRICE = 500;
 	WFBE_C_CAMPS_REPAIR_RANGE = 15;
 
@@ -123,12 +130,12 @@ with missionNamespace do {
 	if (isNil "WFBE_C_ECONOMY_CURRENCY_SYSTEM") then {WFBE_C_ECONOMY_CURRENCY_SYSTEM = 0}; //--- 0: Funds + Supply, 1: Funds.
 	if (isNil "WFBE_C_ECONOMY_FUNDS_START_WEST") then {WFBE_C_ECONOMY_FUNDS_START_WEST = if (WF_Debug) then {900000} else {800}};
 	if (isNil "WFBE_C_ECONOMY_FUNDS_START_EAST") then {WFBE_C_ECONOMY_FUNDS_START_EAST = if (WF_Debug) then {900000} else {800}};
-	if (isNil "WFBE_C_ECONOMY_FUNDS_START_GUER") then {WFBE_C_ECONOMY_FUNDS_START_GUER = if (WF_Debug) then {900000} else {800}};
+	if (isNil "WFBE_C_ECONOMY_FUNDS_START_GUER") then {WFBE_C_ECONOMY_FUNDS_START_GUER = if (WF_Debug) then {900000} else {20000}};
 	if (isNil "WFBE_C_ECONOMY_INCOME_INTERVAL") then {WFBE_C_ECONOMY_INCOME_INTERVAL = 60}; //--- Income Interval (Delay between each paycheck).
 	if (isNil "WFBE_C_ECONOMY_INCOME_SYSTEM") then {WFBE_C_ECONOMY_INCOME_SYSTEM = 3}; //--- Income System (1:Full, 2:Half (Half -> 120 SV Town = 60$ / 60SV), 3: Commander System, 4: Commander System: Full)
 	if (isNil "WFBE_C_ECONOMY_SUPPLY_START_WEST") then {WFBE_C_ECONOMY_SUPPLY_START_WEST = if (WF_Debug) then {900000} else {1200}};
 	if (isNil "WFBE_C_ECONOMY_SUPPLY_START_EAST") then {WFBE_C_ECONOMY_SUPPLY_START_EAST = if (WF_Debug) then {900000} else {1200}};
-	if (isNil "WFBE_C_ECONOMY_SUPPLY_START_GUER") then {WFBE_C_ECONOMY_SUPPLY_START_GUER = if (WF_Debug) then {900000} else {1200}};
+	if (isNil "WFBE_C_ECONOMY_SUPPLY_START_GUER") then {WFBE_C_ECONOMY_SUPPLY_START_GUER = if (WF_Debug) then {900000} else {30000}};
 	if (isNil "WFBE_C_MAX_ECONOMY_SUPPLY_LIMIT") then {WFBE_C_MAX_ECONOMY_SUPPLY_LIMIT = if (WF_Debug) then {900000} else {40000}};
 	if (isNil "WFBE_C_ECONOMY_SUPPLY_SYSTEM") then {WFBE_C_ECONOMY_SUPPLY_SYSTEM = 1}; //--- Supply System (0: Trucks, 1: Automatic with time).
 	WFBE_C_ECONOMY_INCOME_COEF = 8; //--- Town Multiplicator Coefficient (SV * x).
@@ -166,12 +173,12 @@ with missionNamespace do {
 	WFBE_C_GAMEPLAY_VOTE_TIME = if (WF_Debug) then {8} else {40};
 
 //--- Modules.
-	if (isNil "WFBE_C_MODULE_BIS_BAF") then {WFBE_C_MODULE_BIS_BAF = 1}; //--- Enable BAF content.
 	if (isNil "WFBE_C_MODULE_BIS_PMC") then {WFBE_C_MODULE_BIS_PMC = 1}; //--- Enable PMC content.
 	if (isNil "WFBE_C_MODULE_WFBE_EASA") then {WFBE_C_MODULE_WFBE_EASA = 1}; //--- Enable the Exchangeable Armament System for Aircraft.
 	if (isNil "WFBE_C_MODULE_WFBE_FLARES") then {WFBE_C_MODULE_WFBE_FLARES = 1}; //--- Enable the countermeasure system (0: Disabled, 1: Enabled with upgrade, 2: Enabled).
 	if (isNil "WFBE_C_MODULE_WFBE_ICBM") then {WFBE_C_MODULE_WFBE_ICBM = 1}; //--- Enable the Intercontinental Ballistic Missile call for the commander.
 	if (isNil "WFBE_C_MODULE_WFBE_IRSMOKE") then {WFBE_C_MODULE_WFBE_IRSMOKE = 1}; //--- Enable the use of IR Smoke.
+	if (isNil "WFBE_ICBM_TIME_TO_IMPACT") then {WFBE_ICBM_TIME_TO_IMPACT = 1}; //--- Time for ICBM to impact 
 
 //--- Players.
 	if (isNil "WFBE_C_PLAYERS_AI_MAX") then {WFBE_C_PLAYERS_AI_MAX = 16}; //--- Max AI allowed on each player groups.
@@ -282,9 +289,7 @@ if (WF_A2_Vanilla) then {
 	if (isNil "WFBE_C_UNITS_CLEAN_TIMEOUT") then {WFBE_C_UNITS_CLEAN_TIMEOUT = 60}; //--- Lifespan of a dead body.
 	if (isNil "WFBE_C_UNITS_EMPTY_TIMEOUT") then {WFBE_C_UNITS_EMPTY_TIMEOUT = 1200}; //--- Lifespan of an empty vehicle.
 		WFBE_C_UNITS_BODIES_TIMEOUT = 60;
-	if (isNil "WFBE_C_UNITS_KAMOV_DISABLED") then {WFBE_C_UNITS_KAMOV_DISABLED = 0}; //--- Enable Kamov.
 	if (isNil "WFBE_C_UNITS_PRICING") then {WFBE_C_UNITS_PRICING = 0}; //--- Price Focus. (0: Default, 1: Infantry, 2: Tanks, 3: Air).
-	if (isNil "WFBE_C_UNITS_RESTRICT_AIR") then {WFBE_C_UNITS_RESTRICT_AIR = 0}; //--- Advanced Aircraft restriction.
 	if (isNil "WFBE_C_UNITS_TOWN_PURCHASE") then {WFBE_C_UNITS_TOWN_PURCHASE = 1}; //--- Allow AIs to be bought from depots.
 	if (isNil "WFBE_C_UNITS_TRACK_INFANTRY") then {WFBE_C_UNITS_TRACK_INFANTRY = 1}; //--- Track units on map (infantry).
 	if (isNil "WFBE_C_UNITS_TRACK_LEADERS") then {WFBE_C_UNITS_TRACK_LEADERS = 1}; //--- Track playable Team Leaders on map (infantry).
@@ -316,12 +321,20 @@ if (WF_A2_Vanilla) then {
 	//--- Units Factions.
 switch (true) do {
 	case (WF_A2_CombinedOps): {
-			if (isNil "WFBE_C_UNITS_FACTION_EAST") then {WFBE_C_UNITS_FACTION_EAST = 1}; //--- East Faction.
-			if (isNil "WFBE_C_UNITS_FACTION_GUER") then {WFBE_C_UNITS_FACTION_GUER = 0}; //--- Guerilla Faction.
-			if (isNil "WFBE_C_UNITS_FACTION_WEST") then {WFBE_C_UNITS_FACTION_WEST = 2}; //--- West Faction.
 			WFBE_C_UNITS_FACTIONS_EAST = ['INS','RU','TKA']; //--- East Factions.
 			WFBE_C_UNITS_FACTIONS_GUER = ['GUE','PMC','TKGUE']; //--- Guerilla Factions.
 			WFBE_C_UNITS_FACTIONS_WEST = ['CDF','US','USMC']; //--- West Factions.
+
+			// Reworked to use the the cherno/takistan parameter
+            if (IS_chernarus_map_dependent) then {
+                missionNamespace setVariable ['WFBE_C_UNITS_FACTION_WEST', 2]; // USMC index
+                missionNamespace setVariable ['WFBE_C_UNITS_FACTION_EAST', 1]; // RU index
+                missionNamespace setVariable ['WFBE_C_UNITS_FACTION_GUER', 0]; // GUE index
+            } else {
+                missionNamespace setVariable ['WFBE_C_UNITS_FACTION_WEST', 1]; // US index
+                missionNamespace setVariable ['WFBE_C_UNITS_FACTION_EAST', 2]; // TKA index
+                missionNamespace setVariable ['WFBE_C_UNITS_FACTION_GUER', 2]; // TKGUE index
+            };
 	};
 };
 
@@ -330,7 +343,7 @@ switch (true) do {
 	WFBE_C_VICTORY_THREEWAY_LOCATION_SWAP = 300; //--- When the defender loose depending on victory conditions, startup locations become available for respawn with a rotation (to prevent spawn camping).
 
 //--- Overall mission coloration.
-if (side player == west) then{
+if (side group player == west) then{
 missionNamespace setVariable ["WFBE_C_WEST_COLOR", "ColorGreen"];
 missionNamespace setVariable ["WFBE_C_EAST_COLOR", "ColorRed"];
 missionNamespace setVariable ["WFBE_C_GUER_COLOR", "ColorBlue"];

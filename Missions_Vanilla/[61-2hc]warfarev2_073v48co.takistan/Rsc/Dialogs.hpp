@@ -3316,7 +3316,7 @@ class RscMenu_Economy {
 			x = 0.0322372;
 			y = 0.264119;
 			w = 0.25;
-			text = $STR_WF_ECONOMY_Workers;
+			text = "Economy Workers";
 		};
 		/* Income */
 		class CA_LabelPartIncome : CA_LabelPartWorkers {

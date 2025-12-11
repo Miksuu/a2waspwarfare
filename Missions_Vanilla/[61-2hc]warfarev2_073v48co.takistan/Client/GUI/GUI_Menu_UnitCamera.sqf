@@ -1,19 +1,44 @@
+/*
+ Original author: 	Benny?
+ Contributors : 	Marty
+*/
+
 disableSerialization;
 _display = _this select 0;
 MenuAction = -1;
 mouseButtonUp = -1;
+WF_MenuAction = -1; 
 
 _cameraModes = ["Internal","External","Gunner","Group"];
 
+// Marty : Modifying the script in order to display only human player and not bots (= empty slots) in the unit camera list :
+private ["_list_Players"];
+_list_Players = [];
+
 _n = 1;
-{lbAdd[21002,Format["[%1] %2",_n,name (leader _x)]];_n = _n + 1} forEach clientTeams;
-_id = clientTeams find playerTeam;
+{
+	if (isPlayer (leader _x)) then 
+	{
+		_list_Players = _list_Players + [_x] ;
+		lbAdd[21002,Format["[%1] %2",_n,name (leader _x)]];
+		_n = _n + 1;
+	};
+} forEach clientTeams;
+
+_player_group = group player; 
+_id = clientTeams find _player_group; 
+
 lbSetCurSel[21002,_id];
 _currentUnit = (player) Call GetUnitVehicle;
 _currentMode = "Internal";
 _currentUnit switchCamera _currentMode;
 _units = (Units (group player) - [player]) Call GetLiveUnits;
-{lbAdd[21004,Format["(%1) %2",getText (configFile >> "CfgVehicles" >> (typeOf (vehicle _x)) >> "displayName"),name _x]];_n = _n + 1} forEach _units;
+
+{
+	_unitNumber = (_x) Call GetAIDigit;
+	lbAdd[21004,Format["[%1] (%2) %3", _unitNumber, GetText (configFile >> "CfgVehicles" >> (typeOf (vehicle _x)) >> "displayName"),name _x]];
+} forEach _units;
+// Marty end.
 
 _type = if (!(difficultyEnabled "3rdPersonView")) then {["Internal"]} else {["Internal","External","Ironsight","Group"]};
 {lbAdd[21006,_x]} forEach _type;
@@ -27,7 +52,7 @@ while {true} do {
 	sleep 0.1;
 	
 	_cameraSwap = false;
-	if (Side player != sideJoined || !dialog) exitWith {};
+	if (side group player != sideJoined || !dialog) exitWith {};
 
 	//--- Map click.
 	if (mouseButtonUp == 0) then {
@@ -44,17 +69,22 @@ while {true} do {
 		};
 	};	
 	
+	// Marty : Display the units ai owned to a selected player in the menu with their corresponding number, their type (vehicle, infantry...), their name given into the game :
 	//--- Leader Selection.
 	if (MenuAction == 101) then {
 		MenuAction = -1;
-		_selected = leader (clientTeams select (lbCurSel 21002));
+		_selected = leader (_list_Players select (lbCurSel 21002));
+		
 		_currentUnit = (_selected) Call GetUnitVehicle;
-		_n = 0;
 		_units = (Units (group _selected) - [_selected]) Call GetLiveUnits;
 		lbClear 21004;
-		{lbAdd[21004,Format["(%1) %2",GetText (configFile >> "CfgVehicles" >> (typeOf (vehicle _x)) >> "displayName"),name _x]];_n = _n + 1} forEach _units;
-		_cameraSwap = true;
+		{
+			_unitNumber = (_x) Call GetAIDigit;
+			lbAdd[21004,Format["[%1] (%2) %3", _unitNumber, GetText (configFile >> "CfgVehicles" >> (typeOf (vehicle _x)) >> "displayName"),name _x]];			
+		} forEach _units;
+		_cameraSwap = true; 
 	};
+	// Marty end.
 	
 	//--- Leader commands AIs.
 	if (MenuAction == 102) then {

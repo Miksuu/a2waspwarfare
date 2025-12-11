@@ -1,7 +1,6 @@
-Private ['_restriction_air','_side','_u'];
+Private ['_side','_u'];
 
 _side = _this;
-_restriction_air = missionNamespace getVariable "WFBE_C_UNITS_RESTRICT_AIR";
 
 _u 			= ['GUE_Soldier_1'];
 _u = _u		+ ['GUE_Soldier_2'];
@@ -34,7 +33,12 @@ _u = _u		+ ['Pickup_PK_GUE'];
 _u = _u		+ ['Offroad_DSHKM_Gue'];
 _u = _u		+ ['Offroad_SPG9_Gue'];
 _u = _u		+ ['WarfareRepairTruck_Gue'];
-if ((missionNamespace getVariable "WFBE_C_ECONOMY_SUPPLY_SYSTEM") == 0) then {_u = _u		+ ['WarfareSalvageTruck_Gue']};
+<<<<<<<< HEAD:Missions/[55-2hc]warfarev2_073v48co.chernarus/Common/Config/Core_Units/Units_GUE.sqf
+// if ((missionNamespace getVariable "WFBE_C_ECONOMY_SUPPLY_SYSTEM") == 0) then {
+_u = _u		+ ['WarfareSalvageTruck_Gue'];
+========
+_u = _u		+ ['WarfareSalvageTruck_Gue']};
+>>>>>>>> AntiStackPreparation:Missions_Vanilla/[61-2hc]warfarev2_073v48co.takistan/Common/Config/Core_Units/Units_GUE.sqf
 _u = _u		+ ['WarfareReammoTruck_Gue'];
 _u = _u		+ ['WarfareSupplyTruck_Gue'];
 _u = _u		+ ['BRDM2_Gue'];

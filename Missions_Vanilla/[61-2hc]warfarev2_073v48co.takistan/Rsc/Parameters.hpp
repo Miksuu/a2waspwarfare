@@ -1,6 +1,24 @@
 /* Parameters */
 
 class Params {
+	class WFBE_AIR_EVENT_ENABLED {
+		title = "$STR_WF_PARAMETER_AIR_EVENT_ENABLED";
+		values[] = {0,1,2};
+		texts[] = {"Default (no override)", "Disabled", "Enabled"};
+		default = 0;
+	};
+	class WFBE_ICBM_TIME_TO_IMPACT {
+		title = "$STR_WF_PARAMETER_ICBM_IMPACT_TIME";
+		values[] = {1,5,10,15,20};
+		texts[] = {"1 minute", "5 minutes", "10 minutes", "15 minutes", "20 minutes"};
+		default = 5;
+	};
+	class WFBE_C_AFK_TIME {
+		title = "$STR_WF_PARAMETER_AFK_Time";
+		values[] = {1,5,10,15,20,30};
+		texts[] = {"1 minute", "5 minutes","10 minutes", "15 minutes", "20 minutes", "30 minutes"};
+		default = 10;
+	};
 	class WFBE_C_AI_DELEGATION {
 		title = "$STR_WF_PARAMETER_AI_Delegation";
 		values[] = {0,1,2};
@@ -15,9 +33,9 @@ class Params {
 	};
 	class WFBE_C_PLAYERS_AI_MAX {
 		title = "$STR_WF_PARAMETER_GroupSizePlayer";
-		values[] = {2,4,6,8,10,12,14,16};
-		texts[] = {"2","4","6","8","10","12","14","16"};
-		default = 10;
+		values[] = {2,4,6,8,10,12,14,15,16};
+		texts[] = {"2","4","6","8","10","12","14","15","16"};
+		default = 15;
 	};
 	class WFBE_C_AI_TEAMS_JIP_PRESERVE {
 		title = "$STR_WF_PARAMETER_KeepAI";
@@ -65,7 +83,7 @@ class Params {
 		title = "$STR_WF_PARAMETER_AutoDefense_Range";
 		values[] = {50,100,150,200,250,300,350,400,450,500,600,700,800,900,1000};
 		texts[] = {"50m","100m","150m","200m","250m","300m","350m","400m","450m","500m","600m","700m","800m","900m","1000m"};
-		default = 250;
+		default = 350;
 	};
 	class WFBE_C_STRUCTURES_MAX {
 		title = "$STR_WF_PARAMETER_BuildingsLimit";
@@ -96,12 +114,6 @@ class Params {
 		values[] = {0,1};
 		texts[] = {"$STR_WF_PARAMETER_No","$STR_WF_PARAMETER_Yes"};//{"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 1;
-	};
-	class WFBE_C_BASE_STARTING_DISTANCE {
-		title = "$STR_WF_PARAMETER_StartingDistance";
-		values[] = {-1,1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000,7500,8000,8500,9000};
-		texts[] = {"$STR_WF_PARAMETER_StartingLocations_Random","1000m","1500m","2000m","2500m","3000m","3500m","4000m","4500m","5000m","5500m","6000m","6500m","7000m","7500m","8000m","8500m","9000m"};
-		default = 6000;
 	};
 	class WFBE_C_BASE_STARTING_MODE {
 		title = "$STR_WF_PARAMETER_StartingLocations";
@@ -135,15 +147,15 @@ class WFBE_C_ECONOMY_FUNDS_START_EAST {
 	};
 	class WFBE_C_ECONOMY_SUPPLY_START_EAST {
 		title = "$STR_WF_PARAMETER_Supply_East";
-		values[] = {1200,2400,3600,4800,6000,7200,8400,9600,12800,16000,19200,25600,38400,76800};
-		texts[] = {"S 1200","S 2400","S 3600","S 4800","S 6000","S 7200","S 8400","S 9600","S 12800","S 16000","S 19200","S 25600","S 38400","S 76800"};
-		default = 6000;
+		values[] = {1200,2400,3600,4800,6000,7200,8400,9600,19200,38400,76800};
+		texts[] = {"S 1200","S 2400","S 3600","S 4800","S 6000","S 7200","S 8400","S 9600","S 19200","S 38400","S 76800"};
+		default = 9600;
 	};
 	class WFBE_C_ECONOMY_SUPPLY_START_WEST {
 		title = "$STR_WF_PARAMETER_Supply_West";
-		values[] = {1200,2400,3600,4800,6000,7200,8400,9600,12800,16000,19200,25600,38400,76800};
-		texts[] = {"S 1200","S 2400","S 3600","S 4800","S 6000","S 7200","S 8400","S 9600","S 12800","S 16000","S 19200","S 25600","S 38400","S 76800"};
-		default = 6000;
+		values[] = {1200,2400,3600,4800,6000,7200,8400,9600,19200,38400,76800};
+		texts[] = {"S 1200","S 2400","S 3600","S 4800","S 6000","S 7200","S 8400","S 9600","S 19200","S 38400","S 76800"};
+		default = 9600;
 	};
 
 	class WFBE_C_MAX_ECONOMY_SUPPLY_LIMIT {
@@ -179,12 +191,6 @@ class WFBE_C_ECONOMY_FUNDS_START_EAST {
 		default = 0;
 	};
 	#ifndef VANILLA
-		class WFBE_C_MODULE_BIS_BAF {
-			title = "$STR_WF_PARAMETER_BAF";
-			values[] = {0,1};
-			texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-			default = 1;
-		};
 		class WFBE_C_MODULE_BIS_PMC {
 			title = "$STR_WF_PARAMETER_PMC";
 			values[] = {0,1};
@@ -245,6 +251,18 @@ class WFBE_C_ECONOMY_FUNDS_START_EAST {
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 1;
+	};
+	class WFBE_C_GAMEPLAY_BOMBS_ALTITUDE {
+		title = "$STR_WF_PARAMETER_BombAltitude";
+		values[] = {0,500,1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000,7500,8000,8500,9000,9500,10000};
+		texts[] = {"$STR_WF_Disabled","500m","1000m","1500m","2000m","2500m","3000m","3500m","4000m","4500m","5000m","5500m","6000m","6500m","7000m","7500m","8000m","8500m","9000m","9500m","10000m"};
+		default = 2000;
+	};
+	class WFBE_C_GAMEPLAY_BOMBS_DISTANCE_RESTRICTION {
+		title = "$STR_WF_PARAMETER_BombAltitude";
+		values[] = {0,500,1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000,7500,8000,8500,9000,9500,10000};
+		texts[] = {"$STR_WF_Disabled","500m","1000m","1500m","2000m","2500m","3000m","3500m","4000m","4500m","5000m","5500m","6000m","6500m","7000m","7500m","8000m","8500m","9000m","9500m","10000m"};
+		default = 2000;
 	};
 	class WFBE_C_GAMEPLAY_MISSILES_RANGE {
 		title = "$STR_WF_PARAMETER_MissileRange";
@@ -308,9 +326,9 @@ class WFBE_C_ECONOMY_FUNDS_START_EAST {
 	};
 	class WFBE_C_ENVIRONMENT_MAX_VIEW {
 		title = "$STR_WF_PARAMETER_ViewDistance";
-		values[] = {200,500,800,1000,1500,2000,2500,3000,3500,4000,4500,5000};
-		texts[] = {"200m","500m","800m","1000m","1500m","2000m","2500m","3000m","3500m","4000m","4500m","5000m"};
-		default = 5000;
+		values[] = {200,500,800,1000,1500,2000,2500,3000,3500,4000,4500,5000,6000};
+		texts[] = {"200m","500m","800m","1000m","1500m","2000m","2500m","3000m","3500m","4000m","4500m","5000m","6000m"};
+		default = 6000;
 	};
 		class WFBE_C_MODULE_WFBE_FLARES {
 			title = "$STR_WF_PARAMETER_Countermeasures";
@@ -391,20 +409,6 @@ class WFBE_C_ECONOMY_FUNDS_START_EAST {
 		texts[] = {"50m","100m","150m","200m","250m","300m","350m","400m","450m","500m","550m","600m","650m","700m","750m","800m","850m","900m","950m","1000m","1500m","2000m","2500m","3000m","3500m","4000m"};
 		default = 400;
 	};
-	class WFBE_C_UNITS_RESTRICT_AIR {
-		title = "$STR_WF_PARAMETER_AdvancedAir";
-		values[] = {0,1,2};
-		texts[] = {"$STR_WF_Disabled","$STR_WF_PARAMETER_Restriction_Air_H","$STR_WF_PARAMETER_Restriction_Air_HTransport"};
-		default = 0;
-	};
-	#ifndef ARROWHEAD
-		class WFBE_C_UNITS_KAMOV_DISABLED {
-			title = "$STR_WF_PARAMETER_Kamov";
-			values[] = {0,1};
-			texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-			default = 0;
-		};
-	#endif
 	class WFBE_C_TOWNS_AMOUNT {
 		title = "$STR_WF_PARAMETER_TownsAmount";
 		values[] = {0,1,2,3,4,5,6,7};
@@ -429,14 +433,6 @@ class WFBE_C_ECONOMY_FUNDS_START_EAST {
 		texts[] = {"$STR_WF_Disabled","$STR_WF_PARAMETER_Light","$STR_WF_PARAMETER_Medium","$STR_WF_PARAMETER_Hard","$STR_WF_PARAMETER_Impossible"};
 		default = 2;
 	};
-	#ifdef COMBINEDOPS
-		class WFBE_C_UNITS_FACTION_GUER {
-			title = "$STR_WF_PARAMETER_Reinforcement_Type";
-			values[] = {0,1,2};
-			texts[] = {"Guerillas","Private Military Company","Takistani Locals"};
-			default = 2;
-		};
-	#endif
 	class WFBE_C_TOWNS_GEAR {
 		title = "$STR_WF_PARAMETER_TownsGear";
 		values[] = {0,1,2,3};
@@ -449,54 +445,6 @@ class WFBE_C_ECONOMY_FUNDS_START_EAST {
 		texts[] = {"$STR_WF_Disabled","$STR_WF_PARAMETER_Light","$STR_WF_PARAMETER_Medium","$STR_WF_PARAMETER_Hard","$STR_WF_PARAMETER_Impossible"};
 		default = 1;
 	};
-	#ifdef VANILLA
-		class WFBE_C_UNITS_FACTION_EAST {
-			title = "$STR_WF_PARAMETER_Occupation_Type_East";
-			values[] = {0,1};
-			texts[] = {"Insurgents","Takistan Army"};
-			default = 1;
-		};
-	#endif
-	#ifdef VANILLA
-		class WFBE_C_UNITS_FACTION_WEST {
-			title = "$STR_WF_PARAMETER_Occupation_Type_West";
-			values[] = {0,1};
-			texts[] = {"Chernarussian Defence Force","United States"};
-			default = 1;
-		};
-	#endif
-	#ifdef ARROWHEAD
-		class WFBE_C_UNITS_FACTION_EAST {
-			title = "$STR_WF_PARAMETER_Occupation_Type_East";
-			values[] = {0};
-			texts[] = {"Takistan Army"};
-			default = 0;
-		};
-	#endif
-	#ifdef ARROWHEAD
-		class WFBE_C_UNITS_FACTION_WEST {
-			title = "$STR_WF_PARAMETER_Occupation_Type_West";
-			values[] = {0};
-			texts[] = {"United States"};
-			default = 0;
-		};
-	#endif
-	#ifdef COMBINEDOPS
-		class WFBE_C_UNITS_FACTION_EAST {
-			title = "$STR_WF_PARAMETER_Occupation_Type_East";
-			values[] = {0,1,2};
-			texts[] = {"Insurgents","Russians","Takistan Army"};
-			default = 2;
-		};
-	#endif
-	#ifdef COMBINEDOPS
-		class WFBE_C_UNITS_FACTION_WEST {
-			title = "$STR_WF_PARAMETER_Occupation_Type_West";
-			values[] = {0,1,2};
-			texts[] = {"Chernarussian Defence Force","United States","United States Marine Corps"};
-			default = 1;
-		};
-	#endif
 	class WFBE_C_TOWNS_PATROLS {
 		title = "$STR_WF_PARAMETER_MaxResPatrols";
 		values[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,22,24,26,28,30,32,34,36,38,40,50,60,70,80,90,100};

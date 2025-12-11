@@ -4,6 +4,7 @@ Private ['_count'];
 
 // --- additional handlers
 HandleRocketTraccer = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleRocketTracer.sqf";
+HandleCommanderReload = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleCommanderReload.sqf";
 HandleReload = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleReload.sqf";
 HandleATReload = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleATReload.sqf";
 HandleATReloadVehicle = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleATReloadVehicle.sqf";
@@ -58,6 +59,7 @@ GetTownsIncome = Compile preprocessFileLineNumbers "Common\Functions\Common_GetT
 GetUnitsBelowHeight = Compile preprocessFileLineNumbers "Common\Functions\Common_GetUnitsBelowHeight.sqf";
 GetUnitVehicle = Compile preprocessFileLineNumbers "Common\Functions\Common_GetUnitVehicle.sqf";
 HandleIncomingMissile = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleIncomingMissile.sqf";
+HandleShootBombs = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleShootBombs.sqf";
 IsArtillery = Compile preprocessFileLineNumbers "Common\Functions\Common_IsArtillery.sqf";
 MarkerUpdate = Compile preprocessFileLineNumbers "Common\Common_MarkerUpdate.sqf";
 PlaceNear = Compile preprocessFileLineNumbers "Common\Functions\Common_PlaceNear.sqf";
@@ -146,8 +148,9 @@ WFBE_CO_FNC_WaypointPatrolTown = Compile preprocessFileLineNumbers "Common\Funct
 WFBE_CO_FNC_WaypointSimple = Compile preprocessFileLineNumbers "Common\Functions\Common_WaypointSimple.sqf";
 WFBE_CO_FNC_WaypointsAdd = Compile preprocessFileLineNumbers "Common\Functions\Common_WaypointsAdd.sqf";
 WFBE_CO_FNC_WaypointsRemove = Compile preprocessFileLineNumbers "Common\Functions\Common_WaypointsRemove.sqf";
-WFBE_CO_FNC_IRS_PlayWarningSound = Compile preprocessFileLineNumbers "Common\Module\IRS\IRS_PlayWarningSound.sqf";
-WFBE_CO_FNC_IRS_ShowWarning = Compile preprocessFileLineNumbers "Common\Module\IRS\IRS_ShowWarning.sqf";
+WF_createMarker = compile preprocessFileLineNumbers "Common\Functions\Common_CreateMarker.sqf";
+WFBE_CL_FNC_Delete_Marker = compile preprocessFileLineNumbers "Client\Functions\Client_Delete_Marker.sqf";
+WF_sendMessage = compile preprocessFileLineNumbers "Common\Functions\Common_SendMessage.sqf";
 
 ["INITIALIZATION", "Init_Common.sqf: Functions are initialized."] Call WFBE_CO_FNC_LogContent;
 
@@ -203,7 +206,7 @@ _team_east = "";
 switch (true) do {
 	case WF_A2_CombinedOps: {
 		/* Model Core */
-		if !(WF_Camo) then {
+		if !(IS_chernarus_map_dependent) then {
 			Call Compile preprocessFileLineNumbers 'Common\Config\Core_Models\CombinedOps.sqf';
 		} else {
 			Call Compile preprocessFileLineNumbers 'Common\Config\Core_Models\CombinedOps_W.sqf';
@@ -243,17 +246,18 @@ switch (true) do {
 		Call Compile preprocessFileLineNumbers 'Common\Config\Core\Core_USMC.sqf';
 
 		/* Call in the teams template - Combined Operations */
-		_team_west = if (WF_Camo) then {'US_Camo'} else {'US'};
-		_team_east = if (WF_Camo) then {'RU'} else {'TKA'};
+		_team_west = if (IS_chernarus_map_dependent) then {'US_Camo'} else {'US'};
+		_team_east = if (IS_chernarus_map_dependent) then {'RU'} else {'TKA'};
 	};
 };
 
 ["INITIALIZATION", "Init_Common.sqf: Core Files are loaded."] Call WFBE_CO_FNC_LogContent;
 
-//--- new system.
+// Reworked to use the the cherno/takistan parameter
 _grpWest = (missionNamespace getVariable 'WFBE_C_UNITS_FACTIONS_WEST') select (missionNamespace getVariable 'WFBE_C_UNITS_FACTION_WEST');
 _grpEast = (missionNamespace getVariable 'WFBE_C_UNITS_FACTIONS_EAST') select (missionNamespace getVariable 'WFBE_C_UNITS_FACTION_EAST');
 _grpRes = (missionNamespace getVariable 'WFBE_C_UNITS_FACTIONS_GUER') select (missionNamespace getVariable 'WFBE_C_UNITS_FACTION_GUER');
+
 
 ["INITIALIZATION", Format["Init_Common.sqf: Using groups - West [%1], East [%2], Resistance [%3].",_grpWest,_grpEast,_grpRes]] Call WFBE_CO_FNC_LogContent;
 

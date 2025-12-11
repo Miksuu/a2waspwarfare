@@ -1,0 +1,120 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+	  {
+		"label": "build-debug",
+		"command": "dotnet",
+		"type": "shell",
+		"args": [
+		  "build",
+		  "${workspaceFolder}/LoadoutManager.csproj",
+		  "/property:GenerateFullPaths=true",
+		  "/property:Configuration=DEBUG"
+		],
+		"group": {
+		  "kind": "build",
+		  "isDefault": true
+		},
+		"presentation": {
+		  "reveal": "silent"
+		},
+		"problemMatcher": "$msCompile"
+	  },
+	  {
+		"label": "build-server-debug",
+		"command": "dotnet",
+		"type": "shell",
+		"args": [
+		  "build",
+		  "${workspaceFolder}/LoadoutManager.csproj",
+		  "/property:GenerateFullPaths=true",
+		  "/property:Configuration=SERVER_DEBUG"
+		],
+		"group": {
+		  "kind": "build",
+		  "isDefault": true
+		},
+		"presentation": {
+		  "reveal": "silent"
+		},
+		"problemMatcher": "$msCompile"
+	  },
+	  {
+		"label": "build-release",
+		"command": "dotnet",
+		"type": "shell",
+		"args": [
+		  "build",
+		  "${workspaceFolder}/LoadoutManager.csproj",
+		  "/property:GenerateFullPaths=true",
+		  "/property:Configuration=RELEASE"
+		],
+		"group": {
+		  "kind": "build",
+		  "isDefault": true
+		},
+		"presentation": {
+		  "reveal": "silent"
+		},
+		"problemMatcher": "$msCompile"
+	  },
+	  {
+		"label": "build-airwar-debug",
+		"command": "dotnet",
+		"type": "shell",
+		"args": [
+		  "build",
+		  "${workspaceFolder}/LoadoutManager.csproj",
+		  "/property:GenerateFullPaths=true",
+		  "/property:Configuration=AIRWAR_DEBUG"
+		],
+		"group": {
+		  "kind": "build",
+		  "isDefault": true
+		},
+		"presentation": {
+		  "reveal": "silent"
+		},
+		"problemMatcher": "$msCompile"
+	  },
+	  {
+		"label": "build-airwar-server-debug",
+		"command": "dotnet",
+		"type": "shell",
+		"args": [
+		  "build",
+		  "${workspaceFolder}/LoadoutManager.csproj",
+		  "/property:GenerateFullPaths=true",
+		  "/property:Configuration=AIRWAR_SERVER_DEBUG"
+		],
+		"group": {
+		  "kind": "build",
+		  "isDefault": true
+		},
+		"presentation": {
+		  "reveal": "silent"
+		},
+		"problemMatcher": "$msCompile"
+	  },
+	  {
+		"label": "build-airwar-release",
+		"command": "dotnet",
+		"type": "shell",
+		"args": [
+		  "build",
+		  "${workspaceFolder}/LoadoutManager.csproj",
+		  "/property:GenerateFullPaths=true",
+		  "/property:Configuration=AIRWAR_RELEASE"
+		],
+		"group": {
+		  "kind": "build",
+		  "isDefault": true
+		},
+		"presentation": {
+		  "reveal": "silent"
+		},
+		"problemMatcher": "$msCompile"
+	  }
+	]
+  }
+  

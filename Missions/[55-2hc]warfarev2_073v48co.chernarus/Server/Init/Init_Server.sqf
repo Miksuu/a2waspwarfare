@@ -7,8 +7,6 @@ createCenter resistance;
 resistance setFriend [west,0];
 resistance setFriend [east,0];
 
-WFBE_Server_LogMatchWin = false;
-
 AIBuyUnit = Compile preprocessFile "Server\Functions\Server_BuyUnit.sqf";
 if (WF_A2_Vanilla) then {AISquadRespawn = Compile preprocessFile "Server\AI\AI_SquadRespawn.sqf"};
 if !(WF_A2_Vanilla) then {AIAdvancedRespawn = Compile preprocessFile "Server\AI\AI_AdvancedRespawn.sqf"};
@@ -86,11 +84,32 @@ WFBE_SE_PV_RequestSupplyValue = Call Compile preprocessFileLineNumbers "Server\F
 WFBE_SE_FNC_CallDatabaseRequestSideTotalSkill = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseRequestSideTotalSkill.sqf";
 WFBE_SE_FNC_CallDatabaseFlushPlayerList = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseFlushPlayerList.sqf";
 WFBE_SE_FNC_CallDatabaseSetMap = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseSetMap.sqf";
+//WFBE_CO_FNC_InitAFKkickHandler = Compile preprocessFileLineNumbers "Server\Module\afkKick\initAFKkickHandler.sqf";
+//WFBE_CO_FNC_LogGameEnd = Compile preprocessFileLineNumbers "Server\Functions\Server_LogGameEnd.sqf";
+// WFBE_CO_FNC_monitorServerFPS = Compile preprocessFileLineNumbers "Server\Module\serverFPS\monitorServerFPS.sqf";
+WFBE_SE_FNC_SupplyMissionCompleted = Call Compile preprocessFileLineNumbers "Server\Module\supplyMission\supplyMissionCompleted.sqf";
+WFBE_SE_FNC_IsSupplyMissionActiveInTown = Call Compile preprocessFileLineNumbers "Server\Module\supplyMission\isSupplyMissionActiveInTown.sqf";
+WFBE_SE_FNC_SupplyMissionStarted = Call Compile preprocessFileLineNumbers "Server\Module\supplyMission\supplyMissionStarted.sqf";
+WFBE_SE_FNC_PlayerObjectsList = Call Compile preprocessFileLineNumbers "Server\Module\supplyMission\playerObjectsList.sqf";
+//WFBE_SE_FNC_MASH_MARKER = Call Compile preprocessFileLineNumbers "Server\Module\MASH\MASHMarker.sqf";
+WFBE_SE_FNC_SupplyMissionTimerForTown = Compile preprocessFileLineNumbers "Server\Module\supplyMission\supplyMissionTimerForTown.sqf";
+// WFBE_SE_FNC_CallDatabaseRetrieve = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseRetrieve.sqf";
+// WFBE_SE_FNC_CallDatabaseStore = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseStore.sqf";
+// WFBE_SE_FNC_CallDatabaseStoreSide = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseStoreSide.sqf";
+// WFBE_SE_FNC_GetTeamScore = Compile preprocessFileLineNumbers "Server\Module\AntiStack\getTeamScore.sqf";
+// WFBE_SE_FNC_CountPlayerScores = Compile preprocessFileLineNumbers "Server\Module\AntiStack\countPlayerScores.sqf";
+// WFBE_SE_FNC_CompareTeamScores = Compile preprocessFileLineNumbers "Server\Module\AntiStack\compareTeamScores.sqf";
+// WFBE_SE_FNC_CallDatabaseSendPlayerList = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseSendPlayerList.sqf";
+// WFBE_SE_FNC_GetTeamScoreMonitor = Compile preprocessFileLineNumbers "Server\Module\AntiStack\getTeamScoreMonitor.sqf";
+// WFBE_SE_PVEH_ClientHasConnectedAtLaunch = Call Compile preprocessFileLineNumbers "Server\Module\AntiStack\clientHasConnectedAtLaunch.sqf";
+WFBE_SE_FNC_SupplyMissionActive = Compile preprocessFileLineNumbers "Server\Module\supplyMission\supplyMissionActive.sqf";
+WFBE_SE_FNC_ChangeSideSupply = Call Compile preprocessFileLineNumbers "Server\Functions\Server_ChangeSideSupply.sqf";
+WFBE_SE_FNC_AwardScorePlayer = Compile preprocessFileLineNumbers "Server\Functions\Server_AwardScorePlayer.sqf";
+WFBE_SE_PV_RequestSupplyValue = Call Compile preprocessFileLineNumbers "Server\Functions\Server_PV_RequestSupplyValue.sqf";
 
 //--- Define Headless Client functions (server ones).
 if (ARMA_VERSION >= 162 && ARMA_RELEASENUMBER >= 101334 || ARMA_VERSION > 162) then {
 	WFBE_CO_FNC_DelegateAITownHeadless = Compile preprocessFileLineNumbers "Server\Functions\Server_DelegateAITownHeadless.sqf";
-	WFBE_CO_FNC_DelegateAIHeadless = Compile preprocessFileLineNumbers "Server\Functions\Server_DelegateAIHeadless.sqf";
 	WFBE_CO_FNC_DelegateAIStaticDefenceHeadless = Compile preprocessFileLineNumbers "Server\Functions\Server_DelegateAIStaticDefenceHeadless.sqf";
 };
 
@@ -175,7 +194,7 @@ WF_Logic setVariable ["wfbe_spawnpos", _locationLogics];
 Private ["_i", "_maxAttempts", "_minDist", "_rPosE", "_rPosW", "_setEast", "_setGuer", "_setWest", "_startE", "_startG", "_startW"];
 _i = 0;
 _maxAttempts = 2000;
-_minDist = missionNamespace getVariable 'WFBE_C_BASE_STARTING_DISTANCE';
+_minDist = startingDistance;
 _startW = [0,0,0];
 _startE = [0,0,0];
 _startG = [0,0,0];
@@ -283,6 +302,8 @@ if (_use_random) then {
 
 ["INITIALIZATION", Format ["Init_Server.sqf: Starting location mode is on [%1].",missionNamespace getVariable "WFBE_C_BASE_STARTING_MODE"]] Call WFBE_CO_FNC_LogContent;
 
+[] execVM "Server\CallExtensions\GlobalGameStats.sqf";
+
 emptyQueu = [];
 
 //--- Global sides initialization.
@@ -304,6 +325,13 @@ emptyQueu = [];
 		_hq setVariable ["wfbe_structure_type", "Headquarters"];
 		_hq addEventHandler ['killed', {_this Spawn WFBE_SE_FNC_OnHQKilled}];
 		_hq addEventHandler ["hit",{_this Spawn BuildingDamaged}];
+
+        if (_side == west && !(IS_chernarus_map_dependent))then{
+	        _hq setVehicleInit "this setObjectTexture [0,""Textures\lavbody_coD.paa""]";
+	        _hq setVehicleInit "this setObjectTexture [1,""Textures\lavbody2_coD.paa""]";
+	        _hq setVehicleInit "this setObjectTexture [2,""Textures\lav_hq_coD.paa""]";
+			processinitcommands;
+		};
 
 		//--- HQ Friendly Fire handler.
 		//if ((missionNamespace getVariable "WFBE_C_GAMEPLAY_HANDLE_FRIENDLYFIRE") > 0) then {_hq addEventHandler ['handleDamage',{[_this select 0,_this select 2,_this select 3] Call BuildingHandleDamages}]};
@@ -355,8 +383,8 @@ emptyQueu = [];
 			_logik setVariable ["wfbe_ai_supplytrucks", []];
 			[_side] Spawn UpdateSupplyTruck;
 		};
-		if ((missionNamespace getVariable "WFBE_C_RESPAWN_MASH") > 0) then {_logik setVariable ["wfbe_mash", objNull]};
-		if ((missionNamespace getVariable "WFBE_C_ECONOMY_CURRENCY_SYSTEM") == 0) then {missionNamespace setVariable [format ["wfbe_supply_%1", _side], missionNamespace getVariable Format ["WFBE_C_ECONOMY_SUPPLY_START_%1", _side]]};
+		if ((missionNamespace getVariable "WFBE_C_RESPAWN_MASH") > 0) then {_logik setVariable ["wfbe_mash", objNull, true]};
+		if ((missionNamespace getVariable "WFBE_C_ECONOMY_CURRENCY_SYSTEM") == 0) then {missionNamespace setVariable [format ["wfbe_supply_%1", str _side], missionNamespace getVariable Format ["WFBE_C_ECONOMY_SUPPLY_START_%1", _side]]};
 		if ((missionNamespace getVariable "WFBE_C_ECONOMY_INCOME_SYSTEM") in [3,4]) then {
 			_logik setVariable ["wfbe_commander_percent", if ((missionNamespace getVariable "WFBE_C_ECONOMY_INCOME_PERCENT_MAX") < 70) then {missionNamespace getVariable "WFBE_C_ECONOMY_INCOME_PERCENT_MAX"} else {70}, true];
 		};
@@ -455,6 +483,15 @@ _vehicle addAction ["<t color='"+"#00E4FF"+"'>STEALTH ON</t>","Client\Module\Eng
 					[_group, "towns"] Call SetTeamMoveMode;
 					[_group, [0,0,0]] Call SetTeamMovePos;
 
+
+					if(isPlayer (leader (group _x)))then{
+						_procedureName = "INSERT_PLAYER";
+						_nickname = name (leader (group _x));
+						_game_guid = getPlayerUID (leader (group _x));
+						_side = side (leader (group _x));
+						_money = _group getVariable "wfbe_funds";
+					};
+
 					["INITIALIZATION", Format["Init_Server.sqf: [%1] Team [%2] was initialized.", _side, _group]] Call WFBE_CO_FNC_LogContent;
 				};
 
@@ -466,62 +503,8 @@ _vehicle addAction ["<t color='"+"#00E4FF"+"'>STEALTH ON</t>","Client\Module\Eng
 	};
 } forEach [[_present_east, east, _startE],[_present_west, west, _startW]];
 
-//// Resistance base operational
-_barrack_amount = 2;
-ResBuyUnit = Compile preprocessFile "Server\Functions\Server_ResBuyUnit.sqf";
-_start_position_array = [
-	[9428.09,7763.94,-226.461],
-	[9071.77,6895.33,-293.698],
-	[7272.66,6960.2,-260.523],
-	[6693.13,6730.99,-347.334],
-	[5996.84,6836.95,-346.596],
-	[5349.15,6245.36,-284.021],
-	[9018.48,5347.25,-243.241],
-	[10493.2,6587.83,-186.833],
-	[9144.28,10071.9,-321.68],
-	[6642.16,10816.3,-342.344],
-	[1861.55,6762.56,-246.491],
-	[3479.55,5965.8,-352.049],
-	[5307.22,4543.5,-222.071],
-	[3787.08,3323.88,-94.7921],
-	[8225.21,3931.94,-158.105],
-	[11139.7,3907.48,-263.611],
-	[12209,5081.66,-76.5405],
-	[11394.8,6255.85,-147.746],
-	[11003.4,7300.73,-207.041],
-	[11566,8611.2,-167.023],
-	[11020.9,10512.3,-125.595],
-	[12016.8,11581.6,-161.904],
-	[9930.58,12668.4,-211.502],
-	[6904.26,12091.8,-253.751],
-	[3780.09,11560.6,-352.98],
-	[1641.4,9561.73,-255.367],
-	[5422.55,9848.29,-312.617],
-	[2567.47,7611.75,-366.059],
-	[8197.02,7752.6,-446.115]
-];
-
-_selected_pos_array = [];
 [] Call Compile preprocessFile "Server\Config\Config_GUE.sqf";
-for [{_c = 0},{_c < _barrack_amount},{_c = _c + 1}] do {
-	_startG = _start_position_array select (random (count(_start_position_array)));
-	_selected_pos_array = _selected_pos_array + [_startG];
-};
 
-for [{_count = 0},{_count < _barrack_amount},{_count = _count + 1}] do {
-
-	[resistance,_selected_pos_array select _count, _count] spawn {
-		_side = _this select 0;
-		_startLoc = _this select 1;
-		_bar_count = _this select 2;
-		[_side,_startLoc, _bar_count] ExecVM "Server\FSM\server_res_bases.sqf"
-	};
-
-	["INITIALIZATION", "Init_Server.sqf: res base is initialized."] Call WFBE_CO_FNC_LogContent;
-};
-
-_selected_pos_array = [];
-_start_position_array = [];
 serverInitFull = true;
 
 // run one global server town script to process supply updates in each town
@@ -582,6 +565,8 @@ WF_Logic setVariable ["emptyVehicles",[],true];
 //--- Base Area (grouped base)
 if ((missionNamespace getVariable "WFBE_C_BASE_AREA") > 0) then {[] execVM "Server\FSM\basearea.sqf"};
 
+//if (LOG_CONTENT_STATE == "ACTIVATED") then {[] execVM "Server\FSM\groupsMonitor.sqf"};
+
 //--- ALICE Module.
 if ((missionNamespace getVariable "WFBE_C_MODULE_BIS_ALICE") > 0) then {
 	_type = if (WF_A2_Vanilla) then {'AliceManager'} else {'Alice2Manager'};
@@ -589,6 +574,11 @@ if ((missionNamespace getVariable "WFBE_C_MODULE_BIS_ALICE") > 0) then {
 
 	["INITIALIZATION", "Init_Server.sqf: BIS ALICE is defined."] Call WFBE_CO_FNC_LogContent;
 };
+
+// Execute the server fps script on a seperate thread
+[] ExecVM "Server\GUI\serverFpsGUI.sqf";
+
+["INITIALIZATION", Format ["Init_Server.sqf: Server initialization ended at [%1]", time]] Call WFBE_CO_FNC_LogContent;
 
 //--- Waiting until that the game is launched.
 waitUntil {time > 0};

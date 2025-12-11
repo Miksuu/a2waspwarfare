@@ -5,7 +5,7 @@
 		- Shooter
 */
 
-Private ["_building","_dammages","_dammages_current","_get","_killer","_logik","_origin","_structure","_structure_kind"];
+Private ["_building","_dammages","_dammages_current","_get","_killer","_logik","_origin","_structure","_structure_kind","_killerGroup"];
 
 _structure = _this select 0;
 _killer = _this select 1;
@@ -13,6 +13,7 @@ _killer = _this select 1;
 _structure_kind = typeOf _structure;
 _side = _structure getVariable "wfbe_side";
 _logik = (_side) Call WFBE_CO_FNC_GetSideLogic;
+_killerGroup = group _killer;
 
 _killer_group = group _killer;
 // HQ kill price ($30,000) / 100 * building kill coef
@@ -63,12 +64,46 @@ if ((!isNull _killer) && (isPlayer _killer)) then
     };
 };
 
+// Only awards score for non-teamkills of the HQ
+if (_side != side _killer) then
+{
+    Private ["_score"];
+    _score = 900; // HQ bounty award / 100*3
 
+    // Change the score of the leader of the group upon killing the hq
+    ['SRVFNCREQUESTCHANGESCORE',[leader _killerGroup, score leader _killerGroup + _score]] Spawn WFBE_SE_FNC_HandlePVF;
+};
+
+// Marty : Marking HQ wreck on map 
+_marker_name 		= "HQ_WRECK_" + str(_side) ;
+_marker_position 	= getPos _structure ;
+_markerType 		= "Flag";
+_markerText 		= "HQ WRECK must be repaired";
+_markerColor 		= "ColorRed";
+_markerSide			= _side;
+
+[_marker_name, _marker_position, _markerType, _markerText, _markerColor, _markerSide] call WF_createMarker ;
+
+// Marty : Public variables about hq state are broadcasted for the future player joining the game :
+if (_side == west) then 
+{
+	missionNamespace setVariable ["IS_WEST_HQ_ALIVE", false];
+	publicVariable "IS_WEST_HQ_ALIVE";
+
+	_hq_east_marker_infos = [_marker_name, _marker_position, _markerType, _markerText, _markerColor, _markerSide, _structure]; 
+	missionNamespace setVariable ["HQ_WEST_MARKER_INFOS", _hq_east_marker_infos];
+	publicVariable "HQ_WEST_MARKER_INFOS";
+};
+
+if (_side == east) then 
+{
+	missionNamespace setVariable ["IS_EAST_HQ_ALIVE", false];
+	publicVariable "IS_EAST_HQ_ALIVE";
+
+	_hq_east_marker_infos = [_marker_name, _marker_position, _markerType, _markerText, _markerColor, _markerSide, _structure]; 
+	missionNamespace setVariable ["HQ_EAST_MARKER_INFOS", _hq_east_marker_infos];
+	publicVariable "HQ_EAST_MARKER_INFOS";
+};
+// Marty end.
 
 ["INFORMATION", Format["Server_OnHQKilled.sqf : [%1] HQ [%2] has been destroyed by [%3], Teamkill? [%4], Side Teamkill? [%5]", _side, _structure_kind, name _killer, _teamkill, side _killer]] Call WFBE_CO_FNC_LogContent;
-
-/*
-_msg = format ["Server_OnHQKilled.sqf: _this = %1", _this];
-player sideChat _msg;
-diag_log _msg;
-*/

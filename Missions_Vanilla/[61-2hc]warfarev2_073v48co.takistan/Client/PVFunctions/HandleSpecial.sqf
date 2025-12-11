@@ -29,6 +29,7 @@ switch (_request) do {
 	case "uav-reveal": {_args spawn WFBE_CL_FNC_Reveal_UAV};
 	case "upgrade-started": {_args spawn WFBE_CL_FNC_Upgrade_Started};
 	case "upgrade-complete": {_args spawn WFBE_CL_FNC_Upgrade_Complete};
+	case "building-started": {_args spawn WFBE_CL_FNC_Building_Started};
 	case "set-hq-killed-eh": {if !(isServer) then {(_args select 0) addEventHandler ["killed", {["RequestSpecial", ["process-killed-hq", _this]] Call WFBE_CO_FNC_SendToServer}]};};
 	case "auto-wall-constructing-changed":{ isAutoWallConstructingEnabled = (_args select 0)};
 };

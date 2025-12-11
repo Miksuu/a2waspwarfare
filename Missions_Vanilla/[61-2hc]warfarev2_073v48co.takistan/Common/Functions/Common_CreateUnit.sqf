@@ -29,6 +29,26 @@ if(side _unit == east && !(_unit hasWeapon "NVGoggles")) then {
    _unit addWeapon "NVGoggles";
 };
 
+// Add custom dragon soldier (Ins_Soldier_AT)
+if (_type == "Ins_Soldier_AT") then {
+	_unit removeMagazine "PG7VL";
+	_unit removeMagazine "PG7VL";
+	_unit removeMagazine "PG7VL";
+	_unit removeWeapon "RPG7V";
+	_unit addWeapon "M47Launcher_EP1";
+	_unit addMagazine "Dragon_EP1";
+	_unit addMagazine "Dragon_EP1";
+};
+
+// Add custom RPG-7 VR soldier (MVD_Soldier_AT)
+if (_type == "MVD_Soldier_AT") then {
+	_unit removeMagazine "PG7VL";
+	_unit removeMagazine "PG7VL";
+	_unit removeMagazine "OG7";
+	_unit addMagazine "PG7VR";
+	_unit addMagazine "PG7VR";
+};
+
 if (_global) then {
 	if (_side != WFBE_DEFENDER_ID || WFBE_ISTHREEWAY) then {
 		if ((missionNamespace getVariable "WFBE_C_UNITS_TRACK_INFANTRY") > 0) then {
@@ -41,7 +61,7 @@ if (_global) then {
 };
 
 _unit addEventHandler ['Killed', Format ['[_this select 0,_this select 1,%1] Spawn WFBE_CO_FNC_OnUnitKilled', _side]];
-	
+
 ["INFORMATION", Format ["Common_CreateUnit.sqf: [%1] Unit [%2] was created at [%3] and has been assigned to team [%4]", _side Call WFBE_CO_FNC_GetSideFromID, _type, _position, _team]] Call WFBE_CO_FNC_LogContent;
 
 _unit

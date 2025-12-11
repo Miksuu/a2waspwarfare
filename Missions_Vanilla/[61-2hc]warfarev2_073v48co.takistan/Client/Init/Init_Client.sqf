@@ -9,6 +9,9 @@ WFBE_Client_SideJoined = sideJoined;
 WFBE_Client_SideJoinedText = sideJoinedText;
 WFBE_Allow_HostileGearSaving = true;
 
+// Set the default target fps to 60
+missionNamespace setVariable ["AUTO_DISTANCE_VIEW_TARGET_FPS", 60];
+
 player call Compile preprocessFileLineNumbers "WASP\rpg_dropping\DropRPG.sqf";
 //--- Position the client on the temp spawn (Common is not yet init'd so we call is straigh away).
 player setPos ([getMarkerPos Format["%1TempRespawnMarker",sideJoinedText],1,10] Call Compile preprocessFile "Common\Functions\Common_GetRandomPosition.sqf");
@@ -19,21 +22,22 @@ _rearmor = {
    				_result = 0;
 
    				switch (_ammo) do {
-				    case "B_20mm_AA" :{_dam=_this select 2; _p=12; _result=(_dam/100)*(100-_p);};
+                    case "B_20mm_AA" :{_dam=_this select 2; _p=12; _result=(_dam/100)*(100-_p);};
 					case "B_23mm_AA" :{_dam=_this select 2; _p=12; _result=(_dam/100)*(100-_p);};
 					case "B_25mm_HE" :{_dam=_this select 2; _p=12; _result=(_dam/100)*(100-_p);};
 					case "B_25mm_HEI" :{_dam=_this select 2; _p=12; _result=(_dam/100)*(100-_p);};
 					case "B_30mm_AA" :{_dam=_this select 2; _p=12; _result=(_dam/100)*(100-_p);};
 					case "B_30mm_HE" :{_dam=_this select 2; _p=12; _result=(_dam/100)*(100-_p);};
-					case "Sh_40_HE" :{_dam=_this select 2; _p=12; _result=(_dam/100)*(100-_p);};   
+					case "Sh_40_HE" :{_dam=_this select 2; _p=12; _result=(_dam/100)*(100-_p);};
      				default {_result = _this select 2;};
     			};
    				_result
   			};
-			
+
 player addeventhandler ["HandleDamage",format ["_this Call %1", _rearmor]];
 [] execVM "Common\Functions\Common_Bipod.sqf";
 
+UpdateMarker = Compile preprocessFile "Common\Functions\Common_UpdateMarker.sqf";
 BoundariesIsOnMap = Compile preprocessFile "Client\Functions\Client_IsOnMap.sqf";
 BoundariesHandleOnMap = Compile preprocessFile "Client\Functions\Client_HandleOnMap.sqf";
 BuildUnit = Compile preprocessFile "Client\Functions\Client_BuildUnit.sqf";
@@ -59,7 +63,7 @@ SupportHeal = Compile preprocessFile "Client\Functions\Client_SupportHeal.sqf";
 SupportRearm = Compile preprocessFile "Client\Functions\Client_SupportRearm.sqf";
 SupportRefuel = Compile preprocessFile "Client\Functions\Client_SupportRefuel.sqf";
 SupportRepair = Compile preprocessFile "Client\Functions\Client_SupportRepair.sqf";
-TaskSystem = Compile preprocessFile "Client\Functions\Client_TaskSystem.sqf";
+// TaskSystem = Compile preprocessFile "Client\Functions\Client_TaskSystem.sqf";
 TitleTextMessage = Compile preprocessFile "Client\Functions\Client_TitleTextMessage.sqf";
 UIChangeComboBuyUnits = Compile preprocessFile "Client\Functions\Client_UIChangeComboBuyUnits.sqf";
 UIFillListBuyUnits = Compile preprocessFile "Client\Functions\Client_UIFillListBuyUnits.sqf";
@@ -109,10 +113,11 @@ WFBE_CL_FNC_SupplyMissionCompletedMessage = Call Compile preprocessFileLineNumbe
 WFBE_CL_FNC_SupplyMissionStart = Call Compile preprocessFileLineNumbers "Client\Module\supplyMission\supplyMissionStart.sqf";
 WFBE_CL_FNC_TownSupplyStatus = Call Compile preprocessFileLineNumbers "Client\Module\supplyMission\townSupplyStatus.sqf";
 WFBE_CL_FNC_CheckCCProximity = Compile preprocessFileLineNumbers "Client\Module\supplyMission\checkCCProximity.sqf";
-WFBE_CL_FNC_ReceiverMASHmarker = Call Compile preprocessFileLineNumbers "Client\Module\MASH\receiverMASHmarker.sqf";
+// WFBE_CL_FNC_ReceiverMASHmarker = Call Compile preprocessFileLineNumbers "Client\Module\MASH\receiverMASHmarker.sqf";
 WFBE_CL_FNC_FindVariableInNestedArray = Compile preprocessFileLineNumbers "Client\Functions\Client_FindVariableInNestedArray.sqf";
 WFBE_CL_PV_ReceiveSupplyValue = Call Compile preprocessFileLineNumbers "Client\Functions\Client_ReceiveSupplyValue.sqf";
 
+WFBE_CL_FNC_ReturnAircraftNameFromItsType = Compile preprocessFileLineNumbers "Common\Common_ReturnAircraftNameFromItsType.sqf";
 
 //Affichage Rubber maps:
 	Local_GUIWorking = false;
@@ -131,7 +136,7 @@ Call Compile preprocessFileLineNumbers 'Client\Functions\Client_FNC_Groups.sqf';
 Call Compile preprocessFileLineNumbers 'Client\Functions\Client_FNC_OnFired.sqf'; //--- FUNCTIONS: onFired EH.
 Call Compile preprocessFileLineNumbers 'Client\Functions\Client_FNC_Special.sqf'; //--- FUNCTIONS: Specials.
 
-clientInitComplete = true;
+
 
 //--- UI Namespace release from previous possible games (only on titles dialog!).
 {uiNamespace setVariable [_x, displayNull]} forEach ["wfbe_title_capture"];
@@ -146,6 +151,9 @@ if (ARMA_VERSION >= 162 && ARMA_RELEASENUMBER > 97105 || ARMA_VERSION > 162) the
 	WFBE_CL_FNC_UI_Gear_SaveTemplateProfile = Compile preprocessFileLineNumbers "Client\Functions\Client_UI_Gear_SaveTemplateProfile.sqf";
 	Call Compile preprocessFileLineNumbers "Client\Init\Init_ProfileVariables.sqf";
 };
+
+// Marty : auto distance view feature deactivated at client start.
+missionNamespace setVariable ["TOOGLE_AUTO_DISTANCE_VIEW", false];
 
 //--- Queue Protection.
 missionNamespace setVariable ['WFBE_C_QUEUE_BARRACKS',0];
@@ -183,8 +191,17 @@ playerType = typeOf player;
 playerDead = false;
 paramBoundariesRunning = false;
 
+// View distance timer stuff
+timerInstanceCount = 0;
+newViewDistance = 0;
+
 disableserialization;
+
+keyPressed = compile preprocessFile "Common\Functions\Common_DisableTablock.sqf";
+keyPressedForAdjustingViewDistance = compile preprocessFile "Common\Functions\Common_AdjustViewDistance.sqf";
 _display = findDisplay 46;
+_display displayAddEventHandler ["KeyDown","_this call keyPressed"];
+_display displayAddEventHandler ["KeyDown","_this call keyPressedForAdjustingViewDistance"];
 
 WFBE_CO_FNC_DisableTabLock = compile preprocessFileLineNumbers "Common\Functions\Common_DisableTablock.sqf";
 
@@ -335,7 +352,7 @@ sideHQ = _HQRadio;
 ["INITIALIZATION", "Init_Client.sqf: Radio announcer is initialized."] Call WFBE_CO_FNC_LogContent;
 
 /* Wait for a valid signal (Teamswaping) with failover */
-if (isMultiplayer && (missionNamespace getVariable "WFBE_C_GAMEPLAY_TEAMSWAP_DISABLE") > 0 && time > 7) then {
+if (isMultiplayer && ((missionNamespace getVariable "WFBE_C_GAMEPLAY_TEAMSWAP_DISABLE") > 0 && !WF_Debug) && time > 7) then {
 	Private ["_get","_timelaps"];
 	_get = true;
 
@@ -402,6 +419,7 @@ if (time < 30) then {
 //	        _structureType = (_buildings select _i) getVariable "wfbe_structure_type";
 //	        if (_structureType == "Barracks" || _structureType == "Light" || _structureType == "Heavy") exitWith {
 //	            _base = _buildings select _i;
+
     if (count _buildings > 0) then {_base = _buildings select ((count _buildings) - 1)};
 };
 
@@ -655,20 +673,37 @@ sleep 3;
 /* Client death handler. */
 WFBE_PLAYERKEH = player addEventHandler ['Killed', {[_this select 0,_this select 1] Spawn WFBE_CL_FNC_OnKilled; [_this select 0,_this select 1, sideID] Spawn WFBE_CO_FNC_OnUnitKilled}];
 
-hint parseText "<t color='#28ff14'>If you're a new player:</t> <br/><br/>Read the instructions that will show in chat soon. <br/><br/>Our Discord server: <br/><br/><t color='#28ff14'>discord.me/warfare</t>  <br/><br/>(Open the link with a web browser like Chrome) <br/><br/>Ask in chat or on our Discord server if you want to know how something works. <br/><br/>You and your units are marked with <t color='#FFAC1C'>orange</t> color on map. <br/><br/>Friendly towns are marked with <t color='#1ff026'>green</t> color. <t color='#000bde'>Blue</t> and <t color='#de0300'>red</t> towns are controlled by enemy. <br/><br/>Note that you see friendly players and units on map. <br/><br/><t color='#42b6ff'>WF menu</t> is important. You can open it by using action menu (mouse scroll). <br/><br/>Welcome and good luck, soldier! :)";
-hint parseText "<t color='#28ff14'>If you're a new player:</t> <br/><br/>Read the instructions that will show in chat soon. <br/><br/>Our Discord server: <br/><br/><t color='#28ff14'>discord.me/warfare</t>  <br/><br/>(Open the link with a web browser like Chrome) <br/><br/>Ask in chat or on our Discord server if you want to know how something works. <br/><br/>You and your units are marked with <t color='#FFAC1C'>orange</t> color on map. <br/><br/>Friendly units are marked with <t color='#1ff026'>green</t> color. <t color='#0011ff'>Blue</t> and <t color='#ff0000'>red</t> towns are controlled by enemy. <br/><br/>Use your map (press M) to locate yourself. Many things here happen via <t color='#6b77e8'>WF Menu</t> that you can access with your mouse scroll. <br/><br/>Welcome and good luck, soldier! :)";
+hint parseText "v24042025 <br/><br/> <t color='#28ff14'>If you're a new player:</t> <br/><br/>Read the instructions on map (press 'M' key) on the 'Notes' tab. <br/><br/>Our Discord server: <br/><br/><t color='#28ff14'>discord.me/warfare</t>  <br/><br/>(Open the link with a web browser like Chrome) <br/><br/>Ask in chat or on our Discord server if you want to know how something works. <br/><br/>You and your units are marked with <t color='#FFAC1C'>orange</t> color on map. <br/><br/>Friendly towns are marked with <t color='#1ff026'>green</t> color. <t color='#000bde'>Blue</t> and <t color='#de0300'>red</t> towns are controlled by enemy. <br/><br/>Note that you see friendly players and units on map. <br/><br/><t color='#42b6ff'>WF menu</t> is important. You can open it by using action menu (mouse scroll). <br/><br/>Welcome and good luck, soldier! :)";
 
 //--- Valhalla init.
 [] Spawn {
 	[] Call Compile preprocessFile "Client\Module\Valhalla\Init_Valhalla.sqf";
 };
 
-if (!WF_Debug) then {playMusic "TakiStart";};
+//if (!WF_Debug) then {playMusic "Track11_Large_Scale_Assault";};
+
+
+waitUntil {!(isNull player)};
 
 WFBE_C_PLAYER_OBJECT = [player, getPlayerUID player];
 publicVariableServer "WFBE_C_PLAYER_OBJECT";
 
+{
+
+	_town = _x;
+
+	missionNamespace setVariable ["WFBE_Client_PV_IsSupplyMissionActiveInTown", [player, _town]];
+			
+	publicVariableServer "WFBE_Client_PV_IsSupplyMissionActiveInTown";
+
+} forEach towns;
+
+
 /* Client Init Done - Remove the blackout */
 12452 cutText [(localize 'STR_WF_Loading')+"...","BLACK IN",5];
+
+player setVariable ["score", 0];
+
+clientInitComplete = true;
 
 ["INITIALIZATION", Format ["Init_Client.sqf: Client initialization ended at [%1]", time]] Call WFBE_CO_FNC_LogContent;

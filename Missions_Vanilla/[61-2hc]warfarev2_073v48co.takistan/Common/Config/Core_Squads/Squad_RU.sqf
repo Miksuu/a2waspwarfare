@@ -35,8 +35,8 @@ _u = _u + ["MVD_Soldier_GL"];
 _u = _u + ["MVD_Soldier_MG"];
 _u = _u + ["MVD_Soldier_MG"];
 _u = _u + ["MVD_Soldier_Marksman"];
-_u = _u + ["MVD_Soldier_AT"];
-_u = _u + ["MVD_Soldier_AT"];
+_u = _u + ["MVD_Soldier_AT"]; // MVD_Soldier_AT acts as RPG-7VR soldier now
+_u = _u + ["MVD_Soldier_AT"]; // MVD_Soldier_AT acts as RPG-7VR soldier now
 
 _aiTeamTemplateName = _aiTeamTemplateName + ["Air - Infantry Mi-8 Squadron"];
 _aiTeamTemplates = _aiTeamTemplates + [_u];
@@ -58,16 +58,14 @@ _aiTeamTemplateRequires = _aiTeamTemplateRequires + [[true,false,false,true]];
 _aiTeamTypes = _aiTeamTypes + [3];
 _aiTeamUpgrades = _aiTeamUpgrades + [[2,0,0,1]];
 
-if ((missionNamespace getVariable "WFBE_C_UNITS_KAMOV_DISABLED") == 0) then {
-	_u		= ["Ka52Black"];
-	_u = _u + ["Ka52"];
+_u		= ["Ka52Black"];
+_u = _u + ["Ka52"];
 
-	_aiTeamTemplateName = _aiTeamTemplateName + ["Air - Ka-52 Squadron"];
-	_aiTeamTemplates = _aiTeamTemplates + [_u];
-	_aiTeamTemplateRequires = _aiTeamTemplateRequires + [[false,false,false,true]];
-	_aiTeamTypes = _aiTeamTypes + [3];
-	_aiTeamUpgrades = _aiTeamUpgrades + [[0,0,0,3]];
-};
+_aiTeamTemplateName = _aiTeamTemplateName + ["Air - Ka-52 Squadron"];
+_aiTeamTemplates = _aiTeamTemplates + [_u];
+_aiTeamTemplateRequires = _aiTeamTemplateRequires + [[false,false,false,true]];
+_aiTeamTypes = _aiTeamTypes + [3];
+_aiTeamUpgrades = _aiTeamUpgrades + [[0,0,0,3]];
 
 missionNamespace setVariable [Format["WFBE_%1AITEAMTEMPLATES", _side], _aiTeamTemplates];
 missionNamespace setVariable [Format["WFBE_%1AITEAMTEMPLATEREQUIRES", _side], _aiTeamTemplateRequires];

@@ -154,7 +154,7 @@ Usefull Fast Commands From Construction Menu:<br />
 <img size='8' image='Textures\logo1.paa'/>
 <br/>
 <br/>
--The Takistan is currently at version 48
+-The Mission is currently at version 48
 <br/>
 <br/>
 -This is not the original version of Benny!
@@ -177,7 +177,6 @@ Changelog (48): <br/>
 - Decreased amount of bots for player from 16 to 10 in parameter list <br/>
 - Added HC support for static defence on bases and in res rowns <br/>
 - Added dynamic defender resp in town according current upgrade level on team side <br/>
-- Added Persistance DB support <br/>
 - Added switcher to enable/disable auto wall construction around base structures (user/custom action 14)<br/>
 - Enabled friendly ai tacking on map<br/>
 Changelog (47): <br/>
@@ -197,6 +196,7 @@ Changelog (47): <br/>
 - Fixed Selling factories gives 100% supplys back <br/>
 - Max suppluy limit is 50000 <br/>
 - Fixed mine bug <br/>
+- Added camos for btr60 and opf t34 <br/>
 - Removed tanks from start vehicles <br/>
 - Decreased damage for structures by shilka and tunga <br/>
 <br/>

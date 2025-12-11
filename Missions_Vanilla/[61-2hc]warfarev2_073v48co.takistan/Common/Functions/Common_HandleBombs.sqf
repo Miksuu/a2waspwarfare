@@ -10,7 +10,7 @@ _pos=getPos _unit;
 _timestart = time;
 _rocket = nearestObject [_unit,_ammo];
 _StartingVel = velocity _rocket;
-_affectedbombs = ["Bo_FAB_250","Bo_Mk82"];
+_affectedbombs = cti_C_BOMBS_TO_DISABLE_AUTOGUIDE;
 
 if(_ammo in _affectedbombs)then{ 
   

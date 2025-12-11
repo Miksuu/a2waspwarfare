@@ -20,11 +20,9 @@ _description = "";
 _currentUnit = missionNamespace getVariable _unit;
 _waitTime = _currentUnit select QUERYUNITTIME;
 _description = _currentUnit select QUERYUNITLABEL;
-_faction = _currentUnit select QUERYUNITFACTION;
+	
+_spawnpaddir=2;
 
-if ((_description == "BRDM-2 (ATGM)") && (_faction == "Insurgents")) then {
-	_description = "BRDM-2 (Igla AA)";
-};
 
 _type = typeOf _building;
 _index = (missionNamespace getVariable Format ["WFBE_%1STRUCTURENAMES",sideJoinedText]) find _type;
@@ -32,8 +30,125 @@ if (_index != -1) then {
 	_distance = (missionNamespace getVariable Format ["WFBE_%1STRUCTUREDISTANCES",sideJoinedText]) select _index;
 	_direction = (missionNamespace getVariable Format ["WFBE_%1STRUCTUREDIRECTIONS",sideJoinedText]) select _index;
 	_factoryType = (missionNamespace getVariable Format ["WFBE_%1STRUCTURES",sideJoinedText]) select _index;
-	_position = [getPos _building,_distance,getDir _building + _direction] Call GetPositionFrom;
-	_longest = missionNamespace getVariable Format ["WFBE_LONGEST%1BUILDTIME",_factoryType];
+
+	
+if (_factoryType in ["Light"]) then {
+	//--- Place Wheeled vehicles on Pads if avaiable.
+	Private ["_pads","_free","_dir","_no","_selpad"];
+
+	_pads = _building nearObjects ["HeliH", 250];
+
+	// Filter out unwanted objects from _pads based on their names (because they inherit from HeliH)
+    _filteredPads = [];
+    {
+        if (typeOf _x != "HeliHCivil" && typeOf _x != "HeliHRescue") then {
+            _filteredPads set [count _filteredPads, _x];
+        };
+    } forEach _pads;
+    _pads = _filteredPads;
+
+	_free = [];
+	_dir = 0;
+	if (count _pads > 0) then {
+		for "_i" from 0 to (count _pads - 1) do {
+			_dir = getDir (_pads select _i);
+			_free = _free + [[getpos (_pads select _i), _dir]];
+		};
+	};
+	if (count _free > 0) then {
+		_selpad =_free  call BIS_fnc_selectRandom;
+		_position = [_selpad select 0 select 0,_selpad select 0 select 1,_selpad select 1];
+		_position set [2, .5];
+		_spawnpaddir=5;//dirswitch to prevent overwrite dir later
+		_direction=_selpad select 1;
+
+	}else{
+	_position = _building modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
+	_position set [2, .5];};
+
+}else{//---------------------------------------------------------check for heavy
+
+
+if (_factoryType in ["Heavy"]) then {
+	//--- Place Wheeled vehicles on Pads if avaiable.
+	Private ["_pads","_free","_dir","_no","_selpad"];
+	_pads = _building nearObjects ["HeliHRescue", 250];
+	_free = [];
+	_dir = 0;
+	if (count _pads > 0) then {
+		for "_i" from 0 to (count _pads - 1) do {
+			_dir = getDir (_pads select _i);
+			_free = _free + [[getpos (_pads select _i), _dir]];
+		};
+	};
+	if (count _free > 0) then {
+		_selpad =_free  call BIS_fnc_selectRandom;
+		_position = [_selpad select 0 select 0,_selpad select 0 select 1,_selpad select 1];
+		_position set [2, .5];
+		_spawnpaddir=5;//dirswitch to prevent overwrite dir later
+		_direction=_selpad select 1;
+
+	}else{
+	_position = _building modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
+	_position set [2, .5];};
+
+}else{//--------------------------------------------------------check for air
+
+
+if (_factoryType in ["Aircraft"]) then {
+	//--- Place Wheeled vehicles on Pads if avaiable.
+	Private ["_pads","_free","_dir","_no","_selpad"];
+	_pads = _building nearObjects ["HeliHCivil", 250];
+	_free = [];
+	_dir = 0;
+	if (count _pads > 0) then {
+		for "_i" from 0 to (count _pads - 1) do {
+			_dir = getDir (_pads select _i);
+			_free = _free + [[getpos (_pads select _i), _dir]];
+		};
+	};
+	if (count _free > 0) then {
+		_selpad =_free  call BIS_fnc_selectRandom;
+		_position = [_selpad select 0 select 0,_selpad select 0 select 1,_selpad select 1];
+		_position set [2, .5];
+		_spawnpaddir=5;//dirswitch to prevent overwrite dir later
+		_direction=_selpad select 1;
+
+	}else{
+	_position = _building modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
+	_position set [2, .5];};
+
+}else{//-------------------------------------------its barracks,found only 3 marker in a2 for now
+
+	//--- Place Wheeled vehicles on Pads if avaiable.
+	Private ["_pads","_free","_dir","_no","_selpad"];
+	_pads = _building nearObjects ["Sr_border", 250];
+	_free = [];
+	_dir = 0;
+	if (count _pads > 0) then {
+		for "_i" from 0 to (count _pads - 1) do {
+			_dir = getDir (_pads select _i);
+			_free = _free + [[getpos (_pads select _i), _dir]];
+		};
+	};
+	if (count _free > 0) then {
+		_selpad =_free  call BIS_fnc_selectRandom;
+		_position = [_selpad select 0 select 0,_selpad select 0 select 1,_selpad select 1];
+		_position set [2, .5];
+		_spawnpaddir=5;//dirswitch to prevent overwrite dir later
+		_direction=_selpad select 1;
+
+	}else{
+	_position = _building modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
+	_position set [2, .5];};
+
+//_position = [getPos _building,_distance,getDir _building + _direction] Call GetPositionFrom;
+
+};};};
+
+_longest = missionNamespace getVariable Format ["WFBE_LONGEST%1BUILDTIME",_factoryType];
+	
+	
 } else {
 	if (_type == WFBE_Logic_Depot) then {
 		_distance = missionNamespace getVariable "WFBE_C_DEPOT_BUY_DISTANCE";
@@ -123,8 +238,11 @@ if (_isMan) then {
 	_locked = _vehi select 4;
 
 	_factoryPosition = getPos _building;
+	
+	
+	if (_spawnpaddir==2) then {//there is no spawnpad
 	_direction = -((((_position select 1) - (_factoryPosition select 1)) atan2 ((_position select 0) - (_factoryPosition select 0))) - 90);//--- model to world that later on.
-
+	};
 	_vehicle = [_unit, _position, sideID, _direction, _locked] Call WFBE_CO_FNC_CreateVehicle;
 	clientTeam reveal _vehicle;
 
@@ -191,11 +309,12 @@ if ((typeOf _vehicle ) in ['MLRS','GRAD','GRAD_CDF','MLRS_DES_EP1','M1129_MC_EP1
 	_vehicle setVariable ["restricted",false];_vehicle addEventHandler ["GetIn",{_this Spawn HandleArty}]
 };
 
-if(typeOf _vehicle in ['F35B','AV8B','AV8B2','A10','A10_US_EP1','Su25_TK_EP1','Su34','Su39','An2_TK_EP1','L159_ACR','L39_TK_EP1']) then {
-	_vehicle addeventhandler ['Fired',{_this spawn HandleBombs;_this spawn HandleAAMissiles}];
+// Could seperate the array here for modded vehicles
+if(typeOf _vehicle in ['F35B','AV8B','AV8B2','A10','A10_US_EP1','Su25_TK_EP1','Su34','Su39','An2_TK_EP1','L159_ACR','L39_TK_EP1','Su25_Ins','ibrPRACS_MiG21mol']) then {
+	_vehicle addeventhandler ['Fired',{_this spawn HandleAAMissiles}];
 };
 
-if(typeOf _vehicle in ['AH1Z','BAF_Apache_AH1_D','AH64D_EP1','AH64D','Ka52Black','Ka52','Mi24_P','L39_TK_EP1','2S6M_Tunguska','M6_EP1']) then {
+if(typeOf _vehicle in ['2S6M_Tunguska','M6_EP1']) then {
 	_vehicle addeventhandler ['Fired',{_this spawn HandleAAMissiles;}];
 };
 
@@ -203,10 +322,11 @@ if(typeOf _vehicle in ['T90','BMP3']) then {
 	_vehicle addeventhandler ['Fired',{_this spawn HandleATReload;}];
 };
 
-//reload mechanism for bradley's tow.
-if(typeOf _vehicle in ['M2A2_EP1']) then {
-    _vehicle addEventHandler ['Fired',{_this spawn HandleATReloadVehicle;}];
+if(typeOf _vehicle in ['Pandur2_ACR']) then {
+	_vehicle addeventhandler ['Fired',{_this spawn HandleCommanderReload;}];
 };
+
+if ({(typeOf _vehicle) isKindOf _x} count ["LAV25_Base","M2A2_Base","BMP2_Base","BTR90_Base" ] != 0) then {_vehicle addeventhandler ["fired",{_this spawn HandleReload;}];};
 
 if ({(typeOf _vehicle) isKindOf _x} count ["LAV25_Base","M2A2_Base","BMP2_Base","BTR90_Base"] != 0) then {_vehicle addeventhandler ["fired",{_this spawn HandleReload;}];};
 
@@ -223,7 +343,13 @@ if ((typeOf _vehicle) isKindOf "Tank" || (typeOf _vehicle) isKindOf "Car") then 
 		if (((sideJoined) Call WFBE_CO_FNC_GetSideUpgrades) select WFBE_UP_IRSMOKE > 0) then { //--- Make sure that the unit is defined in IRS_Init and that the upgrade is available.
 			_get = missionNamespace getVariable Format ["%1_IRS", (typeOf _vehicle)];
 			if !(isNil '_get') then {
-				_vehicle setVariable ["wfbe_irs_flares", _get select 1, true];
+
+				_getSelectOne = _get select 1;
+
+				// Check if the vehicle has the 2nd upgrade for the IR Smoke. Double the amount of smoke if true.
+				if (((sideJoined) Call WFBE_CO_FNC_GetSideUpgrades) select WFBE_UP_IRSMOKE > 1) then { _getSelectOne = _getSelectOne * 2;};
+
+				_vehicle setVariable ["wfbe_irs_flares", _getSelectOne, true];
 				_vehicle addEventHandler ["incomingMissile", {_this spawn WFBE_CO_MOD_IRS_OnIncomingMissile}];
 			};
 		};
@@ -237,7 +363,25 @@ if ((typeOf _vehicle) isKindOf "Tank" || (typeOf _vehicle) isKindOf "Car") then 
 
 	//--- Crew Management.
 	_crew = missionNamespace getVariable Format ["WFBE_%1SOLDIER",sideJoinedText];
-	if (_unit isKindOf "Tank") then {_crew = missionNamespace getVariable Format ["WFBE_%1CREW",sideJoinedText]};
+	
+	// Marty : All crew members in tanks are replaced by engineers of their side. 
+	// Russian side do not have engineer class so we use takistan class engineer for russian.
+	//if (_unit isKindOf "Tank") then {_crew = missionNamespace getVariable Format ["WFBE_%1CREW",sideJoinedText]};
+	if (_unit isKindOf "Tank") then {
+		if (sideJoinedText == "WEST")then 
+		{
+			// WEST side (american)
+			_crew = "US_Soldier_Engineer_EP1" ;
+			//player sideChat Format ["US_Soldier_Engineer_EP1 for %1",sideJoinedText];
+		}
+		else 
+		{
+			// EAST side (russian)
+			_crew = "TK_Soldier_Engineer_EP1" ;
+			//player sideChat Format ["TK_Soldier_Engineer_EP1 for %1",sideJoinedText];
+		};
+	};
+
 	if (_unit isKindOf "Air") then {
 		_crew = missionNamespace getVariable Format ["WFBE_%1PILOT",sideJoinedText];
 	};

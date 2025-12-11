@@ -3,7 +3,7 @@ Private ['_c','_count','_d','_dir','_dis','_n','_s','_side','_t','_v'];
 _side = _this;
 
 /* Root Definition */
-_MHQ = "M1130_CV_EP1";
+_MHQ = "LAV25_HQ";
 _HQ = "M1130_HQ_unfolded_EP1";
 _BAR = "US_WarfareBBarracks_EP1";
 _LVF = "US_WarfareBLightFactory_EP1";
@@ -117,12 +117,10 @@ _n			= ["WarfareBMGNest_M240_US_EP1"];
 _n = _n		+ ["M2HD_mini_TriPod_US_EP1"];
 _n = _n		+ ["SearchLight_US_EP1"];
 _n = _n		+ ["M2StaticMG_US_EP1"];
-if ((missionNamespace getVariable "WFBE_C_MODULE_BIS_BAF") > 0) then {
-	_n = _n		+ ["BAF_GPMG_Minitripod_W"];
-	_n = _n		+ ["BAF_GMG_Tripod_W"];
-	_n = _n		+ ["BAF_L2A1_Minitripod_W"];
-	_n = _n		+ ["BAF_L2A1_Tripod_W"];
-};
+_n = _n		+ ["BAF_GPMG_Minitripod_W"];
+_n = _n		+ ["BAF_GMG_Tripod_W"];
+_n = _n		+ ["BAF_L2A1_Minitripod_W"];
+_n = _n		+ ["BAF_L2A1_Tripod_W"];
 _n = _n		+ ["MK19_TriPod_US_EP1"];
 _n = _n		+ ["TOW_TriPod_US_EP1"];
 _n = _n		+ ["Stinger_Pod_US_EP1"];
@@ -143,11 +141,18 @@ _n = _n		+ ["Land_fort_rampart_EP1"];
 _n = _n		+ ["Land_fort_artillery_nest_EP1"];
 _n = _n		+ ["Hhedgehog_concreteBig"];
 _n = _n		+ ["Hedgehog_EP1"];
+
+//_____________SPAWNMARKER____________
+_n = _n		+ ["Sr_border"];
+_n = _n		+ ["HeliH"];
+_n = _n		+ ["HeliHRescue"];
+_n = _n		+ ["HeliHCivil"];
+
+
 _n = _n		+ ["Land_CamoNet_NATO_EP1"];
 _n = _n		+ ["Land_CamoNetVar_NATO_EP1"];
 _n = _n		+ ["Land_CamoNetB_NATO_EP1"];
 _n = _n		+ ["Sign_Danger"];
-_n = _n		+ ["HeliH"];
 _n = _n		+ ["Fort_RazorWire"];
 _n = _n		+ ["Concrete_Wall_EP1"];
 _n = _n		+ ["Land_Campfire"];

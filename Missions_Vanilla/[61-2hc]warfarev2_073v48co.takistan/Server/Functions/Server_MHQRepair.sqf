@@ -24,7 +24,7 @@ _logik setVariable ['wfbe_hq_repairing',true, true];
 
 
 _MHQ = [missionNamespace getVariable Format["WFBE_%1MHQNAME", _sideText], _position, _sideID, _direction, true, false] Call WFBE_CO_FNC_CreateVehicle;
-if (_side == west)then{
+if (_side == west && !(IS_chernarus_map_dependent)) then {
 	_MHQ setVehicleInit "this setObjectTexture [0,""Textures\lavbody_coD.paa""]";
 	_MHQ setVehicleInit "this setObjectTexture [1,""Textures\lavbody2_coD.paa""]";
 	_MHQ setVehicleInit "this setObjectTexture [2,""Textures\lav_hq_coD.paa""]";
@@ -51,6 +51,23 @@ _logik setVariable ['wfbe_hq_repair_count', (_logik getVariable "wfbe_hq_repair_
 [leader _commanderTeam, "SetMHQLock", _MHQ] Call WFBE_CO_FNC_SendToClient;	
 [_side,"Mobilized", ["Base", _MHQ]] Spawn SideMessage;
 deleteVehicle _hq;	
-		
+
+// Marty : Remove mark HQ wreck on map and broadcast boolean when HQ west is repaired
+_marker_name = "HQ_WRECK_" + str(_side) ;
+[_marker_name, 0]call WFBE_CL_FNC_Delete_Marker;	
+
+// Marty : these public variables below are used globaly in case a client join after the game has already begin:
+if (_side == west) then 
+{
+	missionNamespace setVariable ["IS_WEST_HQ_ALIVE", true];
+	publicVariable "IS_WEST_HQ_ALIVE"; 
+};
+
+if (_side == east) then 
+{
+	missionNamespace setVariable ["IS_EAST_HQ_ALIVE", true];
+	publicVariable "IS_EAST_HQ_ALIVE"; 
+};
+// Marty : end.
 
 ["INFORMATION", Format ["Server_MHQRepair.sqf: [%1] MHQ has been repaired.", _sideText]] Call WFBE_CO_FNC_LogContent;
