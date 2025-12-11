@@ -7,6 +7,7 @@ scriptName "Common\Init\Init_PublicVariables.sqf";
 Private ['_clientCommandPV','_l','_serverCommandPV'];
 
 _l		= ["RequestVehicleLock"];
+_l = _l + ["RequestOnUnitKilled"];
 _l = _l + ["RequestChangeScore"];
 _l = _l + ["RequestCommanderVote"];
 _l = _l + ["RequestNewCommander"];
@@ -26,6 +27,7 @@ _l = _l + ["AwardBounty"];
 _l = _l + ["AwardBountyPlayer"];
 _l = _l + ["CampCaptured"];
 _l = _l + ["ChangeScore"];
+_l = _l + ["DatabaseDebug"];
 _l = _l + ["HandleSpecial"];
 _l = _l + ["LocalizeMessage"];
 _l = _l + ["SetTask"];
@@ -34,7 +36,7 @@ _l = _l + ["TownCaptured"];
 _l = _l + ["SetMHQLock"];
 _l = _l + ["Available"];
 _l = _l + ["RequestBaseArea"];
-_l = _l + ["HandleParatrooperMarkerCreation"];
+_l = _l + ["NukeIncoming"];
 
 _clientCommandPV = _l;
 
