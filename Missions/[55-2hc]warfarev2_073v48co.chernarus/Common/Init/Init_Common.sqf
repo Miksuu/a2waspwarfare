@@ -350,12 +350,14 @@ if ((missionNamespace getVariable "WFBE_C_ECONOMY_CURRENCY_SYSTEM") == 1) then {
 };
 
 //--- Make a global array of miscelleanous stuff.
+/*
 _repairs = [];
 {
 	_repairs = _repairs + (missionNamespace getVariable Format["WFBE_%1REPAIRTRUCKS", _x]);
 } forEach WFBE_PRESENTSIDES;
 
 missionNamespace setVariable ["WFBE_REPAIRTRUCKS", _repairs];
+*/
 
 //--- Common initilization is complete at this point.
 ["INITIALIZATION", Format ["Init_Common.sqf: Common initialization ended at [%1]", time]] Call WFBE_CO_FNC_LogContent;
