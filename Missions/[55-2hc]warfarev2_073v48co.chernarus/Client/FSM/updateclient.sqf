@@ -93,8 +93,14 @@ while {!gameOver} do {
 	_countDownKick =round(_inactivityTimeout - _elapsedTime);
 	//player sideChat format ["Elapsed Time: %1 seconds", _elapsedTime]; // Display the inacticity time of the player for testing purpose	
 
-    if (_countDownKick < 300 && _countDownKick % 15 == 0) then {
-		hint format["You are AFK. If you dont move you will be kicked in %1 seconds.", _countDownKick];
+    if (_countDownKick < 600) then {
+		if (_countDownKick > 120) then {
+			if (_countDownKick % 60 == 0) then {
+				hint format["You are AFK. If you dont move you will be kicked in %1 minutes.", round(_countDownKick / 60)];
+			};
+		} else {
+				hint format["You are AFK. If you dont move you will be kicked in %1 seconds.", _countDownKick];
+		};
 	};
 
 	// Check if the player has been inactive for more than the specified duration, if so he's ejected from the mission.
