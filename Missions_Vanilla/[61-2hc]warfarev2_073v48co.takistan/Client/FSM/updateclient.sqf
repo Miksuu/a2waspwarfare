@@ -95,8 +95,8 @@ while {!gameOver} do {
 
     if (_countDownKick < 600) then {
 		if (_countDownKick > 120) then {
-			if (_countDownKick % 60 == 0) then {
-				hint format["You are AFK. If you dont move you will be kicked in %1 minutes.", round(_countDownKick / 60)];
+			if (_countDownKick % 30 == 0) then {
+				hint format["You are AF3K. If you dont move you will be kicked in %1 minutes.", round(_countDownKick / 60)];
 			};
 		} else {
 				hint format["You are AFK. If you dont move you will be kicked in %1 seconds.", _countDownKick];
