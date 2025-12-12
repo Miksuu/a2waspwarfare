@@ -13,10 +13,6 @@ _killer = _this select 1;
 _killed_side = (_this select 2) Call GetSideFromID;
 _type= typeOf _killed;
 
-diag_log format ["_killed: %1", _killed];
-diag_log format ["_killer: %1", _killer];
-diag_log format ["_killed_side: %1", _killed_side];
-
 if (_killer == _killed || isNull _killer) then { //--- The killed may be the killer (suicide) or bailed before destruction.
 	_last_hit = _killed getVariable "wfbe_lasthitby";
 	if !(isNil '_last_hit') then {
@@ -64,8 +60,6 @@ if (_killed_side in WFBE_PRESENTSIDES) then { //--- Update the statistics if nee
 
 _get = missionNamespace getVariable _killed_type; //--- Get the killed informations.
 
-diag_log format ["_get: %1", _get];
-
 if (!isNil '_get' && _killer_iswfteam) then { //--- Make sure that type killed type is defined in the core files and that the killer is a WF team.
 	if (_killer_side != _killed_side) then { //--- Normal kill.
 		if (isPlayer (leader _killer_group)) then { //--- The team is lead by a player.
@@ -73,8 +67,6 @@ if (!isNil '_get' && _killer_iswfteam) then { //--- Make sure that type killed t
 			if !(_killer_isplayer) then { //--- An AI is the killer.
 				_killer_award = _killer;
                 };
-
-				diag_log format ["_killed_type: %1", _killed_type];
 
 				_points = [_killed_type, _get] call WFBE_SE_FNC_AwardScorePlayer;
 
