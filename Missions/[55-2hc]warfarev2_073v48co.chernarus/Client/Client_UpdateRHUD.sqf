@@ -31,8 +31,7 @@ while {true} do {
 			_textLabel6 = (["currentCutDisplay"] call BIS_FNC_GUIget) DisplayCtrl 1358;
 			_textLabel7 = (["currentCutDisplay"] call BIS_FNC_GUIget) DisplayCtrl 1360;
 			_textLabel8 = (["currentCutDisplay"] call BIS_FNC_GUIget) DisplayCtrl 1362;
-			_textLabel_FPS_3 = (["currentCutDisplay"] call BIS_FNC_GUIget) DisplayCtrl 1364; //Client FPS
-			_textLabel_FPS_5 = (["currentCutDisplay"] call BIS_FNC_GUIget) DisplayCtrl 1366; //Server FPS
+			_textLabel_FPS_3 = (["currentCutDisplay"] call BIS_FNC_GUIget) DisplayCtrl 1364; //FPS
 
 			_player = Leader player;
 			//Show background
@@ -53,8 +52,7 @@ while {true} do {
 			_textLabel6 ctrlSetText "Supply:";
 			_textLabel7 ctrlSetText "SV Min:";
 			_textLabel8 ctrlSetText "City:";
-			_textLabel_FPS_3 ctrlSetText "Client FPS:";
-			_textLabel_FPS_5 ctrlSetText "Server FPS:";
+			_textLabel_FPS_3 ctrlSetText "FPS:";
 			_textLabel1 ctrlShow true;
 			_textLabel2 ctrlShow true;
 			_textLabel3 ctrlShow true;
@@ -65,7 +63,6 @@ while {true} do {
 			_textLabel7 ctrlShow true;
 			_textLabel8 ctrlShow true;
 			_textLabel_FPS_3 ctrlShow true;
-			_textLabel_FPS_5 ctrlShow true;
 			_lineLabel ctrlShow true;
 
 			//HEALTH
