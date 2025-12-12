@@ -54,23 +54,18 @@ while {!gameOver} do {
 		_buildings = _buildings - _command - _service - _aar;
 		_areas_old = _logik getVariable "wfbe_basearea";
 		
-		["DEBUG", Format ["basearea.sqf: Debug info [_side, _logik, _buildings, _command, _service, _aar, _buildings after subtraction, _areas_old] [%1, %2, %3, %4, %5, %6, %7, %8]", _side, _logik, _buildings, _command, _service, _aar, _buildings, _areas_old]] Call WFBE_CO_FNC_LogContent;
-
 		// Remove the null objects from the array, test to fix the base area bug possibly.
 		_areas_old = _areas_old - [objNull];
-		["DEBUG", Format ["basearea.sqf: Debug info [_areas_old after removing null] [%1]", _areas_old]] Call WFBE_CO_FNC_LogContent;
-
+		
 		_areas = _areas_old;
 	
 		{
 			_structure = [_x, _buildings] Call WFBE_CO_FNC_GetClosestEntity;
-			["DEBUG", Format ["basearea.sqf: Debug info [_structure] [%1]", _structure]] Call WFBE_CO_FNC_LogContent;
 			if (!isNull _structure) then {
 				if (_structure distance _x > (_brr + _mbr)) then {
 					//--- On deletion, remove the statics/defenses later.
 					[getPos _x, _side, _areas_old] Spawn _onAreaRemoved;
 					_areas = _areas - [_x] - [objNull];
-					["DEBUG", Format ["basearea.sqf: Debug info [_areas after removal] [%1]", _areas]] Call WFBE_CO_FNC_LogContent;
 					_grp = group _x;
 					deleteVehicle _x;
 					deleteGroup _grp;
@@ -80,7 +75,6 @@ while {!gameOver} do {
 	
 		if (count _areas_old != count _areas) then {
 			_logik setVariable ["wfbe_basearea", _areas, true];
-			["DEBUG", Format ["basearea.sqf: Debug info [wfbe_basearea setVariable] [%1]", _areas]] Call WFBE_CO_FNC_LogContent;
 		};
 	} forEach WFBE_PRESENTSIDES;
 	sleep 20;
