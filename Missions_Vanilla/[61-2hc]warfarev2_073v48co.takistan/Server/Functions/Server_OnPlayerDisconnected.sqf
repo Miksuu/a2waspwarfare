@@ -156,7 +156,6 @@ if (isNil "_playerScore") then {
 	["ERROR", Format ["Server_PlayerDisconnected.sqf: Player [%1] [%2] has no score to be saved upon disconnection. This can be caused by immediate disconnection from the match after joining, or it can be something fishy.", _name, _uid]] Call WFBE_CO_FNC_LogContent;
 };
 
-
 _oldScore = missionNamespace getVariable format ["WFBE_CO_OLD_SCORE_PLAYER_%1", _uid];
 
 if (isNil "_oldScore") then {
@@ -169,3 +168,5 @@ _playerScoreDiff = _playerScore - _oldScore;
 
 _result = ["STORE", [_uid, _playerScoreDiff]] call WFBE_SE_FNC_CallDatabaseStore;
 _result = ["STORE_SIDE", [_uid, "NONE"]] call WFBE_SE_FNC_CallDatabaseStoreSide;
+
+["ERROR", Format ["Server_PlayerDisconnected.sqf: Player [%1] [%2] has disconnected.", _name, _uid]] Call WFBE_CO_FNC_LogContent;

@@ -31,7 +31,7 @@ if ((_side) Call WFBE_CO_FNC_GetSideHQDeployStatus) then {
 	//--- HQ is now considered mobilized.
 	_logik setVariable ["wfbe_hq_deployed", false, true];
 	_logik setVariable ["wfbe_hq",_hq,true];
-	
+
 	//--- Remove the structure after the burial.
 	(_structure) Spawn {sleep 10; deleteVehicle _this};
 };
