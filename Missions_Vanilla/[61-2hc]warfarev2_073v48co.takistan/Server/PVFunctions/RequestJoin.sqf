@@ -10,6 +10,8 @@ _canJoin = true;
 _teamJoinedConfirmed = missionNamespace getVariable Format["WFBE_JIP_USER%1_TEAM_JOINED", _uid];
 _hasConnectedAtLaunchToSide = missionNamespace getVariable format ["WFBE_PLAYER_%1_CONNECTED_AT_LAUNCH", _uid];
 
+_skillBLUFOR = [west, _uid] Call WFBE_SE_FNC_GetTeamScore;
+_skillOPFOR = [east, _uid] Call WFBE_SE_FNC_GetTeamScore;
 
 if ( !(isNil "_teamJoinedConfirmed")) then { //--- Retrieve JIP Information if there's any.
 
