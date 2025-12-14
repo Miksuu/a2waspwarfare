@@ -573,8 +573,15 @@ call WFBE_CO_FNC_InitAFKkickHandler;
 // 0 = NONE
 // 1 = CHERNARUS
 // 2 = TAKISTAN
-["SET_MAP", 2] call WFBE_SE_FNC_CallDatabaseSetMap;
+["SET_MAP", 1] call WFBE_SE_FNC_CallDatabaseSetMap;
+
+_logMatchWinPlayerCountThreshold = 10;
+
+[_logMatchWinPlayerCountThreshold] execVM "Server\MonitorPlayerCount.sqf";
 
 WFBE_SE_PLAYERLIST = [[objNull, "0"]];
 
 {_x Spawn WFBE_SE_FNC_VoteForCommander} forEach WFBE_PRESENTSIDES;
+
+
+["INITIALIZATION", Format ["Init_Server.sqf: Server initialization ended at [%1]", time]] Call WFBE_CO_FNC_LogContent;
