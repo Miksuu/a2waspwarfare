@@ -56,7 +56,7 @@ while {!gameOver} do {
 		
 		// Remove the null objects from the array, test to fix the base area bug possibly.
 		_areas_old = _areas_old - [objNull];
-		
+
 		_areas = _areas_old;
 	
 		{
