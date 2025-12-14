@@ -25,7 +25,6 @@ if (alive _vehicle) then {
 					(_vehicle) Spawn WFBE_CO_MOD_IRS_DeploySmoke;
 					_vehicle setVariable ["wfbe_irs_lastfired", time];
 					_vehicle setVariable ["wfbe_irs_flares", (_vehicle getVariable "wfbe_irs_flares") - 1, true];
-
 					if ((local player) && (player in crew _vehicle)) then {
 						
 						_upgrades = (sideJoined) Call WFBE_CO_FNC_GetSideUpgrades;
