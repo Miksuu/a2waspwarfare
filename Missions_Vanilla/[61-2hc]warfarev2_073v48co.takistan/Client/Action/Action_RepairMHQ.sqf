@@ -22,7 +22,6 @@ switch (missionNamespace getVariable Format ['WFBE_C_BASE_HQ_REPAIR_COUNT_%1', s
 if (missionNamespace getVariable Format ['WFBE_C_BASE_HQ_REPAIR_PRICE_%1', sideJoined] == (missionNamespace getVariable 'WFBE_C_BASE_HQ_REPAIR_PRICE_3RD')) exitWith {hint Format [localize "STR_WF_INFO_MHQ_Repairs_Used"]};
 
 _repairPrice = (missionNamespace getVariable Format ['WFBE_C_BASE_HQ_REPAIR_PRICE_%1', sideJoined]);
-
 _currency = if (_currency_system == 0) then {(sideJoined) Call GetSideSupply} else {Call GetPlayerFunds};
 _currencySym = if (_currency_system == 0) then {"S"} else {"$"};
 if (_currency < _repairPrice) exitWith {hint Format [localize "STR_WF_INFO_Repair_MHQ_Funds",_currencySym,_repairPrice - _currency]};
