@@ -79,7 +79,7 @@ class Params {
 		texts[] = {"$STR_WF_Disabled","1","2","3","4","5","6","7","8","9","10","12","14","16","18","20","22","24"};
 		default = 3;
 	};
-	 class WFBE_C_BASE_DEFENSE_MANNING_RANGE {
+	class WFBE_C_BASE_DEFENSE_MANNING_RANGE {
 		title = "$STR_WF_PARAMETER_AutoDefense_Range";
 		values[] = {50,100,150,200,250,300,350,400,450,500,600,700,800,900,1000};
 		texts[] = {"50m","100m","150m","200m","250m","300m","350m","400m","450m","500m","600m","700m","800m","900m","1000m"};
@@ -133,7 +133,7 @@ class Params {
 		texts[] = {"1 Minute","1 Minute 15 Seconds","1 Minute 30 Seconds","1 Minute 45 Seconds","2 Minutes","2 Minutes 30 Seconds","3 Minutes","4 Minutes","5 Minutes","6 Minutes","7 Minutes","8 Minutes","9 Minutes","10 Minutes"};
 		default = 60;
 	};
-class WFBE_C_ECONOMY_FUNDS_START_EAST {
+	class WFBE_C_ECONOMY_FUNDS_START_EAST {
 		title = "$STR_WF_PARAMETER_Funds_East";
 		values[] = {800,1600,2400,3200,4000,4800,6400,8000,12800,25600,51200,102400,204800,409600,819200};
 		texts[] = {"$ 800","$ 1600","$ 2400","$ 3200","$ 4000","$ 4800","$ 6400","$ 8000","$ 12800","$ 25600","$ 51200","$ 102400","$ 204800","$ 409600","$ 819200"};
@@ -147,14 +147,14 @@ class WFBE_C_ECONOMY_FUNDS_START_EAST {
 	};
 	class WFBE_C_ECONOMY_SUPPLY_START_EAST {
 		title = "$STR_WF_PARAMETER_Supply_East";
-		values[] = {1200,2400,3600,4800,6000,7200,8400,9600,19200,38400,76800};
-		texts[] = {"S 1200","S 2400","S 3600","S 4800","S 6000","S 7200","S 8400","S 9600","S 19200","S 38400","S 76800"};
+		values[] = {1200,2400,3600,4800,6000,7200,8400,9600,12800,16000,19200,38400,76800};
+		texts[] = {"S 1200","S 2400","S 3600","S 4800","S 6000","S 7200","S 8400","S 9600","S 12800","S 16000","S 19200","S 38400","S 76800"};
 		default = 9600;
 	};
 	class WFBE_C_ECONOMY_SUPPLY_START_WEST {
 		title = "$STR_WF_PARAMETER_Supply_West";
-		values[] = {1200,2400,3600,4800,6000,7200,8400,9600,19200,38400,76800};
-		texts[] = {"S 1200","S 2400","S 3600","S 4800","S 6000","S 7200","S 8400","S 9600","S 19200","S 38400","S 76800"};
+		values[] = {1200,2400,3600,4800,6000,7200,8400,9600,12800,16000,19200,38400,76800};
+		texts[] = {"S 1200","S 2400","S 3600","S 4800","S 6000","S 7200","S 8400","S 9600","S 12800","S 16000","S 19200","S 38400","S 76800"};
 		default = 9600;
 	};
 
