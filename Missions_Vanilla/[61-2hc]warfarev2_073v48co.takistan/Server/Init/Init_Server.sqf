@@ -578,7 +578,7 @@ call WFBE_CO_FNC_InitAFKkickHandler;
 // 0 = NONE
 // 1 = CHERNARUS
 // 2 = TAKISTAN
-["SET_MAP", 1] call WFBE_SE_FNC_CallDatabaseSetMap;
+["SET_MAP", 2] call WFBE_SE_FNC_CallDatabaseSetMap;
 
 _logMatchWinPlayerCountThreshold = 10;
 
