@@ -25,7 +25,7 @@ _responseCode = _response select 0;
 
 if (typeName _responseCode == "SCALAR") then {
 	if (_responseCode < 0) then {
-		["ERROR", format ["CallDatabaseSetMap.sqf: Couldn't set map for the match! (Map attempted to be saved in database: [%1].)", _map]] Call WFBE_CO_FNC_LogContent;
+		["ERROR", format ["CallDatabaseSetMap.sqf: Couldn't set map for the match! (Map ID attempted to be saved in database: [%1].)", _map]] Call WFBE_CO_FNC_LogContent;
 	} else {
 		if (_responseCode == 1) then {
 			["INFORMATION", format ["CallDatabaseSetMap.sqf: Called database successfully with procedure: [%1].", _procedureName]] Call WFBE_CO_FNC_LogContent;

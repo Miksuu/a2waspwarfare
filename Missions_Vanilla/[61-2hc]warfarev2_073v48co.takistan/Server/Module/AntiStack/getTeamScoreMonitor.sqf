@@ -21,7 +21,7 @@ _miniSleep = 0.10;
 		_playerSkill = _playerScoreTotal / _playerTimePlayedTotal;
 
 		_teamSkill = _teamSkill + _playerSkill;
-
+		
 		uiSleep _miniSleep;
 	};
 

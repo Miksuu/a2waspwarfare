@@ -23,7 +23,6 @@ while { !WFBE_GameOver } do {
 			_playerNewScore = _playerPrevScoreTotal + _playerScoreDiff;
 			uiSleep _miniSleep;
 			_result = ["STORE", [getPlayerUID _x, _playerScoreDiff]] call WFBE_SE_FNC_CallDatabaseStore;
-			uiSleep _miniSleep;
 		};
 	} forEach allUnits;
 };
