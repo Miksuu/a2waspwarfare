@@ -99,7 +99,6 @@ with missionNamespace do {
 	if (isNil "WFBE_C_BASE_DEFENSE_MAX_AI") then {WFBE_C_BASE_DEFENSE_MAX_AI = 40}; //--- Maximum AIs that will be able to man defense within the barracks area.
 	if (isNil "WFBE_C_BASE_DEFENSE_MANNING_RANGE") then {WFBE_C_BASE_DEFENSE_MANNING_RANGE = 250}; //--- Within x meters, defenses may be manned.
 	if (isNil "WFBE_C_BASE_START_TOWN") then {WFBE_C_BASE_START_TOWN = 1}; //--- Remove the spawn locations which are too far away from the towns.
-	if (isNil "WFBE_C_BASE_STARTING_DISTANCE") then {WFBE_C_BASE_STARTING_DISTANCE = 7500}; //--- Sides need at last xkm of distance between them.
 	if (isNil "WFBE_C_BASE_STARTING_MODE") then {WFBE_C_BASE_STARTING_MODE = 2}; //--- Starting Locations Mode: 0 = WN|ES; 1 = WS|EN; 2 = Random;
 	WFBE_C_BASE_AREA_RANGE = 250; //--- A base area has a range of x meters.
 	WFBE_C_BASE_HQ_BUILD_RANGE = 120; //--- HQ Build range.
