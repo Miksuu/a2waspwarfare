@@ -11,9 +11,10 @@
     if ((side player) == _side) then {
         if (_namePlayer == name player) then {
             _message = format ["You have successfully completed a supply mission and earned $%1 as a reward.", _supplyAmount];
+            _message call GroupChatMessage;
         } else {
             _message call CommandChatMessage;
         };
     };
-    
+
 };
