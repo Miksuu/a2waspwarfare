@@ -8,7 +8,7 @@
     _associatedSupplyTruck = ((_this select 1) select 1);
     _supplyAmount = _associatedSupplyTruck getVariable "SupplyAmount";
     _sourceTown = _associatedSupplyTruck getVariable "SupplyFromTown";
-    _sourceTownStr = text _sourceTown;
+    _sourceTownStr = str (_sourceTown);
     _sidePlayer = ((_this select 1) select 2);
 
     if (isNil "_supplyAmount") then {
