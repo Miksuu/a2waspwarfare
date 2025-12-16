@@ -3,9 +3,9 @@
 
     private ['_namePlayer', '_associatedSupplyTruck', '_supplyAmount', '_sourceTown', '_sourceTownStr', '_sidePlayer', '_logMessage'];
 
-    _playerObject = (_this select 1) select 1;
-    _namePlayer = name ((_this select 1) select 1);
-    _associatedSupplyTruck = ((_this select 1) select 2);
+    _playerObject = (_this select 1) select 0;
+    _namePlayer = name ((_this select 1) select 0);
+    _associatedSupplyTruck = ((_this select 1) select 1);
     _supplyAmount = _associatedSupplyTruck getVariable "SupplyAmount";
     _sourceTown = _associatedSupplyTruck getVariable "SupplyFromTown";
     _sourceTownStr = text _sourceTown;
@@ -32,5 +32,5 @@
     ["INFORMATION", _logMessage] call WFBE_CO_FNC_LogContent;
 
     publicVariable "WFBE_Server_PV_SupplyMissionCompletedMessage";
-    
+
 };
