@@ -13,7 +13,7 @@ _match = false;
 // diag_log format ["Player %1 started supply mission in town %2.", (name leader group _playerObject), _associatedSourceTown];
 [_associatedSourceTown] spawn WFBE_SE_FNC_SupplyMissionTimerForTown;
 
-while { alive _associatedSupplyTruck && !_supplyMissionForThisTownCompleted} do {
+while { alive _associatedSupplyTruck && !_supplyMissionForThisTownCompleted } do {
     
     sleep 2;
 	
@@ -54,8 +54,14 @@ while { alive _associatedSupplyTruck && !_supplyMissionForThisTownCompleted} do 
         _match = !(isNull _playerObject);
         if (_match) then {
 		    WFBE_Server_PV_SupplyMissionCompleted = [_playerObject, _associatedSupplyTruck, side _playerObject];
+
 		    publicVariableServer "WFBE_Server_PV_SupplyMissionCompleted";
+            
             _supplyMissionForThisTownCompleted = true;
+
+            (_associatedSupplyTruck getVariable "SupplyAmount") call ChangePlayerFunds;
         };
+
     };
+
 };
