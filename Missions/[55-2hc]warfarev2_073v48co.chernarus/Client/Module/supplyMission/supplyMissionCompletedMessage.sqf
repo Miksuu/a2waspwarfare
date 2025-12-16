@@ -10,6 +10,7 @@
     
     if ((side player) == _side) then {
         if (_playerObject == player) then {
+            (_supplyAmount) call ChangePlayerFunds;
             _message = format ["You have successfully completed a supply mission and earned $%1 as a reward.", _supplyAmount];
             _message call GroupChatMessage;
         } else {

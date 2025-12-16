@@ -58,8 +58,6 @@ while { alive _associatedSupplyTruck && !_supplyMissionForThisTownCompleted } do
 		    publicVariableServer "WFBE_Server_PV_SupplyMissionCompleted";
             
             _supplyMissionForThisTownCompleted = true;
-
-            (_associatedSupplyTruck getVariable "SupplyAmount") call ChangePlayerFunds;
         };
 
     };
