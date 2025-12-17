@@ -12,6 +12,7 @@ _hasConnectedAtLaunchToSide = missionNamespace getVariable format ["WFBE_PLAYER_
 
 _skillBLUFOR = 0;
 _skillOPFOR = 0;
+_reason = "";
 
 if ( !(isNil "_teamJoinedConfirmed")) then { //--- Retrieve JIP Information if there's any.
 
@@ -44,12 +45,18 @@ if ( !(isNil "_teamJoinedConfirmed")) then { //--- Retrieve JIP Information if t
 
 	} else {
 
-		["WARNING", Format["RequestJoin.sqf: Unable to find JIP information for player [%1] [%2].", _name, _uid]] Call WFBE_CO_FNC_LogContent;
+		["INFORMATION", Format["RequestJoin.sqf: Player [%1] (UID: [%2]) hasn't joined either side in this match. Checking team skills...", _name, _uid]] Call WFBE_CO_FNC_LogContent;
 
 		_skillBLUFOR = [west, _uid] Call WFBE_SE_FNC_GetTeamScore;
 		_skillOPFOR = [east, _uid] Call WFBE_SE_FNC_GetTeamScore;
 
 		_canJoin = [_side, _name, _uid, _player, _skillBLUFOR, _skillOPFOR] call WFBE_SE_FNC_CompareTeamScores;
+
+		if (_canJoin) then {
+			_reason = " (Player joined the weaker team. Joining allowed.)";
+		} else {
+			_reason = " (Player attempted to join the stronger team. Joining denied.)";
+		}
 
 	};
 };
@@ -64,7 +71,7 @@ if (WF_A2_Vanilla) then {
 
 };
 
-["INFORMATION", Format["RequestJoin.sqf: Player [%1] [%2] can join? [%3].", _name, _uid, _canJoin]] Call WFBE_CO_FNC_LogContent;
+["INFORMATION", Format["RequestJoin.sqf: Player [%1] [%2] can join? [%3].%4", _name, _uid, _canJoin, _reason]] Call WFBE_CO_FNC_LogContent;
 
 
 if (_canJoin) then {
