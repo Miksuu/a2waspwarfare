@@ -16,6 +16,9 @@ while {!WFBE_GameOver} do {
     _teamEastSkillTicksEndTriggerThresholdExceeded = TEAM_SKILL_TICKS_WEST > TEAM_SKILL_TICKS_EAST + TEAM_SKILL_TICKS_END_THRESHOLD;
     _teamWestSkillTicksEndTriggerThresholdExceeded = TEAM_SKILL_TICKS_EAST > TEAM_SKILL_TICKS_WEST + TEAM_SKILL_TICKS_END_THRESHOLD;
 
+    TEAM_WEST_SKILL_TICKS_END_TRIGGER_VALUE = 0;
+    TEAM_EAST_SKILL_TICKS_END_TRIGGER_VALUE = 0;
+
     if (_teamWestSkillTicksTriggerThresholdExceeded) then {
 
             while {!_teamWestSkillTicksEndTriggerThresholdExceeded} do {
