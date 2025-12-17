@@ -1,8 +1,8 @@
-private ["_teamSkillWest", "_teamSkillEast", "_teamWestSkillTicksTriggerThresholdExceeded0", "_teamEastSkillTicksTriggerThresholdExceeded", "_teamWestSkillTicksEndTriggerThresholdExceeded", "_teamEastSkillTicksEndTriggerThresholdExceeded", "_scoreDiff", "_teamWestSupplyIncome", "_teamEastSupplyIncome", "_skillTicksDifference", "_supplyCompensationPercentage", "_supplyCompensationAmount"];
+private ["_teamSkillWest", "_teamSkillEast", "_teamWestSkillTicksTriggerThresholdExceeded0", "_teamEastSkillTicksTriggerThresholdExceeded", "_teamWestSkillTicksEndTriggerThresholdExceeded", "_teamEastSkillTicksEndTriggerThresholdExceeded", "_skillDiff", "_teamWestSupplyIncome", "_teamEastSupplyIncome", "_skillTicksDifference", "_supplyCompensationPercentage", "_supplyCompensationAmount"];
 
 while {!WFBE_GameOver} do {
 
-    sleep 10;
+    sleep 120;
 
     _teamSkillWest = ["REQUEST_SIDE_SKILL", west] call WFBE_SE_FNC_CallDatabaseRequestSideTotalSkill;
     _teamSkillEast = ["REQUEST_SIDE_SKILL", east] call WFBE_SE_FNC_CallDatabaseRequestSideTotalSkill;
@@ -26,13 +26,13 @@ while {!WFBE_GameOver} do {
                 _teamSkillWest = ["REQUEST_SIDE_SKILL", west] call WFBE_SE_FNC_CallDatabaseRequestSideTotalSkill;
                 _teamSkillEast = ["REQUEST_SIDE_SKILL", east] call WFBE_SE_FNC_CallDatabaseRequestSideTotalSkill;
 
-                _scoreDiff = _teamSkillEast - _teamSkillWest;
+                _skillDiff = _teamSkillEast - _teamSkillWest;
 
-                if (_scoreDiff < 0) then {
-                    _scoreDiff = 0;
+                if (_skillDiff < 0) then {
+                    _skillDiff = 0;
                 };
 
-                TEAM_WEST_SKILL_TICKS_END_TRIGGER_VALUE = TEAM_WEST_SKILL_TICKS_END_TRIGGER_VALUE + _scoreDiff;
+                TEAM_WEST_SKILL_TICKS_END_TRIGGER_VALUE = TEAM_WEST_SKILL_TICKS_END_TRIGGER_VALUE + _skillDiff;
 
                 if (TEAM_WEST_SKILL_TICKS_END_TRIGGER_VALUE < 0) then {
                     TEAM_WEST_SKILL_TICKS_END_TRIGGER_VALUE = 0;
@@ -59,9 +59,11 @@ while {!WFBE_GameOver} do {
 
                 _supplyCompensationAmount = round(_teamWestSupplyIncome * (_supplyCompensationPercentage / 100));
 
-                [east, _supplyCompensationAmount, format ["Anti-stack skill difference compensation applied: Supply compensation percentage: %1/100. Extra S %2 for team [%3].", _supplyCompensationPercentage, _supplyCompensationAmount, str east]] Call ChangeSideSupply;
-            
-                sleep 5;
+                if (_supplyCompensationAmount > 0) then {
+                    [east, _supplyCompensationAmount, format ["Anti-stack skill difference compensation applied: Supply compensation percentage: %1/100. Extra S %2 for team [%3].", _supplyCompensationPercentage, _supplyCompensationAmount, str east]] Call ChangeSideSupply;
+                };
+
+                sleep 60;
             };
 
             ["INFORMATION",Format ["SkillDiffCompensation.sqf : Ended skill diff compensation for team [%1].", str east]] Call WFBE_CO_FNC_LogContent;
@@ -78,13 +80,13 @@ while {!WFBE_GameOver} do {
                     _teamSkillWest = ["REQUEST_SIDE_SKILL", west] call WFBE_SE_FNC_CallDatabaseRequestSideTotalSkill;
                     _teamSkillEast = ["REQUEST_SIDE_SKILL", east] call WFBE_SE_FNC_CallDatabaseRequestSideTotalSkill;
 
-                    _scoreDiff = _teamSkillWest - _teamSkillEast;
+                    _skillDiff = _teamSkillWest - _teamSkillEast;
 
-                    if (_scoreDiff < 0) then {
-                        _scoreDiff = 0;
+                    if (_skillDiff < 0) then {
+                        _skillDiff = 0;
                     };
 
-                    TEAM_EAST_SKILL_TICKS_END_TRIGGER_VALUE = TEAM_EAST_SKILL_TICKS_END_TRIGGER_VALUE + _scoreDiff;
+                    TEAM_EAST_SKILL_TICKS_END_TRIGGER_VALUE = TEAM_EAST_SKILL_TICKS_END_TRIGGER_VALUE + _skillDiff;
 
                     if (TEAM_EAST_SKILL_TICKS_END_TRIGGER_VALUE < 0) then {
                         TEAM_EAST_SKILL_TICKS_END_TRIGGER_VALUE = 0;
@@ -111,9 +113,11 @@ while {!WFBE_GameOver} do {
 
                     _supplyCompensationAmount = round(_teamEastSupplyIncome * (_supplyCompensationPercentage / 100));
 
-                    [west, _supplyCompensationAmount, format ["Anti-stack skill difference compensation applied: Supply compensation percentage: %1/100. Extra S %2 for team [%3].", _supplyCompensationPercentage, _supplyCompensationAmount, str west]] Call ChangeSideSupply;
-                
-                    sleep 5;
+                    if (_supplyCompensationAmount > 0) then {
+                        [west, _supplyCompensationAmount, format ["Anti-stack skill difference compensation applied: Supply compensation percentage: %1/100. Extra S %2 for team [%3].", _supplyCompensationPercentage, _supplyCompensationAmount, str west]] Call ChangeSideSupply;
+                    };
+
+                    sleep 60;
                 };
 
                 ["INFORMATION",Format ["SkillDiffCompensation.sqf : Ended skill diff compensation for team [%1].", str west]] Call WFBE_CO_FNC_LogContent;
