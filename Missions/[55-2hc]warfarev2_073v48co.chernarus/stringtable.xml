@@ -349,7 +349,7 @@
         <Italian>Player %1 (%2) has tried to place a satchel near a friendly %4 %3!</Italian>
       </Key>
       <Key ID="STR_WF_CHAT_Structure_Sold">
-        <English>A "%1" structure has been sold!</English>
+        <English>A "%1" structure has been sold near "%2"!</English>
         <French>&gt;Une structure de type "%1" à été vendu!</French>
         <German>Das Gebäude "%1" wurde verkauft!</German>
         <Russian>Строение "%1" продано!</Russian>
