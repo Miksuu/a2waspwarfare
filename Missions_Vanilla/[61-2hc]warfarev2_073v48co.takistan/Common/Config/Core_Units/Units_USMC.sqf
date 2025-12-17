@@ -38,7 +38,6 @@ if (local player) then {['BARRACKS', _side, _u] Call Compile preProcessFile 'Cli
 
 _u 			= ['MMT_USMC'];
 _u = _u		+ ['M1030'];
-_u = _u		+ ["hilux1_civil_1_open"];
 _u = _u		+ ['HMMWV'];
 _u = _u		+ ['Zodiac'];
 _u = _u		+ ['HMMWV_M2'];
