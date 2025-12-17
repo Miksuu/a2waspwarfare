@@ -1,10 +1,25 @@
-private ["_amount", "_side", "_sidePlayers", "_supplyDecreasePercentage"];
+private ["_amount", "_side", "_sidePlayers", "_supplyDecreasePercentage", "_teamSkillWest", "_teamSkillEast"];
 
 _amount = _this select 0; 
 _side = _this select 1;
 
 _sidePlayers = [];
 _supplyDecreasePercentage = 0;
+
+_teamSkillWest = ["REQUEST_SIDE_SKILL", west] call WFBE_SE_FNC_CallDatabaseRequestSideTotalSkill;
+_teamSkillEast = ["REQUEST_SIDE_SKILL", east] call WFBE_SE_FNC_CallDatabaseRequestSideTotalSkill;
+
+if (_side == west) then {
+    if (_teamSkillWest > 0) then {
+        return _amount;
+    };
+} else {
+    if (_side == east) then {
+        if (_teamSkillEast > 0) then {
+            return _amount;
+        };
+    };
+}
 
 {
     if (isPlayer _x) then 
