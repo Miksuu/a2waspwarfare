@@ -13,8 +13,8 @@ while {!WFBE_GameOver} do {
     _teamWestSkillTicksTriggerThresholdExceeded = TEAM_SKILL_TICKS_WEST > TEAM_SKILL_TICKS_EAST + TEAM_SKILL_TICKS_DIFF_THRESHOLD;
     _teamEastSkillTicksTriggerThresholdExceeded = TEAM_SKILL_TICKS_EAST > TEAM_SKILL_TICKS_WEST + TEAM_SKILL_TICKS_DIFF_THRESHOLD;
     
-    _teamEastSkillTicksEndTriggerThresholdExceeded = TEAM_SKILL_TICKS_WEST > TEAM_SKILL_TICKS_EAST + TEAM_SKILL_TICKS_END_THRESHOLD;
-    _teamWestSkillTicksEndTriggerThresholdExceeded = TEAM_SKILL_TICKS_EAST > TEAM_SKILL_TICKS_WEST + TEAM_SKILL_TICKS_END_THRESHOLD;
+    _teamWestSkillTicksEndTriggerThresholdExceeded = TEAM_SKILL_TICKS_WEST > TEAM_SKILL_TICKS_EAST + TEAM_SKILL_TICKS_END_THRESHOLD;
+    _teamEastSkillTicksEndTriggerThresholdExceeded = TEAM_SKILL_TICKS_EAST > TEAM_SKILL_TICKS_WEST + TEAM_SKILL_TICKS_END_THRESHOLD;
 
     TEAM_WEST_SKILL_TICKS_END_TRIGGER_VALUE = 0;
     TEAM_EAST_SKILL_TICKS_END_TRIGGER_VALUE = 0;
@@ -109,7 +109,7 @@ while {!WFBE_GameOver} do {
 
                     _supplyCompensationAmount = round(_teamEastSupplyIncome * (_supplyCompensationPercentage / 100));
 
-                    [east, _supplyCompensationAmount, format ["Anti-stack skill difference compensation applied: Supply compensation percentage: %1 %. Extra S %2 for team [%3].", _supplyCompensationPercentage, _supplyCompensationAmount, str east]] Call ChangeSideSupply;
+                    [west, _supplyCompensationAmount, format ["Anti-stack skill difference compensation applied: Supply compensation percentage: %1 %. Extra S %2 for team [%3].", _supplyCompensationPercentage, _supplyCompensationAmount, str east]] Call ChangeSideSupply;
                 
                     sleep 5;
                 };
