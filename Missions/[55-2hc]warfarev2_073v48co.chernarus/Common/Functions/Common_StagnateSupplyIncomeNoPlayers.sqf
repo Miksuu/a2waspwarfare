@@ -1,7 +1,7 @@
 private ["_amount", "_side", "_sidePlayers", "_supplyDecreasePercentage"];
- 
-_side = _this select 0;
-_amount = _this select 1;
+
+_amount = _this select 0; 
+_side = _this select 1;
 
 _sidePlayers = [];
 _supplyDecreasePercentage = 0;
