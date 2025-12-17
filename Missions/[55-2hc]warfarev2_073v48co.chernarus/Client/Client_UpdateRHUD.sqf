@@ -147,27 +147,27 @@ while {true} do {
 			_textControl5 = (["currentCutDisplay"] call BIS_FNC_GUIget) DisplayCtrl 1359;
 			_textControl5 ctrlShow true;
 			_textControl5 ctrlSetTextColor [1, 0.8831, 0, 1];
-			if (side group player == WEST) then {
-				if (SUPPLY_COMPENSATION_AMOUNT_WEST > 0) then {
-					_textControl5 ctrlSetText Format ["%1 (+%2)",(sideJoined Call GetIncomeSupply), (SUPPLY_COMPENSATION_AMOUNT_WEST)];
-				} else {
-					_textControl5 ctrlSetText Format ["%1",sideJoined Call GetSideSupply];
-				};
-			} else {
-				if (side group player == EAST) then {
-					if (SUPPLY_COMPENSATION_AMOUNT_EAST > 0) then {
-						_textControl5 ctrlSetText Format ["%1 (+%2)",(sideJoined Call GetIncomeSupply), (SUPPLY_COMPENSATION_AMOUNT_EAST)];
-					} else {
-						_textControl5 ctrlSetText Format ["%1",sideJoined Call GetSideSupply];
-					};
-				};
-			};
-
+			_textControl5 ctrlSetText Format ["%1",(sideJoined) Call GetSideSupply];
 
 			_textControl6 = (["currentCutDisplay"] call BIS_FNC_GUIget) DisplayCtrl 1361;
 			_textControl6 ctrlShow true;
 			_textControl6 ctrlSetTextColor [1, 0.6831, 0, 1];
-			_textControl6 ctrlSetText Format ["+ %1", (sideJoined Call GetTotalSupplyValue)]; //, sideJoined Call GetTownsHeld];
+			if (side group player == WEST) then {
+				if (SUPPLY_COMPENSATION_AMOUNT_WEST > 0) then {
+					_textControl6 ctrlSetText Format ["%1 (+%2)",(sideJoined Call GetSideSupply), (SUPPLY_COMPENSATION_AMOUNT_WEST)];
+				} else {
+					_textControl6 ctrlSetText Format ["%1",sideJoined Call GetSideSupply];
+				};
+			} else {
+				if (side group player == EAST) then {
+					if (SUPPLY_COMPENSATION_AMOUNT_EAST > 0) then {
+						_textControl6 ctrlSetText Format ["%1 (+%2)",(sideJoined Call GetIncomeSupply), (SUPPLY_COMPENSATION_AMOUNT_EAST)];
+					} else {
+						_textControl6 ctrlSetText Format ["%1",sideJoined Call GetSideSupply];
+					};
+				};
+			};
+			// _textControl6 ctrlSetText Format ["+ %1", (sideJoined Call GetTotalSupplyValue)]; //, sideJoined Call GetTownsHeld];
 
 
 			_textControl7 = (["currentCutDisplay"] call BIS_FNC_GUIget) DisplayCtrl 1363;
