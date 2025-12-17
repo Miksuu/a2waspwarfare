@@ -2,7 +2,7 @@ private ["_teamSkillWest", "_teamSkillEast", "_teamWestSkillTicksTriggerThreshol
 
 while {!WFBE_GameOver} do {
 
-    sleep 120;
+    sleep 10;
 
     _teamSkillWest = ["REQUEST_SIDE_SKILL", west] call WFBE_SE_FNC_CallDatabaseRequestSideTotalSkill;
     _teamSkillEast = ["REQUEST_SIDE_SKILL", east] call WFBE_SE_FNC_CallDatabaseRequestSideTotalSkill;
@@ -58,7 +58,7 @@ while {!WFBE_GameOver} do {
 
                 [east, _supplyCompensationAmount, format ["Anti-stack skill difference compensation applied: Supply compensation percentage: %1 %. Extra S %2 for team [%3].", _supplyCompensationPercentage, _supplyCompensationAmount, str west]] Call ChangeSideSupply;
             
-                sleep 60;
+                sleep 5;
             };
 
             TEAM_SKILL_TICKS_WEST = 0;
@@ -108,7 +108,7 @@ while {!WFBE_GameOver} do {
 
                     [east, _supplyCompensationAmount, format ["Anti-stack skill difference compensation applied: Supply compensation percentage: %1 %. Extra S %2 for team [%3].", _supplyCompensationPercentage, _supplyCompensationAmount, str east]] Call ChangeSideSupply;
                 
-                    sleep 60;
+                    sleep 5;
                 };
 
                 TEAM_SKILL_TICKS_WEST = 0;
