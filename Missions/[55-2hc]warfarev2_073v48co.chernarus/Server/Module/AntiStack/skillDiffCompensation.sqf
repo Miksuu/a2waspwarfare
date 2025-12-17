@@ -62,7 +62,7 @@ while {!WFBE_GameOver} do {
                 _supplyCompensationAmount = round(_teamWestSupplyIncome * (_supplyCompensationPercentage / 100));
 
                 if (_supplyCompensationAmount > 0) then {
-                    [east, _supplyCompensationAmount, format ["Anti-stack skill difference compensation applied: Supply compensation percentage: %1/100. Extra S %2 for team [%3].", _supplyCompensationPercentage, _supplyCompensationAmount, _includeStagnation, str east]] Call ChangeSideSupply;
+                    [east, _supplyCompensationAmount, format ["Anti-stack skill difference compensation applied: Supply compensation percentage: %1/100. Extra S %2 for team [%3].", _supplyCompensationPercentage, _supplyCompensationAmount, str east, _includeStagnation]] Call ChangeSideSupply;
                 };
 
                 SUPPLY_COMPENSATION_AMOUNT_EAST = _supplyCompensationAmount;
@@ -120,7 +120,7 @@ while {!WFBE_GameOver} do {
                     _supplyCompensationAmount = round(_teamEastSupplyIncome * (_supplyCompensationPercentage / 100));
 
                     if (_supplyCompensationAmount > 0) then {
-                        [west, _supplyCompensationAmount, format ["Anti-stack skill difference compensation applied: Supply compensation percentage: %1/100. Extra S %2 for team [%3].", _supplyCompensationPercentage, _supplyCompensationAmount, _includeStagnation, str west]] Call ChangeSideSupply;
+                        [west, _supplyCompensationAmount, format ["Anti-stack skill difference compensation applied: Supply compensation percentage: %1/100. Extra S %2 for team [%3].", _supplyCompensationPercentage, _supplyCompensationAmount, str west, _includeStagnation]] Call ChangeSideSupply;
                     };
 
                     SUPPLY_COMPENSATION_AMOUNT_WEST = _supplyCompensationAmount;

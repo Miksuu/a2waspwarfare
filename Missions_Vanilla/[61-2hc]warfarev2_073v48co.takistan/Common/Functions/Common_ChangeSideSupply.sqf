@@ -1,14 +1,17 @@
-Private ['_amount','_change','_currentSupply','_side'];
+Private ['_amount','_change','_currentSupply','_side','_maxSupplyLimit','_reason','_includeStagnation'];
 
 _side = _this select 0;
 _amount = _this select 1;
+_includeStagnation = _this select 3;
 _reason = "ERROR! No reason specified. This should not happen! Check logs.";
 
-if (count _this > 2) then {
+if (count _this > 3) then {
 	_reason = _this select 2;
 };
 
-_amount = [_amount, _side] call WFBE_CO_FNC_StagnateSupplyIncomeNoPlayers;
+if (_includeStagnation) then {
+	_amount = [_amount, _side] call WFBE_CO_FNC_StagnateSupplyIncomeNoPlayers;
+};
 
 _maxSupplyLimit = missionNameSpace getvariable "WFBE_C_MAX_ECONOMY_SUPPLY_LIMIT";
 
