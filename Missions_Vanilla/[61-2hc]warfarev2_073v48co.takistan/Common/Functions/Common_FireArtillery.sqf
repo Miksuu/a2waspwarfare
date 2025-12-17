@@ -53,7 +53,7 @@ if !(alive _artillery) exitWith {
 for '_i' from 1 to _burst do {
 	sleep (_reloadTime+random 3);
 	if (!alive _gunner || !alive _artillery) exitWith {};
-
+	
 	_artillery fire _weapon;
 };
 
