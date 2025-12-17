@@ -2,11 +2,13 @@ Private ['_amount','_change','_currentSupply','_side'];
 
 _side = _this select 0;
 _amount = _this select 1;
-_reason = "";
+_reason = "ERROR! No reason specified. This should not happen! Check logs.";
 
 if (count _this > 2) then {
 	_reason = _this select 2;
 };
+
+_amount = [_amount, _side] call WFBE_CO_FNC_StagnateSupplyIncomeNoPlayers;
 
 _maxSupplyLimit = missionNameSpace getvariable "WFBE_C_MAX_ECONOMY_SUPPLY_LIMIT";
 
