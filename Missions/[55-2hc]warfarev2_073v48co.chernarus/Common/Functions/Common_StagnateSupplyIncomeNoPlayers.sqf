@@ -10,16 +10,16 @@ _teamSkillWest = ["REQUEST_SIDE_SKILL", west] call WFBE_SE_FNC_CallDatabaseReque
 _teamSkillEast = ["REQUEST_SIDE_SKILL", east] call WFBE_SE_FNC_CallDatabaseRequestSideTotalSkill;
 
 if (_side == west) then {
-    if (_teamSkillWest > 0) then {
-        return _amount;
+    if (_teamSkillWest > 0) exitWith {
+        _amount;
     };
 } else {
     if (_side == east) then {
-        if (_teamSkillEast > 0) then {
-            return _amount;
+        if (_teamSkillEast > 0) exitWith {
+            _amount;
         };
     };
-}
+};
 
 {
     if (isPlayer _x) then 
