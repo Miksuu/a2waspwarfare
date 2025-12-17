@@ -2,11 +2,11 @@ Private ['_amount','_change','_currentSupply','_side','_maxSupplyLimit','_reason
 
 _side = _this select 0;
 _amount = _this select 1;
-_includeStagnation = _this select 3;
+_includeStagnation = _this select 2;
 _reason = "ERROR! No reason specified. This should not happen! Check logs.";
 
 if (count _this > 3) then {
-	_reason = _this select 2;
+	_reason = _this select 3;
 };
 
 if (_includeStagnation) then {
