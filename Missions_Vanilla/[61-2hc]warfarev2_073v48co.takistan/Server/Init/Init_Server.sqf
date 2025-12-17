@@ -575,6 +575,8 @@ call WFBE_CO_FNC_InitAFKkickHandler;
 
 [] execVM "Server\Module\AntiStack\monitorTeamToJoin.sqf";
 
+[] execVM "Server\Module\AntiStack\skillDiffCompensation.sqf";
+
 // 0 = NONE
 // 1 = CHERNARUS
 // 2 = TAKISTAN
