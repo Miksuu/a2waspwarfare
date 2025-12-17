@@ -151,6 +151,11 @@ with missionNamespace do {
 	TEAM_SKILL_TICKS_COMPENSATION_MULTIPLIER = 0.03;
 	TEAM_SKILL_TICKS_END_THRESHOLD = 20;
 
+//--- Supply income stagnation when no players.
+	TEAM_WEST_TICKS_NO_PLAYERS = 0;
+	TEAM_EAST_TICKS_NO_PLAYERS = 0;
+	SUPPLY_INCOME_TICK_MODIFIER_MULTIPLIER = 0.10;
+
 //--- Environment.
 	if (isNil "WFBE_C_ENVIRONMENT_MAX_VIEW") then {WFBE_C_ENVIRONMENT_MAX_VIEW = 5000}; //--- Max view distance.
 	if (isNil "WFBE_C_ENVIRONMENT_MAX_CLUTTER") then {WFBE_C_ENVIRONMENT_MAX_CLUTTER = 50}; //--- Max Terrain grid.
