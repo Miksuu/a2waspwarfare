@@ -5,11 +5,11 @@ _amount = _this select 1;
 _includeStagnation = _this select 3;
 _reason = "ERROR! No reason specified. This should not happen! Check logs.";
 
-if (count _this > 3) then {
+if (count _this > 3 && _reason != "") then {
 	_reason = _this select 2;
 };
 
-if (_includeStagnation) then {
+if (_amount > 0 && _includeStagnation) then {
 	_amount = [_amount, _side] call WFBE_CO_FNC_StagnateSupplyIncomeNoPlayers;
 };
 

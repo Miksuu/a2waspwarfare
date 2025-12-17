@@ -54,7 +54,7 @@ if ((!isNull _killer) && (isPlayer _killer)) then
 
             [_side_killer, "LocalizeMessage", ["HeadHunterReceiveBountyInSupplies", _side_killer, _type, _supplies, _side]] call WFBE_CO_FNC_SendToClients;
             [_side_killer, "LocalizeMessage", ["HeadHunterReceiveBounty", (name _killer), _bounty, _type, _side]] call WFBE_CO_FNC_SendToClients;
-            [_side_killer, _supplies] Call ChangeSideSupply;
+            [_side_killer, _supplies, "", false] Call ChangeSideSupply;
             }
        else
        {

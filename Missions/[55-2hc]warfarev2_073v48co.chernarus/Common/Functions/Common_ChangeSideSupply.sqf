@@ -9,7 +9,7 @@ if (count _this > 3) then {
 	_reason = _this select 2;
 };
 
-if (_includeStagnation) then {
+if (_amount > 0 && _includeStagnation) then {
 	_amount = [_amount, _side] call WFBE_CO_FNC_StagnateSupplyIncomeNoPlayers;
 };
 
