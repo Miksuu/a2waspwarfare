@@ -64,6 +64,8 @@ while {!WFBE_GameOver} do {
                 sleep 5;
             };
 
+            ["INFORMATION",Format ["SkillDiffCompensation.sqf : Ended skill diff compensation for team [%1].", str east]] Call WFBE_CO_FNC_LogContent;
+
             TEAM_SKILL_TICKS_WEST = 0;
             TEAM_SKILL_TICKS_EAST = 0;
 
@@ -113,6 +115,8 @@ while {!WFBE_GameOver} do {
                 
                     sleep 5;
                 };
+
+                ["INFORMATION",Format ["SkillDiffCompensation.sqf : Ended skill diff compensation for team [%1].", str west]] Call WFBE_CO_FNC_LogContent;
 
                 TEAM_SKILL_TICKS_WEST = 0;
                 TEAM_SKILL_TICKS_EAST = 0;
