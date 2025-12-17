@@ -13,7 +13,6 @@ _currentCost = 0;
 _currentIDC = 0;
 _disabledColor = [0.7961, 0.8000, 0.7961, 1];
 _display = _this select 0;
-_driver = false;
 _enabledColor = [0, 1, 0, 1];
 _enabledColor2 = [1, 0, 0, 1]; //---NEW (LOCK)
 _gunner = false;
@@ -175,7 +174,7 @@ while {alive player && dialog} do {
 	if (MenuAction == 202) then {MenuAction = -1;_gunner = if (_gunner) then {false} else {true};_updateDetails = true};
 	if (MenuAction == 203) then {MenuAction = -1;_commander = if (_commander) then {false} else {true};_updateDetails = true};
 	if (MenuAction == 204) then {MenuAction = -1;_extracrew = if (_extracrew) then {false} else {true};_updateDetails = true};
-	
+
 	//--- Factory DropDown list value has changed.
 	if (MenuAction == 301) then {MenuAction = -1;_factSel = lbCurSel 12018;_closest = _sorted select _factSel;_updateMap = true};
 	

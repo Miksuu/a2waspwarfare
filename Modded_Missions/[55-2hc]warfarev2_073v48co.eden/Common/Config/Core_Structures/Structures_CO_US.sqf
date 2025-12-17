@@ -14,7 +14,7 @@ _SP = if (IS_chernarus_map_dependent) then {"USMC_WarfareBVehicleServicePoint"} 
 _AAR = if (IS_chernarus_map_dependent) then {"USMC_WarfareBAntiAirRadar"} else {"US_WarfareBAntiAirRadar_EP1"};
 
 /* Mash used after being deployed */
-missionNamespace setVariable [Format["WFBE_%1FARP", _side], 'Camp_EP1'];
+missionNamespace setVariable [Format["WFBE_%1FARP", _side], 'MASH'];
 
 /* Construction Crates */
 missionNamespace setVariable [Format["WFBE_%1CONSTRUCTIONSITE", _side], 'US_WarfareBContructionSite_EP1'];

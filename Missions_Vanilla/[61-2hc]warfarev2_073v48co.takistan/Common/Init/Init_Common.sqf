@@ -7,6 +7,8 @@ HandleRocketTraccer = Compile preprocessFileLineNumbers "Common\Functions\Common
 HandleCommanderReload = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleCommanderReload.sqf";
 HandleReload = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleReload.sqf";
 HandleATReload = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleATReload.sqf";
+//HandleATReloadVehicle = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleATReloadVehicle.sqf";
+//HandleBombs = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleBombs.sqf";
 HandleATMissiles = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleATMissiles.sqf";
 HandleAAMissiles = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleAAMissiles.sqf";
 HandleAlarm = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleAlarm.sqf";
@@ -149,6 +151,7 @@ WFBE_CO_FNC_WaypointsRemove = Compile preprocessFileLineNumbers "Common\Function
 WF_createMarker = compile preprocessFileLineNumbers "Common\Functions\Common_CreateMarker.sqf";
 WFBE_CL_FNC_Delete_Marker = compile preprocessFileLineNumbers "Client\Functions\Client_Delete_Marker.sqf";
 WF_sendMessage = compile preprocessFileLineNumbers "Common\Functions\Common_SendMessage.sqf";
+WFBE_CO_FNC_StagnateSupplyIncomeNoPlayers = Compile preprocessFileLineNumbers "Common\Functions\Common_StagnateSupplyIncomeNoPlayers.sqf";
 
 ["INITIALIZATION", "Init_Common.sqf: Functions are initialized."] Call WFBE_CO_FNC_LogContent;
 
@@ -189,7 +192,7 @@ WFBE_Logic_Airfield = "LocationLogicAirport";
 WFBE_Logic_Camp = "LocationLogicCamp";
 WFBE_Logic_Depot = "LocationLogicDepot";
 
-isAutoWallConstructingEnabled = true;
+isAutoWallConstructingEnabled = false;
 WFBE_CO_VAR_SupplyMissionRegenInterval = 1800;
 
 /* Wait for BIS Module Init */
@@ -348,12 +351,14 @@ if ((missionNamespace getVariable "WFBE_C_ECONOMY_CURRENCY_SYSTEM") == 1) then {
 };
 
 //--- Make a global array of miscelleanous stuff.
+
 _repairs = [];
 {
 	_repairs = _repairs + (missionNamespace getVariable Format["WFBE_%1REPAIRTRUCKS", _x]);
 } forEach WFBE_PRESENTSIDES;
 
 missionNamespace setVariable ["WFBE_REPAIRTRUCKS", _repairs];
+
 
 //--- Common initilization is complete at this point.
 ["INITIALIZATION", Format ["Init_Common.sqf: Common initialization ended at [%1]", time]] Call WFBE_CO_FNC_LogContent;

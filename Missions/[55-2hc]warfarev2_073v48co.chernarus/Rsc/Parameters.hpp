@@ -17,7 +17,7 @@ class Params {
 		title = "$STR_WF_PARAMETER_AFK_Time";
 		values[] = {1,5,10,15,20,30};
 		texts[] = {"1 minute", "5 minutes","10 minutes", "15 minutes", "20 minutes", "30 minutes"};
-		default = 10;
+		default = 15;
 	};
 	class WFBE_C_AI_DELEGATION {
 		title = "$STR_WF_PARAMETER_AI_Delegation";
@@ -147,15 +147,15 @@ class Params {
 	};
 	class WFBE_C_ECONOMY_SUPPLY_START_EAST {
 		title = "$STR_WF_PARAMETER_Supply_East";
-		values[] = {1200,2400,3600,4800,6000,7200,8400,9600,19200,38400,76800};
-		texts[] = {"S 1200","S 2400","S 3600","S 4800","S 6000","S 7200","S 8400","S 9600","S 19200","S 38400","S 76800"};
-		default = 6000;
+		values[] = {1200,2400,3600,4800,6000,7200,8400,9600,12800,16000,19200,38400,76800};
+		texts[] = {"S 1200","S 2400","S 3600","S 4800","S 6000","S 7200","S 8400","S 9600","S 12800","S 16000","S 19200","S 38400","S 76800"};
+		default = 9600;
 	};
 	class WFBE_C_ECONOMY_SUPPLY_START_WEST {
 		title = "$STR_WF_PARAMETER_Supply_West";
-		values[] = {1200,2400,3600,4800,6000,7200,8400,9600,19200,38400,76800};
-		texts[] = {"S 1200","S 2400","S 3600","S 4800","S 6000","S 7200","S 8400","S 9600","S 19200","S 38400","S 76800"};
-		default = 6000;
+		values[] = {1200,2400,3600,4800,6000,7200,8400,9600,12800,16000,19200,38400,76800};
+		texts[] = {"S 1200","S 2400","S 3600","S 4800","S 6000","S 7200","S 8400","S 9600","S 12800","S 16000","S 19200","S 38400","S 76800"};
+		default = 9600;
 	};
 
 	class WFBE_C_MAX_ECONOMY_SUPPLY_LIMIT {
@@ -389,7 +389,7 @@ class Params {
 		title = "$STR_WF_PARAMETER_Respawn_MASH";
 		values[] = {0,1,2};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled","$STR_WF_Enabled_DefaultGear"};
-		default = 0;
+		default = 1;
 	};
 	class WFBE_C_RESPAWN_MOBILE {
 		title = "$STR_WF_PARAMETER_MobileRespawn";

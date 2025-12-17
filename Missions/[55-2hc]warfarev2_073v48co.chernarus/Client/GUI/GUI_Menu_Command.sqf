@@ -340,7 +340,7 @@ while {alive player && dialog} do {
 				} forEach _teams;
 			} else {
 				player kbTell [sideHQ, WFBE_V_HQTopicSide, "OrderSentAll",["1","","All",["all"]],["2","","moving to position",["HC_MovingToPosition"]],["3","","over.",["Over1"]],true];
-				[sideJoined, "SetTask", [_taskType,_taskTime,_taskTimeLabel,_position]] Call WFBE_CO_FNC_SendToClients;
+				// [sideJoined, "SetTask", [_taskType,_taskTime,_taskTimeLabel,_position]] Call WFBE_CO_FNC_SendToClients;
 			};
 		};
 	};

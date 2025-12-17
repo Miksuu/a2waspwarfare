@@ -104,7 +104,15 @@ with missionNamespace do {
 	WFBE_C_BASE_HQ_BUILD_RANGE = 120; //--- HQ Build range.
 	WFBE_C_BASE_AV_STRUCTURES = 260; //--- Base available structures.
 	WFBE_C_BASE_PROTECTION_RANGE = 800;  //--- Base protection range.
-	WFBE_C_BASE_HQ_REPAIR_PRICE = 25000; //--- HQ Repair price.
+	WFBE_C_BASE_HQ_REPAIR_PRICE_WEST = 25000; //--- HQ Repair price.
+	WFBE_C_BASE_HQ_REPAIR_PRICE_EAST = 25000;
+	WFBE_C_BASE_HQ_REPAIR_PRICE_GUER = 25000;
+	WFBE_C_BASE_HQ_REPAIR_COUNT_WEST = 0; //--- How many times HQ has been repaired.
+	WFBE_C_BASE_HQ_REPAIR_COUNT_EAST = 0;
+	WFBE_C_BASE_HQ_REPAIR_COUNT_GUER = 0;
+	WFBE_C_BASE_HQ_REPAIR_PRICE_1ST = 25000;
+    WFBE_C_BASE_HQ_REPAIR_PRICE_2ND = 40000;
+    WFBE_C_BASE_HQ_REPAIR_PRICE_3RD = 50000;
     WFBE_C_BASE_HQ_REPAIR_PRICE_CASH = 200000; //--- HQ Repair price with cash.
 //--- Camps.
 	if (isNil "WFBE_C_CAMPS_CREATE") then {WFBE_C_CAMPS_CREATE = 1}; //--- Create the camp models.
@@ -135,6 +143,20 @@ with missionNamespace do {
 	WFBE_C_ECONOMY_SUPPLY_TIME_INCREASE_DELAY = 60; //--- Increase SV delay.
 	WFBE_C_ECONOMY_SUPPLY_MAX_TEAM_LIMIT = 50000;
 	WFBE_C_ECONOMY_SUPPLY_MISSION_MULTIPLIER = 20;
+
+//--- Anti-stack.
+	TEAM_SKILL_TICKS_WEST = 0;
+	TEAM_SKILL_TICKS_EAST = 0;
+	TEAM_SKILL_TICKS_DIFF_THRESHOLD = 50;
+	TEAM_SKILL_TICKS_COMPENSATION_MULTIPLIER = 0.045;
+	TEAM_SKILL_TICKS_END_THRESHOLD = 10;
+	SUPPLY_COMPENSATION_AMOUNT_WEST = 0;
+	SUPPLY_COMPENSATION_AMOUNT_EAST = 0;
+
+//--- Supply income stagnation when no players.
+	TEAM_WEST_TICKS_NO_PLAYERS = 0;
+	TEAM_EAST_TICKS_NO_PLAYERS = 0;
+	SUPPLY_INCOME_TICK_MODIFIER_MULTIPLIER = 0.10;
 
 //--- Environment.
 	if (isNil "WFBE_C_ENVIRONMENT_MAX_VIEW") then {WFBE_C_ENVIRONMENT_MAX_VIEW = 5000}; //--- Max view distance.
@@ -285,6 +307,7 @@ if (WF_A2_Vanilla) then {
 	if (isNil "WFBE_C_UNITS_TRACK_INFANTRY") then {WFBE_C_UNITS_TRACK_INFANTRY = 1}; //--- Track units on map (infantry).
 	if (isNil "WFBE_C_UNITS_TRACK_LEADERS") then {WFBE_C_UNITS_TRACK_LEADERS = 1}; //--- Track playable Team Leaders on map (infantry).
 	WFBE_C_UNITS_BOUNTY_COEF = 1; //--- Bounty is the unit price * coef.
+	WFBE_C_BUILDINGS_SCORE_COEF = 3; // Score for killing base structures and HQ is building bounty * coef
 	WFBE_C_UNITS_BOUNTY_ASSISTANCE_COEF = 0.5; //--- Bounty assistance is the unit price * coef * assist coef.
 	WFBE_C_UNITS_COUNTERMEASURE_PLANES = 64;
 	WFBE_C_UNITS_COUNTERMEASURE_CHOPPERS = 32;

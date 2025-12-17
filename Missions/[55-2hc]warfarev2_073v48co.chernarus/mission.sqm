@@ -9,12 +9,14 @@ class Mission
 		"ca_highcommand",
 		"warfare2vehicles",
 		"ca_animals2_chicken",
-		"ca_communityconfigurationproject_e"
+		"ca_communityconfigurationproject_e",
+		"CorePatch_CCP_70799"
 	};
 	addOnsAuto[]=
 	{
 		"ca_modules_functions",
 		"cacharacters2",
+		"CorePatch_CCP_70799",
 		"chernarus"
 	};
 	randomSeed=10034581;
@@ -42,7 +44,7 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={11229.373,253.78244,4705.3555};
+					position[]={10203.106,61.453606,4053.7334};
 					id=0;
 					side="LOGIC";
 					vehicle="LocationLogicStart";
@@ -259,7 +261,7 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5021.9629,9,2339.0793};
+					position[]={2603.9617,143.26674,3470.2007};
 					id=11;
 					side="LOGIC";
 					vehicle="LocationLogicStart";
@@ -311,7 +313,7 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={2729.5603,351.76837,6625.6987};
+					position[]={2448.2297,367.7392,6811.9536};
 					azimut=180;
 					id=14;
 					side="LOGIC";
@@ -4343,7 +4345,7 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={6634.1362,358.9144,9042.6162};
+					position[]={5096.7422,292.96375,10892.126};
 					azimut=90;
 					id=278;
 					side="LOGIC";
@@ -4698,7 +4700,7 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={4297.2891,313.51492,8088.3179};
+					position[]={1820.6282,304.22516,8878.418};
 					azimut=180;
 					id=297;
 					side="LOGIC";
@@ -4734,7 +4736,7 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={8261.2256,324.0354,10492.488};
+					position[]={8601.5068,364.07571,10102.537};
 					azimut=90;
 					id=299;
 					side="LOGIC";
@@ -4752,7 +4754,7 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={9618.0996,238.72176,11304.164};
+					position[]={11474.113,317.28824,11329.947};
 					azimut=90;
 					id=300;
 					side="LOGIC";
@@ -4805,7 +4807,7 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={10397.457,220.06883,8949.8096};
+					position[]={10938.223,141.94392,9180.0889};
 					azimut=90;
 					id=303;
 					side="LOGIC";

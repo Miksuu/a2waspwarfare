@@ -1,4 +1,4 @@
-Private ['_HQRadio','_base','_buildings','_condition','_get','_idbl','_isDeployed','_oc','_weat','_rearmor','_playerObject'];
+Private ['_HQRadio','_base','_buildings','_condition','_get','_idbl','_isDeployed','_oc','_weat','_rearmor','_playerObject','_hasConnectedAtLaunchACK'];
 
 ["INITIALIZATION", Format ["Init_Client.sqf: Client initialization begins at [%1]", time]] Call WFBE_CO_FNC_LogContent;
 
@@ -113,7 +113,8 @@ WFBE_CL_FNC_SupplyMissionCompletedMessage = Call Compile preprocessFileLineNumbe
 WFBE_CL_FNC_SupplyMissionStart = Call Compile preprocessFileLineNumbers "Client\Module\supplyMission\supplyMissionStart.sqf";
 WFBE_CL_FNC_TownSupplyStatus = Call Compile preprocessFileLineNumbers "Client\Module\supplyMission\townSupplyStatus.sqf";
 WFBE_CL_FNC_CheckCCProximity = Compile preprocessFileLineNumbers "Client\Module\supplyMission\checkCCProximity.sqf";
-// WFBE_CL_FNC_ReceiverMASHmarker = Call Compile preprocessFileLineNumbers "Client\Module\MASH\receiverMASHmarker.sqf";
+//WFBE_CL_FNC_ReceiverMASHmarker = Call Compile preprocessFileLineNumbers "Client\Module\MASH\receiverMASHmarker.sqf";
+WFBE_CL_PVEH_HasConnectedAtLaunch = Call Compile preprocessFileLineNumbers "Client\Module\AntiStack\hasConnectedAtLaunchACK.sqf";
 WFBE_CL_FNC_FindVariableInNestedArray = Compile preprocessFileLineNumbers "Client\Functions\Client_FindVariableInNestedArray.sqf";
 WFBE_CL_PV_ReceiveSupplyValue = Call Compile preprocessFileLineNumbers "Client\Functions\Client_ReceiveSupplyValue.sqf";
 
@@ -202,6 +203,20 @@ keyPressedForAdjustingViewDistance = compile preprocessFile "Common\Functions\Co
 _display = findDisplay 46;
 _display displayAddEventHandler ["KeyDown","_this call keyPressed"];
 _display displayAddEventHandler ["KeyDown","_this call keyPressedForAdjustingViewDistance"];
+
+WFBE_CO_FNC_DisableTabLock = compile preprocessFileLineNumbers "Common\Functions\Common_DisableTablock.sqf";
+
+_display displayAddEventHandler ["KeyDown", "_this call WFBE_CO_FNC_DisableTabLock"];
+
+WFBE_CO_FNC_HandleAFKkeys = compile preprocessFileLineNumbers "Client\Module\AFKkick\handleKeys.sqf";
+
+AFKthresholdExceededName = name player;
+WFBE_CO_VAR_AFKkickThreshold = 30;
+WFBE_CO_VAR_NotAFK_update = false;
+
+_display displayAddEventHandler ["KeyDown", "_this call WFBE_CO_FNC_HandleAFKkeys"];
+
+[] execVM "Client\Module\AFKkick\monitorAFK.sqf";
 
 (vehicle player) addEventHandler ["Fired",{_this Spawn HandleAT}];
 execVM "WASP\global_marking_monitor.sqf";
@@ -353,9 +368,9 @@ if (isMultiplayer && ((missionNamespace getVariable "WFBE_C_GAMEPLAY_TEAMSWAP_DI
 		if !(isNil '_get') exitWith {["INITIALIZATION", Format["Init_Client.sqf: [%1] Client [%2], Can join? [%3]",sideJoined,name player,_get]] Call WFBE_CO_FNC_LogContent};
 
 		_timelaps = _timelaps + 0.1;
-		if (_timelaps > 5) then {
+		if (_timelaps > 30) then {
 			_timelaps = 0;
-			["WARNING", Format["Init_Client.sqf: [%1] Client [%2] join is pending... no ACK was received from the server, a new request will be submited.",sideJoined,name player]] Call WFBE_CO_FNC_LogContent;
+			["WARNING", Format["Init_Client.sqf: [%1] Client [%2] join is pending... no ACK was received from the server, a new request will be submitted.",sideJoined,name player]] Call WFBE_CO_FNC_LogContent;
 			["RequestJoin", [player, sideJoined]] Call WFBE_CO_FNC_SendToServer;
 		};
 	};
@@ -363,8 +378,27 @@ if (isMultiplayer && ((missionNamespace getVariable "WFBE_C_GAMEPLAY_TEAMSWAP_DI
 	if !(_get) exitWith {
 		["WARNING", Format["Init_Client.sqf: [%1] Client [%2] has teamswapped/STACKED and is now being sent back to the lobby.",sideJoined,name player]] Call WFBE_CO_FNC_LogContent;
 
-		sleep 3;
+		12452 cutText [(localize 'STR_WF_CHAT_TeamstackOrTeamSwap'),"BLACK FADED",50000];
+		sleep 12;
 		failMission "END1";
+	};
+} else {
+	Private ["_hasConnectedAtLaunchACK","_timelaps"];
+	_timelaps = 0;
+	WFBE_CLIENT_HAS_CONNECTED_AT_LAUNCH = player;
+	publicVariableServer "WFBE_CLIENT_HAS_CONNECTED_AT_LAUNCH";
+	while {true} do {
+		sleep 0.1;
+		_hasConnectedAtLaunchACK = missionNamespace getVariable 'WFBE_P_HAS_CONNECTED_AT_LAUNCH_ACK';
+		if !(isNil '_hasConnectedAtLaunchACK') exitWith {["INITIALIZATION", Format["Init_Client.sqf: [%1] Client [%2], Can join? [%3]",sideJoined,name player,_hasConnectedAtLaunchACK]] Call WFBE_CO_FNC_LogContent};
+
+		_timelaps = _timelaps + 0.1;
+		if (_timelaps > 30) then {
+			_timelaps = 0;
+			["WARNING", Format["Init_Client.sqf: [%1] Client [%2] join is pending... no 'has connected at launch' ACK was received from the server, a new request will be submitted.",sideJoined,name player]] Call WFBE_CO_FNC_LogContent;
+			WFBE_CLIENT_HAS_CONNECTED_AT_LAUNCH = player;
+			publicVariableServer "WFBE_CLIENT_HAS_CONNECTED_AT_LAUNCH";
+		};
 	};
 };
 
@@ -474,7 +508,7 @@ if (WF_Debug) then {
 
 	//player addEventHandler ["HandleDamage", {false}];
 	// player setCaptive true;
-	player addEventHandler ["HandleDamage", {false;if (player != (_this select 3)) then {(_this select 3) setDammage 1}}]; //--- God-Slayer mode.
+	// player addEventHandler ["HandleDamage", {false;if (player != (_this select 3)) then {(_this select 3) setDammage 1}}]; //--- God-Slayer mode.
 };
 execVM "limitThirdPersonView.sqf";
 
@@ -640,8 +674,6 @@ sleep 3;
 /* Client death handler. */
 WFBE_PLAYERKEH = player addEventHandler ['Killed', {[_this select 0,_this select 1] Spawn WFBE_CL_FNC_OnKilled; [_this select 0,_this select 1, sideID] Spawn WFBE_CO_FNC_OnUnitKilled}];
 
-hint parseText "v24042025 <br/><br/> <t color='#28ff14'>If you're a new player:</t> <br/><br/>Read the instructions that will show in chat soon. <br/><br/>Our Discord server: <br/><br/><t color='#28ff14'>discord.me/warfare</t>  <br/><br/>(Open the link with a web browser like Chrome) <br/><br/>Ask in chat or on our Discord server if you want to know how something works. <br/><br/>You and your units are marked with <t color='#FFAC1C'>orange</t> color on map. <br/><br/>Friendly towns are marked with <t color='#1ff026'>green</t> color. <t color='#000bde'>Blue</t> and <t color='#de0300'>red</t> towns are controlled by enemy. <br/><br/>Note that you see friendly players and units on map. <br/><br/><t color='#42b6ff'>WF menu</t> is important. You can open it by using action menu (mouse scroll). <br/><br/>Welcome and good luck, soldier! :)";
-
 //--- Valhalla init.
 [] Spawn {
 	[] Call Compile preprocessFile "Client\Module\Valhalla\Init_Valhalla.sqf";
@@ -672,5 +704,7 @@ publicVariableServer "WFBE_C_PLAYER_OBJECT";
 player setVariable ["score", 0];
 
 clientInitComplete = true;
+
+hint parseText "v24042025 <br/><br/> <t color='#28ff14'>If you're a new player:</t> <br/><br/>Read the instructions on map (press 'M' key) on the 'Notes' tab. <br/><br/>Our Discord server: <br/><br/><t color='#28ff14'>discord.me/warfare</t>  <br/><br/>(Open the link with a web browser like Chrome) <br/><br/>Ask in chat or on our Discord server if you want to know how something works. <br/><br/>You and your units are marked with <t color='#FFAC1C'>orange</t> color on map. <br/><br/>Friendly towns are marked with <t color='#1ff026'>green</t> color. <t color='#000bde'>Blue</t> and <t color='#de0300'>red</t> towns are controlled by enemy. <br/><br/>Note that you see friendly players and units on map. <br/><br/><t color='#42b6ff'>WF menu</t> is important. You can open it by using action menu (mouse scroll). <br/><br/>Welcome and good luck, soldier! :)";
 
 ["INITIALIZATION", Format ["Init_Client.sqf: Client initialization ended at [%1]", time]] Call WFBE_CO_FNC_LogContent;

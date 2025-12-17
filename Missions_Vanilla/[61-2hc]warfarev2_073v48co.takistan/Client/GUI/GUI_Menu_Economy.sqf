@@ -144,7 +144,7 @@ while {alive player && dialog} do {
 						//--- Inform the side.
 						// WFBE_LocalizeMessage = [sideJoined,'CLTFNCLOCALIZEMESSAGE',['StructureSold',_type]];
 						// publicVariable 'WFBE_LocalizeMessage';
-						[sideJoined, "LocalizeMessage",['StructureSold',_type]] Call WFBE_CO_FNC_SendToClients;
+						[sideJoined, "LocalizeMessage",['StructureSold',_type, _closest]] Call WFBE_CO_FNC_SendToClients;
 						['StructureSold',_type] Spawn CLTFNCLocalizeMessage;
 						if ((missionNamespace getVariable "WFBE_C_STRUCTURES_CONSTRUCTION_MODE") == 1) then {_closest setVariable ["sold",true,true]};
 						_closest setDammage 1;
