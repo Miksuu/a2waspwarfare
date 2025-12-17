@@ -27,7 +27,7 @@ _c = _c + ['Ins_Soldier_AR'];
 _i = _i + [['','',180,4,-1,1,0,1,'Insurgents',[]]];
 
 _c = _c + ['Ins_Soldier_MG'];
-_i = _i + [['','',190,4,-1,0,0,1,'Insurgents',[]]];
+_i = _i + [['','',190,4,-1,1,0,1,'Insurgents',[]]];
 
 // Ins_Soldier_AT acts as Dragon soldier now
 _c = _c + ['Ins_Soldier_AT'];
@@ -126,7 +126,7 @@ _c = _c + ['BMP2_Ambul_INS'];
 _i = _i + [['','',3950,20,-2,1,2,0,'Insurgents',[]]];
 
 _c = _c + ['BMP2_INS'];
-_i = _i + [['','',3400,30,-2,1,2,0,'Insurgents',[]]];
+_i = _i + [['','',3400,28,-2,1,2,0,'Insurgents',[]]];
 
 _c = _c + ['ZSU_INS'];
 _i = _i + [['','',3500,35,-2,3,2,0,'Insurgents',[]]];

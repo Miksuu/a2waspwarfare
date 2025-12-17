@@ -87,9 +87,6 @@ _u = _u		+ ['Offroad_SPG9_Gue'];
 _u = _u		+ ['WarfareRepairTruck_Gue'];
 _u = _u		+ ['WarfareSalvageTruck_Gue'];
 _u = _u		+ ['WarfareReammoTruck_Gue'];
-
-// if ((missionNamespace getVariable "WFBE_C_ECONOMY_SUPPLY_SYSTEM") == 0) then {
-
 _u = _u		+ ['WarfareSupplyTruck_Gue'];
 _u = _u		+ ['BRDM2_Gue'];
 _u = _u		+ ['Ural_ZU23_Gue'];

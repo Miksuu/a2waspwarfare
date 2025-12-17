@@ -38,7 +38,6 @@ if (local player) then {['BARRACKS', _side, _u] Call Compile preProcessFile 'Cli
 
 _u 			= ['MMT_USMC'];
 _u = _u		+ ['M1030'];
-_u = _u		+ ["hilux1_civil_1_open"];
 _u = _u		+ ['HMMWV'];
 _u = _u		+ ['Zodiac'];
 _u = _u		+ ['HMMWV_M2'];
@@ -116,6 +115,8 @@ _u = _u		+ ["datsun1_civil_3_open"];
 _u = _u		+ ["hilux1_civil_1_open"];
 _u = _u		+ ["V3S_Civ"];
 _u = _u		+ ["Ikarus"];
+_u = _u		+ ["UralCivil"];
+_u = _u		+ ["V3S_Refuel_TK_GUE_EP1"];
 if ((missionNamespace getVariable "WFBE_C_UNITS_TOWN_PURCHASE") > 0) then {
 	_u = _u		+ [missionNamespace getVariable "WFBE_WESTSOLDIER"];
 };

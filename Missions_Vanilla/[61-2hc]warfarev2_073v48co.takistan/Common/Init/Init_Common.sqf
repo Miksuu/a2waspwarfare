@@ -7,6 +7,8 @@ HandleRocketTraccer = Compile preprocessFileLineNumbers "Common\Functions\Common
 HandleCommanderReload = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleCommanderReload.sqf";
 HandleReload = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleReload.sqf";
 HandleATReload = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleATReload.sqf";
+//HandleATReloadVehicle = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleATReloadVehicle.sqf";
+//HandleBombs = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleBombs.sqf";
 HandleATMissiles = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleATMissiles.sqf";
 HandleAAMissiles = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleAAMissiles.sqf";
 HandleAlarm = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleAlarm.sqf";
@@ -149,6 +151,7 @@ WFBE_CO_FNC_WaypointsRemove = Compile preprocessFileLineNumbers "Common\Function
 WF_createMarker = compile preprocessFileLineNumbers "Common\Functions\Common_CreateMarker.sqf";
 WFBE_CL_FNC_Delete_Marker = compile preprocessFileLineNumbers "Client\Functions\Client_Delete_Marker.sqf";
 WF_sendMessage = compile preprocessFileLineNumbers "Common\Functions\Common_SendMessage.sqf";
+WFBE_CO_FNC_StagnateSupplyIncomeNoPlayers = Compile preprocessFileLineNumbers "Common\Functions\Common_StagnateSupplyIncomeNoPlayers.sqf";
 
 ["INITIALIZATION", "Init_Common.sqf: Functions are initialized."] Call WFBE_CO_FNC_LogContent;
 

@@ -69,6 +69,7 @@ class CfgSounds
         if (terrainModStatus == TerrainModStatus.VANILLA)
         {
             UpdateFilesForTakistan();
+            EnsureTakistanInitServerUsesCorrectMapId(destinationDirectory);
         }
 
         // Perhaps do a inherited class from this to reduce spaghetti
@@ -298,6 +299,41 @@ class CfgSounds
         // Replace the string and update the file
         content = content.Replace(_contentToSearchFor, _contentToReplaceWith);
         File.WriteAllText(finalPathToEdit, content);
+    }
+
+    // Ensures the Takistan init_server uses the correct map id after copying from Chernarus
+    private void EnsureTakistanInitServerUsesCorrectMapId(string _destinationDirectory)
+    {
+        if (terrainName != TerrainName.TAKISTAN)
+        {
+            return;
+        }
+
+        string initServerPath = Path.Combine(_destinationDirectory, @"Server\Init\Init_Server.sqf");
+
+        if (!File.Exists(initServerPath))
+        {
+            Console.WriteLine($"Init_Server.sqf not found at {initServerPath}");
+            return;
+        }
+
+        const string chernarusMapLine = "[\"SET_MAP\", 1] call WFBE_SE_FNC_CallDatabaseSetMap;";
+        const string takistanMapLine = "[\"SET_MAP\", 2] call WFBE_SE_FNC_CallDatabaseSetMap;";
+
+        string fileContent = File.ReadAllText(initServerPath);
+
+        if (fileContent.Contains(takistanMapLine))
+        {
+            return;
+        }
+
+        if (fileContent.Contains(chernarusMapLine))
+        {
+            File.WriteAllText(initServerPath, fileContent.Replace(chernarusMapLine, takistanMapLine));
+            return;
+        }
+
+        Console.WriteLine($"SET_MAP definition not updated for Takistan in {initServerPath}.");
     }
 
     // Generates and returns the SQF code for a specific terrain. This method is built upon 

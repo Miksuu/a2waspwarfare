@@ -152,7 +152,22 @@ while {true} do {
 			_textControl6 = (["currentCutDisplay"] call BIS_FNC_GUIget) DisplayCtrl 1361;
 			_textControl6 ctrlShow true;
 			_textControl6 ctrlSetTextColor [1, 0.6831, 0, 1];
-			_textControl6 ctrlSetText Format ["+ %1", (sideJoined Call GetTotalSupplyValue)]; //, sideJoined Call GetTownsHeld];
+			if (side group player == WEST) then {
+				if (SUPPLY_COMPENSATION_AMOUNT_WEST > 0) then {
+					_textControl6 ctrlSetText Format ["%1 (+%2)",(sideJoined Call GetTotalSupplyValue), (SUPPLY_COMPENSATION_AMOUNT_WEST)];
+				} else {
+					_textControl6 ctrlSetText Format ["%1",sideJoined Call GetTotalSupplyValue];
+				};
+			} else {
+				if (side group player == EAST) then {
+					if (SUPPLY_COMPENSATION_AMOUNT_EAST > 0) then {
+						_textControl6 ctrlSetText Format ["%1 (+%2)",(sideJoined Call GetTotalSupplyValue), (SUPPLY_COMPENSATION_AMOUNT_EAST)];
+					} else {
+						_textControl6 ctrlSetText Format ["%1",sideJoined Call GetTotalSupplyValue];
+					};
+				};
+			};
+			// _textControl6 ctrlSetText Format ["+ %1", (sideJoined Call GetTotalSupplyValue)]; //, sideJoined Call GetTownsHeld];
 
 
 			_textControl7 = (["currentCutDisplay"] call BIS_FNC_GUIget) DisplayCtrl 1363;
