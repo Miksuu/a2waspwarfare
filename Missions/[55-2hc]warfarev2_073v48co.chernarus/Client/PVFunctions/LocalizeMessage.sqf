@@ -1,7 +1,7 @@
 Private["_localize","_txt","_totalSkillBLUFOR","_totalSkillOPFOR","_attempts", "_commandChat","_object"];
 
 _localize = _this select 0;
-_object = if (count _this > 2) then {_this select 2} else {objNull};
+_object = if (count _this > 3) then {_this select 3} else {objNull};
 _commandChat = true;
 _txt = "";
 _totalSkillBLUFOR = "";
