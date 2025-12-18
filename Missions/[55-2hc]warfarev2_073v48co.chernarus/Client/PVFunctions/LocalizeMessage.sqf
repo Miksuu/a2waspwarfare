@@ -7,6 +7,11 @@ _txt = "";
 _totalSkillBLUFOR = "";
 _totalSkillOPFOR = "";
 
+diag_log "---";
+diag_log _this;
+diag_log "_object";
+diag_log _object;
+
 switch (_localize) do {
 	case "BuildingTeamkill": {_txt = Format [Localize "STR_WF_CHAT_Teamkill_Building",_this select 1, _this select 2, [_this select 3, 'displayName'] Call GetConfigInfo]};
 	case "Teamswap": {_txt = Format [Localize "STR_WF_CHAT_Teamswap",_this select 3, _this select 4]};
