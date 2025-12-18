@@ -120,16 +120,11 @@ while {alive player && dialog} do {
 						_closest setVariable ["WFBE_SOLD", true];
 						_delay = missionNamespace getVariable "WFBE_C_STRUCTURES_SALE_DELAY";
 						_type = typeOf _closest;
-						diag_log "_closest";
-						diag_log _closest;
-						diag_log "_type";
-						diag_log _type;
-						diag_log "([_object, towns] Call WFBE_CO_FNC_GetClosestEntity)";
-						diag_log ([_closest, towns] Call WFBE_CO_FNC_GetClosestEntity);
+						
 						//--- Inform the side (before).
 						// WFBE_LocalizeMessage = [sideJoined,'CLTFNCLOCALIZEMESSAGE',['StructureSell',_type,_delay]];
 						// publicVariable 'WFBE_LocalizeMessage';
-						[sideJoined, "LocalizeMessage", ['StructureSell',_type,_delay, _closest]] Call WFBE_CO_FNC_SendToClients;
+						[sideJoined, "LocalizeMessage", ['StructureSell',_type,_delay]] Call WFBE_CO_FNC_SendToClients;
 						['StructureSell',_type,_delay] Spawn CLTFNCLocalizeMessage;
 						
 						sleep _delay;
