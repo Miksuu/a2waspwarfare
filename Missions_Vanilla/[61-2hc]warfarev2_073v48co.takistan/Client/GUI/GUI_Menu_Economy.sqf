@@ -120,12 +120,12 @@ while {alive player && dialog} do {
 						_closest setVariable ["WFBE_SOLD", true];
 						_delay = missionNamespace getVariable "WFBE_C_STRUCTURES_SALE_DELAY";
 						_type = typeOf _closest;
-						
+
 						//--- Inform the side (before).
 						// WFBE_LocalizeMessage = [sideJoined,'CLTFNCLOCALIZEMESSAGE',['StructureSell',_type,_delay]];
 						// publicVariable 'WFBE_LocalizeMessage';
-						[sideJoined, "LocalizeMessage", ['StructureSell',_type,_delay]] Call WFBE_CO_FNC_SendToClients;
-						['StructureSell',_type,_delay] Spawn CLTFNCLocalizeMessage;
+						[sideJoined, "LocalizeMessage", ['StructureSell',_type,_delay, _closest]] Call WFBE_CO_FNC_SendToClients;
+						['StructureSell',_type,_delay, _closest] Spawn CLTFNCLocalizeMessage;
 						
 						sleep _delay;
 						
@@ -145,7 +145,7 @@ while {alive player && dialog} do {
 						// WFBE_LocalizeMessage = [sideJoined,'CLTFNCLOCALIZEMESSAGE',['StructureSold',_type]];
 						// publicVariable 'WFBE_LocalizeMessage';
 						[sideJoined, "LocalizeMessage",['StructureSold',_type, _closest]] Call WFBE_CO_FNC_SendToClients;
-						['StructureSold',_type] Spawn CLTFNCLocalizeMessage;
+						['StructureSold',_type, _closest] Spawn CLTFNCLocalizeMessage;
 						if ((missionNamespace getVariable "WFBE_C_STRUCTURES_CONSTRUCTION_MODE") == 1) then {_closest setVariable ["sold",true,true]};
 						_closest setDammage 1;
 					};
