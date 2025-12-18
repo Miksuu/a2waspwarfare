@@ -132,7 +132,7 @@ while {alive player && dialog} do {
 						//--- Inform the side (before).
 						// WFBE_LocalizeMessage = [sideJoined,'CLTFNCLOCALIZEMESSAGE',['StructureSell',_type,_delay]];
 						// publicVariable 'WFBE_LocalizeMessage';
-						[sideJoined, "LocalizeMessage", ['StructureSell',_type,_delay]] Call WFBE_CO_FNC_SendToClients;
+						[sideJoined, "LocalizeMessage", ['StructureSell',_type,_delay, _closest]] Call WFBE_CO_FNC_SendToClients;
 						['StructureSell',_type,_delay] Spawn CLTFNCLocalizeMessage;
 						
 						sleep _delay;
