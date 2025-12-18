@@ -9204,7 +9204,7 @@
     <!-- Missing keys added from stringtable_2 -->
     <Key ID="STR_WF_ACTION_DeployMASH">
         <English>Deploy MASH</English>
-        <French>DAcployer Hopital de Campagne</French>
+        <French>Déployer Hôpital de Campagne</French>
         <German>Feldlazarett aufstellen</German>
         <Russian>Развернуть МЭШ</Russian>
         <Italian>Monta ospedale da campo</Italian>
@@ -9212,7 +9212,7 @@
 
     <Key ID="STR_WF_ACTION_Salvage">
         <English>Salvage</English>
-        <French>RAccupAcrer</French>
+        <French>Récupérer</French>
         <German>Bergen</German>
         <Russian>Утилизировать</Russian>
         <Italian>Recupero</Italian>
@@ -9220,7 +9220,7 @@
 
     <Key ID="STR_WF_ACTION_UndeployMASH">
         <English>Pack MASH</English>
-        <French>Replier Hopital de Campagne</French>
+        <French>Replier Hôpital de Campagne</French>
         <German>Pack MASH</German>
         <Russian>Собрать МЭШ</Russian>
         <Italian>Pack MASH</Italian>
@@ -9228,48 +9228,48 @@
 
     <Key ID="STR_WF_CHAT_Building_Started_Message">
         <English>Construction of %1 has been started.</English>
-        <French>La construction de %1 a commencAc.</French>
+        <French>La construction de %1 a commencé.</French>
         <German>Mit dem Bau der %1 wurde begonnen.</German>
         <Russian>Строительство %1 начато.</Russian>
-        <Italian>La costruzione di %1 A" stata avviata.</Italian>
+        <Italian>La costruzione di %1 è stata avviata.</Italian>
     </Key>
 
     <Key ID="STR_WF_CHAT_ICBM_Launch_BY_ENEMY_TEAM">
         <English>Warning! Enemy nuclear strike approaching. Impact coordinates are unknown. Countdown %1 minutes.</English>
-        <French>Attention ! Frappe nuclAcaire ennemie en approche. Les coordonnAces de l'impact sont inconnues. Compte Aÿ rebours %1 minutes.</French>
-        <German>Achtung! Das Oberkommando hat den Start einer ballistischen Interkontinentalrakete mit potenzieller atomarer Bewaffnung registriert. Voraussichtliche Ankunft %1 Minuten. Eine sofortige Evakuierung der mAglichen Zielgebiete wurden angeordnet!</German>
+        <French>Attention ! Frappe nucléaire ennemie en approche. Les coordonnées de l'impact sont inconnues. Compte à rebours %1 minutes.</French>
+        <German>Achtung! Das Oberkommando hat den Start einer ballistischen Interkontinentalrakete mit potenzieller atomarer Bewaffnung registriert. Voraussichtliche Ankunft %1 Minuten. Eine sofortige Evakuierung der möglichen Zielgebiete wurden angeordnet!</German>
         <Russian>Внимание! Приближается вражеский ядерный удар. Координаты попадания неизвестны. Обратный отсчёт: %1 мин.</Russian>
         <Italian>Attenzione! Si avvicina un attacco nucleare nemico. Le coordinate dell'impatto sono sconosciute. Conto alla rovescia %1 minuti.</Italian>
     </Key>
 
     <Key ID="STR_WF_CHAT_ICBM_Launch_BY_OUR_TEAM">
         <English>Attention! We launched a nuclear strike. Exit the area marked on the map at your earliest convenience. Countdown %1 minutes.</English>
-        <French>Attention ! Nous avons lancAc une frappe nuclAcaire. Quittez la zone marquAce sur la carte dA"s que possible. Compte Aÿ rebours %1 minutes.</French>
-        <German>Achtung! Das Oberkommando hat den Start unserer ballistischen Interkontinentalrakete mit Atomsprengstoff autorisiert und bestAtigt! Entfernen Sie sich unverzA¬glich weit von dem auf der Karte markierten Einschlagsradius! Eintreffen des Sprenkopfes in %1 Minuten.</German>
+        <French>Attention ! Nous avons lancé une frappe nucléaire. Quittez la zone marquée sur la carte dès que possible. Compte à rebours %1 minutes.</French>
+        <German>Achtung! Das Oberkommando hat den Start unserer ballistischen Interkontinentalrakete mit Atomsprengstoff autorisiert und bestätigt! Entfernen Sie sich unverzüglich weit von dem auf der Karte markierten Einschlagsradius! Eintreffen des Sprenkopfes in %1 Minuten.</German>
         <Russian>Внимание! Мы нанесли ядерный удар. Немедленно покиньте отмеченную на карте зону. Обратный отсчёт: %1 мин.</Russian>
-        <Italian>Attenzione! Abbiamo lanciato uno sciopero nucleare. Esci dall'area contrassegnata sulla mappa al piA1 presto. Conto alla rovescia %1 minuti.</Italian>
+        <Italian>Attenzione! Abbiamo lanciato uno sciopero nucleare. Esci dall'area contrassegnata sulla mappa al più presto. Conto alla rovescia %1 minuti.</Italian>
     </Key>
 
     <Key ID="STR_WF_INFO_Arty_called_message">
         <English>%1 has initiated an artillery strike. The impact location has been marked on the map.</English>
-        <French>%1 a dAcclenchAc une frappe d'artillerie. L'emplacement de l'impact a ActAc marquAc sur la carte.</French>
-        <German>%1 hat einen Feuerbefehl fA¬r die Artillerie erteilt. Die Einschlagstelle wurde auf der Karte markiert.</German>
+        <French>%1 a déclenché une frappe d'artillerie. L'emplacement de l'impact a été marqué sur la carte.</French>
+        <German>%1 hat einen Feuerbefehl für die Artillerie erteilt. Die Einschlagstelle wurde auf der Karte markiert.</German>
         <Russian>%1 начал артиллерийский удар. Место попадания отмечено на карте.</Russian>
-        <Italian>%1 ha lanciato un attacco di artiglieria. La posizione dell'impatto A" stata segnata sulla mappa.</Italian>
+        <Italian>%1 ha lanciato un attacco di artiglieria. La posizione dell'impatto è stata segnata sulla mappa.</Italian>
     </Key>
 
     <Key ID="STR_WF_INFO_Arty_cool_down_over">
         <English>Artillery cooldown has ended. You may use it again.</English>
-        <French>Le dAclai de refroidissement de l'artillerie est terminAc. Vous pouvez la rAcutiliser</French>
-        <German>NAchladen der Artillerie abgeschlossen. Erwarten neuen Feuerbefehl.</German>
+        <French>Le délai de refroidissement de l'artillerie est terminé. Vous pouvez la réutiliser.</French>
+        <German>Nachladen der Artillerie abgeschlossen. Erwarten neuen Feuerbefehl.</German>
         <Russian>Время перезарядки артиллерии истекло. Вы можете использовать её снова.</Russian>
-        <Italian>Il periodo di raffreddamento dell'artiglieria A" terminato. Puoi usarlo di nuovo.</Italian>
+        <Italian>Il periodo di raffreddamento dell'artiglieria è terminato. Puoi usarlo di nuovo.</Italian>
     </Key>
 
     <Key ID="STR_WF_MESSAGE_BombAltitudeRestriction">
         <English>You cannot drop unguided bombs at this altitude</English>
-        <French>Vous ne pouvez pas larguer de bombes non guidAces Aÿ cette altitude</French>
-        <German>Sie kAnnen in dieser HAhe keine ungelenkten Bomben abwerfen</German>
+        <French>Vous ne pouvez pas larguer de bombes non guidées à cette altitude</French>
+        <German>Sie können in dieser Höhe keine ungelenkten Bomben abwerfen</German>
         <Russian>Вы не можете сбрасывать неуправляемые бомбы на этой высоте</Russian>
         <Italian>Non puoi sganciare bombe non guidate a questa altitudine</Italian>
         <Spanish>No puedes lanzar bombas no guiadas a esta altitud</Spanish>
@@ -9277,24 +9277,24 @@
 
     <Key ID="STR_WF_MESSAGE_BombDistanceRestriction">
         <English>You cannot drop unguided bombs at this distance</English>
-        <French>Vous ne pouvez pas larguer de bombes non guidAces Aÿ cette distance</French>
-        <German>Sie kAnnen in auf diese Entfernung keine ungelenkten Bomben abwerfen</German>
+        <French>Vous ne pouvez pas larguer de bombes non guidées à cette distance</French>
+        <German>Sie können auf diese Entfernung keine ungelenkten Bomben abwerfen</German>
         <Russian>Вы не можете сбрасывать неуправляемые бомбы на этом расстоянии</Russian>
         <Italian>Non puoi sganciare bombe non guidate a questa distanza</Italian>
-        <Spanish>No puedes lanzar bombas no guiadas a questa distanza</Spanish>
+        <Spanish>No puedes lanzar bombas no guiadas a esta distancia</Spanish>
     </Key>
 
     <Key ID="STR_WF_PARAMETER_AFK_Time" >
         <English>AFK: Maximum player idle time in minutes.</English>
-        <French>AFK: DurAce max d'inactivitAc d'un joueur en minutes</French>
-        <German>AFK: Maximale Spieler-InaktivitAtszeit in Minuten.</German>
+        <French>AFK: Durée max d'inactivité d'un joueur en minutes</French>
+        <German>AFK: Maximale Spieler-Inaktivitätszeit in Minuten.</German>
         <Russian>AFK: Максимальное время простоя игрока в минутах.</Russian>
-        <Italian>AFK: Tempo massimo di inattivitAÿ del giocatore in minuti.</Italian>
+        <Italian>AFK: Tempo massimo di inattività del giocatore in minuti.</Italian>
     </Key>
 
     <Key ID="STR_WF_PARAMETER_AIR_EVENT_ENABLED">
         <English>Air Event Enabled</English>
-        <French>A%vAcnement aAcrien activAc</French>
+        <French>Événement aérien activé</French>
         <German>Luftereignis aktiviert</German>
         <Russian>Воздушное событие включено</Russian>
         <Italian>Evento aereo abilitato</Italian>
@@ -9302,16 +9302,16 @@
 
     <Key ID="STR_WF_PARAMETER_BombAltitude">
         <English>Gameplay: Limitation of bomb dropping.</English>
-        <French>JOUABILITA%: Limitation du largage des bombes.</French>
-        <German>Spielbarkeit: EinschrAnkung des Bombenabwurfs.</German>
+        <French>Jouabilité : Limitation du largage des bombes.</French>
+        <German>Spielbarkeit: Einschränkung des Bombenabwurfs.</German>
         <Russian>Геймплей: Ограничение на сброс бомб.</Russian>
-        <Italian>GiocabilitAÿ: Limitazione del rilascio delle bombe.</Italian>
-        <Spanish>Jugabilidad: LimitaciA3n del lanzamiento de bombas.</Spanish>
+        <Italian>Giocabilità: Limitazione del rilascio delle bombe.</Italian>
+        <Spanish>Jugabilidad: Limitación del lanzamiento de bombas.</Spanish>
     </Key>
 
     <Key ID="STR_WF_PARAMETER_CampnDepot">
         <English>Camps and Depot</English>
-        <French>Camps et DAcpA'ts</French>
+        <French>Camps et Dépôts</French>
         <German>Camps and Depot</German>
         <Russian>Лагеря и склад</Russian>
         <Italian>Camps and Depot</Italian>
@@ -9319,7 +9319,7 @@
 
     <Key ID="STR_WF_PARAMETER_Depot">
         <English>Depot</English>
-        <French>DAcpA'ts</French>
+        <French>Dépôts</French>
         <German>Depot</German>
         <Russian>Склад</Russian>
         <Italian>Depot</Italian>
@@ -9335,7 +9335,7 @@
 
     <Key ID="STR_WF_TEAM_VideoOptionsLabel">
         <English>Video-Options:</English>
-        <French>Options vidAcos:</French>
+        <French>Options vidéos:</French>
         <German>Grafikoptionen:</German>
         <Russian>Видео-настройки:</Russian>
         <Italian>Video-Options:</Italian>
@@ -9343,18 +9343,18 @@
 
     <Key ID="STR_WF_UPGRADE_AntiAirRadar">
         <English>Anti Air Radar</English>
-        <French>Radar anti-aAcrien</French>
-        <German>LuftraumA¬berwachung</German>
+        <French>Radar anti-aérien</French>
+        <German>Luftraumüberwachung</German>
         <Russian>Радар ПВО</Russian>
         <Italian>Radar antiaereo</Italian>
     </Key>
 
     <Key ID="STR_WF_UPGRADE_AntiAirRadar_Desc">
         <English>This upgrade unlocks better and faster functionality for your Anti-air radar (AAR).&lt;br/&gt; - Features and refresh rate:&lt;br/&gt;   Level 0 = Position, direction, speed (5 seconds)&lt;br/&gt;   Level 1 = Altitude (3 seconds)&lt;br/&gt;   Level 2 = Aircraft Type (1 second)</English>
-        <French>Cet upgrade dAcbloque une fonctionnalitAc amAcliorAce et plus rapide pour votre radar antiaAcrien (AAR).&lt;br/&gt; - FonctionnalitAcs et frAcquence de rafraArchissement:&lt;br/&gt;   Niveau 0 = Position, direction, vitesse (3 secondes)&lt;br/&gt;   Niveau 1 = Altitude (2 secondes)&lt;br/&gt;   Niveau 2 = Type d'avion (1 seconde)</French>
-        <German>Diese schaltet eine bessere und schnellere FunktionalitAt fA¬r Ihren Anti-Luft-Radar (AAR) frei.&lt;br/&gt; - Funktionen und Aktualisierungsfrequenz:&lt;br/&gt;   Level 0 = Position, Richtung, Geschwindigkeit (3 Sekunden)&lt;br/&gt;   Level 1 = HAhe (2 Sekunden)&lt;br/&gt;   Level 2 = Flugzeugtyp (1 Sekunde)</German>
+        <French>Ce mise à niveau débloque une fonctionnalité améliorée et plus rapide pour votre radar antiaérien (AAR).&lt;br/&gt; - Fonctionnalités et fréquence de rafraîchissement :&lt;br/&gt;   Niveau 0 = Position, direction, vitesse (3 secondes)&lt;br/&gt;   Niveau 1 = Altitude (2 secondes)&lt;br/&gt;   Niveau 2 = Type d'avion (1 seconde)</French>
+        <German>Diese schaltet eine bessere und schnellere Funktionalität für Ihren Anti-Luft-Radar (AAR) frei.&lt;br/&gt; - Funktionen und Aktualisierungsfrequenz:&lt;br/&gt;   Level 0 = Position, Richtung, Geschwindigkeit (3 Sekunden)&lt;br/&gt;   Level 1 = Höhe (2 Sekunden)&lt;br/&gt;   Level 2 = Flugzeugtyp (1 Sekunde)</German>
         <Russian>Этот апгрейд открывает улучшенный и более быстрый функционал для вашего радара ПВО (AAR).&lt;br/&gt; - Возможности и скорость обновления:&lt;br/&gt;   Уровень 0 = Позиция, направление, скорость (5 секунд)&lt;br/&gt;   Уровень 1 = Высота (3 секунды)&lt;br/&gt;   Уровень 2 = Тип воздушного судна (1 секунда)</Russian>
-        <Italian>Questo aggiornamento sblocca una funzionalitAÿ migliore e piA1 veloce per il tuo radar anti-aereo (AAR).&lt;br/&gt; - FunzionalitAÿ e frequenza di aggiornamento:&lt;br/&gt;   Livello 0 = Posizione, direzione, velocitAÿ (3 secondi)&lt;br/&gt;   Livello 1 = Altitudine (2 secondi)&lt;br/&gt;   Livello 2 = Tipo di aeromobile (1 secondo)</Italian>
+        <Italian>Questo aggiornamento sblocca una funzionalità migliore e più veloce per il tuo radar anti-aereo (AAR).&lt;br/&gt; - Funzionalità e frequenza di aggiornamento:&lt;br/&gt;   Livello 0 = Posizione, direzione, velocità (3 secondi)&lt;br/&gt;   Livello 1 = Altitudine (2 secondi)&lt;br/&gt;   Livello 2 = Tipo di aeromobile (1 secondo)</Italian>
     </Key>
 
     </Container>
