@@ -31,11 +31,11 @@ _playerNumberDifferenceBLUFOR = _playersOnBLUFOR - _playersOnOPFOR;
 _playerNumberDifferenceOPFOR = _playersOnOPFOR - _playersOnBLUFOR;
 
 if (_playerNumberDifferenceBLUFOR > 0) then {
-	_totalEffectiveSkillBLUFOR = _totalSkillBLUFOR * (1 + (_playerNumberDifferenceBLUFOR * 0.15));
+	_totalEffectiveSkillBLUFOR = _totalSkillBLUFOR * (1 + (_playerNumberDifferenceBLUFOR * PLAYER_NUMBER_DIFFERENCE_MODIFIER));
 };
 
 if (_playerNumberDifferenceOPFOR > 0) then {
-	_totalEffectiveSkillOPFOR = _totalSkillOPFOR * (1 + (_playerNumberDifferenceOPFOR * 0.15));
+	_totalEffectiveSkillOPFOR = _totalSkillOPFOR * (1 + (_playerNumberDifferenceOPFOR * PLAYER_NUMBER_DIFFERENCE_MODIFIER));
 };
 
 if (_side == west) then {
