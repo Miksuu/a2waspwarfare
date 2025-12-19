@@ -10,8 +10,8 @@ _totalSkillOPFOR = _this select 5;
 _playersOnBLUFOR = 0;
 _playersOnOPFOR = 0;
 
-_totalEffectiveSkillBLUFOR = 0;
-_totalEffectiveSkillOPFOR = 0;
+_totalEffectiveSkillBLUFOR = _totalSkillBLUFOR;
+_totalEffectiveSkillOPFOR = _totalSkillOPFOR;
 
 _canJoin = true;
 
