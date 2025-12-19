@@ -1,4 +1,4 @@
-private["_sideText","_label","_count"];
+private["_sideText","_label","_count","_marker","_markerType","_flashIconDelay","_lastFlashTime","_timeAtFiredEvent", "_lastBlinkTime","_blinkState"];
 
 _sideText = sideJoinedText;
 _label = "";
@@ -11,7 +11,7 @@ _count = 1;
 	_marker setMarkerColorLocal "colorBlack";
 	_marker setMarkerDirLocal 0;
 	_marker setMarkerSizeLocal [0.7,0.7];
-	_count = _count +1;
+	_count = _count + 1;
 } forEach clientTeams;
 
 while {!gameOver} do {
@@ -52,10 +52,30 @@ while {!gameOver} do {
 				_marker setMarkerDirLocal GetDir (vehicle player);
 				_marker setMarkerColorLocal "ColorOrange";
 			};
-		};
 
+			if (isNil "_lastBlinkTime") then { _lastBlinkTime = 0; };
+			if (isNil "_blinkState") then { _blinkState = false; };
+
+			if (_x getVariable ["WASP_FlashMapIconInCombat", false] && {side player == side _x}) then {
+
+				if ((time - _lastBlinkTime) >= MARKER_BLINK_INTERVAL) then {
+					_lastBlinkTime = time;
+					_blinkState = !_blinkState;
+				};
+
+				_marker setMarkerColorLocal (
+					if (_blinkState) then {"ColorRed"}
+					else { if (player == leader _x) then {"ColorOrange"} else {"ColorGreen"} }
+				);
+
+			};
 
 		_count = _count + 1;
-	} forEach clientTeams;
+
+		} forEach clientTeams;
+
 	sleep 0.2;
+
+	};
+
 };
