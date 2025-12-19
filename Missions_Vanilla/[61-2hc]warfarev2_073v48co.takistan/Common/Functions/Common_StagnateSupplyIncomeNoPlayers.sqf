@@ -63,7 +63,7 @@ if (_supplyDecreasePercentage < 0) then {
     _supplyDecreasePercentage = 0;
 };
 
-if (_supplyDecreasePercentage > 0) then {
+if ((_supplyDecreasePercentage > 0) && (_supplyDecreasePercentage < 1)) then {
     _amount = round(_amount * (1 - _supplyDecreasePercentage));
     ["INFORMATION",Format ["StagnateSupplyIncomeNoPlayers.sqf: Decreasing supply income of team [%1] after %2 ticks with no players by %3 percent. Supply income is now S %4.", str _side, if (_side == west) then {TEAM_WEST_TICKS_NO_PLAYERS} else {TEAM_EAST_TICKS_NO_PLAYERS}, round(_supplyDecreasePercentage * 100), _amount]] Call WFBE_CO_FNC_LogContent;
 };
