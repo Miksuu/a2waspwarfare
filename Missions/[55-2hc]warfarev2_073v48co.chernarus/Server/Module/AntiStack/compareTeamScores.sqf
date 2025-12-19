@@ -1,4 +1,4 @@
-private["_side","_name","_uid","_totalSkillBLUFOR","_totalSkillOPFOR","_canJoin","_playersOnBLUFOR","_playersOnOPFOR","_playerNumberDifferenceBLUFOR","_playerNumberDifferenceOPFOR","_player"];
+private["_side","_name","_uid","_totalSkillBLUFOR","_totalSkillOPFOR","_canJoin","_playersOnBLUFOR","_playersOnOPFOR","_playerNumberDifferenceBLUFOR","_playerNumberDifferenceOPFOR","_player","_totalEffectiveSkillBLUFOR","_totalEffectiveSkillOPFOR"];
 
 _side = _this select 0;
 _name = _this select 1;
