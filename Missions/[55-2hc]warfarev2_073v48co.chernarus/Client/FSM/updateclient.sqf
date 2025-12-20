@@ -94,8 +94,8 @@ while {!gameOver} do {
 	//player sideChat format ["Elapsed Time: %1 seconds", _elapsedTime]; // Display the inacticity time of the player for testing purpose	
 
     if (_countDownKick < 600) then {
-		if (format ["PLAYER_%1_AFK", name player] == false) then {
-			format ["PLAYER_%1_AFK", name player] = true;
+		if ((compile format ["PLAYER_%1_AFK", name player]) == false) then {
+			compile format ["PLAYER_%1_AFK", name player] = true;
 			publicVariable format ["PLAYER_%1_AFK", name player];
 		};
 
@@ -107,8 +107,8 @@ while {!gameOver} do {
 				hint format["You are AFK. If you dont move you will be kicked in %1 seconds.", _countDownKick];
 		};
 	} else {
-		if (format ["PLAYER_%1_AFK", name player] == true) then {
-			format ["PLAYER_%1_AFK", name player] = false;
+		if ((compile format ["PLAYER_%1_AFK", name player]) == true) then {
+			compile format ["PLAYER_%1_AFK", name player] = false;
 			publicVariable format ["PLAYER_%1_AFK", name player];
 		};
 	};
