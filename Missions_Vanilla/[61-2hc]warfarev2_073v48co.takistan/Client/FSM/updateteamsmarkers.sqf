@@ -27,8 +27,8 @@ while {!gameOver} do {
 
 			if (alive (leader _x)) then {
 				_label = "";
-				if (isPlayer (leader _x)) then { 
-					_label = if (!(isNil format ["PLAYER_%1_AFK", name (leader _x)]) && (format ["PLAYER_%1_AFK", name (leader _x)])) then { Format[" %1 (AFK)",name (leader _x)] } else { Format[" %1",name (leader _x)] };
+				if (isPlayer (leader _x)) then {
+					_label = Format[" %1",name (leader _x)];
 					_marker setMarkerTextLocal _label;
 					_marker setMarkerPosLocal GetPos (leader _x);
 					_marker setMarkerDirLocal GetDir (vehicle (leader _x));
