@@ -682,7 +682,7 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 								};
 								_logic setVariable ["BIS_COIN_restart",true];
 							} else {
-								["RequestChangeScore", [player,score player + (missionNamespace getVariable "WFBE_C_PLAYERS_COMMANDER_SCORE_BUILD")]] Call WFBE_CO_FNC_SendToServer;
+								["RequestChangeScore", [player,score player + (_price / (missionNamespace getVariable "WFBE_C_PLAYERS_COMMANDER_SCORE_BUILD_COEF_REVERSE"))]] Call WFBE_CO_FNC_SendToServer;
 							};
 						};
 
