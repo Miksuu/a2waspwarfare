@@ -29,6 +29,14 @@ _canJoin = true;
 	};
 } forEach allUnits;
 
+if (_side == west) then {
+	_playersOnBLUFOR = _playersOnBLUFOR - 1;
+} else {
+	if (_side == east) then {
+		_playersOnOPFOR = _playersOnOPFOR - 1;
+	};
+};
+
 _playerNumberDifferenceBLUFOR = _playersOnBLUFOR - _playersOnOPFOR;
 _playerNumberDifferenceOPFOR = _playersOnOPFOR - _playersOnBLUFOR;
 
