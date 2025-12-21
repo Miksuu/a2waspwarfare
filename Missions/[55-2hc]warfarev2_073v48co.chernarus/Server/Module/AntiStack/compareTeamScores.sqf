@@ -74,4 +74,6 @@ if (_side == west) then {
 	};
 };
 
+["INFORMATION", Format["CompareTeamScores.sqf: BLUFOR total skills: sum [%1], effective [%2]. OPFOR total skills: sum [%3], effective [%4]. Coef: %5. Player (name: %6) (UID: %7) side: %8. Player can join: [%9]", _totalSkillBLUFOR, _totalEffectiveSkillBLUFOR, _totalSkillOPFOR, _totalEffectiveSkillOPFOR, _diffCoef, _name, _uid, _side, _canJoin]] Call WFBE_CO_FNC_LogContent;
+
 _canJoin
