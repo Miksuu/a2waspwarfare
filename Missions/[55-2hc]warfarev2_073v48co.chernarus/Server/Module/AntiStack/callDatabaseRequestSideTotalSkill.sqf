@@ -60,6 +60,6 @@ if (_responseCode < 0) then {
 } else {
 	_responseTotalSkill = _response select 1;
 
-	["INFORMATION", format ["CallDatabaseRequestSideTotalSkill.sqf: Response from database with request ID: [%1] is: Total team skill is: %2.",_requestID,_responseTotalSkill]] Call WFBE_CO_FNC_LogContent;
+	["INFORMATION", format ["CallDatabaseRequestSideTotalSkill.sqf: Response from database with request ID: [%1] is: Total team [%2] skill is: %3.",_requestID,_side,_responseTotalSkill]] Call WFBE_CO_FNC_LogContent;
 	_responseTotalSkill;
 };
