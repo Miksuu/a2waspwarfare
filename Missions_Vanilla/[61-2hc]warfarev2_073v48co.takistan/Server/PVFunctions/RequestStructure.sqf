@@ -12,7 +12,7 @@ _rlType = _structures select (_structuresNames find _structureType);
 ["DEBUG (RequestStructure.sqf)", Format ["Building: %1", _rlType]] Call WFBE_CO_FNC_LogContent;
 
 if (_rlType in ["Barracks", "Light", "CommandCenter", "Heavy", "Aircraft", "ServicePoint", "AARadar"]) then {
-    [_side, "HandleSpecial", ['building-started', _rlType]] Call WFBE_CO_FNC_SendToClients;
+    [_side, "HandleSpecial", ['building-started', _rlType, _pos]] Call WFBE_CO_FNC_SendToClients;
 };
 
 _index = (missionNamespace getVariable Format ["WFBE_%1STRUCTURENAMES",str _side]) find _structureType;

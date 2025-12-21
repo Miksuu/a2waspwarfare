@@ -9227,11 +9227,11 @@
     </Key>
 
     <Key ID="STR_WF_CHAT_Building_Started_Message">
-        <English>Construction of %1 has been started.</English>
-        <French>La construction de %1 a commencé.</French>
-        <German>Mit dem Bau der %1 wurde begonnen.</German>
-        <Russian>Строительство %1 начато.</Russian>
-        <Italian>La costruzione di %1 è stata avviata.</Italian>
+      <English>Construction of %1 has been started near %2.</English>
+      <French>La construction de %1 a commencé près de %2.</French>
+      <German>Der Bau von %1 hat in der Nähe von %2 begonnen.</German>
+      <Russian>Строительство %1 началось рядом с %2.</Russian>
+      <Italian>La costruzione di %1 è iniziata vicino a %2.</Italian>
     </Key>
 
     <Key ID="STR_WF_CHAT_ICBM_Launch_BY_ENEMY_TEAM">
