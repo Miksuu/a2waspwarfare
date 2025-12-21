@@ -18,4 +18,6 @@
         };
     };
 
+    ["RequestChangeScore", [player, (score player + (round (_supplyAmount / 100)))]] Call WFBE_CO_FNC_SendToServer;
+
 };

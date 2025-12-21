@@ -171,7 +171,8 @@ WFBE_CL_FNC_Upgrade_Complete = {
 
 	if !(isNull commanderTeam) then { //--- Commander reward (if the player is the commander)
 		if (commanderTeam == group player) then {
-			["RequestChangeScore", [player, score player + (missionNamespace getVariable "WFBE_C_PLAYERS_COMMANDER_SCORE_UPGRADE")]] Call WFBE_CO_FNC_SendToServer;
+			_upgradeCost = (missionNamespace getVariable Format["WFBE_C_UPGRADES_%1_COSTS", (sideJoined)]) select _upgrade select _level;
+			["RequestChangeScore", [player, score player + (round (_upgradeCost / 200))]] Call WFBE_CO_FNC_SendToServer;
 		};
 	};
 };
