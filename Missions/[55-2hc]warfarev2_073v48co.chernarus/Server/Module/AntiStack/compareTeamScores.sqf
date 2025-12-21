@@ -59,14 +59,14 @@ if (_playerNumberDifferenceOPFOR > 0 && ((_playersOnBLUFOR + _playersOnOPFOR) < 
 };
 
 if (_side == west) then {
-	if (_totalEffectiveSkillBLUFOR > _totalEffectiveSkillOPFOR) then {
+	if (_totalEffectiveSkillBLUFOR > _totalSkillOPFOR) then {
 		_canJoin = false;
 		["INFORMATION", Format["CompareTeamScores.sqf: BLUFOR total skills: sum [%1], effective [%2]. OPFOR total skills: sum [%3], effective [%4]. Coef: %5. Player (name: %6) (UID: %7) side: %8. Player can join: [%9]", _totalSkillBLUFOR, _totalEffectiveSkillBLUFOR, _totalSkillOPFOR, _totalEffectiveSkillOPFOR, _diffCoef, _name, _uid, _side, _canJoin]] Call WFBE_CO_FNC_LogContent;
 		[leader group _player, "LocalizeMessage", ['Teamstack',_name,_uid,_side]] Call WFBE_CO_FNC_SendToClient;
 	};
 } else {
 	if (_side == east) then {
-		if (_totalEffectiveSkillOPFOR > _totalEffectiveSkillBLUFOR) then {
+		if (_totalEffectiveSkillOPFOR > _totalSkillBLUFOR) then {
 			_canJoin = false;
 			["INFORMATION", Format["CompareTeamScores.sqf: BLUFOR total skills: sum [%1], effective [%2]. OPFOR total skills: sum [%3], effective [%4]. Coef: %5. Player (name: %6) (UID: %7) side: %8. Player can join: [%9]", _totalSkillBLUFOR, _totalEffectiveSkillBLUFOR, _totalSkillOPFOR, _totalEffectiveSkillOPFOR, _diffCoef, _name, _uid, _side, _canJoin]] Call WFBE_CO_FNC_LogContent;
 			[leader group _player, "LocalizeMessage", ['Teamstack',_name,_uid,_side]] Call WFBE_CO_FNC_SendToClient;
