@@ -109,9 +109,12 @@ WFBE_CL_FNC_Reveal_UAV = {
 };
 
 WFBE_CL_FNC_Upgrade_Started = {
-	Private ["_upgrade","_level"];
+	Private ["_upgrade","_level", "_upgradeCost"];
 	_upgrade = _this select 0;
 	_level = _this select 1;
+
+	_upgradeCost = (missionNamespace getVariable Format["WFBE_C_UPGRADES_%1_COSTS", (sideJoined)]) select _upgrade select _level select 0;
+	["RequestChangeScore", [player, score player + (round ((_upgradeCost / 100) * WFBE_UPGRADE_SCORE_COEF))]] Call WFBE_CO_FNC_SendToServer;
 
 	(Format [Localize "STR_WF_CHAT_Upgrade_Started_Message",(missionNamespace getVariable "WFBE_C_UPGRADES_LABELS") select _upgrade, _level]) Call CommandChatMessage;
 };
@@ -172,8 +175,6 @@ WFBE_CL_FNC_Upgrade_Complete = {
 
 	if !(isNull commanderTeam) then { //--- Commander reward (if the player is the commander)
 		if (commanderTeam == group player) then {
-			_upgradeCost = (missionNamespace getVariable Format["WFBE_C_UPGRADES_%1_COSTS", (sideJoined)]) select _upgrade select _level select 0;
-			["RequestChangeScore", [player, score player + (round ((_upgradeCost / 100) * WFBE_UPGRADE_SCORE_COEF))]] Call WFBE_CO_FNC_SendToServer;
 		};
 	};
 };
