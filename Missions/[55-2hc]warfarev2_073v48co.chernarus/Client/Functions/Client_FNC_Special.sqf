@@ -163,7 +163,7 @@ WFBE_CL_FNC_Building_Started = {
 };
 
 WFBE_CL_FNC_Upgrade_Complete = {
-	Private ["_upgrade","_level"];
+	Private ["_upgrade","_level","_upgradeCost"];
 	_upgrade = _this select 0;
 	_level = _this select 1;
 
