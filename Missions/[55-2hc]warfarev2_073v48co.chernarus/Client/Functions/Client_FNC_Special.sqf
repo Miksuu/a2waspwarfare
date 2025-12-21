@@ -117,8 +117,9 @@ WFBE_CL_FNC_Upgrade_Started = {
 };
 
 WFBE_CL_FNC_Building_Started = {
-	Private ["_building", "_localisedBuilding"];
+	Private ["_building", "_localisedBuilding", "_position"];
 	_building = _this select 0;
+	_position = _this select 1;
 
 	_localisedBuilding = "";
 
@@ -158,7 +159,7 @@ WFBE_CL_FNC_Building_Started = {
 
 	if (_localisedBuilding != "Unknown") then {
 		["DEBUG (Client_FNC_Special.sqf)", Format ["Building: %1", _localisedBuilding]] Call WFBE_CO_FNC_LogContent;
-		Format[Localize "STR_WF_CHAT_Building_Started_Message", _localisedBuilding, ([_building, towns] Call GetClosestLocation)] Call CommandChatMessage;
+		Format[Localize "STR_WF_CHAT_Building_Started_Message", _localisedBuilding, ([_position, towns] Call GetClosestLocation)] Call CommandChatMessage;
 	};
 };
 
