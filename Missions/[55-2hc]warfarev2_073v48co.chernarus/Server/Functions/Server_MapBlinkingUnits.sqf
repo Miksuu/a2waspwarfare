@@ -22,7 +22,7 @@ while { !WFBE_GameOver } do {
             };
         };
 
-        _firedRecently = _x getVariable ["LFTB"];
+        _firedRecently = _x getVariable "LFTB";
 
         if (!(isNil "_firedRecently") && _firedRecently) then {
             _x setVariable ["LFTserverTime", time, false];
