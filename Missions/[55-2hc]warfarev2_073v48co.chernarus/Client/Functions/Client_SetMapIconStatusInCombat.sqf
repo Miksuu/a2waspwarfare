@@ -1,15 +1,12 @@
-private ["_unit", "_lastFired", "_netID", "_timeSinceLastSend"];
+private ["_unit", "_lastTime", "_dt"];
 
 _unit = _this select 0;
 
-_timeSinceLastSend = _unit getVariable "LFT";
+_lastTime = _unit getVariable "LFT";
 
-diag_log "_timeSinceLastSend:";
-diag_log _timeSinceLastSend;
-
-if (!(isNil "_timeSinceLastSend")) then {
-    _timeSinceLastSend = time - _timeSinceLastSend;
-    if (_timeSinceLastSend >= FIRING_UNIT_BLINK_TIME) then {
+if (!isNil { _lastTime }) then {
+    _dt = time - _lastTime;
+    if (_dt >= FIRING_UNIT_BLINK_TIME) then {
         diag_log "LFTB = TRUE";
         _unit setVariable ["LFT", time, false];
         _unit setVariable ["LFTB", true, true];
@@ -19,6 +16,7 @@ if (!(isNil "_timeSinceLastSend")) then {
     _unit setVariable ["LFT", time, false];
     _unit setVariable ["LFTB", true, true];
 };
+
 
 /*
 private ["_unit", "_lastFired"];
