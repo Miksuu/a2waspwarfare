@@ -56,7 +56,7 @@ while {!gameOver} do {
 			if (isNil "_lastBlinkTime") then { _lastBlinkTime = 0; };
 			if (isNil "_blinkState") then { _blinkState = false; };
 
-			if (_x getVariable ["WASP_FlashMapIconInCombat", false] && {side player == side _x}) then {
+			if (_x getVariable ["WASP_FlashMapIconInCombat", false] && (side player == side _x)) then {
 
 				if ((time - _lastBlinkTime) >= MARKER_BLINK_INTERVAL) then {
 					_lastBlinkTime = time;
