@@ -10,10 +10,12 @@ diag_log _timeSinceLastSend;
 if (!(isNil "_timeSinceLastSend")) then {
     _timeSinceLastSend = time - _timeSinceLastSend;
     if (_timeSinceLastSend >= FIRING_UNIT_BLINK_TIME) then {
+        diag_log "LFTB = TRUE";
         _unit setVariable ["LFT", time, false];
         _unit setVariable ["LFTB", true, true];
     };
 } else {
+    diag_log "LFTB = TRUE (first time)";
     _unit setVariable ["LFT", time, false];
     _unit setVariable ["LFTB", true, true];
 };
