@@ -40,6 +40,11 @@ if(side _unit == east && !(_unit hasWeapon "NVGoggles")) then {
 	_unit addWeapon "NVGoggles";
 };
 
+_unit addEventHandler ["Fired", {
+        _u = _this select 0;                 // unit that fired
+        _u setVariable ["WASP_LastFiredTime", time, true];
+}];
+
 if(!isNil 'Zeta_Lifter')then{
 	if (_unit_kind in Zeta_Lifter) then { //--- Units that can lift vehicles.
 		if (_upgrades select WFBE_UP_AIRLIFT > 0) then {_unit addAction [localize "STR_WF_Lift", 'Client\Module\ZetaCargo\Zeta_Hook.sqf']};
@@ -107,7 +112,7 @@ if (_unit isKindOf "Air") then { //--- Air units.
 
 	if (_unit isKindOf "Plane") then { //--- Planes.
 		_unit addAction [localize "STR_WF_TaxiReverse","Client\Action\Action_TaxiReverse.sqf", [], 92, false, true, "", 'driver _target == _this && alive _target && speed _target < 4 && speed _target > -4 && getPos _target select 2 < 4'];
-		_unit addEventHandler ['Fired', {_this Spawn HandleShootBombs}]; //--- Marty : Handle missiles and bombs.
+		_unit addEventHandler ['Fired', {_this Spawn HandleShootBombs;}]; //--- Marty : Handle missiles and bombs.
 	};
 	
 };
