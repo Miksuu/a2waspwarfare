@@ -93,25 +93,28 @@ while {!gameOver} do {
 	_countDownKick =round(_inactivityTimeout - _elapsedTime);
 	//player sideChat format ["Elapsed Time: %1 seconds", _elapsedTime]; // Display the inacticity time of the player for testing purpose	
 
-    if (_countDownKick < 600) then {
-		if (compile (format ["PLAYER_%1_AFK == false", name player])) then {
-			compile (format ["PLAYER_%1_AFK = true", name player]);
-			publicVariable format ["PLAYER_%1_AFK", name player];
+	private ["_afk", "_countDownKick"];
+
+	_afk = player getVariable ["WASP_AFK", false];
+
+	if (_countDownKick < 600) then {
+		if (!_afk) then {
+			player setVariable ["WASP_AFK", true, true];  // true = broadcast
 		};
 
 		if (_countDownKick > 120) then {
-			if (_countDownKick % 30 == 0) then {
-				hint format["You are AFK. If you dont move you will be kicked in %1 minutes.", round(_countDownKick / 60)];
+			if ((_countDownKick % 30) == 0) then {
+				hint format ["You are AFK. If you don't move you will be kicked in %1 minutes.", round (_countDownKick / 60)];
 			};
 		} else {
-				hint format["You are AFK. If you dont move you will be kicked in %1 seconds.", _countDownKick];
+			hint format ["You are AFK. If you don't move you will be kicked in %1 seconds.", _countDownKick];
 		};
 	} else {
-		if ((compile format ["PLAYER_%1_AFK == true", name player])) then {
-			compile format ["PLAYER_%1_AFK = false", name player];
-			publicVariable format ["PLAYER_%1_AFK", name player];
+		if (_afk) then {
+			player setVariable ["WASP_AFK", false, true];
 		};
 	};
+
 
 	// Check if the player has been inactive for more than the specified duration, if so he's ejected from the mission.
     if (_elapsedTime > _inactivityTimeout) then {
