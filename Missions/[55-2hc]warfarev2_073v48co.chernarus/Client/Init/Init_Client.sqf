@@ -20,7 +20,7 @@ player setPos ([getMarkerPos Format["%1TempRespawnMarker",sideJoinedText],1,10] 
   [_u] Call WFBE_CL_FNC_SetMapIconStatusInCombat;
 }];
 
-_unit setVariable ["LFTB", false, true];
+_unit setVariable ["LFTB", true, true];
 
 _rearmor = {
    				_ammo = _this select 4;
