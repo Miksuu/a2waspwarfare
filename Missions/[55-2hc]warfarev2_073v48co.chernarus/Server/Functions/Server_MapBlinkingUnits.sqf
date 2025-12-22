@@ -21,15 +21,14 @@ while { !WFBE_GameOver } do {
                     };
                 };
             };
+        } else {
+            _x setVariable ["LFTserverTime", time, false];
         };
 
         _firedRecently = _x getVariable "LFTB";
-        diag_log "_firedRecently:";
-        diag_log _firedRecently;
 
         if (!(isNil "_firedRecently")) then {
             if (_firedRecently) then {
-                _x setVariable ["LFTserverTime", time, false];
                 if (_side == west) then {
                     // ARRAY_UNITS_FIRING_WEST = [netID _x] call BIS_fnc_arrayPush;
                 } else {
