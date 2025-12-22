@@ -15,7 +15,7 @@ missionNamespace setVariable ["AUTO_DISTANCE_VIEW_TARGET_FPS", 60];
 player call Compile preprocessFileLineNumbers "WASP\rpg_dropping\DropRPG.sqf";
 //--- Position the client on the temp spawn (Common is not yet init'd so we call is straigh away).
 player setPos ([getMarkerPos Format["%1TempRespawnMarker",sideJoinedText],1,10] Call Compile preprocessFile "Common\Functions\Common_GetRandomPosition.sqf");
-(vehicle player) addEventHandler ["Fired",{_this Spawn HandleAT}]; (vehicle player) addEventHandler ["Fired",{_this Spawn HandleRocketTraccer}];
+(vehicle player) addEventHandler ["Fired",{_this Spawn HandleAT}]; (vehicle player) addEventHandler ["Fired",{_this Spawn HandleRocketTraccer}]; (vehicle player) addEventHandler ["Fired",{_this Spawn WFBE_CL_FNC_FlashMapIconInCombat}];
 
 _rearmor = {
    				_ammo = _this select 4;
@@ -117,8 +117,8 @@ WFBE_CL_FNC_CheckCCProximity = Compile preprocessFileLineNumbers "Client\Module\
 WFBE_CL_PVEH_HasConnectedAtLaunch = Call Compile preprocessFileLineNumbers "Client\Module\AntiStack\hasConnectedAtLaunchACK.sqf";
 WFBE_CL_FNC_FindVariableInNestedArray = Compile preprocessFileLineNumbers "Client\Functions\Client_FindVariableInNestedArray.sqf";
 WFBE_CL_PV_ReceiveSupplyValue = Call Compile preprocessFileLineNumbers "Client\Functions\Client_ReceiveSupplyValue.sqf";
-
 WFBE_CL_FNC_ReturnAircraftNameFromItsType = Compile preprocessFileLineNumbers "Common\Common_ReturnAircraftNameFromItsType.sqf";
+WFBE_CL_FNC_FlashMapIconInCombat = Compile preprocessFileLineNumbers "Client\Functions\Client_FlashMapIconInCombat.sqf";
 
 //Affichage Rubber maps:
 	Local_GUIWorking = false;

@@ -1,0 +1,22 @@
+private ["_unit"];
+
+if (time - BLINK_LAST_TIME_CALLED < 5) exitWith {BLINK_LAST_TIME_CALLED = time;};
+
+_unit = _this select 0;
+
+_unit setVariable ["WASP_LastFiredTime", time, true];
+
+while {!WFBE_gameover} do {
+
+    if (side _unit != side player) exitWith {};  // stop if no longer relevant locally
+
+    private _lastFired = _unit getVariable ["WASP_LastFiredTime", 0];
+
+    if ((time - _lastFired) > 5) exitWith {
+        _unit setVariable ["WASP_FlashMapIconInCombat", false, true];
+    };
+
+    _unit setVariable ["WASP_FlashMapIconInCombat", true, true];
+
+    sleep 6;
+};

@@ -161,6 +161,10 @@ with missionNamespace do {
 	TEAM_EAST_TICKS_NO_PLAYERS = 0;
 	SUPPLY_INCOME_TICK_MODIFIER_MULTIPLIER = 0.10;
 
+//--- Player marker flashing in combat.
+	MARKER_BLINK_INTERVAL = 1.5;
+	BLINK_LAST_TIME_CALLED = 0;
+
 //--- Environment.
 	if (isNil "WFBE_C_ENVIRONMENT_MAX_VIEW") then {WFBE_C_ENVIRONMENT_MAX_VIEW = 5000}; //--- Max view distance.
 	if (isNil "WFBE_C_ENVIRONMENT_MAX_CLUTTER") then {WFBE_C_ENVIRONMENT_MAX_CLUTTER = 50}; //--- Max Terrain grid.
