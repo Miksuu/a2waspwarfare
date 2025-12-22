@@ -7,7 +7,7 @@ _lastTime = _unit getVariable "LFT";
 if (!isNil { _lastTime }) then {
     _dt = time - _lastTime;
     if (_dt >= FIRING_UNIT_BLINK_TIME) then {
-        diag_log "LFTB = TRUE";
+        diag_log "LFTB = --- TRUE ---";
         _unit setVariable ["LFT", time, false];
         _unit setVariable ["LFTB", true, true];
     };
