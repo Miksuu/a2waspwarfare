@@ -30,8 +30,7 @@ while {alive _tracked && !(isNull _tracked)} do {
 	_iconBlinking = _tracked getVariable "LFTB";
 	diag_log "LFTB:";
 	diag_log _iconBlinking;
-	// if (!isNil "_iconBlinking" && _iconBlinking) then {
-	if (true) then {
+	if (!isNil "_iconBlinking" && _iconBlinking) then {
 		_markerName setMarkerColorLocal "ColorRed";
 		sleep 1;
 		_markerName setMarkerColorLocal _markerColor;
