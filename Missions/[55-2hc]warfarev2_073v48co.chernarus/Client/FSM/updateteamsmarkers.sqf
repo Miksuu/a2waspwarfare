@@ -17,7 +17,7 @@ diag_log _label;
 	_count = _count + 1;
 } forEach clientTeams;
 
-while {!WFBE_gameOver} do {
+while {true} do {
 	_count = 1;
 	{
 		diag_log "label0:";
