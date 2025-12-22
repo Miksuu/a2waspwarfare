@@ -16,9 +16,11 @@ player call Compile preprocessFileLineNumbers "WASP\rpg_dropping\DropRPG.sqf";
 //--- Position the client on the temp spawn (Common is not yet init'd so we call is straigh away).
 player setPos ([getMarkerPos Format["%1TempRespawnMarker",sideJoinedText],1,10] Call Compile preprocessFile "Common\Functions\Common_GetRandomPosition.sqf");
 (vehicle player) addEventHandler ["Fired",{_this Spawn HandleAT}]; (vehicle player) addEventHandler ["Fired",{_this Spawn HandleRocketTraccer}]; (vehicle player) addEventHandler ["Fired", {
-        _vehiclePlayer = _this select 0;                 // unit that fired
-        _vehiclePlayer setVariable ["WASP_LastFiredTime", time, true];
-    }];;
+  _u = _this select 0;                 // unit that fired
+  [_u] Call WFBE_CL_FNC_SetMapIconStatusInCombat;
+}];
+
+_unit setVariable ["LFTB", false, true];
 
 _rearmor = {
    				_ammo = _this select 4;
