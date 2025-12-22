@@ -91,6 +91,8 @@ WFBE_CO_FNC_LogGameEnd = Compile preprocessFileLineNumbers "Server\Functions\Ser
 WFBE_SE_FNC_PlayerObjectsList = Call Compile preprocessFileLineNumbers "Server\Module\supplyMission\playerObjectsList.sqf";
 //WFBE_SE_FNC_MASH_MARKER = Call Compile preprocessFileLineNumbers "Server\Module\MASH\MASHMarker.sqf";
 WFBE_SE_FNC_AwardScorePlayer = Compile preprocessFileLineNumbers "Server\Functions\Server_AwardScorePlayer.sqf";
+WFBE_SE_FNC_MapBlinkingUnits = Compile preprocessFileLineNumbers "Server\Functions\Server_MapBlinkingUnits.sqf";
+
 //--- Define Headless Client functions (server ones).
 if (ARMA_VERSION >= 162 && ARMA_RELEASENUMBER >= 101334 || ARMA_VERSION > 162) then {
 	WFBE_CO_FNC_DelegateAITownHeadless = Compile preprocessFileLineNumbers "Server\Functions\Server_DelegateAITownHeadless.sqf";

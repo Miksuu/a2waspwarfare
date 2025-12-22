@@ -118,7 +118,8 @@ WFBE_CL_PVEH_HasConnectedAtLaunch = Call Compile preprocessFileLineNumbers "Clie
 WFBE_CL_FNC_FindVariableInNestedArray = Compile preprocessFileLineNumbers "Client\Functions\Client_FindVariableInNestedArray.sqf";
 WFBE_CL_PV_ReceiveSupplyValue = Call Compile preprocessFileLineNumbers "Client\Functions\Client_ReceiveSupplyValue.sqf";
 WFBE_CL_FNC_ReturnAircraftNameFromItsType = Compile preprocessFileLineNumbers "Common\Common_ReturnAircraftNameFromItsType.sqf";
-WFBE_CL_FNC_FlashMapIconInCombat = Compile preprocessFileLineNumbers "Client\Functions\Client_FlashMapIconInCombat.sqf";
+WFBE_CL_FNC_SetMapIconStatusInCombat = Compile preprocessFileLineNumbers "Client\Functions\Client_SetMapIconStatusInCombat.sqf";
+WFBE_CL_FNC_TrackBlinkingMapIcons = Compile preprocessFileLineNumbers "Client\Functions\Client_TrackBlinkingMapIcons.sqf";
 
 //Affichage Rubber maps:
 	Local_GUIWorking = false;

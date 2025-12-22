@@ -1,3 +1,21 @@
+private ["_unit", "_lastFired", "_netID", "_timeSinceLastSend"];
+
+_unit = _this select 0;
+
+_timeSinceLastSend = _unit getVariable "LFT";
+
+if (!(isNil "_timeSinceLastSend")) then {
+    _timeSinceLastSend = time - _timeSinceLastSend;
+    if (_timeSinceLastSend >= FIRING_UNIT_BLINK_TIME) then {
+        _unit setVariable ["LFT", time, false];
+        _unit setVariable ["LFTB", true, true];
+    };
+} else {
+    _unit setVariable ["LFT", time, false];
+    _unit setVariable ["LFTB", true, true];
+};
+
+/*
 private ["_unit", "_lastFired"];
 
 if (time - BLINK_LAST_TIME_CALLED < 5) exitWith {BLINK_LAST_TIME_CALLED = time;};
@@ -20,3 +38,4 @@ while {!WFBE_gameover} do {
 
     sleep 6;
 };
+*/

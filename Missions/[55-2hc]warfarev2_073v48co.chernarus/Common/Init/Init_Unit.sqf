@@ -40,6 +40,11 @@ if(side _unit == east && !(_unit hasWeapon "NVGoggles")) then {
 	_unit addWeapon "NVGoggles";
 };
 
+_unit addEventHandler ["Fired", {
+  _u = _this select 0;                 // unit that fired
+  [_u] Call WFBE_CL_FNC_SetMapIconStatusInCombat;
+}];
+
 if(!isNil 'Zeta_Lifter')then{
 	if (_unit_kind in Zeta_Lifter) then { //--- Units that can lift vehicles.
 		if (_upgrades select WFBE_UP_AIRLIFT > 0) then {_unit addAction [localize "STR_WF_Lift", 'Client\Module\ZetaCargo\Zeta_Hook.sqf']};

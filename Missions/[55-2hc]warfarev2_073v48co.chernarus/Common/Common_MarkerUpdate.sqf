@@ -27,6 +27,12 @@ _markerName setMarkerColorLocal _markerColor;
 _markerName setMarkerSizeLocal _markerSize;
 
 while {alive _tracked && !(isNull _tracked)} do {
+	_iconBlinking = _tracked getVariable "LFTB";
+	if (!isNil "_iconBlinking" && _iconBlinking) then {
+		_markerName setMarkerColorLocal "ColorRed";
+		sleep 1;
+		_markerName setMarkerColorLocal _markerColor;
+	};
 	_markerName setMarkerPosLocal (getPos _tracked);
 	sleep _refreshRate;
 };
