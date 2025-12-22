@@ -1,4 +1,4 @@
-private["_sideText","_label","_count","_marker","_markerType","_playerAFKstate","_iconBlinkState", "_last", "_shouldBlink", "_h","_iconBlinkHandle"];
+private["_sideText","_label","_count","_marker","_markerType","_playerAFKstate","_iconBlinkState", "_last", "_shouldBlink", "_h", "_iconBlinkHandle", "_u", "_m"];
 
 _sideText = sideJoinedText;
 _label = "";
@@ -124,4 +124,5 @@ if (player == leader _x) then {
 	} forEach clientTeams;
 
 	sleep 0.2;
+};
 };
