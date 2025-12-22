@@ -54,12 +54,14 @@ while {!gameOver} do {
 
 if (player == leader _x) then {
 
+	diag_log "_x:";
+	diag_log _x;
+
 	{
     _marker setMarkerDirLocal (getDir (vehicle player));
 	_marker setMarkerColorLocal "ColorOrange";
 
-	diag_log "_x:";
-	diag_log _x;
+	
 
     _last = _x getVariable "WASP_LastFiredTime";
 	
