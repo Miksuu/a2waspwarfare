@@ -1,4 +1,4 @@
-Private ["_bounty", "_direction", "_global", "_locked", "_position", "_side", "_special", "_track", "_type", "_vehicle"];
+Private ["_bounty", "_direction", "_global", "_locked", "_position", "_side", "_special", "_track", "_type", "_vehicle", "_u"];
 
 _type = _this select 0;
 _position = _this select 1;
@@ -32,8 +32,12 @@ if (_locked) then {_vehicle lock _locked};
 if (_bounty) then {
 	_vehicle addEventHandler ["killed", Format ['[_this select 0,_this select 1,%1] Spawn WFBE_CO_FNC_OnUnitKilled', _side]];
 	_vehicle addEventHandler ["hit", {_this Spawn WFBE_CO_FNC_OnUnitHit}];
-	_vehicle addEventHandler ["fired", {_this Spawn WFBE_CL_FNC_FlashMapIconInCombat}];
 };
+
+_vehicle addEventHandler ["Fired", {
+        _u = _this select 0;                 // unit that fired
+        _u setVariable ["WASP_LastFiredTime", time, true];
+}];;
 
 
 if (_global) then {
