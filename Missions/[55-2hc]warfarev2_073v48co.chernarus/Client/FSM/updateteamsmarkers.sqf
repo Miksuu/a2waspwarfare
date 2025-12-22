@@ -1,4 +1,4 @@
-private["_sideText","_label","_count","_marker","_markerType","_playerAFKstate"];
+private["_sideText","_label","_count","_marker","_markerType","_playerAFKstate","_iconBlinkState"];
 
 _sideText = sideJoinedText;
 _label = "";
@@ -53,11 +53,32 @@ while {!gameOver} do {
 			if (player == leader _x) then {
 				_marker setMarkerDirLocal GetDir (vehicle player);
 				_marker setMarkerColorLocal "ColorOrange";
+
+				_iconBlinkState = _x getVariable ["BLINK_ICON"];
+
+				if (!(isNil "_iconBlinkState")) then {
+					if (_iconBlinkState) then {
+						_blinks = 0;
+						[_blinks] spawn {
+							while {_blinks < 5} do {
+								_marker setMarkerColorLocal "ColorRed";
+								sleep 1;
+								_marker setMarkerColorLocal "ColorOrange";
+								sleep 1;
+								_blinks = _blinks + 1;
+							};
+						};
+					};
+						_marker setMarkerColorLocal "ColorOrange";
+				};
+
 			};
+
 		};
 
-
 		_count = _count + 1;
+
 	} forEach clientTeams;
+
 	sleep 0.2;
 };
