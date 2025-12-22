@@ -4,6 +4,9 @@ _sideText = sideJoinedText;
 _label = "";
 _count = 1;
 
+diag_log "label00:";
+diag_log _label;
+
 {
 	_marker = Format["%1AdvancedSquad%2Marker",_sideText,_count];
 	createMarkerLocal [_marker,[0,0,0]];
@@ -14,9 +17,11 @@ _count = 1;
 	_count = _count + 1;
 } forEach clientTeams;
 
-while {!gameOver} do {
+while {!WFBE_gameOver} do {
 	_count = 1;
 	{
+		diag_log "label0:";
+		diag_log _label;
 		deleteMarkerLocal "";
 		_label = Format["AI [%1]",_count];
 		deleteMarkerLocal _label;
@@ -58,7 +63,7 @@ while {!gameOver} do {
 				deleteMarkerLocal _label;
 			};
 			_marker setMarkerTypeLocal _markerType;
-			
+
 			if (player == leader _x) then {
 				_marker setMarkerDirLocal GetDir (vehicle player);
 				_marker setMarkerColorLocal "ColorOrange";
