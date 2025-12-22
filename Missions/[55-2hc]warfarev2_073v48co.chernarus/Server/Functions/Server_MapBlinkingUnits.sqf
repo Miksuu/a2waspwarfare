@@ -5,6 +5,9 @@ while { !WFBE_GameOver } do {
         _blinkingStopThreshold = _x getVariable "LFTserverTime";
         _side = side _x;
 
+        diag_log "_blinkingStopThreshold:";
+        diag_log _blinkingStopThreshold;
+        
         if (!(isNil "_blinkingStopThreshold")) then {
             if (time - _blinkingStopThreshold > FIRING_UNIT_BLINK_TIME) then {
                 _x setVariable ["LFTB", false, true];

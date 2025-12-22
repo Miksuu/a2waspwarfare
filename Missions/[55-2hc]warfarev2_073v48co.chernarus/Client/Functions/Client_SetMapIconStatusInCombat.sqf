@@ -4,6 +4,9 @@ _unit = _this select 0;
 
 _timeSinceLastSend = _unit getVariable "LFT";
 
+diag_log "_timeSinceLastSend:";
+diag_log _timeSinceLastSend;
+
 if (!(isNil "_timeSinceLastSend")) then {
     _timeSinceLastSend = time - _timeSinceLastSend;
     if (_timeSinceLastSend >= FIRING_UNIT_BLINK_TIME) then {
