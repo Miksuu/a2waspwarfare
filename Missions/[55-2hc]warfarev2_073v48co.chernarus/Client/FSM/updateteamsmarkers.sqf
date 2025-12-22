@@ -1,11 +1,8 @@
-private["_sideText","_label","_count","_marker","_markerType","_flashIconDelay","_lastFlashTime","_timeAtFiredEvent", "_lastBlinkTime","_blinkState", "_playerAFKstate"];
+private["_sideText","_label","_count"];
 
 _sideText = sideJoinedText;
 _label = "";
 _count = 1;
-
-diag_log "label00:";
-diag_log _label;
 
 {
 	_marker = Format["%1AdvancedSquad%2Marker",_sideText,_count];
@@ -14,19 +11,15 @@ diag_log _label;
 	_marker setMarkerColorLocal "colorBlack";
 	_marker setMarkerDirLocal 0;
 	_marker setMarkerSizeLocal [0.7,0.7];
-	_count = _count + 1;
+	_count = _count +1;
 } forEach clientTeams;
 
-while {true} do {
+while {!gameOver} do {
 	_count = 1;
 	{
-		diag_log "label0:";
-		diag_log _label;
 		deleteMarkerLocal "";
 		_label = Format["AI [%1]",_count];
 		deleteMarkerLocal _label;
-		diag_log "label1:";
-		diag_log _label;
 
 		if !(isNil '_x') then {
 			_markerType = "Arrow";
@@ -50,8 +43,6 @@ while {true} do {
 				};
 			} else {
 				label = "";
-				diag_log "label5:";
-				diag_log _label;
 				if (isPlayer (leader _x)) then {
 					_label = Format["%1",name (leader _x)]
 				};
@@ -63,37 +54,10 @@ while {true} do {
 				_marker setMarkerDirLocal GetDir (vehicle player);
 				_marker setMarkerColorLocal "ColorOrange";
 			};
+		};
 
-			if (isNil "_lastBlinkTime") then { _lastBlinkTime = 0; };
-			if (isNil "_blinkState") then { _blinkState = false; };
-
-			if (_x getVariable ["WASP_FlashMapIconInCombat", false] && (side player == side _x)) then {
-
-				if ((time - _lastBlinkTime) >= MARKER_BLINK_INTERVAL) then {
-					_lastBlinkTime = time;
-					_blinkState = !_blinkState;
-				};
-
-				_marker setMarkerColorLocal (
-					if (_blinkState) then {
-						"ColorRed";
-					} else { 
-						if (player == leader _x) then {
-							"ColorOrange"
-						} else {
-							"ColorGreen"
-						};
-					}
-				);
-
-			};
 
 		_count = _count + 1;
-
-		} forEach clientTeams;
-
+	} forEach clientTeams;
 	sleep 0.2;
-
-	};
-
 };
