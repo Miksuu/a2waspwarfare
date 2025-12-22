@@ -26,9 +26,9 @@ while {!gameOver} do {
 			_marker = Format["%1AdvancedSquad%2Marker",_sideText,_count];
 
 			if (alive (leader _x)) then {
-				_label = "";
+				_label = "TEST";
 				if (isPlayer (leader _x)) then { 
-					_playerAFKstate = _x getVariable "WASP_AFK";
+					_playerAFKstate = leader _x getVariable "WASP_AFK";
 					_label = if (!(isNil "_playerAFKstate") && (_playerAFKstate)) then { Format[" %1 (AFK)", name (leader _x)] } else { Format[" %1", name (leader _x)] };
 					_marker setMarkerTextLocal _label;
 					_marker setMarkerPosLocal GetPos (leader _x);
