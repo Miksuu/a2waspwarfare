@@ -20,16 +20,24 @@ while {!gameOver} do {
 		deleteMarkerLocal "";
 		_label = Format["AI [%1]",_count];
 		deleteMarkerLocal _label;
+		diag_log "label1:";
+		diag_log _label;
 
 		if !(isNil '_x') then {
 			_markerType = "Arrow";
 			_marker = Format["%1AdvancedSquad%2Marker",_sideText,_count];
 
 			if (alive (leader _x)) then {
+				diag_log "label2:";
+				diag_log _label;
 				_label = "TEST";
 				if (isPlayer (leader _x)) then { 
-					_playerAFKstate = leader _x getVariable "WASP_AFK";
+					diag_log "label3:";
+					diag_log _label;
+					_playerAFKstate = (leader _x) getVariable "WASP_AFK";
 					_label = if (!(isNil "_playerAFKstate") && (_playerAFKstate)) then { Format[" %1 (AFK)", name (leader _x)] } else { Format[" %1", name (leader _x)] };
+					diag_log "label4:";
+					diag_log _label;
 					_marker setMarkerTextLocal _label;
 					_marker setMarkerPosLocal GetPos (leader _x);
 					_marker setMarkerDirLocal GetDir (vehicle (leader _x));
@@ -42,13 +50,15 @@ while {!gameOver} do {
 				};
 			} else {
 				label = "";
+				diag_log "label5:";
+				diag_log _label;
 				if (isPlayer (leader _x)) then {
 					_label = Format["%1",name (leader _x)]
 				};
 				deleteMarkerLocal _label;
 			};
 			_marker setMarkerTypeLocal _markerType;
-
+			
 			if (player == leader _x) then {
 				_marker setMarkerDirLocal GetDir (vehicle player);
 				_marker setMarkerColorLocal "ColorOrange";
@@ -65,8 +75,15 @@ while {!gameOver} do {
 				};
 
 				_marker setMarkerColorLocal (
-					if (_blinkState) then {"ColorRed"}
-					else { if (player == leader _x) then {"ColorOrange"} else {"ColorGreen"} }
+					if (_blinkState) then {
+						"ColorRed";
+					} else { 
+						if (player == leader _x) then {
+							"ColorOrange"
+						} else {
+							"ColorGreen"
+						};
+					}
 				);
 
 			};
