@@ -1,4 +1,4 @@
-private["_sideText","_label","_count","_marker","_markerType","_playerAFKstate","_iconBlinkState", "_last", "_shouldBlink", "_h"];
+private["_sideText","_label","_count","_marker","_markerType","_playerAFKstate","_iconBlinkState", "_last", "_shouldBlink", "_h","_iconBlinkHandle"];
 
 _sideText = sideJoinedText;
 _label = "";
@@ -54,71 +54,70 @@ while {!gameOver} do {
 
 if (player == leader _x) then {
 
+	{
     _marker setMarkerDirLocal (getDir (vehicle player));
+	_marker setMarkerColorLocal "ColorOrange";
 
-    _last = leader _x getVariable "WASP_LastFiredTime";
+    _last = _x getVariable "WASP_LastFiredTime";
 	
 	if (!isNil "_last") then {
     
-	_shouldBlink = ((time - _last) <= 10);
-	diag_log "_last:";
-	diag_log _last;
+		_shouldBlink = ((time - _last) <= 10);
+		diag_log "_last:";
+		diag_log _last;
 
-	diag_log "_shouldBlink:";
-	diag_log _shouldBlink;
+		diag_log "_shouldBlink:";
+		diag_log _shouldBlink;
 
-    _h = _x getVariable "WASP_BlinkHandle";   // nil if not set
+		_h = _x getVariable "WASP_BlinkHandle";   // nil if not set
 
-    if (_shouldBlink) then {
+		if (_shouldBlink) then {
 
-		diag_log "About to blink!";
+			diag_log "About to blink!";
 
-        // start blink thread once
-        if (isNil { _h }) then {
-			diag_log "Spawning thread";
-            _h = [leader _x, _marker] spawn {
-                _u = _this select 0;
-                _m = _this select 1;
+			// start blink thread once
+			if (isNil { _h }) then {
+				diag_log "Spawning thread";
+				_h = [leader _x, _marker] spawn {
+					_u = _this select 0;
+					_m = _this select 1;
 
-				diag_log "Almost blinking!";
-                while { alive _u && ((time - (_u getVariable "WASP_LastFiredTime")) <= 10) } do {
-					diag_log "BLINKING!";
-                    _m setMarkerColorLocal "ColorRed";
-                    sleep 1;
-                    _m setMarkerColorLocal "ColorOrange";
-                    sleep 1;
-                };
+					diag_log "Almost blinking!";
+					while { alive _u && ((time - (_u getVariable "WASP_LastFiredTime")) <= 10) } do {
+						diag_log "BLINKING!";
+						_m setMarkerColorLocal "ColorRed";
+						sleep 1;
+						_m setMarkerColorLocal "ColorOrange";
+						sleep 1;
+					};
 
-                if (alive _u) then { _m setMarkerColorLocal "ColorOrange"; };
-				diag_log "Blinking off.";
-                _u setVariable ["WASP_BlinkHandle", nil];
-            };
-			diag_log "Assigning handle to thread.";
-            _x setVariable ["WASP_BlinkHandle", _h];
-        };
+					if (alive _u) then { _m setMarkerColorLocal "ColorOrange"; };
+					diag_log "Blinking off.";
+					_u setVariable ["WASP_BlinkHandle", nil];
+				};
+				diag_log "Assigning handle to thread.";
+				_x setVariable ["WASP_BlinkHandle", _h];
+			};
 
-        // IMPORTANT: don't force orange every frame here, let the thread blink it
+			// IMPORTANT: don't force orange every frame here, let the thread blink it
 
-    } else {
+		} else {
 
-		diag_log "Checking if handle exists.";
-        // stop thread only if it exists
-        if (!isNil { _h }) then {
-			diag_log "Handle exists... deleting.";
-            terminate _h;
-            _x setVariable ["WASP_BlinkHandle", nil];
-        };
+			diag_log "Checking if handle exists.";
+			// stop thread only if it exists
+			if (!isNil { _h }) then {
+				diag_log "Handle exists... deleting.";
+				terminate _h;
+				_x setVariable ["WASP_BlinkHandle", nil];
+			};
 
-		diag_log "Return back to color orange.";
-        _marker setMarkerColorLocal "ColorOrange";
-    };
-	};
-};
-
-
-
-
+			diag_log "Return back to color orange.";
+			_marker setMarkerColorLocal "ColorOrange";
 		};
+	};
+	} forEach _x;
+
+};
 
 		_count = _count + 1;
 
