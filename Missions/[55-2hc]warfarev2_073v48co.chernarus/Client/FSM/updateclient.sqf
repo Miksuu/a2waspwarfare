@@ -108,7 +108,7 @@ while {!gameOver} do {
 		};
 	} else {
 		if ((compile format ["PLAYER_%1_AFK", name player]) == true) then {
-			compile format ["PLAYER_%1_AFK", name player] = false;
+			compile format ["PLAYER_%1_AFK = false", name player];
 			publicVariable format ["PLAYER_%1_AFK", name player];
 		};
 	};
