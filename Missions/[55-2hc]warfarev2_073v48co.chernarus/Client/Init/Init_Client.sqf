@@ -710,7 +710,7 @@ publicVariableServer "WFBE_C_PLAYER_OBJECT";
 player setVariable ["score", 0];
 
 [] execVM "Client\Functions\Client_BookkeepBlinkingIcons.sqf";
-[] execVM "Client\Functions\Client_BlinkMapIcons.sqf";
+// [] execVM "Client\Functions\Client_BlinkMapIcons.sqf";
 
 clientInitComplete = true;
 

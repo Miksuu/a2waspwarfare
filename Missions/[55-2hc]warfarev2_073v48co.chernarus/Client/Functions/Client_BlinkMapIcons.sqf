@@ -1,4 +1,22 @@
+while { !WFBE_GameOver } do {
 
+    {
+        if (side _x == side player) then {
+            _lastFired = (_x getVariable "LFT");
+
+            if (!isNil { _lastFired }) then {
+                if (_lastFired) then {
+                    [_x, true] call WFBE_CL_FNC_BlinkMapIcon;
+                };
+            };
+        }
+
+        sleep 0.01;
+    } forEach allUnits;
+    sleep 1;
+};
+
+/*
 while { !WFBE_GameOver } do {
     if (side player == west) then {
         [ARRAY_UNITS_FIRING_WEST, true] call WFBE_CL_FNC_BlinkMapIcon;
@@ -14,3 +32,4 @@ while { !WFBE_GameOver } do {
         };
     };
 };
+*/

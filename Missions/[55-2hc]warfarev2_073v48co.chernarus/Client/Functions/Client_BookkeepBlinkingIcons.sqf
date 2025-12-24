@@ -1,3 +1,30 @@
+
+private ["_lastFired", "_dt", "_blinkRed"];
+
+while { !WFBE_GameOver } do {
+
+_blinkRed = true;
+
+    {
+        if (side _x == side player) then {
+            _lastFired = (_x getVariable "LFT");
+
+            if (!isNil { _lastFired }) then {
+                _dt = time - _lastFired;
+                if (_dt <= FIRING_UNIT_BLINK_TIME) then {
+                    [_x, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
+                    _blinkRed = !_blinkRed;
+                };
+            };
+        }
+
+        sleep 0.01;
+    } forEach allUnits;
+    sleep 1;
+};
+
+
+/*
 private ["_blinkingActive", "_lastTimeFired", "_dt"];
 
 while { !WFBE_GameOver } do {
@@ -57,3 +84,4 @@ while { !WFBE_GameOver } do {
         
     sleep 0.02;
 };
+*/

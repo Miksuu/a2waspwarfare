@@ -570,7 +570,7 @@ waitUntil {time > 0};
 
 call WFBE_CO_FNC_InitAFKkickHandler;
 
-[] execVM "Server\Functions\Server_MapBlinkingUnits.sqf";
+// [] execVM "Server\Functions\Server_MapBlinkingUnits.sqf";
 
 [] execVM "Server\Module\serverFPS\monitorServerFPS.sqf";
 
