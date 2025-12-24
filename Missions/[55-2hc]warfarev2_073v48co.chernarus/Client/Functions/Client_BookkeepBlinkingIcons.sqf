@@ -1,7 +1,8 @@
-private ["_blinkingActive"];
+private ["_blinkingActive", "_lastTimeFired", "_dt"];
 
 while { !WFBE_GameOver } do {
     {
+        diag_log "IS THIS EVEN RUNNING?"
         {
             if (side player == west) then {
                 if (side (_x select 0) == west) then {
