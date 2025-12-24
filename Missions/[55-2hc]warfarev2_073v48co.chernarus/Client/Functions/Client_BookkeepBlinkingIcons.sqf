@@ -6,10 +6,12 @@ while { !WFBE_GameOver } do {
             if (side player == east) then {
                 if (side (_x select 0) == east) then {
 
-                    _blinkingActive = (_x select 0) getVariable "LFTB";
-                    
-                    if (isNil "_blinkingActive") then {
-                        if (!_blinkingActive) then {
+                    _lastTimeFired = (_x select 0) getVariable "LFT";
+
+                    if (!isNil { _lastTimeFired }) then {
+                        _dt = time - _lastTimeFired;
+                        
+                        if (_dt >= FIRING_UNIT_BLINK_TIME) then {
                             if (ARRAY_UNITS_FIRING_WEST find (_x select 0) != -1) then {
                                 ARRAY_UNITS_FIRING_WEST = ARRAY_UNITS_FIRING_WEST - _x;
                             };
@@ -25,12 +27,14 @@ while { !WFBE_GameOver } do {
             if (side player == east) then {
                 if (side (_x select 0) == east) then {
 
-                    _blinkingActive = (_x select 0) getVariable "LFTB";
-                    
-                    if (isNil "_blinkingActive") then {
-                        if (!_blinkingActive) then {
-                            if (ARRAY_UNITS_FIRING_EAST find (_x select 0) != -1) then {
-                                ARRAY_UNITS_FIRING_EAST = ARRAY_UNITS_FIRING_EAST - _x;
+                    _lastTimeFired = (_x select 0) getVariable "LFT";
+
+                    if (!isNil { _lastTimeFired }) then {
+                        _dt = time - _lastTimeFired;
+                        
+                        if (_dt >= FIRING_UNIT_BLINK_TIME) then {
+                            if (ARRAY_UNITS_FIRING_WEST find (_x select 0) != -1) then {
+                                ARRAY_UNITS_FIRING_WEST = ARRAY_UNITS_FIRING_WEST - _x;
                             };
                         };
                     }; 
