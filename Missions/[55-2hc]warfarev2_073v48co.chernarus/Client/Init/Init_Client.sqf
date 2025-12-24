@@ -20,8 +20,6 @@ player setPos ([getMarkerPos Format["%1TempRespawnMarker",sideJoinedText],1,10] 
   [_u] Call WFBE_CL_FNC_SetMapIconStatusInCombat;
 }];
 
-// player setVariable ["LFTB", false, true]; //--- Initialize the blinking status variable.
-
 _rearmor = {
    				_ammo = _this select 4;
    				_result = 0;

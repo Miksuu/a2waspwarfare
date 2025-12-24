@@ -45,7 +45,6 @@ _unit addEventHandler ["Fired", {
   [_u] Call WFBE_CL_FNC_SetMapIconStatusInCombat;
 }];
 
-_unit setVariable ["LFTB", false, true]; //--- Initialize the blinking status variable.
 
 if(!isNil 'Zeta_Lifter')then{
 	if (_unit_kind in Zeta_Lifter) then { //--- Units that can lift vehicles.
