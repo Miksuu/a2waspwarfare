@@ -8,7 +8,13 @@ _count = 1;
 	_marker = Format["%1AdvancedSquad%2Marker",_sideText,_count];
 	createMarkerLocal [_marker,[0,0,0]];
 	_marker setMarkerTypeLocal "Arrow";
-	_marker setMarkerColorLocal (if (player == leader _x) then {"ColorOrange"} else {"ColorBlack"});
+
+	if (player == leader _x) then {
+		_marker setMarkerColorLocal "ColorOrange";
+	} else {
+		_marker setMarkerColorLocal "ColorBlack";
+	};
+	
 	_marker setMarkerDirLocal 0;
 	_marker setMarkerSizeLocal [0.7,0.7];
 	_count = _count +1;
