@@ -10,7 +10,9 @@ _flashRed = _this select 1;
     
     if (_flashRed) then {
         _marker setMarkerColorLocal "ColorRed";
+        diag_log "Set icon color to red.";
     } else {
         _marker setMarkerColorLocal _markerColor;
+        diag_log "Set icon color to original.";
     };
 } forEach _unitsFiring;
