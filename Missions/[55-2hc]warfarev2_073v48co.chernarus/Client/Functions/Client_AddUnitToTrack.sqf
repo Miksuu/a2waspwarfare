@@ -1,4 +1,4 @@
-private ["_unit", "_unitMarker"];
+private ["_unit", "_unitMarker", "_markerColor"];
 
 _unit = _this select 0;
 _unitMarker = _this select 1;
