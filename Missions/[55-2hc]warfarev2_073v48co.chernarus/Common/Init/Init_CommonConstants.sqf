@@ -164,7 +164,7 @@ with missionNamespace do {
 //--- Player marker flashing in combat.
 	ARRAY_UNITS_FIRING_WEST = [];
 	ARRAY_UNITS_FIRING_EAST = [];
-	FIRING_UNIT_BLINK_TIME = 1;
+	FIRING_UNIT_BLINK_TIME = 10;
 
 //--- Environment.
 	if (isNil "WFBE_C_ENVIRONMENT_MAX_VIEW") then {WFBE_C_ENVIRONMENT_MAX_VIEW = 5000}; //--- Max view distance.
