@@ -1,5 +1,7 @@
 private ["_unitsFiring", "_markerColor", "_unit", "_marker"];
 
+_unitsFiring = _this select 0;
+
 {
     _unit = _x select 0;
     _marker = _x select 1;

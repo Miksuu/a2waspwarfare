@@ -2,7 +2,7 @@ private ["_unit", "_unitMarker"];
 
 _unit = _this select 0;
 _unitMarker = _this select 1;
-_markerColor = getMarkerColor _unitMarker;
+_markerColor = getMarkerColor (str _unitMarker);
 
 if (side _unit == side player) then {
     if (side _unit == west) then {
