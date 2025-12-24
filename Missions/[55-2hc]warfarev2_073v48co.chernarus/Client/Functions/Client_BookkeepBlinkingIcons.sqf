@@ -1,9 +1,9 @@
 
 private ["_lastFired", "_dt", "_blinkRed"];
 
-while { !WFBE_GameOver } do {
-
 _blinkRed = true;
+
+while { !WFBE_GameOver } do {
 
     {
         if (side _x == side player) then {
