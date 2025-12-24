@@ -20,14 +20,18 @@ while { !WFBE_GameOver } do {
                 if (_dt <= FIRING_UNIT_BLINK_TIME) then {
                     [_x, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
                     _blinkRed = !_blinkRed;
+                } else {
+                    if (_blinkRed) then {
+                        [_x, false] call WFBE_CL_FNC_BlinkMapIcon;
+                    };
                 };
             };
         };
 
         sleep 0.01;
     } forEach allUnits;
-
-    sleep 1;
+    
+    sleep 0.5;
 };
 
 
