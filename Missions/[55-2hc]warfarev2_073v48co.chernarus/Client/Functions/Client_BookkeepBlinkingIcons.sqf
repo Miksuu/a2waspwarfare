@@ -1,5 +1,5 @@
 
-private ["_lastFired", "_dt", "_blinkRed"];
+private ["_dt", "_blinkRed"];
 
 _blinkRed = true;
 
@@ -7,7 +7,7 @@ while { !WFBE_GameOver } do {
 
     {
         if (side _x == side player) then {
-            _lastFired = _x getVariable "LFT";
+            private _lastFired = _x getVariable "LFT";
 
             if (!isNil { _lastFired }) then {
                 diag_log "_lastFired:";
@@ -30,8 +30,8 @@ while { !WFBE_GameOver } do {
 
         sleep 0.01;
     } forEach allUnits;
-    
-    sleep 0.5;
+
+    sleep 0.1;
 };
 
 

@@ -13,7 +13,7 @@ while { !WFBE_GameOver } do {
 
         sleep 0.01;
     } forEach allUnits;
-    sleep 1;
+    sleep 0.1;
 };
 
 /*
