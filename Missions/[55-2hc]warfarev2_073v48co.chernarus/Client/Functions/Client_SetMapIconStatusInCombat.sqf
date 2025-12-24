@@ -1,7 +1,7 @@
 private ["_unit", "_lastTime", "_dt"];
 
 _unit = _this;
-_unit = vehicle unit;
+_unit = vehicle _unit;
 
 _lastTime = _unit getVariable "LFT";
 
