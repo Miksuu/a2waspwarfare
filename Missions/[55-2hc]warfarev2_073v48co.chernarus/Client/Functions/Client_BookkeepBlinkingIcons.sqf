@@ -7,14 +7,20 @@ while { !WFBE_GameOver } do {
                 if (side (_x select 0) == east) then {
 
                     _lastTimeFired = (_x select 0) getVariable "LFT";
-
+                    diag_log "_lastTimeFired:";
+                    diag_log _lastTimeFired;
                     if (!isNil { _lastTimeFired }) then {
                         _dt = time - _lastTimeFired;
-                        
+                        diag_log "_dt:";
+                        diag_log _dt;
                         if (_dt >= FIRING_UNIT_BLINK_TIME) then {
                             if (ARRAY_UNITS_FIRING_WEST find (_x select 0) != -1) then {
                                 ARRAY_UNITS_FIRING_WEST = ARRAY_UNITS_FIRING_WEST - _x;
                             };
+                        };
+                    } else {
+                        if (ARRAY_UNITS_FIRING_WEST find (_x select 0) != -1) then {
+                            ARRAY_UNITS_FIRING_WEST = ARRAY_UNITS_FIRING_WEST - _x;
                         };
                     }; 
                 };
@@ -36,6 +42,10 @@ while { !WFBE_GameOver } do {
                             if (ARRAY_UNITS_FIRING_WEST find (_x select 0) != -1) then {
                                 ARRAY_UNITS_FIRING_WEST = ARRAY_UNITS_FIRING_WEST - _x;
                             };
+                        };
+                    } else {
+                        if (ARRAY_UNITS_FIRING_WEST find (_x select 0) != -1) then {
+                            ARRAY_UNITS_FIRING_WEST = ARRAY_UNITS_FIRING_WEST - _x;
                         };
                     }; 
                 };
