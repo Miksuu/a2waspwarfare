@@ -124,7 +124,9 @@ WFBE_CL_FNC_FindVariableInNestedArray = Compile preprocessFileLineNumbers "Clien
 WFBE_CL_PV_ReceiveSupplyValue = Call Compile preprocessFileLineNumbers "Client\Functions\Client_ReceiveSupplyValue.sqf";
 WFBE_CL_FNC_ReturnAircraftNameFromItsType = Compile preprocessFileLineNumbers "Common\Common_ReturnAircraftNameFromItsType.sqf";
 WFBE_CL_FNC_SetMapIconStatusInCombat = Compile preprocessFileLineNumbers "Client\Functions\Client_SetMapIconStatusInCombat.sqf";
-WFBE_CL_FNC_TrackBlinkingMapIcons = Compile preprocessFileLineNumbers "Client\Functions\Client_TrackBlinkingMapIcons.sqf";
+WFBE_CL_FNC_BlinkMapIcons = Compile preprocessFileLineNumbers "Client\Functions\Client_BlinkMapIcons.sqf";
+WFBE_CL_FNC_BlinkMapIcon = Compile preprocessFileLineNumbers "Client\Functions\Client_BlinkMapIcon.sqf";
+WFBE_CL_FNC_AddUnitToTrack = Compile preprocessFileLineNumbers "Client\Functions\Client_AddUnitToTrack.sqf";
 
 //Affichage Rubber maps:
 	Local_GUIWorking = false;
@@ -708,6 +710,9 @@ publicVariableServer "WFBE_C_PLAYER_OBJECT";
 12452 cutText [(localize 'STR_WF_Loading')+"...","BLACK IN",5];
 
 player setVariable ["score", 0];
+
+[] execVM "Client\Functions\Client_BookkeepBlinkingIcons.sqf";
+[] execVM "Client\Functions\Client_BlinkMapIcons.sqf"
 
 clientInitComplete = true;
 

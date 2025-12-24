@@ -26,17 +26,13 @@ _markerName setMarkerTypeLocal _markerType;
 _markerName setMarkerColorLocal _markerColor;
 _markerName setMarkerSizeLocal _markerSize;
 
+[_markerName, _tracked] call WFBE_CL_FNC_AddUnitToTrack;
+
 while {alive _tracked && !(isNull _tracked)} do {
-	_iconBlinking = _tracked getVariable "LFTB";
-	diag_log "LFTB:";
-	diag_log _iconBlinking;
-	if (!isNil "_iconBlinking" && _iconBlinking) then {
-		_markerName setMarkerColorLocal "ColorRed";
-		sleep 1;
-		_markerName setMarkerColorLocal _markerColor;
-	};
-	_markerName setMarkerPosLocal (getPos _tracked);
-	sleep _refreshRate;
+
+		sleep _refreshRate;
+
+		_markerName setMarkerPosLocal (getPos _tracked);
 };
 
 if (_trackDeath && !isNull _tracked) then {

@@ -167,9 +167,6 @@ if (_isMan) then { //--- Man.
 	
 	if (_unit_kind in (missionNamespace getVariable Format['WFBE_%1LIFTVEHICLE',str _side])) then {_color = "ColorWhite";};//---Lifter
 	if (_unit_kind in (missionNamespace getVariable Format['WFBE_%1AMBULANCES',str _side])) then {_color = "ColorYellow";};//--- Medical.
-	
-	
-	
 	//
 	if (_unit_kind in (missionNamespace getVariable Format['WFBE_%1SALVAGETRUCK',str _side])) then {_color = "ColorKhaki";_type = "SalvageVehicle";};//--- Salvage.
         _params = [_type,_color,_size,_txt,_markerName,_unit,1,true,"DestroyedVehicle",_color,false,_side,[2,2]];	
