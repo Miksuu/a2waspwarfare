@@ -7,13 +7,16 @@ _lastTime = _unit getVariable "LFT";
 if (!isNil { _lastTime }) then {
     _dt = time - _lastTime;
     if (_dt >= FIRING_UNIT_BLINK_TIME) then {
-        _unit setVariable ["LFT", time, false];
+        diag_log "Unit stopped firing more than 10 seconds ago.";
+        _unit setVariable ["LFT", time, true];
         _unit setVariable ["LFTB", false, true];
     } else {
-        _unit setVariable ["LFT", time, false];
+        diag_log "Unit is still firing within the last 10 seconds.";
+        _unit setVariable ["LFT", time, true];
     };
 } else {
-    _unit setVariable ["LFT", time, false];
+    diag_log "No last fired time found. Setting current time.";
+    _unit setVariable ["LFT", time, true];
     _unit setVariable ["LFTB", true, true];
 };
 
