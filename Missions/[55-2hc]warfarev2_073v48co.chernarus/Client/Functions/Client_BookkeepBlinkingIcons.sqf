@@ -3,8 +3,8 @@ private ["_blinkingActive"];
 while { !WFBE_GameOver } do {
     {
         {
-            if (side player == east) then {
-                if (side (_x select 0) == east) then {
+            if (side player == west) then {
+                if (side (_x select 0) == west) then {
 
                     _lastTimeFired = (_x select 0) getVariable "LFT";
                     diag_log "_lastTimeFired:";
