@@ -2,7 +2,7 @@ private ["_unit", "_unitMarker", "_markerColor"];
 
 _unit = _this select 0;
 _unitMarker = _this select 1;
-_markerColor = getMarkerColor (str _unitMarker);
+_markerColor = getMarkerColor _unitMarker;
 
 if (side _unit == side player) then {
     if (side _unit == west) then {
@@ -13,3 +13,13 @@ if (side _unit == side player) then {
         };
     };
 };
+
+diag_log "ARRAY_UNITS_FIRING_WEST:";
+{
+    diag_log format ["Unit: %1, Marker: %2", _x select 0, _x select 1];
+} forEach ARRAY_UNITS_FIRING_WEST;
+
+diag_log "ARRAY_UNITS_FIRING_EAST:";
+{
+    diag_log format ["Unit: %1, Marker: %2", _x select 0, _x select 1];
+} forEach ARRAY_UNITS_FIRING_EAST;
