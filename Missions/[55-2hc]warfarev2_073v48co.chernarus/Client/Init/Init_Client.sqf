@@ -17,7 +17,7 @@ player call Compile preprocessFileLineNumbers "WASP\rpg_dropping\DropRPG.sqf";
 player setPos ([getMarkerPos Format["%1TempRespawnMarker",sideJoinedText],1,10] Call Compile preprocessFile "Common\Functions\Common_GetRandomPosition.sqf");
 (vehicle player) addEventHandler ["Fired",{_this Spawn HandleAT}]; (vehicle player) addEventHandler ["Fired",{_this Spawn HandleRocketTraccer}]; (vehicle player) addEventHandler ["Fired", {
   _u = _this select 0;                 // unit that fired
-  [_u] Call WFBE_CL_FNC_SetMapIconStatusInCombat;
+  _u Call WFBE_CL_FNC_SetMapIconStatusInCombat;
 }];
 
 _rearmor = {

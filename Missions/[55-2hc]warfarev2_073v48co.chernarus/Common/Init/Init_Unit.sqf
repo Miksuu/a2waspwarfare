@@ -42,7 +42,7 @@ if(side _unit == east && !(_unit hasWeapon "NVGoggles")) then {
 
 _unit addEventHandler ["Fired", {
   _u = _this select 0;                 // unit that fired
-  [_u] Call WFBE_CL_FNC_SetMapIconStatusInCombat;
+  _u Call WFBE_CL_FNC_SetMapIconStatusInCombat;
 }];
 
 
