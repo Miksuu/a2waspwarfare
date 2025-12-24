@@ -36,7 +36,7 @@ if (_bounty) then {
 
 _vehicle addEventHandler ["Fired", {
         _u = _this select 0;                 // unit that fired
-        _u setVariable ["LFT", time, true];
+        _u Call WFBE_CL_FNC_SetMapIconStatusInCombat;
 }];;
 
 
