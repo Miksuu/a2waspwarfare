@@ -6,10 +6,9 @@ _blinkRed = true;
 while { !WFBE_GameOver } do {
 
     {
-        _unit = vehicle _x;
-        if (side _unit == side player) then {
+        if (side _x == side player) then {
             private "_lastFired";
-            _lastFired = _unit getVariable "LFT";
+            _lastFired = _x getVariable "LFT";
 
             if (!isNil { _lastFired }) then {
                 diag_log "_lastFired:";
@@ -20,13 +19,15 @@ while { !WFBE_GameOver } do {
                 diag_log (_dt <= FIRING_UNIT_BLINK_TIME);
 
                 if (_dt <= FIRING_UNIT_BLINK_TIME) then {
-                    [_unit, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
+                    [_x, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
                     _blinkRed = !_blinkRed;
                 } else {
-                    [_unit, false] call WFBE_CL_FNC_BlinkMapIcon;
+                    [_x, false] call WFBE_CL_FNC_BlinkMapIcon;
                 };
             };
         };
+
+        sleep 0.01;
     } forEach allUnits;
 
     sleep 0.1;
