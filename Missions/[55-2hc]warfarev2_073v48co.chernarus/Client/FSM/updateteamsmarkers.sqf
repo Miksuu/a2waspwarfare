@@ -8,7 +8,7 @@ _count = 1;
 	_marker = Format["%1AdvancedSquad%2Marker",_sideText,_count];
 	createMarkerLocal [_marker,[0,0,0]];
 	_marker setMarkerTypeLocal "Arrow";
-	_marker setMarkerColorLocal "colorBlack";
+	_marker setMarkerColorLocal (if (player == leader _x) then {"ColorOrange"} else {"ColorBlack"});
 	_marker setMarkerDirLocal 0;
 	_marker setMarkerSizeLocal [0.7,0.7];
 	_count = _count +1;
@@ -51,7 +51,6 @@ while {!gameOver} do {
 
 			if (player == leader _x) then {
 				_marker setMarkerDirLocal GetDir (vehicle player);
-				_marker setMarkerColorLocal "ColorOrange";
 				[(leader _x), _marker, getMarkerColor _marker] spawn WFBE_CL_FNC_AddUnitToTrack;
 			};
 		};
