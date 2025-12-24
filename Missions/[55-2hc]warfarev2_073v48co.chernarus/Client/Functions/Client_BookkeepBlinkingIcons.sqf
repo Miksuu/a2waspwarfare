@@ -11,12 +11,7 @@ while { !WFBE_GameOver } do {
             _lastFired = (vehicle _x) getVariable "LFT";
 
             if (!isNil { _lastFired }) then {
-                diag_log "_lastFired:";
-                diag_log _lastFired;
                 _dt = time - _lastFired;
-                diag_log "_dt:";
-                diag_log _dt;
-                diag_log (_dt <= FIRING_UNIT_BLINK_TIME);
 
                 if (_dt <= FIRING_UNIT_BLINK_TIME) then {
                     [vehicle _x, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
