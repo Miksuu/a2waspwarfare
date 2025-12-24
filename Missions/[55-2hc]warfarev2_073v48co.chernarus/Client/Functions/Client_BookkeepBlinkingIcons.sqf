@@ -7,9 +7,9 @@ while { !WFBE_GameOver } do {
 
     {
         _unit = vehicle _x;
-        if (side _x == side player) then {
+        if (side _unit == side player) then {
             private "_lastFired";
-            _lastFired = _x getVariable "LFT";
+            _lastFired = _unit getVariable "LFT";
 
             if (!isNil { _lastFired }) then {
                 diag_log "_lastFired:";
@@ -27,8 +27,6 @@ while { !WFBE_GameOver } do {
                 };
             };
         };
-
-        sleep 0.01;
     } forEach allUnits;
 
     sleep 0.1;
