@@ -16,7 +16,7 @@ _blinkRed = true;
                     _blinkRed = !_blinkRed;
                 };
             };
-        }
+        };
 
         sleep 0.01;
     } forEach allUnits;
