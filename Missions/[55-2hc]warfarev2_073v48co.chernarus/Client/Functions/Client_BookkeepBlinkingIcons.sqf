@@ -6,6 +6,7 @@ _blinkRed = true;
 while { !WFBE_GameOver } do {
 
     {
+        _unit = vehicle _x;
         if (side _x == side player) then {
             private "_lastFired";
             _lastFired = _x getVariable "LFT";
