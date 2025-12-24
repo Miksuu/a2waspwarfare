@@ -57,7 +57,6 @@ while {!gameOver} do {
 
 			if (player == leader _x) then {
 				_marker setMarkerDirLocal GetDir (vehicle player);
-				[(leader _x), _marker, getMarkerColor _marker] spawn WFBE_CL_FNC_AddUnitToTrack;
 			};
 		};
 

@@ -8,9 +8,15 @@ _blinkRed = true;
     {
         if (side _x == side player) then {
             _lastFired = (_x getVariable "LFT");
+            diag_log "_lastFired:";
+            diag_log _lastFired;
 
             if (!isNil { _lastFired }) then {
                 _dt = time - _lastFired;
+                diag_log "_dt:";
+                diag_log _dt;
+                diag_log (_dt <= FIRING_UNIT_BLINK_TIME);
+
                 if (_dt <= FIRING_UNIT_BLINK_TIME) then {
                     [_x, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
                     _blinkRed = !_blinkRed;

@@ -9,7 +9,7 @@ while { !WFBE_GameOver } do {
                     [_x, true] call WFBE_CL_FNC_BlinkMapIcon;
                 };
             };
-        }
+        };
 
         sleep 0.01;
     } forEach allUnits;
