@@ -7,7 +7,8 @@ while { !WFBE_GameOver } do {
 
     {
         if (side _x == side player) then {
-            private _lastFired = _x getVariable "LFT";
+            private "_lastFired";
+            _lastFired = _x getVariable "LFT";
 
             if (!isNil { _lastFired }) then {
                 diag_log "_lastFired:";
