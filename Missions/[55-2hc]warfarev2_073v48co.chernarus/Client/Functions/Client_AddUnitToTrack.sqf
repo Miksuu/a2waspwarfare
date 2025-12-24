@@ -13,13 +13,3 @@ if (side _unit == side player) then {
         };
     };
 };
-
-diag_log "ARRAY_UNITS_FIRING_WEST:";
-{
-    diag_log format ["Unit: %1, Marker: %2", _x select 0, _x select 1];
-} forEach ARRAY_UNITS_FIRING_WEST;
-
-diag_log "ARRAY_UNITS_FIRING_EAST:";
-{
-    diag_log format ["Unit: %1, Marker: %2", _x select 0, _x select 1];
-} forEach ARRAY_UNITS_FIRING_EAST;
