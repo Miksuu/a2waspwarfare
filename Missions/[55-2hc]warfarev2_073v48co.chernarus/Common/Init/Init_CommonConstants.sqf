@@ -162,8 +162,6 @@ with missionNamespace do {
 	SUPPLY_INCOME_TICK_MODIFIER_MULTIPLIER = 0.10;
 
 //--- Player marker flashing in combat.
-	ARRAY_UNITS_FIRING_WEST = [];
-	ARRAY_UNITS_FIRING_EAST = [];
 	FIRING_UNIT_BLINK_TIME = 10;
 
 //--- Environment.

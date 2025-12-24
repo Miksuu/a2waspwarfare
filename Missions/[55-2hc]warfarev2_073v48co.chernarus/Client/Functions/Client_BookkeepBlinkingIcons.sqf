@@ -7,7 +7,7 @@ _blinkRed = true;
 
     {
         if (side _x == side player) then {
-            _lastFired = (_x getVariable "LFT");
+            _lastFired = _x getVariable "LFT";
 
             if (!isNil { _lastFired }) then {
                 diag_log "_lastFired:";
@@ -26,6 +26,7 @@ _blinkRed = true;
 
         sleep 0.01;
     } forEach allUnits;
+
     sleep 1;
 };
 

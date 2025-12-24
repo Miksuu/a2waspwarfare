@@ -26,8 +26,8 @@ _markerName setMarkerTypeLocal _markerType;
 _markerName setMarkerColorLocal _markerColor;
 _markerName setMarkerSizeLocal _markerSize;
 
-// diag_log "AddUnitToTrack called";
-// [_tracked, _markerName, _markerColor] spawn WFBE_CL_FNC_AddUnitToTrack;
+_tracked setVariable ["unitMarker", _markerName, true];
+_tracked setVariable ["OriginalMarkerColor", _markerColor, true];
 
 while {alive _tracked && !(isNull _tracked)} do {
 

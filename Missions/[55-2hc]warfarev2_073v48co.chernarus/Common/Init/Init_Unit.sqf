@@ -172,6 +172,4 @@ if (_isMan) then { //--- Man.
         if (_unit == ((_side) Call WFBE_CO_FNC_GetSideHQ)) then {_color = "ColorPink";_params = ['Headquarters',_color,[1,1],'','HQUndeployed',_unit,0.2,false,'','',false,_side]};//--- HQ.	
 };
 
-_unit setVariable ["OriginalMarkerColor", _color, true];
-
 _params Spawn MarkerUpdate;
