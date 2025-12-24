@@ -19,10 +19,10 @@ while { !WFBE_GameOver } do {
                 diag_log (_dt <= FIRING_UNIT_BLINK_TIME);
 
                 if (_dt <= FIRING_UNIT_BLINK_TIME) then {
-                    [_x, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
+                    [vehicle _x, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
                     _blinkRed = !_blinkRed;
                 } else {
-                    [_x, false] call WFBE_CL_FNC_BlinkMapIcon;
+                    [vehicle _x, false] call WFBE_CL_FNC_BlinkMapIcon;
                 };
             };
         };

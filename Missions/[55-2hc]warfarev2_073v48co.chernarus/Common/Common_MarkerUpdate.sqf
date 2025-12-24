@@ -20,7 +20,7 @@ if (count _this > 12) then {_deathMarkerSize = _this select 12};
 if (_side != side group player || isNull _tracked || !(alive _tracked)) exitWith {};
 if (_deletePrevious) then {deleteMarkerLocal _markerName};
 
-createMarkerLocal [_markerName,getPos _tracked];
+createMarkerLocal [_markerName, getPos _tracked];
 if (_markerText != "") then {_markerName setMarkerTextLocal _markerText};
 _markerName setMarkerTypeLocal _markerType;
 _markerName setMarkerColorLocal _markerColor;

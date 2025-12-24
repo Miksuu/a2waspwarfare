@@ -34,18 +34,17 @@ if (_bounty) then {
 	_vehicle addEventHandler ["hit", {_this Spawn WFBE_CO_FNC_OnUnitHit}];
 };
 
-_vehicle addEventHandler ["Fired", {
-		_u = _this select 0;                 // unit that fired
-        _u Call WFBE_CL_FNC_SetMapIconStatusInCombat;
-}];;
-
-
 if (_global) then {
 	if (_side != WFBE_DEFENDER_ID || WFBE_ISTHREEWAY) then {
 		_vehicle setVehicleInit Format["[this,%1] ExecVM 'Common\Init\Init_Unit.sqf'", _side];
 		processInitCommands;
 	};
 };
+
+_vehicle addEventHandler ["Fired", {
+		_u = _this select 0;                 // unit that fired
+        _u Call WFBE_CL_FNC_SetMapIconStatusInCombat;
+}];
 
 ["INFORMATION", Format ["Common_CreateVehicle.sqf: [%1] Vehicle [%2] was created at [%3].", _side Call WFBE_CO_FNC_GetSideFromID, _type, _position]] Call WFBE_CO_FNC_LogContent;
 

@@ -40,11 +40,6 @@ if(side _unit == east && !(_unit hasWeapon "NVGoggles")) then {
 	_unit addWeapon "NVGoggles";
 };
 
-_unit addEventHandler ["Fired", {
-  _u = _this select 0;                 // unit that fired
-  _u Call WFBE_CL_FNC_SetMapIconStatusInCombat;
-}];
-
 
 if(!isNil 'Zeta_Lifter')then{
 	if (_unit_kind in Zeta_Lifter) then { //--- Units that can lift vehicles.
@@ -171,5 +166,10 @@ if (_isMan) then { //--- Man.
         _params = [_type,_color,_size,_txt,_markerName,_unit,1,true,"DestroyedVehicle",_color,false,_side,[2,2]];	
         if (_unit == ((_side) Call WFBE_CO_FNC_GetSideHQ)) then {_color = "ColorPink";_params = ['Headquarters',_color,[1,1],'','HQUndeployed',_unit,0.2,false,'','',false,_side]};//--- HQ.	
 };
+
+_unit addEventHandler ["Fired", {
+  _u = _this select 0;                 // unit that fired
+  _u Call WFBE_CL_FNC_SetMapIconStatusInCombat;
+}];
 
 _params Spawn MarkerUpdate;
