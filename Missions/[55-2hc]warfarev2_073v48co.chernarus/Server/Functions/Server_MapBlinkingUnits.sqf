@@ -1,4 +1,4 @@
-private ["_side", "_firedRecently", "_blinkingStopThreshold", "_netID"];
+/*private ["_side", "_firedRecently", "_blinkingStopThreshold", "_netID"];
 
 while { !WFBE_GameOver } do {
     {
@@ -44,3 +44,4 @@ while { !WFBE_GameOver } do {
         sleep 0.01;
     } forEach allUnits;
 };
+*/
