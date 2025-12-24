@@ -162,8 +162,7 @@ with missionNamespace do {
 	SUPPLY_INCOME_TICK_MODIFIER_MULTIPLIER = 0.10;
 
 //--- Player marker flashing in combat.
-	MARKER_BLINK_INTERVAL = 1.5;
-	BLINK_LAST_TIME_CALLED = 0;
+	FIRING_UNIT_BLINK_TIME = 10;
 
 //--- Environment.
 	if (isNil "WFBE_C_ENVIRONMENT_MAX_VIEW") then {WFBE_C_ENVIRONMENT_MAX_VIEW = 5000}; //--- Max view distance.

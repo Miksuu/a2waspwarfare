@@ -1,4 +1,4 @@
-Private ['_HQRadio','_base','_buildings','_condition','_get','_idbl','_isDeployed','_oc','_weat','_rearmor','_playerObject','_hasConnectedAtLaunchACK'];
+Private ['_HQRadio','_base','_buildings','_condition','_get','_idbl','_isDeployed','_oc','_weat','_rearmor','_playerObject','_hasConnectedAtLaunchACK', '_vehiclePlayer'];
 
 ["INITIALIZATION", Format ["Init_Client.sqf: Client initialization begins at [%1]", time]] Call WFBE_CO_FNC_LogContent;
 
@@ -15,7 +15,10 @@ missionNamespace setVariable ["AUTO_DISTANCE_VIEW_TARGET_FPS", 60];
 player call Compile preprocessFileLineNumbers "WASP\rpg_dropping\DropRPG.sqf";
 //--- Position the client on the temp spawn (Common is not yet init'd so we call is straigh away).
 player setPos ([getMarkerPos Format["%1TempRespawnMarker",sideJoinedText],1,10] Call Compile preprocessFile "Common\Functions\Common_GetRandomPosition.sqf");
-(vehicle player) addEventHandler ["Fired",{_this Spawn HandleAT}]; (vehicle player) addEventHandler ["Fired",{_this Spawn HandleRocketTraccer}]; (vehicle player) addEventHandler ["Fired",{_this Spawn WFBE_CL_FNC_FlashMapIconInCombat}];
+(vehicle player) addEventHandler ["Fired",{_this Spawn HandleAT}]; (vehicle player) addEventHandler ["Fired",{_this Spawn HandleRocketTraccer}]; (vehicle player) addEventHandler ["Fired", {
+  _u = _this select 0;                 // unit that fired
+  _u Call WFBE_CL_FNC_SetMapIconStatusInCombat;
+}];
 
 _rearmor = {
    				_ammo = _this select 4;
@@ -118,7 +121,10 @@ WFBE_CL_PVEH_HasConnectedAtLaunch = Call Compile preprocessFileLineNumbers "Clie
 WFBE_CL_FNC_FindVariableInNestedArray = Compile preprocessFileLineNumbers "Client\Functions\Client_FindVariableInNestedArray.sqf";
 WFBE_CL_PV_ReceiveSupplyValue = Call Compile preprocessFileLineNumbers "Client\Functions\Client_ReceiveSupplyValue.sqf";
 WFBE_CL_FNC_ReturnAircraftNameFromItsType = Compile preprocessFileLineNumbers "Common\Common_ReturnAircraftNameFromItsType.sqf";
-WFBE_CL_FNC_FlashMapIconInCombat = Compile preprocessFileLineNumbers "Client\Functions\Client_FlashMapIconInCombat.sqf";
+WFBE_CL_FNC_SetMapIconStatusInCombat = Compile preprocessFileLineNumbers "Client\Functions\Client_SetMapIconStatusInCombat.sqf";
+WFBE_CL_FNC_BlinkMapIcons = Compile preprocessFileLineNumbers "Client\Functions\Client_BlinkMapIcons.sqf";
+WFBE_CL_FNC_BlinkMapIcon = Compile preprocessFileLineNumbers "Client\Functions\Client_BlinkMapIcon.sqf";
+WFBE_CL_FNC_AddUnitToTrack = Compile preprocessFileLineNumbers "Client\Functions\Client_AddUnitToTrack.sqf";
 
 //Affichage Rubber maps:
 	Local_GUIWorking = false;
@@ -702,6 +708,9 @@ publicVariableServer "WFBE_C_PLAYER_OBJECT";
 12452 cutText [(localize 'STR_WF_Loading')+"...","BLACK IN",5];
 
 player setVariable ["score", 0];
+
+[] execVM "Client\Functions\Client_BookkeepBlinkingIcons.sqf";
+// [] execVM "Client\Functions\Client_BlinkMapIcons.sqf";
 
 clientInitComplete = true;
 

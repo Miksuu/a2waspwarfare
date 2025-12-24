@@ -20,15 +20,20 @@ if (count _this > 12) then {_deathMarkerSize = _this select 12};
 if (_side != side group player || isNull _tracked || !(alive _tracked)) exitWith {};
 if (_deletePrevious) then {deleteMarkerLocal _markerName};
 
-createMarkerLocal [_markerName,getPos _tracked];
+createMarkerLocal [_markerName, getPos _tracked];
 if (_markerText != "") then {_markerName setMarkerTextLocal _markerText};
 _markerName setMarkerTypeLocal _markerType;
 _markerName setMarkerColorLocal _markerColor;
 _markerName setMarkerSizeLocal _markerSize;
 
+_tracked setVariable ["unitMarker", _markerName, true];
+_tracked setVariable ["OriginalMarkerColor", _markerColor, true];
+
 while {alive _tracked && !(isNull _tracked)} do {
-	_markerName setMarkerPosLocal (getPos _tracked);
-	sleep _refreshRate;
+
+		sleep _refreshRate;
+
+		_markerName setMarkerPosLocal (getPos _tracked);
 };
 
 if (_trackDeath && !isNull _tracked) then {
