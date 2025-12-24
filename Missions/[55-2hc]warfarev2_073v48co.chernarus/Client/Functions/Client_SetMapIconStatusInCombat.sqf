@@ -13,7 +13,7 @@ if (!isNil { _lastTime }) then {
     _unit setVariable ["LFT", time, true];
 };
 
-if ((vehicle) player == _unit || leader _unit == player) then {
+if ((vehicle player) == _unit || (leader _unit) == player) then {
     _unit setVariable ["OriginalMarkerColor", "ColorOrange", true];
 };
 
