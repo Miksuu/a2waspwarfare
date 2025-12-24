@@ -22,9 +22,7 @@ while { !WFBE_GameOver } do {
                     [_x, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
                     _blinkRed = !_blinkRed;
                 } else {
-                    if (_blinkRed) then {
-                        [_x, false] call WFBE_CL_FNC_BlinkMapIcon;
-                    };
+                    [_x, false] call WFBE_CL_FNC_BlinkMapIcon;
                 };
             };
         };

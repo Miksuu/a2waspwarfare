@@ -1,6 +1,7 @@
 private ["_unit", "_lastTime", "_dt"];
 
 _unit = _this select 0;
+_unit = vehicle _unit;
 
 _lastTime = _unit getVariable "LFT";
 

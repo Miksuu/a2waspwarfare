@@ -1,4 +1,4 @@
-while { !WFBE_GameOver } do {
+/* while { !WFBE_GameOver } do {
 
     {
         if (side _x == side player) then {
@@ -15,7 +15,7 @@ while { !WFBE_GameOver } do {
     } forEach allUnits;
     sleep 0.1;
 };
-
+*/
 /*
 while { !WFBE_GameOver } do {
     if (side player == west) then {
