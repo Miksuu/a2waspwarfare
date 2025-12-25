@@ -12,12 +12,12 @@ _count = 1;
 	if (player == leader _x) then {
 		_marker setMarkerColorLocal "ColorOrange";
 		_markerColor = _x getVariable "OriginalMarkerColor";
-		if (isNil "_markerColor") then {
+		if (isNil { _markerColor }) then {
 			_x setVariable ["OriginalMarkerColor", "ColorOrange", false];
 		} else {
 			_marker setMarkerColorLocal "ColorBlack";
 			_markerColor = _x getVariable "OriginalMarkerColor";
-			if (isNil "_markerColor") then {
+			if (isNil { _markerColor }) then {
 				_x setVariable ["OriginalMarkerColor", "ColorBlack", false];
 			};
 		};
