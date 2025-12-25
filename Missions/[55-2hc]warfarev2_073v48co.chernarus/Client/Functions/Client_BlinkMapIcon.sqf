@@ -13,14 +13,12 @@ if (isNil "_blinks") then {
 
 if (_flashRed) then {
     _marker setMarkerColorLocal "ColorRed";
-    _blinks = _blinks + 1;
     // test if variable assignment works without global flag set to true
-    _unit setVariable ["Blinks", _blinks, false];
+    _unit setVariable ["Blinks", (_blinks + 1), false];
 } else {
     _marker setMarkerColorLocal _markerColor;
-    _blinks = _blinks + 1;
     // test if variable assignment works without global flag set to true
-    _unit setVariable ["Blinks", _blinks, false];
+    _unit setVariable ["Blinks", (_blinks + 1), false];
 };
 
 if (_blinks >= (missionNamespace getVariable "WFBE_C_PLAYERS_MARKER_BLINKS")) then {
