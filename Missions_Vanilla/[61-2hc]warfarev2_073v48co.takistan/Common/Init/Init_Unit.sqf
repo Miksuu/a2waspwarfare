@@ -40,6 +40,7 @@ if(side _unit == east && !(_unit hasWeapon "NVGoggles")) then {
 	_unit addWeapon "NVGoggles";
 };
 
+
 if(!isNil 'Zeta_Lifter')then{
 	if (_unit_kind in Zeta_Lifter) then { //--- Units that can lift vehicles.
 		if (_upgrades select WFBE_UP_AIRLIFT > 0) then {_unit addAction [localize "STR_WF_Lift", 'Client\Module\ZetaCargo\Zeta_Hook.sqf']};
@@ -107,7 +108,7 @@ if (_unit isKindOf "Air") then { //--- Air units.
 
 	if (_unit isKindOf "Plane") then { //--- Planes.
 		_unit addAction [localize "STR_WF_TaxiReverse","Client\Action\Action_TaxiReverse.sqf", [], 92, false, true, "", 'driver _target == _this && alive _target && speed _target < 4 && speed _target > -4 && getPos _target select 2 < 4'];
-		_unit addEventHandler ['Fired', {_this Spawn HandleShootBombs}]; //--- Marty : Handle missiles and bombs.
+		_unit addEventHandler ['Fired', {_this Spawn HandleShootBombs;}]; //--- Marty : Handle missiles and bombs.
 	};
 	
 };
@@ -160,13 +161,15 @@ if (_isMan) then { //--- Man.
 	
 	if (_unit_kind in (missionNamespace getVariable Format['WFBE_%1LIFTVEHICLE',str _side])) then {_color = "ColorWhite";};//---Lifter
 	if (_unit_kind in (missionNamespace getVariable Format['WFBE_%1AMBULANCES',str _side])) then {_color = "ColorYellow";};//--- Medical.
-	
-	
-	
 	//
 	if (_unit_kind in (missionNamespace getVariable Format['WFBE_%1SALVAGETRUCK',str _side])) then {_color = "ColorKhaki";_type = "SalvageVehicle";};//--- Salvage.
         _params = [_type,_color,_size,_txt,_markerName,_unit,1,true,"DestroyedVehicle",_color,false,_side,[2,2]];	
         if (_unit == ((_side) Call WFBE_CO_FNC_GetSideHQ)) then {_color = "ColorPink";_params = ['Headquarters',_color,[1,1],'','HQUndeployed',_unit,0.2,false,'','',false,_side]};//--- HQ.	
 };
+
+_unit addEventHandler ["Fired", {
+  _u = _this select 0;                 // unit that fired
+  _u Call WFBE_CL_FNC_SetMapIconStatusInCombat;
+}];
 
 _params Spawn MarkerUpdate;

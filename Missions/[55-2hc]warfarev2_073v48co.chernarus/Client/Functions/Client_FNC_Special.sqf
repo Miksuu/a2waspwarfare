@@ -109,16 +109,20 @@ WFBE_CL_FNC_Reveal_UAV = {
 };
 
 WFBE_CL_FNC_Upgrade_Started = {
-	Private ["_upgrade","_level"];
+	Private ["_upgrade","_level", "_upgradeCost"];
 	_upgrade = _this select 0;
 	_level = _this select 1;
+
+	_upgradeCost = (missionNamespace getVariable Format["WFBE_C_UPGRADES_%1_COSTS", (sideJoined)]) select _upgrade select (_level - 1) select 0;
+	["RequestChangeScore", [player, score player + (round ((_upgradeCost / 100) * WFBE_UPGRADE_SCORE_COEF))]] Call WFBE_CO_FNC_SendToServer;
 
 	(Format [Localize "STR_WF_CHAT_Upgrade_Started_Message",(missionNamespace getVariable "WFBE_C_UPGRADES_LABELS") select _upgrade, _level]) Call CommandChatMessage;
 };
 
 WFBE_CL_FNC_Building_Started = {
-	Private ["_building", "_localisedBuilding"];
+	Private ["_building", "_localisedBuilding", "_position"];
 	_building = _this select 0;
+	_position = _this select 1;
 
 	_localisedBuilding = "";
 
@@ -158,12 +162,12 @@ WFBE_CL_FNC_Building_Started = {
 
 	if (_localisedBuilding != "Unknown") then {
 		["DEBUG (Client_FNC_Special.sqf)", Format ["Building: %1", _localisedBuilding]] Call WFBE_CO_FNC_LogContent;
-		Format[Localize "STR_WF_CHAT_Building_Started_Message", _localisedBuilding] Call CommandChatMessage;
+		Format[Localize "STR_WF_CHAT_Building_Started_Message", _localisedBuilding, ([_position, towns] Call GetClosestLocation)] Call CommandChatMessage;
 	};
 };
 
 WFBE_CL_FNC_Upgrade_Complete = {
-	Private ["_upgrade","_level"];
+	Private ["_upgrade","_level","_upgradeCost"];
 	_upgrade = _this select 0;
 	_level = _this select 1;
 
@@ -171,7 +175,6 @@ WFBE_CL_FNC_Upgrade_Complete = {
 
 	if !(isNull commanderTeam) then { //--- Commander reward (if the player is the commander)
 		if (commanderTeam == group player) then {
-			["RequestChangeScore", [player, score player + (missionNamespace getVariable "WFBE_C_PLAYERS_COMMANDER_SCORE_UPGRADE")]] Call WFBE_CO_FNC_SendToServer;
 		};
 	};
 };
