@@ -45,12 +45,18 @@ while { !WFBE_GameOver } do {
             };
         };
 
-    } forEach allUnits;
+            if (side player == west) then {
+                {
+                    diag_log format ["FOREACH BLINKING_UNITS_WEST: Blinking unit (west): %1", _x select 0];
+                    [_x select 0, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
+                } forEach BLINKING_UNITS_WEST;
+            };
 
-    if (side player == west) then {
-        diag_log format ["FOREACH BLINKING_UNITS_WEST: Blinking unit (west): %1", _x select 0];
-        [BLINKING_UNITS_WEST, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
-    };
+            if (side player == east) then {
+                {
+                    [_x select 0, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
+                } forEach BLINKING_UNITS_EAST;
+            };
 
     if (side player == east) then {
         [BLINKING_UNITS_EAST, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
