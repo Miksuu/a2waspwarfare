@@ -12,6 +12,7 @@ while { !WFBE_GameOver } do {
             _isActive = (vehicle _x) getVariable "LFTB";
 
             if (!isNil { _isActive }) then {
+                diag_log format ["BLINKING_UNITS_WEST before update: %1", BLINKING_UNITS_WEST];
                 if (_isActive) then {
                     if (side player == west) then {
                         if (BLINKING_UNITS_WEST find vehicle _x == -1) then {
@@ -39,10 +40,12 @@ while { !WFBE_GameOver } do {
                         };
                     };
                 };
+                diag_log format ["BLINKING_UNITS_WEST after update: %1", BLINKING_UNITS_WEST];
             };
 
             if (side player == west) then {
                 {
+                    diag_log format ["FOREACH BLINKING_UNITS_WEST: Blinking unit (west): %1", _x select 0];
                     [_x select 0, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
                 } forEach BLINKING_UNITS_WEST;
             };
@@ -66,66 +69,3 @@ while { !WFBE_GameOver } do {
 
     sleep (1 - _dt);
 };
-
-
-/*
-private ["_blinkingActive", "_lastTimeFired", "_dt"];
-
-while { !WFBE_GameOver } do {
-    {
-        diag_log "IS THIS EVEN RUNNING?";
-        {
-            if (side player == west) then {
-                if (side (_x select 0) == west) then {
-
-                    _lastTimeFired = (_x select 0) getVariable "LFT";
-                    diag_log "_lastTimeFired:";
-                    diag_log _lastTimeFired;
-                    if (!isNil { _lastTimeFired }) then {
-                        _dt = time - _lastTimeFired;
-                        diag_log "_dt:";
-                        diag_log _dt;
-                        if (_dt >= FIRING_UNIT_BLINK_TIME) then {
-                            if (ARRAY_UNITS_FIRING_WEST find (_x select 0) != -1) then {
-                                ARRAY_UNITS_FIRING_WEST = ARRAY_UNITS_FIRING_WEST - _x;
-                            };
-                        };
-                    } else {
-                        if (ARRAY_UNITS_FIRING_WEST find (_x select 0) != -1) then {
-                            ARRAY_UNITS_FIRING_WEST = ARRAY_UNITS_FIRING_WEST - _x;
-                        };
-                    }; 
-                };
-            };
-            
-        } forEach ARRAY_UNITS_FIRING_WEST;
-
-    } else {
-        {
-            if (side player == east) then {
-                if (side (_x select 0) == east) then {
-
-                    _lastTimeFired = (_x select 0) getVariable "LFT";
-
-                    if (!isNil { _lastTimeFired }) then {
-                        _dt = time - _lastTimeFired;
-                        
-                        if (_dt >= FIRING_UNIT_BLINK_TIME) then {
-                            if (ARRAY_UNITS_FIRING_WEST find (_x select 0) != -1) then {
-                                ARRAY_UNITS_FIRING_WEST = ARRAY_UNITS_FIRING_WEST - _x;
-                            };
-                        };
-                    } else {
-                        if (ARRAY_UNITS_FIRING_WEST find (_x select 0) != -1) then {
-                            ARRAY_UNITS_FIRING_WEST = ARRAY_UNITS_FIRING_WEST - _x;
-                        };
-                    }; 
-                };
-            };
-            
-        } forEach ARRAY_UNITS_FIRING_EAST;
-    };
-        
-    sleep 0.02;
-};
-*/
