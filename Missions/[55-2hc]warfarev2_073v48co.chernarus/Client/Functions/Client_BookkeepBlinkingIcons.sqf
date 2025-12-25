@@ -1,5 +1,5 @@
 
-private ["_blinkRed", "_timeBefore", "_timeAfter", "_dt"];
+private ["_blinkRed", "_timeBefore", "_timeAfter", "_dt", "_vehicleUnit"];
 
 _blinkRed = true;
 
@@ -8,10 +8,24 @@ while { !WFBE_GameOver } do {
     _timeBefore = time;
     {
         if (side _x == side player) then {
-            private ["_isActiveVehicle", "_isActive"];
-            _isActiveVehicle = vehicle _x getVariable "LFTB";
+            private ["_isActiveVehicle", "_isActive", "_vehicleUnit"];
             _isActive = _x getVariable "LFTB";
+            _vehicleUnit = vehicle _x;
+            _isActiveVehicle = _vehicleUnit getVariable "LFTB";
 
+            
+            if (!isNil {_isActiveVehicle}) then {
+                if (_isActiveVehicle && _vehicleUnit != _x) then {
+                    if (side player == west) then {
+                        [BLINKING_VEHICLES_WEST, _vehicleUnit] call BIS_fnc_arrayPush;
+                    };
+
+                    if (side player == east) then {
+                        [BLINKING_VEHICLES_EAST, _vehicleUnit] call BIS_fnc_arrayPush;
+                    };
+                };
+            };
+            
             if (!isNil { _isActive }) then {
                 diag_log format ["BLINKING_UNITS_WEST before update: %1", BLINKING_UNITS_WEST];
                 diag_log format ["BLINKING_VEHICLES_WEST before update: %1", BLINKING_VEHICLES_WEST];
@@ -44,10 +58,10 @@ while { !WFBE_GameOver } do {
                     };
                 };
             };
-            
-            if (!isNil { _isActiveVehicle } && vehicle _x != _x) then {
 
-                if (_isActiveVehicle) then {
+            if (!isNil { _isActiveVehicle }) then {
+
+                if (_isActiveVehicle && _vehicleUnit != _x) then {
                     if (side player == west) then {
                         if (BLINKING_VEHICLES_WEST find vehicle _x == -1) then {
                             [BLINKING_VEHICLES_WEST, vehicle _x] call BIS_fnc_arrayPush;
@@ -61,17 +75,21 @@ while { !WFBE_GameOver } do {
                     };
                 } else {
                     if (side player == west) then {
-                        if (BLINKING_VEHICLES_WEST find vehicle _x != -1) then {                           
-                            BLINKING_VEHICLES_WEST = BLINKING_VEHICLES_WEST - [vehicle _x];
-                            diag_log format ["Removed unit %1 from BLINKING_VEHICLES_WEST", vehicle _x];
-                            diag_log format ["BLINKING_VEHICLES_WEST now: %1", BLINKING_VEHICLES_WEST];
-                        };
+                        {
+                            if (BLINKING_VEHICLES_WEST find _x != -1) then {                          
+                                BLINKING_VEHICLES_WEST = BLINKING_VEHICLES_WEST - [_vehicleUnit];
+                                diag_log format ["Removed unit %1 from BLINKING_VEHICLES_WEST", _vehicleUnit];
+                                diag_log format ["BLINKING_VEHICLES_WEST now: %1", BLINKING_VEHICLES_WEST];
+                            };
+                        } forEach BLINKING_VEHICLES_WEST;
                     } else {
                         if (side player == east) then {
-                            if (BLINKING_VEHICLES_EAST find vehicle _x != -1) then {
-                                BLINKING_VEHICLES_EAST = BLINKING_VEHICLES_EAST - [vehicle _x];
-                                diag_log format ["Removed unit %1 from BLINKING_VEHICLES_EAST", vehicle _x];
-                            };
+                            {
+                                if (BLINKING_VEHICLES_EAST find _x != -1) then {
+                                    BLINKING_VEHICLES_EAST = BLINKING_VEHICLES_EAST - [_vehicleUnit];
+                                    diag_log format ["Removed unit %1 from BLINKING_VEHICLES_EAST", _vehicleUnit];
+                                };  
+                            } forEach BLINKING_VEHICLES_EAST;
                         };
                     };
                 };
