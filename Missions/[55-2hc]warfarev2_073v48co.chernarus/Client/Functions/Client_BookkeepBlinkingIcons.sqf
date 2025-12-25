@@ -42,11 +42,13 @@ while { !WFBE_GameOver } do {
             if (side player == west) then {
                 {
                     [_x, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
+                    diag_log format ["Blinking west unit: %1", _x];
                 } forEach BLINKING_UNITS_WEST;
             };
 
             if (side player == east) then {
                 {
+                    diag_log format ["Blinking east unit: %1", _x];
                     [_x, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
                 } forEach BLINKING_UNITS_EAST;
             };
