@@ -48,7 +48,7 @@ while { !WFBE_GameOver } do {
                 };
             };
             
-            if (!isNil { _isActive }) then {
+            if (!isNil { _isActiveVehicle }) then {
 
                 if (_isActiveVehicle) then {
                     if (side player == west) then {
