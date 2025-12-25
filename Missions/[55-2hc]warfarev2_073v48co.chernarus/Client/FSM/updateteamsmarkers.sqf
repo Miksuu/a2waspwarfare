@@ -64,7 +64,7 @@ while {!gameOver} do {
 
 			if (player == leader _x) then {
 				_marker setMarkerDirLocal GetDir (vehicle player);
-				leader _x setVariable ["unitMarker", _marker, true];
+				_x setVariable ["unitMarker", _marker, true];
 			};
 		};
 
