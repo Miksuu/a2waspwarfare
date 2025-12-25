@@ -9,7 +9,7 @@ while { !WFBE_GameOver } do {
     {
         if (side _x == side player) then {
             private ["_isActive"];
-            _isActive = _x getVariable "LFTB";
+            _isActive = vehicle _x getVariable "LFTB";
 
             if (!isNil { _isActive }) then {
                 diag_log format ["BLINKING_UNITS_WEST before update: %1", BLINKING_UNITS_WEST];
