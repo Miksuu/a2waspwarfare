@@ -8,7 +8,7 @@ _blinks = _unit getVariable "Blinks";
 
 if (isNil "_blinks") then {
     _blinks = 0;
-    _unit setVariable ["Blinks", 0, true];
+    _unit setVariable ["Blinks", _blinks, true];
 };
 
 if (_flashRed) then {

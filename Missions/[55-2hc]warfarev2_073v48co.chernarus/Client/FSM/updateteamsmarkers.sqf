@@ -1,4 +1,4 @@
-private["_sideText","_label","_count","_marker","_markerType"];
+private["_sideText","_label","_count","_marker","_markerType","_playerAFKstate","_markerColor"];
 
 _sideText = sideJoinedText;
 _label = "";
@@ -11,11 +11,16 @@ _count = 1;
 
 	if (player == leader _x) then {
 		_marker setMarkerColorLocal "ColorOrange";
-		_x setVariable ["OriginalMarkerColor", "ColorOrange", true];
-	} else {
-		_marker setMarkerColorLocal "ColorBlack";
-		_x setVariable ["OriginalMarkerColor", "ColorBlack", true];
-	};
+		_markerColor = _x getVariable "OriginalMarkerColor";
+		if (isNil "_markerColor") then {
+			_x setVariable ["OriginalMarkerColor", "ColorOrange", false];
+		} else {
+			_marker setMarkerColorLocal "ColorBlack";
+			_markerColor = _x getVariable "OriginalMarkerColor";
+			if (isNil "_markerColor") then {
+				_x setVariable ["OriginalMarkerColor", "ColorBlack", false];
+			};
+		};
 	
 	_marker setMarkerDirLocal 0;
 	_marker setMarkerSizeLocal [0.7,0.7];
