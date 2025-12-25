@@ -26,6 +26,7 @@ while { !WFBE_GameOver } do {
                         };
                     };
                 } else {
+                    diag_log format ["Updating blinking units, removing unit %1", vehicle _x];
                     if (side player == west) then {
                         if (BLINKING_UNITS_WEST find vehicle _x != -1) then {                           
                             BLINKING_UNITS_WEST = BLINKING_UNITS_WEST - [vehicle _x];
@@ -42,24 +43,21 @@ while { !WFBE_GameOver } do {
                 };
                 diag_log format ["BLINKING_UNITS_WEST after update: %1", BLINKING_UNITS_WEST];
             };
-
-            if (side player == west) then {
-                {
-                    diag_log format ["FOREACH BLINKING_UNITS_WEST: Blinking unit (west): %1", _x select 0];
-                    [BLINKING_UNITS_WEST, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
-                };
-            };
-
-            if (side player == east) then {
-                {
-                    [BLINKING_UNITS_EAST, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
-                };
-            };
-
-            _blinkRed = !_blinkRed;
         };
 
     } forEach allUnits;
+
+    if (side player == west) then {
+        diag_log format ["FOREACH BLINKING_UNITS_WEST: Blinking unit (west): %1", _x select 0];
+        [BLINKING_UNITS_WEST, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
+    };
+
+    if (side player == east) then {
+        [BLINKING_UNITS_EAST, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
+    };
+
+    _blinkRed = !_blinkRed;
+
     _timeAfter = time;
     _dt = _timeAfter - _timeBefore;
 
