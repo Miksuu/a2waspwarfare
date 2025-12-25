@@ -28,18 +28,14 @@ while { !WFBE_GameOver } do {
                     };
                 } else {
                     if (side player == west) then {
-                        if (BLINKING_UNITS_WEST find vehicle _x != -1 || BLINKING_UNITS_WEST find _x != -1) then {                           
-                            BLINKING_UNITS_WEST = BLINKING_UNITS_WEST - [vehicle _x];
-                            diag_log format ["Removed unit %1 from BLINKING_UNITS_WEST", vehicle _x];
+                        if (BLINKING_UNITS_WEST find _x != -1) then {                           
                             BLINKING_UNITS_WEST = BLINKING_UNITS_WEST - [_x];
                             diag_log format ["Removed unit %1 from BLINKING_UNITS_WEST", _x];
                             diag_log format ["BLINKING_UNITS_WEST now: %1", BLINKING_UNITS_WEST];
                         };
                     } else {
                         if (side player == east) then {
-                            if (BLINKING_UNITS_EAST find vehicle _x != -1 || BLINKING_UNITS_EAST find _x != -1) then {
-                                BLINKING_UNITS_EAST = BLINKING_UNITS_EAST - [vehicle _x];
-                                diag_log format ["Removed unit %1 from BLINKING_UNITS_EAST", vehicle _x];
+                            if (BLINKING_UNITS_EAST find _x != -1) then {
                                 BLINKING_UNITS_EAST = BLINKING_UNITS_EAST - [_x];
                                 diag_log format ["Removed unit %1 from BLINKING_UNITS_EAST", _x];
                             };
@@ -64,20 +60,16 @@ while { !WFBE_GameOver } do {
                     };
                 } else {
                     if (side player == west) then {
-                        if (BLINKING_UNITS_WEST find vehicle _x != -1 || BLINKING_UNITS_WEST find _x != -1) then {                           
+                        if (BLINKING_UNITS_WEST find vehicle _x != -1) then {                           
                             BLINKING_UNITS_WEST = BLINKING_UNITS_WEST - [vehicle _x];
                             diag_log format ["Removed unit %1 from BLINKING_UNITS_WEST", vehicle _x];
-                            BLINKING_UNITS_WEST = BLINKING_UNITS_WEST - [_x];
-                            diag_log format ["Removed unit %1 from BLINKING_UNITS_WEST", _x];
                             diag_log format ["BLINKING_UNITS_WEST now: %1", BLINKING_UNITS_WEST];
                         };
                     } else {
                         if (side player == east) then {
-                            if (BLINKING_UNITS_EAST find vehicle _x != -1 || BLINKING_UNITS_EAST find _x != -1) then {
+                            if (BLINKING_UNITS_EAST find vehicle _x != -1) then {
                                 BLINKING_UNITS_EAST = BLINKING_UNITS_EAST - [vehicle _x];
                                 diag_log format ["Removed unit %1 from BLINKING_UNITS_EAST", vehicle _x];
-                                BLINKING_UNITS_EAST = BLINKING_UNITS_EAST - [_x];
-                                diag_log format ["Removed unit %1 from BLINKING_UNITS_EAST", _x];
                             };
                         };
                     };
