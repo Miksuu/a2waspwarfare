@@ -9,6 +9,8 @@ _count = 1;
 	createMarkerLocal [_marker,[0,0,0]];
 	_marker setMarkerTypeLocal "Arrow";
 
+	_x setVariable ["unitMarker", _marker, true];
+
 	if (player == leader _x) then {
 		_marker setMarkerColorLocal "ColorOrange";
 		_markerColor = _x getVariable "OriginalMarkerColor";
@@ -64,7 +66,6 @@ while {!gameOver} do {
 
 			if (player == leader _x) then {
 				_marker setMarkerDirLocal GetDir (vehicle player);
-				_x setVariable ["unitMarker", _marker, true];
 			};
 		};
 
