@@ -41,13 +41,13 @@ while { !WFBE_GameOver } do {
 
             if (side player == west) then {
                 {
-                    [_x, _blinkRed] call Client_BlinkMapIcon;
+                    [_x, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
                 } forEach BLINKING_UNITS_WEST;
             };
 
             if (side player == east) then {
                 {
-                    [_x, _blinkRed] call Client_BlinkMapIcon;
+                    [_x, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
                 } forEach BLINKING_UNITS_EAST;
             };
 
