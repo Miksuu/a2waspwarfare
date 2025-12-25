@@ -11,10 +11,10 @@ _count = 1;
 
 	if (player == leader _x) then {
 		_marker setMarkerColorLocal "ColorOrange";
-		_x setVariable ["OriginalMarkerColor", "ColorOrange", true];
+		_x setVariable ["OriginalMarkerColor", "ColorOrange", false];
 	} else {
 		_marker setMarkerColorLocal "ColorBlack";
-		_x setVariable ["OriginalMarkerColor", "ColorBlack", true];
+		_x setVariable ["OriginalMarkerColor", "ColorBlack", false];
 	};
 	
 	_marker setMarkerDirLocal 0;
@@ -60,6 +60,7 @@ while {!gameOver} do {
 			if (player == leader _x) then {
 				_marker setMarkerDirLocal GetDir (vehicle player);
 				leader _x setVariable ["unitMarker", _marker, true];
+				leader _x setVariable ["OriginalMarkerColor", "ColorOrange", false];
 			};
 		};
 
