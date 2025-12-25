@@ -163,7 +163,7 @@ with missionNamespace do {
 
 //--- Player marker flashing in combat.
 	FIRING_UNIT_BLINK_TIME = 15;
-	WFBE_C_PLAYERS_MARKER_BLINKS = 15;
+	WFBE_C_PLAYERS_MARKER_BLINKS = 16; // Keep it even number, otherwise the icon turns permanently red after blinking.
 	BLINKING_UNITS_WEST = [];
 	BLINKING_UNITS_EAST = [];
 
