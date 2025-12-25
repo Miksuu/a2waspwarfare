@@ -166,6 +166,8 @@ with missionNamespace do {
 	WFBE_C_PLAYERS_MARKER_BLINKS = 16; // Keep it even number, otherwise the icon turns permanently red after blinking.
 	BLINKING_UNITS_WEST = [];
 	BLINKING_UNITS_EAST = [];
+	BLINKING_VEHICLES_WEST = [];
+	BLINKING_VEHICLES_EAST = [];
 
 //--- Environment.
 	if (isNil "WFBE_C_ENVIRONMENT_MAX_VIEW") then {WFBE_C_ENVIRONMENT_MAX_VIEW = 5000}; //--- Max view distance.
