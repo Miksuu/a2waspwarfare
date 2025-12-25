@@ -20,6 +20,8 @@ player setPos ([getMarkerPos Format["%1TempRespawnMarker",sideJoinedText],1,10] 
   _u Call WFBE_CL_FNC_SetMapIconStatusInCombat;
 }];
 
+(vehicle player) setVariable ["OriginalMarkerColor", "ColorOrange", false];
+
 _rearmor = {
    				_ammo = _this select 4;
    				_result = 0;
