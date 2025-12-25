@@ -14,25 +14,25 @@ while { !WFBE_GameOver } do {
             if (!isNil { _isActive }) then {
                 if (_isActive) then {
                     if (side player == west) then {
-                        if (ARRAY_UNITS_FIRING_WEST find vehicle _x == -1) then {
-                            [ARRAY_UNITS_FIRING_WEST, [vehicle _x]] call BIS_fnc_arrayPush;
+                        if (BLINKING_UNITS_WEST find vehicle _x == -1) then {
+                            [BLINKING_UNITS_WEST, [vehicle _x]] call BIS_fnc_arrayPush;
                         };
                     } else {
                         if (side player == east) then {
-                            if (ARRAY_UNITS_FIRING_EAST find vehicle _x == -1) then {
-                                [ARRAY_UNITS_FIRING_EAST, [vehicle _x]] call BIS_fnc_arrayPush;
+                            if (BLINKING_UNITS_EAST find vehicle _x == -1) then {
+                                [BLINKING_UNITS_EAST, [vehicle _x]] call BIS_fnc_arrayPush;
                             };
                         };
                     };
                 } else {
                     if (side player == west) then {
-                        if (ARRAY_UNITS_FIRING_WEST find vehicle _x != -1) then {                           
-                            ARRAY_UNITS_FIRING_WEST = ARRAY_UNITS_FIRING_WEST - [vehicle _x];
+                        if (BLINKING_UNITS_WEST find vehicle _x != -1) then {                           
+                            BLINKING_UNITS_WEST = BLINKING_UNITS_WEST - [vehicle _x];
                         };
                     } else {
                         if (side player == east) then {
-                            if (ARRAY_UNITS_FIRING_EAST find vehicle _x != -1) then {
-                                ARRAY_UNITS_FIRING_EAST = ARRAY_UNITS_FIRING_EAST - [vehicle _x];
+                            if (BLINKING_UNITS_EAST find vehicle _x != -1) then {
+                                BLINKING_UNITS_EAST = BLINKING_UNITS_EAST - [vehicle _x];
                             };
                         };
                     };
@@ -42,13 +42,13 @@ while { !WFBE_GameOver } do {
             if (side player == west) then {
                 {
                     [_x, _blinkRed] call Client_BlinkMapIcon;
-                } forEach ARRAY_UNITS_FIRING_WEST;
+                } forEach BLINKING_UNITS_WEST;
             };
 
             if (side player == east) then {
                 {
                     [_x, _blinkRed] call Client_BlinkMapIcon;
-                } forEach ARRAY_UNITS_FIRING_EAST;
+                } forEach BLINKING_UNITS_EAST;
             };
 
             _blinkRed = !_blinkRed;
