@@ -101,7 +101,7 @@ while { !WFBE_GameOver } do {
                             };
                         };
                     };
-                };
+                }; 
             };
         } forEach _groupArray;
 
