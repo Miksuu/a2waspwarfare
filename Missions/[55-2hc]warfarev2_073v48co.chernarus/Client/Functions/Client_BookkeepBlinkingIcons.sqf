@@ -14,14 +14,18 @@ while { !WFBE_GameOver } do {
             _isActiveVehicle = _vehicleUnit getVariable "LFTB";
 
             
-            if (!isNil {_isActiveVehicle}) then {
+            if (!isNil { _isActiveVehicle }) then {
                 if (_isActiveVehicle && _vehicleUnit != _x) then {
                     if (side player == west) then {
-                        [BLINKING_VEHICLES_WEST, _vehicleUnit] call BIS_fnc_arrayPush;
+                        if (BLINKING_VEHICLES_WEST find _vehicleUnit == -1) then {
+                            [BLINKING_VEHICLES_WEST, _vehicleUnit] call BIS_fnc_arrayPush;
+                        };
                     };
 
                     if (side player == east) then {
-                        [BLINKING_VEHICLES_EAST, _vehicleUnit] call BIS_fnc_arrayPush;
+                        if (BLINKING_VEHICLES_EAST find _vehicleUnit == -1) then {
+                            [BLINKING_VEHICLES_EAST, _vehicleUnit] call BIS_fnc_arrayPush;
+                        };
                     };
                 };
             };
@@ -63,13 +67,13 @@ while { !WFBE_GameOver } do {
 
                 if (_isActiveVehicle && _vehicleUnit != _x) then {
                     if (side player == west) then {
-                        if (BLINKING_VEHICLES_WEST find vehicle _x == -1) then {
-                            [BLINKING_VEHICLES_WEST, vehicle _x] call BIS_fnc_arrayPush;
+                        if (BLINKING_VEHICLES_WEST find _vehicleUnit == -1) then {
+                            [BLINKING_VEHICLES_WEST, _vehicleUnit] call BIS_fnc_arrayPush;
                         };
                     } else {
                         if (side player == east) then {
-                            if (BLINKING_VEHICLES_EAST find vehicle _x == -1) then {
-                                [BLINKING_VEHICLES_EAST, vehicle _x] call BIS_fnc_arrayPush;
+                            if (BLINKING_VEHICLES_EAST find _vehicleUnit == -1) then {
+                                [BLINKING_VEHICLES_EAST, _vehicleUnit] call BIS_fnc_arrayPush;
                             };
                         };
                     };
