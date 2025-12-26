@@ -83,11 +83,6 @@ switch (_localize) do {
         _supplies_bounty = _this select 3;
         _structure_side = _this select 4;
 
-        diag_log format ["_side_killer: %1", _side_killer];
-        diag_log format ["_structure_kind: %1", _structure_kind];
-        diag_log format ["_supplies_bounty: %1", _supplies_bounty];
-        diag_log format ["_structure_side: %1", _structure_side];
-
         if (_side_killer != _structure_side) then{
             if(_supplies_bounty > 0)then{
                 _txt = format [localize "STR_WF_HeadHunterReceiveSuppliesEnemy", _side_killer, _supplies_bounty, ([_structure_kind, "displayName"] call GetConfigInfo)];

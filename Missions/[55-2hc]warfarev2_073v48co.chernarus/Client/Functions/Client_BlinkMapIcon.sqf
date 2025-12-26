@@ -26,17 +26,13 @@ if (_flashRed) then {
     _unit setVariable ["Blinks", _blinks, false];
 };
 
-diag_log format ["Unit %1 has blinked %2 times", _unit, _blinks];
-
 if ((_unit getVariable "Blinks") > (missionNamespace getVariable "WFBE_C_PLAYERS_MARKER_BLINKS")) then {
     _unit setVariable ["LFTB", false, false];
     _marker setMarkerColorLocal _markerColor;
-    diag_log format ["Unit %1 has exceeded max blinks, stopping blinking. LFTB: %2", _unit, (_unit getVariable "LFTB")];
     _unit setVariable ["Blinks", 0, false];
 };
 
 if (!alive _unit) then {
     _unit setVariable ["LFTB", false, false];
     _marker setMarkerColorLocal _markerColor;
-    diag_log format ["Unit %1 is dead, stopping blinking. LFTB: %2", _unit, (_unit getVariable "LFTB")];
 };
