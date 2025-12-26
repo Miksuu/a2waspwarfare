@@ -136,7 +136,7 @@ while { !WFBE_GameOver } do {
     _dt = _timeAfter - _timeBefore;
 
     if (_dt >= 1) then {
-        _dt = 0;
+        _dt = 1;
     };
 
     sleep (1 - _dt);
