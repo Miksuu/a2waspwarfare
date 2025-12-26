@@ -100,9 +100,9 @@ while { !WFBE_GameOver } do {
                             {
                                 _recentlyActiveVehicle = _x getVariable "ACTIVE";
                                 if ( !(isNil { _recentlyActiveVehicle }) && _recentlyActiveVehicle ) then {
-                                    _vehicleLFTb = _x getVariable "LFTB";
+                                    _vehicleLFTB = _x getVariable "LFTB";
                                 
-                                    if (!(isNil { _vehicleLFTb }) && !_vehicleLFTb) then {  
+                                    if (!(isNil { _vehicleLFTB }) && !_vehicleLFTB) then {  
                                         BLINKING_VEHICLES_EAST = BLINKING_VEHICLES_EAST - [_x];
                                         diag_log format ["Removed unit %1 from BLINKING_VEHICLES_EAST", _x];
                                     };

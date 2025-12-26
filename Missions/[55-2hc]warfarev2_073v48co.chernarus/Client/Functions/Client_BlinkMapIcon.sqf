@@ -42,6 +42,6 @@ if (!(isNil { _active })) then {
         _marker setMarkerColorLocal _markerColor;
         diag_log format ["Unit %1 is no longer active, stopping blinking. LFTB: %2", _unit, (_unit getVariable "LFTB")];
         _unit setVariable ["Blinks", 0, false];
-        _unit setVariable ["ACTIVE", false, true];
+        _unit setVariable ["ACTIVE", nil, true];
     };
 };
