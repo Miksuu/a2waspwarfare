@@ -7,6 +7,13 @@ while { !WFBE_GameOver } do {
 
     _timeBefore = time;
     {
+        private ["_groupArray"];
+        _groupArray = [];
+
+        for [{ _i = 0 }, { _i < count _x }, { _i = _i + 1 }] do {
+            _groupArray = [groupArray, _x select _i] call BIS_fnc_arrayPush;  
+        };
+
         {
             if (side _x == side player) then {
                 private ["_isActiveVehicle", "_isActive", "_vehicleUnit"];
@@ -98,7 +105,7 @@ while { !WFBE_GameOver } do {
                     };
                 };
             };
-        } forEach _x;
+        } forEach _groupArray;
 
     } forEach clientTeams;
 
