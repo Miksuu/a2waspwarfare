@@ -1,5 +1,5 @@
 
-private ["_blinkRed", "_timeBefore", "_timeAfter", "_dt", "_vehicleUnit"];
+private ["_blinkRed", "_timeBefore", "_timeAfter", "_dt"];
 
 _blinkRed = true;
 
@@ -69,17 +69,17 @@ while { !WFBE_GameOver } do {
                 } else {
                     if (side player == west) then {
                         {
-                            _vehicleLFTB = _x getVariable "LFTB";
+                            _vehicleLFTB = _vehicleUnit getVariable "LFTB";
                             if (!(isNil { _vehicleLFTB }) && !_vehicleLFTB) then {                       
-                                BLINKING_VEHICLES_WEST = BLINKING_VEHICLES_WEST - [_x];
+                                BLINKING_VEHICLES_WEST = BLINKING_VEHICLES_WEST - [_vehicleUnit];
                             };
                         } forEach BLINKING_VEHICLES_WEST;
                     } else {
                         if (side player == east) then {
                             {
-                                _vehicleLFTB = _x getVariable "LFTB";
+                                _vehicleLFTB = _vehicleUnit getVariable "LFTB";
                                 if (!(isNil { _vehicleLFTB }) && !_vehicleLFTB) then {  
-                                    BLINKING_VEHICLES_EAST = BLINKING_VEHICLES_EAST - [_x];
+                                    BLINKING_VEHICLES_EAST = BLINKING_VEHICLES_EAST - [_vehicleUnit];
                                 };
                             } forEach BLINKING_VEHICLES_EAST;
                         };
