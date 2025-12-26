@@ -7,6 +7,9 @@ while { !WFBE_GameOver } do {
 
     _timeBefore = time;
     {
+        // Optimize by skipping crunching the data of enemy groups
+        if (side _x != side player) exitWith {};
+
         private ["_groupArray"];
         _groupArray = [];
 
