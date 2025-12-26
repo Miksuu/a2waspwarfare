@@ -10,11 +10,9 @@ _count = 1;
 	_marker setMarkerTypeLocal "Arrow";
 
 	if (player == leader _x) then {
-		diag_log format ["Setting marker color to orange for player unit %1", _x];
 		_marker setMarkerColorLocal "ColorOrange";
 		_x setVariable ["OriginalMarkerColor", "ColorOrange", false];
 	} else {
-		diag_log format ["Setting marker color to black for non-player unit %1", _x];
 		_marker setMarkerColorLocal "ColorBlack";
 		_x setVariable ["OriginalMarkerColor", "ColorBlack", false];
 	};

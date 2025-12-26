@@ -14,8 +14,6 @@ while { !WFBE_GameOver } do {
             _isActiveVehicle = _vehicleUnit getVariable "LFTB";
             
             if (!isNil { _isActive }) then {
-                diag_log format ["BLINKING_UNITS_WEST before update: %1", BLINKING_UNITS_WEST];
-                diag_log format ["BLINKING_VEHICLES_WEST before update: %1", BLINKING_VEHICLES_WEST];
                 if (_isActive) then {
                     if (side player == west) then {
                         if (BLINKING_UNITS_WEST find _x == -1) then {
@@ -97,9 +95,6 @@ while { !WFBE_GameOver } do {
                         };
                     };
                 };
-
-            diag_log format ["BLINKING_UNITS_WEST after update: %1", BLINKING_UNITS_WEST];
-            diag_log format ["BLINKING_VEHICLES_WEST after update: %1", BLINKING_VEHICLES_WEST];
             };
         };
 
