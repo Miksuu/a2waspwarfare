@@ -67,7 +67,7 @@ while { !WFBE_GameOver } do {
                         };
                     };
                 } else {
-                    if (_isActiveVehicle && _vehicleUnit == _x && (gunner _x || commander _x)) then {
+                    if (_isActiveVehicle && (_vehicleUnit == _x) && ((isPlayer gunner _x) || (isPlayer commander _x))) then {
                         if (side player == west) then {
                             if (BLINKING_UNITS_WEST find _x == -1) then {
                                 [BLINKING_UNITS_WEST, _x] call BIS_fnc_arrayPush;
