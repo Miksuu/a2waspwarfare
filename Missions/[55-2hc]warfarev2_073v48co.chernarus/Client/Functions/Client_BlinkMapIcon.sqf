@@ -33,3 +33,7 @@ if ((_unit getVariable "Blinks") > (missionNamespace getVariable "WFBE_C_PLAYERS
     diag_log format ["Unit %1 has exceeded max blinks, stopping blinking. LFTB: %2", _unit, (_unit getVariable "LFTB")];
     _unit setVariable ["Blinks", 0, false];
 };
+
+if (!alive _unit) then {
+    _unit setVariable ["LFTB", false, true];
+};
