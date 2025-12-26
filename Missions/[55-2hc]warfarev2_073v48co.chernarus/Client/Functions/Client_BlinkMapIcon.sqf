@@ -7,12 +7,10 @@ _markerColor = _unit getVariable "OriginalMarkerColor";
 _blinks = _unit getVariable "Blinks";
 _LFTB = _unit getVariable "LFTB";
 
-if (isNil "_blinks") then {
+if (isNil {_blinks}) then {
     _blinks = 0;
     _unit setVariable ["Blinks", 0, false];
 };
-
-if (!_LFTB) exitWith {_marker setMarkerColorLocal _markerColor;};
 
 if (_flashRed) then {
     _marker setMarkerColorLocal "ColorRed";    
@@ -27,7 +25,6 @@ if (_flashRed) then {
 };
 
 diag_log format ["Unit %1 has blinked %2 times", _unit, _blinks];
-diag_log format ["_blinks: %1, _unit setVariable Blinks: %2", _blinks, (_unit getVariable "Blinks")];
 
 if ((_unit getVariable "Blinks") > (missionNamespace getVariable "WFBE_C_PLAYERS_MARKER_BLINKS")) then {
     _unit setVariable ["LFTB", false, false];
