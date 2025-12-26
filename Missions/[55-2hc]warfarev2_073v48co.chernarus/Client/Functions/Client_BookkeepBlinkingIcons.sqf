@@ -106,9 +106,6 @@ while { !WFBE_GameOver } do {
     if (side player == east) then {
         {
             [_x, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
-            if (vehicle _x != _x) then {
-                [vehicle _x, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
-            };
         } forEach BLINKING_UNITS_EAST;
 
         {
