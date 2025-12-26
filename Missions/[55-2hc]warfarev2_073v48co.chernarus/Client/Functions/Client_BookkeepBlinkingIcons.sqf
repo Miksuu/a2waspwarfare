@@ -37,7 +37,7 @@ while { !WFBE_GameOver } do {
                                     BLINKING_UNITS_WEST = BLINKING_UNITS_WEST - [_x];
                                 };
                             };
-                            if (isNull _unit) then {
+                            if (isNull _x) then {
                                 BLINKING_UNITS_WEST = BLINKING_UNITS_WEST - [_x];
                             };
                         } forEach BLINKING_UNITS_WEST;
@@ -50,7 +50,7 @@ while { !WFBE_GameOver } do {
                                         BLINKING_UNITS_EAST = BLINKING_UNITS_EAST - [_x];
                                     };
                                 };
-                                if (isNull _unit) then {
+                                if (isNull _x) then {
                                     BLINKING_UNITS_EAST = BLINKING_UNITS_EAST - [_x];
                                 };
                             } forEach BLINKING_UNITS_EAST;
