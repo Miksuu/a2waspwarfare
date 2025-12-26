@@ -126,7 +126,7 @@ WFBE_CL_FNC_ReturnAircraftNameFromItsType = Compile preprocessFileLineNumbers "C
 WFBE_CL_FNC_SetMapIconStatusInCombat = Compile preprocessFileLineNumbers "Client\Functions\Client_SetMapIconStatusInCombat.sqf";
 WFBE_CL_FNC_BlinkMapIcons = Compile preprocessFileLineNumbers "Client\Functions\Client_BlinkMapIcons.sqf";
 WFBE_CL_FNC_BlinkMapIcon = Compile preprocessFileLineNumbers "Client\Functions\Client_BlinkMapIcon.sqf";
-WFBE_CL_FNC_AddUnitToTrack = Compile preprocessFileLineNumbers "Client\Functions\Client_AddUnitToTrack.sqf";
+// WFBE_CL_FNC_AddUnitToTrack = Compile preprocessFileLineNumbers "Client\Functions\Client_AddUnitToTrack.sqf";
 
 //Affichage Rubber maps:
 	Local_GUIWorking = false;
