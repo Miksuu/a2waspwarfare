@@ -54,7 +54,7 @@ while { !WFBE_GameOver } do {
             };
 
             if (!isNil { _isActiveVehicle }) then {
-                if (_isActiveVehicle && _vehicleUnit != _x) then {
+                if (_isActiveVehicle) then {
                     if (side player == west) then {
                         if (BLINKING_VEHICLES_WEST find _vehicleUnit == -1) then {
                             [BLINKING_VEHICLES_WEST, _vehicleUnit] call BIS_fnc_arrayPush;
