@@ -79,7 +79,7 @@ while { !WFBE_GameOver } do {
                                 };
                             };
                         };
-                    };
+                    }; 
 
                     if (side player == west) then {
                         {
