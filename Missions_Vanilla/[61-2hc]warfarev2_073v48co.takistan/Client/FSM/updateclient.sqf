@@ -95,7 +95,7 @@ while {!gameOver} do {
 
 	private ["_afk", "_countDownKick"];
 
-	player setVariable ["WASP_AFK", false, true]; // Initialize the AFK variable to false at the beginning of the loop.
+	player setVariable ["WASP_AFK", false, true]; 
 	_afk = player getVariable ["WASP_AFK", false];
 
 	if (_countDownKick < 600) then {

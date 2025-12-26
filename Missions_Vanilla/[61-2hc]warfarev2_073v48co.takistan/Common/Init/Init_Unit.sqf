@@ -172,4 +172,6 @@ _unit addEventHandler ["Fired", {
   _u Call WFBE_CL_FNC_SetMapIconStatusInCombat;
 }];
 
+_unit setVariable ["OriginalMarkerColor", _color, false];
+
 _params Spawn MarkerUpdate;

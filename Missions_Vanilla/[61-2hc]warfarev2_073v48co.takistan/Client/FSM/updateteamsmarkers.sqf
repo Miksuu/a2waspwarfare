@@ -1,4 +1,4 @@
-private["_sideText","_label","_count","_marker","_markerType"];
+private["_sideText","_label","_count","_marker","_markerType","_playerAFKstate","_markerColor"];
 
 _sideText = sideJoinedText;
 _label = "";
@@ -10,9 +10,13 @@ _count = 1;
 	_marker setMarkerTypeLocal "Arrow";
 
 	if (player == leader _x) then {
+		diag_log format ["Setting marker color to orange for player unit %1", _x];
 		_marker setMarkerColorLocal "ColorOrange";
+		_x setVariable ["OriginalMarkerColor", "ColorOrange", false];
 	} else {
+		diag_log format ["Setting marker color to black for non-player unit %1", _x];
 		_marker setMarkerColorLocal "ColorBlack";
+		_x setVariable ["OriginalMarkerColor", "ColorBlack", false];
 	};
 	
 	_marker setMarkerDirLocal 0;
@@ -57,8 +61,11 @@ while {!gameOver} do {
 
 			if (player == leader _x) then {
 				_marker setMarkerDirLocal GetDir (vehicle player);
-				leader _x setVariable ["unitMarker", _marker, true];
-				leader _x setVariable ["OriginalMarkerColor", "ColorOrange", true];
+				leader _x setVariable ["unitMarkerBlink", _marker, false];
+				leader _x setVariable ["OriginalMarkerColor", "ColorOrange", false];
+			} else {
+				leader _x setVariable ["unitMarkerBlink", _marker, false];
+				leader _x setVariable ["OriginalMarkerColor", "ColorBlack", false];
 			};
 		};
 
