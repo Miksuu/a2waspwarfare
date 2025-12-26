@@ -54,7 +54,7 @@ while { !WFBE_GameOver } do {
             };
 
             if (!isNil { _isActiveVehicle }) then {
-                if (_isActiveVehicle) then {
+                if (_isActiveVehicle && _vehicleUnit != _x) then {
                     if (side player == west) then {
                         if (BLINKING_VEHICLES_WEST find _vehicleUnit == -1) then {
                             [BLINKING_VEHICLES_WEST, _vehicleUnit] call BIS_fnc_arrayPush;
@@ -99,7 +99,7 @@ while { !WFBE_GameOver } do {
         } forEach BLINKING_UNITS_WEST;
 
         {
-            [vehicle _x, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
+            [_x, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
         } forEach BLINKING_VEHICLES_WEST;
     };
 
@@ -109,7 +109,7 @@ while { !WFBE_GameOver } do {
         } forEach BLINKING_UNITS_EAST;
 
         {
-            [vehicle _x, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
+            [_x, _blinkRed] call WFBE_CL_FNC_BlinkMapIcon;
         } forEach BLINKING_VEHICLES_EAST;
     };
 
