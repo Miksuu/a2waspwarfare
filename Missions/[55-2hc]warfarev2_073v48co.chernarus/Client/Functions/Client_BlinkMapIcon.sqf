@@ -12,6 +12,8 @@ if (isNil {_blinks}) then {
     _unit setVariable ["Blinks", 0, false];
 };
 
+if (isNull _unit) exitWith {_unit setVariable ["LFTB", false, false]; };
+
 if (_flashRed) then {
     _marker setMarkerColorLocal "ColorRed";    
     // test if variable assignment works without global flag set to true

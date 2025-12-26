@@ -37,6 +37,9 @@ while { !WFBE_GameOver } do {
                                     BLINKING_UNITS_WEST = BLINKING_UNITS_WEST - [_x];
                                 };
                             };
+                            if (isNull _unit) then {
+                                BLINKING_UNITS_WEST = BLINKING_UNITS_WEST - [_x];
+                            };
                         } forEach BLINKING_UNITS_WEST;
                     } else {
                         if (side player == east) then {
@@ -46,6 +49,9 @@ while { !WFBE_GameOver } do {
                                     if(!_unitLFTB) then {
                                         BLINKING_UNITS_EAST = BLINKING_UNITS_EAST - [_x];
                                     };
+                                };
+                                if (isNull _unit) then {
+                                    BLINKING_UNITS_EAST = BLINKING_UNITS_EAST - [_x];
                                 };
                             } forEach BLINKING_UNITS_EAST;
                         };
@@ -73,12 +79,18 @@ while { !WFBE_GameOver } do {
                             if (!(isNil { _vehicleLFTB }) && !_vehicleLFTB) then {                       
                                 BLINKING_VEHICLES_WEST = BLINKING_VEHICLES_WEST - [_vehicleUnit];
                             };
+                            if (isNull _vehicleUnit) then {
+                                BLINKING_VEHICLES_WEST = BLINKING_VEHICLES_WEST - [_vehicleUnit];
+                            };
                         } forEach BLINKING_VEHICLES_WEST;
                     } else {
                         if (side player == east) then {
                             {
                                 _vehicleLFTB = _vehicleUnit getVariable "LFTB";
                                 if (!(isNil { _vehicleLFTB }) && !_vehicleLFTB) then {  
+                                    BLINKING_VEHICLES_EAST = BLINKING_VEHICLES_EAST - [_vehicleUnit];
+                                };
+                                if (isNull _vehicleUnit) then {
                                     BLINKING_VEHICLES_EAST = BLINKING_VEHICLES_EAST - [_vehicleUnit];
                                 };
                             } forEach BLINKING_VEHICLES_EAST;
