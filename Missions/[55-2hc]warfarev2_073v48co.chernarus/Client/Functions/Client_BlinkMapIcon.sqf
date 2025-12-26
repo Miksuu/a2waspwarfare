@@ -35,10 +35,13 @@ if ((_unit getVariable "Blinks") > (missionNamespace getVariable "WFBE_C_PLAYERS
 };
 
 _active = _unit getVariable "ACTIVE";
-if (! (isNil { _active }) && !_active) then {
-    _unit setVariable ["LFTB", false, true];
-    _marker setMarkerColorLocal _markerColor;
-    diag_log format ["Unit %1 is no longer active, stopping blinking. LFTB: %2", _unit, (_unit getVariable "LFTB")];
-    _unit setVariable ["Blinks", 0, false];
-    _unit setVariable ["ACTIVE", false, true];
+
+if (!(isNil { _active })) then {
+    if (_active) then {
+        _unit setVariable ["LFTB", false, true];
+        _marker setMarkerColorLocal _markerColor;
+        diag_log format ["Unit %1 is no longer active, stopping blinking. LFTB: %2", _unit, (_unit getVariable "LFTB")];
+        _unit setVariable ["Blinks", 0, false];
+        _unit setVariable ["ACTIVE", false, true];
+    };
 };
