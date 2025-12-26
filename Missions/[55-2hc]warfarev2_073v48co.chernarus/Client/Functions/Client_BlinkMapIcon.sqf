@@ -7,7 +7,7 @@ _markerColor = _unit getVariable "OriginalMarkerColor";
 _blinks = _unit getVariable "Blinks";
 _LFTB = _unit getVariable "LFTB";
 
-if (isNil {_blinks}) then {
+if (isNil "_blinks") then {
     _blinks = 0;
     _unit setVariable ["Blinks", 0, false];
 };
