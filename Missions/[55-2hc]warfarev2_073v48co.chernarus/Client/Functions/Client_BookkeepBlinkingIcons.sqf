@@ -67,6 +67,20 @@ while { !WFBE_GameOver } do {
                         };
                     };
                 } else {
+                    if (_isActiveVehicle && _vehicleUnit == _x && (gunner _x || commander _x)) then {
+                        if (side player == west) then {
+                            if (BLINKING_UNITS_WEST find _x == -1) then {
+                                [BLINKING_UNITS_WEST, _x] call BIS_fnc_arrayPush;
+                            };
+                        } else {
+                            if (side player == east) then {
+                                if (BLINKING_UNITS_EAST find _x == -1) then {
+                                    [BLINKING_UNITS_EAST, _x] call BIS_fnc_arrayPush;
+                                };
+                            };
+                        };
+                    };
+
                     if (side player == west) then {
                         {
                             _vehicleLFTB = _x getVariable "LFTB";
