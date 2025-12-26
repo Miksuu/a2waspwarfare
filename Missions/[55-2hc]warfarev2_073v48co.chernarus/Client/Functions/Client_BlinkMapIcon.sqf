@@ -2,7 +2,7 @@ private ["_unitsFiring", "_markerColor", "_unit", "_marker", "_flashRed", "_blin
 
 _unit = _this select 0;
 _flashRed = _this select 1;
-_marker = _unit getVariable "unitMarker";
+_marker = _unit getVariable "unitMarkerBlink";
 _markerColor = _unit getVariable "OriginalMarkerColor";
 _blinks = _unit getVariable "Blinks";
 _LFTB = _unit getVariable "LFTB";
