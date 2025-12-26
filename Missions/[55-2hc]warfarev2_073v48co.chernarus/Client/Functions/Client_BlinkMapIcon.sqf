@@ -12,6 +12,8 @@ if (isNil "_blinks") then {
     _unit setVariable ["Blinks", 0, false];
 };
 
+if (!_LFTB) exitWith {_marker setMarkerColorLocal _markerColor;};
+
 if (_flashRed) then {
     _marker setMarkerColorLocal "ColorRed";    
     // test if variable assignment works without global flag set to true
@@ -36,4 +38,6 @@ if ((_unit getVariable "Blinks") > (missionNamespace getVariable "WFBE_C_PLAYERS
 
 if (!alive _unit) then {
     _unit setVariable ["LFTB", false, true];
+    _marker setMarkerColorLocal _markerColor;
+    diag_log format ["Unit %1 is dead, stopping blinking. LFTB: %2", _unit, (_unit getVariable "LFTB")];
 };
