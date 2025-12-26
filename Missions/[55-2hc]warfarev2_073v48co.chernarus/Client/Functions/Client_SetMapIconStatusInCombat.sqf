@@ -8,11 +8,11 @@ _hasFiredVehicle = _vehicleUnit getVariable "LFTB";
 
 if (!isNil { _hasFired }) then {
     if (!_hasFired) then {
-        _unit setVariable ["LFTB", true, false];
+        _unit setVariable ["LFTB", true, true];
         _unit setVariable ["Blinks", 0, false];
     }
 } else {
-    _unit setVariable ["LFTB", true, false];
+    _unit setVariable ["LFTB", true, true];
     _unit setVariable ["Blinks", 0, false];
 };
 
