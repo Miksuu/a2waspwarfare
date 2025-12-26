@@ -27,7 +27,7 @@ _markerName setMarkerColorLocal _markerColor;
 _markerName setMarkerSizeLocal _markerSize;
 
 _tracked setVariable ["unitMarkerBlink", _markerName, true];
-_tracked setVariable ["OriginalMarkerColor", _markerColor, true];
+_tracked setVariable ["OriginalMarkerColor", _markerColor, false];
 
 while {alive _tracked && !(isNull _tracked)} do {
 
