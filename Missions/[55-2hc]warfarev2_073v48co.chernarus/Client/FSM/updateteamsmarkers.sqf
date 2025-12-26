@@ -1,4 +1,4 @@
-private["_sideText","_label","_count","_marker","_markerType"];
+private["_sideText","_label","_count","_marker","_markerType","_playerAFKstate","_markerColor"];
 
 _sideText = sideJoinedText;
 _label = "";
