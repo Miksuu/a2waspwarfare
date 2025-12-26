@@ -98,7 +98,7 @@ while { !WFBE_GameOver } do {
             };
         };
 
-    } forEach allUnits;
+    } forEach clientTeams;
 
     if (side player == west) then {
         {
