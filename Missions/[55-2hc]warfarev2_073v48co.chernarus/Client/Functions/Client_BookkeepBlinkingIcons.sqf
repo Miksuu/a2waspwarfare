@@ -85,13 +85,14 @@ while { !WFBE_GameOver } do {
                     if (side player == west) then {
                         {
                             _recentlyActiveVehicle = _x getVariable "ACTIVE";
-                            if ( !(isNil { _recentlyActiveVehicle }) && _recentlyActiveVehicle ) then { 
-                                _vehicleLFTB = _x getVariable "LFTB";
-                                
-                                if (!(isNil { _vehicleLFTB }) && !_vehicleLFTB) then {                       
-                                    BLINKING_VEHICLES_WEST = BLINKING_VEHICLES_WEST - [_x];
-                                    diag_log format ["Removed unit %1 from BLINKING_VEHICLES_WEST", _x];
-                                    diag_log format ["BLINKING_VEHICLES_WEST now: %1", BLINKING_VEHICLES_WEST];
+                            if ( !(isNil { _recentlyActiveVehicle })) then {
+                                if ( _recentlyActiveVehicle ) then {
+                                    _vehicleLFTB = _x getVariable "LFTB";
+                                    if (!(isNil { _vehicleLFTB }) && !_vehicleLFTB) then {                       
+                                        BLINKING_VEHICLES_WEST = BLINKING_VEHICLES_WEST - [_x];
+                                        diag_log format ["Removed unit %1 from BLINKING_VEHICLES_WEST", _x];
+                                        diag_log format ["BLINKING_VEHICLES_WEST now: %1", BLINKING_VEHICLES_WEST];
+                                    };
                                 };
                             };
                         } forEach BLINKING_VEHICLES_WEST;
@@ -99,12 +100,14 @@ while { !WFBE_GameOver } do {
                         if (side player == east) then {
                             {
                                 _recentlyActiveVehicle = _x getVariable "ACTIVE";
-                                if ( !(isNil { _recentlyActiveVehicle }) && _recentlyActiveVehicle ) then {
-                                    _vehicleLFTB = _x getVariable "LFTB";
-                                
-                                    if (!(isNil { _vehicleLFTB }) && !_vehicleLFTB) then {  
-                                        BLINKING_VEHICLES_EAST = BLINKING_VEHICLES_EAST - [_x];
-                                        diag_log format ["Removed unit %1 from BLINKING_VEHICLES_EAST", _x];
+                                if ( !(isNil { _recentlyActiveVehicle })) then {
+                                    if ( _recentlyActiveVehicle ) then {
+                                        _vehicleLFTB = _x getVariable "LFTB";
+                                    
+                                        if (!(isNil { _vehicleLFTB }) && !_vehicleLFTB) then {  
+                                            BLINKING_VEHICLES_EAST = BLINKING_VEHICLES_EAST - [_x];
+                                            diag_log format ["Removed unit %1 from BLINKING_VEHICLES_EAST", _x];
+                                        };
                                     };
                                 };  
                             } forEach BLINKING_VEHICLES_EAST;
