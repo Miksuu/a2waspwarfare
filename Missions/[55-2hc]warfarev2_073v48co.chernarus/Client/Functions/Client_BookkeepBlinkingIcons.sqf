@@ -191,7 +191,7 @@ while { !WFBE_GameOver } do {
                 if (_justDisabled) then {
                     _marker = _x getVariable "unitMarkerBlink";
                     _markerColor = _x getVariable "OriginalMarkerColor";
-                    _x setMarkerColorLocal _markerColor;
+                    _marker setMarkerColorLocal _markerColor;
                 };
                 _x setVariable ["JustDisabled", false, false];
             };
