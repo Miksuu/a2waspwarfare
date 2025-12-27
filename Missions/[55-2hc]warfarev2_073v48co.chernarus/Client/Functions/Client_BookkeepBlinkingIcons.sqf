@@ -3,6 +3,8 @@ private ["_blinkRed", "_timeBefore", "_timeAfter", "_dt", "_unitLFTB", "_vehicle
 
 _blinkRed = true;
 
+sleep 5;
+
 while { !WFBE_GameOver } do {
 
     _timeBefore = time;
@@ -187,6 +189,7 @@ while { !WFBE_GameOver } do {
             _x setVariable ["JustDisabled", false, false];
             } else {
                 if (_justDisabled) then {
+                    _marker = _x getVariable "unitMarkerBlink";
                     _markerColor = _x getVariable "OriginalMarkerColor";
                     _x setMarkerColorLocal _markerColor;
                 };
