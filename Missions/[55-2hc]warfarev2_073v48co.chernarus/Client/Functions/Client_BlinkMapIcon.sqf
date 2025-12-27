@@ -24,6 +24,8 @@ if (_flashRed) then {
     _unit setVariable ["Blinks", _blinks, false];
 };
 
+diag_log format ["Blink count for %1: %2", name _unit, _blinks];
+
 if ((_unit getVariable "Blinks") >= (missionNamespace getVariable "WFBE_C_PLAYERS_MARKER_BLINKS")) then {
     _unit setVariable ["LFTB", false, false];
     _marker setMarkerColorLocal _markerColor;
