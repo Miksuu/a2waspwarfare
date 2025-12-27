@@ -118,10 +118,11 @@ while { !WFBE_GameOver } do {
             };
 
         {
-            private ["_vehicleUnit", "_isActiveVehicle"];
+            private ["_vehicleUnit", "_isActiveVehicle", "_justDisabled"];
 
             _vehicleUnit = vehicle _x;
             _isActiveVehicle = _vehicleUnit getVariable "LFTB";
+            _justDisabled = _x getVariable "JustDisabled";
 
             if (vehicle _x != _x) then {
 
@@ -131,7 +132,7 @@ while { !WFBE_GameOver } do {
                             if (BLINKING_VEHICLES_WEST find _vehicleUnit == -1) then {
                                 [BLINKING_VEHICLES_WEST, _vehicleUnit] call BIS_fnc_arrayPush;
                             };
-                            if (BLINKING_UNITS_WEST find _x == -1) then {
+                            if (BLINKING_UNITS_WEST find _x == -1 && !_justDisabled) then {
                                 [BLINKING_UNITS_WEST, _x] call BIS_fnc_arrayPush;
                             };
                         };
@@ -139,7 +140,7 @@ while { !WFBE_GameOver } do {
                             if (BLINKING_VEHICLES_EAST find _vehicleUnit == -1) then {
                                 [BLINKING_VEHICLES_EAST, _vehicleUnit] call BIS_fnc_arrayPush;
                             };
-                            if (BLINKING_UNITS_EAST find _x == -1) then {
+                            if (BLINKING_UNITS_EAST find _x == -1 && !_justDisabled) then {
                                 [BLINKING_UNITS_EAST, _x] call BIS_fnc_arrayPush;
                             };
                         };
@@ -183,6 +184,7 @@ while { !WFBE_GameOver } do {
                     };
                 };
             };
+            _x setVariable ["JustDisabled", false, false];
 
         } forEach _groupArray;
             

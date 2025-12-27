@@ -6,6 +6,7 @@ _marker = _unit getVariable "unitMarkerBlink";
 _markerColor = _unit getVariable "OriginalMarkerColor";
 _blinks = _unit getVariable "Blinks";
 _LFTB = _unit getVariable "LFTB";
+_justDisabled = _unit getVariable "JustDisabled";
 
 if (isNil "_blinks") then {
     _blinks = 0;
@@ -30,6 +31,7 @@ if ((_unit getVariable "Blinks") >= (missionNamespace getVariable "WFBE_C_PLAYER
     _unit setVariable ["LFTB", false, false];
     _marker setMarkerColorLocal _markerColor;
     _unit setVariable ["Blinks", 0, false];
+    _unit setVariable ["JustDisabled", true, false];
 };
 
 if (!alive _unit) then {
