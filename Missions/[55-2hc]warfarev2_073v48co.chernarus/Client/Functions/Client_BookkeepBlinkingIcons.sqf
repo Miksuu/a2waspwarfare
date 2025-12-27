@@ -131,44 +131,46 @@ while { !WFBE_GameOver } do {
                             [BLINKING_UNITS_EAST, _x] call BIS_fnc_arrayPush;
                         };
                     };
-                if (_isActiveVehicle && _vehicleUnit != _x) then {
-                    if (side player == west) then {
-                        if (BLINKING_VEHICLES_WEST find _vehicleUnit == -1) then {
-                            [BLINKING_VEHICLES_WEST, _vehicleUnit] call BIS_fnc_arrayPush;
+                    if (_isActiveVehicle && _vehicleUnit != _x) then {
+                        if (side player == west) then {
+                            if (BLINKING_VEHICLES_WEST find _vehicleUnit == -1) then {
+                                [BLINKING_VEHICLES_WEST, _vehicleUnit] call BIS_fnc_arrayPush;
+                            };
                         };
-                    };
 
-                    if (side player == east) then {
-                        if (BLINKING_VEHICLES_EAST find _vehicleUnit == -1) then {
-                            [BLINKING_VEHICLES_EAST, _vehicleUnit] call BIS_fnc_arrayPush;
-                        };
-                    };
-                } else {
-                    if (side player == west) then {
-                        {
-                            _vehicleLFTB = _vehicleUnit getVariable "LFTB";
-                            if (!(isNil { _vehicleLFTB }) && !_vehicleLFTB) then {                       
-                                BLINKING_VEHICLES_WEST = BLINKING_VEHICLES_WEST - [_vehicleUnit];
-                            };
-                            if (isNull _x) then {
-                                BLINKING_VEHICLES_WEST = BLINKING_VEHICLES_WEST - [_x];
-                            };
-                        } forEach BLINKING_VEHICLES_WEST;
-                    } else {
                         if (side player == east) then {
+                            if (BLINKING_VEHICLES_EAST find _vehicleUnit == -1) then {
+                                [BLINKING_VEHICLES_EAST, _vehicleUnit] call BIS_fnc_arrayPush;
+                            };
+                        };
+                    } else {
+                        if (side player == west) then {
                             {
                                 _vehicleLFTB = _vehicleUnit getVariable "LFTB";
-                                if (!(isNil { _vehicleLFTB }) && !_vehicleLFTB) then {  
-                                    BLINKING_VEHICLES_EAST = BLINKING_VEHICLES_EAST - [_vehicleUnit];
+                                if (!(isNil { _vehicleLFTB }) && !_vehicleLFTB) then {                       
+                                    BLINKING_VEHICLES_WEST = BLINKING_VEHICLES_WEST - [_vehicleUnit];
                                 };
                                 if (isNull _x) then {
-                                    BLINKING_VEHICLES_EAST = BLINKING_VEHICLES_EAST - [_x];
+                                    BLINKING_VEHICLES_WEST = BLINKING_VEHICLES_WEST - [_x];
                                 };
-                            } forEach BLINKING_VEHICLES_EAST;
+                            } forEach BLINKING_VEHICLES_WEST;
+                        } else {
+                            if (side player == east) then {
+                                {
+                                    _vehicleLFTB = _vehicleUnit getVariable "LFTB";
+                                    if (!(isNil { _vehicleLFTB }) && !_vehicleLFTB) then {  
+                                        BLINKING_VEHICLES_EAST = BLINKING_VEHICLES_EAST - [_vehicleUnit];
+                                    };
+                                    if (isNull _x) then {
+                                        BLINKING_VEHICLES_EAST = BLINKING_VEHICLES_EAST - [_x];
+                                    };
+                                } forEach BLINKING_VEHICLES_EAST;
+                            };
                         };
                     };
                 };
             };
+
         } forEach _groupArray;
         
         sleep 0.02;
