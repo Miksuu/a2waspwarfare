@@ -16,17 +16,15 @@ if (isNull _unit) exitWith {_unit setVariable ["LFTB", false, false]; };
 
 if (_flashRed) then {
     _marker setMarkerColorLocal "ColorRed";    
-    // test if variable assignment works without global flag set to true
     _blinks = _blinks + 1;
     _unit setVariable ["Blinks", _blinks, false];
 } else {
     _marker setMarkerColorLocal _markerColor;
     _blinks = _blinks + 1;
-    // test if variable assignment works without global flag set to true
     _unit setVariable ["Blinks", _blinks, false];
 };
 
-if ((_unit getVariable "Blinks") > (missionNamespace getVariable "WFBE_C_PLAYERS_MARKER_BLINKS")) then {
+if ((_unit getVariable "Blinks") >= (missionNamespace getVariable "WFBE_C_PLAYERS_MARKER_BLINKS")) then {
     _unit setVariable ["LFTB", false, false];
     _marker setMarkerColorLocal _markerColor;
     _unit setVariable ["Blinks", 0, false];
