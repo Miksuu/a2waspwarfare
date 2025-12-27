@@ -7,6 +7,14 @@ while { !WFBE_GameOver } do {
 
     _timeBefore = time;
     {
+        // Optimize by skipping crunching the data of enemy groups
+        if (side _x != side player) exitWith {};
+
+        private ["_groupArray"];
+        _groupArray = [];
+
+        _groupArray = units _x;
+
         {
             if (side _x == side player) then {
                 private ["_isActiveVehicle", "_isActive", "_vehicleUnit"];
@@ -96,9 +104,9 @@ while { !WFBE_GameOver } do {
                             };
                         };
                     };
-                };
+                }; 
             };
-        } forEach _x;
+        } forEach _groupArray;
 
     } forEach clientTeams;
 
