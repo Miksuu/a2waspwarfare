@@ -7,6 +7,15 @@ while { !WFBE_GameOver } do {
 
     _timeBefore = time;
     
+    diag_log "BLINKING_UNITS_WEST:";
+    diag_log format ["%1", BLINKING_UNITS_WEST];
+    diag_log "BLINKING_UNITS_EAST:";
+    diag_log format ["%1", BLINKING_UNITS_EAST];
+    diag_log "BLINKING_VEHICLES_WEST:";
+    diag_log format ["%1", BLINKING_VEHICLES_WEST];
+    diag_log "BLINKING_VEHICLES_EAST:";
+    diag_log format ["%1", BLINKING_VEHICLES_EAST];
+
     {
 
         if (side _x != side player) exitWith {};
@@ -40,7 +49,7 @@ while { !WFBE_GameOver } do {
                 } forEach _groupArray;
             };
 
-            if (isPlayer _groupLeader) then {
+            if (isPlayer _groupLeader && player != _groupLeader) then {
                 if (!isNil { _isActive }) then {
                     if (_isActive) then {
                         if (side player == west) then {
@@ -84,7 +93,7 @@ while { !WFBE_GameOver } do {
                 } forEach _groupArray;
             };
 
-            if (isPlayer _groupLeader) then {
+            if (isPlayer _groupLeader && player != _groupLeader) then {
                 _groupLeaderLFTB = _groupLeader getVariable "LFTB";
                 if (!(isNil { _groupLeaderLFTB })) then {
                     if(!_groupLeaderLFTB) then {
@@ -208,5 +217,14 @@ while { !WFBE_GameOver } do {
     };
 
     sleep (1 - _dt);
+
+    diag_log "BLINKING_UNITS_WEST:";
+    diag_log format ["%1", BLINKING_UNITS_WEST];
+    diag_log "BLINKING_UNITS_EAST:";
+    diag_log format ["%1", BLINKING_UNITS_EAST];
+    diag_log "BLINKING_VEHICLES_WEST:";
+    diag_log format ["%1", BLINKING_VEHICLES_WEST];
+    diag_log "BLINKING_VEHICLES_EAST:";
+    diag_log format ["%1", BLINKING_VEHICLES_EAST];
 
 };
