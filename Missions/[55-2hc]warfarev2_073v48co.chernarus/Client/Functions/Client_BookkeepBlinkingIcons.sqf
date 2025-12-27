@@ -41,15 +41,17 @@ while { !WFBE_GameOver } do {
             };
 
             if (isPlayer _groupLeader) then {
-                if (_isActive) then {
-                    if (side player == west) then {
-                        if (BLINKING_UNITS_WEST find _groupLeader == -1) then {
-                            [BLINKING_UNITS_WEST, _groupLeader] call BIS_fnc_arrayPush;
-                        };
-                    } else {
-                        if (side player == east) then {
-                            if (BLINKING_UNITS_EAST find _groupLeader == -1) then {
-                                [BLINKING_UNITS_EAST, _groupLeader] call BIS_fnc_arrayPush;
+                if (!isNil { _isActive }) then {
+                    if (_isActive) then {
+                        if (side player == west) then {
+                            if (BLINKING_UNITS_WEST find _groupLeader == -1) then {
+                                [BLINKING_UNITS_WEST, _groupLeader] call BIS_fnc_arrayPush;
+                            };
+                        } else {
+                            if (side player == east) then {
+                                if (BLINKING_UNITS_EAST find _groupLeader == -1) then {
+                                    [BLINKING_UNITS_EAST, _groupLeader] call BIS_fnc_arrayPush;
+                                };
                             };
                         };
                     };
