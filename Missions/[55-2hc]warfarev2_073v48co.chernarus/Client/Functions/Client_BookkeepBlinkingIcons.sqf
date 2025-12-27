@@ -183,9 +183,14 @@ while { !WFBE_GameOver } do {
                         };
                     };
                 };
-                _x setVariable ["JustDisabled", false, false];
+                
+            _x setVariable ["JustDisabled", false, false];
             } else {
-                _x setVariable ["JustDisabled", true, false];
+                if (_justDisabled) then {
+                    _markerColor = _x getVariable "OriginalMarkerColor";
+                    _x setMarkerColorLocal _markerColor;
+                };
+                _x setVariable ["JustDisabled", false, false];
             };
 
         } forEach _groupArray;
