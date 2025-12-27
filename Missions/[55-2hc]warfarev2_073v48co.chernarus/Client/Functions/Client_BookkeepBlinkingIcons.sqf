@@ -115,7 +115,7 @@ while { !WFBE_GameOver } do {
             _isActiveVehicle = _vehicleUnit getVariable "LFTB";
             
             if (!isNil { _isActiveVehicle }) then {
-                if (_isActiveVehicle && (vehicle player == _vehicleUnit)) then {
+                if (_isActiveVehicle && (vehicle player == _vehicleUnit) && (player == gunner _vehicleUnit) || (player == commander _vehicleUnit)) then {
                     if (side player == west) then {
                         if (BLINKING_VEHICLES_WEST find _vehicleUnit == -1) then {
                             [BLINKING_VEHICLES_WEST, _vehicleUnit] call BIS_fnc_arrayPush;
