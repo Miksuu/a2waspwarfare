@@ -9,7 +9,6 @@ while { !WFBE_GameOver } do {
     
     {
 
-        // Optimize by skipping crunching the data of enemy groups
         if (side _x != side player) exitWith {};
 
         private ["_groupArray"];
@@ -26,6 +25,7 @@ while { !WFBE_GameOver } do {
                 _isActiveVehicle = _vehicleUnit getVariable "LFTB";
                 
                 if (!isNil { _isActive }) then {
+
                     if (player == _groupLeader) then {
                         if (_isActive) then {
                             if (side player == west) then {
@@ -41,7 +41,8 @@ while { !WFBE_GameOver } do {
                             };
                         };
                     };
-                    if (isPlayer == _groupLeader) then {
+
+                    if (isPlayer _groupLeader) then {
                         if (_isActive) then {
                             if (side player == west) then {
                                 if (BLINKING_UNITS_WEST find _groupLeader == -1) then {
@@ -55,36 +56,60 @@ while { !WFBE_GameOver } do {
                                 };
                             };
                         };
-                    }; 
+                    };
+
                 };
 
-                if (side player == west) then {
+                if (player == _groupLeader) then {
                     {
                         _unitLFTB = _x getVariable "LFTB";
                         if (!(isNil { _unitLFTB })) then {
                             if(!_unitLFTB) then {
-                                BLINKING_UNITS_WEST = BLINKING_UNITS_WEST - [_x];
+                                if (side player == west) then {
+                                    BLINKING_UNITS_WEST = BLINKING_UNITS_WEST - [_x];
+                                } else {
+                                    if (side player == east) then {
+                                        BLINKING_UNITS_EAST = BLINKING_UNITS_EAST - [_x];
+                                    };
+                                };
                             };
                         };
                         if (isNull _x) then {
-                            BLINKING_UNITS_WEST = BLINKING_UNITS_WEST - [_x];
-                        };
-                    } forEach BLINKING_UNITS_WEST;
-                } else {
-                    if (side player == east) then {
-                        {
-                            _unitLFTB = _x getVariable "LFTB";
-                            if (!(isNil { _unitLFTB })) then {
-                                if(!_unitLFTB) then {
+                            if (side player == west) then {
+                                BLINKING_UNITS_WEST = BLINKING_UNITS_WEST - [_x];
+                            } else {
+                                if (side player == east) then {
                                     BLINKING_UNITS_EAST = BLINKING_UNITS_EAST - [_x];
                                 };
                             };
-                            if (isNull _x) then {
-                                BLINKING_UNITS_EAST = BLINKING_UNITS_EAST - [_x];
+                        };
+                    } forEach units _x;
+                };
+
+                if (isPlayer _groupLeader) then {
+                    _groupLeaderLFTB = _groupLeader getVariable "LFTB";
+                    if (!(isNil { _groupLeaderLFTB })) then {
+                        if(!_groupLeaderLFTB) then {
+                            if (side player == west) then {
+                                BLINKING_UNITS_WEST = BLINKING_UNITS_WEST - [_groupLeader];
+                            } else {
+                                if (side player == east) then {
+                                    BLINKING_UNITS_EAST = BLINKING_UNITS_EAST - [_groupLeader];
+                                };
                             };
-                        } forEach BLINKING_UNITS_EAST;
+                        };
+                    };
+                    if (isNull _groupLeader) then {
+                        if (side player == west) then {
+                            BLINKING_UNITS_WEST = BLINKING_UNITS_WEST - [_groupLeader];
+                        } else {
+                            if (side player == east) then {
+                                BLINKING_UNITS_EAST = BLINKING_UNITS_EAST - [_groupLeader];
+                            };
+                        };
                     };
                 };
+
             };
 
             if (!isNil { _isActiveVehicle }) then {
