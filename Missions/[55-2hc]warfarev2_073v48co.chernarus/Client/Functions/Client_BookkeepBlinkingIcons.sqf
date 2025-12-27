@@ -14,20 +14,16 @@ while { !WFBE_GameOver } do {
         private ["_groupArray"];
         _groupArray = [];
         _groupArray = units _x;
-        
-        {
-            
-            if (side _x == side player) then {
-                private ["_isActiveVehicle", "_isActive", "_vehicleUnit", "_groupLeader"];
-                _isActive = _x getVariable "LFTB";
-                _groupLeader = leader _x;
-                _vehicleUnit = vehicle _x;
-                _isActiveVehicle = _vehicleUnit getVariable "LFTB";
-                
-                if (!isNil { _isActive }) then {
 
-                    if (player == _groupLeader) then {
-                        if (_isActive) then {
+        if (side _x == side player) then {
+            private ["_isActiveVehicle", "_isActive", "_vehicleUnit", "_groupLeader"];
+            _isActive = leader _x getVariable "LFTB";
+            _groupLeader = leader _x;
+            
+            if (!isNil { _isActive }) then {
+                if (player == _groupLeader) then {
+                    {
+                        if (_isActive _x) then {
                             if (side player == west) then {
                                 if (BLINKING_UNITS_WEST find _x == -1) then {
                                     [BLINKING_UNITS_WEST, _x] call BIS_fnc_arrayPush;
@@ -40,41 +36,32 @@ while { !WFBE_GameOver } do {
                                 };
                             };
                         };
-                    };
-
-                    if (isPlayer _groupLeader) then {
-                        if (_isActive) then {
-                            if (side player == west) then {
-                                if (BLINKING_UNITS_WEST find _groupLeader == -1) then {
-                                    [BLINKING_UNITS_WEST, _groupLeader] call BIS_fnc_arrayPush;
-                                };
-                            } else {
-                                if (side player == east) then {
-                                    if (BLINKING_UNITS_EAST find _groupLeader == -1) then {
-                                        [BLINKING_UNITS_EAST, _groupLeader] call BIS_fnc_arrayPush;
-                                    };
-                                };
-                            };
-                        };
-                    };
-
+                    } forEach _groupArray;
                 };
 
-                if (player == _groupLeader) then {
-                    {
-                        _unitLFTB = _x getVariable "LFTB";
-                        if (!(isNil { _unitLFTB })) then {
-                            if(!_unitLFTB) then {
-                                if (side player == west) then {
-                                    BLINKING_UNITS_WEST = BLINKING_UNITS_WEST - [_x];
-                                } else {
-                                    if (side player == east) then {
-                                        BLINKING_UNITS_EAST = BLINKING_UNITS_EAST - [_x];
-                                    };
+                if (isPlayer _groupLeader) then {
+                    if (_isActive) then {
+                        if (side player == west) then {
+                            if (BLINKING_UNITS_WEST find _groupLeader == -1) then {
+                                [BLINKING_UNITS_WEST, _groupLeader] call BIS_fnc_arrayPush;
+                            };
+                        } else {
+                            if (side player == east) then {
+                                if (BLINKING_UNITS_EAST find _groupLeader == -1) then {
+                                    [BLINKING_UNITS_EAST, _groupLeader] call BIS_fnc_arrayPush;
                                 };
                             };
                         };
-                        if (isNull _x) then {
+                    };
+                };
+
+            };
+
+            if (player == _groupLeader) then {
+                {
+                    _unitLFTB = _x getVariable "LFTB";
+                    if (!(isNil { _unitLFTB })) then {
+                        if(!_unitLFTB) then {
                             if (side player == west) then {
                                 BLINKING_UNITS_WEST = BLINKING_UNITS_WEST - [_x];
                             } else {
@@ -83,23 +70,23 @@ while { !WFBE_GameOver } do {
                                 };
                             };
                         };
-                    } forEach units _x;
-                };
-
-                if (isPlayer _groupLeader) then {
-                    _groupLeaderLFTB = _groupLeader getVariable "LFTB";
-                    if (!(isNil { _groupLeaderLFTB })) then {
-                        if(!_groupLeaderLFTB) then {
-                            if (side player == west) then {
-                                BLINKING_UNITS_WEST = BLINKING_UNITS_WEST - [_groupLeader];
-                            } else {
-                                if (side player == east) then {
-                                    BLINKING_UNITS_EAST = BLINKING_UNITS_EAST - [_groupLeader];
-                                };
+                    };
+                    if (isNull _x) then {
+                        if (side player == west) then {
+                            BLINKING_UNITS_WEST = BLINKING_UNITS_WEST - [_x];
+                        } else {
+                            if (side player == east) then {
+                                BLINKING_UNITS_EAST = BLINKING_UNITS_EAST - [_x];
                             };
                         };
                     };
-                    if (isNull _groupLeader) then {
+                } forEach _groupArray;
+            };
+
+            if (isPlayer _groupLeader) then {
+                _groupLeaderLFTB = _groupLeader getVariable "LFTB";
+                if (!(isNil { _groupLeaderLFTB })) then {
+                    if(!_groupLeaderLFTB) then {
                         if (side player == west) then {
                             BLINKING_UNITS_WEST = BLINKING_UNITS_WEST - [_groupLeader];
                         } else {
@@ -109,10 +96,41 @@ while { !WFBE_GameOver } do {
                         };
                     };
                 };
-
+                if (isNull _groupLeader) then {
+                    if (side player == west) then {
+                        BLINKING_UNITS_WEST = BLINKING_UNITS_WEST - [_groupLeader];
+                    } else {
+                        if (side player == east) then {
+                            BLINKING_UNITS_EAST = BLINKING_UNITS_EAST - [_groupLeader];
+                        };
+                    };
+                };
             };
 
+        };
+
+        {
+            _vehicleUnit = vehicle _x;
+            _isActiveVehicle = _vehicleUnit getVariable "LFTB";
+            
             if (!isNil { _isActiveVehicle }) then {
+                if (_isActiveVehicle && (vehicle player == _vehicleUnit)) then {
+                    if (side player == west) then {
+                        if (BLINKING_VEHICLES_WEST find _vehicleUnit == -1) then {
+                            [BLINKING_VEHICLES_WEST, _vehicleUnit] call BIS_fnc_arrayPush;
+                        };
+                        if (BLINKING_UNITS_WEST find _x == -1) then {
+                            [BLINKING_UNITS_WEST, _x] call BIS_fnc_arrayPush;
+                        };
+                    };
+                    if (side player == east) then {
+                        if (BLINKING_VEHICLES_EAST find _vehicleUnit == -1) then {
+                            [BLINKING_VEHICLES_EAST, _vehicleUnit] call BIS_fnc_arrayPush;
+                        };
+                        if (BLINKING_UNITS_EAST find _x == -1) then {
+                            [BLINKING_UNITS_EAST, _x] call BIS_fnc_arrayPush;
+                        };
+                    };
                 if (_isActiveVehicle && _vehicleUnit != _x) then {
                     if (side player == west) then {
                         if (BLINKING_VEHICLES_WEST find _vehicleUnit == -1) then {
@@ -151,7 +169,6 @@ while { !WFBE_GameOver } do {
                     };
                 };
             };
-
         } forEach _groupArray;
         
         sleep 0.02;
