@@ -192,8 +192,8 @@ while { !WFBE_GameOver } do {
                     _marker = _x getVariable "unitMarkerBlink";
                     _markerColor = _x getVariable "OriginalMarkerColor";
                     _marker setMarkerColorLocal _markerColor;
+                    _x setVariable ["JustDisabled", false, false];
                 };
-                _x setVariable ["JustDisabled", false, false];
             };
 
         } forEach _groupArray;
