@@ -183,8 +183,11 @@ while { !WFBE_GameOver } do {
                         };
                     };
                 };
+                _x setVariable ["JustDisabled", false, false];
+            } else {
+                _x setVariable ["JustDisabled", true, false];
+            }
             };
-            _x setVariable ["JustDisabled", false, false];
 
         } forEach _groupArray;
             

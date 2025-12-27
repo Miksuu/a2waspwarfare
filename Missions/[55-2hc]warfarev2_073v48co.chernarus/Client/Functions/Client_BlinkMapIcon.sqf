@@ -27,7 +27,7 @@ if (_flashRed) then {
 
 diag_log format ["Blink count for %1: %2", name _unit, _blinks];
 
-if ((_unit getVariable "Blinks") >= (missionNamespace getVariable "WFBE_C_PLAYERS_MARKER_BLINKS")) then {
+if ((_unit getVariable "Blinks") >= (missionNamespace getVariable "WFBE_C_PLAYERS_MARKER_BLINKS") || _justDisabled) then {
     _unit setVariable ["LFTB", false, false];
     _marker setMarkerColorLocal _markerColor;
     _unit setVariable ["Blinks", 0, false];
