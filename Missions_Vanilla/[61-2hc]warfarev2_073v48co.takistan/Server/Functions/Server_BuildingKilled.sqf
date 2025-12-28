@@ -1,4 +1,4 @@
-Private ['_current','_find','_killer','_logik','_structure','_structures','_side','_tked','_type','_killer_uid','_side_killer','_score','_bounty'];
+Private ['_current','_find','_killer','_logik','_structure','_structures','_side','_tked','_type','_killer_uid','_side_killer','_score','_bounty','_supplies','_teamkill'];
 _structure = _this select 0;
 _killer = _this select 1;
 _type = _this select 2;

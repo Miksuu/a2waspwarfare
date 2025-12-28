@@ -1,4 +1,4 @@
-Private["_assist","_bounty","_get","_name","_type"];
+Private["_assist","_bounty","_get","_name","_type", "_killed","_coef"];
 
 
 _killed = _this;
