@@ -6,7 +6,7 @@
 		- Killed side ID.
 */
 
-Private ["_get","_killed","_killed_isplayer","_killed_group","_killed_isman","_killed_side","_killed_type","_killer","_killer_group","_killer_isplayer","_killer_iswfteam","_killer_side","_killer_type","_killer_vehicle","_killer_uid"];
+Private ["_get","_killed","_killed_isplayer","_killed_group","_killed_isman","_killed_side","_killed_type","_killer","_killer_group","_killer_isplayer","_killer_iswfteam","_killer_side","_killer_type","_killer_vehicle","_killer_uid","_killer_award","_points","_nameOfKilledUnit"];
 
 _killed = _this select 0;
 _killer = _this select 1;

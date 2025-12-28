@@ -5,7 +5,7 @@
 		- User Name
 */
 
-Private ['_buildings','_commander','_funds','_get','_hq','_id','_name','_old_unit','_old_unit_group','_respawnLoc','_side','_team','_units','_uid'];
+Private ['_buildings','_commander','_funds','_get','_hq','_id','_name','_old_unit','_old_unit_group','_respawnLoc','_side','_team','_units','_uid','_playerScore','_oldScore','_playerScoreDiff','_result','_logik'];
 _uid = _this select 0;
 _name = _this select 1;
 _id = _this select 2;
