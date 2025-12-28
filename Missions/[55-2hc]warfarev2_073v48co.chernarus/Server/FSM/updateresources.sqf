@@ -28,7 +28,7 @@ while {!gameOver} do {
 
 		_supply =  (_x) Call WFBE_CO_FNC_GetTownsSupply;
 		//////
-		if(_supply  < _suppluy_max_limit) then {
+		if(_supply  < _supply_max_limit) then {
 
 			_income = if (_is != 3) then {_supply} else {round(_supply * _incomeCoef)};
 
