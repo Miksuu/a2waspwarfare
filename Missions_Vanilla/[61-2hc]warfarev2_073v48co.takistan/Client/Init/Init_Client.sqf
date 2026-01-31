@@ -702,7 +702,7 @@ publicVariableServer "WFBE_C_PLAYER_OBJECT";
 
 
 /* Client Init Done - Remove the blackout */
-12452 cutText [(localize 'STR_WF_Loading')+"...","BLACK IN",5];
+12452 cutText [(localize 'STR_WF_Loading')+"...","BLACK IN",1];
 
 player setVariable ["score", 0];
 
