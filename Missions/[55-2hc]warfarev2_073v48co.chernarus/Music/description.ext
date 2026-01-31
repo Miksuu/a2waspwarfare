@@ -1,0 +1,12 @@
+class CfgMusic
+{
+	tracks[] = {};
+	class MyIntro
+	{
+		// display name
+		name	= "WASP Victory OST";
+
+		// filename, volume, pitch
+		sound[]	= { "\Music\wf_intro_2_7.ogg", db + 0, 1.0 };
+	};
+};

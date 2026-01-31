@@ -140,10 +140,4 @@ class CfgSounds
         sound[] = {"\Sounds\servicePointBuildSound-7.ogg", 7, 1};
         titles[] = {};
     };
-
-    class wf_outro {
-        name = "wf_outro";
-        sound[] = {"\Sounds\wf_intro_2_7.ogg", 7, 1};
-        titles[] = {};
-    };
 };
