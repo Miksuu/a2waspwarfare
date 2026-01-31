@@ -1,7 +1,7 @@
 class CfgMusic
 {
 	tracks[] = {};
-	class MyIntro
+	class wf_outro
 	{
 		// display name
 		name	= "WASP Victory OST";
