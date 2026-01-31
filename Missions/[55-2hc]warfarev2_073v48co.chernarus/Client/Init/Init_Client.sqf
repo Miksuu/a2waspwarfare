@@ -505,11 +505,6 @@ WF_Logic setVariable ['filler','primary'];
 [] execVM "WASP\baserep\init.sqf";
 [] execVM "WASP\actions\AddActions.sqf";
 
-/* Vote System, define whether a vote is already running or not */
-waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_votetime"}};
-["INITIALIZATION", "Init_Client.sqf: Vote system is initialized."] Call WFBE_CO_FNC_LogContent;
-if ((WFBE_Client_Logic getVariable "wfbe_votetime") > 0) then {createDialog "WFBE_VoteMenu"};
-
 /* Debug System - Client */
 if (WF_Debug) then {
 	onMapSingleClick "vehicle player setpos _pos;(vehicle player) setVelocity [0,0,-0.1];diag_log getpos player;"; //--- Teleport
