@@ -9,4 +9,14 @@ class CfgMusic
 		// filename, volume, pitch
 		sound[]	= { "\Music\wf_intro_2_7.ogg", db + 10, 1.0 };
 	};
+
+	class taki_intro
+	{
+		// display name
+		name	= "Taki Intro OST";
+
+		// filename, volume, pitch
+		sound[]	= { "\Music\taki_theme_1.ogg", db + 1, 1.0 };
+	};
+	
 };
