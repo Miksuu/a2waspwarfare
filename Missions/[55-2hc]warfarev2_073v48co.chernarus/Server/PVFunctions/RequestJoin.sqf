@@ -26,6 +26,7 @@ if ( !(isNil "_teamJoinedConfirmed")) then { //--- Retrieve JIP Information if t
 
 		_canJoin = true;
 
+
 	};
 
 } else {
@@ -37,9 +38,11 @@ if ( !(isNil "_teamJoinedConfirmed")) then { //--- Retrieve JIP Information if t
 			_canJoin = false;
 			[leader group _player, "LocalizeMessage", ['Teamswap',_name,_uid,_hasConnectedAtLaunchToSide,_side]] Call WFBE_CO_FNC_SendToClient; //--- Inform the client about the teamswap.
 			["INFORMATION", Format["RequestJoin.sqf: Player [%1] [%2] has been sent back to the lobby for teamswapping, original side [%3], attempted side [%4].", _name,_uid,_hasConnectedAtLaunchToSide,_side]] Call WFBE_CO_FNC_LogContent;
+		
 		} else {
 
 			_canJoin = true;
+			["INFORMATION", Format["RequestJoin.sqf: Player [%1] [%2] joined team [%3], as they were locked to this side earlier in this match.", _name,_uid,_side]] Call WFBE_CO_FNC_LogContent;
 
 		};
 
@@ -78,5 +81,10 @@ if (_canJoin) then {
 
 	missionNamespace setVariable [Format["WFBE_JIP_USER%1_TEAM_JOINED", _uid], _side];
 	_result = ["STORE_SIDE", [_uid, _side]] call WFBE_SE_FNC_CallDatabaseStoreSide;
+
+	if (_hasConnectedAtLaunchToSide == _side) then {
+		["STORE_PLAYER_JOINED", [_uid, _side]] call WFBE_SE_FNC_CallDatabaseJoinConfirmed;
+	}
+
 
 };
