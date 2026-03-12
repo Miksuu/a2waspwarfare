@@ -9,6 +9,7 @@ _totalSkillOPFOR = "";
 
 switch (_localize) do {
 	case "BuildingTeamkill": {_txt = Format [Localize "STR_WF_CHAT_Teamkill_Building",_this select 1, _this select 2, [_this select 3, 'displayName'] Call GetConfigInfo]};
+    case "AttackModeActivated": {_txt = Format ["Commander has activated heavy attack mode! You get %1 %% discount from all units for %2 minutes!", _this select 1, _this select 2]};
 	case "Teamswap": {_txt = Format [Localize "STR_WF_CHAT_Teamswap",_this select 3, _this select 4]};
 	case "Teamstack": 
     {
