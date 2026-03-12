@@ -190,6 +190,10 @@ while {!gameOver} do {
 				if (!isNil "HQAction") then {player removeAction HQAction};
 				if (count (hcAllGroups player) > 0) then {HCRemoveAllGroups player};
 			};
+
+			if (((sideJoined) Call GetSideSupply) >= 25000) then {
+				player addAction ["ACTIVATE HEAVY ATTACK MODE","Common\Functions\Common_AttackWaveActivate.sqf", [(sideJoined) call GetSideSupply]];
+			};
 		};
 	};
 	sleep 1;
