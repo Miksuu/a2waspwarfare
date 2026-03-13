@@ -1,3 +1,21 @@
+"CLIENT_INIT_READY" addPublicVariableEventHandler {
+    private ["_player"];
+
+    _player = (_this select 1) select 0;
+
+    //--- Set attack mode status properly.
+    if (side (_player) == west && ATTACK_WAVE_ACTIVE_WEST) then {
+        [(_player), "HandleSpecial", ["attack-wave", ATTACK_WAVE_WEST_PRICE_MODIFIER]] Call WFBE_CO_FNC_SendToClient;
+        [(_player), "LocalizeMessage", ["AttackModeActiveJIP"]] call WFBE_CO_FNC_SendToClient;
+    } else {
+        if (side (_player) == east && ATTACK_WAVE_ACTIVE_EAST) then {
+            [(_player), "HandleSpecial", ["attack-wave", ATTACK_WAVE_EAST_PRICE_MODIFIER]] Call WFBE_CO_FNC_SendToClient;
+            [(_player), "LocalizeMessage", ["AttackModeActiveJIP"]] call WFBE_CO_FNC_SendToClient;
+        };
+    };
+};
+
+
 "ATTACK_WAVE_DETAILS" addPublicVariableEventHandler {
 
 	private ["_priceModifier", "_side", "_attackLength", "_attackLengthMinutes", "_priceModifierPercentage"];
