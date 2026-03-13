@@ -16,7 +16,7 @@ diag_log _supply;
 
     ATTACK_WAVE_PRICE_MODIFIER = _discountPercentage;
 
-    _attackWaveLength = _discountPercentage * 40;
+    _attackWaveLength = _discountPercentage * 900;
 
     ATTACK_WAVE_DETAILS = [(sideJoined), ATTACK_WAVE_PRICE_MODIFIER, _attackWaveLength];
 
