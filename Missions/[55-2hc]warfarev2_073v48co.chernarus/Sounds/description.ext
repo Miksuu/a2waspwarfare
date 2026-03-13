@@ -140,4 +140,10 @@ class CfgSounds
         sound[] = {"\Sounds\servicePointBuildSound-7.ogg", 7, 1};
         titles[] = {};
     };
+
+    class attackMode {
+        name = "attackMode";
+        sound[] = {"\Sounds\attackMode.ogg", 7, 1};
+        titles[] = {};
+    };
 };
