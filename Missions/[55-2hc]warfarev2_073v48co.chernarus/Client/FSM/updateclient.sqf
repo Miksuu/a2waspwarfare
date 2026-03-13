@@ -201,7 +201,7 @@ while {!gameOver} do {
 		};
 	};
 
-	hint cursorTarget;
+	hint format ["cursorTarget: %1 , _sideHQ: %2", cursorTarget, (sideJoined) Call WFBE_CO_FNC_GetSideHQ];
 
 	sleep 1;
 };
