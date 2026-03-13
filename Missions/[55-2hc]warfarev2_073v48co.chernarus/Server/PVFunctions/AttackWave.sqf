@@ -15,6 +15,12 @@
     if (_attackLength > 0) then {
         _attackLengthMinutes = floor (_attackLength / 60);
 
+        if (_side == west) then {
+            ATTACK_WAVE_ACTIVE_WEST = true;
+        } else {
+            ATTACK_WAVE_ACTIVE_EAST = true;
+        };
+
         [_side, -(_side call GetSideSupply),"Heavy attack mode activated."] Call ChangeSideSupply;
 
         [_side, "HandleSpecial", ["attack-wave", _priceModifier]] Call WFBE_CO_FNC_SendToClients;
@@ -24,6 +30,12 @@
         [_side, "LocalizeMessage", ["AttackModeActivated", _priceModifierPercentage, _attackLengthMinutes]] call WFBE_CO_FNC_SendToClients;
     } else {
         ["INFORMATION", Format["AttackWave.sqf: Team [%1] heavy attack mode ending.", _side]] Call WFBE_CO_FNC_LogContent;
+
+        if (_side == west) then {
+            ATTACK_WAVE_ACTIVE_WEST = false;
+        } else {
+            ATTACK_WAVE_ACTIVE_EAST = false;
+        };
 
         [_side, "HandleSpecial", ["attack-wave", 1]] Call WFBE_CO_FNC_SendToClients;
 

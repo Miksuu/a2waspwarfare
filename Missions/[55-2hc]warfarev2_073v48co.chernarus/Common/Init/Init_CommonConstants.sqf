@@ -171,6 +171,8 @@ with missionNamespace do {
 
 // Attack wave.
 	ATTACK_WAVE_PRICE_MODIFIER = 1;
+	ATTACK_WAVE_ACTIVE_WEST = false;
+	ATTACK_WAVE_ACTIVE_EAST = false;
 
 //--- Environment.
 	if (isNil "WFBE_C_ENVIRONMENT_MAX_VIEW") then {WFBE_C_ENVIRONMENT_MAX_VIEW = 5000}; //--- Max view distance.
