@@ -2,7 +2,7 @@ private ["_supply"];
 
 _supply = _this select 3;
 
-[_supply] spawn = {
+[_supply] spawn {
     private ["_supply", "_discountPercentage", "_attackWaveLength"];
 
     _supply = _this select 0;
