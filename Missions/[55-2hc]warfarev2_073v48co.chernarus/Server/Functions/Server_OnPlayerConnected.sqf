@@ -102,11 +102,11 @@ _team setVariable ["wfbe_funds", _funds, true];
 
 //--- Set attack mode status properly.
 if (side (leader _team) == west && ATTACK_WAVE_ACTIVE_WEST) then {
-	[(leader _team), "HandleSpecial", ["attack-wave", _priceModifier]] Call WFBE_CO_FNC_SendToClient;
+	[(leader _team), "HandleSpecial", ["attack-wave", ATTACK_WAVE_WEST_PRICE_MODIFIER]] Call WFBE_CO_FNC_SendToClient;
 	[(leader _team), "LocalizeMessage", ["AttackModeActiveJIP"]] call WFBE_CO_FNC_SendToClient;
 } else {
 	if (side (leader _team) == east && ATTACK_WAVE_ACTIVE_EAST) then {
-		[(leader _team), "HandleSpecial", ["attack-wave", _priceModifier]] Call WFBE_CO_FNC_SendToClient;
+		[(leader _team), "HandleSpecial", ["attack-wave", ATTACK_WAVE_EAST_PRICE_MODIFIER]] Call WFBE_CO_FNC_SendToClient;
 		[(leader _team), "LocalizeMessage", ["AttackModeActiveJIP"]] call WFBE_CO_FNC_SendToClient;
 	};
 };

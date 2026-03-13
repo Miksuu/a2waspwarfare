@@ -6,10 +6,6 @@
 	_priceModifier = ((_this select 1) select 1);
     _attackLength = ((_this select 1) select 2);
 
-    diag_log _side;
-    diag_log _priceModifier;
-    diag_log _attackLength;
-
     _priceModifierPercentage = round (_priceModifier * 100);
 
     if (_attackLength > 0) then {
@@ -17,8 +13,10 @@
 
         if (_side == west) then {
             ATTACK_WAVE_ACTIVE_WEST = true;
+            ATTACK_WAVE_WEST_PRICE_MODIFIER = _priceModifier;
         } else {
             ATTACK_WAVE_ACTIVE_EAST = true;
+            ATTACK_WAVE_EAST_PRICE_MODIFIER = _priceModifier;
         };
 
         [_side, -(_side call GetSideSupply),"Heavy attack mode activated."] Call ChangeSideSupply;
@@ -33,8 +31,10 @@
 
         if (_side == west) then {
             ATTACK_WAVE_ACTIVE_WEST = false;
+            ATTACK_WAVE_WEST_PRICE_MODIFIER = 1;
         } else {
             ATTACK_WAVE_ACTIVE_EAST = false;
+            ATTACK_WAVE_EAST_PRICE_MODIFIER = 1;
         };
 
         [_side, "HandleSpecial", ["attack-wave", 1]] Call WFBE_CO_FNC_SendToClients;
