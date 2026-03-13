@@ -723,6 +723,6 @@ hint parseText "v17122025 <br/><br/> <t color='#28ff14'>If you're a new player:<
 [] spawn {
 	sleep 5;
 	playMusic "cherna_intro";
-}
+};
 
 ["INITIALIZATION", Format ["Init_Client.sqf: Client initialization ended at [%1]", time]] Call WFBE_CO_FNC_LogContent;
