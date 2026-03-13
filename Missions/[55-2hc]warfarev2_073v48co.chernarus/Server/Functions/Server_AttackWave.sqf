@@ -5,31 +5,36 @@
     _supply = _this select 1 select 0;
     _side = _this select 1 select 1;
 
-    _discountPercentage = 0;
+    [_supply, _side] spawn {
 
-    _discountPercentage = 0.4 + ((WFBE_C_ECONOMY_SUPPLY_MAX_TEAM_LIMIT - _supply) * (1/50000));
+        _supply = _this select 0;
+        _side = _this select 1;
 
-    _discountPercentage = 0.7 * _discountPercentage;
+        _discountPercentage = 0;
 
-    ATTACK_WAVE_PRICE_MODIFIER = _discountPercentage;
+        _discountPercentage = 0.4 + ((WFBE_C_ECONOMY_SUPPLY_MAX_TEAM_LIMIT - _supply) * (1/50000));
 
-    _attackWaveLength = (1 - _discountPercentage) * 60;
+        _discountPercentage = 0.7 * _discountPercentage;
 
-    ATTACK_WAVE_DETAILS = [_side, ATTACK_WAVE_PRICE_MODIFIER, _attackWaveLength];
+        ATTACK_WAVE_PRICE_MODIFIER = _discountPercentage;
 
-    diag_log ATTACK_WAVE_DETAILS;
+        _attackWaveLength = (1 - _discountPercentage) * 60;
 
-    publicVariableServer "ATTACK_WAVE_DETAILS";
+        ATTACK_WAVE_DETAILS = [_side, ATTACK_WAVE_PRICE_MODIFIER, _attackWaveLength];
 
-    sleep _attackWaveLength;
+        diag_log ATTACK_WAVE_DETAILS;
 
-    _attackWaveLength = 0;
+        publicVariableServer "ATTACK_WAVE_DETAILS";
 
-    // Return to normal units' pricing after the wave
-    ATTACK_WAVE_PRICE_MODIFIER = 1;
+        sleep _attackWaveLength;
 
-    ATTACK_WAVE_DETAILS = [_side, ATTACK_WAVE_PRICE_MODIFIER, _attackWaveLength];
+        _attackWaveLength = 0;
 
-    publicVariableServer "ATTACK_WAVE_DETAILS";
+        // Return to normal units' pricing after the wave
+        ATTACK_WAVE_PRICE_MODIFIER = 1;
 
+        ATTACK_WAVE_DETAILS = [_side, ATTACK_WAVE_PRICE_MODIFIER, _attackWaveLength];
+
+        publicVariableServer "ATTACK_WAVE_DETAILS";
+    };
 };
