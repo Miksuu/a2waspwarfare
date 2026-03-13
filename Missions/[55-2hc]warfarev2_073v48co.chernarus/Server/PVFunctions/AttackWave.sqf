@@ -11,10 +11,16 @@
 
         [_side, -(_side call GetSideSupply),"Heavy attack mode activated."] Call ChangeSideSupply;
 
+        [_side, "HandleSpecial", ["attack-wave", [_priceModifier]]] Call WFBE_CO_FNC_SendToClients;
+
     	["INFORMATION", Format["AttackWave.sqf: Team [%1] has activated heavy attack mode with price modifier: [%2].", _side, _priceModifier]] Call WFBE_CO_FNC_LogContent;
 
         [_side, "LocalizeMessage", ["AttackModeActivated", _priceModifier, _attackLengthMinutes]] call WFBE_CO_FNC_SendToClients;
     } else {
         ["INFORMATION", Format["AttackWave.sqf: Team [%1] heavy attack mode ending.", _side]] Call WFBE_CO_FNC_LogContent;
+
+        [_side, "HandleSpecial", ["attack-wave", [1]]] Call WFBE_CO_FNC_SendToClients;
+
+        [_side, "LocalizeMessage", ["AttackModeEnd", _priceModifier, _attackLengthMinutes]] call WFBE_CO_FNC_SendToClients;
     };
 };

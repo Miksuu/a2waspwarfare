@@ -33,4 +33,5 @@ switch (_request) do {
 	case "building-started": {_args spawn WFBE_CL_FNC_Building_Started};
 	case "set-hq-killed-eh": {if !(isServer) then {(_args select 0) addEventHandler ["killed", {["RequestSpecial", ["process-killed-hq", _this]] Call WFBE_CO_FNC_SendToServer}]};};
 	case "auto-wall-constructing-changed":{ isAutoWallConstructingEnabled = (_args select 0)};
+	case "attack-wave": {ATTACK_WAVE_PRICE_MODIFIER = (_args select 0)};
 };
