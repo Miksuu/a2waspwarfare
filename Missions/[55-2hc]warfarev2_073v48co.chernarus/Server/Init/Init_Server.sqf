@@ -92,6 +92,7 @@ WFBE_SE_FNC_PlayerObjectsList = Call Compile preprocessFileLineNumbers "Server\M
 //WFBE_SE_FNC_MASH_MARKER = Call Compile preprocessFileLineNumbers "Server\Module\MASH\MASHMarker.sqf";
 WFBE_SE_FNC_AwardScorePlayer = Compile preprocessFileLineNumbers "Server\Functions\Server_AwardScorePlayer.sqf";
 WFBE_SE_FNC_AttackWave = Call Compile preprocessFileLineNumbers "Server\PVFunctions\AttackWave.sqf";
+WFBE_SE_FNC_AttackWavePVEH = Call Compile preprocessFileLineNumbers "Server\Functions\Server_AttackWave.sqf";
 
 //--- Define Headless Client functions (server ones).
 if (ARMA_VERSION >= 162 && ARMA_RELEASENUMBER >= 101334 || ARMA_VERSION > 162) then {
