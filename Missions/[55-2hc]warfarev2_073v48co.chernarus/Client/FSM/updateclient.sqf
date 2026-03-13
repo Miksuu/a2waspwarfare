@@ -200,5 +200,8 @@ while {!gameOver} do {
 			};
 		};
 	};
+
+	hint cursorTarget;
+
 	sleep 1;
 };
