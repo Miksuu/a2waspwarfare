@@ -10,7 +10,7 @@ diag_log _supply;
 
     _discountPercentage = 0;
 
-    _discountPercentage = 1 - ((WFBE_C_ECONOMY_SUPPLY_MAX_TEAM_LIMIT - _supply) * (1/50000));
+    _discountPercentage = 0.4 + ((WFBE_C_ECONOMY_SUPPLY_MAX_TEAM_LIMIT - _supply) * (1/50000));
 
     _discountPercentage = 0.7 * _discountPercentage;
 
