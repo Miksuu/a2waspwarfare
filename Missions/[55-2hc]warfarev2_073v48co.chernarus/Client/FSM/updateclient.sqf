@@ -194,7 +194,7 @@ while {!gameOver} do {
 			if (commanderTeam == Group player) then {
 				if (((sideJoined) Call GetSideSupply) >= 25000) then {
 					diag_log (sideJoined call GetSideSupply);
-					player addAction ["<t color='#ff0000'>ACTIVATE HEAVY ATTACK MODE</t>","Common\Functions\Common_AttackWaveActivate.sqf", (sideJoined) call GetSideSupply];
+					player addAction ["<t color='#ff0000'>HEAVY ATTACK MODE</t>","Common\Functions\Common_AttackWaveActivate.sqf", (sideJoined) call GetSideSupply];
 				};
 			};
 		};
