@@ -46,7 +46,7 @@ lnbClear _listBox;
         };
 
 	if (((_c select QUERYUNITUPGRADE) <= (_currentUpgrades select _value) && _addin) || (_addit&&_addin)) then {
-		lnbAddRow [_listBox,['$'+str (floor (_c select QUERYUNITPRICE) * ATTACK_WAVE_PRICE_MODIFIER),_description]];
+		lnbAddRow [_listBox,['$'+str (round (_c select QUERYUNITPRICE) * ATTACK_WAVE_PRICE_MODIFIER),_description]];
 		lnbSetData [_listBox,[_i,0],_filler];
 		lnbSetValue [_listBox,[_i,0],_u];
 
