@@ -191,8 +191,10 @@ while {!gameOver} do {
 				if (count (hcAllGroups player) > 0) then {HCRemoveAllGroups player};
 			};
 
-			if (((sideJoined) Call GetSideSupply) >= 25000) then {
-				player addAction ["ACTIVATE HEAVY ATTACK MODE","Common\Functions\Common_AttackWaveActivate.sqf", [(sideJoined) call GetSideSupply]];
+			if (commanderTeam == Group player) then {
+				if (((sideJoined) Call GetSideSupply) >= 25000) then {
+					player addAction ["<t color='#ff0000'>ACTIVATE HEAVY ATTACK MODE</t>","Common\Functions\Common_AttackWaveActivate.sqf", [(sideJoined) call GetSideSupply]];
+				};
 			};
 		};
 	};
