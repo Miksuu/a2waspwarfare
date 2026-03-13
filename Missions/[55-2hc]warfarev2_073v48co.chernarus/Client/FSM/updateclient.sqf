@@ -1,4 +1,4 @@
-private["_toggle_auto_distance_view","_lastCommanderTeam","_changeCommander","_timer"];
+private["_toggle_auto_distance_view","_lastCommanderTeam","_changeCommander","_timer", "_sideHQ"];
 
 commanderTeam = (sideJoined) Call WFBE_CO_FNC_GetCommanderTeam;
 
@@ -193,7 +193,8 @@ while {!gameOver} do {
 
 			if (commanderTeam == Group player) then {
 				if (((sideJoined) Call GetSideSupply) >= 25000) then {
-					_MHQ addAction ["<t color='#ff0000'>HEAVY ATTACK MODE</t>","Common\Functions\Common_AttackWaveActivate.sqf", (sideJoined) call GetSideSupply, 1.5, false, false, "", (((sideJoined) Call GetSideSupply) >= 25000)];
+					_sideHQ = (sideJoined) Call WFBE_CO_FNC_GetSideHQ;
+					_sideHQ addAction ["<t color='#ff0000'>HEAVY ATTACK MODE</t>","Common\Functions\Common_AttackWaveActivate.sqf", (sideJoined) call GetSideSupply, 1.5, false, false, "", (((sideJoined) Call GetSideSupply) >= 25000)];
 				};
 			};
 		};
