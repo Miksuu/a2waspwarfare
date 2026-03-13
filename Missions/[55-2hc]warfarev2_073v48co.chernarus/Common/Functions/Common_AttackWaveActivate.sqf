@@ -19,7 +19,7 @@ _supply = _this select 3;
 
     publicVariableServer "ATTACK_WAVE_DETAILS";
 
-    _attackWaveLength = _discountPercentage * 900;
+    _attackWaveLength = _discountPercentage * 40;
 
     ATTACK_WAVE_DETAILS = [(sideJoined), ATTACK_WAVE_PRICE_MODIFIER, _attackWaveLength];
 
