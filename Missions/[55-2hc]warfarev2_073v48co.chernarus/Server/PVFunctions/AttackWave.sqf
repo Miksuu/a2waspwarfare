@@ -8,6 +8,9 @@
 
     if (_attackLength > 0) then {
         _attackLengthMinutes = floor (_attackLength / 60);
+
+        [_side, -(_side call GetSideSupply),"Heavy attack mode activated."] Call ChangeSideSupply;
+
     	["INFORMATION", Format["AttackWave.sqf: Team [%1] has activated heavy attack mode with price modifier: [%2].", _side, _priceModifier]] Call WFBE_CO_FNC_LogContent;
 
         [_side, "LocalizeMessage", ["AttackModeActivated", _priceModifier, _attackLengthMinutes]] call WFBE_CO_FNC_SendToClients;
