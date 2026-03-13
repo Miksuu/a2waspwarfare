@@ -87,7 +87,7 @@ while {alive player && dialog} do {
 		_currentValue = lnbValue[_listBox,[_currentRow,0]];
 		_unit = _listUnits select _currentValue;
 		_currentUnit = missionNamespace getVariable _unit;
-		_currentCost = floor ((_currentUnit select QUERYUNITPRICE) * ATTACK_WAVE_PRICE_MODIFIER);
+		_currentCost = round ((_currentUnit select QUERYUNITPRICE) * ATTACK_WAVE_PRICE_MODIFIER);
 		_cpt = 1;
 		_isInfantry = if (_unit isKindOf 'Man') then {true} else {false};
 		if !(_isInfantry) then {
