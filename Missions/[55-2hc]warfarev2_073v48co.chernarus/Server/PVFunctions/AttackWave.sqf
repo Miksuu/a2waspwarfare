@@ -1,7 +1,7 @@
 "CLIENT_INIT_READY" addPublicVariableEventHandler {
     private ["_player"];
 
-    _player = (_this select 1) select 0;
+    _player = _this select 1;
 
     //--- Set attack mode status properly.
     if (side (_player) == west && ATTACK_WAVE_ACTIVE_WEST) then {
