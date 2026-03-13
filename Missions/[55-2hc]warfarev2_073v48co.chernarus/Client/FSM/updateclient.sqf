@@ -192,8 +192,9 @@ while {!gameOver} do {
 			};
 
 			if (commanderTeam == Group player) then {
-				if (!isNull _MHQ) then {
-					_MHQ addAction ["<t color='#ff6a00'>HEAVY ATTACK MODE</t>","Common\Functions\Common_AttackWaveActivate.sqf", (sideJoined) call GetSideSupply, 1.5, false, false, "", "(((sideJoined) Call GetSideSupply) >= 25000)"];
+				_sideHQ = (sideJoined) Call WFBE_CO_FNC_GetSideHQ;
+				if (!isNull _sideHQ) then {
+					_sideHQ addAction ["<t color='#ff6a00'>HEAVY ATTACK MODE</t>","Common\Functions\Common_AttackWaveActivate.sqf", (sideJoined) call GetSideSupply, 1.5, false, false, "", "(((sideJoined) Call GetSideSupply) >= 25000)"];
 				};
 			};
 		};
