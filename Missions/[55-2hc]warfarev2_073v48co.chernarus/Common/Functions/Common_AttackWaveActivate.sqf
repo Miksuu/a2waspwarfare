@@ -1,6 +1,7 @@
 private ["_supply"];
 
 _supply = _this select 3;
+diag_log _supply;
 
 [_supply] spawn {
     private ["_supply", "_discountPercentage", "_attackWaveLength"];
@@ -18,6 +19,8 @@ _supply = _this select 3;
     _attackWaveLength = _discountPercentage * 40;
 
     ATTACK_WAVE_DETAILS = [(sideJoined), ATTACK_WAVE_PRICE_MODIFIER, _attackWaveLength];
+
+    diag_log ATTACK_WAVE_DETAILS;
 
     publicVariableServer "ATTACK_WAVE_DETAILS";
 

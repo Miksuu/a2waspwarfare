@@ -6,6 +6,10 @@
 	_priceModifier = ((_this select 1) select 1);
     _attackLength = ((_this select 1) select 2);
 
+    diag_log _side;
+    diag_log _priceModifier;
+    diag_log _attackLength;
+
     if (_attackLength > 0) then {
         _attackLengthMinutes = floor (_attackLength / 60);
 
