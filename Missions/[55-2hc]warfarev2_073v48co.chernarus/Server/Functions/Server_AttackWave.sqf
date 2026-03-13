@@ -18,7 +18,7 @@
 
         ATTACK_WAVE_PRICE_MODIFIER = _discountPercentage;
 
-        _attackWaveLength = (1 - _discountPercentage) * 60;
+        _attackWaveLength = (1 - _discountPercentage) * 1500;
 
         ATTACK_WAVE_DETAILS = [_side, ATTACK_WAVE_PRICE_MODIFIER, _attackWaveLength];
 
