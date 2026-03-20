@@ -1,4 +1,4 @@
-private["_toggle_auto_distance_view","_lastCommanderTeam","_changeCommander","_timer"];
+private["_toggle_auto_distance_view","_lastCommanderTeam","_changeCommander","_timer", "_sideHQ"];
 
 commanderTeam = (sideJoined) Call WFBE_CO_FNC_GetCommanderTeam;
 
@@ -191,6 +191,20 @@ while {!gameOver} do {
 				if (count (hcAllGroups player) > 0) then {HCRemoveAllGroups player};
 			};
 		};
+
 	};
+
+	if (!isNull commanderTeam) then {
+		if (commanderTeam == Group player) then {
+			_sideHQ = (sideJoined) Call WFBE_CO_FNC_GetSideHQ;
+			SideHQAttack = _sideHQ;
+			_actionAttached = SideHQAttack getVariable "actionAttached";
+			if (isNil "_actionAttached") then {
+				_sideHQ addAction ["<t color='#ff6a00'>HEAVY ATTACK MODE</t>","Common\Functions\Common_AttackWaveActivate.sqf", [(sideJoined) call GetSideSupply, sideJoined], 1.5, false, false, "", "(((sideJoined) Call GetSideSupply) >= 25000) && (cursorTarget distance player < 50)"];
+				_sideHQ setVariable ["actionAttached", true];
+			};
+		};
+	};
+
 	sleep 1;
 };
