@@ -9357,6 +9357,22 @@
         <Italian>Questo aggiornamento sblocca una funzionalità migliore e più veloce per il tuo radar anti-aereo (AAR).&lt;br/&gt; - Funzionalità e frequenza di aggiornamento:&lt;br/&gt;   Livello 0 = Posizione, direzione, velocità (3 secondi)&lt;br/&gt;   Livello 1 = Altitudine (2 secondi)&lt;br/&gt;   Livello 2 = Tipo di aeromobile (1 secondo)</Italian>
     </Key>
 
+    <Key ID="STR_WF_UPGRADE_UnitCost">
+      <English>Unit cost</English>
+      <French>Coût unitaire</French>
+      <German>Stückkosten</German>
+      <Russian>Стоимость единицы</Russian>
+      <Italian>Costo unitario</Italian>
+    </Key>
+
+    <Key ID="STR_WF_UPGRADE_UnitCost_Desc">
+      <English>This upgrade decreases the price of units permanently.</English>
+      <French>Cette amélioration diminue le prix des unités de façon permanente.</French>
+      <German>Dieses Upgrade verringert den Preis von Einheiten dauerhaft.</German>
+      <Russian>Это улучшение навсегда снижает стоимость юнитов.</Russian>
+      <Italian>Questo aggiornamento riduce il prezzo delle unità in modo permanente.</Italian>
+    </Key>
+
     </Container>
   </Package>
 </Project>

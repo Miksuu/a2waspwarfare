@@ -55,6 +55,7 @@ WFBE_UP_ARTYAMMO = 17;
 WFBE_UP_IRSMOKE = 18;
 WFBE_UP_AIRAAM = 19;
 WFBE_UP_AAR = 20;
+WFBE_UP_UNITCOST = 21;
 
 /*
 	### Working with the missionNamespace ###
@@ -173,6 +174,10 @@ with missionNamespace do {
 	ATTACK_WAVE_PRICE_MODIFIER = 1;
 	ATTACK_WAVE_ACTIVE_WEST = false;
 	ATTACK_WAVE_ACTIVE_EAST = false;
+
+// Unit cost modifier based on the related upgrade.
+
+	UNIT_COST_MODIFIER = 1;
 
 //--- Environment.
 	if (isNil "WFBE_C_ENVIRONMENT_MAX_VIEW") then {WFBE_C_ENVIRONMENT_MAX_VIEW = 5000}; //--- Max view distance.
