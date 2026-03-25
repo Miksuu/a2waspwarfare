@@ -9358,11 +9358,11 @@
     </Key>
 
     <Key ID="STR_WF_UPGRADE_UnitCost">
-      <English>Unit cost</English>
-      <French>Coût unitaire</French>
+      <English>Unit Cost</English>
+      <French>Coût Unitaire</French>
       <German>Stückkosten</German>
       <Russian>Стоимость единицы</Russian>
-      <Italian>Costo unitario</Italian>
+      <Italian>Costo Unitario</Italian>
     </Key>
 
     <Key ID="STR_WF_UPGRADE_UnitCost_Desc">
