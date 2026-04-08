@@ -34,7 +34,7 @@ missionNamespace setVariable [Format["WFBE_C_UPGRADES_%1_COSTS", _side], [
 	[[1200,0],[4000,0],[9200,0],[10500,0],[17600,0]], //--- Air
 	[[1500,0],[2500,0],[3500,0]], //--- Paratroopers
 	[[2000,0]], //--- UAV
-	[[2700,0],[4800,0],[6000,0]], //--- Supply
+	[[2700,0],[4800,0],[8000,0]], //--- Supply
 	[[500,0],[1500,0]], //--- Respawn Range
 	[[1000,0]], //--- Airlift
 	[[4500,0]], //--- Custom Flares
