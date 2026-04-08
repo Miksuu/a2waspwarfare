@@ -1,4 +1,4 @@
-private ['_sourceTown', '_TownSupplyLastMission', '_associatedSupplyTruck', '_supplyAmount', '_supplyMissionAlreadyActiveInTown', '_cursorTarget'];
+private ['_sourceTown', '_TownSupplyLastMission', '_associatedSupplyTruck', '_supplyAmount', '_supplyMissionAlreadyActiveInTown', '_cursorTarget', '_supplyUpgradeModifier'];
 
 _sourceTown = call GetClosestFriendlyLocation;
 WFBE_CL_VAR_ASSOCIATED_SUPPLY_TRUCK = objNull;
@@ -19,7 +19,13 @@ if (typeOf _cursorTarget in ['WarfareSupplyTruck_RU', 'WarfareSupplyTruck_USMC',
     WFBE_CL_VAR_ASSOCIATED_SUPPLY_TRUCK = _cursorTarget;
     WFBE_CL_VAR_ASSOCIATED_SUPPLY_TRUCK setVariable ["SupplyFromTown", _sourceTown, true];
 
-    _supplyAmount = (_sourceTown getVariable "supplyValue") * WFBE_C_ECONOMY_SUPPLY_MISSION_MULTIPLIER;
+    _supplyUpgradeModifier = 1;
+
+    if ((((sideJoined) Call WFBE_CO_FNC_GetSideUpgrades) select WFBE_UP_SUPPLYRATE) >= 3) then {
+        _supplyUpgradeModifier = 2;
+    };
+
+    _supplyAmount = (_sourceTown getVariable "supplyValue") * WFBE_C_ECONOMY_SUPPLY_MISSION_MULTIPLIER * _supplyUpgradeModifier;
     WFBE_CL_VAR_ASSOCIATED_SUPPLY_TRUCK setVariable ["SupplyAmount", _supplyAmount, true];
 
     format ["You loaded S %1 to your truck from %2. Note that supplies from one town only fit in your truck at a time!", _supplyAmount, str (_sourceTown)] call GroupChatMessage;
