@@ -9357,6 +9357,22 @@
         <Italian>Questo aggiornamento sblocca una funzionalità migliore e più veloce per il tuo radar anti-aereo (AAR).&lt;br/&gt; - Funzionalità e frequenza di aggiornamento:&lt;br/&gt;   Livello 0 = Posizione, direzione, velocità (3 secondi)&lt;br/&gt;   Livello 1 = Altitudine (2 secondi)&lt;br/&gt;   Livello 2 = Tipo di aeromobile (1 secondo)</Italian>
     </Key>
 
+    <Key ID="STR_WF_UPGRADE_UnitCost">
+      <English>Unit Cost</English>
+      <French>Coût Unitaire</French>
+      <German>Stückkosten</German>
+      <Russian>Стоимость единицы</Russian>
+      <Italian>Costo Unitario</Italian>
+    </Key>
+
+    <Key ID="STR_WF_UPGRADE_UnitCost_Desc">
+      <English>This upgrade decreases the price of units permanently. Level 1 = 25 % permanent discount from all units, cost: S 25,000. Level 2 = 50 % permanent discount from all units, cost: S 50,000.</English>
+      <French>Cette amélioration réduit définitivement le prix des unités. Niveau 1 = 25 % de réduction permanente sur toutes les unités, coût : S 25 000. Niveau 2 = 50 % de réduction permanente sur toutes les unités, coût : S 50 000.</French>
+      <German>Dieses Upgrade verringert den Preis von Einheiten dauerhaft. Stufe 1 = 25 % dauerhafter Rabatt auf alle Einheiten, Kosten: S 25.000. Stufe 2 = 50 % dauerhafter Rabatt auf alle Einheiten, Kosten: S 50.000.</German>
+      <Russian>Это улучшение навсегда снижает стоимость юнитов. Уровень 1 = постоянная скидка 25 % на все юниты, стоимость: S 25 000. Уровень 2 = постоянная скидка 50 % на все юниты, стоимость: S 50 000.</Russian>
+      <Italian>Questo aggiornamento riduce il prezzo delle unità in modo permanente. Livello 1 = sconto permanente del 25 % su tutte le unità, costo: S 25.000. Livello 2 = sconto permanente del 50 % su tutte le unità, costo: S 50.000.</Italian>
+    </Key>
+
     </Container>
   </Package>
 </Project>

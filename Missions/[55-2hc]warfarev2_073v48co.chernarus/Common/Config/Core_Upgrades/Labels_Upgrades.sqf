@@ -72,7 +72,8 @@ missionNamespace setVariable [Format["WFBE_C_UPGRADES_LABELS"], [
 	localize 'STR_WF_UPGRADE_ArtilleryAmmo',
 	localize 'STR_WF_UPGRADE_IRS',
 	localize 'STR_WF_UPGRADE_AirAA',
-	localize 'STR_WF_UPGRADE_AntiAirRadar'
+	localize 'STR_WF_UPGRADE_AntiAirRadar',
+	localize 'STR_WF_UPGRADE_UnitCost'
 ]];
 
 missionNamespace setVariable [Format["WFBE_C_UPGRADES_DESCRIPTIONS"], [
@@ -96,7 +97,8 @@ missionNamespace setVariable [Format["WFBE_C_UPGRADES_DESCRIPTIONS"], [
     localize 'STR_WF_UPGRADE_ArtilleryAmmo_Desc',
 	localize 'STR_WF_UPGRADE_IRS_Desc',
 	localize 'STR_WF_UPGRADE_AirAA_Desc',
-	localize 'STR_WF_UPGRADE_AntiAirRadar_Desc'
+	localize 'STR_WF_UPGRADE_AntiAirRadar_Desc',
+	localize 'STR_WF_UPGRADE_UnitCost_Desc'
 ]];
 
 missionNamespace setVariable [Format["WFBE_C_UPGRADES_IMAGES"], [
@@ -120,5 +122,6 @@ missionNamespace setVariable [Format["WFBE_C_UPGRADES_IMAGES"], [
 	"", 
 	"", 
 	"",
-	"Client\Images\icon_wf_building_aa_radar.paa"
+	"Client\Images\icon_wf_building_aa_radar.paa",
+	""
 ]];ExecVM "Common\Module\CIPHER\CIPHER_Sort.sqf";

@@ -1,8 +1,19 @@
-Private ['_description','_addin','_c','_currentUpgrades','_filler','_filter','_i','_listBox','_listNames','_u','_value'];
+Private ['_description','_addin','_c','_currentUpgrades','_filler','_filter','_i','_listBox','_listNames','_u','_value','_unitCostUpgradeLevel'];
 _listNames = _this select 0;
 _filler = _this select 1;
 _listBox = _this select 2;
 _value = _this select 3;
+
+_unitCostUpgradeLevel = ((sideJoined) Call WFBE_CO_FNC_GetSideUpgrades) select WFBE_UP_UNITCOST;
+
+if (_unitCostUpgradeLevel > 0) then {
+	if (_unitCostUpgradeLevel == 1) then {
+		UNIT_COST_MODIFIER = 0.75;
+	};
+	if (_unitCostUpgradeLevel == 2) then {
+		UNIT_COST_MODIFIER = 0.5;
+	};
+};
 
 _u = 0;
 _i = 0;
@@ -46,7 +57,7 @@ lnbClear _listBox;
         };
 
 	if (((_c select QUERYUNITUPGRADE) <= (_currentUpgrades select _value) && _addin) || (_addit&&_addin)) then {
-		lnbAddRow [_listBox,['$'+str (round ((_c select QUERYUNITPRICE) * ATTACK_WAVE_PRICE_MODIFIER)),_description]];
+		lnbAddRow [_listBox,['$'+str (round (((_c select QUERYUNITPRICE) * ATTACK_WAVE_PRICE_MODIFIER) * UNIT_COST_MODIFIER)),_description]];
 		lnbSetData [_listBox,[_i,0],_filler];
 		lnbSetValue [_listBox,[_i,0],_u];
 
