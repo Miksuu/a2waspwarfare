@@ -460,7 +460,7 @@ if ((typeOf _vehicle) isKindOf "Tank" || (typeOf _vehicle) isKindOf "Car") then 
 	[sideJoinedText,'UnitsCreated',_cpt] Call UpdateStatistics;
 };
 
-if (_factory in ["Barracks","Light","Heavy","Aircraft","Airport"]) then {
+if (_factory in ["Barracks","Light","Heavy","Aircraft","Depot","Airport"]) then {
 	[_group, _spawnedUnits] call WFBE_CL_FNC_SendSpawnedUnitsToLeaderWaypoint;
 };
 
