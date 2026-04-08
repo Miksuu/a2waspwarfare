@@ -1,4 +1,4 @@
-Private ["_building","_cpt","_commander","_crew","_currentUnit","_description","_direction","_distance","_driver","_extracrew","_factory","_factoryPosition","_factoryType","_group","_gunner","_index","_init","_isArtillery","_isMan","_locked","_longest","_position","_queu","_queu2","_ret","_show","_soldier","_waitTime","_txt","_type","_upgrades","_unique","_unit","_vehi","_vehicle","_vehicles","_faction"];
+Private ["_building","_cpt","_commander","_crew","_currentUnit","_description","_direction","_distance","_driver","_extracrew","_factory","_factoryPosition","_factoryType","_group","_gunner","_index","_init","_isArtillery","_isMan","_locked","_longest","_position","_queu","_queu2","_ret","_show","_soldier","_spawnedUnits","_waitTime","_txt","_type","_upgrades","_unique","_unit","_vehi","_vehicle","_vehicles","_faction"];
 _building = _this select 0;
 _unit = _this select 1;
 _vehi = _this select 2;
@@ -207,6 +207,7 @@ _queu = _queu - [_unique];
 _building setVariable ["queu",_queu,true];
 
 _group = group player;
+_spawnedUnits = [];
 if (!alive _building || isNull _building) exitWith {
 	unitQueu = unitQueu - _cpt;
 	missionNamespace setVariable [Format["WFBE_C_QUEUE_%1",_factory],(missionNamespace getVariable Format["WFBE_C_QUEUE_%1",_factory])-1];
@@ -228,6 +229,8 @@ if (_isMan) then {
 			if (_gear_backpack != "") then {[_soldier, _gear_backpack, _gear_backpack_content] Call WFBE_CO_FNC_EquipBackpack};
 		};
 	};
+
+	_spawnedUnits = [_soldier];
 
 	[sideJoinedText,'UnitsCreated',1] Call UpdateStatistics;
 } else {
@@ -411,6 +414,7 @@ if ((typeOf _vehicle) isKindOf "Tank" || (typeOf _vehicle) isKindOf "Car") then 
 		[_soldier] allowGetIn true;
 		_soldier addeventhandler ["HandleDamage",format ["_this Call %1", _rearmor]];
 		_soldier moveInDriver _vehicle;
+		_spawnedUnits = _spawnedUnits + [_soldier];
 	};
 
 	//--- Gunner.
@@ -421,6 +425,7 @@ if ((typeOf _vehicle) isKindOf "Tank" || (typeOf _vehicle) isKindOf "Car") then 
 
 		[_soldier] allowGetIn true;
 		_soldier moveInGunner _vehicle;
+		_spawnedUnits = _spawnedUnits + [_soldier];
 	};
 
 	//--- Commander.
@@ -431,6 +436,7 @@ if ((typeOf _vehicle) isKindOf "Tank" || (typeOf _vehicle) isKindOf "Car") then 
 
 		[_soldier] allowGetIn true;
 		_soldier moveInCommander _vehicle;
+		_spawnedUnits = _spawnedUnits + [_soldier];
 	};
 
 	//--- Extra vehicle turrets.
@@ -444,6 +450,7 @@ if ((typeOf _vehicle) isKindOf "Tank" || (typeOf _vehicle) isKindOf "Car") then 
 				_soldier addeventhandler ["HandleDamage",format ["_this Call %1", _rearmor]];
 				[_soldier] allowGetIn true;
 				_soldier moveInTurret [_vehicle, _x];
+				_spawnedUnits = _spawnedUnits + [_soldier];
 			};
 		} forEach _turrets;
 	};
@@ -451,6 +458,10 @@ if ((typeOf _vehicle) isKindOf "Tank" || (typeOf _vehicle) isKindOf "Car") then 
 
 
 	[sideJoinedText,'UnitsCreated',_cpt] Call UpdateStatistics;
+};
+
+if (_factory in ["Barracks","Light","Heavy","Aircraft","Airport"]) then {
+	[_group, _spawnedUnits] call WFBE_CL_FNC_SendSpawnedUnitsToLeaderWaypoint;
 };
 
 unitQueu = unitQueu - _cpt;
