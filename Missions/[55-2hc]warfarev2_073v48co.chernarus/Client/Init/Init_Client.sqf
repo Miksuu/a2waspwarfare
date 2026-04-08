@@ -97,11 +97,13 @@ WFBE_CL_FNC_GetParsedGear = Compile preprocessFileLineNumbers "Client\Functions\
 WFBE_CL_FNC_GetVehicleCargoSize = Compile preprocessFileLineNumbers "Client\Functions\Client_GetVehicleCargoSize.sqf";
 WFBE_CL_FNC_GetVehicleContent = if !(WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Client\Functions\Client_GetVehicleContent.sqf"} else {{[[],[],[]]}};
 WFBE_CL_FNC_GetUnitBackpack = if !(WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Client\Functions\Client_GetUnitBackpack.sqf"} else {{""}};
+WFBE_CL_FNC_HandleMapSingleClick = Compile preprocessFileLineNumbers "Client\Functions\Client_HandleMapSingleClick.sqf";
 WFBE_CL_FNC_HandlePVF = Compile preprocessFileLineNumbers "Client\Functions\Client_HandlePVF.sqf";
 WFBE_CL_FNC_OnKilled = Compile preprocessFileLineNumbers "Client\Functions\Client_OnKilled.sqf";
 WFBE_CL_FNC_OperateCargoGear = Compile preprocessFileLineNumbers "Client\Functions\Client_OperateCargoGear.sqf";
 WFBE_CL_FNC_ReplaceMagazinesGear = Compile preprocessFileLineNumbers "Client\Functions\Client_ReplaceMagazinesGear.sqf";
 WFBE_CL_FNC_RemoveMagazineGear = Compile preprocessFileLineNumbers "Client\Functions\Client_RemoveMagazineGear.sqf";
+WFBE_CL_FNC_SendSpawnedUnitsToLeaderWaypoint = Compile preprocessFileLineNumbers "Client\Functions\Client_SendSpawnedUnitsToLeaderWaypoint.sqf";
 WFBE_CL_FNC_UI_Gear_AddTemplate = Compile preprocessFileLineNumbers "Client\Functions\Client_UI_Gear_AddTemplate.sqf";
 WFBE_CL_FNC_UI_Gear_DeleteTemplate = Compile preprocessFileLineNumbers "Client\Functions\Client_UI_Gear_DeleteTemplate.sqf";
 WFBE_CL_FNC_UI_Gear_DisplayInventory = Compile preprocessFileLineNumbers "Client\Functions\Client_UI_Gear_DisplayInventory.sqf";
@@ -163,6 +165,10 @@ if (ARMA_VERSION >= 162 && ARMA_RELEASENUMBER > 97105 || ARMA_VERSION > 162) the
 
 // Marty : auto distance view feature deactivated at client start.
 missionNamespace setVariable ["TOOGLE_AUTO_DISTANCE_VIEW", false];
+missionNamespace setVariable ["AUTO_SEND_SPAWNED_UNITS_TO_WAYPOINT", false];
+missionNamespace setVariable ["WFBE_CLIENT_LAST_TEAMLEADER_MAP_ORDER_POSITION", []];
+missionNamespace setVariable ["WFBE_CLIENT_LAST_TEAMLEADER_MAP_ORDER_GROUP", grpNull];
+missionNamespace setVariable ["WFBE_CLIENT_LAST_TEAMLEADER_MAP_ORDER_TIME", -5000];
 
 //--- Queue Protection.
 missionNamespace setVariable ['WFBE_C_QUEUE_BARRACKS',0];
@@ -207,10 +213,13 @@ newViewDistance = 0;
 disableserialization;
 
 keyPressed = compile preprocessFile "Common\Functions\Common_DisableTablock.sqf";
+keyPressedForAutoSendSpawnedUnitsToWaypoint = compile preprocessFile "Common\Functions\Common_AutoSendSpawnedUnitsToWaypoint.sqf";
 keyPressedForAdjustingViewDistance = compile preprocessFile "Common\Functions\Common_AdjustViewDistance.sqf";
 _display = findDisplay 46;
 _display displayAddEventHandler ["KeyDown","_this call keyPressed"];
+_display displayAddEventHandler ["KeyDown","_this call keyPressedForAutoSendSpawnedUnitsToWaypoint"];
 _display displayAddEventHandler ["KeyDown","_this call keyPressedForAdjustingViewDistance"];
+onMapSingleClick {[_pos, _shift, _alt, _units] call WFBE_CL_FNC_HandleMapSingleClick};
 
 WFBE_CO_FNC_DisableTabLock = compile preprocessFileLineNumbers "Common\Functions\Common_DisableTablock.sqf";
 
@@ -507,8 +516,6 @@ WF_Logic setVariable ['filler','primary'];
 
 /* Debug System - Client */
 if (WF_Debug) then {
-	onMapSingleClick "vehicle player setpos _pos;(vehicle player) setVelocity [0,0,-0.1];diag_log getpos player;"; //--- Teleport
-
 	//player addEventHandler ["HandleDamage", {false}];
 	// player setCaptive true;
 	// player addEventHandler ["HandleDamage", {false;if (player != (_this select 3)) then {(_this select 3) setDammage 1}}]; //--- God-Slayer mode.

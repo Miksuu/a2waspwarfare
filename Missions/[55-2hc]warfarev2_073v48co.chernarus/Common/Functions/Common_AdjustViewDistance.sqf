@@ -1,5 +1,5 @@
 /*
-This script allows the player to adjust view distance or target FPS with the custom action keys 19 and 20.
+This script allows the player to adjust view distance or target FPS with the custom action keys 18, 19 and 20.
 
 Author: Miksuu
 Contributors: Marty
