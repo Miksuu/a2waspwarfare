@@ -11,11 +11,9 @@ _team = _this select 0;
 _spawnedUnits = _this select 1;
 
 if (!(missionNamespace getVariable "AUTO_SEND_SPAWNED_UNITS_TO_WAYPOINT")) exitWith {
-	if (WF_Debug) then {["DEBUG (Client_SendSpawnedUnitsToLeaderWaypoint.sqf)", "Client_SendSpawnedUnitsToLeaderWaypoint.sqf: Feature toggle is OFF, skipping order."] Call WFBE_CO_FNC_LogContent};
 	false
 };
 if (isNull _team) exitWith {
-	if (WF_Debug) then {["WARNING", "Client_SendSpawnedUnitsToLeaderWaypoint.sqf: Team is null, skipping order."] Call WFBE_CO_FNC_LogContent};
 	false
 };
 
@@ -34,9 +32,6 @@ if (!isNull _storedMapOrderGroup && _storedMapOrderGroup == _team && count _stor
 		missionNamespace setVariable ["WFBE_CLIENT_LAST_TEAMLEADER_MAP_ORDER_POSITION", []];
 		missionNamespace setVariable ["WFBE_CLIENT_LAST_TEAMLEADER_MAP_ORDER_GROUP", grpNull];
 		missionNamespace setVariable ["WFBE_CLIENT_LAST_TEAMLEADER_MAP_ORDER_TIME", -5000];
-		if (WF_Debug) then {
-			["DEBUG (Client_SendSpawnedUnitsToLeaderWaypoint.sqf)", Format ["Client_SendSpawnedUnitsToLeaderWaypoint.sqf: Cleared stored map order because leader [%1] is already near %2.", _leader, _storedMapOrderPosition]] Call WFBE_CO_FNC_LogContent;
-		};
 	};
 };
 
@@ -69,13 +64,8 @@ if (count _destinationPosition == 0 && _destinationMode != "DoNotPlan") then {
 };
 
 if (count _destinationPosition == 0) exitWith {
-	["WARNING", Format ["Client_SendSpawnedUnitsToLeaderWaypoint.sqf: No valid destination found for team [%1]. Spawned units will keep default behavior.", _team]] Call WFBE_CO_FNC_LogContent;
-	if (WF_Debug) then {["DEBUG (Client_SendSpawnedUnitsToLeaderWaypoint.sqf)", Format ["Client_SendSpawnedUnitsToLeaderWaypoint.sqf: No valid destination. Leader [%1], waypoints [%2], currentWaypoint [%3], leader expectedDestination [%4], stored map order [%5], stored group [%6].", _leader, _waypointCount, _currentWaypoint, _destinationData, _storedMapOrderPosition, _storedMapOrderGroup]] Call WFBE_CO_FNC_LogContent};
 	false
 };
-
-["INFORMATION", Format ["Client_SendSpawnedUnitsToLeaderWaypoint.sqf: Ordering [%1] spawned units using %2 at %3.", count _spawnedUnits, _destinationSource, _destinationPosition]] Call WFBE_CO_FNC_LogContent;
-if (WF_Debug) then {["DEBUG (Client_SendSpawnedUnitsToLeaderWaypoint.sqf)", Format ["Client_SendSpawnedUnitsToLeaderWaypoint.sqf: Using %1 at %2 for [%3] spawned units.", _destinationSource, _destinationPosition, count _spawnedUnits]] Call WFBE_CO_FNC_LogContent};
 
 _orderedUnits = [];
 _orderedVehicles = [];
@@ -100,8 +90,5 @@ _orderedVehicles = [];
 		};
 	};
 } forEach _spawnedUnits;
-
-["INFORMATION", Format ["Client_SendSpawnedUnitsToLeaderWaypoint.sqf: Issued commandMove to [%1] spawned unit leaders/drivers.", count _orderedUnits]] Call WFBE_CO_FNC_LogContent;
-if (WF_Debug) then {["DEBUG (Client_SendSpawnedUnitsToLeaderWaypoint.sqf)", Format ["Client_SendSpawnedUnitsToLeaderWaypoint.sqf: Issued commandMove to [%1] spawned unit leaders/drivers.", count _orderedUnits]] Call WFBE_CO_FNC_LogContent};
 
 true

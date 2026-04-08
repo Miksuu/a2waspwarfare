@@ -21,14 +21,6 @@ if (_shift && (leader (group player)) == player) then {
 	missionNamespace setVariable ["WFBE_CLIENT_LAST_TEAMLEADER_MAP_ORDER_POSITION", _storedPosition];
 	missionNamespace setVariable ["WFBE_CLIENT_LAST_TEAMLEADER_MAP_ORDER_GROUP", _group];
 	missionNamespace setVariable ["WFBE_CLIENT_LAST_TEAMLEADER_MAP_ORDER_TIME", time];
-
-	if (missionNamespace getVariable "AUTO_SEND_SPAWNED_UNITS_TO_WAYPOINT") then {
-		["INFORMATION", Format ["Client_HandleMapSingleClick.sqf: Stored team leader shift-click order for team [%1] at %2.", _group, _storedPosition]] Call WFBE_CO_FNC_LogContent;
-	};
-
-	if (WF_Debug) then {
-		["DEBUG (Client_HandleMapSingleClick.sqf)", Format ["Client_HandleMapSingleClick.sqf: Shift-click detected for team [%1] at %2. Alt [%3], selected units [%4].", _group, _storedPosition, _alt, _selectedUnits]] Call WFBE_CO_FNC_LogContent;
-	};
 };
 
 // Preserve the legacy debug teleport on plain map clicks without blocking shift-click move capture.
