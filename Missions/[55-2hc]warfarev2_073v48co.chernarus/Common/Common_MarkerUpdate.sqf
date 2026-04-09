@@ -27,7 +27,7 @@ _markerName setMarkerColorLocal _markerColor;
 _markerName setMarkerSizeLocal _markerSize;
 
 if (!(canMove _tracked)) then {
-	_markerName setMarkerTextLocal " X";
+	_markerName setMarkerTextLocal "   X";
 };
 
 _tracked setVariable ["unitMarkerBlink", _markerName, false];
