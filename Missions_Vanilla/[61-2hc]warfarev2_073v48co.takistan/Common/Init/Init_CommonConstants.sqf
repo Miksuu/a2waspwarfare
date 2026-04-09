@@ -204,7 +204,7 @@ with missionNamespace do {
 	WFBE_C_GAMEPLAY_FAST_TRAVEL_RANGE_MAX = 3500;
 	WFBE_C_GAMEPLAY_FAST_TRAVEL_PRICE_KM = 215;
 	WFBE_C_GAMEPLAY_FAST_TRAVEL_TIME_COEF = 0.8;
-	WFBE_C_GAMEPLAY_VOTE_TIME = if (WF_Debug) then {8} else {40};
+	WFBE_C_GAMEPLAY_VOTE_TIME = if (WF_Debug) then {10} else {40};
 
 //--- Modules.
 	if (isNil "WFBE_C_MODULE_BIS_PMC") then {WFBE_C_MODULE_BIS_PMC = 1}; //--- Enable PMC content.
