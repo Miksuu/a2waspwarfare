@@ -723,6 +723,102 @@ waitUntil {!isNil {WFBE_Client_Logic getVariable "wfbe_votetime"}};
 ["INITIALIZATION", "Init_Client.sqf: Vote system is initialized."] Call WFBE_CO_FNC_LogContent;
 if ((WFBE_Client_Logic getVariable "wfbe_votetime") > 0) then {createDialog "WFBE_VoteMenu"};
 
+//--- Marty: missile terrain masking pre-shot warning.
+//--- Runs once per client and warns the player while the current aimed/locked target is masked by terrain.
+//--- The actual missile blocking is still handled by the Fired eventHandler.
+
+[] spawn {
+	private [
+		"_restrictedAmmos",
+		"_toleranceAboveGround"
+	];
+
+	_toleranceAboveGround = 2.5;
+
+	_restrictedAmmos = [
+		"M_AT5_AT",
+		"M_AT6_AT",
+		"M_AT9_AT",
+		"M_AT10_AT",
+		"M_AT11_AT",
+		"M_AT13_AT",
+		"M_AT2_AT",
+		"M_AT3_AT",
+		"M_AT4_AT",
+		"M_AT7_AT",
+		"M_AT_Sagger_AT",
+		"M_Hellfire_AT",
+		"M_TOW_AT",
+		"M_TOW2_AT",
+		"M_Javelin_AT",
+		"M_Metis_AT",
+		"M_Vikhr_AT"
+	];
+
+	while {!WFBE_gameover} do {
+		call {
+			private [
+				"_vehicle",
+				"_currentWeapon",
+				"_currentWeaponMagazines",
+				"_currentWeaponIsRestrictedMissile",
+				"_ammo",
+				"_unit_targeted",
+				"_fromPos",
+				"_targetPos",
+				"_terrainMasked"
+			];
+
+			_vehicle = vehicle player;
+
+			if (_vehicle == player) exitWith {};
+			if !(player in crew _vehicle) exitWith {};
+
+			// Check if the currently selected vehicle weapon uses one of the restricted missile ammos.
+			_currentWeapon = currentWeapon _vehicle;
+			if (_currentWeapon == "") exitWith {};
+
+			_currentWeaponMagazines = getArray (configFile >> "CfgWeapons" >> _currentWeapon >> "magazines");
+			_currentWeaponIsRestrictedMissile = false;
+
+			{
+				_ammo = getText (configFile >> "CfgMagazines" >> _x >> "ammo");
+
+				if (_ammo in _restrictedAmmos) exitWith {
+					_currentWeaponIsRestrictedMissile = true;
+				};
+			} forEach _currentWeaponMagazines;
+
+			if !(_currentWeaponIsRestrictedMissile) exitWith {};
+
+			// cursorTarget is local to the player and allows us to retrieve the currently aimed / locked target.
+			_unit_targeted = cursorTarget;
+			if (isNull _unit_targeted) exitWith {};
+
+			// Only vehicles are relevant targets here.
+			if !(_unit_targeted isKindOf "LandVehicle" || _unit_targeted isKindOf "Air") exitWith {};
+
+			// Check if terrain blocks the line between the firing vehicle and the target.
+			// A small vertical tolerance is added to avoid false terrain masking detection.
+			_fromPos = getPosASL _vehicle;
+			_fromPos set [2, (_fromPos select 2) + _toleranceAboveGround];
+
+			_targetPos = getPosASL _unit_targeted;
+			_targetPos set [2, (_targetPos select 2) + _toleranceAboveGround];
+
+			_terrainMasked = terrainIntersectASL [_fromPos, _targetPos];
+
+			if (_terrainMasked) then {
+				titleText [localize "STR_WF_MESSAGE_MissileTerrainMaskingWarning", "PLAIN DOWN", 0.2];
+			};
+		};
+
+		sleep 1;
+	};
+};
+// Marty : end of glitch missiles warning script.
+
+
 clientInitComplete = true;
 
 hint parseText "v17122025 <br/><br/> <t color='#28ff14'>If you're a new player:</t> <br/><br/>Read the instructions on map (press 'M' key) on the 'Notes' tab. <br/><br/>Our Discord server: <br/><br/><t color='#28ff14'>discord.me/warfare</t>  <br/><br/>(Open the link with a web browser like Chrome) <br/><br/>Ask in chat or on our Discord server if you want to know how something works. <br/><br/>You and your units are marked with <t color='#FFAC1C'>orange</t> color on map. <br/><br/>Friendly towns are marked with <t color='#1ff026'>green</t> color. <t color='#000bde'>Blue</t> and <t color='#de0300'>red</t> towns are controlled by enemy. <br/><br/>Note that you see friendly players and units on map. <br/><br/><t color='#42b6ff'>WF menu</t> is important. You can open it by using action menu (mouse scroll). <br/><br/>Welcome and good luck, soldier! :)";

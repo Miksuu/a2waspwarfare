@@ -175,3 +175,11 @@ _unit addEventHandler ["Fired", {
 _unit setVariable ["OriginalMarkerColor", _color, false];
 
 _params Spawn MarkerUpdate;
+
+// Marty : eventHandler for glitch rocket detection
+if (_unit isKindOf "Tank" || _unit isKindOf "Car" || _unit isKindOf "Air") then {
+	if (isNil {_unit getVariable "WFBE_MissileTerrainMaskingEH_Added"}) then { // the WFBE_MissileTerrainMaskingEH_Added is just to make sure the eventhandler has not been added already to this unit, in order to prevent creating multiple useless eventhandler (but its more a security than a necessity actually...
+		_unit setVariable ["WFBE_MissileTerrainMaskingEH_Added", true, false];
+		_unit addEventHandler ['Fired', {_this Spawn HandleShootMissiles;}];
+	};
+};
