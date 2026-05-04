@@ -1,18 +1,18 @@
 /* Parameters */
 
 	class Params {
-		class WFBE_DAY_DURATION {
+	class WFBE_DAY_DURATION {
 		title = "$STR_WF_PARAMETER_DAY_DURATION";
-		values[] = {1,30,40,50,60,90};
-		texts[] = {"1 minute", "30 minutes", "40 minutes", "50 minutes", "60 minutes", "90 minutes"};
-		default = 50;
+		values[] = {1,60,90,120};
+		texts[] = {"1 minute (test only)", "60 minutes", "90 minutes", "120 minutes"};
+		default = 90;
 	};
 
 	class WFBE_NIGHT_DURATION {
 		title = "$STR_WF_PARAMETER_NIGHT_DURATION";
-		values[] = {1,5,10,15,20,30};
-		texts[] = {"1 minute", "5 minutes", "10 minutes", "15 minutes", "20 minutes", "30 minutes"};
-		default = 10;
+		values[] = {1,20,30,40};
+		texts[] = {"1 minute (test only)", "20 minutes", "30 minutes", "40 minutes"};
+		default = 20;
 	};
 	class WFBE_AIR_EVENT_ENABLED {
 		title = "$STR_WF_PARAMETER_AIR_EVENT_ENABLED";
