@@ -9333,6 +9333,14 @@
         <Italian>ICBM: Tempo prima dell'impatto dell'ICBM</Italian>
     </Key>
 
+    <Key ID="STR_WF_PARAMETER_RADZONE_TIME">
+        <English>ICBM: Radiation effect duration</English>
+        <French>ICBM : Durée des effets de radiation</French>
+        <German>ICBM: Dauer der Strahlungswirkung</German>
+        <Russian>МБР: Длительность воздействия радиации</Russian>
+        <Italian>ICBM: Durata degli effetti delle radiazioni</Italian>
+    </Key>
+
     <Key ID="STR_WF_TEAM_VideoOptionsLabel">
         <English>Video-Options:</English>
         <French>Options vidéos:</French>

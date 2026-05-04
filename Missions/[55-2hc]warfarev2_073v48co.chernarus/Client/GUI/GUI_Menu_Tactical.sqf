@@ -464,7 +464,7 @@ while {alive player && dialog} do {
 			_time_before_ICBM_impact = missionNamespace getVariable "WFBE_ICBM_TIME_TO_IMPACT"; // time in minutes.
 			_time_before_ICBM_impact = _time_before_ICBM_impact * 60 ;							// time in seconds.
 			[_ICBM_marker_name,_time_before_ICBM_impact] call WFBE_CL_FNC_Delete_Marker ;			// delete the marker. 
-			[_ICBM_marker_elipse_name,_time_before_ICBM_impact] call WFBE_CL_FNC_Delete_Marker ;	// delete the elipse marker.
+			[_ICBM_marker_elipse_name,_time_before_ICBM_impact] call WFBE_CL_FNC_Delete_Marker ;	// delete the elipse marker.		
 		};
 		//--- Vehicle Paradrop.
 		if (MenuAction == 9) then {
