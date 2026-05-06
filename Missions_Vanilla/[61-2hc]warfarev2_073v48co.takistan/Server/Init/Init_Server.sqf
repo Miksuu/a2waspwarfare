@@ -595,5 +595,8 @@ WFBE_SE_PLAYERLIST = [[objNull, "0"]];
 
 {_x Spawn WFBE_SE_FNC_VoteForCommander} forEach WFBE_PRESENTSIDES;
 
+// Day/Night cycles calling script.
+[] execVM "Server\Functions\Server_DayNightCycle.sqf";
+
 
 ["INITIALIZATION", Format ["Init_Server.sqf: Server initialization ended at [%1]", time]] Call WFBE_CO_FNC_LogContent;
