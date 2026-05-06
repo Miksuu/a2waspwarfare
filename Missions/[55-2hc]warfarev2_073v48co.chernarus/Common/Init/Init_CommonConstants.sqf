@@ -66,11 +66,6 @@ WFBE_UP_UNITCOST = 21;
 	The isNil check prevent us from overriding MP parameters.
 */
 with missionNamespace do {
-
-//--- Day/night cycles.
-	if (isNil "WFBE_DAY_DURATION") then {WFBE_DAY_DURATION = 50};     //--- Real-life duration of daytime in minutes
-	if (isNil "WFBE_NIGHT_DURATION") then {WFBE_NIGHT_DURATION = 10}; //--- Real-life duration of nighttime in minutes
-
 //--- AI.
 	if (isNil "WFBE_C_AI_COMMANDER_ENABLED") then {WFBE_C_AI_COMMANDER_ENABLED = 1}; //--- Enable or disable the AI Commanders.
 	if (isNil "WFBE_C_AI_MAX") then {WFBE_C_AI_MAX = 10}; //--- Max AI allowed on each AI groups.
