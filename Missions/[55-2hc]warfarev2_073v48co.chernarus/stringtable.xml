@@ -9284,6 +9284,24 @@
         <Spanish>No puedes lanzar bombas no guiadas a esta distancia</Spanish>
     </Key>
 
+  <Key ID="STR_WF_MESSAGE_MissileTerrainMaskingRestriction">
+    <English>You cannot fire missiles while using terrain masking</English>
+    <French>Vous ne pouvez pas tirer de missiles en utilisant le masquage du terrain</French>
+    <German>Sie können keine Raketen abfeuern, während Sie die Geländedeckung ausnutzen</German>
+    <Russian>Вы не можете запускать ракеты, используя маскировку рельефом местности</Russian>
+    <Italian>Non puoi lanciare missili sfruttando la copertura del terreno</Italian>
+    <Spanish>No puedes disparar misiles usando el enmascaramiento del terreno</Spanish>
+  </Key>
+
+<Key ID="STR_WF_MESSAGE_MissileTerrainMaskingWarning">
+    <English>Warning: target masked by terrain. Missile fire may be blocked.</English>
+    <French>Attention : cible masquée par le terrain. Le tir de missile peut être bloqué.</French>
+    <German>Warnung: Ziel durch Gelände verdeckt. Der Raketenabschuss kann blockiert werden.</German>
+    <Russian>Внимание: цель закрыта рельефом местности. Пуск ракеты может быть заблокирован.</Russian>
+    <Italian>Attenzione: bersaglio coperto dal terreno. Il lancio del missile potrebbe essere bloccato.</Italian>
+    <Spanish>Advertencia: objetivo oculto por el terreno. El disparo del misil puede ser bloqueado.</Spanish>
+  </Key>
+
     <Key ID="STR_WF_PARAMETER_AFK_Time" >
         <English>AFK: Maximum player idle time in minutes.</English>
         <French>AFK: Durée max d'inactivité d'un joueur en minutes</French>
