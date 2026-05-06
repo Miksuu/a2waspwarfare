@@ -47,15 +47,21 @@ _is_multi_language_message = true ;
 [_Compile_Multi_language_message, _audio_message, _side, _is_multi_language_message ] call WF_sendMessage ;
 //Marty.
 
-// Marty arty countdown to finish
-[_arty_countdown] spawn 
+// Marty arty cooldown
+[] spawn 
 {
-	_arty_countdown = _this select 0;
-    _startTime = time;
+    _side = playerSide ;
+    _currentUpgrades = (_side) Call WFBE_CO_FNC_GetSideUpgrades;
 
-    while {(_startTime + _arty_countdown) > time} do {
-        //_currentTime = floor((_startTime + _arty_countdown) - time);
+	_startTime = time;
+
+    // Marty : The missionNamespace artillery timeout is used directly in the while condition in order to retrieve the real countdown arty in case when a reloading upgrade artillery has been made.
+    while {(_startTime + ((missionNamespace getVariable "WFBE_C_ARTILLERY_INTERVALS") select (_currentUpgrades select WFBE_UP_ARTYTIMEOUT))) > time} do {
+        
+        _currentUpgrades = (_side) call WFBE_CO_FNC_GetSideUpgrades;
+        //_currentTime = floor((_startTime + ((missionNamespace getVariable "WFBE_C_ARTILLERY_INTERVALS") select (_currentUpgrades select WFBE_UP_ARTYTIMEOUT))) - time);  
         //systemChat format ["Temps restant : %1 secondes", _currentTime];
+        
         sleep 1;
     };
 
