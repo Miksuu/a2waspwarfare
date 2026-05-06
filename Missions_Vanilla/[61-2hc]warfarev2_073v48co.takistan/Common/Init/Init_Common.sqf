@@ -60,6 +60,7 @@ GetUnitsBelowHeight = Compile preprocessFileLineNumbers "Common\Functions\Common
 GetUnitVehicle = Compile preprocessFileLineNumbers "Common\Functions\Common_GetUnitVehicle.sqf";
 HandleIncomingMissile = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleIncomingMissile.sqf";
 HandleShootBombs = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleShootBombs.sqf";
+HandleShootMissiles = Compile preprocessFileLineNumbers "Common\Functions\Common_HandleShootMissiles.sqf";
 IsArtillery = Compile preprocessFileLineNumbers "Common\Functions\Common_IsArtillery.sqf";
 MarkerUpdate = Compile preprocessFileLineNumbers "Common\Common_MarkerUpdate.sqf";
 PlaceNear = Compile preprocessFileLineNumbers "Common\Functions\Common_PlaceNear.sqf";
