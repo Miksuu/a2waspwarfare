@@ -729,31 +729,71 @@ if ((WFBE_Client_Logic getVariable "wfbe_votetime") > 0) then {createDialog "WFB
 
 [] spawn {
 	private [
-		"_restrictedAmmos",
-		"_toleranceAboveGround"
+		"_toleranceAboveGround",
+		"_lastLockSoundTime",
+		"_lockSoundInterval",
+		"_isRestrictedMissileAmmo"
 	];
 
 	_toleranceAboveGround = 2.5;
 
-	_restrictedAmmos = [
-		"M_AT5_AT",
-		"M_AT6_AT",
-		"M_AT9_AT",
-		"M_AT10_AT",
-		"M_AT11_AT",
-		"M_AT13_AT",
-		"M_AT2_AT",
-		"M_AT3_AT",
-		"M_AT4_AT",
-		"M_AT7_AT",
-		"M_AT_Sagger_AT",
-		"M_Hellfire_AT",
-		"M_TOW_AT",
-		"M_TOW2_AT",
-		"M_Javelin_AT",
-		"M_Metis_AT",
-		"M_Vikhr_AT"
-	];
+	_lastLockSoundTime = 0;
+
+	// Adjust this value according to the real duration of your sound file.
+	// Keep the sound short to avoid long audio tails after the terrain masking state changes.
+	_lockSoundInterval = 1.0;
+
+	// Restricted missile ammo detection for terrain-masking missile glitch prevention.
+	// This automatically detects missile-like guided / lockable ammo from CfgAmmo.
+	_isRestrictedMissileAmmo = {
+		private [
+			"_ammo",
+			"_ammoCfg",
+			"_simulation",
+			"_irLock",
+			"_laserLock",
+			"_airLock",
+			"_manualControl",
+			"_isMissileOrRocket",
+			"_isGuided"
+		];
+
+		_ammo = _this select 0;
+		_ammoCfg = configFile >> "CfgAmmo" >> _ammo;
+
+		if !(isClass _ammoCfg) exitWith {false};
+
+		_simulation = getText (_ammoCfg >> "simulation");
+
+		_irLock = getNumber (_ammoCfg >> "irLock");
+		_laserLock = getNumber (_ammoCfg >> "laserLock");
+		_airLock = getNumber (_ammoCfg >> "airLock");
+		_manualControl = getNumber (_ammoCfg >> "manualControl");
+
+		/*
+			Most missiles / rockets in Arma 2 use missile-like or rocket-like simulations.
+			We do not want bullets, shells, grenades or bombs to be affected.
+		*/
+		_isMissileOrRocket = _simulation in [
+			"shotMissile",
+			"shotRocket"
+		];
+
+		/*
+			Guided / lockable missiles usually expose one or more of these config values.
+			manualControl covers wire-guided / SACLOS style missiles.
+			
+			canLock is intentionally not used here because it can be too broad and may create false positives.
+		*/
+		_isGuided = (
+			_irLock > 0 ||
+			_laserLock > 0 ||
+			_airLock > 0 ||
+			_manualControl > 0
+		);
+
+		(_isMissileOrRocket && _isGuided)
+	};
 
 	while {!WFBE_gameover} do {
 		call {
@@ -774,7 +814,7 @@ if ((WFBE_Client_Logic getVariable "wfbe_votetime") > 0) then {createDialog "WFB
 			if (_vehicle == player) exitWith {};
 			if !(player in crew _vehicle) exitWith {};
 
-			// Check if the currently selected vehicle weapon uses one of the restricted missile ammos.
+			// Check if the currently selected vehicle weapon uses a restricted missile ammo.
 			_currentWeapon = currentWeapon _vehicle;
 			if (_currentWeapon == "") exitWith {};
 
@@ -784,19 +824,28 @@ if ((WFBE_Client_Logic getVariable "wfbe_votetime") > 0) then {createDialog "WFB
 			{
 				_ammo = getText (configFile >> "CfgMagazines" >> _x >> "ammo");
 
-				if (_ammo in _restrictedAmmos) exitWith {
+				if ([_ammo] call _isRestrictedMissileAmmo) exitWith {
 					_currentWeaponIsRestrictedMissile = true;
 				};
+
 			} forEach _currentWeaponMagazines;
 
 			if !(_currentWeaponIsRestrictedMissile) exitWith {};
 
-			// cursorTarget is local to the player and allows us to retrieve the currently aimed / locked target.
+			// Retrieve the currently aimed / targeted object.
+			// cursorTarget is used because Arma 2 OA does not provide a reliable command
+			// to retrieve the player's actual missile lock target for all relevant vehicle weapons.
+			// Note: cursorTarget can also return objects simply looked at by the player.
 			_unit_targeted = cursorTarget;
-			if (isNull _unit_targeted) exitWith {};
+
+			if (isNull _unit_targeted) exitWith {
+				_lastLockSoundTime = 0;
+			};
 
 			// Only vehicles are relevant targets here.
-			if !(_unit_targeted isKindOf "LandVehicle" || _unit_targeted isKindOf "Air") exitWith {};
+			if !(_unit_targeted isKindOf "LandVehicle" || _unit_targeted isKindOf "Air") exitWith {
+				_lastLockSoundTime = 0;
+			};
 
 			// Check if terrain blocks the line between the firing vehicle and the target.
 			// A small vertical tolerance is added to avoid false terrain masking detection.
@@ -809,14 +858,32 @@ if ((WFBE_Client_Logic getVariable "wfbe_votetime") > 0) then {createDialog "WFB
 			_terrainMasked = terrainIntersectASL [_fromPos, _targetPos];
 
 			if (_terrainMasked) then {
+
+				// Target is locked but terrain masking is detected:
+				// missile launch is not authorized.
 				titleText [localize "STR_WF_MESSAGE_MissileTerrainMaskingWarning", "PLAIN DOWN", 0.2];
+
+				// Reset lock sound timer so the lock tone can play immediately
+				// when the line of sight becomes clear again.
+				_lastLockSoundTime = 0;
+
+			} else {
+
+				// Target is locked and no terrain masking is detected:
+				// missile launch is authorized.
+				titleText [localize "STR_WF_MESSAGE_MissileTerrainMaskingLockAuthorized", "PLAIN", 0.2];
+
+				if ((time - _lastLockSoundTime) > _lockSoundInterval) then {
+					playSound "SidewinderLock";
+					_lastLockSoundTime = time;
+				};
 			};
 		};
 
-		sleep 1;
+		sleep 0.5;
 	};
 };
-// Marty : end of glitch missiles warning script.
+// Marty: end of glitch missiles warning script.
 
 
 clientInitComplete = true;

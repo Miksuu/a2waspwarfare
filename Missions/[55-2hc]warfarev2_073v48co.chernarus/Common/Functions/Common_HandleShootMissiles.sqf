@@ -1,7 +1,6 @@
 /*
 	Creator : Marty. 
 	Function that handles the missile glitch restriction to avoid exploit when players shoot guided missiles while using terrain masking.
-	
 */
 
 Private [
@@ -17,8 +16,8 @@ Private [
 	"_fromPos",
 	"_targetPos",
 	"_terrainMasked",
-	"_restrictedAmmos",
-	"_toleranceAboveGround"
+	"_toleranceAboveGround",
+	"_isRestrictedMissileAmmo"
 ];
 
 _unit_who_shot = _this select 0; 	// Unit or vehicle that fired.
@@ -36,38 +35,71 @@ if (_vehicle == player) exitWith {}; // Infantry is not concerned by this restri
 if !(player in crew _vehicle) exitWith {};
 if !(_unit_who_shot == player || _unit_who_shot == _vehicle) exitWith {};
 
-//systemChat format ["_unit_who_shot : %1 ", _unit_who_shot];
-//systemChat format ["_weapon : %1 ", _weapon];
+// Marty:
+// Automatically detect guided / lockable missile-like ammo classes.
+// This avoids maintaining a manual ammo classname list and covers more missiles.
+_isRestrictedMissileAmmo = {
+	Private [
+		"_ammo",
+		"_ammoCfg",
+		"_simulation",
+		"_canLock",
+		"_irLock",
+		"_laserLock",
+		"_airLock",
+		"_manualControl",
+		"_isMissileOrRocket",
+		"_isGuided"
+	];
+
+	_ammo = _this select 0;
+	_ammoCfg = configFile >> "CfgAmmo" >> _ammo;
+
+	if !(isClass _ammoCfg) exitWith {false};
+
+	_simulation = getText (_ammoCfg >> "simulation");
+
+	_canLock = getNumber (_ammoCfg >> "canLock");
+	_irLock = getNumber (_ammoCfg >> "irLock");
+	_laserLock = getNumber (_ammoCfg >> "laserLock");
+	_airLock = getNumber (_ammoCfg >> "airLock");
+	_manualControl = getNumber (_ammoCfg >> "manualControl");
+
+	/*
+		Most missiles / rockets in Arma 2 use missile-like or rocket-like simulations.
+		We do not want bullets, shells, grenades or bombs to be affected.
+	*/
+	_isMissileOrRocket = _simulation in [
+		"shotMissile",
+		"shotRocket"
+	];
+
+	/*
+		Guided / lockable missiles usually expose one or more of these config values.
+		manualControl covers wire-guided / SACLOS style missiles.
+
+		For the Fired eventHandler restriction, canLock can be kept because the projectile has already been fired.
+		This is less likely to create false positives than in the pre-shot warning script.
+	*/
+	_isGuided = (
+		_canLock > 0 ||
+		_irLock > 0 ||
+		_laserLock > 0 ||
+		_airLock > 0 ||
+		_manualControl > 0
+	);
+
+	(_isMissileOrRocket && _isGuided)
+};
+
+if !([_ammo] call _isRestrictedMissileAmmo) exitWith {};
 
 // Marty:
-// Restrict only guided missiles / rockets concerned by terrain masking.
-// Add or remove ammo classes here depending on the vehicles and weapons to monitor.
-_restrictedAmmos = [
-	"M_AT5_AT",
-	"M_AT6_AT",
-	"M_AT9_AT",
-	"M_AT10_AT",
-	"M_AT11_AT",
-	"M_AT13_AT",
-	"M_AT2_AT",
-	"M_AT3_AT",
-	"M_AT4_AT",
-	"M_AT7_AT",
-	"M_AT_Sagger_AT",
-	"M_Hellfire_AT",
-	"M_TOW_AT",
-	"M_TOW2_AT",
-	"M_Javelin_AT",
-	"M_Metis_AT",
-	"M_Vikhr_AT"
-];
-
-if !(_ammo in _restrictedAmmos) exitWith {};
-
-// Marty:
-// cursorTarget is local to the player and allows us to retrieve the currently aimed / locked target.
+// cursorTarget is local to the player and allows us to retrieve the currently aimed / targeted object.
+// In Arma 2 OA, there is no reliable universal command to retrieve the player's actual missile lock target
+// for all relevant vehicle weapons, so cursorTarget is used as the practical solution.
 _unit_targeted = cursorTarget;
-if (isNull _unit_targeted) exitWith {}; // if there is no lock on target, we quit.
+if (isNull _unit_targeted) exitWith {}; // If there is no target, we quit.
 
 // Only vehicles are relevant targets here.
 if !(_unit_targeted isKindOf "LandVehicle" || _unit_targeted isKindOf "Air") exitWith {};
@@ -87,8 +119,9 @@ systemChat format ["point passage 3"];
 // Marty:
 // Check if terrain blocks the line between the firing vehicle and the target.
 // Slight vertical offsets are added to avoid detecting tiny ground contact near the vehicle or target.
-// It add a small vertical tolerance to avoid false terrain masking detection.
-_toleranceAboveGround = 2.5; // tolerance in meters is added above ground corresponding to visual sight hight of a tank
+// It adds a small vertical tolerance to avoid false terrain masking detection.
+_toleranceAboveGround = 2.5; // tolerance in meters added above ground, corresponding roughly to visual sight height of a tank.
+
 _fromPos = getPosASL _vehicle;
 _fromPos set [2, (_fromPos select 2) + _toleranceAboveGround]; // tolerance only on the z axis (= altitude), in meters.
 
@@ -96,11 +129,12 @@ _targetPos = getPosASL _unit_targeted;
 _targetPos set [2, (_targetPos select 2) + _toleranceAboveGround];
 
 _terrainMasked = terrainIntersectASL [_fromPos, _targetPos];
-systemChat format ["_terrainMasked : %1 ", _terrainMasked];
 
 if !(_terrainMasked) exitWith {};
 
-// If we reach this point, the player fired a restricted missile while masked by terrain.
+// If we reach this point, the player fired a restricted guided missile while masked by terrain.
 deleteVehicle _projectile;
 
+// Warn the player that the missile launch has been blocked.
 hint localize "STR_WF_MESSAGE_MissileTerrainMaskingRestriction";
+playSound "MissileLaunchBlocked";

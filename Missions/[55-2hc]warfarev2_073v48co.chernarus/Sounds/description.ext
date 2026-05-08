@@ -3,6 +3,24 @@ class CfgSounds
 {
     sounds[] = {};
     
+	class MissileLaunchBlocked {
+        name = "MissileLaunchBlocked";
+        sound[] = {"Sounds\missile_launch_blocked.ogg", 2, 1};
+        titles[] = {};
+    };
+    
+    class SidewinderSearch {
+		name = "SidewinderSearch";
+		sound[] = {"Sounds\sidewinder_search.ogg", 1, 1};
+		titles[] = {};
+	};
+
+	class SidewinderLock {
+		name = "SidewinderLock";
+		sound[] = {"Sounds\sidewinder_lock.ogg", 2, 1};
+		titles[] = {};
+	};
+
     class aaRadarBuildSound {
         name = "aaRadarBuildSound";
         sound[] = {"\Sounds\aaRadarBuildSound-7.ogg", 7, 1};
