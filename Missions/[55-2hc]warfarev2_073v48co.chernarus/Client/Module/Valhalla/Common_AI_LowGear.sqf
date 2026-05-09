@@ -1,0 +1,114 @@
+/*
+	Author: Marty
+
+	Name:
+		Common_AI_LowGear.sqf
+
+	Description:
+		Applies low gear / climbing assist to AI-driven tanks controlled by the player's group.
+
+		This script is intended to run client-side.
+		It only applies the velocity boost if the vehicle is local to this client.
+
+		The script is designed as a climbing assist only:
+		- it helps the tank when it is already moving forward but too slowly;
+		- it does not limit the vehicle top speed anymore;
+		- it does not apply braking above the target assist speed.
+
+	Parameters:
+		_vehicle : object - tank to assist
+*/
+
+Private [
+	"_vehicle",
+	"_direction",
+	"_min",
+	"_minBoostSpeed",
+	"_boostCoef",
+	"_speed",
+	"_vel",
+	"_driver",
+	"_isMovingForward"
+];
+
+_vehicle = _this;
+
+if (isNull _vehicle) exitWith {};
+if !(_vehicle isKindOf "Tank") exitWith {};
+
+// The velocity correction must only be applied where the vehicle is local.
+if !(local _vehicle) exitWith {};
+
+// Avoid duplicate loops on the same client for the same vehicle.
+if (_vehicle getVariable ["AI_LowGear_Running", false]) exitWith {};
+_vehicle setVariable ["AI_LowGear_Running", true, false];
+
+_direction = {
+	private["_vel", "_veh", "_vdir", "_dir"];
+
+	_vel = _this select 0;
+	_veh = _this select 1;
+
+	_vdir = (_vel select 0) atan2 (_vel select 1);
+	if (_vdir < 0) then {_vdir = _vdir + 360};
+
+	_dir = getDir _veh;
+	if (_dir < 0) then {_dir = _dir + 360};
+
+	_vdir = _vdir - _dir;
+
+	if (abs(_vdir) < 15) then {true} else {false};
+};
+
+// Target assist speed.
+// The script will help the tank only while its speed is below this value.
+_min = 24;
+
+// Minimum speed required before applying boost.
+// This prevents the script from pushing the tank when the player ordered it to stop.
+_minBoostSpeed = 3;
+
+// Velocity multiplier applied while the tank is moving forward but too slowly.
+_boostCoef = 1.3;
+
+while {
+	!isNull _vehicle &&
+	{alive _vehicle} &&
+	{canMove _vehicle} &&
+	{local _vehicle}
+} do {
+
+	_driver = driver _vehicle;
+
+	if (!isNull _driver) then {
+
+		// Only AI drivers.
+		if (!isPlayer _driver && {isEngineOn _vehicle}) then {
+
+			_speed = speed _vehicle;
+			_vel = velocity _vehicle;
+
+			_isMovingForward = [_vel, _vehicle] call _direction;
+
+			if (_isMovingForward) then {
+
+				// Climbing assist only.
+				// Boost only when the tank is already moving forward but is still too slow.
+				// No braking is applied above the target assist speed.
+				if (_speed > _minBoostSpeed && {_speed < _min}) then {
+					_vel = [
+						(_vel select 0) * _boostCoef,
+						(_vel select 1) * _boostCoef,
+						(_vel select 2)
+					];
+
+					_vehicle setVelocity _vel;
+				};
+			};
+		};
+	};
+
+	sleep 0.25;
+};
+
+_vehicle setVariable ["AI_LowGear_Running", false, false];
