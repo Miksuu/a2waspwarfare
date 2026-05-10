@@ -3,24 +3,6 @@ class CfgSounds
 {
     sounds[] = {};
     
-	class MissileLaunchBlocked {
-        name = "MissileLaunchBlocked";
-        sound[] = {"Sounds\missile_launch_blocked.ogg", 2, 1};
-        titles[] = {};
-    };
-    
-    class SidewinderSearch {
-		name = "SidewinderSearch";
-		sound[] = {"Sounds\sidewinder_search.ogg", 1, 1};
-		titles[] = {};
-	};
-
-	class SidewinderLock {
-		name = "SidewinderLock";
-		sound[] = {"Sounds\sidewinder_lock.ogg", 2, 1};
-		titles[] = {};
-	};
-
     class aaRadarBuildSound {
         name = "aaRadarBuildSound";
         sound[] = {"\Sounds\aaRadarBuildSound-7.ogg", 7, 1};
@@ -147,6 +129,12 @@ class CfgSounds
         titles[] = {};
     };
 
+    class MissileLaunchBlocked {
+        name = "MissileLaunchBlocked";
+        sound[] = {"\Sounds\MissileLaunchBlocked-2.ogg", 2, 1};
+        titles[] = {};
+    };
+
     class newCommander {
         name = "newCommander";
         sound[] = {"\Sounds\newCommander-10.ogg", 10, 1};
@@ -162,6 +150,12 @@ class CfgSounds
     class servicePointBuildSound {
         name = "servicePointBuildSound";
         sound[] = {"\Sounds\servicePointBuildSound-7.ogg", 7, 1};
+        titles[] = {};
+    };
+
+    class SidewinderLock {
+        name = "SidewinderLock";
+        sound[] = {"\Sounds\SidewinderLock-1.ogg", 1, 1};
         titles[] = {};
     };
 };
