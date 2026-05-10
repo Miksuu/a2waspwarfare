@@ -9293,7 +9293,7 @@
     <Spanish>No puedes disparar misiles usando el enmascaramiento del terreno</Spanish>
   </Key>
 
-<Key ID="STR_WF_MESSAGE_MissileTerrainMaskingWarning">
+  <Key ID="STR_WF_MESSAGE_MissileTerrainMaskingWarning">
     <English>Warning: target masked by terrain. Missile fire may be blocked.</English>
     <French>Attention : cible masquée par le terrain. Le tir de missile peut être bloqué.</French>
     <German>Warnung: Ziel durch Gelände verdeckt. Der Raketenabschuss kann blockiert werden.</German>
@@ -9301,6 +9301,15 @@
     <Italian>Attenzione: bersaglio coperto dal terreno. Il lancio del missile potrebbe essere bloccato.</Italian>
     <Spanish>Advertencia: objetivo oculto por el terreno. El disparo del misil puede ser bloqueado.</Spanish>
   </Key>
+
+  <Key ID="STR_WF_MESSAGE_MissileTerrainMaskingLockAuthorized">
+    <English>MISSILE FIRE AUTHORIZED</English>
+    <French>TIR DE MISSILE AUTORISÉ</French>
+    <German>RAKETENABSCHUSS FREIGEGEBEN</German>
+    <Russian>ПУСК РАКЕТЫ РАЗРЕШЁН</Russian>
+    <Italian>LANCIO MISSILE AUTORIZZATO</Italian>
+    <Spanish>DISPARO DE MISIL AUTORIZADO</Spanish>
+</Key>
 
     <Key ID="STR_WF_PARAMETER_AFK_Time" >
         <English>AFK: Maximum player idle time in minutes.</English>
