@@ -885,6 +885,8 @@ if ((WFBE_Client_Logic getVariable "wfbe_votetime") > 0) then {createDialog "WFB
 };
 // Marty: end of glitch missiles warning script.
 
+// Marty : initialise the low gear assist for local AI-driven tanks controlled by the player's group
+[] spawn Compile preprocessFileLineNumbers "Client\Module\Valhalla\Func_Client_AI_LowGear_Manager.sqf";
 
 clientInitComplete = true;
 
