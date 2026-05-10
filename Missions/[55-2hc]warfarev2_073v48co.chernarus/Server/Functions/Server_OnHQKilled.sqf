@@ -5,10 +5,13 @@
 		- Shooter
 */
 
-Private ["_building","_dammages","_dammages_current","_get","_killer","_logik","_origin","_structure","_structure_kind","_killerGroup"];
+Private ["_wreckObject", "_building","_dammages","_dammages_current","_get","_killer","_logik","_origin","_structure","_structure_kind","_killerGroup"];
 
 _structure = _this select 0;
 _killer = _this select 1;
+
+// Marty : object that must be tracked by the HQ wreck marker.
+_wreckObject = _structure;
 
 _structure_kind = typeOf _structure;
 _side = _structure getVariable "wfbe_side";
@@ -27,6 +30,10 @@ if ((_side) Call WFBE_CO_FNC_GetSideHQDeployStatus) then {
 	_hq setVariable ["wfbe_trashable", false];
 	_hq setVariable ["wfbe_side", _side];
 	_hq setDamage 1;
+
+	// Marty : from now on, the marker must track the newly created dead MHQ wreck,
+	// not the deployed HQ structure that will be deleted after 10 seconds.
+	_wreckObject = _hq;
 
 	//--- HQ is now considered mobilized.
 	_logik setVariable ["wfbe_hq_deployed", false, true];
@@ -74,15 +81,17 @@ if (_side != side _killer) then
     ['SRVFNCREQUESTCHANGESCORE',[leader _killerGroup, score leader _killerGroup + _score]] Spawn WFBE_SE_FNC_HandlePVF;
 };
 
-// Marty : Marking HQ wreck on map 
-_marker_name 		= "HQ_WRECK_" + str(_side) ;
-_marker_position 	= getPos _structure ;
+// Marty : HQ wreck marker data.
+// The marker itself is created locally on allied clients only.
+// Do not create a global marker here, otherwise the enemy team may see it too.
+_marker_name 		= "HQ_WRECK_" + str(_side);
+_marker_position 	= getPos _wreckObject;
 _markerType 		= "Flag";
 _markerText 		= "HQ WRECK must be repaired";
 _markerColor 		= "ColorRed";
 _markerSide			= _side;
 
-[_marker_name, _marker_position, _markerType, _markerText, _markerColor, _markerSide] call WF_createMarker ;
+//[_marker_name, _marker_position, _markerType, _markerText, _markerColor, _markerSide] call WF_createMarker ;
 
 // Marty : Public variables about hq state are broadcasted for the future player joining the game :
 if (_side == west) then 
@@ -90,8 +99,8 @@ if (_side == west) then
 	missionNamespace setVariable ["IS_WEST_HQ_ALIVE", false];
 	publicVariable "IS_WEST_HQ_ALIVE";
 
-	_hq_east_marker_infos = [_marker_name, _marker_position, _markerType, _markerText, _markerColor, _markerSide, _structure]; 
-	missionNamespace setVariable ["HQ_WEST_MARKER_INFOS", _hq_east_marker_infos];
+	_hq_west_marker_infos = [_marker_name, _marker_position, _markerType, _markerText, _markerColor, _markerSide, _wreckObject]; 
+	missionNamespace setVariable ["HQ_WEST_MARKER_INFOS", _hq_west_marker_infos];
 	publicVariable "HQ_WEST_MARKER_INFOS";
 };
 
@@ -100,7 +109,7 @@ if (_side == east) then
 	missionNamespace setVariable ["IS_EAST_HQ_ALIVE", false];
 	publicVariable "IS_EAST_HQ_ALIVE";
 
-	_hq_east_marker_infos = [_marker_name, _marker_position, _markerType, _markerText, _markerColor, _markerSide, _structure]; 
+	_hq_east_marker_infos = [_marker_name, _marker_position, _markerType, _markerText, _markerColor, _markerSide, _wreckObject]; 
 	missionNamespace setVariable ["HQ_EAST_MARKER_INFOS", _hq_east_marker_infos];
 	publicVariable "HQ_EAST_MARKER_INFOS";
 };
