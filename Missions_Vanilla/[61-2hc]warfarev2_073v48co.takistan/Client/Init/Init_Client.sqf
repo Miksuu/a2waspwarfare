@@ -88,6 +88,8 @@ WFBE_CL_FNC_DelegateAIStaticDefence = Compile preprocessFileLineNumbers "Client\
 WFBE_CL_FNC_GetAIID = Compile preprocessFileLineNumbers "Client\Functions\Client_GetAIID.sqf";
 WFBE_CL_FNC_GetBackpackContent = if !(WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Client\Functions\Client_GetBackpackContent.sqf"} else {{[[],[]]}};
 WFBE_CL_FNC_GetClientFunds = Compile preprocessFileLineNumbers "Client\Functions\Client_GetPlayerFunds.sqf";
+// Marty: Condition helper used by Repair Camp addActions so the mouse wheel menu only shows it near destroyed camps.
+WFBE_CL_FNC_CanRepairCampNearby = Compile preprocessFileLineNumbers "Client\Functions\Client_CanRepairCampNearby.sqf";
 WFBE_CL_FNC_GetClosestAirport = Compile preprocessFileLineNumbers "Client\Functions\Client_GetClosestAirport.sqf";
 WFBE_CL_FNC_GetClosestCamp = Compile preprocessFileLineNumbers "Client\Functions\Client_GetClosestCamp.sqf";
 WFBE_CL_FNC_GetClosestDepot = Compile preprocessFileLineNumbers "Client\Functions\Client_GetClosestDepot.sqf";
