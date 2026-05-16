@@ -756,9 +756,12 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 				_textHeader = "<t size='1.2'><br /></t>";
 				_textPicture = "<t size='2.8'><br /></t><br /><br />";
 				_fileIcon = getText (configFile >> "cfgvehicles" >> _type >> "icon");
-				if (str(configFile >> "CfgVehicleIcons" >> _fileIcon) != "") then {_fileIcon = getText (configFile >> "CfgVehicleIcons" >> _fileIcon)};
 				_filePicture = getText (configFile >> "cfgvehicles" >> _type >> "picture");
-				if (str(configFile >> "CfgVehicleIcons" >> _filePicture) != "") then {_filePicture = getText (configFile >> "CfgVehicleIcons" >> _filePicture)};
+				// Marty: Resolve only real CfgVehicleIcons text entries; some OA static objects use missing icon tokens.
+				_fileIconConfig = configFile >> "CfgVehicleIcons" >> _fileIcon;
+				if (isText _fileIconConfig) then {_fileIcon = getText _fileIconConfig};
+				_filePictureConfig = configFile >> "CfgVehicleIcons" >> _filePicture;
+				if (isText _filePictureConfig) then {_filePicture = getText _filePictureConfig};
 
 				if (_tooltipType != "empty") then {
 					_textHeader = format ["<t color='#42b6ff' shadow='1' align='center' size='1.8'> %1 </t><br />",
