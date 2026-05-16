@@ -81,6 +81,7 @@ BIS_FNC_GUIset = {UInamespace setVariable [_this select 0, _this select 1]};
 BIS_FNC_GUIget = {UInamespace getVariable (_this select 0)};
 
 //--- New Fnc.
+WFBE_CL_FNC_AddPlayerAIActions = Compile preprocessFileLineNumbers "Client\Functions\Client_AddPlayerAIActions.sqf";
 WFBE_CL_FNC_ChangeClientFunds = Compile preprocessFileLineNumbers "Client\Functions\Client_ChangePlayerFunds.sqf";
 WFBE_CL_FNC_DelegateTownAI = Compile preprocessFileLineNumbers "Client\Functions\Client_DelegateTownAI.sqf";
 WFBE_CL_FNC_DelegateAI = Compile preprocessFileLineNumbers "Client\Functions\Client_DelegateAI.sqf";
@@ -470,6 +471,7 @@ missionNamespace setVariable ["COIN_UseHelper", _greenList];
 
 /* Options menu. */
 Options = player addAction ["<t color='#42b6ff'>" + (localize "STR_WF_Options") + "</t>","Client\Action\Action_Menu.sqf", "", 1, false, true, "", "_target == player"];
+player Call WFBE_CL_FNC_AddPlayerAIActions;
 
 /* Zeta Cargo Lifter. */
 [] Call Compile preprocessFile "Client\Module\ZetaCargo\Zeta_Init.sqf";
