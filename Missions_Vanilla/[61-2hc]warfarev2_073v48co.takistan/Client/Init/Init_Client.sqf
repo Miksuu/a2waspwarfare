@@ -81,6 +81,8 @@ BIS_FNC_GUIset = {UInamespace setVariable [_this select 0, _this select 1]};
 BIS_FNC_GUIget = {UInamespace getVariable (_this select 0)};
 
 //--- New Fnc.
+// Marty: Centralized WF menu action helper. It keeps the mouse wheel WF menu tied to the current player object.
+WFBE_CL_FNC_AddWFMenuAction = Compile preprocessFileLineNumbers "Client\Functions\Client_AddWFMenuAction.sqf";
 WFBE_CL_FNC_AddPlayerAIActions = Compile preprocessFileLineNumbers "Client\Functions\Client_AddPlayerAIActions.sqf";
 WFBE_CL_FNC_ChangeClientFunds = Compile preprocessFileLineNumbers "Client\Functions\Client_ChangePlayerFunds.sqf";
 WFBE_CL_FNC_DelegateTownAI = Compile preprocessFileLineNumbers "Client\Functions\Client_DelegateTownAI.sqf";
@@ -89,6 +91,8 @@ WFBE_CL_FNC_DelegateAIStaticDefence = Compile preprocessFileLineNumbers "Client\
 WFBE_CL_FNC_GetAIID = Compile preprocessFileLineNumbers "Client\Functions\Client_GetAIID.sqf";
 WFBE_CL_FNC_GetBackpackContent = if !(WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Client\Functions\Client_GetBackpackContent.sqf"} else {{[[],[]]}};
 WFBE_CL_FNC_GetClientFunds = Compile preprocessFileLineNumbers "Client\Functions\Client_GetPlayerFunds.sqf";
+// Marty: Condition helper used by Repair Camp addActions so the mouse wheel menu only shows it near destroyed camps.
+WFBE_CL_FNC_CanRepairCampNearby = Compile preprocessFileLineNumbers "Client\Functions\Client_CanRepairCampNearby.sqf";
 WFBE_CL_FNC_GetClosestAirport = Compile preprocessFileLineNumbers "Client\Functions\Client_GetClosestAirport.sqf";
 WFBE_CL_FNC_GetClosestCamp = Compile preprocessFileLineNumbers "Client\Functions\Client_GetClosestCamp.sqf";
 WFBE_CL_FNC_GetClosestDepot = Compile preprocessFileLineNumbers "Client\Functions\Client_GetClosestDepot.sqf";
@@ -470,8 +474,26 @@ _greenList = [];
 missionNamespace setVariable ["COIN_UseHelper", _greenList];
 
 /* Options menu. */
-Options = player addAction ["<t color='#42b6ff'>" + (localize "STR_WF_Options") + "</t>","Client\Action\Action_Menu.sqf", "", 1, false, true, "", "_target == player"];
+// Marty: Add the WF menu through a helper so the action ID is stored on player instead of only in a global variable.
+player Call WFBE_CL_FNC_AddWFMenuAction;
 player Call WFBE_CL_FNC_AddPlayerAIActions;
+
+// Marty: Safety refresh for the WF menu.
+// If another script removes the action by mistake, it comes back without waiting for respawn.
+[] Spawn {
+	Private ["_isRespawning"];
+
+	while {!gameOver} do {
+		_isRespawning = false;
+		if !(isNil "WFBE_Client_IsRespawning") then {_isRespawning = WFBE_Client_IsRespawning};
+
+		if (alive player && vehicle player == player && !_isRespawning) then {
+			player Call WFBE_CL_FNC_AddWFMenuAction;
+		};
+
+		sleep 15;
+	};
+};
 
 /* Zeta Cargo Lifter. */
 [] Call Compile preprocessFile "Client\Module\ZetaCargo\Zeta_Init.sqf";
