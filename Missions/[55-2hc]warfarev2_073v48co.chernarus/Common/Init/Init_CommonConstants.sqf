@@ -66,6 +66,16 @@ WFBE_UP_UNITCOST = 21;
 	The isNil check prevent us from overriding MP parameters.
 */
 with missionNamespace do {
+
+//--- Day/night cycles.
+	if (isNil "WFBE_DAY_DURATION") then {WFBE_DAY_DURATION = 50};     //--- Real-life duration of daytime in minutes
+	if (isNil "WFBE_NIGHT_DURATION") then {WFBE_NIGHT_DURATION = 10}; //--- Real-life duration of nighttime in minutes
+	// Marty: Hybrid day/night sync tuning. Clients animate with small local skipTime steps; setDate is reserved for JIP and exceptional hard corrections.
+	if (isNil "WFBE_DAYNIGHT_CLIENT_TICK") then {WFBE_DAYNIGHT_CLIENT_TICK = 1}; //--- Seconds between each small client-side time step.
+	if (isNil "WFBE_DAYNIGHT_SERVER_SYNC_INTERVAL") then {WFBE_DAYNIGHT_SERVER_SYNC_INTERVAL = 30}; //--- Seconds between authoritative server date broadcasts.
+	if (isNil "WFBE_DAYNIGHT_CLIENT_MAX_CORRECTION") then {WFBE_DAYNIGHT_CLIENT_MAX_CORRECTION = 0.005}; //--- Max drift correction in game hours per client tick.
+	if (isNil "WFBE_DAYNIGHT_CLIENT_HARD_SYNC_DRIFT") then {WFBE_DAYNIGHT_CLIENT_HARD_SYNC_DRIFT = 6}; //--- Drift in game hours before one exceptional setDate correction.
+
 //--- AI.
 	if (isNil "WFBE_C_AI_COMMANDER_ENABLED") then {WFBE_C_AI_COMMANDER_ENABLED = 1}; //--- Enable or disable the AI Commanders.
 	if (isNil "WFBE_C_AI_MAX") then {WFBE_C_AI_MAX = 10}; //--- Max AI allowed on each AI groups.
