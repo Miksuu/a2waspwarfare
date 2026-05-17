@@ -15,6 +15,10 @@ _upgrade_level = _this select 2;
 _upgrade_isplayer = _this select 3;
 
 _upgrade_time = ((missionNamespace getVariable Format["WFBE_C_UPGRADES_%1_TIMES",str _side]) select _upgrade_id) select _upgrade_level;
+_logic = (_side) Call WFBE_CO_FNC_GetSideLogic;
+// Marty: Publish the active upgrade ID from the server for clients that open the upgrade menu mid-process.
+_logic setVariable ["wfbe_upgrading", true, true];
+_logic setVariable ["wfbe_upgrading_id", _upgrade_id, true];
 
 if (_upgrade_isplayer) then {
 	[_side, "HandleSpecial", ['upgrade-started', _upgrade_id, _upgrade_level + 1]] Call WFBE_CO_FNC_SendToClients;
@@ -36,9 +40,10 @@ if (_upgrade_isplayer) then {
 _upgrades = +(_side Call WFBE_CO_FNC_GetSideUpgrades);
 _upgrades set [_upgrade_id, (_upgrades select _upgrade_id) + 1];
 
-_logic = (_side) Call WFBE_CO_FNC_GetSideLogic;
 _logic setVariable ["wfbe_upgrades", _upgrades, true];
 _logic setVariable ["wfbe_upgrading", false, true];
+// Marty: Clear the active upgrade ID once the running upgrade has completed.
+_logic setVariable ["wfbe_upgrading_id", -1, true];
 
 [_side, "NewIntelAvailable"] Spawn SideMessage;
 // [_side, "LocalizeMessage", ['UpgradeComplete', _upgrade_id, _upgrade_level + 1]] Call WFBE_CO_FNC_SendToClients;
