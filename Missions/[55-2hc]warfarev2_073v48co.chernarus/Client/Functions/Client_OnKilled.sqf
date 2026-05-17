@@ -6,7 +6,7 @@
 		_this select 1: killer
 */
 
-Private ["_body"];
+Private ["_body","_wfMenuAction"];
 
 _body = _this select 0;
 
@@ -28,9 +28,12 @@ if !(isNil "HQAction") then {
 	_body removeAction HQAction;
 };
 
-if !(isNil "Options") then {
-	_body removeAction Options;
-};
+// Marty: Remove the WF menu from the dead body using the ID stored on that body.
+// This avoids reusing a stale global Options ID on the next player unit.
+_wfMenuAction = _body getVariable ["WFBE_WFMenu_Action", -1];
+if (_wfMenuAction >= 0) then {_body removeAction _wfMenuAction};
+_body setVariable ["WFBE_WFMenu_Action", -1, false];
+Options = Nil;
 
 if !(isNil "Player_AI_Diagnose_Action") then {
 	_body removeAction Player_AI_Diagnose_Action;
