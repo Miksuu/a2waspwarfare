@@ -16,6 +16,7 @@ _upgrade_links = missionNamespace getVariable Format["WFBE_C_UPGRADES_%1_LINKS",
 _upgrade_sorted = missionNamespace getVariable "WFBE_C_UPGRADES_SORTED";
 _upgrade_times = missionNamespace getVariable Format["WFBE_C_UPGRADES_%1_TIMES",WFBE_Client_SideJoinedText];
 _upgrade_isupgrading = false;
+_upgrade_running_id = -1;
 
 _upgrades = (WFBE_Client_SideJoined) call WFBE_CO_FNC_GetSideUpgrades;
 _i = 0;
@@ -158,7 +159,9 @@ while {alive player && dialog} do {
 							[WFBE_Client_SideJoined, -(_upgrade_supply),"Tech upgrade started.", false] Call ChangeSideSupply;
 							//--- todo check conditions., deduce cash etc
 							["RequestUpgrade", [WFBE_Client_SideJoined, _id, _upgrade_current, true]] call WFBE_CO_FNC_SendToServer;
+							// Marty: Keep the active upgrade ID beside the existing running flag for immediate local menu feedback.
 							WFBE_Client_Logic setVariable ["wfbe_upgrading", true, true];
+							WFBE_Client_Logic setVariable ["wfbe_upgrading_id", _id, true];
 							//todo spawn local upgrade thread & timer & hint
 							//--- Pure client, spawn an upgrade thread, which is local to the client in case the client tickrate is above the server tickrate.
 							if !(isServer) then {
@@ -179,14 +182,23 @@ while {alive player && dialog} do {
 					hint parseText("<t color='#42b6ff' size='1.2' underline='1' shadow='1'>Information:</t><br /><br /><t>The upgrade has reached it's <t color='#76F563'>maximum level</t></t>");
 				};
 			} else {
-				hint parseText("<t color='#42b6ff' size='1.2' underline='1' shadow='1'>Information:</t><br /><br /><t>An upgrade is <t color='#B6F563'>already running</t></t>");
+				// Marty: Name the running upgrade when another purchase is attempted.
+				_running_id = WFBE_Client_Logic getVariable "wfbe_upgrading_id";
+				if (isNil "_running_id") then {_running_id = -1};
+				_running_label = if (_running_id >= 0 && _running_id < count _upgrade_labels) then {_upgrade_labels select _running_id} else {"An upgrade"};
+				hint parseText(Format["<t color='#42b6ff' size='1.2' underline='1' shadow='1'>Information:</t><br /><br /><t><t color='#B6F563'>%1</t> is already running</t>", _running_label]);
 			};
 		};
 	};
 	
-	if ((_upgrade_isupgrading && !(WFBE_Client_Logic getVariable "wfbe_upgrading")) || (!_upgrade_isupgrading && (WFBE_Client_Logic getVariable "wfbe_upgrading"))) then {
+	// Marty: Refresh the running-upgrade status when either the state or the active upgrade ID changes.
+	_running_id = WFBE_Client_Logic getVariable "wfbe_upgrading_id";
+	if (isNil "_running_id") then {_running_id = -1};
+	if ((_upgrade_isupgrading && !(WFBE_Client_Logic getVariable "wfbe_upgrading")) || (!_upgrade_isupgrading && (WFBE_Client_Logic getVariable "wfbe_upgrading")) || (_upgrade_running_id != _running_id)) then {
 		_upgrade_isupgrading = (WFBE_Client_Logic getVariable "wfbe_upgrading");
-		_html = if (_upgrade_isupgrading) then {"<t>An upgrade is <t color='#B6F563'>currently running</t></t>"} else {""};
+		_upgrade_running_id = _running_id;
+		_running_label = if (_upgrade_running_id >= 0 && _upgrade_running_id < count _upgrade_labels) then {_upgrade_labels select _upgrade_running_id} else {"An upgrade"};
+		_html = if (_upgrade_isupgrading) then {Format["<t><t color='#B6F563'>%1</t> is currently running</t>", _running_label]} else {""};
 		((uiNamespace getVariable "wfbe_display_upgrades") displayCtrl 504006) ctrlSetStructuredText (parseText _html);
 	};
 	

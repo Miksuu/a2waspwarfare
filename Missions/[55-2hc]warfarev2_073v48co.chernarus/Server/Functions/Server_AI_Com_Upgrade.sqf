@@ -39,7 +39,9 @@ if (count _to_upgrade > 0) then {
 	//--- Roll on!
 	if (_can_upgrade) then {
 		[_side, _upgrade, _upgrades select _upgrade, false] Spawn WFBE_SE_FNC_ProcessUpgrade;
+		// Marty: Mirror the AI commander's active upgrade ID for client upgrade-menu status text.
 		_logik setVariable ["wfbe_upgrading", true, true];
+		_logik setVariable ["wfbe_upgrading_id", _upgrade, true];
 		
 		//--- Deduct.
 		[_side,-(_cost select 0)] Call ChangeAICommanderFunds;
