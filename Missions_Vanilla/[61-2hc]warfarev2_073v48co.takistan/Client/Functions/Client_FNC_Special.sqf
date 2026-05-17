@@ -171,13 +171,45 @@ WFBE_CL_FNC_Building_Started = {
 };
 
 WFBE_CL_FNC_Upgrade_Complete = {
-	Private ["_upgrade","_level","_upgradeCost"];
+	Private ["_artilleryIndex","_artilleryTypes","_artilleryTypesByIndex","_artilleryVehicles","_level","_upgrade","_upgradeCost","_vehicle"];
 	_upgrade = _this select 0;
 	_level = _this select 1;
 
 	(Format [Localize "STR_WF_CHAT_Upgrade_Complete_Message",(missionNamespace getVariable "WFBE_C_UPGRADES_LABELS") select _upgrade, _level]) Call CommandChatMessage;
 	// Marty: Clear the local cached upgrade ID when completion is announced.
 	WFBE_Client_Logic setVariable ["wfbe_upgrading_id", -1];
+
+	// Marty: Refresh local artillery vehicles after Artillery Ammunition unlocks new special rounds.
+	// Existing empty artillery is equipped only when it is bought, built or rearmed, so scanning group units is not enough.
+	// Each machine refreshes only vehicles local to it, which avoids duplicate magazines while covering client-created artillery.
+	if (_upgrade == WFBE_UP_ARTYAMMO) then {
+		_artilleryVehicles = [];
+		_artilleryTypesByIndex = missionNamespace getVariable Format ["WFBE_%1_ARTILLERY_CLASSNAMES", WFBE_Client_SideJoinedText];
+
+		for "_artilleryIndex" from 0 to (count _artilleryTypesByIndex)-1 do {
+			_artilleryTypes = _artilleryTypesByIndex select _artilleryIndex;
+			{
+				_vehicle = _x;
+				if ((local _vehicle) && ((typeOf _vehicle) in _artilleryTypes) && !(_vehicle in _artilleryVehicles) && isNil {_vehicle getVariable "wfbe_arty_ammo_refreshed"}) then {
+					// Marty: EquipArtillery reads the current side upgrade level and adds any newly unlocked special artillery magazines.
+					[_vehicle, _artilleryIndex, WFBE_Client_SideJoined] Call EquipArtillery;
+					_vehicle setVariable ["wfbe_arty_ammo_refreshed", true, true];
+					_artilleryVehicles = _artilleryVehicles + [_vehicle];
+
+					// Marty: Rebuild the BIS artillery command menu from the refreshed magazines for already-existing guns.
+					if ((missionNamespace getVariable "WFBE_C_ARTILLERY_UI") > 0) then {
+						clearVehicleInit _vehicle;
+						_vehicle setVehicleInit "[this] ExecVM 'Common\Common_InitArtillery.sqf'";
+						processInitCommands;
+						clearVehicleInit _vehicle;
+					};
+				};
+			} forEach vehicles;
+		};
+
+		// Marty: Always log the local refresh count so artillery ammo upgrade tests can confirm whether this client owned any artillery vehicles.
+		["INFORMATION", Format ["Client_FNC_Special.sqf: Refreshed [%1] local artillery pieces after Artillery Ammunition upgrade.", count _artilleryVehicles]] Call WFBE_CO_FNC_LogContent;
+	};
 
 	if !(isNull commanderTeam) then { //--- Commander reward (if the player is the commander)
 		if (commanderTeam == group player) then {

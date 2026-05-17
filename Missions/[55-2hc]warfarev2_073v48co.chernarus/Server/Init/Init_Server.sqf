@@ -339,8 +339,12 @@ emptyQueu = [];
 			_upgrades = [];
 			for '_i' from 0 to count(missionNamespace getVariable Format["WFBE_C_UPGRADES_%1_LEVELS", _side])-1 do {[_upgrades, 0] Call WFBE_CO_FNC_ArrayPush};
 		} else {
-			_upgrades = missionNamespace getVariable Format["WFBE_C_UPGRADES_%1_LEVELS", _side];
+			// Marty: Copy the configured max-level array before changing debug upgrade state, otherwise SQF mutates the config by reference.
+			_upgrades = +(missionNamespace getVariable Format["WFBE_C_UPGRADES_%1_LEVELS", _side]);
 		};
+
+		// Marty: In debug, leave Artillery Ammunition locked so the one-level ammo unlock and refresh flow can be tested.
+		if (WF_Debug) then {_upgrades set [WFBE_UP_ARTYAMMO, 0]};
 
 		//--- Logic init.
 		_logik setVariable ["wfbe_commander", objNull, true];
