@@ -601,8 +601,10 @@ WFBE_SE_PLAYERLIST = [[objNull, "0"]];
 
 {_x Spawn WFBE_SE_FNC_VoteForCommander} forEach WFBE_PRESENTSIDES;
 
-// Day/Night cycles calling script.
-[] execVM "Server\Functions\Server_DayNightCycle.sqf";
+// Marty: Start the accelerated day/night cycle only when the mission parameter enables it.
+if ((missionNamespace getVariable "WFBE_DAYNIGHT_ENABLED") == 1) then {
+	[] execVM "Server\Functions\Server_DayNightCycle.sqf";
+};
 
 
 ["INITIALIZATION", Format ["Init_Server.sqf: Server initialization ended at [%1]", time]] Call WFBE_CO_FNC_LogContent;

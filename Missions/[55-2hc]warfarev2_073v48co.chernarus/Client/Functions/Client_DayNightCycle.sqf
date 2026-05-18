@@ -36,6 +36,8 @@ Private [
 
 // This script is for remote clients only. A hosted server player already uses the server clock loop.
 if (isDedicated || isServer) exitWith {};
+// Marty: Defensive guard in case this script is executed while the mission parameter is disabled.
+if ((missionNamespace getVariable "WFBE_DAYNIGHT_ENABLED") != 1) exitWith {};
 
 waitUntil {time > 0};
 waitUntil {!isNil "WFBE_Parameters_Ready"};
@@ -63,7 +65,7 @@ _hard_sync_hours = missionNamespace getVariable "WFBE_DAYNIGHT_CLIENT_HARD_SYNC_
 if (isNil "WFBE_DAYNIGHT_PENDING_SYNC") then {WFBE_DAYNIGHT_PENDING_SYNC = false};
 if (isNil "WFBE_DAYNIGHT_CORRECTION_HOURS") then {WFBE_DAYNIGHT_CORRECTION_HOURS = 0};
 
-while {true} do {
+while {(missionNamespace getVariable "WFBE_DAYNIGHT_ENABLED") == 1} do {
 	// A public variable event only stores the server date. The expensive decision is handled here in one place.
 	if (WFBE_DAYNIGHT_PENDING_SYNC) then {
 		WFBE_DAYNIGHT_PENDING_SYNC = false;
