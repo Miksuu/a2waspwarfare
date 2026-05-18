@@ -171,14 +171,41 @@ if (ARMA_VERSION >= 162 && ARMA_RELEASENUMBER >= 101334 || ARMA_VERSION > 162) t
 	};
 };
 
+// Marty: Receive authoritative day/night dates without calling setDate on every broadcast.
+if (!isDedicated && ((missionNamespace getVariable "WFBE_DAYNIGHT_ENABLED") == 1)) then {
+	"WFBE_DAYNIGHT_DATE" addPublicVariableEventHandler {
+		Private ["_server_date"];
+
+		_server_date = _this select 1;
+		if ((typeName _server_date) == "ARRAY" && (count _server_date >= 5)) then {
+			WFBE_DAYNIGHT_SERVER_DATE = _server_date;
+			WFBE_DAYNIGHT_PENDING_SYNC = true;
+		};
+	};
+};
+
 //--- Apply the time-environment (don't halt).
 [] Spawn {
 	waitUntil {time > 0}; //--- Await for the mission to start / JIP.
 
-	setDate [(date select 0),(missionNamespace getVariable "WFBE_C_ENVIRONMENT_STARTING_MONTH"),(date select 2),(missionNamespace getVariable "WFBE_C_ENVIRONMENT_STARTING_HOUR"),(date select 4)]; //--- Apply the date and time.
+	// Marty: Enabled cycle uses the server date for JIP; disabled cycle preserves the old mission-time skipTime sync.
+	if ((missionNamespace getVariable "WFBE_DAYNIGHT_ENABLED") == 1) then {
+		if (!isNil "WFBE_DAYNIGHT_DATE") then {
+			setDate WFBE_DAYNIGHT_DATE;
+		} else {
+			setDate [(date select 0),(missionNamespace getVariable "WFBE_C_ENVIRONMENT_STARTING_MONTH"),(date select 2),(missionNamespace getVariable "WFBE_C_ENVIRONMENT_STARTING_HOUR"),(date select 4)]; //--- Apply the date and time.
+		};
+	} else {
+		setDate [(date select 0),(missionNamespace getVariable "WFBE_C_ENVIRONMENT_STARTING_MONTH"),(date select 2),(missionNamespace getVariable "WFBE_C_ENVIRONMENT_STARTING_HOUR"),(date select 4)]; //--- Apply the date and time.
 
-	if (local player) then {skipTime (time / 3600)}; //--- If we're dealing with a client, he may have JIP half way through the game. Sync him via skipTime with the mission time.
+		if (local player) then {skipTime (time / 3600)}; //--- If we're dealing with a client, he may have JIP half way through the game. Sync him via skipTime with the mission time.
+	};
 	sleep 2;
+};
+
+// Marty: Remote clients animate day/night locally with small skipTime steps and only use server dates for drift correction.
+if (!isDedicated && !isServer && !isHeadLessClient && ((missionNamespace getVariable "WFBE_DAYNIGHT_ENABLED") == 1)) then {
+	[] execVM "Client\Functions\Client_DayNightCycle.sqf";
 };
 
 WFBE_Parameters_Ready = true; //--- All parameters are set and ready.
