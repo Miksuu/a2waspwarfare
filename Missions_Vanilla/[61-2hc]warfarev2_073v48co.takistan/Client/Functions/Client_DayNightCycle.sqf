@@ -19,7 +19,16 @@ Private [
 	"_night_duration_real_seconds",
 	"_day_hours_game",
 	"_night_hours_game",
+	"_dawn_start",
+	"_dawn_end",
+	"_dusk_start",
+	"_dusk_end",
+	"_dawn_hours_game",
+	"_dusk_hours_game",
+	"_twilight_weight",
+	"_day_weighted_hours",
 	"_day_hours_per_second",
+	"_twilight_hours_per_second",
 	"_night_hours_per_second",
 	"_tick",
 	"_max_correction_hours",
@@ -48,13 +57,22 @@ _night_duration_real = missionNamespace getVariable "WFBE_NIGHT_DURATION";
 _day_duration_real_seconds = _day_duration_real * 60;
 _night_duration_real_seconds = _night_duration_real * 60;
 
-// In-game daytime: 06:00 -> 18:00 = 12 hours.
-// In-game nighttime: 18:00 -> 06:00 = 12 hours.
-_day_hours_game = 12;
-_night_hours_game = 12;
+// Marty: Phase boundaries are estimated for Chernarus on 28 June, the mission's effective date after the month override.
+_dawn_start = missionNamespace getVariable "WFBE_DAYNIGHT_DAWN_START";
+_dawn_end = missionNamespace getVariable "WFBE_DAYNIGHT_DAWN_END";
+_dusk_start = missionNamespace getVariable "WFBE_DAYNIGHT_DUSK_START";
+_dusk_end = missionNamespace getVariable "WFBE_DAYNIGHT_DUSK_END";
+_twilight_weight = missionNamespace getVariable "WFBE_DAYNIGHT_TWILIGHT_WEIGHT";
 
-// These rates match the server script. The client applies them with skipTime for smooth local lighting.
-_day_hours_per_second = _day_hours_game / _day_duration_real_seconds;
+_dawn_hours_game = _dawn_end - _dawn_start;
+_day_hours_game = _dusk_start - _dawn_end;
+_dusk_hours_game = _dusk_end - _dusk_start;
+_night_hours_game = (24 - _dusk_end) + _dawn_start;
+
+// Marty: These rates match the server. Dawn and dusk advance slower than full daylight for smoother visual transitions.
+_day_weighted_hours = _day_hours_game + ((_dawn_hours_game + _dusk_hours_game) * _twilight_weight);
+_day_hours_per_second = _day_weighted_hours / _day_duration_real_seconds;
+_twilight_hours_per_second = _day_weighted_hours / (_day_duration_real_seconds * _twilight_weight);
 _night_hours_per_second = _night_hours_game / _night_duration_real_seconds;
 
 _tick = missionNamespace getVariable "WFBE_DAYNIGHT_CLIENT_TICK";
@@ -93,11 +111,11 @@ while {(missionNamespace getVariable "WFBE_DAYNIGHT_ENABLED") == 1} do {
 
 	_hour = daytime;
 
-	if (_hour >= 6 && _hour < 18) then {
-		_hours_to_skip = _day_hours_per_second * _tick;
-	} else {
-		_hours_to_skip = _night_hours_per_second * _tick;
-	};
+	// Marty: Night is the wrap-around default; dawn/day/dusk override it when the current hour is inside their ranges.
+	_hours_to_skip = _night_hours_per_second * _tick;
+	if (_hour >= _dawn_start && _hour < _dawn_end) then {_hours_to_skip = _twilight_hours_per_second * _tick};
+	if (_hour >= _dawn_end && _hour < _dusk_start) then {_hours_to_skip = _day_hours_per_second * _tick};
+	if (_hour >= _dusk_start && _hour < _dusk_end) then {_hours_to_skip = _twilight_hours_per_second * _tick};
 
 	// Apply only a small portion of any server drift per tick so the correction stays smooth.
 	_correction_hours = WFBE_DAYNIGHT_CORRECTION_HOURS;
