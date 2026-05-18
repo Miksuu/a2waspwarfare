@@ -18,6 +18,8 @@ Private [
 	"_min",
 	"_minBoostSpeed",
 	"_boostCoef",
+	"_baseBoostCoef",
+	"_maxBoostCoef",
 	"_speed",
 	"_vel",
 	"_isMovingForward"
@@ -44,18 +46,20 @@ _direction = {
 
 // Target assist speed.
 // The script boosts only while the vehicle speed is below this value.
-_min = 30;
+_min = 40; // Only for light vehicle. Tanks have another value defined further.
 
 // Minimum speed required before applying boost.
 // This prevents the script from pushing the vehicle when the player is trying to stop.
 _minBoostSpeed = 1;
 
-// Velocity multiplier applied while the vehicle is moving forward but too slowly.
-_boostCoef = 1.3;
+// Progressive velocity multiplier applied while the vehicle is moving forward but too slowly.
+// Keeps normal low-speed driving gentle, while giving more help on steep climbs.
+_baseBoostCoef = 1.05;
+_maxBoostCoef = 1.30;
 
 // Tanks use a lower target assist speed.
 if (_vehicle isKindOf "Tank") then {
-	_min = 24;
+	_min = 30; 
 };
 
 while {
@@ -77,6 +81,9 @@ while {
 		_isMovingForward = [_vel, _vehicle] call _direction;
 
 		if (_isMovingForward) then {
+			_boostCoef = _baseBoostCoef + (((_min - _speed) / _min) * (_maxBoostCoef - _baseBoostCoef));
+			if (_boostCoef > _maxBoostCoef) then {_boostCoef = _maxBoostCoef};
+
 			_vel = [
 				(_vel select 0) * _boostCoef,
 				(_vel select 1) * _boostCoef,
