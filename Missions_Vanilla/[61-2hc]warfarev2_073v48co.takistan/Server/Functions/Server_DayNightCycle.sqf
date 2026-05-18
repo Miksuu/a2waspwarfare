@@ -28,6 +28,8 @@ Private [
 ];
 
 if (!isServer) exitWith {};
+// Marty: Defensive guard in case this script is executed while the mission parameter is disabled.
+if ((missionNamespace getVariable "WFBE_DAYNIGHT_ENABLED") != 1) exitWith {};
 
 _day_duration_real = missionNamespace getVariable "WFBE_DAY_DURATION";
 _night_duration_real = missionNamespace getVariable "WFBE_NIGHT_DURATION";
@@ -49,7 +51,7 @@ _tick = 1;
 _sync_interval = missionNamespace getVariable "WFBE_DAYNIGHT_SERVER_SYNC_INTERVAL";
 _sync_elapsed = _sync_interval;
 
-while {true} do {
+while {(missionNamespace getVariable "WFBE_DAYNIGHT_ENABLED") == 1} do {
 
     _hour = daytime;
 

@@ -1,7 +1,14 @@
 /* Parameters */
 
 	class Params {
-		class WFBE_DAY_DURATION {
+	// Marty: Allow admins to run the mission with or without the accelerated day/night cycle.
+	class WFBE_DAYNIGHT_ENABLED {
+		title = "$STR_WF_PARAMETER_DAYNIGHT_ENABLED";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 1;
+	};
+	class WFBE_DAY_DURATION {
 		title = "$STR_WF_PARAMETER_DAY_DURATION";
 		values[] = {1,30,40,50,60,90};
 		texts[] = {"1 minute", "30 minutes", "40 minutes", "50 minutes", "60 minutes", "90 minutes"};

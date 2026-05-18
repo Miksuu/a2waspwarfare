@@ -9360,6 +9360,15 @@
         <Italian>ICBM: Tempo prima dell'impatto dell'ICBM</Italian>
     </Key>
 
+    <!-- Marty: Mission parameter title for enabling or disabling the hybrid day/night cycle. -->
+    <Key ID="STR_WF_PARAMETER_DAYNIGHT_ENABLED">
+        <English>Day/night cycle</English>
+        <French>Cycle jour/nuit</French>
+        <German>Tag-/Nachtzyklus</German>
+        <Russian>Ð¦Ð¸ÐºÐ» Ð´Ð½Ñ/Ð½Ð¾Ñ‡Ð¸</Russian>
+        <Italian>Ciclo giorno/notte</Italian>
+    </Key>
+
     <Key ID="STR_WF_PARAMETER_DAY_DURATION">
     <English>Day/night cycle: Day duration</English>
     <French>Cycle jour/nuit : durée du jour</French>
