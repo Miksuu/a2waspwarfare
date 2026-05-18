@@ -25,6 +25,8 @@ Private [
 	"_min",
 	"_minBoostSpeed",
 	"_boostCoef",
+	"_baseBoostCoef",
+	"_maxBoostCoef",
 	"_speed",
 	"_vel",
 	"_driver",
@@ -62,14 +64,16 @@ _direction = {
 
 // Target assist speed.
 // The script will help the tank only while its speed is below this value.
-_min = 24;
+_min = 30;
 
 // Minimum speed required before applying boost.
 // This prevents the script from pushing the tank when the player ordered it to stop.
 _minBoostSpeed = 3;
 
-// Velocity multiplier applied while the tank is moving forward but too slowly.
-_boostCoef = 1.3;
+// Progressive velocity multiplier applied while the tank is moving forward but too slowly.
+// Keeps normal low-speed driving gentle, while giving more help to tanks stuck on steep climbs.
+_baseBoostCoef = 1.05;
+_maxBoostCoef = 1.30;
 
 while {
 	!isNull _vehicle &&
@@ -96,6 +100,9 @@ while {
 				// Boost only when the tank is already moving forward but is still too slow.
 				// No braking is applied above the target assist speed.
 				if (_speed > _minBoostSpeed && {_speed < _min}) then {
+					_boostCoef = _baseBoostCoef + (((_min - _speed) / _min) * (_maxBoostCoef - _baseBoostCoef));
+					if (_boostCoef > _maxBoostCoef) then {_boostCoef = _maxBoostCoef};
+
 					_vel = [
 						(_vel select 0) * _boostCoef,
 						(_vel select 1) * _boostCoef,
@@ -108,7 +115,7 @@ while {
 		};
 	};
 
-	sleep 0.25;
+	sleep 0.1;
 };
 
 _vehicle setVariable ["AI_LowGear_Running", false, false];
