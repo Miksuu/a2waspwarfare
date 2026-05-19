@@ -26,18 +26,34 @@ _markerName setMarkerTypeLocal _markerType;
 _markerName setMarkerColorLocal _markerColor;
 _markerName setMarkerSizeLocal _markerSize;
 
-if (!(canMove _tracked)) then {
-	_markerName setMarkerTextLocal "   X";
-};
-
 _tracked setVariable ["unitMarkerBlink", _markerName, false];
 _tracked setVariable ["OriginalMarkerColor", _markerColor, false];
 
-while {alive _tracked && !(isNull _tracked)} do {
+if (getMarkerType _markerName == "Headquarters") then {
+	
+	while {alive _tracked && !(isNull _tracked)} do {
 
 		sleep _refreshRate;
 
 		_markerName setMarkerPosLocal (getPos _tracked);
+	};
+
+} else {
+
+	while {alive _tracked && !(isNull _tracked)} do {
+
+			sleep _refreshRate;
+
+			if (!(canMove _tracked)) then {
+				_markerName setMarkerTypeLocal "mil_objective";
+				_markerName setMarkerSizeLocal [0.5,0.5];
+			} else {
+				_markerName setMarkerTypeLocal _markerType;
+				_markerName setMarkerSizeLocal _markerSize;
+			};
+
+			_markerName setMarkerPosLocal (getPos _tracked);
+	};
 };
 
 if (_trackDeath && !isNull _tracked) then {
