@@ -542,6 +542,9 @@ WF_Logic setVariable ['filler','primary'];
 [] execVM "WASP\baserep\init.sqf";
 [] execVM "WASP\actions\AddActions.sqf";
 
+// Marty: Start a light client-side watcher that rights nearby flipped cars and tanks after they remain stuck.
+[] execVM "Client\Module\AutoFlip\AutoFlip.sqf";
+
 /* Debug System - Client */
 if (WF_Debug) then {
 	//player addEventHandler ["HandleDamage", {false}];
