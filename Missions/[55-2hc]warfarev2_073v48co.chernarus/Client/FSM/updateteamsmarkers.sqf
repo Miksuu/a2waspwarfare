@@ -41,20 +41,17 @@ while {!gameOver} do {
 					_marker setMarkerPosLocal GetPos (leader _x);
 					_marker setMarkerDirLocal GetDir (vehicle (leader _x));
 					_marker setMarkerAlphaLocal 1;
+					_playerAFKstate = (leader _x) getVariable "WASP_AFK";
+					_label = if (!(isNil "_playerAFKstate") && (_playerAFKstate)) then { Format[" %1 (AFK)", name (leader _x)] } else { Format[" %1", name (leader _x)]};
+					_marker setMarkerTextLocal _label;
 				} else {
 					_label = "AI";
 					_marker setMarkerTextLocal _label;
 					_marker setMarkerPosLocal GetPos (leader _x);
 					_marker setMarkerAlphaLocal 0;
 				};
-			} else {
-				label = "";
-				if (isPlayer (leader _x)) then {
-					_playerAFKstate = (leader _x) getVariable "WASP_AFK";
-					_label = if (!(isNil "_playerAFKstate") && (_playerAFKstate)) then { Format[" %1 (AFK)", name (leader _x)] } else { Format[" %1", name (leader _x)] };
-				};
-				deleteMarkerLocal _label;
 			};
+			
 			_marker setMarkerTypeLocal _markerType;
 
 			if (player == leader _x) then {
