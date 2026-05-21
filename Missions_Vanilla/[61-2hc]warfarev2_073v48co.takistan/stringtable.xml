@@ -9433,6 +9433,15 @@
       <Italian>Questo aggiornamento riduce il prezzo delle unità in modo permanente. Livello 1 = sconto permanente del 25 % su tutte le unità, costo: S 25.000. Livello 2 = sconto permanente del 50 % su tutte le unità, costo: S 50.000.</Italian>
     </Key>
 
+    <!-- Marty: Client notification when the AI movement recovery actually made a unit move again. -->
+    <Key ID="STR_WF_INFO_AI_Recovered">
+      <English>AI movement recovered: %1.</English>
+      <French>Mouvement IA debloque : %1.</French>
+      <German>KI-Bewegung wiederhergestellt: %1.</German>
+      <Russian>AI movement recovered: %1.</Russian>
+      <Italian>Movimento IA ripristinato: %1.</Italian>
+    </Key>
+
     </Container>
   </Package>
 </Project>
