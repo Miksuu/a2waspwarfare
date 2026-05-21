@@ -31,24 +31,36 @@
 
 Private [
 	"_action_target",
+	"_action_args",
+	"_automatic_units",
 	"_can_prepare_unit",
 	"_can_restart_fsm",
 	"_can_send_move_order",
+	"_can_use_recovery",
 	"_current_time",
 	"_current_unit",
 	"_destination",
 	"_destination_data",
 	"_destination_mode",
+	"_destination_x",
+	"_destination_y",
+	"_destination_z",
 	"_distance_to_saved_destination",
 	"_driver",
+	"_has_valid_destination",
 	"_has_useful_destination",
+	"_is_automatic_recovery",
 	"_is_movement_controller",
 	"_is_player_ai_unit",
 	"_last_use_time",
+	"_max_valid_destination_coordinate",
+	"_max_valid_destination_z",
 	"_min_destination_distance",
 	"_movement_can_work",
 	"_player",
 	"_saved_movement_data",
+	"_show_success_message",
+	"_source_units",
 	"_start_position",
 	"_units_to_recover",
 	"_vehicle"
@@ -56,6 +68,24 @@ Private [
 
 _action_target = _this select 0;
 _player = _this select 1;
+_action_args = [];
+
+if (count _this > 3) then {
+	_action_args = _this select 3;
+};
+
+_automatic_units = [];
+_is_automatic_recovery = false;
+
+if (count _action_args > 0) then {
+	_automatic_units = _action_args select 0;
+};
+
+if (count _action_args > 1) then {
+	_is_automatic_recovery = _action_args select 1;
+};
+
+_show_success_message = true;
 
 if (isNull _player) exitWith {};
 if (!alive _player) exitWith {};
@@ -71,6 +101,10 @@ if (leader (group _player) != _player) exitWith {
 // A saved destination closer than this is considered already reached.
 
 _min_destination_distance = 50;
+
+// Reject invalid engine sentinel destinations such as [0,0,1e+009].
+_max_valid_destination_coordinate = 50000;
+_max_valid_destination_z = 10000;
 
 
 // ==================================================
@@ -108,14 +142,23 @@ _movement_can_work = {
 // ==================================================
 // Avoid repeated FSM resets through mouse wheel spam.
 
-_current_time = time;
-_last_use_time = missionNamespace getVariable ["Player_AI_Recover_Last_Use", -5000];
+_can_use_recovery = true;
 
-if (_current_time - _last_use_time < 10) exitWith {
-	"AI recovery is cooling down." Call GroupChatMessage;
+if (!_is_automatic_recovery) then {
+	_current_time = time;
+	_last_use_time = missionNamespace getVariable ["Player_AI_Recover_Last_Use", -5000];
+
+	if (_current_time - _last_use_time < 10) then {
+		"AI recovery is cooling down." Call GroupChatMessage;
+		_can_use_recovery = false;
+	};
 };
 
-missionNamespace setVariable ["Player_AI_Recover_Last_Use", _current_time];
+if (!_can_use_recovery) exitWith {};
+
+if (!_is_automatic_recovery) then {
+	missionNamespace setVariable ["Player_AI_Recover_Last_Use", _current_time];
+};
 
 
 // ==================================================
@@ -125,6 +168,11 @@ missionNamespace setVariable ["Player_AI_Recover_Last_Use", _current_time];
 // We only keep living AI subordinates.
 
 _units_to_recover = [];
+_source_units = units (group _player);
+
+if (_is_automatic_recovery) then {
+	_source_units = _automatic_units;
+};
 
 {
 	_current_unit = _x;
@@ -143,16 +191,19 @@ _units_to_recover = [];
 	if (_is_player_ai_unit) then {
 		_units_to_recover = _units_to_recover + [_current_unit];
 	};
-} forEach units (group _player);
+} forEach _source_units;
 
 if (count _units_to_recover == 0) exitWith {
-	"No AI units to recover." Call GroupChatMessage;
+	if (!_is_automatic_recovery) then {
+		"No AI units to recover." Call GroupChatMessage;
+	};
 };
 
 ["INFORMATION", Format [
-	"AI Recover: Player [%1] started movement recovery for [%2] AI units.",
+	"AI Recover: Player [%1] started movement recovery for [%2] AI units. automatic [%3].",
 	name _player,
-	count _units_to_recover
+	count _units_to_recover,
+	_is_automatic_recovery
 ]] Call WFBE_CO_FNC_LogContent;
 
 
@@ -192,15 +243,42 @@ _saved_movement_data = [];
 	};
 
 	_distance_to_saved_destination = -1;
+	_has_valid_destination = false;
 	_has_useful_destination = false;
 
-	if (typeName _destination == "ARRAY") then {
-		if (count _destination > 1) then {
-			_distance_to_saved_destination = _current_unit distance _destination;
+	// Decide if the engine destination can be used safely.
+	// Some broken AI states report [0,0,1e+009], which must be rejected.
+	_has_valid_destination = Call {
+		if (typeName _destination != "ARRAY") exitWith {false};
+		if (count _destination < 2) exitWith {false};
 
-			if (_distance_to_saved_destination > _min_destination_distance) then {
-				_has_useful_destination = true;
-			};
+		_destination_x = _destination select 0;
+		_destination_y = _destination select 1;
+		_destination_z = 0;
+
+		if (count _destination > 2) then {
+			_destination_z = _destination select 2;
+		};
+
+		if (typeName _destination_x != "SCALAR") exitWith {false};
+		if (typeName _destination_y != "SCALAR") exitWith {false};
+		if (typeName _destination_z != "SCALAR") exitWith {false};
+		if (_destination_x == 0 && _destination_y == 0) exitWith {false};
+		if (_destination_x < 0) exitWith {false};
+		if (_destination_y < 0) exitWith {false};
+		if (_destination_x > _max_valid_destination_coordinate) exitWith {false};
+		if (_destination_y > _max_valid_destination_coordinate) exitWith {false};
+		if (_destination_z > _max_valid_destination_z) exitWith {false};
+		if (_destination_z < -100) exitWith {false};
+
+		true
+	};
+
+	if (_has_valid_destination) then {
+		_distance_to_saved_destination = _current_unit distance _destination;
+
+		if (_distance_to_saved_destination > _min_destination_distance) then {
+			_has_useful_destination = true;
 		};
 	};
 
@@ -219,7 +297,7 @@ _saved_movement_data = [];
 	]];
 
 	["INFORMATION", Format [
-		"AI Recover: Saved unit [%1] vehicle [%2] driver [%3] is_movement_controller [%4] local_unit [%5] local_vehicle [%6] destination [%7] mode [%8] distance_to_saved_destination [%9] has_useful_destination [%10] start_position [%11].",
+		"AI Recover: Saved unit [%1] vehicle [%2] driver [%3] is_movement_controller [%4] local_unit [%5] local_vehicle [%6] destination [%7] mode [%8] distance_to_saved_destination [%9] has_valid_destination [%10] has_useful_destination [%11] start_position [%12].",
 		_current_unit,
 		_vehicle,
 		_driver,
@@ -229,6 +307,7 @@ _saved_movement_data = [];
 		_destination,
 		_destination_mode,
 		round _distance_to_saved_destination,
+		_has_valid_destination,
 		_has_useful_destination,
 		_start_position
 	]] Call WFBE_CO_FNC_LogContent;
@@ -421,7 +500,9 @@ sleep 0.25;
 
 } forEach _saved_movement_data;
 
-(Format ["AI movement recovery checked %1 units.", count _saved_movement_data]) Call GroupChatMessage;
+if (!_is_automatic_recovery) then {
+	(Format ["AI movement recovery checked %1 units.", count _saved_movement_data]) Call GroupChatMessage;
+};
 
 
 // ==================================================
@@ -430,7 +511,7 @@ sleep 0.25;
 // Phase 2 is only attempted for movement controllers with a useful destination
 // that did not move after Phase 1.
 
-[_saved_movement_data, _movement_can_work] Spawn {
+[_saved_movement_data, _movement_can_work, _show_success_message] Spawn {
 
 	Private [
 		"_can_check_phase1",
@@ -452,7 +533,9 @@ sleep 0.25;
 		"_phase2_data",
 		"_saved_movement_data",
 		"_should_try_phase_2",
+		"_show_success_message",
 		"_start_position",
+		"_success_message",
 		"_vehicle",
 		"_x_offset",
 		"_y_offset",
@@ -461,6 +544,7 @@ sleep 0.25;
 
 	_saved_movement_data = _this select 0;
 	_movement_can_work = _this select 1;
+	_show_success_message = _this select 2;
 
 	sleep 5;
 
@@ -524,6 +608,16 @@ sleep 0.25;
 					_current_unit,
 					_distance_moved
 				]] Call WFBE_CO_FNC_LogContent;
+
+				if (_show_success_message) then {
+					_success_message = localize "STR_WF_INFO_AI_Recovered";
+
+					if (_success_message == "") then {
+						_success_message = "AI movement recovered: %1.";
+					};
+
+					systemChat Format [_success_message, _current_unit];
+				};
 
 				true
 			};
@@ -678,7 +772,23 @@ sleep 0.25;
 				unitReady _current_unit
 			]] Call WFBE_CO_FNC_LogContent;
 
-			if (_distance_moved < 2) then {
+			if (_distance_moved >= 2) then {
+				["INFORMATION", Format [
+					"AI Recover: Unit [%1] appears recovered. It moved [%2]m after Phase 2.",
+					_current_unit,
+					_distance_moved
+				]] Call WFBE_CO_FNC_LogContent;
+
+				if (_show_success_message) then {
+					_success_message = localize "STR_WF_INFO_AI_Recovered";
+
+					if (_success_message == "") then {
+						_success_message = "AI movement recovered: %1.";
+					};
+
+					systemChat Format [_success_message, _current_unit];
+				};
+			} else {
 				["WARNING", Format [
 					"AI Recover: Unit [%1] still did not move after Phase 2. Possible causes: non-local unit or vehicle, invalid path, engine pathfinding failure, blocked vehicle simulation, or corrupted AI state.",
 					_current_unit

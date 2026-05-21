@@ -480,6 +480,7 @@ missionNamespace setVariable ["COIN_UseHelper", _greenList];
 // Marty: Add the WF menu through a helper so the action ID is stored on player instead of only in a global variable.
 player Call WFBE_CL_FNC_AddWFMenuAction;
 player Call WFBE_CL_FNC_AddPlayerAIActions;
+[] Spawn Compile preprocessFileLineNumbers "Client\Functions\Client_WatchdogPlayerAI.sqf";
 
 // Marty: Safety refresh for the WF menu.
 // If another script removes the action by mistake, it comes back without waiting for respawn.
