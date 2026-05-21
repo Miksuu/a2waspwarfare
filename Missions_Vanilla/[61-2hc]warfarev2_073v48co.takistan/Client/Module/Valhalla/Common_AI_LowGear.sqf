@@ -30,7 +30,9 @@ Private [
 	"_speed",
 	"_vel",
 	"_driver",
-	"_isMovingForward"
+	"_isMovingForward",
+	"_currentCommand",
+	"_canAssist"
 ];
 
 _vehicle = _this;
@@ -91,10 +93,16 @@ while {
 
 			_speed = speed _vehicle;
 			_vel = velocity _vehicle;
+			_currentCommand = currentCommand _driver;
+
+			// Do not let the climbing assist fight explicit player orders.
+			// If the AI driver has been stopped, or is currently processing STOP/WAIT,
+			// the tank may still roll downhill, but the script must not boost that roll.
+			_canAssist = !(stopped _driver) && {!(_currentCommand in ["WAIT", "STOP"])};
 
 			_isMovingForward = [_vel, _vehicle] call _direction;
 
-			if (_isMovingForward) then {
+			if (_canAssist && {_isMovingForward}) then {
 
 				// Climbing assist only.
 				// Boost only when the tank is already moving forward but is still too slow.
