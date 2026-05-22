@@ -99,8 +99,9 @@ if (leader (group _player) != _player) exitWith {
 // Configuration
 // ==================================================
 // A saved destination closer than this is considered already reached.
+// Marty: keep this low so manual recovery can also help with short movement orders.
 
-_min_destination_distance = 50;
+_min_destination_distance = 2;
 
 // Reject invalid engine sentinel destinations such as [0,0,1e+009].
 _max_valid_destination_coordinate = 50000;
