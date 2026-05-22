@@ -29,17 +29,20 @@ Private [
 	"_driver",
 	"_has_useful_destination",
 	"_is_movement_controller",
+	"_is_close_destination",
 	"_last_check_time",
 	"_last_destination",
 	"_last_position",
 	"_last_recovery_time",
 	"_max_valid_destination_coordinate",
 	"_max_valid_destination_z",
+	"_min_close_destination_distance",
 	"_min_destination_distance",
 	"_min_movement_distance",
 	"_movement_can_work",
 	"_player",
 	"_recovery_cooldown",
+	"_required_close_stuck_time",
 	"_required_stuck_time",
 	"_should_recover_unit",
 	"_stuck_units_to_recover",
@@ -56,8 +59,10 @@ missionNamespace setVariable ["Player_AI_Watchdog_Running", true];
 
 _check_interval = 15;
 _required_stuck_time = 45;
+_required_close_stuck_time = 75;
 _recovery_cooldown = 120;
 _min_destination_distance = 50;
+_min_close_destination_distance = 2;
 _min_movement_distance = 5;
 _destination_change_distance = 25;
 
@@ -194,6 +199,7 @@ while {true} do {
 				};
 
 				_has_useful_destination = false;
+				_is_close_destination = false;
 				_distance_to_destination = -1;
 
 				if (Call _destination_can_be_used) then {
@@ -202,10 +208,23 @@ while {true} do {
 					if (_distance_to_destination > _min_destination_distance) then {
 						_has_useful_destination = true;
 					};
+
+					if (!_has_useful_destination) then {
+						if (_distance_to_destination > _min_close_destination_distance) then {
+							_has_useful_destination = true;
+							_is_close_destination = true;
+						};
+					};
 				};
 
 				_should_recover_unit = Call {
 					if (!_has_useful_destination) exitWith {false};
+
+					// Close destinations are risky because they can be formation or micro-position orders.
+					// Only recover them if the engine still reports a real MOVE command.
+					if (_is_close_destination) then {
+						if (_current_command != "MOVE") exitWith {false};
+					};
 
 					_last_position = _current_unit getVariable ["Player_AI_Watchdog_Last_Position", []];
 					_last_check_time = _current_unit getVariable ["Player_AI_Watchdog_Last_Time", -1];
@@ -246,7 +265,14 @@ while {true} do {
 						false
 					};
 
-					if (_current_time - _last_check_time < _required_stuck_time) exitWith {false};
+					if (_is_close_destination) then {
+						if (_current_time - _last_check_time < _required_close_stuck_time) exitWith {false};
+					};
+
+					if (!_is_close_destination) then {
+						if (_current_time - _last_check_time < _required_stuck_time) exitWith {false};
+					};
+
 					if (_current_time - _last_recovery_time < _recovery_cooldown) exitWith {false};
 
 					true
@@ -261,11 +287,12 @@ while {true} do {
 					_stuck_units_to_recover = _stuck_units_to_recover + [_current_unit];
 
 					["WARNING", Format [
-						"AI Watchdog: Unit [%1] appears stuck. mode [%2], destination [%3], distance_to_destination [%4], command [%5]. Automatic recovery will start.",
+						"AI Watchdog: Unit [%1] appears stuck. mode [%2], destination [%3], distance_to_destination [%4], close_destination [%5], command [%6]. Automatic recovery will start.",
 						_current_unit,
 						_destination_mode,
 						_destination,
 						round _distance_to_destination,
+						_is_close_destination,
 						_current_command
 					]] Call WFBE_CO_FNC_LogContent;
 				};
