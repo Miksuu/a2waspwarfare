@@ -3322,6 +3322,14 @@
         <Russian>AI Демобилизовать</Russian>
         <Italian>AI Smobilita</Italian>
       </Key>
+      <!-- Marty: Team menu tip for the Ctrl-click map disband shortcut. -->
+      <Key ID="STR_WF_TEAM_DisbandMapShortcutTip">
+        <English>Tip: you can also disband an AI from the map with Ctrl + click on its unit icon.</English>
+        <French>Astuce : vous pouvez aussi dissoudre une IA depuis la carte avec Ctrl + clic sur son icône.</French>
+        <German>Tipp: Du kannst eine KI auch direkt auf der Karte mit Strg + Klick auf ihr Einheitensymbol entfernen.</German>
+        <Russian>Подсказка: ИИ можно распустить прямо на карте: Ctrl + клик по значку юнита.</Russian>
+        <Italian>Suggerimento: puoi smobilitare un'IA dalla mappa con Ctrl + clic sulla sua icona unità.</Italian>
+      </Key>
 	  <Key ID="STR_WF_TEAM_GraphicFilterLabel">
         <English>Graphic-Filter:</English>
         <French>Filtre Graphique:</French>
