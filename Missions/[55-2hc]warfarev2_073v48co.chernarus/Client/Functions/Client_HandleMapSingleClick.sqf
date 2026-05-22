@@ -7,12 +7,90 @@
 		3 - Selected units array from onMapSingleClick (mostly unreliable in Arma 2/OA, logged for debug only).
 */
 
-Private ["_alt","_group","_position","_selectedUnits","_shift","_storedPosition"];
+// Marty: Ctrl-click map disband falls back to the legacy setDamage disband method.
+Private ["_aiId","_alt","_candidate","_candidateDistance","_candidatePosition","_candidatePosition2D","_candidateVehicle","_clickPosition2D","_ctrlPressed","_distance","_group","_message","_position","_range","_selectedUnits","_shift","_storedPosition","_target","_units"];
 
 _position = _this select 0;
 _shift = _this select 1;
 _alt = _this select 2;
 _selectedUnits = _this select 3;
+_ctrlPressed = missionNamespace getVariable "WFBE_CLIENT_MAP_DISBAND_CTRL_DOWN";
+
+// Marty: Ctrl-click selects the nearest AI in the player's group and disbands it immediately.
+if (_ctrlPressed) exitWith {
+	_range = 75;
+	_target = objNull;
+	_distance = 999999;
+	_units = ((units group player) Call WFBE_CO_FNC_GetLiveUnits) - [player];
+	_clickPosition2D = [_position select 0, _position select 1, 0];
+
+	if (count _units == 0) exitWith {
+		_message = "Disband: no AI in your group.";
+		titleText [_message, "PLAIN DOWN"];
+		false
+	};
+
+	{
+		_candidate = _x;
+		_candidateVehicle = vehicle _candidate;
+		_candidatePosition = getPos _candidateVehicle;
+		_candidatePosition2D = [_candidatePosition select 0, _candidatePosition select 1, 0];
+		_candidateDistance = _candidatePosition2D distance _clickPosition2D;
+
+		if (_candidateDistance < _distance) then {
+			_target = _candidate;
+			_distance = _candidateDistance;
+		};
+	} forEach _units;
+
+	if (isNull _target) exitWith {
+		_message = "Disband: no AI from your group near this map click.";
+		titleText [_message, "PLAIN DOWN"];
+		false
+	};
+
+	if (_distance > _range) exitWith {
+		_message = Format ["Disband: click closer to AI %1m/%2m.", round _distance, _range];
+		titleText [_message, "PLAIN DOWN"];
+		false
+	};
+
+	if (_target == player) exitWith {
+		_message = "Disband: you cannot disband yourself.";
+		titleText [_message, "PLAIN DOWN"];
+		false
+	};
+
+	if (isPlayer _target) exitWith {
+		_message = "Disband: player units are protected.";
+		titleText [_message, "PLAIN DOWN"];
+		false
+	};
+
+	if (_target in playableUnits) exitWith {
+		_message = "Disband: playable units are protected.";
+		titleText [_message, "PLAIN DOWN"];
+		false
+	};
+
+	if ((group _target) != (group player)) exitWith {
+		_message = "Disband: this unit is not in your group.";
+		titleText [_message, "PLAIN DOWN"];
+		false
+	};
+
+	if !(alive _target) exitWith {
+		_message = "Disband: this unit is already dead.";
+		titleText [_message, "PLAIN DOWN"];
+		false
+	};
+
+	_aiId = _target Call WFBE_CL_FNC_GetAIID;
+	_target setDamage 1;
+	_message = Format ["Disbanded AI %1.", _aiId];
+	titleText [_message, "PLAIN DOWN"];
+	false
+};
 
 if (_shift && (leader (group player)) == player) then {
 	_group = group player;
