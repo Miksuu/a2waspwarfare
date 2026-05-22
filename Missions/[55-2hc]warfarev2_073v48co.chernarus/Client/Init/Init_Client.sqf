@@ -174,6 +174,8 @@ missionNamespace setVariable ["AUTO_SEND_SPAWNED_UNITS_TO_WAYPOINT", false];
 missionNamespace setVariable ["WFBE_CLIENT_LAST_TEAMLEADER_MAP_ORDER_POSITION", []];
 missionNamespace setVariable ["WFBE_CLIENT_LAST_TEAMLEADER_MAP_ORDER_GROUP", grpNull];
 missionNamespace setVariable ["WFBE_CLIENT_LAST_TEAMLEADER_MAP_ORDER_TIME", -5000];
+// Marty: State used by Ctrl-click map disband because onMapSingleClick does not expose Ctrl.
+missionNamespace setVariable ["WFBE_CLIENT_MAP_DISBAND_CTRL_DOWN", false];
 
 //--- Queue Protection.
 missionNamespace setVariable ['WFBE_C_QUEUE_BARRACKS',0];
@@ -224,6 +226,9 @@ _display = findDisplay 46;
 _display displayAddEventHandler ["KeyDown","_this call keyPressed"];
 _display displayAddEventHandler ["KeyDown","_this call keyPressedForAutoSendSpawnedUnitsToWaypoint"];
 _display displayAddEventHandler ["KeyDown","_this call keyPressedForAdjustingViewDistance"];
+// Marty: onMapSingleClick exposes Shift and Alt but not Ctrl, so track Ctrl state separately for map disband.
+_display displayAddEventHandler ["KeyDown","if ((_this select 1) in [29,157]) then {missionNamespace setVariable ['WFBE_CLIENT_MAP_DISBAND_CTRL_DOWN', true]}; false"];
+_display displayAddEventHandler ["KeyUp","if ((_this select 1) in [29,157]) then {missionNamespace setVariable ['WFBE_CLIENT_MAP_DISBAND_CTRL_DOWN', false]}; false"];
 onMapSingleClick {[_pos, _shift, _alt, _units] call WFBE_CL_FNC_HandleMapSingleClick};
 
 WFBE_CO_FNC_DisableTabLock = compile preprocessFileLineNumbers "Common\Functions\Common_DisableTablock.sqf";
