@@ -53,7 +53,8 @@ WFBE_SE_FNC_DelegateAITown = {
 	_teams = _teams - ["**NIL**"];
 
 	if (count _groups > 0) then { //--- Some units left for the server to create?
-		_retVal = [_town, _side, _groups, _positions, _teams] call WFBE_CO_FNC_CreateTownUnits;
+		// Marty: Server fallback town AI should not globally initialize client marker/action scripts.
+		_retVal = [_town, _side, _groups, _positions, _teams, false] call WFBE_CO_FNC_CreateTownUnits;
 		_town_teams = _town_teams + (_retVal select 0);
 		_town_vehicles = _town_vehicles + (_retVal select 1);
 	};

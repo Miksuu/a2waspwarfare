@@ -20,7 +20,8 @@ _teams = _this select 4;
 
 sleep (random 1); //--- Delay a bit to prevent a bandwidth congestion.
 
-_retVal = [_town, _side, _groups, _positions, _teams] call WFBE_CO_FNC_CreateTownUnits;
+// Marty: Delegated town AI should not start client marker/update scripts for every spawned unit.
+_retVal = [_town, _side, _groups, _positions, _teams, false] call WFBE_CO_FNC_CreateTownUnits;
 _town_vehicles = _retVal select 1;
 
 if (count _town_vehicles > 0) then {["RequestSpecial", ["update-town-delegation", _town, _town_vehicles]] Call WFBE_CO_FNC_SendToServer}; //--- If there is any vehicles, we give them to the server.
