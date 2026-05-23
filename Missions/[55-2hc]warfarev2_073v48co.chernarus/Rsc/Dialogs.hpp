@@ -1215,6 +1215,17 @@ class WF_Menu {
 			action = "MenuAction = 16";
 			tooltip = "ALL SCREEN HUD On/Off";
 		};		
+		// Marty: Button next to RHUD for the lightweight client/server FPS overlay.
+		class CA_FPSHUD_Button : RscClickableText {
+			idc = 11019;
+			x = 0.455;
+			y = 0.78000;
+			w = 0.040;
+			h = 0.040;
+			text = "Client\images\fps_hud.jpg";
+			action = "MenuAction = 19";
+			tooltip = "FPS HUD On/Off";
+		};
 	};
 };
 
