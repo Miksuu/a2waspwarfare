@@ -191,6 +191,11 @@ while {alive player && dialog} do {
 		if(RUBHUD)then{RUBHUD = false}else{RUBHUD = true};
 	};
 
+	// Marty: Lightweight FPS-only HUD toggle.
+	if (MenuAction == 19) exitWith {
+		if(RUBFPSHUD)then{RUBFPSHUD = false}else{RUBFPSHUD = true};
+	};
+
 	if (MenuAction == 17) then {
 		MenuAction = -1;
 	if ( zoomgps < 1 ) then { zoomgps = (zoomgps + 0.025); hint "zoom OUT";} else { zoomgps = 1; hint "GPS Zoom: \n MAX Value";};
