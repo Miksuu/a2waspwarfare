@@ -326,6 +326,13 @@
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 1;
 	};
+	// Marty: Disable combat marker blinking by default so the feature has no Fired EHs or client scan loop unless admins opt in.
+	class WFBE_C_MAP_ICON_BLINKING_ENABLED {
+		title = "$STR_WF_PARAMETER_MapIconBlinking";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 0;
+	};
 	class WFBE_C_UNITS_BALANCING {
 		title = "$STR_WF_PARAMETER_Balance";
 		values[] = {0,1};
