@@ -1884,6 +1884,14 @@
         <Russian>Геймплей: Показывать игроков на карте</Russian>
         <Italian>Gameplay: Segna Giocatori sulla Mappa</Italian>
       </Key>
+      <!-- Marty: Mission parameter title for the optional combat marker blinking feature. -->
+      <Key ID="STR_WF_PARAMETER_MapIconBlinking">
+        <English>GAMEPLAY: Combat Icon Blinking</English>
+        <French>JOUABILITE: Clignotement des icones de tir</French>
+        <German>SPIEL: Blinkende Kampfsymbole</German>
+        <Russian>GAMEPLAY: Combat Icon Blinking</Russian>
+        <Italian>Gameplay: Icone combattimento lampeggianti</Italian>
+      </Key>
 	  <Key ID="STR_WF_PARAMETER_Balance">
         <English>GAMEPLAY: Units Balancing</English>
         <French>JOUABILITÉ: Equilibrage Unitées</French>

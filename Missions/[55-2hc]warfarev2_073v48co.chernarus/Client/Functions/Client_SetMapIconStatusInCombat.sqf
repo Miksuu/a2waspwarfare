@@ -4,6 +4,9 @@ private ["_unit", "_hasFired", "_dt", "_vehicleUnit", "_hasFiredVehicle", "_perf
 _unit = _this;
 _vehicleUnit = vehicle _unit;
 
+// Marty: Radical mission-parameter off switch; no LFTB network write if combat icon blinking is disabled.
+if ((missionNamespace getVariable ["WFBE_C_MAP_ICON_BLINKING_ENABLED", 0]) != 1) exitWith {};
+
 // Marty: Performance Audit timing for combat marker activation.
 _perfStart = diag_tickTime;
 _perfNetworkSetVars = 0;

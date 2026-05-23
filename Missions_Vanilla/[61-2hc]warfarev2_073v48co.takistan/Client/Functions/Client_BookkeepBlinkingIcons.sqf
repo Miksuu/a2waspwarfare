@@ -2,6 +2,9 @@
 // Marty: Performance Audit locals.
 private ["_blinkRed", "_timeBefore", "_timeAfter", "_dt", "_perfStart", "_perfGroups", "_perfUnits"];
 
+// Marty: The global mission parameter owns this feature; when disabled there is no scan loop.
+if ((missionNamespace getVariable ["WFBE_C_MAP_ICON_BLINKING_ENABLED", 0]) != 1) exitWith {};
+
 _blinkRed = true;
 
 while { !WFBE_GameOver } do {
