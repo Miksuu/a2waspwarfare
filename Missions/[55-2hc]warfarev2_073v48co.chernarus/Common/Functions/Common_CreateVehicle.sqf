@@ -40,11 +40,14 @@ if (_global) then {
 		processInitCommands;
 	};
 };
-
-_vehicle addEventHandler ["Fired", {
+ 
+// Marty: Only attach the combat marker blinking Fired EH when the mission parameter enables the feature.
+if ((missionNamespace getVariable ["WFBE_C_MAP_ICON_BLINKING_ENABLED", 0]) == 1) then {
+	_vehicle addEventHandler ["Fired", {
 		_u = _this select 0;                 // unit that fired
-        _u Call WFBE_CL_FNC_SetMapIconStatusInCombat;
-}];
+		_u Call WFBE_CL_FNC_SetMapIconStatusInCombat;
+	}];
+};
 
 ["INFORMATION", Format ["Common_CreateVehicle.sqf: [%1] Vehicle [%2] was created at [%3].", _side Call WFBE_CO_FNC_GetSideFromID, _type, _position]] Call WFBE_CO_FNC_LogContent;
 

@@ -15,10 +15,14 @@ missionNamespace setVariable ["AUTO_DISTANCE_VIEW_TARGET_FPS", 60];
 player call Compile preprocessFileLineNumbers "WASP\rpg_dropping\DropRPG.sqf";
 //--- Position the client on the temp spawn (Common is not yet init'd so we call is straigh away).
 player setPos ([getMarkerPos Format["%1TempRespawnMarker",sideJoinedText],1,10] Call Compile preprocessFile "Common\Functions\Common_GetRandomPosition.sqf");
-(vehicle player) addEventHandler ["Fired",{_this Spawn HandleAT}]; (vehicle player) addEventHandler ["Fired",{_this Spawn HandleRocketTraccer}]; (vehicle player) addEventHandler ["Fired", {
-  _u = _this select 0;                 // unit that fired
-  _u Call WFBE_CL_FNC_SetMapIconStatusInCombat;
-}];
+(vehicle player) addEventHandler ["Fired",{_this Spawn HandleAT}]; (vehicle player) addEventHandler ["Fired",{_this Spawn HandleRocketTraccer}];
+// Marty: Only attach the combat marker blinking Fired EH when the mission parameter enables the feature.
+if ((missionNamespace getVariable ["WFBE_C_MAP_ICON_BLINKING_ENABLED", 0]) == 1) then {
+	(vehicle player) addEventHandler ["Fired", {
+		_u = _this select 0;                 // unit that fired
+		_u Call WFBE_CL_FNC_SetMapIconStatusInCombat;
+	}];
+};
 
 (vehicle player) setVariable ["OriginalMarkerColor", "ColorOrange", false];
 
@@ -755,7 +759,10 @@ publicVariableServer "WFBE_C_PLAYER_OBJECT";
 
 player setVariable ["score", 0];
 
-[] execVM "Client\Functions\Client_BookkeepBlinkingIcons.sqf";
+// Marty: Do not start the blinking marker bookkeeping loop unless the global mission parameter enables it.
+if ((missionNamespace getVariable ["WFBE_C_MAP_ICON_BLINKING_ENABLED", 0]) == 1) then {
+	[] execVM "Client\Functions\Client_BookkeepBlinkingIcons.sqf";
+};
 // [] execVM "Client\Functions\Client_BlinkMapIcons.sqf";
 
 _video = ["Videos\intro720p.ogv"] call BIS_fnc_playVideo;

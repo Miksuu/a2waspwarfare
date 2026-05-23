@@ -167,11 +167,14 @@ if (_isMan) then { //--- Man.
         _params = [_type,_color,_size,_txt,_markerName,_unit,1,true,"DestroyedVehicle",_color,false,_side,[2,2]];	
         if (_unit == ((_side) Call WFBE_CO_FNC_GetSideHQ)) then {_color = "ColorPink";_params = ['Headquarters',_color,[1,1],'','HQUndeployed',_unit,0.2,false,'','',false,_side]};//--- HQ.	
 };
-
-_unit addEventHandler ["Fired", {
-  _u = _this select 0;                 // unit that fired
-  _u Call WFBE_CL_FNC_SetMapIconStatusInCombat;
-}];
+ 
+// Marty: Only attach the combat marker blinking Fired EH when the mission parameter enables the feature.
+if ((missionNamespace getVariable ["WFBE_C_MAP_ICON_BLINKING_ENABLED", 0]) == 1) then {
+	_unit addEventHandler ["Fired", {
+		_u = _this select 0;                 // unit that fired
+		_u Call WFBE_CL_FNC_SetMapIconStatusInCombat;
+	}];
+};
 
 _unit setVariable ["OriginalMarkerColor", _color, false];
 
