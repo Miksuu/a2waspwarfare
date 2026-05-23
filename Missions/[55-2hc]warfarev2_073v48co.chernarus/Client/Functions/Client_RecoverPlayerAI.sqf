@@ -25,8 +25,9 @@
 	8. If it did not move, try a stronger second phase with a shifted destination.
 
 	Important:
-	This script never regroups units on the player.
-	It must not regroup units or destroy the player's previous movement order.
+	This script does not use player regrouping as a fallback.
+	Manual recovery has a last-resort vehicle Phase 3 that temporarily uses
+	doFollow player, then stops the unit and sends it back to its saved destination.
 */
 
 Private [
@@ -512,14 +513,19 @@ if (!_is_automatic_recovery) then {
 // Phase 2 is only attempted for movement controllers with a useful destination
 // that did not move after Phase 1.
 
-[_saved_movement_data, _movement_can_work, _show_success_message] Spawn {
+[_saved_movement_data, _movement_can_work, _show_success_message, _player, _is_automatic_recovery] Spawn {
 
 	Private [
 		"_can_check_phase1",
 		"_can_check_phase2_unit",
+		"_can_check_phase3_unit",
 		"_can_reset_phase2_unit",
+		"_can_reset_phase3_unit",
 		"_can_send_phase2_move",
+		"_can_send_phase3_move",
 		"_can_stop_phase2_unit",
+		"_can_stop_phase3_unit",
+		"_can_try_phase_3",
 		"_current_unit",
 		"_destination",
 		"_destination_mode",
@@ -528,10 +534,13 @@ if (!_is_automatic_recovery) then {
 		"_distance_to_saved_destination",
 		"_driver",
 		"_has_useful_destination",
+		"_is_automatic_recovery",
 		"_is_movement_controller",
 		"_movement_can_work",
 		"_new_destination",
 		"_phase2_data",
+		"_phase3_data",
+		"_player",
 		"_saved_movement_data",
 		"_should_try_phase_2",
 		"_show_success_message",
@@ -546,10 +555,13 @@ if (!_is_automatic_recovery) then {
 	_saved_movement_data = _this select 0;
 	_movement_can_work = _this select 1;
 	_show_success_message = _this select 2;
+	_player = _this select 3;
+	_is_automatic_recovery = _this select 4;
 
 	sleep 5;
 
 	_phase2_data = [];
+	_phase3_data = [];
 
 	{
 		_current_unit = _x select 0;
@@ -747,6 +759,7 @@ if (!_is_automatic_recovery) then {
 
 	{
 		_current_unit = _x select 0;
+		_vehicle = _x select 1;
 		_destination = _x select 2;
 		_start_position = _x select 3;
 
@@ -790,6 +803,36 @@ if (!_is_automatic_recovery) then {
 					systemChat Format [_success_message, _current_unit];
 				};
 			} else {
+				_can_try_phase_3 = Call {
+					if (_is_automatic_recovery) exitWith {false};
+					if (isNull _player) exitWith {false};
+					if (!alive _player) exitWith {false};
+					if (isNull _current_unit) exitWith {false};
+					if (!alive _current_unit) exitWith {false};
+					if (isNull _vehicle) exitWith {false};
+					if (_vehicle == _current_unit) exitWith {false};
+					if (!local _current_unit) exitWith {false};
+					if (!local _vehicle) exitWith {false};
+					if (!([_current_unit, _vehicle] Call _movement_can_work)) exitWith {false};
+
+					true
+				};
+
+				if (_can_try_phase_3) then {
+					_phase3_data = _phase3_data + [[
+						_current_unit,
+						_vehicle,
+						_destination,
+						_start_position
+					]];
+
+					["WARNING", Format [
+						"AI Recover: Unit [%1] still did not move after Phase 2. Manual vehicle Phase 3 will try a temporary silent doFollow reset before returning to destination [%2].",
+						_current_unit,
+						_destination
+					]] Call WFBE_CO_FNC_LogContent;
+				};
+
 				["WARNING", Format [
 					"AI Recover: Unit [%1] still did not move after Phase 2. Possible causes: non-local unit or vehicle, invalid path, engine pathfinding failure, blocked vehicle simulation, or corrupted AI state.",
 					_current_unit
@@ -797,4 +840,145 @@ if (!_is_automatic_recovery) then {
 			};
 		};
 	} forEach _phase2_data;
+
+	if (count _phase3_data == 0) exitWith {};
+
+	// Phase 3 is deliberately manual-only and vehicle-only.
+	// It uses doFollow silently to reset formation state, then restores the saved destination.
+	{
+		_current_unit = _x select 0;
+		_vehicle = _x select 1;
+
+		_can_reset_phase3_unit = Call {
+			if (isNull _current_unit) exitWith {false};
+			if (!alive _current_unit) exitWith {false};
+			if (isNull _player) exitWith {false};
+			if (!alive _player) exitWith {false};
+			if (isNull _vehicle) exitWith {false};
+			if (!local _current_unit) exitWith {false};
+			if (!local _vehicle) exitWith {false};
+
+			true
+		};
+
+		if (_can_reset_phase3_unit) then {
+			_current_unit enableAI "MOVE";
+			_current_unit enableAI "ANIM";
+			_current_unit enableAI "FSM";
+			_current_unit setUnitPos "AUTO";
+			_current_unit doWatch objNull;
+			_current_unit doFollow _player;
+
+			["WARNING", Format [
+				"AI Recover: Phase 3 doFollow reset sent to unit [%1], vehicle [%2].",
+				_current_unit,
+				_vehicle
+			]] Call WFBE_CO_FNC_LogContent;
+		};
+	} forEach _phase3_data;
+
+	sleep 5;
+
+	{
+		_current_unit = _x select 0;
+
+		_can_stop_phase3_unit = Call {
+			if (isNull _current_unit) exitWith {false};
+			if (!alive _current_unit) exitWith {false};
+
+			true
+		};
+
+		if (_can_stop_phase3_unit) then {
+			doStop _current_unit;
+		};
+	} forEach _phase3_data;
+
+	sleep 0.2;
+
+	{
+		_current_unit = _x select 0;
+		_vehicle = _x select 1;
+		_destination = _x select 2;
+
+		_can_send_phase3_move = Call {
+			if (isNull _current_unit) exitWith {false};
+			if (!alive _current_unit) exitWith {false};
+			if (isNull _vehicle) exitWith {false};
+			if (!([_current_unit, _vehicle] Call _movement_can_work)) exitWith {false};
+
+			true
+		};
+
+		if (_can_send_phase3_move) then {
+			_current_unit enableAI "MOVE";
+			_current_unit enableAI "ANIM";
+			_current_unit enableAI "FSM";
+			_current_unit setUnitPos "AUTO";
+			_current_unit doWatch objNull;
+			_current_unit doMove _destination;
+
+			["WARNING", Format [
+				"AI Recover: Phase 3 doMove sent to unit [%1], vehicle [%2], restored destination [%3].",
+				_current_unit,
+				_vehicle,
+				_destination
+			]] Call WFBE_CO_FNC_LogContent;
+		};
+	} forEach _phase3_data;
+
+	sleep 5;
+
+	{
+		_current_unit = _x select 0;
+		_vehicle = _x select 1;
+		_destination = _x select 2;
+		_start_position = _x select 3;
+
+		_can_check_phase3_unit = Call {
+			if (isNull _current_unit) exitWith {false};
+			if (!alive _current_unit) exitWith {false};
+
+			true
+		};
+
+		if (_can_check_phase3_unit) then {
+			_distance_moved = round (_current_unit distance _start_position);
+			_distance_to_original_destination = round (_current_unit distance _destination);
+
+			["INFORMATION", Format [
+				"AI Recover: Phase 3 check for unit [%1]: total_moved [%2]m, distance_to_original_destination [%3], current_command [%4], stopped [%5], unit_ready [%6].",
+				_current_unit,
+				_distance_moved,
+				_distance_to_original_destination,
+				currentCommand _current_unit,
+				stopped _current_unit,
+				unitReady _current_unit
+			]] Call WFBE_CO_FNC_LogContent;
+
+			if (_distance_moved >= 2) then {
+				["INFORMATION", Format [
+					"AI Recover: Unit [%1] appears recovered. It moved [%2]m after Phase 3.",
+					_current_unit,
+					_distance_moved
+				]] Call WFBE_CO_FNC_LogContent;
+
+				if (_show_success_message) then {
+					_success_message = localize "STR_WF_INFO_AI_Recovered";
+
+					if (_success_message == "") then {
+						_success_message = "AI movement recovered: %1.";
+					};
+
+					systemChat Format [_success_message, _current_unit];
+				};
+			} else {
+				["WARNING", Format [
+					"AI Recover: Unit [%1] still did not move after Phase 3. Vehicle [%2] may be physically blocked or the vehicle AI state may be corrupted.",
+					_current_unit,
+					_vehicle
+				]] Call WFBE_CO_FNC_LogContent;
+			};
+		};
+	} forEach _phase3_data;
 };
