@@ -33,16 +33,30 @@ for "_j" from 0 to ((count towns) - 1) step 1 do
 
 while {!WFBE_GameOver} do {
 
+	// Marty: Performance Audit timing for one full town capture/supply server cycle.
+	_perfStart = diag_tickTime;
+	_perfTowns = 0;
+	_perfNearEntities = 0;
+	_perfDetected = 0;
+	_perfNetworkWrites = 0;
+	_perfCaptures = 0;
+	_perfActive = 0;
+
 	for "_i" from 0 to ((count towns) - 1) step 1 do
 	{
+		// Marty: Performance Audit active time excludes the cooperative sleep below.
+		_perfItemStart = diag_tickTime;
 
 		_location = towns select _i;
+		_perfTowns = _perfTowns + 1;
 		_startingSupplyValue = _location getVariable "startingSupplyValue";
 		_maxSupplyValue = _location getVariable "maxSupplyValue";
 
 				_sideID = _location getVariable "sideID";
 				_side = (_sideID) Call WFBE_CO_FNC_GetSideFromID;
 				_objects = (_location nearEntities[["Man","Car","Motorcycle","Tank","Air","Ship"], 	_town_capture_range]) unitsBelowHeight 10;
+				_perfNearEntities = _perfNearEntities + 1;
+				_perfDetected = _perfDetected + count _objects;
 
 				_west = west countSide _objects;
 				_east = east countSide _objects;
@@ -78,6 +92,8 @@ while {!WFBE_GameOver} do {
 							};
 							_supplyValue = _supplyValue + _increaseOf;
 							if (_supplyValue > _maxSupplyValue) then {_supplyValue = _maxSupplyValue};
+							// Marty: Performance Audit counter for networked town state writes.
+							_perfNetworkWrites = _perfNetworkWrites + 1;
 							_location setVariable ["supplyValue", _supplyValue, true];
 						};
 					};
@@ -185,6 +201,8 @@ while {!WFBE_GameOver} do {
 
 			_supplyValue = round(_supplyValue - (_resistance + _east + _west) * _rate);
 			if (_supplyValue < 1) then {_supplyValue = _startingSupplyValue; _captured = true};
+			// Marty: Performance Audit counter for networked town state writes.
+			_perfNetworkWrites = _perfNetworkWrites + 1;
 			_location setVariable ["supplyValue",_supplyValue,true];
 		};
 
@@ -192,6 +210,8 @@ while {!WFBE_GameOver} do {
 			if (_supplyValue < _startingSupplyValue) then {
 				_supplyValue = _supplyValue + _force * _town_capture_rate;
 				if (_supplyValue > _startingSupplyValue) then {_supplyValue = _startingSupplyValue};
+				// Marty: Performance Audit counter for networked town state writes.
+				_perfNetworkWrites = _perfNetworkWrites + 1;
 				_location setVariable ["supplyValue",_supplyValue,true];
 			};
 		};
@@ -206,6 +226,9 @@ while {!WFBE_GameOver} do {
 			if (missionNamespace getVariable Format ["WFBE_%1_PRESENT",_newSide]) then {[_newSide, "Captured", _location] Spawn SideMessage};
 
 			_location setVariable ["sideID",_newSID,true];
+			// Marty: Performance Audit counters for town capture network events.
+			_perfNetworkWrites = _perfNetworkWrites + 1;
+			_perfCaptures = _perfCaptures + 1;
 
 			[nil, "TownCaptured", [_location, _sideID, _newSID]] Call WFBE_CO_FNC_SendToClients;
 			if ((missionNamespace getVariable "WFBE_C_CAMPS_CREATE") > 0) then {[_location, _sideID, _newSID] Spawn WFBE_SE_FNC_SetCampsToSide};
@@ -225,8 +248,15 @@ while {!WFBE_GameOver} do {
 			if (_side_enabled) then {[_location, _newSide, _sideID] Call WFBE_SE_FNC_ManageTownDefenses};
 		};
 		};
+		_perfActive = _perfActive + (diag_tickTime - _perfItemStart);
 		sleep 0.05;
 	};
+
+	// Marty: Performance Audit record for one full town capture/supply server cycle.
+	if !(isNil "PerformanceAudit_Record") then {
+		["server_town", _perfActive, Format["towns:%1;nearEntities:%2;detected:%3;networkWrites:%4;captures:%5;cycleMs:%6", _perfTowns, _perfNearEntities, _perfDetected, _perfNetworkWrites, _perfCaptures, round ((diag_tickTime - _perfStart) * 1000)], "SERVER"] Call PerformanceAudit_Record;
+	};
+
 	_isTimeToUpdateSuppluys = false;
 	sleep 5;
 	if (time >= _lastUp) then {

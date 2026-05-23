@@ -43,6 +43,8 @@ GetSideSupply = Compile preprocessFileLineNumbers "Common\Functions\Common_GetSi
 GetSideUpgrades = Compile preprocessFileLineNumbers "Common\Functions\Common_GetSideUpgrades.sqf";
 GetSideTowns = Compile preprocessFileLineNumbers "Common\Functions\Common_GetSideTowns.sqf";
 GetSleepFPS = Compile preprocessFileLineNumbers "Common\Functions\Common_GetSleepFPS.sqf";
+// Marty: Load the local Performance Audit helpers before client/server loops start using them.
+Call Compile preprocessFileLineNumbers "Common\Functions\Common_PerformanceAudit.sqf";
 GetTeamArtillery = Compile preprocessFileLineNumbers "Common\Functions\Common_GetTeamArtillery.sqf";
 GetTeamAutonomous = Compile preprocessFileLineNumbers "Common\Functions\Common_GetTeamAutonomous.sqf";
 GetTeamFunds = Compile preprocessFileLineNumbers "Common\Functions\Common_GetTeamFunds.sqf";

@@ -16,10 +16,22 @@ _town_starting_sv = _town getVariable "startingSupplyValue";
 
 while {!WFBE_GameOver} do {
 
+	// Marty: Performance Audit timing for one camp capture server cycle.
+	_perfStart = diag_tickTime;
+	_perfCamps = 0;
+	_perfNearEntities = 0;
+	_perfDetected = 0;
+	_perfNetworkWrites = 0;
+	_perfCaptures = 0;
+	_perfActive = 0;
+
 	for "_i" from 0 to ((count _camps) - 1) step 1 do
 	{
+		// Marty: Performance Audit active time excludes the cooperative sleep below.
+		_perfItemStart = diag_tickTime;
 
 		_camp = _camps select _i;
+		_perfCamps = _perfCamps + 1;
 		_flag = _flags select _i;
 
 		_base = _camp getVariable "wfbe_camp_bunker";
@@ -27,6 +39,8 @@ while {!WFBE_GameOver} do {
 		if(alive _base) then {
 			//--- Filter players and ai.
 			_objects = _camp nearEntities["Man", _camp_range];
+			_perfNearEntities = _perfNearEntities + 1;
+			_perfDetected = _perfDetected + count _objects;
 			_in_range = _objects;
 			{
 				if (isPlayer _x) then {if (_x distance _camp > _camp_range_players) then {_objects = _objects - [_x]}};
@@ -65,6 +79,8 @@ while {!WFBE_GameOver} do {
 					_newSID = switch (true) do {case (_west > 0): {WFBE_C_WEST_ID}; case (_east > 0): {WFBE_C_EAST_ID}; case (_resistance > 0): {WFBE_C_GUER_ID}};
 					_supplyValue = round(_supplyValue - ((_resistance + _east + _west)*_camp_cap_rate));
 					if (_supplyValue < 1) then {_supplyValue = _town_starting_sv; _captured = true};
+					// Marty: Performance Audit counter for networked camp state writes.
+					_perfNetworkWrites = _perfNetworkWrites + 1;
 					_camp setVariable ["supplyValue",_supplyValue,true];
 				};
 
@@ -72,6 +88,8 @@ while {!WFBE_GameOver} do {
 					if (_supplyValue < _town_starting_sv) then {
 					_supplyValue = _supplyValue + round(_force * _camp_cap_rate);
 					if (_supplyValue > _town_starting_sv) then {_supplyValue = _town_starting_sv};
+					// Marty: Performance Audit counter for networked camp state writes.
+					_perfNetworkWrites = _perfNetworkWrites + 1;
 					_camp setVariable ["supplyValue",_supplyValue,true];
 					};
 				};
@@ -86,6 +104,9 @@ while {!WFBE_GameOver} do {
 					if (missionNamespace getVariable Format ["WFBE_%1_PRESENT",_newSide]) then {[_newSide,"CapturedNear",["Strongpoint",_town]] Spawn SideMessage};
 
 					_camp setVariable ["sideID",_newSID,true];
+					// Marty: Performance Audit counters for camp capture network events.
+					_perfNetworkWrites = _perfNetworkWrites + 1;
+					_perfCaptures = _perfCaptures + 1;
 					_flag setFlagTexture (missionNamespace getVariable Format["WFBE_%1FLAG",str _side]);
 
 					[nil, "CampCaptured", [_camp,_newSID,_sideID]] Call WFBE_CO_FNC_SendToClients;
@@ -93,7 +114,14 @@ while {!WFBE_GameOver} do {
 			};
 		}else{};
 
+		_perfActive = _perfActive + (diag_tickTime - _perfItemStart);
 		sleep 0.01;
 	};
+
+	// Marty: Performance Audit record for one camp capture server cycle.
+	if !(isNil "PerformanceAudit_Record") then {
+		["server_town_camp", _perfActive, Format["camps:%1;nearEntities:%2;detected:%3;networkWrites:%4;captures:%5;cycleMs:%6", _perfCamps, _perfNearEntities, _perfDetected, _perfNetworkWrites, _perfCaptures, round ((diag_tickTime - _perfStart) * 1000)], "SERVER"] Call PerformanceAudit_Record;
+	};
+
 	sleep 0.1;
 };

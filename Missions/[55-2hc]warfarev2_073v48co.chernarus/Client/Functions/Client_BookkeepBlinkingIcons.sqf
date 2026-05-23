@@ -1,19 +1,29 @@
 
-private ["_blinkRed", "_timeBefore", "_timeAfter", "_dt"];
+// Marty: Performance Audit locals.
+private ["_blinkRed", "_timeBefore", "_timeAfter", "_dt", "_perfStart", "_perfGroups", "_perfUnits"];
 
 _blinkRed = true;
 
 while { !WFBE_GameOver } do {
+
+    // Marty: Performance Audit timing for the blinking icon bookkeeping loop.
+    _perfStart = diag_tickTime;
+    _perfGroups = 0;
+    _perfUnits = 0;
 
     _timeBefore = time;
     {
         // Optimize by skipping crunching the data of enemy groups
         if (side _x != side player) exitWith {};
 
+        // Marty: Performance Audit counters for scanned groups and units.
+        _perfGroups = _perfGroups + 1;
+
         private ["_groupArray"];
         _groupArray = [];
 
         _groupArray = units _x;
+        _perfUnits = _perfUnits + count _groupArray;
 
         {
             if (side _x == side player) then {
@@ -137,6 +147,11 @@ while { !WFBE_GameOver } do {
 
     if (_dt >= 1) then {
         _dt = 0;
+    };
+
+    // Marty: Performance Audit record for the blinking icon bookkeeping loop.
+    if !(isNil "PerformanceAudit_Record") then {
+        ["bookkeep_blinking_icons", diag_tickTime - _perfStart, Format["groups:%1;units:%2;westUnits:%3;eastUnits:%4;westVehicles:%5;eastVehicles:%6", _perfGroups, _perfUnits, count BLINKING_UNITS_WEST, count BLINKING_UNITS_EAST, count BLINKING_VEHICLES_WEST, count BLINKING_VEHICLES_EAST], "CLIENT"] Call PerformanceAudit_Record;
     };
 
     sleep (1 - _dt);

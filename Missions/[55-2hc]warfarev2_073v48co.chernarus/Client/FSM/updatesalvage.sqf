@@ -1,4 +1,5 @@
-private["_vehicle","_salvagerRange","_percentage"];
+// Marty: Performance Audit locals.
+private["_vehicle","_salvagerRange","_percentage","_perfStart","_perfVehicles","_perfWrecks"];
 
 _vehicle = _this select 0;
 
@@ -7,14 +8,21 @@ _percentage = missionNamespace getVariable "WFBE_C_UNITS_SALVAGER_SCAVENGE_RATIO
 
 
 while {!gameOver || !(alive _vehicle)} do {
+	// Marty: Performance Audit timing for salvage vehicle scanning.
+	_perfStart = diag_tickTime;
+	_perfVehicles = 0;
+	_perfWrecks = 0;
+
 	if(!(isNull (driver _vehicle)) && !gameOver && alive _vehicle) then 
 	{
 		_vehicles = nearestObjects [getPos _vehicle, ['Car','Motorcycle','Ship','Air','Tank','StaticWeapon'],_salvagerRange];
+		_perfVehicles = count _vehicles;
 
 		_wrecks = [];
 		{
 			if !(alive _x) then {_wrecks = _wrecks + [_x]};
 		} forEach _vehicles;
+		_perfWrecks = count _wrecks;
 
 		_hqs = [];
 		{_hqs = _hqs + [_x Call WFBE_CO_FNC_GetSideHQ]} forEach WFBE_PRESENTSIDES;
@@ -41,5 +49,11 @@ while {!gameOver || !(alive _vehicle)} do {
 
 		if (_overAllCost > 0) then {(_overAllCost) Call ChangePlayerfunds};
 	};
+
+	// Marty: Performance Audit record for salvage vehicle scanning.
+	if !(isNil "PerformanceAudit_Record") then {
+		["updatesalvage", diag_tickTime - _perfStart, Format["vehicles:%1;wrecks:%2;alive:%3", _perfVehicles, _perfWrecks, alive _vehicle], "CLIENT"] Call PerformanceAudit_Record;
+	};
+
 	sleep 5;
 };

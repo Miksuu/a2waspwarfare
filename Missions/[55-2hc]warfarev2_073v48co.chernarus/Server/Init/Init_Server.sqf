@@ -576,6 +576,12 @@ if ((missionNamespace getVariable "WFBE_C_MODULE_BIS_ALICE") > 0) then {
 //--- Waiting until that the game is launched.
 waitUntil {time > 0};
 
+// Marty: Start the local server Performance Audit writer; metrics stay local and are written to the server RPT.
+[] Spawn {
+	waitUntil {!isNil "PerformanceAudit_Run"};
+	["SERVER"] Spawn PerformanceAudit_Run;
+};
+
 call WFBE_CO_FNC_InitAFKkickHandler;
 
 // [] execVM "Server\Functions\Server_MapBlinkingUnits.sqf";

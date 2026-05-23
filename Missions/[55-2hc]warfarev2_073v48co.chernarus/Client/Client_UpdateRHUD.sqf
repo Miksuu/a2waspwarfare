@@ -10,7 +10,8 @@ if (isNil 'BIS_CONTROL_CAM') then { RUBHUD = True } else {RUBHUD = false};
 
 waituntil{!isnil"totalTowns"};
 
-private["_total"];
+// Marty: Performance Audit locals.
+private["_total", "_perfStart"];
 
 //// Getting the amount of all towns
 _total = count towns;
@@ -18,6 +19,10 @@ sleep 10;
 
 while {true} do {
 	sleep 1;
+
+	// Marty: Performance Audit timing for the local HUD refresh.
+	_perfStart = diag_tickTime;
+
 	if (RUBHUD) then {
 		if (isNull (["currentCutDisplay"] call BIS_FNC_GUIget)) then {CutRsc["OptionsAvailable","PLAIN",0];_delay = 0};
 		if (!isNull (["currentCutDisplay"] call BIS_FNC_GUIget)) then {
@@ -252,5 +257,10 @@ while {true} do {
 
 			_lineLabel ctrlShow false;
 		};
+	};
+
+	// Marty: Performance Audit record for the local HUD refresh.
+	if !(isNil "PerformanceAudit_Record") then {
+		["client_rhud", diag_tickTime - _perfStart, Format["enabled:%1;visibleMap:%2", RUBHUD, visibleMap], "CLIENT"] Call PerformanceAudit_Record;
 	};
 };

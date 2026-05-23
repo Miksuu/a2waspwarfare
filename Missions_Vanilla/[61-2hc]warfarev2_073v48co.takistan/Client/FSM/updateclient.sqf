@@ -1,4 +1,5 @@
-private["_toggle_auto_distance_view","_lastCommanderTeam","_changeCommander","_timer", "_sideHQ"];
+// Marty: Performance Audit locals.
+private["_toggle_auto_distance_view","_lastCommanderTeam","_changeCommander","_timer", "_sideHQ", "_perfLoopStart", "_perfAFKStart", "_perfAFKBroadcasts"];
 
 commanderTeam = (sideJoined) Call WFBE_CO_FNC_GetCommanderTeam;
 
@@ -32,6 +33,10 @@ if (WF_Debug) then {_inactivityTimeout = _inactivityTimeout * 99999};
 AutomaticViewDistance = compile preprocessFile "Common\Functions\Common_AutomaticViewDistance.sqf";
 
 while {!gameOver} do {
+
+	// Marty: Performance Audit timing for the full client update tick.
+	_perfLoopStart = diag_tickTime;
+	_perfAFKBroadcasts = 0;
 
 	// Marty : update HQ wreck marker on map in case a player join after the game already begin or if the wreck is moved.
 	if (playerSide == west) then 
@@ -102,6 +107,9 @@ while {!gameOver} do {
 	};
 
 	//Marty : check the inactivity (AFK, Away From Keyboard) and kick the player after too long time elapsed
+	// Marty: Performance Audit timing for the legacy AFK block.
+	_perfAFKStart = diag_tickTime;
+
 	// calculate the elapsed time from last action of the player 
 	_currentTime = time ;
 	_lastActionTime = player getVariable ["lastActionTime", time];
@@ -111,11 +119,15 @@ while {!gameOver} do {
 
 	private ["_afk", "_countDownKick"];
 
+	// Marty: Performance Audit counter for networked AFK state writes.
+	_perfAFKBroadcasts = _perfAFKBroadcasts + 1;
 	player setVariable ["WASP_AFK", false, true]; 
 	_afk = player getVariable ["WASP_AFK", false];
 
 	if (_countDownKick < 600) then {
 		if (!_afk) then {
+			// Marty: Performance Audit counter for networked AFK state writes.
+			_perfAFKBroadcasts = _perfAFKBroadcasts + 1;
 			player setVariable ["WASP_AFK", true, true];  // true = broadcast
 		};
 
@@ -128,6 +140,8 @@ while {!gameOver} do {
 		};
 	} else {
 		if (_afk) then {
+			// Marty: Performance Audit counter for networked AFK state writes.
+			_perfAFKBroadcasts = _perfAFKBroadcasts + 1;
 			player setVariable ["WASP_AFK", false, true];
 		};
 	};
@@ -159,6 +173,11 @@ while {!gameOver} do {
 
 	player setVariable ["lastPosition", position player]; // Saving the last position of the player with the current one.
 	// Marty. 
+
+	// Marty: Performance Audit record for the legacy AFK block.
+	if !(isNil "PerformanceAudit_Record") then {
+		["updateclient_afk", diag_tickTime - _perfAFKStart, Format["afkBroadcasts:%1;countDown:%2", _perfAFKBroadcasts, _countDownKick], "CLIENT"] Call PerformanceAudit_Record;
+	};
 
 	commanderTeam = (sideJoined) Call WFBE_CO_FNC_GetCommanderTeam;
 	if (IsNull commanderTeam && !IsNull _lastCommanderTeam) then {_changeCommander = true};
@@ -220,6 +239,11 @@ while {!gameOver} do {
 				_sideHQ setVariable ["actionAttached", true];
 			};
 		};
+	};
+
+	// Marty: Performance Audit record for the full client update tick.
+	if !(isNil "PerformanceAudit_Record") then {
+		["updateclient_total", diag_tickTime - _perfLoopStart, Format["afkBroadcasts:%1;clientTeams:%2", _perfAFKBroadcasts, count clientTeams], "CLIENT"] Call PerformanceAudit_Record;
 	};
 
 	sleep 1;
