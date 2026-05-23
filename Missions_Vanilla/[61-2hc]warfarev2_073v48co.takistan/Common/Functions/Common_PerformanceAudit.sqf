@@ -20,11 +20,17 @@ PerformanceAudit_DataName = {
 };
 
 PerformanceAudit_Snapshot = {
-	private ["_activeAI","_map","_markerScripts","_playerName","_players","_profileTerrainGrid","_profileViewDistance","_scope","_targetFPS","_teams","_townsActive","_uid","_units","_vehicles"];
+	private ["_activeAI","_dayNightEnabled","_dayTime","_fog","_map","_markerScripts","_overcast","_playerName","_players","_profileTerrainGrid","_profileViewDistance","_rain","_scope","_targetFPS","_teams","_townsActive","_uid","_units","_vehicles"];
 
 	_scope = _this select 0;
 	// Marty: Include the runtime island name so shared Chernarus/Takistan logs can be sorted safely.
 	_map = worldName;
+	// Marty: Capture lightweight environment state to correlate FPS with day/night and weather.
+	_dayNightEnabled = missionNamespace getVariable ["WFBE_DAYNIGHT_ENABLED", -1];
+	_dayTime = daytime call PerformanceAudit_Round2;
+	_fog = fog call PerformanceAudit_Round2;
+	_overcast = overcast call PerformanceAudit_Round2;
+	_rain = rain call PerformanceAudit_Round2;
 	_players = 0;
 	_activeAI = 0;
 	_units = allUnits;
@@ -81,7 +87,12 @@ PerformanceAudit_Snapshot = {
 		_profileViewDistance,
 		_targetFPS,
 		_profileTerrainGrid,
-		_map
+		_map,
+		_dayNightEnabled,
+		_dayTime,
+		_fog,
+		_overcast,
+		_rain
 	]
 };
 
@@ -96,7 +107,7 @@ PerformanceAudit_Log = {
 	_extra = _this select 5;
 
 	diag_log format [
-		"[Performance Audit] MAP=%21 SCOPE=%1 PLAYER=""%15"" UID=%16 VD=%17 PVD=%18 TFPS=%19 PTG=%20 NAME=%2 FPS=%3 PLAYERS=%4 AI=%5 UNITS=%6 VEHICLES=%7 TEAMS=%8 TOWNS_ACTIVE=%9 MARKERS=%10 CALLS=%11 AVG_MS=%12 MAX_MS=%13 EXTRA=%14",
+		"[Performance Audit] MAP=%21 DNC=%22 DAYTIME=%23 FOG=%24 OVERCAST=%25 RAIN=%26 SCOPE=%1 PLAYER=""%15"" UID=%16 VD=%17 PVD=%18 TFPS=%19 PTG=%20 NAME=%2 FPS=%3 PLAYERS=%4 AI=%5 UNITS=%6 VEHICLES=%7 TEAMS=%8 TOWNS_ACTIVE=%9 MARKERS=%10 CALLS=%11 AVG_MS=%12 MAX_MS=%13 EXTRA=%14",
 		_snap select 0,
 		_name,
 		_snap select 1,
@@ -117,7 +128,12 @@ PerformanceAudit_Log = {
 		_snap select 12,
 		_snap select 13,
 		_snap select 14,
-		_snap select 15
+		_snap select 15,
+		_snap select 16,
+		_snap select 17,
+		_snap select 18,
+		_snap select 19,
+		_snap select 20
 	];
 };
 
