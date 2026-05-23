@@ -51,6 +51,7 @@ performance_by_player.csv
 performance_by_map.csv
 performance_report.md
 performance_report.html
+performance_interpretation.html
 performance_report_word.doc
 ```
 
@@ -67,5 +68,6 @@ Most CSV files include `session_index`, `session_key` and `sid` columns so multi
 ## Readable Reports
 
 - `performance_report.html`: colored visual report, best opened in a browser.
+- `performance_interpretation.html`: a readable guide explaining what each metric means and how to prioritize optimization candidates.
 - `performance_report_word.doc`: the same visual report saved with a Word-friendly extension.
 - `performance_report.md`: plain Markdown report, useful for quick text sharing.
