@@ -10,6 +10,10 @@ if (isNil "PerformanceAuditFlushInterval") then {PerformanceAuditFlushInterval =
 if (isNil "PerformanceAuditData_CLIENT") then {PerformanceAuditData_CLIENT = []};
 if (isNil "PerformanceAuditData_SERVER") then {PerformanceAuditData_SERVER = []};
 if (isNil "PerformanceAuditMarkerScripts") then {PerformanceAuditMarkerScripts = 0};
+// Marty: Create a per-mission audit session id so appended RPT files can be split by game.
+if (isNil "PerformanceAuditSessionId") then {
+	PerformanceAuditSessionId = Format ["%1_%2_%3", worldName, round diag_tickTime, round (random 1000000)];
+};
 
 PerformanceAudit_Round2 = {
 	round ((_this) * 100) / 100
@@ -20,9 +24,11 @@ PerformanceAudit_DataName = {
 };
 
 PerformanceAudit_Snapshot = {
-	private ["_activeAI","_dayNightEnabled","_dayTime","_fog","_map","_markerScripts","_overcast","_playerName","_players","_profileTerrainGrid","_profileViewDistance","_rain","_scope","_targetFPS","_teams","_townsActive","_uid","_units","_vehicles"];
+	private ["_activeAI","_dayNightEnabled","_dayTime","_fog","_map","_markerScripts","_overcast","_playerName","_players","_profileTerrainGrid","_profileViewDistance","_rain","_scope","_sessionId","_targetFPS","_teams","_townsActive","_uid","_units","_vehicles"];
 
 	_scope = _this select 0;
+	// Marty: Include the stable audit session id on every snapshot for post-game analysis.
+	_sessionId = missionNamespace getVariable ["PerformanceAuditSessionId", "unknown"];
 	// Marty: Include the runtime island name so shared Chernarus/Takistan logs can be sorted safely.
 	_map = worldName;
 	// Marty: Capture lightweight environment state to correlate FPS with day/night and weather.
@@ -92,7 +98,8 @@ PerformanceAudit_Snapshot = {
 		_dayTime,
 		_fog,
 		_overcast,
-		_rain
+		_rain,
+		_sessionId
 	]
 };
 
@@ -107,7 +114,7 @@ PerformanceAudit_Log = {
 	_extra = _this select 5;
 
 	diag_log format [
-		"[Performance Audit] MAP=%21 DNC=%22 DAYTIME=%23 FOG=%24 OVERCAST=%25 RAIN=%26 SCOPE=%1 PLAYER=""%15"" UID=%16 VD=%17 PVD=%18 TFPS=%19 PTG=%20 NAME=%2 FPS=%3 PLAYERS=%4 AI=%5 UNITS=%6 VEHICLES=%7 TEAMS=%8 TOWNS_ACTIVE=%9 MARKERS=%10 CALLS=%11 AVG_MS=%12 MAX_MS=%13 EXTRA=%14",
+		"[Performance Audit] SID=%27 MAP=%21 DNC=%22 DAYTIME=%23 FOG=%24 OVERCAST=%25 RAIN=%26 SCOPE=%1 PLAYER=""%15"" UID=%16 VD=%17 PVD=%18 TFPS=%19 PTG=%20 NAME=%2 FPS=%3 PLAYERS=%4 AI=%5 UNITS=%6 VEHICLES=%7 TEAMS=%8 TOWNS_ACTIVE=%9 MARKERS=%10 CALLS=%11 AVG_MS=%12 MAX_MS=%13 EXTRA=%14",
 		_snap select 0,
 		_name,
 		_snap select 1,
@@ -133,7 +140,8 @@ PerformanceAudit_Log = {
 		_snap select 17,
 		_snap select 18,
 		_snap select 19,
-		_snap select 20
+		_snap select 20,
+		_snap select 21
 	];
 };
 
