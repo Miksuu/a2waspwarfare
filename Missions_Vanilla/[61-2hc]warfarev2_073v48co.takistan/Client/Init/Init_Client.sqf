@@ -317,6 +317,12 @@ if (isNil "RUBOSD") then {RUBOSD = 1};
 /* HUD MODULE */
 ExecVM "Client\Client_UpdateRHUD.sqf";
 
+// Marty: Start the local client Performance Audit writer; metrics stay local and are written to the client RPT.
+[] Spawn {
+	waitUntil {!isNil "PerformanceAudit_Run"};
+	["CLIENT"] Spawn PerformanceAudit_Run;
+};
+
 //--- Disable Artillery Computer.
 Call Compile "enableEngineArtillery false;";
 

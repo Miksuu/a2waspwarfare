@@ -32,14 +32,26 @@ for "_k" from 0 to ((count towns) - 1) step 1 do
 
 while {!WFBE_GameOver} do {
 
+	// Marty: Performance Audit timing for one town AI server cycle.
+	_perfStart = diag_tickTime;
+	_perfTowns = 0;
+	_perfNearEntities = 0;
+	_perfDetected = 0;
+	_perfActivations = 0;
+	_perfDespawns = 0;
+	_perfSpawnGroups = 0;
+	_perfActive = 0;
 
 	for "_i" from 0 to ((count towns) - 1) step 1 do
 	{
+		// Marty: Performance Audit active time excludes the cooperative sleep below.
+		_perfItemStart = diag_tickTime;
 		_position = [];
 		_groups = [];
 
 
 		_town = towns select _i;
+		_perfTowns = _perfTowns + 1;
 		_town_teams = _town getVariable "wfbe_town_teams";
 		_patrol_enabled = if (!isNil {_town getVariable "wfbe_patrol_enabled"}) then {true} else {false};
 
@@ -66,6 +78,8 @@ while {!WFBE_GameOver} do {
 			{
 				_dynRange = if (_town getVariable "wfbe_active" || _town getVariable "wfbe_active_air") then {_range_detect_active} else {_range_detect};
 				_detected = (_town nearEntities [["Man","Car","Motorcycle","Tank","Air","Ship"],_dynRange]) unitsBelowHeight 20;
+				_perfNearEntities = _perfNearEntities + 1;
+				_perfDetected = _perfDetected + count _detected;
 
 				_enemies = [_detected, _side] Call WFBE_CO_FNC_GetAreaEnemiesCount;
 				if(_enemies > 0)then{
@@ -105,7 +119,10 @@ while {!WFBE_GameOver} do {
 								};
 							};
 						};
-						//// start of creation
+							//// start of creation
+						// Marty: Performance Audit counters for town AI activation.
+						_perfActivations = _perfActivations + 1;
+						_perfSpawnGroups = _perfSpawnGroups + count _groups;
 						["INFORMATION", Format ["server_town_ai.fsm: Town [%1] has been activated, creating defensive units for [%2].", _town, _side]] Call WFBE_CO_FNC_LogContent;
 
 						if (missionNamespace getVariable Format ["WFBE_%1_PRESENT",_side]) then {[_side,"HostilesDetectedNear",_town] Spawn SideMessage};
@@ -170,6 +187,8 @@ while {!WFBE_GameOver} do {
 			if((_town getVariable "wfbe_active") || (_town getVariable "wfbe_active_air")) then {
 				if(time - (_town getVariable "wfbe_inactivity") > _unitsInactiveMax) then {
 					//// inner block
+					// Marty: Performance Audit counter for town AI despawn.
+					_perfDespawns = _perfDespawns + 1;
 					_town setVariable ["wfbe_active", false];
 					_town setVariable ["wfbe_active_air", false];
 
@@ -209,9 +228,14 @@ while {!WFBE_GameOver} do {
 
 		};
 
+		_perfActive = _perfActive + (diag_tickTime - _perfItemStart);
 		sleep 0.05;
 	};
 
+	// Marty: Performance Audit record for one town AI server cycle.
+	if !(isNil "PerformanceAudit_Record") then {
+		["server_town_ai", _perfActive, Format["towns:%1;nearEntities:%2;detected:%3;activations:%4;despawns:%5;spawnGroups:%6;cycleMs:%7", _perfTowns, _perfNearEntities, _perfDetected, _perfActivations, _perfDespawns, _perfSpawnGroups, round ((diag_tickTime - _perfStart) * 1000)], "SERVER"] Call PerformanceAudit_Record;
+	};
 
 	sleep 5;
 
