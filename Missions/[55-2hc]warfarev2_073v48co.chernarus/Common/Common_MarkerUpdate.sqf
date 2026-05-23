@@ -1,4 +1,5 @@
-Private ["_deathMarkerColor","_deathMarkerSize","_deathMarkerType","_delete","_deletePrevious","_markerColor","_markerName","_markerSize","_markerType","_markerText","_refreshRate","_trackDeath","_tracked","_side"];
+// Marty: Performance Audit locals.
+Private ["_deathMarkerColor","_deathMarkerSize","_deathMarkerType","_delete","_deletePrevious","_markerColor","_markerName","_markerSize","_markerType","_markerText","_refreshRate","_trackDeath","_tracked","_side","_perfStart"];
 
 waitUntil {commonInitComplete};
 
@@ -29,13 +30,26 @@ _markerName setMarkerSizeLocal _markerSize;
 _tracked setVariable ["unitMarkerBlink", _markerName, false];
 _tracked setVariable ["OriginalMarkerColor", _markerColor, false];
 
+// Marty: Performance Audit active marker script counter.
+if !(isNil "PerformanceAuditMarkerScripts") then {
+	missionNamespace setVariable ["PerformanceAuditMarkerScripts", (missionNamespace getVariable ["PerformanceAuditMarkerScripts", 0]) + 1];
+};
+
 if (getMarkerType _markerName == "Headquarters") then {
 	
 	while {alive _tracked && !(isNull _tracked)} do {
 
 		sleep _refreshRate;
 
+		// Marty: Performance Audit timing for one HQ marker update.
+		_perfStart = diag_tickTime;
+
 		_markerName setMarkerPosLocal (getPos _tracked);
+
+		// Marty: Performance Audit record for one HQ marker update.
+		if !(isNil "PerformanceAudit_Record") then {
+			["markerupdate_hq", diag_tickTime - _perfStart, Format["refresh:%1;activeMarkers:%2", _refreshRate, missionNamespace getVariable ["PerformanceAuditMarkerScripts", 0]], "CLIENT"] Call PerformanceAudit_Record;
+		};
 	};
 
 } else {
@@ -43,6 +57,9 @@ if (getMarkerType _markerName == "Headquarters") then {
 	while {alive _tracked && !(isNull _tracked)} do {
 
 			sleep _refreshRate;
+
+			// Marty: Performance Audit timing for one unit/vehicle marker update.
+			_perfStart = diag_tickTime;
 
 			if (!(canMove _tracked)) then {
 				_markerName setMarkerTypeLocal "mil_objective";
@@ -53,6 +70,11 @@ if (getMarkerType _markerName == "Headquarters") then {
 			};
 
 			_markerName setMarkerPosLocal (getPos _tracked);
+
+			// Marty: Performance Audit record for one unit/vehicle marker update.
+			if !(isNil "PerformanceAudit_Record") then {
+				["markerupdate_unit", diag_tickTime - _perfStart, Format["refresh:%1;activeMarkers:%2", _refreshRate, missionNamespace getVariable ["PerformanceAuditMarkerScripts", 0]], "CLIENT"] Call PerformanceAudit_Record;
+			};
 	};
 };
 
@@ -61,6 +83,11 @@ if (_trackDeath && !isNull _tracked) then {
 	_markerName setMarkerColorLocal _deathMarkerColor;
 	_markerName setMarkerSizeLocal _deathMarkerSize;
 	sleep (missionNamespace getVariable "WFBE_C_PLAYERS_MARKER_DEAD_DELAY");
+};
+
+// Marty: Performance Audit active marker script counter.
+if !(isNil "PerformanceAuditMarkerScripts") then {
+	missionNamespace setVariable ["PerformanceAuditMarkerScripts", ((missionNamespace getVariable ["PerformanceAuditMarkerScripts", 1]) - 1) max 0];
 };
 
 deleteMarkerLocal _markerName;
