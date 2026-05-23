@@ -41,8 +41,8 @@ if (_global) then {
 	};
 };
  
-// Marty: Only attach the combat marker blinking Fired EH when the mission parameter enables the feature.
-if ((missionNamespace getVariable ["WFBE_C_MAP_ICON_BLINKING_ENABLED", 0]) == 1) then {
+// Marty: Only globally initialized vehicles have map combat markers, so town AI can stay marker-light.
+if (_global && (missionNamespace getVariable ["WFBE_C_MAP_ICON_BLINKING_ENABLED", 0]) == 1) then {
 	_vehicle addEventHandler ["Fired", {
 		_u = _this select 0;                 // unit that fired
 		_u Call WFBE_CL_FNC_SetMapIconStatusInCombat;
