@@ -1,4 +1,4 @@
-Private ["_height","_object","_markerName","_side","_sideID","_speed","_altitude","_aircraftName","_aarUpgradeLevel","_oppositeSide","_perfStart","_perfTextUpdates","_perfVisible","_playerDirection","_typeOfObject","_updateFrequency","_upgrades"];
+Private ["_aarUpgradeLevel","_aircraftName","_altitude","_currentDir","_currentPos","_dirDiff","_dirThreshold","_forceMarkerRefresh","_height","_lastMarkerDir","_lastMarkerPos","_lastMarkerText","_lastUpgradeCheck","_lastVisible","_mapVisible","_markerName","_markerText","_object","_oppositeSide","_perfDirWrites","_perfPosWrites","_perfSkippedWrites","_perfStart","_perfTextUpdates","_perfVisible","_posThreshold","_radarInRange","_side","_sideID","_speed","_typeOfObject","_updateDir","_updateFrequency","_updatePos","_updateText","_upgradeCacheTime","_upgrades"];
 
 _object = _this select 0;
 _side = _this select 1;
@@ -15,6 +15,18 @@ _markerName setMarkerSizeLocal [0.5, 0.5]; // Made the marker a bit smaller stil
 _markerName setMarkerAlphaLocal 0;
 _height = missionNamespace getVariable "WFBE_C_STRUCTURES_ANTIAIRRADAR_DETECTION";
 
+// Marty: Cache local marker state so AAR does no useful work while the Arma 2 map screen is hidden and skips repeated marker writes.
+_lastVisible = false;
+_lastMarkerText = "";
+_lastMarkerPos = [0,0,0];
+_lastMarkerDir = -1;
+_forceMarkerRefresh = true;
+_aarUpgradeLevel = -1;
+_lastUpgradeCheck = -999;
+_upgradeCacheTime = 5;
+_posThreshold = 25;
+_dirThreshold = 7;
+
 // Marty: Performance Audit active AAR marker script counter.
 if !(isNil "PerformanceAuditAARMarkerScripts") then {
 	missionNamespace setVariable ["PerformanceAuditAARMarkerScripts", (missionNamespace getVariable ["PerformanceAuditAARMarkerScripts", 0]) + 1];
@@ -23,7 +35,8 @@ if !(isNil "PerformanceAudit_Record") then {
 	["aar_marker_start", 0, Format["type:%1;side:%2;activeAAR:%3", typeOf _object, _sideID, missionNamespace getVariable ["PerformanceAuditAARMarkerScripts", 0]], "CLIENT"] Call PerformanceAudit_Record;
 };
 
-// Need to flip the logic for getting the upgrade level
+// Marty: Default to the local player side for non-standard side ids, then preserve the two-team opposite-side behavior.
+_oppositeSide = sideJoined;
 if (_sideID == 0) then {
     _oppositeSide = (1) Call GetSideFromID;
 };
@@ -33,56 +46,133 @@ if (_sideID == 1) then {
 
 // Place any aircraft warning logic here before the loop (done once)?
 
-// The main update loop
-while {alive _object && !(isNull _object)} do {
+// Marty: AAR marker updates are only useful when the player can see Arma 2 map markers.
+while {!(isNull _object) && alive _object} do {
 	_perfStart = diag_tickTime;
 	_perfVisible = 0;
 	_perfTextUpdates = 0;
-	_aarUpgradeLevel = -1;
-    _updateFrequency = 5; // AAR0: 5, AAR1: 3, AAR2: 1
+	_perfPosWrites = 0;
+	_perfDirWrites = 0;
+	_perfSkippedWrites = 0;
+	_updateFrequency = 5; // AAR0: 5, AAR1: 3, AAR2: 1
+	_radarInRange = antiAirRadarInRange;
+	_mapVisible = visibleMap;
 
-	if (antiAirRadarInRange) then {
-		if (((getPos _object) select 2) > _height) then {
+	call {
+		if !(_mapVisible) exitWith {
+			_updateFrequency = 0.25;
+			_forceMarkerRefresh = true;
+			if (_lastVisible) then {
+				_markerName setMarkerAlphaLocal 0;
+				_lastVisible = false;
+			} else {
+				_perfSkippedWrites = _perfSkippedWrites + 1;
+			};
+			waitUntil {sleep 2; visibleMap || isNull _object || !(alive _object)};
+		};
 
-		    // Get the AAR upgrade level from the _oppositeSite variable
-            _upgrades = (_oppositeSide) Call WFBE_CO_FNC_GetSideUpgrades;
-            _aarUpgradeLevel = _upgrades select WFBE_UP_AAR;
+		if !(_radarInRange) exitWith {
+			_forceMarkerRefresh = true;
+			if (_lastVisible) then {
+				_markerName setMarkerAlphaLocal 0;
+				_lastVisible = false;
+			} else {
+				_perfSkippedWrites = _perfSkippedWrites + 1;
+			};
+		};
 
-            _speed = str(round(speed _object)) + "km/h"; // Get the speed (AAR0)
-            _altitude = " "; // Defined empty (AAR1)
-            _aircraftName = " "; // Defined empty (AAR2)
+		_currentPos = getPos _object;
+		if ((_currentPos select 2) <= _height) exitWith {
+			_forceMarkerRefresh = true;
+			if (_lastVisible) then {
+				_markerName setMarkerAlphaLocal 0;
+				_lastVisible = false;
+			} else {
+				_perfSkippedWrites = _perfSkippedWrites + 1;
+			};
+		};
 
-            // Get the aircraft altitude (AAR1)
-            if (_aarUpgradeLevel > 0) then {
-                _altitude = str(round(getPosATL _object select 2)) + "m";
-                _updateFrequency = 3;
-            };
+		if ((diag_tickTime - _lastUpgradeCheck) > _upgradeCacheTime) then {
+			_upgrades = (_oppositeSide) Call WFBE_CO_FNC_GetSideUpgrades;
+			_aarUpgradeLevel = _upgrades select WFBE_UP_AAR;
+			_lastUpgradeCheck = diag_tickTime;
+		};
 
-            // Get the aircraft name (AAR2)
-            if (_aarUpgradeLevel > 1) then {
-                _typeOfObject = typeOf _object;
-                //["DEBUG (AAR1)", Format ["%1", _typeOfObject]] Call WFBE_CO_FNC_LogContent;
-                _aircraftName = [_typeOfObject] call WFBE_CL_FNC_ReturnAircraftNameFromItsType;
-                //["DEBUG (AAR2)", Format ["%1", _aircraftName]] Call WFBE_CO_FNC_LogContent;
+		if (_aarUpgradeLevel > 0) then {_updateFrequency = 3};
+		if (_aarUpgradeLevel > 1) then {_updateFrequency = 1};
 
-                _updateFrequency = 1;
-            };
+		_speed = str(round(speed _object)) + "km/h"; // Get the speed (AAR0)
+		_altitude = " "; // Defined empty (AAR1)
+		_aircraftName = " "; // Defined empty (AAR2)
 
+		if (_aarUpgradeLevel > 0) then {
+			_altitude = str(round(getPosATL _object select 2)) + "m";
+		};
+
+		if (_aarUpgradeLevel > 1) then {
+			_typeOfObject = typeOf _object;
+			_aircraftName = [_typeOfObject] call WFBE_CL_FNC_ReturnAircraftNameFromItsType;
+		};
+
+		if !(_lastVisible) then {
 			_markerName setMarkerAlphaLocal 1;
-			_markerName setMarkerPosLocal (getPos _object);
-            _markerName setMarkerTextLocal (format ["%1 %2 %3", _speed, _altitude, _aircraftName]);
-			_playerDirection = getDir _object; 				//Marty : get the player's angle direction (= azimut) in order to draw the arrow marker in the same direction.
-			_markerName setMarkerDirLocal _playerDirection;	//Marty : set the player's angle direction to the marker.
-			_perfVisible = 1;
-			_perfTextUpdates = 1;
-
+			_lastVisible = true;
+			_forceMarkerRefresh = true;
 		} else {
+			_perfSkippedWrites = _perfSkippedWrites + 1;
+		};
+
+		_markerText = format ["%1 %2 %3", _speed, _altitude, _aircraftName];
+		_updateText = _forceMarkerRefresh;
+		if (_markerText != _lastMarkerText) then {_updateText = true};
+		if (_updateText) then {
+			_markerName setMarkerTextLocal _markerText;
+			_lastMarkerText = _markerText;
+			_perfTextUpdates = _perfTextUpdates + 1;
+		} else {
+			_perfSkippedWrites = _perfSkippedWrites + 1;
+		};
+
+		_updatePos = _forceMarkerRefresh;
+		if ((_currentPos distance _lastMarkerPos) > _posThreshold) then {_updatePos = true};
+		if (_updatePos) then {
+			_markerName setMarkerPosLocal _currentPos;
+			_lastMarkerPos = _currentPos;
+			_perfPosWrites = _perfPosWrites + 1;
+		} else {
+			_perfSkippedWrites = _perfSkippedWrites + 1;
+		};
+
+		_currentDir = getDir _object;
+		_dirDiff = abs (_currentDir - _lastMarkerDir);
+		if (_dirDiff > 180) then {_dirDiff = 360 - _dirDiff};
+		_updateDir = _forceMarkerRefresh;
+		if (_dirDiff > _dirThreshold) then {_updateDir = true};
+		if (_updateDir) then {
+			_markerName setMarkerDirLocal _currentDir;
+			_lastMarkerDir = _currentDir;
+			_perfDirWrites = _perfDirWrites + 1;
+		} else {
+			_perfSkippedWrites = _perfSkippedWrites + 1;
+		};
+
+		_forceMarkerRefresh = false;
+		_perfVisible = 1;
+	};
+
+	if !(_lastVisible) then {
+		_perfVisible = 0;
+	};
+
+	if (isNull _object || !(alive _object)) then {
+		if (_lastVisible) then {
 			_markerName setMarkerAlphaLocal 0;
+			_lastVisible = false;
 		};
 	};
 
 	if !(isNil "PerformanceAudit_Record") then {
-		["aar_marker_update", diag_tickTime - _perfStart, Format["type:%1;visible:%2;textUpdates:%3;upgrade:%4;refresh:%5;activeAAR:%6;radarInRange:%7", typeOf _object, _perfVisible, _perfTextUpdates, _aarUpgradeLevel, _updateFrequency, missionNamespace getVariable ["PerformanceAuditAARMarkerScripts", 0], antiAirRadarInRange], "CLIENT"] Call PerformanceAudit_Record;
+		["aar_marker_update", diag_tickTime - _perfStart, Format["type:%1;activeAAR:%2;visible:%3;textUpdates:%4;posWrites:%5;dirWrites:%6;skippedWrites:%7;upgrade:%8;refresh:%9;radarInRange:%10", typeOf _object, missionNamespace getVariable ["PerformanceAuditAARMarkerScripts", 0], _perfVisible, _perfTextUpdates, _perfPosWrites, _perfDirWrites, _perfSkippedWrites, _aarUpgradeLevel, _updateFrequency, _radarInRange], "CLIENT"] Call PerformanceAudit_Record;
 	};
 
 	sleep _updateFrequency; //Marty : refresh frequency is same as the updateTeamMarker in order to refresh faster on map. (May be we should increase this value in case of performances issues !)
