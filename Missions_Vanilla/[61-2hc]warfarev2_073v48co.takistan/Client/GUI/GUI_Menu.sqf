@@ -187,12 +187,15 @@ while {alive player && dialog} do {
 	};
 
         //-- HUD:
-	if (MenuAction == 16) exitWith {
+	// Marty: Keep the menu loop alive so repeated HUD/FPS clicks are processed without reopening the WF menu.
+	if (MenuAction == 16) then {
+		MenuAction = -1;
 		if(RUBHUD)then{RUBHUD = false}else{RUBHUD = true};
 	};
 
 	// Marty: Lightweight FPS-only HUD toggle.
-	if (MenuAction == 19) exitWith {
+	if (MenuAction == 19) then {
+		MenuAction = -1;
 		if(RUBFPSHUD)then{RUBFPSHUD = false}else{RUBFPSHUD = true};
 	};
 

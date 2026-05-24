@@ -139,8 +139,9 @@ _RHUDSetFPSPosition = {
 
 	_labelX = safezoneX + safezoneW - (0.150 * safezoneW);
 	_valueX = safezoneX + safezoneW - (0.060 * safezoneW);
-	_row1Y = safezoneY + (0.035 * safezoneH);
-	_row2Y = safezoneY + (0.060 * safezoneH);
+	// Marty: Align the FPS-only first row with the full RHUD first row.
+	_row1Y = safezoneY + (0.18626 * safezoneH);
+	_row2Y = safezoneY + (0.20626 * safezoneH);
 	_labelW = 0.085 * safezoneW;
 	_valueW = 0.050 * safezoneW;
 	_lineH = 0.0255556 * safezoneH;
@@ -154,11 +155,12 @@ _RHUDSetFPSPosition = {
 
 _RHUDSetFullPosition = {
 	private["_labelX", "_valueX", "_startY", "_rowH", "_labelW", "_valueW", "_lineH", "_rowY", "_layoutPairs"];
-	_labelX = safezoneX + safezoneW - (0.155 * safezoneW);
+	_labelX = safezoneX + safezoneW - (0.185 * safezoneW);
 	_valueX = safezoneX + safezoneW - (0.095 * safezoneW);
-	_startY = safezoneY + (0.035 * safezoneH);
+	// Marty: Keep the full RHUD first row at its original vertical position to avoid vehicle ammo overlays.
+	_startY = safezoneY + (0.18626 * safezoneH);
 	_rowH = 0.020 * safezoneH;
-	_labelW = 0.058 * safezoneW;
+	_labelW = 0.088 * safezoneW;
 	_valueW = 0.090 * safezoneW;
 	_lineH = 0.0255556 * safezoneH;
 
@@ -254,8 +256,9 @@ while {true} do {
 				[13, "Supply:"] call _RHUDSetText;
 				[15, "SV Min:"] call _RHUDSetText;
 				[17, "City:"] call _RHUDSetText;
-				[19, "FPS:"] call _RHUDSetText;
-				[21, ""] call _RHUDSetText;
+				// Marty: Spell out the two FPS rows in the full RHUD.
+				[19, "FPS Client:"] call _RHUDSetText;
+				[21, "FPS Server:"] call _RHUDSetText;
 				[22, ""] call _RHUDSetText;
 				_labelsApplied = true;
 				_hiddenApplied = false;
@@ -353,8 +356,9 @@ while {true} do {
 			[18, _cityText] call _RHUDSetText;
 			[18, [0.85, 0, 0, 1]] call _RHUDSetColor;
 
-			// Client/server FPS
-			["FPS:", "", false] call _RHUDUpdateFPS;
+			// Marty: Keep full RHUD FPS labels expanded while updating their values.
+			// Marty: Keep full RHUD FPS labels expanded while updating their values.
+			["FPS Client:", "FPS Server:", false] call _RHUDUpdateFPS;
 			};
 		};
 
