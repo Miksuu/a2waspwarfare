@@ -1,5 +1,5 @@
 // Marty: Performance Audit locals.
-Private ["_deathMarkerColor","_deathMarkerSize","_deathMarkerType","_delete","_deletePrevious","_markerColor","_markerName","_markerSize","_markerType","_markerText","_refreshRate","_trackDeath","_tracked","_trackedKind","_trackedType","_side","_perfStart"];
+Private ["_currentPos","_deathMarkerColor","_deathMarkerSize","_deathMarkerType","_delete","_deletePrevious","_distanceToPlayer","_initialPos","_isHQ","_lastMarkerPos","_lastMarkerSize","_lastMarkerType","_markerColor","_markerName","_markerPosThreshold","_markerSize","_markerText","_markerType","_perfStart","_positionWrites","_refreshRate","_side","_skippedWrites","_sleepRate","_slowInfantry","_targetMarkerSize","_targetMarkerType","_trackDeath","_tracked","_trackedKind","_trackedType","_typeWrites"];
 
 waitUntil {commonInitComplete};
 
@@ -30,7 +30,22 @@ if (_tracked isKindOf "Tank") then {_trackedKind = "tank"};
 if (_tracked isKindOf "Air") then {_trackedKind = "air"};
 if (_tracked isKindOf "Ship") then {_trackedKind = "ship"};
 
-createMarkerLocal [_markerName, getPos _tracked];
+// Marty: Cache marker state locally so repeated refreshes skip unchanged marker writes.
+_initialPos = getPos _tracked;
+_lastMarkerPos = _initialPos;
+_lastMarkerType = _markerType;
+_lastMarkerSize = _markerSize;
+_positionWrites = 0;
+_typeWrites = 0;
+_skippedWrites = 0;
+_isHQ = _markerType == "Headquarters";
+_slowInfantry = false;
+_markerPosThreshold = 5;
+if (_trackedKind == "man") then {_markerPosThreshold = 2; _slowInfantry = group _tracked != group player};
+if (_trackedKind == "air") then {_markerPosThreshold = 10};
+if (_isHQ) then {_markerPosThreshold = 1};
+
+createMarkerLocal [_markerName, _initialPos];
 if (_markerText != "") then {_markerName setMarkerTextLocal _markerText};
 _markerName setMarkerTypeLocal _markerType;
 _markerName setMarkerColorLocal _markerColor;
@@ -45,48 +60,82 @@ if !(isNil "PerformanceAuditMarkerScripts") then {
 };
 
 if !(isNil "PerformanceAudit_Record") then {
-	["markerupdate_start", 0, Format["markerType:%1;trackedKind:%2;trackedType:%3;refresh:%4;trackDeath:%5;activeMarkers:%6;side:%7", _markerType, _trackedKind, _trackedType, _refreshRate, _trackDeath, missionNamespace getVariable ["PerformanceAuditMarkerScripts", 0], _side], "CLIENT"] Call PerformanceAudit_Record;
+	["markerupdate_start", 0, Format["markerType:%1;trackedKind:%2;trackedType:%3;refresh:%4;activeMarkers:%5;positionWrites:%6;typeWrites:%7;skippedWrites:%8;side:%9;trackDeath:%10", _markerType, _trackedKind, _trackedType, _refreshRate, missionNamespace getVariable ["PerformanceAuditMarkerScripts", 0], _positionWrites, _typeWrites, _skippedWrites, _side, _trackDeath], "CLIENT"] Call PerformanceAudit_Record;
 };
 
-if (getMarkerType _markerName == "Headquarters") then {
+if (_isHQ) then {
 	
-	while {alive _tracked && !(isNull _tracked)} do {
+	while {!(isNull _tracked) && alive _tracked} do {
 
 		sleep _refreshRate;
 
 		// Marty: Performance Audit timing for one HQ marker update.
 		_perfStart = diag_tickTime;
 
-		_markerName setMarkerPosLocal (getPos _tracked);
+		_currentPos = getPos _tracked;
+		if ((_currentPos distance _lastMarkerPos) > _markerPosThreshold) then {
+			_markerName setMarkerPosLocal _currentPos;
+			_lastMarkerPos = _currentPos;
+			_positionWrites = _positionWrites + 1;
+		} else {
+			_skippedWrites = _skippedWrites + 1;
+		};
 
 		// Marty: Performance Audit record for one HQ marker update.
 		if !(isNil "PerformanceAudit_Record") then {
-			["markerupdate_hq", diag_tickTime - _perfStart, Format["refresh:%1;activeMarkers:%2;trackedKind:%3;trackedType:%4", _refreshRate, missionNamespace getVariable ["PerformanceAuditMarkerScripts", 0], _trackedKind, _trackedType], "CLIENT"] Call PerformanceAudit_Record;
+			["markerupdate_hq", diag_tickTime - _perfStart, Format["trackedKind:%1;trackedType:%2;refresh:%3;activeMarkers:%4;positionWrites:%5;typeWrites:%6;skippedWrites:%7;side:%8", _trackedKind, _trackedType, _refreshRate, missionNamespace getVariable ["PerformanceAuditMarkerScripts", 0], _positionWrites, _typeWrites, _skippedWrites, _side], "CLIENT"] Call PerformanceAudit_Record;
 		};
 	};
 
 } else {
 
-	while {alive _tracked && !(isNull _tracked)} do {
+	while {!(isNull _tracked) && alive _tracked} do {
 
-			sleep _refreshRate;
+			// Marty: Slow distant and non-player infantry markers without changing important nearby/player refreshes.
+			_sleepRate = _refreshRate;
+			_distanceToPlayer = player distance _tracked;
+			if (_slowInfantry) then {_sleepRate = _sleepRate max 3};
+			if (_distanceToPlayer > 2500) then {_sleepRate = _sleepRate max 4};
+			sleep _sleepRate;
 
 			// Marty: Performance Audit timing for one unit/vehicle marker update.
 			_perfStart = diag_tickTime;
 
 			if (!(canMove _tracked)) then {
-				_markerName setMarkerTypeLocal "mil_objective";
-				_markerName setMarkerSizeLocal [0.5,0.5];
+				_targetMarkerType = "mil_objective";
+				_targetMarkerSize = [0.5,0.5];
 			} else {
-				_markerName setMarkerTypeLocal _markerType;
-				_markerName setMarkerSizeLocal _markerSize;
+				_targetMarkerType = _markerType;
+				_targetMarkerSize = _markerSize;
 			};
 
-			_markerName setMarkerPosLocal (getPos _tracked);
+			if (_targetMarkerType != _lastMarkerType) then {
+				_markerName setMarkerTypeLocal _targetMarkerType;
+				_lastMarkerType = _targetMarkerType;
+				_typeWrites = _typeWrites + 1;
+			} else {
+				_skippedWrites = _skippedWrites + 1;
+			};
+
+			if !(_targetMarkerSize == _lastMarkerSize) then {
+				_markerName setMarkerSizeLocal _targetMarkerSize;
+				_lastMarkerSize = _targetMarkerSize;
+			} else {
+				_skippedWrites = _skippedWrites + 1;
+			};
+
+			_currentPos = getPos _tracked;
+			if ((_currentPos distance _lastMarkerPos) > _markerPosThreshold) then {
+				_markerName setMarkerPosLocal _currentPos;
+				_lastMarkerPos = _currentPos;
+				_positionWrites = _positionWrites + 1;
+			} else {
+				_skippedWrites = _skippedWrites + 1;
+			};
 
 			// Marty: Performance Audit record for one unit/vehicle marker update.
 			if !(isNil "PerformanceAudit_Record") then {
-				["markerupdate_unit", diag_tickTime - _perfStart, Format["refresh:%1;activeMarkers:%2;trackedKind:%3;trackedType:%4", _refreshRate, missionNamespace getVariable ["PerformanceAuditMarkerScripts", 0], _trackedKind, _trackedType], "CLIENT"] Call PerformanceAudit_Record;
+				["markerupdate_unit", diag_tickTime - _perfStart, Format["trackedKind:%1;trackedType:%2;refresh:%3;activeMarkers:%4;positionWrites:%5;typeWrites:%6;skippedWrites:%7;side:%8", _trackedKind, _trackedType, _sleepRate, missionNamespace getVariable ["PerformanceAuditMarkerScripts", 0], _positionWrites, _typeWrites, _skippedWrites, _side], "CLIENT"] Call PerformanceAudit_Record;
 			};
 	};
 };
@@ -95,6 +144,7 @@ if (_trackDeath && !isNull _tracked) then {
 	_markerName setMarkerTypeLocal _deathMarkerType;
 	_markerName setMarkerColorLocal _deathMarkerColor;
 	_markerName setMarkerSizeLocal _deathMarkerSize;
+	_typeWrites = _typeWrites + 1;
 	sleep (missionNamespace getVariable "WFBE_C_PLAYERS_MARKER_DEAD_DELAY");
 };
 
@@ -104,7 +154,7 @@ if !(isNil "PerformanceAuditMarkerScripts") then {
 };
 
 if !(isNil "PerformanceAudit_Record") then {
-	["markerupdate_end", 0, Format["markerType:%1;trackedKind:%2;trackedType:%3;activeMarkers:%4;side:%5", _markerType, _trackedKind, _trackedType, missionNamespace getVariable ["PerformanceAuditMarkerScripts", 0], _side], "CLIENT"] Call PerformanceAudit_Record;
+	["markerupdate_end", 0, Format["markerType:%1;trackedKind:%2;trackedType:%3;refresh:%4;activeMarkers:%5;positionWrites:%6;typeWrites:%7;skippedWrites:%8;side:%9", _markerType, _trackedKind, _trackedType, _refreshRate, missionNamespace getVariable ["PerformanceAuditMarkerScripts", 0], _positionWrites, _typeWrites, _skippedWrites, _side], "CLIENT"] Call PerformanceAudit_Record;
 };
 
 deleteMarkerLocal _markerName;

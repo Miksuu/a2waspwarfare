@@ -49,16 +49,18 @@ _rearmor = {
 
 	if (_canCreate) then {
 		if (_x isKindOf 'Man') then {
-			_unit = [_x,_team,_position,_sideID] Call WFBE_CO_FNC_CreateUnit;
+			// Marty: Forward the team global-init flag so town AI infantry can skip client marker/action setup.
+			_unit = [_x,_team,_position,_sideID,_global] Call WFBE_CO_FNC_CreateUnit;
 			_units = _units + [_unit];
 			_perfInfantry = _perfInfantry + 1;
 		} else {
 			_vehicle = [_x, _position, _sideID, 0, _lockVehicles, true, _global, "FORM"] Call WFBE_CO_FNC_CreateVehicle;
 			_perfVehicles = _perfVehicles + 1;
 			_type = if (_vehicle isKindOf 'Man') then {missionNamespace getVariable Format ['WFBE_%1SOLDIER',_side]} else {if (_vehicle isKindOf 'Air') then {missionNamespace getVariable Format ['WFBE_%1PILOT',_side]} else {missionNamespace getVariable Format ['WFBE_%1CREW',_side]}};
-			if (_vehicle emptyPositions 'driver' > 0) then {_driver = [_type,_team,_position,_sideID] Call WFBE_CO_FNC_CreateUnit;_driver moveInDriver _vehicle;_driver addeventhandler ["HandleDamage",format ["_this Call %1", _rearmor]];_crews = _crews + [_driver];_perfCrew = _perfCrew + 1};
-			if (_vehicle emptyPositions 'gunner' > 0) then {_gunner = [_type,_team,_position,_sideID] Call WFBE_CO_FNC_CreateUnit;_gunner moveInGunner _vehicle;_gunner addeventhandler ["HandleDamage",format ["_this Call %1", _rearmor]];_crews = _crews + [_gunner];_perfCrew = _perfCrew + 1};
-			if (_vehicle emptyPositions 'commander' > 0) then {_commander = [_type,_team,_position,_sideID] Call WFBE_CO_FNC_CreateUnit;_commander addeventhandler ["HandleDamage",format ["_this Call %1", _rearmor]];_commander moveInCommander _vehicle;_crews = _crews + [_commander];_perfCrew = _perfCrew + 1};
+			// Marty: Vehicle crews follow the same global-init flag as their vehicle to avoid town AI marker loops.
+			if (_vehicle emptyPositions 'driver' > 0) then {_driver = [_type,_team,_position,_sideID,_global] Call WFBE_CO_FNC_CreateUnit;_driver moveInDriver _vehicle;_driver addeventhandler ["HandleDamage",format ["_this Call %1", _rearmor]];_crews = _crews + [_driver];_perfCrew = _perfCrew + 1};
+			if (_vehicle emptyPositions 'gunner' > 0) then {_gunner = [_type,_team,_position,_sideID,_global] Call WFBE_CO_FNC_CreateUnit;_gunner moveInGunner _vehicle;_gunner addeventhandler ["HandleDamage",format ["_this Call %1", _rearmor]];_crews = _crews + [_gunner];_perfCrew = _perfCrew + 1};
+			if (_vehicle emptyPositions 'commander' > 0) then {_commander = [_type,_team,_position,_sideID,_global] Call WFBE_CO_FNC_CreateUnit;_commander addeventhandler ["HandleDamage",format ["_this Call %1", _rearmor]];_commander moveInCommander _vehicle;_crews = _crews + [_commander];_perfCrew = _perfCrew + 1};
 			_vehicles = _vehicles + [_vehicle];
 		};
 	} else {
@@ -68,10 +70,10 @@ _rearmor = {
 
 {_team addVehicle _x} forEach _vehicles; //--- Add vehicles.
 
-// Marty: Audit keeps the current behavior visible; unitGlobalForwarded=false exposes whether CreateUnit receives the team global flag.
+// Marty: Audit exposes that CreateUnit now receives the team global flag.
 if !(isNil "PerformanceAudit_Record") then {
 	_perfScope = if (isServer && !hasInterface) then {"SERVER"} else {"CLIENT"};
-	["createteam", diag_tickTime - _perfStart, Format["side:%1;global:%2;templates:%3;infantry:%4;vehicles:%5;crews:%6;skipped:%7;unitGlobalForwarded:false", _sideID, _global, count _list, _perfInfantry, _perfVehicles, _perfCrew, _perfSkipped], _perfScope] Call PerformanceAudit_Record;
+	["createteam", diag_tickTime - _perfStart, Format["side:%1;global:%2;templates:%3;infantry:%4;vehicles:%5;crews:%6;skipped:%7;unitGlobalForwarded:true", _sideID, _global, count _list, _perfInfantry, _perfVehicles, _perfCrew, _perfSkipped], _perfScope] Call PerformanceAudit_Record;
 };
 
 [_units,_vehicles,_team,_crews]
