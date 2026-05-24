@@ -51,6 +51,52 @@ function ConvertTo-AuditNumber {
 	return $null
 }
 
+function Get-RptDateTimePrefix {
+	param([string]$Line)
+
+	$match = [regex]::Match($Line, '^\s*(\d{4})[-/](\d{1,2})[-/](\d{1,2})[ T,]+(\d{1,2}):(\d{2}):(\d{2})')
+	if ($match.Success) {
+		return [datetime]::new(
+			[int]$match.Groups[1].Value,
+			[int]$match.Groups[2].Value,
+			[int]$match.Groups[3].Value,
+			[int]$match.Groups[4].Value,
+			[int]$match.Groups[5].Value,
+			[int]$match.Groups[6].Value
+		)
+	}
+
+	$match = [regex]::Match($Line, '^\s*(\d{1,2})[./-](\d{1,2})[./-](\d{2,4})[ T,]+(\d{1,2}):(\d{2}):(\d{2})')
+	if ($match.Success) {
+		$year = [int]$match.Groups[3].Value
+		if ($year -lt 100) { $year += 2000 }
+
+		return [datetime]::new(
+			$year,
+			[int]$match.Groups[2].Value,
+			[int]$match.Groups[1].Value,
+			[int]$match.Groups[4].Value,
+			[int]$match.Groups[5].Value,
+			[int]$match.Groups[6].Value
+		)
+	}
+
+	return $null
+}
+
+function Get-RptTimeOfDayPrefix {
+	param([string]$Line)
+
+	$match = [regex]::Match($Line, '^\s*(\d{1,2}):(\d{2}):(\d{2})\b')
+	if (!$match.Success) { return $null }
+
+	return [timespan]::new(
+		[int]$match.Groups[1].Value,
+		[int]$match.Groups[2].Value,
+		[int]$match.Groups[3].Value
+	)
+}
+
 function Get-AuditValue {
 	param(
 		[hashtable]$Fields,
@@ -157,6 +203,42 @@ function ConvertFrom-AuditExtra {
 	return $fields
 }
 
+function Get-AuditAnchorSessionStart {
+	param([object]$Row)
+
+	if ($null -eq $Row -or $Row.script -ne "session") { return $null }
+
+	$extraFields = ConvertFrom-AuditExtra ([string]$Row.extra)
+	if (!$extraFields.ContainsKey("state") -or $extraFields["state"] -ne "anchor") { return $null }
+
+	if ($extraFields.ContainsKey("realTime")) {
+		$realTime = [string]$extraFields["realTime"]
+		if ($realTime -match '^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}') {
+			return [pscustomobject]@{
+				session_start = $realTime.Substring(0, 19).Replace("T", " ")
+				session_start_source = "audit_session_anchor_realtime"
+			}
+		}
+	}
+
+	foreach ($key in @("gameYear","gameMonth","gameDay","gameHour","gameMinute")) {
+		if (!$extraFields.ContainsKey($key)) { return $null }
+	}
+
+	$year = ConvertTo-AuditNumber $extraFields["gameYear"]
+	$month = ConvertTo-AuditNumber $extraFields["gameMonth"]
+	$day = ConvertTo-AuditNumber $extraFields["gameDay"]
+	$hour = ConvertTo-AuditNumber $extraFields["gameHour"]
+	$minute = ConvertTo-AuditNumber $extraFields["gameMinute"]
+
+	if ($null -eq $year -or $null -eq $month -or $null -eq $day -or $null -eq $hour -or $null -eq $minute) { return $null }
+
+	return [pscustomobject]@{
+		session_start = "{0:0000}-{1:00}-{2:00} {3:00}:{4:00}:00" -f [int]$year, [int]$month, [int]$day, [int]$hour, [int]$minute
+		session_start_source = "audit_session_anchor_game_date"
+	}
+}
+
 function New-ExpandedAuditRows {
 	param(
 		[object[]]$Rows,
@@ -199,8 +281,11 @@ function ConvertFrom-PerformanceAuditLine {
 	param(
 		[string]$Line,
 		[string]$SourceFile,
+		[string]$SourceFileLastWriteTime,
 		[int]$LineNumber,
-		[int]$Index
+		[int]$Index,
+		[string]$RptTimestamp,
+		[string]$RptTimestampSource
 	)
 
 	if ($Line -notlike "*[Performance Audit]*") { return $null }
@@ -231,7 +316,12 @@ function ConvertFrom-PerformanceAuditLine {
 		timestamp_index = $Index
 		session_index = $null
 		session_key = $null
+		session_start = ""
+		session_start_source = ""
 		sid = Get-AuditValue $fields "SID"
+		rpt_timestamp = $RptTimestamp
+		rpt_timestamp_source = $RptTimestampSource
+		source_file_last_write_time = $SourceFileLastWriteTime
 		source_file = $SourceFile
 		line_number = $LineNumber
 		map = Get-AuditValue $fields "MAP"
@@ -396,6 +486,8 @@ function New-ScriptSummary {
 		[pscustomobject]@{
 			session_index = $items[0].session_index
 			session_key = $items[0].session_key
+			session_start = $items[0].session_start
+			session_start_source = $items[0].session_start_source
 			sid = $items[0].sid
 			map = $items[0].map
 			scope = $items[0].scope
@@ -427,7 +519,7 @@ function New-Timeline {
 	param([object[]]$Rows)
 
 	return @($Rows | Where-Object { $_.script -eq "snapshot" -or $_.script -eq "session" } | Select-Object `
-		timestamp_index, session_index, session_key, sid, source_file, line_number, map, scope, player, uid, script, fps, players, ai, ai_bin, units, vehicles, teams, towns_active, markers, vd, pvd, tfps, ptg, dnc, daytime, fog, overcast, rain, extra)
+		timestamp_index, session_index, session_key, session_start, session_start_source, sid, rpt_timestamp, rpt_timestamp_source, source_file_last_write_time, source_file, line_number, map, scope, player, uid, script, fps, players, ai, ai_bin, units, vehicles, teams, towns_active, markers, vd, pvd, tfps, ptg, dnc, daytime, fog, overcast, rain, extra)
 }
 
 function New-SpikeTable {
@@ -439,7 +531,7 @@ function New-SpikeTable {
 	return @($Rows |
 		Where-Object { $_.script -and $_.script -notin @("snapshot", "session") -and $null -ne $_.max_ms -and $_.max_ms -ge $ThresholdMs } |
 		Sort-Object max_ms -Descending |
-		Select-Object timestamp_index, session_index, session_key, sid, source_file, line_number, map, scope, player, uid, script, fps, players, ai, ai_bin, units, vehicles, markers, vd, dnc, daytime, fog, overcast, rain, calls, avg_ms, max_ms, total_ms, extra)
+		Select-Object timestamp_index, session_index, session_key, session_start, session_start_source, sid, rpt_timestamp, rpt_timestamp_source, source_file_last_write_time, source_file, line_number, map, scope, player, uid, script, fps, players, ai, ai_bin, units, vehicles, markers, vd, dnc, daytime, fog, overcast, rain, calls, avg_ms, max_ms, total_ms, extra)
 }
 
 function New-FpsContext {
@@ -451,6 +543,8 @@ function New-FpsContext {
 		[pscustomobject]@{
 			session_index = $items[0].session_index
 			session_key = $items[0].session_key
+			session_start = $items[0].session_start
+			session_start_source = $items[0].session_start_source
 			sid = $items[0].sid
 			map = $items[0].map
 			scope = $items[0].scope
@@ -486,6 +580,8 @@ function New-PlayerSummary {
 		[pscustomobject]@{
 			session_index = $items[0].session_index
 			session_key = $items[0].session_key
+			session_start = $items[0].session_start
+			session_start_source = $items[0].session_start_source
 			sid = $items[0].sid
 			map = $items[0].map
 			scope = $items[0].scope
@@ -518,6 +614,8 @@ function New-MapSummary {
 		[pscustomobject]@{
 			session_index = $items[0].session_index
 			session_key = $items[0].session_key
+			session_start = $items[0].session_start
+			session_start_source = $items[0].session_start_source
 			sid = $items[0].sid
 			map = $items[0].map
 			scope = $items[0].scope
@@ -567,29 +665,29 @@ function Write-MarkdownReport {
 
 	$lines.Add("## Map / Scope FPS")
 	$lines.Add("")
-	$lines.Add("| Session | Map | Scope | Samples | Avg FPS | Min FPS | P10 FPS | P50 FPS | P90 FPS | Avg AI | Max AI | Avg Markers |")
-	$lines.Add("|---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|")
+	$lines.Add("| Session | Session start | Map | Scope | Samples | Avg FPS | Min FPS | P10 FPS | P50 FPS | P90 FPS | Avg AI | Max AI | Avg Markers |")
+	$lines.Add("|---:|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|")
 	foreach ($row in $MapSummary) {
-		$lines.Add("| $($row.session_index) | $($row.map) | $($row.scope) | $($row.samples) | $($row.avg_fps) | $($row.min_fps) | $($row.p10_fps) | $($row.p50_fps) | $($row.p90_fps) | $($row.avg_ai) | $($row.max_ai) | $($row.avg_markers) |")
+		$lines.Add("| $($row.session_index) | $($row.session_start) | $($row.map) | $($row.scope) | $($row.samples) | $($row.avg_fps) | $($row.min_fps) | $($row.p10_fps) | $($row.p50_fps) | $($row.p90_fps) | $($row.avg_ai) | $($row.max_ai) | $($row.avg_markers) |")
 	}
 	$lines.Add("")
 
 	$lines.Add("## Top Scripts By Total Cost")
 	$lines.Add("")
-	$lines.Add("| Session | Map | Scope | Script | Samples | Calls | Total ms | Weighted avg ms | Max ms | Spike rows >=25ms |")
-	$lines.Add("|---:|---|---|---|---:|---:|---:|---:|---:|---:|")
+	$lines.Add("| Session | Session start | Map | Scope | Script | Samples | Calls | Total ms | Weighted avg ms | Max ms | Spike rows >=25ms |")
+	$lines.Add("|---:|---|---|---|---|---:|---:|---:|---:|---:|---:|")
 	foreach ($row in ($ScriptSummary | Select-Object -First 15)) {
-		$lines.Add("| $($row.session_index) | $($row.map) | $($row.scope) | $($row.script) | $($row.samples) | $($row.total_calls) | $($row.total_ms) | $($row.weighted_avg_ms) | $($row.max_ms) | $($row.spike_rows_25ms) |")
+		$lines.Add("| $($row.session_index) | $($row.session_start) | $($row.map) | $($row.scope) | $($row.script) | $($row.samples) | $($row.total_calls) | $($row.total_ms) | $($row.weighted_avg_ms) | $($row.max_ms) | $($row.spike_rows_25ms) |")
 	}
 	$lines.Add("")
 
 	$lines.Add("## Top Spikes")
 	$lines.Add("")
-	$lines.Add("| Session | Map | Scope | Player | Script | FPS | Players | AI | Markers | Calls | Avg ms | Max ms | Extra |")
-	$lines.Add("|---:|---|---|---|---|---:|---:|---:|---:|---:|---:|---:|---|")
+	$lines.Add("| Session | Session start | Map | Scope | Player | Script | FPS | Players | AI | Markers | Calls | Avg ms | Max ms | Extra |")
+	$lines.Add("|---:|---|---|---|---|---|---:|---:|---:|---:|---:|---:|---:|---|")
 	foreach ($row in ($Spikes | Select-Object -First 20)) {
 		$extra = ([string]$row.extra).Replace("|", "/")
-		$lines.Add("| $($row.session_index) | $($row.map) | $($row.scope) | $($row.player) | $($row.script) | $($row.fps) | $($row.players) | $($row.ai) | $($row.markers) | $($row.calls) | $($row.avg_ms) | $($row.max_ms) | $extra |")
+		$lines.Add("| $($row.session_index) | $($row.session_start) | $($row.map) | $($row.scope) | $($row.player) | $($row.script) | $($row.fps) | $($row.players) | $($row.ai) | $($row.markers) | $($row.calls) | $($row.avg_ms) | $($row.max_ms) | $extra |")
 	}
 	$lines.Add("")
 
@@ -630,6 +728,7 @@ function Write-HtmlReport {
 	$worstSnapshots = @($snapshotRows | Sort-Object fps | Select-Object -First 20)
 	$topScripts = @($ScriptSummary | Select-Object -First 15)
 	$topSpikes = @($Spikes | Select-Object -First 20)
+	$sessionIndexes = @($Rows | Sort-Object session_index | Select-Object -ExpandProperty session_index -Unique)
 	$minFps = Get-Min ($snapshotRows | ForEach-Object { $_.fps })
 	$avgFps = Get-Average ($snapshotRows | ForEach-Object { $_.fps })
 	$maxAi = Get-Max ($snapshotRows | ForEach-Object { $_.ai })
@@ -678,7 +777,12 @@ function Write-HtmlReport {
 	$labels = @{
 		session_index = "Session"
 		session_key = "Session id"
+		session_start = "Session start"
+		session_start_source = "Session date source"
 		sid = "SID"
+		rpt_timestamp = "RPT timestamp"
+		rpt_timestamp_source = "RPT time source"
+		source_file_last_write_time = "Source file date"
 		map = "Map"
 		scope = "Scope"
 		player = "Player"
@@ -689,6 +793,8 @@ function Write-HtmlReport {
 		weighted_avg_ms = "Weighted avg ms"
 		max_ms = "Max ms"
 		spike_rows_25ms = "Spikes >=25ms"
+		spike_rows_50ms = "Spikes >=50ms"
+		spike_rows_100ms = "Spikes >=100ms"
 		fps = "FPS"
 		players = "Players"
 		ai = "AI"
@@ -835,16 +941,53 @@ function Write-HtmlReport {
 
 	$lines.Add("<section>")
 	$lines.Add("<h2>How To Read This Report</h2>")
-	$lines.Add("<p class=""section-note"">Start with <strong>Map / Scope FPS</strong> to see the global FPS situation, then read <strong>Top Scripts By Total Cost</strong> for scripts consuming the most cumulative time. <strong>Top Spikes</strong> shows sudden expensive frames. <strong>Worst FPS Snapshots</strong> shows the game context when FPS was lowest.</p>")
+	$lines.Add("<p class=""section-note"">Start with <strong>Session Overview</strong> when the RPT contains several appended games, then compare <strong>Session X - Detailed Script Cost</strong> between runs. After that, use <strong>Map / Scope FPS</strong>, <strong>Top Scripts By Total Cost</strong>, <strong>Top Spikes</strong> and <strong>Worst FPS Snapshots</strong> for global context.</p>")
 	$lines.Add("<div class=""legend""><span class=""pill"">Green: acceptable FPS or low spike</span><span class=""pill"">Yellow/orange: warning</span><span class=""pill"">Red: critical FPS or spike</span><span class=""pill"">Total ms = calls * avg ms</span></div>")
 	$lines.Add("</section>")
+
+	Add-HtmlTable `
+		-Lines $lines `
+		-Title "Session Overview" `
+		-Description "One RPT can contain several appended games. This table separates each detected session and shows the best available session anchor. New audit logs write a dedicated anchor row; Arma 2 OA cannot provide real OS time from SQF, so audit_session_anchor_game_date means mission date, while rpt_datetime_prefix means a real timestamp was present in the RPT text." `
+		-Rows $MapSummary `
+		-Columns @("session_index","session_start","session_start_source","map","scope","samples","avg_fps","min_fps","p10_fps","p50_fps","p90_fps","avg_ai","max_ai","avg_markers","avg_vd") `
+		-Labels $labels `
+		-Kind "map"
+
+	foreach ($sessionIndex in $sessionIndexes) {
+		$sessionRows = @($Rows | Where-Object { $_.session_index -eq $sessionIndex })
+		if ($sessionRows.Count -eq 0) { continue }
+
+		$sessionStart = $sessionRows[0].session_start
+		$sessionSource = $sessionRows[0].session_start_source
+		$sessionTopScripts = @($ScriptSummary | Where-Object { $_.session_index -eq $sessionIndex } | Sort-Object total_ms -Descending | Select-Object -First 25)
+		$sessionTopSpikes = @($Spikes | Where-Object { $_.session_index -eq $sessionIndex } | Sort-Object max_ms -Descending | Select-Object -First 20)
+
+		Add-HtmlTable `
+			-Lines $lines `
+			-Title "Session $sessionIndex - Detailed Script Cost" `
+			-Description "Detailed script ranking for session $sessionIndex, starting $sessionStart ($sessionSource). Use this section to compare the same script before and after mission updates without mixing appended RPT sessions." `
+			-Rows $sessionTopScripts `
+			-Columns @("session_index","session_start","map","scope","script","samples","total_calls","total_ms","weighted_avg_ms","max_ms","spike_rows_25ms","spike_rows_50ms","spike_rows_100ms","avg_fps","min_fps","avg_ai","max_ai","avg_markers") `
+			-Labels $labels `
+			-Kind "spike"
+
+		Add-HtmlTable `
+			-Lines $lines `
+			-Title "Session $sessionIndex - Detailed Spikes" `
+			-Description "Largest spike rows for session $sessionIndex only. These rows are useful when checking whether a recently optimized script still produces visible stalls in this specific game." `
+			-Rows $sessionTopSpikes `
+			-Columns @("session_index","session_start","map","scope","player","script","fps","players","ai","markers","vd","calls","avg_ms","max_ms","extra") `
+			-Labels $labels `
+			-Kind "spike"
+	}
 
 	Add-HtmlTable `
 		-Lines $lines `
 		-Title "Map / Scope FPS" `
 		-Description "Global FPS context grouped by session, map and locality. P10 means 10 percent of snapshots were at or below that FPS; it is useful for measuring bad moments without relying only on the absolute minimum." `
 		-Rows $MapSummary `
-		-Columns @("session_index","map","scope","samples","avg_fps","min_fps","p10_fps","p50_fps","p90_fps","avg_ai","max_ai","avg_markers") `
+		-Columns @("session_index","session_start","map","scope","samples","avg_fps","min_fps","p10_fps","p50_fps","p90_fps","avg_ai","max_ai","avg_markers") `
 		-Labels $labels `
 		-Kind "map"
 
@@ -853,7 +996,7 @@ function Write-HtmlReport {
 		-Title "Top Scripts By Total Cost" `
 		-Description "Scripts ranked by cumulative measured cost. A script can be important either because it is expensive once, or because it runs very often. Weighted average is total_ms divided by total calls." `
 		-Rows $topScripts `
-		-Columns @("session_index","map","scope","script","samples","total_calls","total_ms","weighted_avg_ms","max_ms","spike_rows_25ms") `
+		-Columns @("session_index","session_start","map","scope","script","samples","total_calls","total_ms","weighted_avg_ms","max_ms","spike_rows_25ms") `
 		-Labels $labels `
 		-Kind "spike"
 
@@ -862,7 +1005,7 @@ function Write-HtmlReport {
 		-Title "Top Spikes" `
 		-Description "Largest MAX_MS rows. These rows identify rare but visible stalls. The Extra column gives script-specific context such as marker operations, AI counts, town counts or network writes." `
 		-Rows $topSpikes `
-		-Columns @("session_index","map","scope","player","script","fps","players","ai","markers","calls","avg_ms","max_ms","extra") `
+		-Columns @("session_index","session_start","map","scope","player","script","fps","players","ai","markers","calls","avg_ms","max_ms","extra") `
 		-Labels $labels `
 		-Kind "spike"
 
@@ -871,7 +1014,7 @@ function Write-HtmlReport {
 		-Title "Worst FPS Snapshots" `
 		-Description "Lowest FPS snapshots and their mission context. This helps correlate bad FPS with AI count, player count, view distance, markers, day/night and weather." `
 		-Rows $worstSnapshots `
-		-Columns @("session_index","map","scope","player","fps","players","ai","units","vehicles","markers","vd","dnc","daytime","fog","overcast","rain") `
+		-Columns @("session_index","session_start","map","scope","player","fps","players","ai","units","vehicles","markers","vd","dnc","daytime","fog","overcast","rain") `
 		-Labels $labels `
 		-Kind "fps"
 
@@ -880,7 +1023,7 @@ function Write-HtmlReport {
 		-Title "Player Summary" `
 		-Description "Client-oriented summary. Compare players to separate mission-wide performance issues from one client machine or settings profile." `
 		-Rows $PlayerSummary `
-		-Columns @("session_index","map","scope","player","samples","avg_fps","min_fps","p10_fps","avg_ai","max_ai","avg_vd") `
+		-Columns @("session_index","session_start","map","scope","player","samples","avg_fps","min_fps","p10_fps","avg_ai","max_ai","avg_vd") `
 		-Labels $labels `
 		-Kind "map"
 
@@ -940,7 +1083,7 @@ function Write-HtmlReport {
 
 	$lines.Add("<section>")
 	$lines.Add("<h2>Generated Files</h2>")
-	$lines.Add("<p class=""section-note"">Use <strong>performance_pivot_ready.csv</strong> for Excel pivot tables and charts; it now includes parsed <strong>extra_*</strong> columns from script-specific audit context. Use <strong>performance_by_script.csv</strong> and <strong>performance_spikes.csv</strong> for optimization priorities. The older Markdown report is still generated for quick text sharing.</p>")
+	$lines.Add("<p class=""section-note"">Use <strong>performance_by_session.csv</strong> for the session overview, then <strong>performance_by_script.csv</strong> and <strong>performance_spikes.csv</strong> filtered by Session to compare before/after runs. Use <strong>performance_pivot_ready.csv</strong> for Excel pivot tables and charts; it includes parsed <strong>extra_*</strong> columns from script-specific audit context. The older Markdown report is still generated for quick text sharing.</p>")
 	$lines.Add("</section>")
 
 	$lines.Add("<p class=""footer"">Total script cost represented in summaries: $totalScriptMs ms. Report generated by Performance Audit Analyzer.</p>")
@@ -1012,6 +1155,8 @@ function Write-InterpretationGuide {
 	$lines.Add("<tr><td><code>P10 FPS</code></td><td>10 percent of snapshots were at or below this FPS.</td><td>Better than minimum FPS for measuring bad moments without overreacting to one outlier.</td></tr>")
 	$lines.Add("<tr><td><code>AI bin</code></td><td>FPS grouped by AI count ranges.</td><td>Shows whether performance degrades as the mission grows.</td></tr>")
 	$lines.Add("<tr><td><code>DNC / Daytime / Weather</code></td><td>Day/night cycle and weather context.</td><td>Use this to compare FPS under different environment states when enough samples exist.</td></tr>")
+	$lines.Add("<tr><td><code>Session start</code></td><td>Date/time assigned to the beginning of each detected game session.</td><td>Use this to compare appended RPT sessions before and after mission updates. When the RPT only provides time-of-day, the date is an estimate based on the source file date.</td></tr>")
+	$lines.Add("<tr><td><code>Session date source</code></td><td>How the analyzer determined the session date/anchor.</td><td><code>rpt_datetime_prefix</code> is strongest because the RPT text contains a real timestamp. <code>audit_session_anchor_game_date</code> comes from the mission-side anchor and is the Arma mission date, not OS wall-clock time. <code>rpt_time_prefix_file_date_estimate</code> and <code>source_file_last_write_fallback</code> are weaker fallbacks.</td></tr>")
 	$lines.Add("</tbody>")
 	$lines.Add("</table>")
 	$lines.Add("</section>")
@@ -1084,15 +1229,48 @@ $sidIndexes = @{}
 $nextSidIndex = 0
 $legacySessionIndex = 0
 $lastRowWasSessionStart = $false
+$sessionStarts = @{}
 
 foreach ($file in $files) {
 	$lineNumber = 0
+	$lastRowWasSessionStart = $false
+	$fileLastWriteTime = $file.LastWriteTime
+	$fileLastWriteText = $fileLastWriteTime.ToString("yyyy-MM-dd HH:mm:ss")
+	$currentRptDate = $null
+	$lastRptTimeOfDay = $null
 	Get-Content -LiteralPath $file.FullName | ForEach-Object {
 		$lineNumber++
 		if ($_ -like "*[Performance Audit]*") {
 			$index++
-			$row = ConvertFrom-PerformanceAuditLine -Line $_ -SourceFile $file.FullName -LineNumber $lineNumber -Index $index
+			$rptTimestamp = ""
+			$rptTimestampSource = ""
+			$rptDateTimePrefix = Get-RptDateTimePrefix $_
+			if ($null -ne $rptDateTimePrefix) {
+				$currentRptDate = $rptDateTimePrefix.Date
+				$lastRptTimeOfDay = $rptDateTimePrefix.TimeOfDay
+				$rptTimestamp = $rptDateTimePrefix.ToString("yyyy-MM-dd HH:mm:ss")
+				$rptTimestampSource = "rpt_datetime_prefix"
+			} else {
+				$rptTimeOfDayPrefix = Get-RptTimeOfDayPrefix $_
+				if ($null -ne $rptTimeOfDayPrefix) {
+					if ($null -eq $currentRptDate) {
+						$currentRptDate = $fileLastWriteTime.Date
+						if ($rptTimeOfDayPrefix -gt $fileLastWriteTime.TimeOfDay.Add([timespan]::FromHours(1))) {
+							$currentRptDate = $currentRptDate.AddDays(-1)
+						}
+					} elseif ($null -ne $lastRptTimeOfDay -and $rptTimeOfDayPrefix -lt $lastRptTimeOfDay.Subtract([timespan]::FromHours(1))) {
+						$currentRptDate = $currentRptDate.AddDays(1)
+					}
+
+					$lastRptTimeOfDay = $rptTimeOfDayPrefix
+					$rptTimestamp = $currentRptDate.Add($rptTimeOfDayPrefix).ToString("yyyy-MM-dd HH:mm:ss")
+					$rptTimestampSource = "rpt_time_prefix_file_date_estimate"
+				}
+			}
+
+			$row = ConvertFrom-PerformanceAuditLine -Line $_ -SourceFile $file.FullName -SourceFileLastWriteTime $fileLastWriteText -LineNumber $lineNumber -Index $index -RptTimestamp $rptTimestamp -RptTimestampSource $rptTimestampSource
 			if ($null -ne $row) {
+				$isSessionStart = ($row.script -eq "session" -and ([string]$row.extra) -like "state:start*")
 				if (![string]::IsNullOrWhiteSpace($row.sid)) {
 					if (!$sidIndexes.ContainsKey($row.sid)) {
 						$nextSidIndex++
@@ -1102,7 +1280,6 @@ foreach ($file in $files) {
 					$row.session_key = $row.sid
 					$lastRowWasSessionStart = $false
 				} else {
-					$isSessionStart = ($row.script -eq "session" -and ([string]$row.extra) -like "state:start*")
 					if ($isSessionStart -and !$lastRowWasSessionStart) {
 						$legacySessionIndex++
 					}
@@ -1111,6 +1288,28 @@ foreach ($file in $files) {
 					$row.session_key = "LEGACY_{0:000}" -f $legacySessionIndex
 					$lastRowWasSessionStart = $isSessionStart
 				}
+
+				$anchorSessionStart = Get-AuditAnchorSessionStart $row
+				if ($null -ne $anchorSessionStart -and $row.rpt_timestamp_source -ne "rpt_datetime_prefix") {
+					$sessionStarts[$row.session_key] = $anchorSessionStart
+				}
+
+				if (!$sessionStarts.ContainsKey($row.session_key)) {
+					$sessionStart = $row.rpt_timestamp
+					$sessionStartSource = $row.rpt_timestamp_source
+					if ([string]::IsNullOrWhiteSpace($sessionStart)) {
+						$sessionStart = $fileLastWriteText
+						$sessionStartSource = "source_file_last_write_fallback"
+					}
+
+					$sessionStarts[$row.session_key] = [pscustomobject]@{
+						session_start = $sessionStart
+						session_start_source = $sessionStartSource
+					}
+				}
+
+				$row.session_start = $sessionStarts[$row.session_key].session_start
+				$row.session_start_source = $sessionStarts[$row.session_key].session_start_source
 
 				$rows.Add($row)
 			}
@@ -1122,6 +1321,13 @@ $allRows = @($rows.ToArray())
 if ($allRows.Count -eq 0) {
 	Write-Warning "No [Performance Audit] lines were found."
 	return
+}
+
+foreach ($row in $allRows) {
+	if ($sessionStarts.ContainsKey($row.session_key)) {
+		$row.session_start = $sessionStarts[$row.session_key].session_start
+		$row.session_start_source = $sessionStarts[$row.session_key].session_start_source
+	}
 }
 
 $timeline = @(New-Timeline $allRows)
@@ -1154,6 +1360,7 @@ Export-AuditCsv $spikes (Join-Path $outputDirectory.FullName "performance_spikes
 Export-AuditCsv $fpsContext (Join-Path $outputDirectory.FullName "performance_fps_context.csv") $delimiter
 Export-AuditCsv $playerSummary (Join-Path $outputDirectory.FullName "performance_by_player.csv") $delimiter
 Export-AuditCsv $mapSummary (Join-Path $outputDirectory.FullName "performance_by_map.csv") $delimiter
+Export-AuditCsv $mapSummary (Join-Path $outputDirectory.FullName "performance_by_session.csv") $delimiter
 
 Write-MarkdownReport `
 	-Path (Join-Path $outputDirectory.FullName "performance_report.md") `
