@@ -38,3 +38,8 @@ if (group _unit == group player) then {
 _params = [_type,_color,_size,_txt,_markerName,_unit,1,true,"DestroyedVehicle",_color,false,_side,[1,1]];
 
 _params Spawn MarkerUpdate;
+
+// Marty: Performance Audit counts paratrooper marker spawns separately from regular Init_Unit markers.
+if !(isNil "PerformanceAudit_Record") then {
+	["paratrooper_marker_spawn", 0, Format["type:%1;side:%2;markerType:%3;refresh:%4;groupPlayer:%5", _unit_kind, _sideID, _params select 0, _params select 6, group _unit == group player], "CLIENT"] Call PerformanceAudit_Record;
+};

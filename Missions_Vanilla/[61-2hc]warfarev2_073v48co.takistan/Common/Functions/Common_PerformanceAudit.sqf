@@ -10,6 +10,7 @@ if (isNil "PerformanceAuditFlushInterval") then {PerformanceAuditFlushInterval =
 if (isNil "PerformanceAuditData_CLIENT") then {PerformanceAuditData_CLIENT = []};
 if (isNil "PerformanceAuditData_SERVER") then {PerformanceAuditData_SERVER = []};
 if (isNil "PerformanceAuditMarkerScripts") then {PerformanceAuditMarkerScripts = 0};
+if (isNil "PerformanceAuditAARMarkerScripts") then {PerformanceAuditAARMarkerScripts = 0};
 // Marty: Create a per-mission audit session id so appended RPT files can be split by game.
 if (isNil "PerformanceAuditSessionId") then {
 	PerformanceAuditSessionId = Format ["%1_%2_%3", worldName, round diag_tickTime, round (random 1000000)];
