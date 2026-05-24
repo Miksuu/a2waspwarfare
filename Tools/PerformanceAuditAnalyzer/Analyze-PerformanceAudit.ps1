@@ -134,6 +134,67 @@ function Get-AIBin {
 	return "300+"
 }
 
+function ConvertFrom-AuditExtra {
+	param([string]$Extra)
+
+	$fields = @{}
+	if ([string]::IsNullOrWhiteSpace($Extra)) { return $fields }
+
+	foreach ($part in ($Extra -split ";")) {
+		if ([string]::IsNullOrWhiteSpace($part)) { continue }
+
+		$separator = $part.IndexOf(":")
+		if ($separator -le 0) { continue }
+
+		$key = $part.Substring(0, $separator).Trim()
+		$value = $part.Substring($separator + 1).Trim()
+
+		if (![string]::IsNullOrWhiteSpace($key)) {
+			$fields[$key] = $value
+		}
+	}
+
+	return $fields
+}
+
+function New-ExpandedAuditRows {
+	param(
+		[object[]]$Rows,
+		[string[]]$ExtraKeys
+	)
+
+	$expandedRows = foreach ($row in $Rows) {
+		$extraFields = ConvertFrom-AuditExtra ([string]$row.extra)
+		$properties = [ordered]@{}
+
+		foreach ($property in $row.PSObject.Properties) {
+			$properties[$property.Name] = $property.Value
+		}
+
+		foreach ($key in $ExtraKeys) {
+			$columnName = "extra_$key"
+			$properties[$columnName] = if ($extraFields.ContainsKey($key)) { $extraFields[$key] } else { "" }
+		}
+
+		[pscustomobject]$properties
+	}
+
+	return @($expandedRows)
+}
+
+function New-ProbeDetailRows {
+	param(
+		[object[]]$Rows,
+		[string[]]$Scripts,
+		[string[]]$ExtraKeys,
+		[int]$Limit = 80
+	)
+
+	$filteredRows = @($Rows | Where-Object { $_.script -in $Scripts })
+	$expandedRows = New-ExpandedAuditRows $filteredRows $ExtraKeys
+	return @($expandedRows | Sort-Object max_ms, timestamp_index -Descending | Select-Object -First $Limit)
+}
+
 function ConvertFrom-PerformanceAuditLine {
 	param(
 		[string]$Line,
@@ -575,6 +636,44 @@ function Write-HtmlReport {
 	$maxPlayers = Get-Max ($snapshotRows | ForEach-Object { $_.players })
 	$totalScriptMs = Get-Sum ($ScriptSummary | ForEach-Object { $_.total_ms })
 	$sessionCount = @($Rows | Group-Object session_key).Count
+	$newProbeScripts = @(
+		"createunit","createvehicle","createteam","createtownunits",
+		"init_unit_client_setup","init_unit_marker_spawn",
+		"markerupdate_start","markerupdate_unit","markerupdate_hq","markerupdate_end",
+		"paratrooper_marker_spawn",
+		"aar_marker_start","aar_marker_update","aar_marker_end",
+		"delegate_townai_server","delegate_townai_client","delegate_townai_headless",
+		"town_patrol","town_defenses_units",
+		"updatetownmarkers","player_ai_watchdog",
+		"cleaner_droppeditems","cleaner_craters","cleaner_ruins","cleaner_mines","restorer_buildings",
+		"create_static_defense_units","create_resbase_units"
+	)
+	$probeCoverage = @($ScriptSummary | Where-Object { $_.script -in $newProbeScripts } | Sort-Object scope, script)
+	$unitCreationAudit = New-ProbeDetailRows `
+		-Rows $Rows `
+		-Scripts @("createunit","createvehicle","createteam","createtownunits","init_unit_client_setup","init_unit_marker_spawn","create_static_defense_units","create_resbase_units") `
+		-ExtraKeys @("type","side","global","trackInf","init","leaderPlayer","isMan","unitGlobalForwarded","town","groups","teams","units","vehicles","crews","markerType","refresh","sideMatch","aar","groupPlayer","blinkingEH","cycleMs") `
+		-Limit 100
+	$markerAudit = New-ProbeDetailRows `
+		-Rows $Rows `
+		-Scripts @("markerupdate_start","markerupdate_unit","markerupdate_hq","markerupdate_end","paratrooper_marker_spawn","aar_marker_start","aar_marker_update","aar_marker_end") `
+		-ExtraKeys @("markerType","trackedKind","trackedType","type","side","refresh","trackDeath","activeMarkers","activeAAR","visible","textUpdates","upgrade","radarInRange","groupPlayer") `
+		-Limit 100
+	$delegationAudit = New-ProbeDetailRows `
+		-Rows $Rows `
+		-Scripts @("delegate_townai_server","delegate_townai_client","delegate_townai_headless","town_patrol","town_defenses_units") `
+		-ExtraKeys @("town","side","groups","teams","delegators","delegated","fallbackGroups","fallbackVehicles","headless","vehicles","defenses","spawned","removed","mode","changed","focus","alive","units","cycleMs") `
+		-Limit 100
+	$clientScalingAudit = New-ProbeDetailRows `
+		-Rows $Rows `
+		-Scripts @("updatetownmarkers","player_ai_watchdog") `
+		-ExtraKeys @("towns","groupUnits","visible","textWrites","distanceChecks","map","gps","watched","recovered") `
+		-Limit 100
+	$maintenanceAudit = New-ProbeDetailRows `
+		-Rows $Rows `
+		-Scripts @("cleaner_droppeditems","cleaner_craters","cleaner_ruins","cleaner_mines","restorer_buildings") `
+		-ExtraKeys @("scanned","deleted","weaponholders","mines","mineE","small","long","tracked","restored","cycleMs") `
+		-Limit 100
 
 	$labels = @{
 		session_index = "Session"
@@ -614,6 +713,65 @@ function Write-HtmlReport {
 		calls = "Calls"
 		avg_ms = "Avg ms"
 		extra = "Extra"
+		extra_type = "Type"
+		extra_side = "Side"
+		extra_global = "Global"
+		extra_trackInf = "Track infantry"
+		extra_init = "Init mode"
+		extra_leaderPlayer = "Leader player"
+		extra_isMan = "Is man"
+		extra_unitGlobalForwarded = "Unit global forwarded"
+		extra_town = "Town"
+		extra_groups = "Groups"
+		extra_teams = "Teams"
+		extra_units = "Units"
+		extra_vehicles = "Vehicles"
+		extra_crews = "Crews"
+		extra_markerType = "Marker type"
+		extra_refresh = "Refresh"
+		extra_sideMatch = "Side match"
+		extra_aar = "AAR started"
+		extra_groupPlayer = "Player group"
+		extra_blinkingEH = "Blinking EH"
+		extra_cycleMs = "Cycle ms"
+		extra_trackedKind = "Tracked kind"
+		extra_trackedType = "Tracked type"
+		extra_trackDeath = "Track death"
+		extra_activeMarkers = "Active markers"
+		extra_activeAAR = "Active AAR"
+		extra_visible = "Visible"
+		extra_textUpdates = "Text updates"
+		extra_upgrade = "Upgrade"
+		extra_radarInRange = "Radar in range"
+		extra_delegators = "Delegators"
+		extra_delegated = "Delegated"
+		extra_fallbackGroups = "Fallback groups"
+		extra_fallbackVehicles = "Fallback vehicles"
+		extra_headless = "Headless"
+		extra_defenses = "Defenses"
+		extra_spawned = "Spawned"
+		extra_removed = "Removed"
+		extra_mode = "Mode"
+		extra_changed = "Changed"
+		extra_focus = "Focus"
+		extra_alive = "Alive"
+		extra_towns = "Towns"
+		extra_groupUnits = "Group units"
+		extra_textWrites = "Text writes"
+		extra_distanceChecks = "Distance checks"
+		extra_map = "Map open"
+		extra_gps = "GPS open"
+		extra_watched = "Watched"
+		extra_recovered = "Recovered"
+		extra_scanned = "Scanned"
+		extra_deleted = "Deleted"
+		extra_weaponholders = "Weaponholders"
+		extra_mines = "Mines"
+		extra_mineE = "MineE"
+		extra_small = "Small"
+		extra_long = "Long"
+		extra_tracked = "Tracked"
+		extra_restored = "Restored"
 	}
 
 	$lines.Add("<!doctype html>")
@@ -726,9 +884,63 @@ function Write-HtmlReport {
 		-Labels $labels `
 		-Kind "map"
 
+	Add-HtmlTable `
+		-Lines $lines `
+		-Title "New Audit Probe Coverage" `
+		-Description "All dedicated probes added for the current FPS investigation. This table confirms that each probe is visible in the HTML report, even when it is not expensive enough to appear in the global Top Scripts table." `
+		-Rows $probeCoverage `
+		-Columns @("session_index","map","scope","script","samples","total_calls","total_ms","weighted_avg_ms","max_ms","spike_rows_25ms") `
+		-Labels $labels `
+		-Kind "spike"
+
+	Add-HtmlTable `
+		-Lines $lines `
+		-Title "Unit Creation And Global Init Details" `
+		-Description "Focused view for CreateTeam/CreateUnit/CreateVehicle and Init_Unit. Use Global, Init mode, Track infantry, Side match and Unit global forwarded to identify whether AI creation is starting client-side unit initialization or marker scripts unexpectedly." `
+		-Rows $unitCreationAudit `
+		-Columns @("session_index","map","scope","script","fps","players","ai","calls","avg_ms","max_ms","extra_town","extra_type","extra_side","extra_global","extra_trackInf","extra_init","extra_leaderPlayer","extra_isMan","extra_unitGlobalForwarded","extra_units","extra_vehicles","extra_crews","extra_markerType","extra_refresh","extra_sideMatch","extra_aar","extra_groupPlayer","extra_blinkingEH","extra_cycleMs") `
+		-Labels $labels `
+		-Kind "spike"
+
+	Add-HtmlTable `
+		-Lines $lines `
+		-Title "Marker And AAR Details" `
+		-Description "Focused view for marker script starts, periodic marker updates, paratrooper markers and anti-air radar markers. Use Active markers, Tracked kind/type and Refresh to see whether marker loops scale with AI, vehicles or aircraft." `
+		-Rows $markerAudit `
+		-Columns @("session_index","map","scope","script","fps","players","ai","markers","calls","avg_ms","max_ms","extra_markerType","extra_trackedKind","extra_trackedType","extra_type","extra_side","extra_refresh","extra_trackDeath","extra_activeMarkers","extra_activeAAR","extra_visible","extra_textUpdates","extra_upgrade","extra_radarInRange","extra_groupPlayer") `
+		-Labels $labels `
+		-Kind "spike"
+
+	Add-HtmlTable `
+		-Lines $lines `
+		-Title "Town AI Delegation And Defense Details" `
+		-Description "Focused view for town AI delegation, server fallback, headless client handoff, per-town patrol scripts and town defense operators. Use Delegated versus Fallback groups to see where AI is actually created." `
+		-Rows $delegationAudit `
+		-Columns @("session_index","map","scope","script","fps","players","ai","calls","avg_ms","max_ms","extra_town","extra_side","extra_groups","extra_teams","extra_delegators","extra_delegated","extra_fallbackGroups","extra_fallbackVehicles","extra_headless","extra_vehicles","extra_defenses","extra_spawned","extra_removed","extra_mode","extra_changed","extra_focus","extra_alive","extra_units","extra_cycleMs") `
+		-Labels $labels `
+		-Kind "spike"
+
+	Add-HtmlTable `
+		-Lines $lines `
+		-Title "Client Scaling Probes" `
+		-Description "Focused view for client-side loops that can scale with town count or player AI group size. Distance checks and text writes are especially useful when FPS drops while view distance is fixed." `
+		-Rows $clientScalingAudit `
+		-Columns @("session_index","map","scope","player","script","fps","players","ai","calls","avg_ms","max_ms","extra_towns","extra_groupUnits","extra_visible","extra_textWrites","extra_distanceChecks","extra_map","extra_gps","extra_watched","extra_recovered") `
+		-Labels $labels `
+		-Kind "spike"
+
+	Add-HtmlTable `
+		-Lines $lines `
+		-Title "Server Maintenance Probes" `
+		-Description "Focused view for cleaners and restorers. These are usually periodic spike candidates rather than permanent FPS causes, but scanned/deleted/restored counts make their impact visible." `
+		-Rows $maintenanceAudit `
+		-Columns @("session_index","map","scope","script","calls","avg_ms","max_ms","extra_scanned","extra_deleted","extra_weaponholders","extra_mines","extra_mineE","extra_small","extra_long","extra_tracked","extra_restored","extra_cycleMs") `
+		-Labels $labels `
+		-Kind "spike"
+
 	$lines.Add("<section>")
 	$lines.Add("<h2>Generated Files</h2>")
-	$lines.Add("<p class=""section-note"">Use <strong>performance_pivot_ready.csv</strong> for Excel pivot tables and charts. Use <strong>performance_by_script.csv</strong> and <strong>performance_spikes.csv</strong> for optimization priorities. The older Markdown report is still generated for quick text sharing.</p>")
+	$lines.Add("<p class=""section-note"">Use <strong>performance_pivot_ready.csv</strong> for Excel pivot tables and charts; it now includes parsed <strong>extra_*</strong> columns from script-specific audit context. Use <strong>performance_by_script.csv</strong> and <strong>performance_spikes.csv</strong> for optimization priorities. The older Markdown report is still generated for quick text sharing.</p>")
 	$lines.Add("</section>")
 
 	$lines.Add("<p class=""footer"">Total script cost represented in summaries: $totalScriptMs ms. Report generated by Performance Audit Analyzer.</p>")
@@ -918,9 +1130,24 @@ $spikes = @(New-SpikeTable $allRows $SpikeThresholdMs)
 $fpsContext = @(New-FpsContext $timeline)
 $playerSummary = @(New-PlayerSummary $timeline)
 $mapSummary = @(New-MapSummary $timeline)
+$extraKeys = @(
+	"type","side","global","trackInf","init","leaderPlayer","isMan","unitGlobalForwarded",
+	"templates","infantry","vehicles","crews","skipped",
+	"town","groups","teams","units","cycleMs",
+	"markerType","refresh","sideMatch","aar","groupPlayer","blinkingEH",
+	"trackedKind","trackedType","trackDeath","activeMarkers",
+	"activeAAR","visible","textUpdates","upgrade","radarInRange",
+	"delegators","delegated","fallbackGroups","fallbackVehicles","headless",
+	"defenses","spawned","removed","mode","changed","focus","alive",
+	"towns","groupUnits","textWrites","distanceChecks","map","gps","watched","recovered",
+	"scanned","deleted","weaponholders","mines","mineE","small","long","tracked","restored",
+	"bounty","locked","special","isAir","isTank","isCar"
+)
+$expandedRows = @(New-ExpandedAuditRows $allRows $extraKeys)
 
 Export-AuditCsv $allRows (Join-Path $outputDirectory.FullName "performance_raw.csv") $delimiter
-Export-AuditCsv $allRows (Join-Path $outputDirectory.FullName "performance_pivot_ready.csv") $delimiter
+Export-AuditCsv $expandedRows (Join-Path $outputDirectory.FullName "performance_pivot_ready.csv") $delimiter
+Export-AuditCsv $expandedRows (Join-Path $outputDirectory.FullName "performance_extra_fields.csv") $delimiter
 Export-AuditCsv $timeline (Join-Path $outputDirectory.FullName "performance_timeline.csv") $delimiter
 Export-AuditCsv $scriptSummary (Join-Path $outputDirectory.FullName "performance_by_script.csv") $delimiter
 Export-AuditCsv $spikes (Join-Path $outputDirectory.FullName "performance_spikes.csv") $delimiter

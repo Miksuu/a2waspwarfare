@@ -1,4 +1,4 @@
-Private ["_bounty", "_direction", "_global", "_locked", "_position", "_side", "_special", "_track", "_type", "_vehicle", "_u"];
+Private ["_bounty", "_direction", "_global", "_globalInitMode", "_locked", "_perfScope", "_perfStart", "_position", "_side", "_special", "_track", "_type", "_vehicle", "_u"];
 
 _type = _this select 0;
 _position = _this select 1;
@@ -8,6 +8,9 @@ _locked = _this select 4;
 _bounty = if (count _this > 5) then {_this select 5} else {true};
 _global = if (count _this > 6) then {_this select 6} else {true};
 _special = if (count _this > 7) then {_this select 7} else {"FORM"};
+// Marty: Performance Audit tracks vehicle creation and whether it starts client global init.
+_perfStart = diag_tickTime;
+_globalInitMode = "globalFalse";
 
 if (typeName _position == "OBJECT") then {_position = getPos _position};
 if (typeName _side == "SIDE") then {_side = (_side) Call WFBE_CO_FNC_GetSideID};
@@ -36,8 +39,11 @@ if (_bounty) then {
 
 if (_global) then {
 	if (_side != WFBE_DEFENDER_ID || WFBE_ISTHREEWAY) then {
+		_globalInitMode = "vehicleInit";
 		_vehicle setVehicleInit Format["[this,%1] ExecVM 'Common\Init\Init_Unit.sqf'", _side];
 		processInitCommands;
+	} else {
+		_globalInitMode = "defenderSkipped";
 	};
 };
  
@@ -50,5 +56,10 @@ if (_global && (missionNamespace getVariable ["WFBE_C_MAP_ICON_BLINKING_ENABLED"
 };
 
 ["INFORMATION", Format ["Common_CreateVehicle.sqf: [%1] Vehicle [%2] was created at [%3].", _side Call WFBE_CO_FNC_GetSideFromID, _type, _position]] Call WFBE_CO_FNC_LogContent;
+
+if !(isNil "PerformanceAudit_Record") then {
+	_perfScope = if (isServer && !hasInterface) then {"SERVER"} else {"CLIENT"};
+	["createvehicle", diag_tickTime - _perfStart, Format["type:%1;side:%2;global:%3;init:%4;bounty:%5;locked:%6;special:%7;isAir:%8;isTank:%9;isCar:%10", _type, _side, _global, _globalInitMode, _bounty, _locked, _special, _vehicle isKindOf "Air", _vehicle isKindOf "Tank", _vehicle isKindOf "Car"], _perfScope] Call PerformanceAudit_Record;
+};
 
 _vehicle

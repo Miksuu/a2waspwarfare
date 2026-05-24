@@ -3,7 +3,7 @@
 	Contributors : Marty.
 */
 
-Private ["_get","_isMan","_logik","_side","_sideID","_unit","_unit_kind","_upgrades"];
+Private ["_get","_isMan","_logik","_perfAARStarted","_perfBlinkingEH","_perfMarkerRefresh","_perfMarkerType","_perfSideMatch","_perfStart","_side","_sideID","_unit","_unit_kind","_upgrades"];
 
 _unit 				= _this select 0;
 _sideID 	 		= _this select 1;
@@ -32,6 +32,13 @@ if !(local player) exitWith {}; //--- We don't need the server to process it.
 waitUntil {clientInitComplete}; //--- Wait for the client part.
 
 sleep 2; //--- Wait a bit.
+
+// Marty: Performance Audit starts after JIP waits and the intentional sleep, so it measures active client setup only.
+_perfStart = diag_tickTime;
+_perfAARStarted = 0;
+_perfBlinkingEH = 0;
+_perfMarkerType = "";
+_perfMarkerRefresh = -1;
 
 _isMan = if (_unit isKindOf 'Man') then {true} else {false};
 // --- 				[Generic Vehicle initialization] (Run on all clients)
@@ -103,6 +110,7 @@ if (_unit isKindOf "Air") then { //--- Air units.
 
 	if ((missionNamespace getVariable "WFBE_C_STRUCTURES_ANTIAIRRADAR") > 0) then { //--- AAR Tracking.
 		if (sideJoined != _side) then { //--- Track the unit via AAR System, skip if the unit side is the same as the player one.
+			_perfAARStarted = 1;
 			[_unit, _side, _sideID] ExecVM 'Common\Common_AARadarMarkerUpdate.sqf';
 		};
 	};
@@ -125,7 +133,11 @@ if !(_isMan) then { //--- Vehicle Specific.
 };
 
 // --- 				[Side specific initialization] (Run on the desired client team).
-if (sideID != _sideID) exitWith {};
+_perfSideMatch = sideID == _sideID;
+if !(isNil "PerformanceAudit_Record") then {
+	["init_unit_client_setup", diag_tickTime - _perfStart, Format["type:%1;side:%2;isMan:%3;sideMatch:%4;aar:%5;trackInf:%6", _unit_kind, _sideID, _isMan, _perfSideMatch, _perfAARStarted, missionNamespace getVariable ["WFBE_C_UNITS_TRACK_INFANTRY", -1]], "CLIENT"] Call PerformanceAudit_Record;
+};
+if (!_perfSideMatch) exitWith {};
 
 Private ["_color","_markerName","_params","_size","_txt","_type"];
 
@@ -170,6 +182,7 @@ if (_isMan) then { //--- Man.
  
 // Marty: Only attach the combat marker blinking Fired EH when the mission parameter enables the feature.
 if ((missionNamespace getVariable ["WFBE_C_MAP_ICON_BLINKING_ENABLED", 0]) == 1) then {
+	_perfBlinkingEH = 1;
 	_unit addEventHandler ["Fired", {
 		_u = _this select 0;                 // unit that fired
 		_u Call WFBE_CL_FNC_SetMapIconStatusInCombat;
@@ -179,6 +192,13 @@ if ((missionNamespace getVariable ["WFBE_C_MAP_ICON_BLINKING_ENABLED", 0]) == 1)
 _unit setVariable ["OriginalMarkerColor", _color, false];
 
 _params Spawn MarkerUpdate;
+_perfMarkerType = _params select 0;
+_perfMarkerRefresh = _params select 6;
+
+// Marty: Count side-specific marker script spawns separately from their periodic update cost.
+if !(isNil "PerformanceAudit_Record") then {
+	["init_unit_marker_spawn", 0, Format["type:%1;side:%2;isMan:%3;markerType:%4;refresh:%5;groupPlayer:%6;blinkingEH:%7", _unit_kind, _sideID, _isMan, _perfMarkerType, _perfMarkerRefresh, group _unit == group player, _perfBlinkingEH], "CLIENT"] Call PerformanceAudit_Record;
+};
 
 // Marty : eventHandler for glitch rocket detection
 if (_unit isKindOf "Tank" || _unit isKindOf "Car" || _unit isKindOf "Air") then {

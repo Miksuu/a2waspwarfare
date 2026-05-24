@@ -40,6 +40,10 @@ Private [
 	"_min_destination_distance",
 	"_min_movement_distance",
 	"_movement_can_work",
+	"_perfGroupUnits",
+	"_perfRecovered",
+	"_perfStart",
+	"_perfWatched",
 	"_player",
 	"_recovery_cooldown",
 	"_required_close_stuck_time",
@@ -140,6 +144,11 @@ while {true} do {
 	sleep _check_interval;
 
 	Call {
+		// Marty: Performance Audit timing for the local player AI watchdog pass.
+		_perfStart = diag_tickTime;
+		_perfGroupUnits = 0;
+		_perfWatched = 0;
+		_perfRecovered = 0;
 		_player = player;
 
 		if (isNull _player) exitWith {};
@@ -148,6 +157,8 @@ while {true} do {
 
 		_current_time = time;
 		_stuck_units_to_recover = [];
+
+		_perfGroupUnits = count (units (group _player));
 
 		{
 			_current_unit = _x;
@@ -186,6 +197,7 @@ while {true} do {
 			};
 
 			if (_can_watch_unit) then {
+				_perfWatched = _perfWatched + 1;
 				_destination_data = expectedDestination _current_unit;
 				_destination = [];
 				_destination_mode = "DoNotPlan";
@@ -300,8 +312,13 @@ while {true} do {
 
 		} forEach units (group _player);
 
+		_perfRecovered = count _stuck_units_to_recover;
 		if (count _stuck_units_to_recover > 0) then {
 			[objNull, _player, -1, [_stuck_units_to_recover, true]] ExecVM "Client\Functions\Client_RecoverPlayerAI.sqf";
+		};
+
+		if !(isNil "PerformanceAudit_Record") then {
+			["player_ai_watchdog", diag_tickTime - _perfStart, Format["groupUnits:%1;watched:%2;recovered:%3", _perfGroupUnits, _perfWatched, _perfRecovered], "CLIENT"] Call PerformanceAudit_Record;
 		};
 	};
 };

@@ -43,6 +43,7 @@ The default CSV separator is `;`, which is convenient for French Excel. Use `-Cs
 ```text
 performance_raw.csv
 performance_pivot_ready.csv
+performance_extra_fields.csv
 performance_timeline.csv
 performance_by_script.csv
 performance_spikes.csv
@@ -57,7 +58,8 @@ performance_report_word.doc
 
 ## Useful Excel Files
 
-- `performance_pivot_ready.csv`: one normalized row per audit log line, best for pivot tables.
+- `performance_pivot_ready.csv`: one normalized row per audit log line, best for pivot tables. Script-specific `EXTRA` values are expanded into `extra_*` columns.
+- `performance_extra_fields.csv`: same expanded data, useful when you want to filter directly on fields such as `extra_init`, `extra_global`, `extra_trackedKind`, `extra_delegated` or `extra_scanned`.
 - `performance_timeline.csv`: snapshot/session rows for FPS-over-time charts.
 - `performance_by_script.csv`: script cost ranking using calls, total ms, weighted average ms and spikes.
 - `performance_spikes.csv`: script rows where `MAX_MS` is above the selected threshold.
@@ -68,6 +70,7 @@ Most CSV files include `session_index`, `session_key` and `sid` columns so multi
 ## Readable Reports
 
 - `performance_report.html`: colored visual report, best opened in a browser.
+- The HTML report includes dedicated sections for unit/global init probes, marker/AAR probes, town AI delegation, client scaling probes, and server maintenance probes.
 - `performance_interpretation.html`: a readable guide explaining what each metric means and how to prioritize optimization candidates.
 - `performance_report_word.doc`: the same visual report saved with a Word-friendly extension.
 - `performance_report.md`: plain Markdown report, useful for quick text sharing.
