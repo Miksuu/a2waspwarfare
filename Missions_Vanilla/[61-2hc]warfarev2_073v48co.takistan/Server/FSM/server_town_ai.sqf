@@ -1,5 +1,5 @@
 // Marty: Optimized town AI monitor; activation is budgeted and air/ground detection is split.
-Private["_town","_range","_range_detect","_range_detect_active","_position","_groups","_town_camps","_town_camps_count","_town_teams","_airHeight","_unitsInactiveMax","_patrol_delay","_patrol_enabled","_ai_delegation_enabled","_town_defender_enabled","_town_occupation_enabled","_activationBudget","_activationBudgetMax","_detected","_groundDetected","_enemies","_enemies_ground"];
+Private["_town","_range","_range_detect","_range_detect_active","_position","_groups","_town_camps","_town_camps_count","_town_teams","_airHeight","_unitsInactiveMax","_patrol_delay","_patrol_enabled","_ai_delegation_enabled","_town_defender_enabled","_town_occupation_enabled","_activationBudget","_activationBudgetMax","_detected","_groundDetected","_enemies","_enemies_ground","_scanBudget","_scanBudgetMax","_scanRefs","_scanDelay","_scanActiveDelay","_scanNearDelay","_scanFarDelay","_scanCriticalRange","_scanNearRange","_scanDistance","_scanDistanceMin","_scanNext","_scanDue","_scanSkipped","_scannedTowns","_skippedTowns","_townScanned","_isActiveTown","_unit","_sideID","_side","_side_enabled","_dynRange","_camps","_camp","_positions","_teams","_use_server","_retVal","_groupIndex"];
 
 for "_j" from 0 to ((count towns) - 1) step 1 do
 {
@@ -20,6 +20,13 @@ _town_defender_enabled = if ((missionNamespace getVariable "WFBE_C_TOWNS_DEFENDE
 _town_occupation_enabled = if ((missionNamespace getVariable "WFBE_C_TOWNS_OCCUPATION") > 0) then {true} else {false};
 // Marty: Limit expensive town AI spawn bursts; further towns activate on later cycles.
 _activationBudgetMax = 1;
+// Marty: Limit expensive nearEntities scans; active and close towns stay responsive while remote towns are sampled over time.
+_scanBudgetMax = 10;
+_scanActiveDelay = 4;
+_scanNearDelay = 10;
+_scanFarDelay = 35;
+_scanCriticalRange = _range_detect_active + 500;
+_scanNearRange = _range_detect_active + 2500;
 
 for "_k" from 0 to ((count towns) - 1) step 1 do
 {
@@ -30,6 +37,8 @@ for "_k" from 0 to ((count towns) - 1) step 1 do
 	_town setVariable ["wfbe_active_override", false];
 	_town setVariable ['wfbe_active_vehicles', []];
 	_town setVariable ['wfbe_town_teams', []];
+	// Marty: Stagger remote town scans so the global loop does not hit every town with nearEntities in the same pass.
+	_town setVariable ["wfbe_ai_next_scan", time + ((_k mod _scanBudgetMax) * 0.5)];
 	sleep 0.01;
 };
 
@@ -43,8 +52,20 @@ while {!WFBE_GameOver} do {
 	_perfActivations = 0;
 	_perfDespawns = 0;
 	_perfSpawnGroups = 0;
+	_scannedTowns = 0;
+	_skippedTowns = 0;
 	_perfActive = 0;
 	_activationBudget = _activationBudgetMax;
+	_scanBudget = _scanBudgetMax;
+	_scanRefs = [];
+
+	// Marty: Player proximity is a cheap pre-filter for town AI scans; AI-only activity is still covered by the slow far scan.
+	{
+		_unit = _x;
+		if (isPlayer _unit) then {
+			[_scanRefs, vehicle _unit] call WFBE_CO_FNC_ArrayPush;
+		};
+	} forEach (if (isMultiplayer) then {playableUnits} else {switchableUnits});
 
 	for "_i" from 0 to ((count towns) - 1) step 1 do
 	{
@@ -52,6 +73,8 @@ while {!WFBE_GameOver} do {
 		_perfItemStart = diag_tickTime;
 		_position = [];
 		_groups = [];
+		// Marty: Track per-town scan outcome so audit totals stay directly comparable.
+		_townScanned = false;
 
 
 		_town = towns select _i;
@@ -80,16 +103,53 @@ while {!WFBE_GameOver} do {
 
 			if(_side_enabled) then
 			{
-				_dynRange = if (_town getVariable "wfbe_active" || _town getVariable "wfbe_active_air") then {_range_detect_active} else {_range_detect};
-				// Marty: Scan once, then split low/ground threats from high air threats. The old code forced ground activation.
-				_detected = _town nearEntities [["Man","Car","Motorcycle","Tank","Air","Ship"],_dynRange];
-				_groundDetected = _detected unitsBelowHeight _airHeight;
-				_perfNearEntities = _perfNearEntities + 1;
-				_perfDetected = _perfDetected + count _detected;
+				// Marty: Gate the expensive scan by town state, player distance and per-cycle scan budget.
+				_isActiveTown = (_town getVariable "wfbe_active") || (_town getVariable "wfbe_active_air");
+				_scanDistanceMin = 999999;
+				{
+					if !(isNull _x) then {
+						_scanDistance = _town distance _x;
+						if (_scanDistance < _scanDistanceMin) then {_scanDistanceMin = _scanDistance};
+					};
+				} forEach _scanRefs;
 
-				_enemies = [_detected, _side] Call WFBE_CO_FNC_GetAreaEnemiesCount;
-				_enemies_ground = [_groundDetected, _side] Call WFBE_CO_FNC_GetAreaEnemiesCount;
-				if(_enemies > 0)then{
+				_scanDelay = _scanFarDelay;
+				if (_scanDistanceMin <= _scanNearRange) then {_scanDelay = _scanNearDelay};
+				if (_scanDistanceMin <= _scanCriticalRange) then {_scanDelay = _scanActiveDelay};
+				if (_isActiveTown) then {_scanDelay = _scanActiveDelay};
+
+				_scanNext = _town getVariable "wfbe_ai_next_scan";
+				if (isNil "_scanNext") then {_scanNext = 0};
+				_scanDue = time >= _scanNext;
+				_scanSkipped = false;
+
+				// Marty: Keep the scan gate linear so budget skips are easy to reason about from the audit counters.
+				_scanSkipped = call {
+					if (!_scanDue) exitWith {true};
+					if (_scanBudget > 0) exitWith {false};
+					if (_isActiveTown) exitWith {false};
+					if (_scanDistanceMin <= _scanCriticalRange) exitWith {false};
+					true
+				};
+
+				if !(_scanSkipped) then {
+					_scanBudget = _scanBudget - 1;
+					_scannedTowns = _scannedTowns + 1;
+					_townScanned = true;
+
+					_dynRange = if (_isActiveTown) then {_range_detect_active} else {_range_detect};
+					// Marty: Scan once, then split low/ground threats from high air threats. The old code forced ground activation.
+					_detected = _town nearEntities [["Man","Car","Motorcycle","Tank","Air","Ship"],_dynRange];
+					_groundDetected = _detected unitsBelowHeight _airHeight;
+					_perfNearEntities = _perfNearEntities + 1;
+					_perfDetected = _perfDetected + count _detected;
+
+					_enemies = [_detected, _side] Call WFBE_CO_FNC_GetAreaEnemiesCount;
+					_enemies_ground = [_groundDetected, _side] Call WFBE_CO_FNC_GetAreaEnemiesCount;
+					if (_enemies > 0) then {_scanDelay = _scanActiveDelay};
+					_town setVariable ["wfbe_ai_next_scan", time + _scanDelay];
+
+					if(_enemies > 0)then{
 					///
 					if (_enemies > 0) then {_town setVariable ["wfbe_inactivity", time]};
 
@@ -137,7 +197,8 @@ while {!WFBE_GameOver} do {
 								_camps = +(_town getVariable "camps");
 								_positions = [];
 								_teams = [];
-								for '_i' from 0 to count(_groups)-1 do {
+								// Marty: Use a separate group index so town iteration is never affected by activation work.
+								for '_groupIndex' from 0 to count(_groups)-1 do {
 									_position = [];
 									if (count _camps > 0 && random 100 > 50) then {
 										_camp = _camps select floor (random count _camps);
@@ -185,6 +246,7 @@ while {!WFBE_GameOver} do {
 						};
 					};
 					///
+					};
 				};
 
 			};//// end of side_enabled
@@ -233,13 +295,16 @@ while {!WFBE_GameOver} do {
 
 		};
 
+		// Marty: Count every town that avoided nearEntities this pass, including ineligible or cadence-delayed towns.
+		if (!_townScanned) then {_skippedTowns = _skippedTowns + 1};
+
 		_perfActive = _perfActive + (diag_tickTime - _perfItemStart);
 		sleep 0.05;
 	};
 
 	// Marty: Performance Audit record for one town AI server cycle.
 	if !(isNil "PerformanceAudit_Record") then {
-		["server_town_ai", _perfActive, Format["towns:%1;nearEntities:%2;detected:%3;activations:%4;despawns:%5;spawnGroups:%6;cycleMs:%7", _perfTowns, _perfNearEntities, _perfDetected, _perfActivations, _perfDespawns, _perfSpawnGroups, round ((diag_tickTime - _perfStart) * 1000)], "SERVER"] Call PerformanceAudit_Record;
+		["server_town_ai", _perfActive, Format["towns:%1;scannedTowns:%2;skippedTowns:%3;nearEntities:%4;detected:%5;activations:%6;despawns:%7;spawnGroups:%8;cycleMs:%9", _perfTowns, _scannedTowns, _skippedTowns, _perfNearEntities, _perfDetected, _perfActivations, _perfDespawns, _perfSpawnGroups, round ((diag_tickTime - _perfStart) * 1000)], "SERVER"] Call PerformanceAudit_Record;
 	};
 
 	sleep 5;
