@@ -15,6 +15,7 @@ if (isNil "PerformanceAuditAARMarkerScripts") then {PerformanceAuditAARMarkerScr
 if (isNil "PerformanceAuditSessionId") then {
 	PerformanceAuditSessionId = Format ["%1_%2_%3", worldName, round diag_tickTime, round (random 1000000)];
 };
+if (isNil "PerformanceAuditAnchorVersion") then {PerformanceAuditAnchorVersion = "20260524"};
 
 PerformanceAudit_Round2 = {
 	round ((_this) * 100) / 100
@@ -146,6 +147,23 @@ PerformanceAudit_Log = {
 	];
 };
 
+PerformanceAudit_SessionAnchorExtra = {
+	private ["_date"];
+
+	_date = date;
+	Format [
+		"state:anchor;anchorVersion:%1;realTime:unavailable_a2oa;gameYear:%2;gameMonth:%3;gameDay:%4;gameHour:%5;gameMinute:%6;diagTick:%7;frame:%8",
+		missionNamespace getVariable ["PerformanceAuditAnchorVersion", "unknown"],
+		_date select 0,
+		_date select 1,
+		_date select 2,
+		_date select 3,
+		_date select 4,
+		diag_tickTime call PerformanceAudit_Round2,
+		diag_frameno
+	]
+};
+
 PerformanceAudit_Record = {
 	private ["_calls","_data","_dataName","_elapsed","_entry","_extra","_found","_i","_max","_name","_scope","_total"];
 
@@ -209,11 +227,13 @@ PerformanceAudit_Flush = {
 };
 
 PerformanceAudit_Run = {
-	private ["_scope"];
+	private ["_anchorExtra","_scope"];
 
 	if !(missionNamespace getVariable ["PerformanceAuditEnabled", true]) exitWith {};
 
 	_scope = _this select 0;
+	_anchorExtra = call PerformanceAudit_SessionAnchorExtra;
+	[[_scope] call PerformanceAudit_Snapshot, "session", 1, 0, 0, _anchorExtra] call PerformanceAudit_Log;
 	[[_scope] call PerformanceAudit_Snapshot, "session", 1, 0, 0, "state:start"] call PerformanceAudit_Log;
 
 	while {true} do {
