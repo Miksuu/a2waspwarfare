@@ -148,17 +148,9 @@ PerformanceAudit_Log = {
 };
 
 PerformanceAudit_SessionAnchorExtra = {
-	private ["_date"];
-
-	_date = date;
 	Format [
-		"state:anchor;anchorVersion:%1;realTime:unavailable_a2oa;gameYear:%2;gameMonth:%3;gameDay:%4;gameHour:%5;gameMinute:%6;diagTick:%7;frame:%8",
+		"state:anchor;anchorVersion:%1;realTime:unavailable_a2oa;diagTick:%2;frame:%3",
 		missionNamespace getVariable ["PerformanceAuditAnchorVersion", "unknown"],
-		_date select 0,
-		_date select 1,
-		_date select 2,
-		_date select 3,
-		_date select 4,
 		diag_tickTime call PerformanceAudit_Round2,
 		diag_frameno
 	]

@@ -221,21 +221,12 @@ function Get-AuditAnchorSessionStart {
 		}
 	}
 
-	foreach ($key in @("gameYear","gameMonth","gameDay","gameHour","gameMinute")) {
-		if (!$extraFields.ContainsKey($key)) { return $null }
-	}
-
-	$year = ConvertTo-AuditNumber $extraFields["gameYear"]
-	$month = ConvertTo-AuditNumber $extraFields["gameMonth"]
-	$day = ConvertTo-AuditNumber $extraFields["gameDay"]
-	$hour = ConvertTo-AuditNumber $extraFields["gameHour"]
-	$minute = ConvertTo-AuditNumber $extraFields["gameMinute"]
-
-	if ($null -eq $year -or $null -eq $month -or $null -eq $day -or $null -eq $hour -or $null -eq $minute) { return $null }
+	$diagTick = if ($extraFields.ContainsKey("diagTick")) { $extraFields["diagTick"] } else { "" }
+	$frame = if ($extraFields.ContainsKey("frame")) { $extraFields["frame"] } else { "" }
 
 	return [pscustomobject]@{
-		session_start = "{0:0000}-{1:00}-{2:00} {3:00}:{4:00}:00" -f [int]$year, [int]$month, [int]$day, [int]$hour, [int]$minute
-		session_start_source = "audit_session_anchor_game_date"
+		session_start = "anchor tick $diagTick frame $frame"
+		session_start_source = "audit_session_anchor_no_realtime"
 	}
 }
 
@@ -297,7 +288,7 @@ function ConvertFrom-PerformanceAuditLine {
 		if ($match.Groups[3].Success) {
 			$fields[$key] = $match.Groups[3].Value
 		} else {
-			$fields[$key] = $match.Groups[2].Value
+			$fields[$key] = $match.Groups[2].Value.Trim('"')
 		}
 	}
 
@@ -646,6 +637,7 @@ function Write-MarkdownReport {
 		[object[]]$TimelineRows,
 		[object[]]$ScriptSummary,
 		[object[]]$Spikes,
+		[object[]]$FpsContext,
 		[object[]]$PlayerSummary,
 		[object[]]$MapSummary
 	)
@@ -665,7 +657,7 @@ function Write-MarkdownReport {
 
 	$lines.Add("## Map / Scope FPS")
 	$lines.Add("")
-	$lines.Add("| Session | Session start | Map | Scope | Samples | Avg FPS | Min FPS | P10 FPS | P50 FPS | P90 FPS | Avg AI | Max AI | Avg Markers |")
+	$lines.Add("| Session | Session anchor | Map | Scope | Samples | Avg FPS | Min FPS | P10 FPS | P50 FPS | P90 FPS | Avg AI | Max AI | Avg Markers |")
 	$lines.Add("|---:|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|")
 	foreach ($row in $MapSummary) {
 		$lines.Add("| $($row.session_index) | $($row.session_start) | $($row.map) | $($row.scope) | $($row.samples) | $($row.avg_fps) | $($row.min_fps) | $($row.p10_fps) | $($row.p50_fps) | $($row.p90_fps) | $($row.avg_ai) | $($row.max_ai) | $($row.avg_markers) |")
@@ -674,7 +666,7 @@ function Write-MarkdownReport {
 
 	$lines.Add("## Top Scripts By Total Cost")
 	$lines.Add("")
-	$lines.Add("| Session | Session start | Map | Scope | Script | Samples | Calls | Total ms | Weighted avg ms | Max ms | Spike rows >=25ms |")
+	$lines.Add("| Session | Session anchor | Map | Scope | Script | Samples | Calls | Total ms | Weighted avg ms | Max ms | Spike rows >=25ms |")
 	$lines.Add("|---:|---|---|---|---|---:|---:|---:|---:|---:|---:|")
 	foreach ($row in ($ScriptSummary | Select-Object -First 15)) {
 		$lines.Add("| $($row.session_index) | $($row.session_start) | $($row.map) | $($row.scope) | $($row.script) | $($row.samples) | $($row.total_calls) | $($row.total_ms) | $($row.weighted_avg_ms) | $($row.max_ms) | $($row.spike_rows_25ms) |")
@@ -683,7 +675,7 @@ function Write-MarkdownReport {
 
 	$lines.Add("## Top Spikes")
 	$lines.Add("")
-	$lines.Add("| Session | Session start | Map | Scope | Player | Script | FPS | Players | AI | Markers | Calls | Avg ms | Max ms | Extra |")
+	$lines.Add("| Session | Session anchor | Map | Scope | Player | Script | FPS | Players | AI | Markers | Calls | Avg ms | Max ms | Extra |")
 	$lines.Add("|---:|---|---|---|---|---|---:|---:|---:|---:|---:|---:|---:|---|")
 	foreach ($row in ($Spikes | Select-Object -First 20)) {
 		$extra = ([string]$row.extra).Replace("|", "/")
@@ -728,6 +720,7 @@ function Write-HtmlReport {
 	$worstSnapshots = @($snapshotRows | Sort-Object fps | Select-Object -First 20)
 	$topScripts = @($ScriptSummary | Select-Object -First 15)
 	$topSpikes = @($Spikes | Select-Object -First 20)
+	$fpsByAiLoad = @($FpsContext | Sort-Object session_index, map, scope, player, ai_bin)
 	$sessionIndexes = @($Rows | Sort-Object session_index | Select-Object -ExpandProperty session_index -Unique)
 	$minFps = Get-Min ($snapshotRows | ForEach-Object { $_.fps })
 	$avgFps = Get-Average ($snapshotRows | ForEach-Object { $_.fps })
@@ -777,8 +770,8 @@ function Write-HtmlReport {
 	$labels = @{
 		session_index = "Session"
 		session_key = "Session id"
-		session_start = "Session start"
-		session_start_source = "Session date source"
+		session_start = "Session anchor"
+		session_start_source = "Anchor source"
 		sid = "SID"
 		rpt_timestamp = "RPT timestamp"
 		rpt_timestamp_source = "RPT time source"
@@ -816,6 +809,11 @@ function Write-HtmlReport {
 		max_ai = "Max AI"
 		avg_markers = "Avg markers"
 		avg_vd = "Avg VD"
+		avg_players = "Avg players"
+		max_players = "Max players"
+		avg_units = "Avg units"
+		avg_vehicles = "Avg vehicles"
+		ai_bin = "AI load"
 		calls = "Calls"
 		avg_ms = "Avg ms"
 		extra = "Extra"
@@ -948,7 +946,7 @@ function Write-HtmlReport {
 	Add-HtmlTable `
 		-Lines $lines `
 		-Title "Session Overview" `
-		-Description "One RPT can contain several appended games. This table separates each detected session and shows the best available session anchor. New audit logs write a dedicated anchor row; Arma 2 OA cannot provide real OS time from SQF, so audit_session_anchor_game_date means mission date, while rpt_datetime_prefix means a real timestamp was present in the RPT text." `
+		-Description "One RPT can contain several appended games. This table separates each detected session and shows the best available session anchor. New audit logs write a dedicated anchor row with SID, tick and frame. It intentionally does not display mission date/time because fixed mission dates are misleading." `
 		-Rows $MapSummary `
 		-Columns @("session_index","session_start","session_start_source","map","scope","samples","avg_fps","min_fps","p10_fps","p50_fps","p90_fps","avg_ai","max_ai","avg_markers","avg_vd") `
 		-Labels $labels `
@@ -966,7 +964,7 @@ function Write-HtmlReport {
 		Add-HtmlTable `
 			-Lines $lines `
 			-Title "Session $sessionIndex - Detailed Script Cost" `
-			-Description "Detailed script ranking for session $sessionIndex, starting $sessionStart ($sessionSource). Use this section to compare the same script before and after mission updates without mixing appended RPT sessions." `
+			-Description "Detailed script ranking for session $sessionIndex, anchor $sessionStart ($sessionSource). Use this section to compare the same script before and after mission updates without mixing appended RPT sessions." `
 			-Rows $sessionTopScripts `
 			-Columns @("session_index","session_start","map","scope","script","samples","total_calls","total_ms","weighted_avg_ms","max_ms","spike_rows_25ms","spike_rows_50ms","spike_rows_100ms","avg_fps","min_fps","avg_ai","max_ai","avg_markers") `
 			-Labels $labels `
@@ -988,6 +986,15 @@ function Write-HtmlReport {
 		-Description "Global FPS context grouped by session, map and locality. P10 means 10 percent of snapshots were at or below that FPS; it is useful for measuring bad moments without relying only on the absolute minimum." `
 		-Rows $MapSummary `
 		-Columns @("session_index","session_start","map","scope","samples","avg_fps","min_fps","p10_fps","p50_fps","p90_fps","avg_ai","max_ai","avg_markers") `
+		-Labels $labels `
+		-Kind "map"
+
+	Add-HtmlTable `
+		-Lines $lines `
+		-Title "FPS By AI Load" `
+		-Description "FPS grouped by AI count ranges for each session/player. This is the easiest way to see whether client performance collapses as the mission grows. P10 FPS is the most useful comfort indicator because it ignores one-off minimum outliers but still captures bad moments." `
+		-Rows $fpsByAiLoad `
+		-Columns @("session_index","session_start","map","scope","player","ai_bin","samples","avg_fps","min_fps","p10_fps","p90_fps","avg_players","max_players","avg_ai","max_ai","avg_units","avg_vehicles","avg_markers","avg_vd") `
 		-Labels $labels `
 		-Kind "map"
 
@@ -1155,8 +1162,8 @@ function Write-InterpretationGuide {
 	$lines.Add("<tr><td><code>P10 FPS</code></td><td>10 percent of snapshots were at or below this FPS.</td><td>Better than minimum FPS for measuring bad moments without overreacting to one outlier.</td></tr>")
 	$lines.Add("<tr><td><code>AI bin</code></td><td>FPS grouped by AI count ranges.</td><td>Shows whether performance degrades as the mission grows.</td></tr>")
 	$lines.Add("<tr><td><code>DNC / Daytime / Weather</code></td><td>Day/night cycle and weather context.</td><td>Use this to compare FPS under different environment states when enough samples exist.</td></tr>")
-	$lines.Add("<tr><td><code>Session start</code></td><td>Date/time assigned to the beginning of each detected game session.</td><td>Use this to compare appended RPT sessions before and after mission updates. When the RPT only provides time-of-day, the date is an estimate based on the source file date.</td></tr>")
-	$lines.Add("<tr><td><code>Session date source</code></td><td>How the analyzer determined the session date/anchor.</td><td><code>rpt_datetime_prefix</code> is strongest because the RPT text contains a real timestamp. <code>audit_session_anchor_game_date</code> comes from the mission-side anchor and is the Arma mission date, not OS wall-clock time. <code>rpt_time_prefix_file_date_estimate</code> and <code>source_file_last_write_fallback</code> are weaker fallbacks.</td></tr>")
+	$lines.Add("<tr><td><code>Session anchor</code></td><td>Identifier shown at the start of each detected game session.</td><td>Use this to compare appended RPT sessions before and after mission updates. New logs show the audit anchor tick/frame instead of mission date/time, because fixed mission dates can be misleading.</td></tr>")
+	$lines.Add("<tr><td><code>Anchor source</code></td><td>How the analyzer determined the session anchor.</td><td><code>rpt_datetime_prefix</code> means a real timestamp was present in the RPT text. <code>audit_session_anchor_no_realtime</code> means the mission-side audit anchor was found, but Arma 2 OA did not expose real OS time. <code>rpt_time_prefix_file_date_estimate</code> and <code>source_file_last_write_fallback</code> are weaker fallbacks.</td></tr>")
 	$lines.Add("</tbody>")
 	$lines.Add("</table>")
 	$lines.Add("</section>")
@@ -1368,6 +1375,7 @@ Write-MarkdownReport `
 	-TimelineRows $timeline `
 	-ScriptSummary $scriptSummary `
 	-Spikes $spikes `
+	-FpsContext $fpsContext `
 	-PlayerSummary $playerSummary `
 	-MapSummary $mapSummary
 

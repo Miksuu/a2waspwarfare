@@ -67,12 +67,13 @@ performance_report_word.doc
 - `performance_fps_context.csv`: FPS grouped by AI range, map, scope and player.
 - `performance_by_session.csv`: one overview row per detected session/map/scope, useful to compare appended RPT sessions before and after mission updates.
 
-Most CSV files include `session_index`, `session_key`, `session_start`, `session_start_source` and `sid` columns so multiple games appended into the same RPT can be filtered separately in Excel. If the RPT contains a full date/time prefix, the analyzer uses it. New audit logs also write a dedicated session anchor row. Because Arma 2 OA SQF has no real OS wall-clock command like Arma 3 `systemTime`, `audit_session_anchor_game_date` means mission date, not real local time. If the RPT only contains time-of-day, the date is estimated from the source file date and clearly marked as `rpt_time_prefix_file_date_estimate`.
+Most CSV files include `session_index`, `session_key`, `session_start`, `session_start_source` and `sid` columns so multiple games appended into the same RPT can be filtered separately in Excel. If the RPT contains a full real date/time prefix, the analyzer uses it. New audit logs also write a dedicated session anchor row with SID, tick and frame. Because Arma 2 OA SQF has no real OS wall-clock command like Arma 3 `systemTime`, the mission-side anchor intentionally does not export mission date/time, which would be misleading when every match starts with the same configured mission date.
 
 ## Readable Reports
 
 - `performance_report.html`: colored visual report, best opened in a browser.
 - The HTML report starts with `Session Overview`, then adds `Session X - Detailed Script Cost` and `Session X - Detailed Spikes` sections for each detected game session.
+- The HTML report includes `FPS By AI Load`, which shows FPS grouped by AI count ranges so version-to-version scaling can be checked without opening CSV files.
 - The HTML report includes dedicated sections for unit/global init probes, marker/AAR probes, town AI delegation, client scaling probes, and server maintenance probes.
 - `performance_interpretation.html`: a readable guide explaining what each metric means and how to prioritize optimization candidates.
 - `performance_report_word.doc`: the same visual report saved with a Word-friendly extension.
