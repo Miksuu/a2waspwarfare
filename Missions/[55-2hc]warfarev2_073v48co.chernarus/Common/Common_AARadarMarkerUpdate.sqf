@@ -1,4 +1,4 @@
-Private ["_height","_object","_markerName","_side","_speed","_altitude","_aircraftName","_aarUpgradeLevel","_updateFrequency","_oppositeSide"];
+Private ["_height","_object","_markerName","_side","_sideID","_speed","_altitude","_aircraftName","_aarUpgradeLevel","_oppositeSide","_perfStart","_perfTextUpdates","_perfVisible","_playerDirection","_typeOfObject","_updateFrequency","_upgrades"];
 
 _object = _this select 0;
 _side = _this select 1;
@@ -15,6 +15,14 @@ _markerName setMarkerSizeLocal [0.5, 0.5]; // Made the marker a bit smaller stil
 _markerName setMarkerAlphaLocal 0;
 _height = missionNamespace getVariable "WFBE_C_STRUCTURES_ANTIAIRRADAR_DETECTION";
 
+// Marty: Performance Audit active AAR marker script counter.
+if !(isNil "PerformanceAuditAARMarkerScripts") then {
+	missionNamespace setVariable ["PerformanceAuditAARMarkerScripts", (missionNamespace getVariable ["PerformanceAuditAARMarkerScripts", 0]) + 1];
+};
+if !(isNil "PerformanceAudit_Record") then {
+	["aar_marker_start", 0, Format["type:%1;side:%2;activeAAR:%3", typeOf _object, _sideID, missionNamespace getVariable ["PerformanceAuditAARMarkerScripts", 0]], "CLIENT"] Call PerformanceAudit_Record;
+};
+
 // Need to flip the logic for getting the upgrade level
 if (_sideID == 0) then {
     _oppositeSide = (1) Call GetSideFromID;
@@ -27,6 +35,10 @@ if (_sideID == 1) then {
 
 // The main update loop
 while {alive _object && !(isNull _object)} do {
+	_perfStart = diag_tickTime;
+	_perfVisible = 0;
+	_perfTextUpdates = 0;
+	_aarUpgradeLevel = -1;
     _updateFrequency = 5; // AAR0: 5, AAR1: 3, AAR2: 1
 
 	if (antiAirRadarInRange) then {
@@ -61,13 +73,26 @@ while {alive _object && !(isNull _object)} do {
             _markerName setMarkerTextLocal (format ["%1 %2 %3", _speed, _altitude, _aircraftName]);
 			_playerDirection = getDir _object; 				//Marty : get the player's angle direction (= azimut) in order to draw the arrow marker in the same direction.
 			_markerName setMarkerDirLocal _playerDirection;	//Marty : set the player's angle direction to the marker.
+			_perfVisible = 1;
+			_perfTextUpdates = 1;
 
 		} else {
 			_markerName setMarkerAlphaLocal 0;
 		};
 	};
 
+	if !(isNil "PerformanceAudit_Record") then {
+		["aar_marker_update", diag_tickTime - _perfStart, Format["type:%1;visible:%2;textUpdates:%3;upgrade:%4;refresh:%5;activeAAR:%6;radarInRange:%7", typeOf _object, _perfVisible, _perfTextUpdates, _aarUpgradeLevel, _updateFrequency, missionNamespace getVariable ["PerformanceAuditAARMarkerScripts", 0], antiAirRadarInRange], "CLIENT"] Call PerformanceAudit_Record;
+	};
+
 	sleep _updateFrequency; //Marty : refresh frequency is same as the updateTeamMarker in order to refresh faster on map. (May be we should increase this value in case of performances issues !)
+};
+
+if !(isNil "PerformanceAuditAARMarkerScripts") then {
+	missionNamespace setVariable ["PerformanceAuditAARMarkerScripts", ((missionNamespace getVariable ["PerformanceAuditAARMarkerScripts", 1]) - 1) max 0];
+};
+if !(isNil "PerformanceAudit_Record") then {
+	["aar_marker_end", 0, Format["type:%1;side:%2;activeAAR:%3", typeOf _object, _sideID, missionNamespace getVariable ["PerformanceAuditAARMarkerScripts", 0]], "CLIENT"] Call PerformanceAudit_Record;
 };
 
 deleteMarkerLocal _markerName;

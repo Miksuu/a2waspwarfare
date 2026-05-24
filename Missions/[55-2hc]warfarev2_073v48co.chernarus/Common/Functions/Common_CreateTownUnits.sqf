@@ -9,7 +9,7 @@
 */
 
 // Marty: Optional global init flag lets town AI skip client marker/action setup.
-Private ["_global", "_groups", "_lock", "_position", "_positions", "_side", "_sideID", "_team", "_teams", "_town", "_town_teams", "_town_vehicles"];
+Private ["_global", "_groups", "_lock", "_perfActive", "_perfCreateTeams", "_perfItemStart", "_perfScope", "_perfStart", "_position", "_positions", "_side", "_sideID", "_team", "_teams", "_town", "_town_teams", "_town_vehicles"];
 
 _town = _this select 0;
 _side = _this select 1;
@@ -24,6 +24,10 @@ _built = 0;
 _builtveh = 0;
 _town_teams = [];
 _town_vehicles = [];
+// Marty: Performance Audit measures active town unit creation time, excluding the cooperative spawn sleeps.
+_perfStart = diag_tickTime;
+_perfActive = 0;
+_perfCreateTeams = 0;
 
 _lock = if ((missionNamespace getVariable "WFBE_C_TOWNS_VEHICLES_LOCK_DEFENDER") == 0 && _side == WFBE_DEFENDER) then {false} else {true};
 
@@ -34,7 +38,10 @@ for '_i' from 0 to count(_groups)-1 do {
 	["INFORMATION", Format["Common_CreateTownUnits.sqf: Town [%1] [%2] will create a team template %3 at %4", _town, _side, _groups select _i,_position]] Call WFBE_CO_FNC_LogContent;
 	
 	// Marty: Pass the optional global init flag through to units and vehicles spawned for this town team.
+	_perfItemStart = diag_tickTime;
 	_retVal = [_groups select _i, _position, _side, _lock, _team, _global, 90] call WFBE_CO_FNC_CreateTeam;
+	_perfActive = _perfActive + (diag_tickTime - _perfItemStart);
+	_perfCreateTeams = _perfCreateTeams + 1;
 	_vehicles = _retVal select 1;
 	_built = _built + count(_retVal select 0);
 	_builtveh = _builtveh + (count _vehicles);
@@ -60,5 +67,11 @@ if (_built > 0) then {[str _side,'UnitsCreated',_built] call UpdateStatistics};
 if (_builtveh > 0) then {[str _side,'VehiclesCreated',_builtveh] call UpdateStatistics};
 
 ["INFORMATION", Format["Common_CreateTownUnits.sqf: Town [%1] held by [%2] was activated witha total of [%3] units.", _town, _side, _built + _builtveh]] Call WFBE_CO_FNC_LogContent;
+
+// Marty: Audit town AI creation separately from the long-running town monitor.
+if !(isNil "PerformanceAudit_Record") then {
+	_perfScope = if (isServer && !hasInterface) then {"SERVER"} else {"CLIENT"};
+	["createtownunits", _perfActive, Format["town:%1;side:%2;groups:%3;teams:%4;units:%5;vehicles:%6;global:%7;cycleMs:%8", _town getVariable "name", _side, count _groups, _perfCreateTeams, _built, _builtveh, _global, round ((diag_tickTime - _perfStart) * 1000)], _perfScope] Call PerformanceAudit_Record;
+};
 
 [_town_teams, _town_vehicles]
