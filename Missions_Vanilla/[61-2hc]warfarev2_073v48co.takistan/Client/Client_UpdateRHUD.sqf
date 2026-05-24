@@ -357,7 +357,6 @@ while {true} do {
 			[18, [0.85, 0, 0, 1]] call _RHUDSetColor;
 
 			// Marty: Keep full RHUD FPS labels expanded while updating their values.
-			// Marty: Keep full RHUD FPS labels expanded while updating their values.
 			["FPS Client:", "FPS Server:", false] call _RHUDUpdateFPS;
 			};
 		};
