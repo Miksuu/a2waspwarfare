@@ -90,17 +90,17 @@ while {!gameOver} do {
 						if !(isNil "_playerAFKstate") then {
 							if (_playerAFKstate) then {_label = Format[" %1 (AFK)", name _leader]};
 						};
-
-						_marker setMarkerPosLocal getPos _leader;
-						_leaderVehicle = vehicle _leader;
-						_marker setMarkerDirLocal getDir _leaderVehicle;
-						_perfMarkerOps = _perfMarkerOps + 2;
 					} else {
 						_perfAILeaders = _perfAILeaders + 1;
 						if (_updateAILeaders) then {_updateThisLeader = true};
 					};
 
 					if (_updateThisLeader) then {
+						_leaderVehicle = vehicle _leader;
+						_marker setMarkerPosLocal getPos _leader;
+						_marker setMarkerDirLocal getDir _leaderVehicle;
+						_perfMarkerOps = _perfMarkerOps + 2;
+
 						if ((_lastTexts select _markerIndex) != _label) then {
 							_marker setMarkerTextLocal _label;
 							_lastTexts set [_markerIndex, _label];

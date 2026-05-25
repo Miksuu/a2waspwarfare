@@ -1,5 +1,5 @@
 // Marty: Performance Audit locals.
-Private ["_currentPos","_deathMarkerColor","_deathMarkerSize","_deathMarkerType","_delete","_deletePrevious","_distanceToPlayer","_initialPos","_isHQ","_lastMarkerPos","_lastMarkerSize","_lastMarkerType","_markerColor","_markerName","_markerPosThreshold","_markerSize","_markerText","_markerType","_perfStart","_positionWrites","_refreshRate","_side","_skippedWrites","_sleepRate","_slowInfantry","_targetMarkerSize","_targetMarkerType","_trackDeath","_tracked","_trackedKind","_trackedType","_typeWrites"];
+Private ["_canMoveTracked","_currentPos","_deathMarkerColor","_deathMarkerSize","_deathMarkerType","_delete","_deletePrevious","_distanceToPlayer","_initialPos","_isHQ","_lastMarkerPos","_lastMarkerSize","_lastMarkerType","_markerColor","_markerName","_markerPosThreshold","_markerSize","_markerText","_markerType","_perfStart","_positionWrites","_refreshRate","_side","_sizeChanged","_skippedWrites","_sleepRate","_slowInfantry","_targetMarkerSize","_targetMarkerType","_trackDeath","_tracked","_trackedKind","_trackedType","_typeWrites"];
 
 waitUntil {commonInitComplete};
 
@@ -34,7 +34,7 @@ if (_tracked isKindOf "Ship") then {_trackedKind = "ship"};
 _initialPos = getPos _tracked;
 _lastMarkerPos = _initialPos;
 _lastMarkerType = _markerType;
-_lastMarkerSize = _markerSize;
+_lastMarkerSize = +_markerSize;
 _positionWrites = 0;
 _typeWrites = 0;
 _skippedWrites = 0;
@@ -55,12 +55,16 @@ _tracked setVariable ["unitMarkerBlink", _markerName, false];
 _tracked setVariable ["OriginalMarkerColor", _markerColor, false];
 
 // Marty: Performance Audit active marker script counter.
-if !(isNil "PerformanceAuditMarkerScripts") then {
-	missionNamespace setVariable ["PerformanceAuditMarkerScripts", (missionNamespace getVariable ["PerformanceAuditMarkerScripts", 0]) + 1];
+if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+	if !(isNil "PerformanceAuditMarkerScripts") then {
+		missionNamespace setVariable ["PerformanceAuditMarkerScripts", (missionNamespace getVariable ["PerformanceAuditMarkerScripts", 0]) + 1];
+	};
 };
 
 if !(isNil "PerformanceAudit_Record") then {
-	["markerupdate_start", 0, Format["markerType:%1;trackedKind:%2;trackedType:%3;refresh:%4;activeMarkers:%5;positionWrites:%6;typeWrites:%7;skippedWrites:%8;side:%9;trackDeath:%10", _markerType, _trackedKind, _trackedType, _refreshRate, missionNamespace getVariable ["PerformanceAuditMarkerScripts", 0], _positionWrites, _typeWrites, _skippedWrites, _side, _trackDeath], "CLIENT"] Call PerformanceAudit_Record;
+	if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+		["markerupdate_start", 0, Format["markerType:%1;trackedKind:%2;trackedType:%3;refresh:%4;activeMarkers:%5;positionWrites:%6;typeWrites:%7;skippedWrites:%8;side:%9;trackDeath:%10", _markerType, _trackedKind, _trackedType, _refreshRate, missionNamespace getVariable ["PerformanceAuditMarkerScripts", 0], _positionWrites, _typeWrites, _skippedWrites, _side, _trackDeath], "CLIENT"] Call PerformanceAudit_Record;
+	};
 };
 
 if (_isHQ) then {
@@ -73,17 +77,15 @@ if (_isHQ) then {
 		_perfStart = diag_tickTime;
 
 		_currentPos = getPos _tracked;
-		if ((_currentPos distance _lastMarkerPos) > _markerPosThreshold) then {
-			_markerName setMarkerPosLocal _currentPos;
-			_lastMarkerPos = _currentPos;
-			_positionWrites = _positionWrites + 1;
-		} else {
-			_skippedWrites = _skippedWrites + 1;
-		};
+		_markerName setMarkerPosLocal _currentPos;
+		_lastMarkerPos = _currentPos;
+		_positionWrites = _positionWrites + 1;
 
 		// Marty: Performance Audit record for one HQ marker update.
 		if !(isNil "PerformanceAudit_Record") then {
-			["markerupdate_hq", diag_tickTime - _perfStart, Format["trackedKind:%1;trackedType:%2;refresh:%3;activeMarkers:%4;positionWrites:%5;typeWrites:%6;skippedWrites:%7;side:%8", _trackedKind, _trackedType, _refreshRate, missionNamespace getVariable ["PerformanceAuditMarkerScripts", 0], _positionWrites, _typeWrites, _skippedWrites, _side], "CLIENT"] Call PerformanceAudit_Record;
+			if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+				["markerupdate_hq", diag_tickTime - _perfStart, Format["trackedKind:%1;trackedType:%2;refresh:%3;activeMarkers:%4;positionWrites:%5;typeWrites:%6;skippedWrites:%7;side:%8", _trackedKind, _trackedType, _refreshRate, missionNamespace getVariable ["PerformanceAuditMarkerScripts", 0], _positionWrites, _typeWrites, _skippedWrites, _side], "CLIENT"] Call PerformanceAudit_Record;
+			};
 		};
 	};
 
@@ -101,7 +103,15 @@ if (_isHQ) then {
 			// Marty: Performance Audit timing for one unit/vehicle marker update.
 			_perfStart = diag_tickTime;
 
-			if (!(canMove _tracked)) then {
+			// Marty: Keep position refresh independent from type/size bookkeeping so marker caching cannot freeze units.
+			_currentPos = getPos _tracked;
+			_markerName setMarkerPosLocal _currentPos;
+			_lastMarkerPos = _currentPos;
+			_positionWrites = _positionWrites + 1;
+
+			_canMoveTracked = true;
+			if (_trackedKind != "man") then {_canMoveTracked = canMove _tracked};
+			if (!_canMoveTracked) then {
 				_targetMarkerType = "mil_objective";
 				_targetMarkerSize = [0.5,0.5];
 			} else {
@@ -117,25 +127,19 @@ if (_isHQ) then {
 				_skippedWrites = _skippedWrites + 1;
 			};
 
-			if !(_targetMarkerSize == _lastMarkerSize) then {
+			_sizeChanged = ((_targetMarkerSize select 0) != (_lastMarkerSize select 0)) || ((_targetMarkerSize select 1) != (_lastMarkerSize select 1));
+			if (_sizeChanged) then {
 				_markerName setMarkerSizeLocal _targetMarkerSize;
-				_lastMarkerSize = _targetMarkerSize;
-			} else {
-				_skippedWrites = _skippedWrites + 1;
-			};
-
-			_currentPos = getPos _tracked;
-			if ((_currentPos distance _lastMarkerPos) > _markerPosThreshold) then {
-				_markerName setMarkerPosLocal _currentPos;
-				_lastMarkerPos = _currentPos;
-				_positionWrites = _positionWrites + 1;
+				_lastMarkerSize = +_targetMarkerSize;
 			} else {
 				_skippedWrites = _skippedWrites + 1;
 			};
 
 			// Marty: Performance Audit record for one unit/vehicle marker update.
 			if !(isNil "PerformanceAudit_Record") then {
-				["markerupdate_unit", diag_tickTime - _perfStart, Format["trackedKind:%1;trackedType:%2;refresh:%3;activeMarkers:%4;positionWrites:%5;typeWrites:%6;skippedWrites:%7;side:%8", _trackedKind, _trackedType, _sleepRate, missionNamespace getVariable ["PerformanceAuditMarkerScripts", 0], _positionWrites, _typeWrites, _skippedWrites, _side], "CLIENT"] Call PerformanceAudit_Record;
+				if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+					["markerupdate_unit", diag_tickTime - _perfStart, Format["trackedKind:%1;trackedType:%2;refresh:%3;activeMarkers:%4;positionWrites:%5;typeWrites:%6;skippedWrites:%7;side:%8", _trackedKind, _trackedType, _sleepRate, missionNamespace getVariable ["PerformanceAuditMarkerScripts", 0], _positionWrites, _typeWrites, _skippedWrites, _side], "CLIENT"] Call PerformanceAudit_Record;
+				};
 			};
 	};
 };
@@ -149,12 +153,16 @@ if (_trackDeath && !isNull _tracked) then {
 };
 
 // Marty: Performance Audit active marker script counter.
-if !(isNil "PerformanceAuditMarkerScripts") then {
-	missionNamespace setVariable ["PerformanceAuditMarkerScripts", ((missionNamespace getVariable ["PerformanceAuditMarkerScripts", 1]) - 1) max 0];
+if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+	if !(isNil "PerformanceAuditMarkerScripts") then {
+		missionNamespace setVariable ["PerformanceAuditMarkerScripts", ((missionNamespace getVariable ["PerformanceAuditMarkerScripts", 1]) - 1) max 0];
+	};
 };
 
 if !(isNil "PerformanceAudit_Record") then {
-	["markerupdate_end", 0, Format["markerType:%1;trackedKind:%2;trackedType:%3;refresh:%4;activeMarkers:%5;positionWrites:%6;typeWrites:%7;skippedWrites:%8;side:%9", _markerType, _trackedKind, _trackedType, _refreshRate, missionNamespace getVariable ["PerformanceAuditMarkerScripts", 0], _positionWrites, _typeWrites, _skippedWrites, _side], "CLIENT"] Call PerformanceAudit_Record;
+	if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+		["markerupdate_end", 0, Format["markerType:%1;trackedKind:%2;trackedType:%3;refresh:%4;activeMarkers:%5;positionWrites:%6;typeWrites:%7;skippedWrites:%8;side:%9", _markerType, _trackedKind, _trackedType, _refreshRate, missionNamespace getVariable ["PerformanceAuditMarkerScripts", 0], _positionWrites, _typeWrites, _skippedWrites, _side], "CLIENT"] Call PerformanceAudit_Record;
+	};
 };
 
 deleteMarkerLocal _markerName;
