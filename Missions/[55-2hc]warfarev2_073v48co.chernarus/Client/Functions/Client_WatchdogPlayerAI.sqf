@@ -50,6 +50,7 @@ Private [
 	"_required_stuck_time",
 	"_should_recover_unit",
 	"_stuck_units_to_recover",
+	"_unit_ready",
 	"_vehicle"
 ];
 
@@ -66,7 +67,11 @@ _required_stuck_time = 45;
 _required_close_stuck_time = 75;
 _recovery_cooldown = 120;
 _min_destination_distance = 50;
-_min_close_destination_distance = 2;
+
+// Keep automatic recovery away from near-arrival micro-orders.
+// Manual recovery still uses a 2m threshold in Client_RecoverPlayerAI.sqf.
+_min_close_destination_distance = 50;
+
 _min_movement_distance = 5;
 _destination_change_distance = 25;
 
@@ -189,6 +194,7 @@ while {true} do {
 				if (!([_current_unit, _vehicle] Call _movement_can_work)) exitWith {false};
 
 				_current_command = currentCommand _current_unit;
+				_unit_ready = unitReady _current_unit;
 
 				// Automatic recovery must not override a deliberate player stop order.
 				if (_current_command == "STOP") exitWith {false};
@@ -233,9 +239,10 @@ while {true} do {
 					if (!_has_useful_destination) exitWith {false};
 
 					// Close destinations are risky because they can be formation or micro-position orders.
-					// Only recover them if the engine still reports a real MOVE command.
+					// Only recover them if the engine still reports an unfinished MOVE command.
 					if (_is_close_destination) then {
 						if (_current_command != "MOVE") exitWith {false};
+						if (_unit_ready) exitWith {false};
 					};
 
 					_last_position = _current_unit getVariable ["Player_AI_Watchdog_Last_Position", []];
@@ -299,13 +306,14 @@ while {true} do {
 					_stuck_units_to_recover = _stuck_units_to_recover + [_current_unit];
 
 					["WARNING", Format [
-						"AI Watchdog: Unit [%1] appears stuck. mode [%2], destination [%3], distance_to_destination [%4], close_destination [%5], command [%6]. Automatic recovery will start.",
+						"AI Watchdog: Unit [%1] appears stuck. mode [%2], destination [%3], distance_to_destination [%4], close_destination [%5], command [%6], unit_ready [%7]. Automatic recovery will start.",
 						_current_unit,
 						_destination_mode,
 						_destination,
 						round _distance_to_destination,
 						_is_close_destination,
-						_current_command
+						_current_command,
+						_unit_ready
 					]] Call WFBE_CO_FNC_LogContent;
 				};
 			};
