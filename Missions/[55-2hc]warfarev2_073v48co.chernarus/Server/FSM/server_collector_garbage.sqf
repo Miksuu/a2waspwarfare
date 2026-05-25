@@ -24,7 +24,9 @@ while {!WFBE_GameOver} do {
 
 	// Marty: Performance Audit record for the dead object garbage collector.
 	if !(isNil "PerformanceAudit_Record") then {
-		["server_garbage_collector", diag_tickTime - _perfStart, Format["dead:%1;tracked:%2;spawned:%3", _perfDead, count gc_collector, _perfSpawned], "SERVER"] Call PerformanceAudit_Record;
+		if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+			["server_garbage_collector", diag_tickTime - _perfStart, Format["dead:%1;tracked:%2;spawned:%3", _perfDead, count gc_collector, _perfSpawned], "SERVER"] Call PerformanceAudit_Record;
+		};
 	};
 
 	sleep 0.5;

@@ -176,7 +176,9 @@ while {!gameOver} do {
 
 	// Marty: Performance Audit record for the legacy AFK block.
 	if !(isNil "PerformanceAudit_Record") then {
-		["updateclient_afk", diag_tickTime - _perfAFKStart, Format["afkBroadcasts:%1;countDown:%2", _perfAFKBroadcasts, _countDownKick], "CLIENT"] Call PerformanceAudit_Record;
+		if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+			["updateclient_afk", diag_tickTime - _perfAFKStart, Format["afkBroadcasts:%1;countDown:%2", _perfAFKBroadcasts, _countDownKick], "CLIENT"] Call PerformanceAudit_Record;
+		};
 	};
 
 	commanderTeam = (sideJoined) Call WFBE_CO_FNC_GetCommanderTeam;
@@ -243,7 +245,9 @@ while {!gameOver} do {
 
 	// Marty: Performance Audit record for the full client update tick.
 	if !(isNil "PerformanceAudit_Record") then {
-		["updateclient_total", diag_tickTime - _perfLoopStart, Format["afkBroadcasts:%1;clientTeams:%2", _perfAFKBroadcasts, count clientTeams], "CLIENT"] Call PerformanceAudit_Record;
+		if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+			["updateclient_total", diag_tickTime - _perfLoopStart, Format["afkBroadcasts:%1;clientTeams:%2", _perfAFKBroadcasts, count clientTeams], "CLIENT"] Call PerformanceAudit_Record;
+		};
 	};
 
 	sleep 1;

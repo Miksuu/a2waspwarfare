@@ -140,7 +140,9 @@ while {!gameOver} do {
 
 		// Marty: Performance Audit record for the visible local team marker update loop.
 		if !(isNil "PerformanceAudit_Record") then {
-			["updateteamsmarkers", diag_tickTime - _perfStart, Format["teams:%1;players:%2;ai:%3;markerOps:%4;skippedWrites:%5", count clientTeams, _perfPlayerLeaders, _perfAILeaders, _perfMarkerOps, _perfSkippedWrites], "CLIENT"] Call PerformanceAudit_Record;
+			if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+				["updateteamsmarkers", diag_tickTime - _perfStart, Format["teams:%1;players:%2;ai:%3;markerOps:%4;skippedWrites:%5", count clientTeams, _perfPlayerLeaders, _perfAILeaders, _perfMarkerOps, _perfSkippedWrites], "CLIENT"] Call PerformanceAudit_Record;
+			};
 		};
 
 		sleep 0.2;

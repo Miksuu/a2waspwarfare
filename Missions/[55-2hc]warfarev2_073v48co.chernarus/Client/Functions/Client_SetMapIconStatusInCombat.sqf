@@ -40,5 +40,7 @@ if (!isNil { _hasFiredVehicle }) then {
 
 // Marty: Performance Audit record for combat marker activation.
 if !(isNil "PerformanceAudit_Record") then {
-    ["combat_marker_fired", diag_tickTime - _perfStart, Format["networkSetVars:%1;vehicle:%2", _perfNetworkSetVars, _vehicleUnit != _unit], "CLIENT"] Call PerformanceAudit_Record;
+    if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+    	["combat_marker_fired", diag_tickTime - _perfStart, Format["networkSetVars:%1;vehicle:%2", _perfNetworkSetVars, _vehicleUnit != _unit], "CLIENT"] Call PerformanceAudit_Record;
+    };
 };

@@ -38,7 +38,9 @@ while {!WFBE_GameOver} do {
 	} forEach _clear;
 
 	if !(isNil "PerformanceAudit_Record") then {
-		["cleaner_craters", _perfActive, Format["scanned:%1;deleted:%2;small:%3;long:%4;cycleMs:%5", _perfScanned, _perfDeleted, _perfSmall, _perfLong, round ((diag_tickTime - _perfStart) * 1000)], "SERVER"] Call PerformanceAudit_Record;
+		if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+			["cleaner_craters", _perfActive, Format["scanned:%1;deleted:%2;small:%3;long:%4;cycleMs:%5", _perfScanned, _perfDeleted, _perfSmall, _perfLong, round ((diag_tickTime - _perfStart) * 1000)], "SERVER"] Call PerformanceAudit_Record;
+		};
 	};
 
 	if(!(isNil "_timer"))then{

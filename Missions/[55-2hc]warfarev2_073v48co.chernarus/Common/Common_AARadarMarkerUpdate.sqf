@@ -28,11 +28,15 @@ _posThreshold = 25;
 _dirThreshold = 7;
 
 // Marty: Performance Audit active AAR marker script counter.
-if !(isNil "PerformanceAuditAARMarkerScripts") then {
-	missionNamespace setVariable ["PerformanceAuditAARMarkerScripts", (missionNamespace getVariable ["PerformanceAuditAARMarkerScripts", 0]) + 1];
+if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+	if !(isNil "PerformanceAuditAARMarkerScripts") then {
+		missionNamespace setVariable ["PerformanceAuditAARMarkerScripts", (missionNamespace getVariable ["PerformanceAuditAARMarkerScripts", 0]) + 1];
+	};
 };
 if !(isNil "PerformanceAudit_Record") then {
-	["aar_marker_start", 0, Format["type:%1;side:%2;activeAAR:%3", typeOf _object, _sideID, missionNamespace getVariable ["PerformanceAuditAARMarkerScripts", 0]], "CLIENT"] Call PerformanceAudit_Record;
+	if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+		["aar_marker_start", 0, Format["type:%1;side:%2;activeAAR:%3", typeOf _object, _sideID, missionNamespace getVariable ["PerformanceAuditAARMarkerScripts", 0]], "CLIENT"] Call PerformanceAudit_Record;
+	};
 };
 
 // Marty: Default to the local player side for non-standard side ids, then preserve the two-team opposite-side behavior.
@@ -172,17 +176,23 @@ while {!(isNull _object) && alive _object} do {
 	};
 
 	if !(isNil "PerformanceAudit_Record") then {
-		["aar_marker_update", diag_tickTime - _perfStart, Format["type:%1;activeAAR:%2;visible:%3;textUpdates:%4;posWrites:%5;dirWrites:%6;skippedWrites:%7;upgrade:%8;refresh:%9;radarInRange:%10", typeOf _object, missionNamespace getVariable ["PerformanceAuditAARMarkerScripts", 0], _perfVisible, _perfTextUpdates, _perfPosWrites, _perfDirWrites, _perfSkippedWrites, _aarUpgradeLevel, _updateFrequency, _radarInRange], "CLIENT"] Call PerformanceAudit_Record;
+		if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+			["aar_marker_update", diag_tickTime - _perfStart, Format["type:%1;activeAAR:%2;visible:%3;textUpdates:%4;posWrites:%5;dirWrites:%6;skippedWrites:%7;upgrade:%8;refresh:%9;radarInRange:%10", typeOf _object, missionNamespace getVariable ["PerformanceAuditAARMarkerScripts", 0], _perfVisible, _perfTextUpdates, _perfPosWrites, _perfDirWrites, _perfSkippedWrites, _aarUpgradeLevel, _updateFrequency, _radarInRange], "CLIENT"] Call PerformanceAudit_Record;
+		};
 	};
 
 	sleep _updateFrequency; //Marty : refresh frequency is same as the updateTeamMarker in order to refresh faster on map. (May be we should increase this value in case of performances issues !)
 };
 
-if !(isNil "PerformanceAuditAARMarkerScripts") then {
-	missionNamespace setVariable ["PerformanceAuditAARMarkerScripts", ((missionNamespace getVariable ["PerformanceAuditAARMarkerScripts", 1]) - 1) max 0];
+if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+	if !(isNil "PerformanceAuditAARMarkerScripts") then {
+		missionNamespace setVariable ["PerformanceAuditAARMarkerScripts", ((missionNamespace getVariable ["PerformanceAuditAARMarkerScripts", 1]) - 1) max 0];
+	};
 };
 if !(isNil "PerformanceAudit_Record") then {
-	["aar_marker_end", 0, Format["type:%1;side:%2;activeAAR:%3", typeOf _object, _sideID, missionNamespace getVariable ["PerformanceAuditAARMarkerScripts", 0]], "CLIENT"] Call PerformanceAudit_Record;
+	if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+		["aar_marker_end", 0, Format["type:%1;side:%2;activeAAR:%3", typeOf _object, _sideID, missionNamespace getVariable ["PerformanceAuditAARMarkerScripts", 0]], "CLIENT"] Call PerformanceAudit_Record;
+	};
 };
 
 deleteMarkerLocal _markerName;

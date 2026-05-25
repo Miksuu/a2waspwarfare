@@ -58,8 +58,10 @@ if (_global && (missionNamespace getVariable ["WFBE_C_MAP_ICON_BLINKING_ENABLED"
 ["INFORMATION", Format ["Common_CreateVehicle.sqf: [%1] Vehicle [%2] was created at [%3].", _side Call WFBE_CO_FNC_GetSideFromID, _type, _position]] Call WFBE_CO_FNC_LogContent;
 
 if !(isNil "PerformanceAudit_Record") then {
-	_perfScope = if (isServer && !hasInterface) then {"SERVER"} else {"CLIENT"};
-	["createvehicle", diag_tickTime - _perfStart, Format["type:%1;side:%2;global:%3;init:%4;bounty:%5;locked:%6;special:%7;isAir:%8;isTank:%9;isCar:%10", _type, _side, _global, _globalInitMode, _bounty, _locked, _special, _vehicle isKindOf "Air", _vehicle isKindOf "Tank", _vehicle isKindOf "Car"], _perfScope] Call PerformanceAudit_Record;
+	if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+		_perfScope = if (isServer && !hasInterface) then {"SERVER"} else {"CLIENT"};
+		["createvehicle", diag_tickTime - _perfStart, Format["type:%1;side:%2;global:%3;init:%4;bounty:%5;locked:%6;special:%7;isAir:%8;isTank:%9;isCar:%10", _type, _side, _global, _globalInitMode, _bounty, _locked, _special, _vehicle isKindOf "Air", _vehicle isKindOf "Tank", _vehicle isKindOf "Car"], _perfScope] Call PerformanceAudit_Record;
+	};
 };
 
 _vehicle

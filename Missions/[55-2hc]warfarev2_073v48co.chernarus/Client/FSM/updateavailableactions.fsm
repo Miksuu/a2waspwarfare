@@ -234,7 +234,7 @@ class FSM
        "" \n
        "if (WFBE_ForceUpdate) then {WFBE_ForceUpdate  = false};" \n
        "// Marty: Performance Audit record for available actions update." \n
-       "if !(isNil ""PerformanceAudit_Record"") then {[""updateavailableactions"", diag_tickTime - _perfStart, Format[""clientTeams:%1;nearEntities:%2;usable:%3"", count clientTeams, _perfNearEntities, _usable], ""CLIENT""] Call PerformanceAudit_Record};" \n
+       "if !(isNil ""PerformanceAudit_Record"") then {if (missionNamespace getVariable [""PerformanceAuditEnabled"", true]) then {[""updateavailableactions"", diag_tickTime - _perfStart, Format[""clientTeams:%1;nearEntities:%2;usable:%3"", count clientTeams, _perfNearEntities, _usable], ""CLIENT""] Call PerformanceAudit_Record;}};" \n
        "_lastUpdate = time;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links

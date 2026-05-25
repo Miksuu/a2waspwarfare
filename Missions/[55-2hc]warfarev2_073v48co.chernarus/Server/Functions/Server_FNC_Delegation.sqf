@@ -65,7 +65,9 @@ WFBE_SE_FNC_DelegateAITown = {
 	};
 
 	if !(isNil "PerformanceAudit_Record") then {
-		["delegate_townai_server", diag_tickTime - _perfStart, Format["town:%1;side:%2;delegators:%3;delegated:%4;fallbackGroups:%5;fallbackVehicles:%6", _town getVariable "name", _side, count _delegators, _delegated, _fallbackGroups, count _town_vehicles], "SERVER"] Call PerformanceAudit_Record;
+		if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+			["delegate_townai_server", diag_tickTime - _perfStart, Format["town:%1;side:%2;delegators:%3;delegated:%4;fallbackGroups:%5;fallbackVehicles:%6", _town getVariable "name", _side, count _delegators, _delegated, _fallbackGroups, count _town_vehicles], "SERVER"] Call PerformanceAudit_Record;
+		};
 	};
 
 	[_town_teams, _town_vehicles]

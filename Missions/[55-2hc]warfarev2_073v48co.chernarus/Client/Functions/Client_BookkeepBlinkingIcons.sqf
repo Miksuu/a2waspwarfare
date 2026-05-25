@@ -154,7 +154,9 @@ while { !WFBE_GameOver } do {
 
     // Marty: Performance Audit record for the blinking icon bookkeeping loop.
     if !(isNil "PerformanceAudit_Record") then {
-        ["bookkeep_blinking_icons", diag_tickTime - _perfStart, Format["groups:%1;units:%2;westUnits:%3;eastUnits:%4;westVehicles:%5;eastVehicles:%6", _perfGroups, _perfUnits, count BLINKING_UNITS_WEST, count BLINKING_UNITS_EAST, count BLINKING_VEHICLES_WEST, count BLINKING_VEHICLES_EAST], "CLIENT"] Call PerformanceAudit_Record;
+        if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+        	["bookkeep_blinking_icons", diag_tickTime - _perfStart, Format["groups:%1;units:%2;westUnits:%3;eastUnits:%4;westVehicles:%5;eastVehicles:%6", _perfGroups, _perfUnits, count BLINKING_UNITS_WEST, count BLINKING_UNITS_EAST, count BLINKING_VEHICLES_WEST, count BLINKING_VEHICLES_EAST], "CLIENT"] Call PerformanceAudit_Record;
+        };
     };
 
     sleep (1 - _dt);

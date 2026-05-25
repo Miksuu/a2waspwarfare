@@ -22,7 +22,9 @@ while {!WFBE_GameOver} do {
 		sleep 0.5;
 	} forEach mines;
 	if !(isNil "PerformanceAudit_Record") then {
-		["cleaner_mines", _perfActive, Format["tracked:%1;scanned:%2;deleted:%3;cycleMs:%4", count mines, _perfScanned, _perfDeleted, round ((diag_tickTime - _perfStart) * 1000)], "SERVER"] Call PerformanceAudit_Record;
+		if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+			["cleaner_mines", _perfActive, Format["tracked:%1;scanned:%2;deleted:%3;cycleMs:%4", count mines, _perfScanned, _perfDeleted, round ((diag_tickTime - _perfStart) * 1000)], "SERVER"] Call PerformanceAudit_Record;
+		};
 	};
 	if(!(isNil "_timer"))then{
 		sleep _timer;

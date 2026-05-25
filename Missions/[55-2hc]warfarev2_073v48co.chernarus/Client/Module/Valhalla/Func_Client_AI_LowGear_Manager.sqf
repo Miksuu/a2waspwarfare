@@ -44,7 +44,9 @@ while {!gameOver} do {
 
 	// Marty: Performance Audit record for local AI low gear manager.
 	if !(isNil "PerformanceAudit_Record") then {
-		["ai_lowgear_manager", diag_tickTime - _perfStart, Format["groupUnits:%1;started:%2", _perfUnits, _perfStarted], "CLIENT"] Call PerformanceAudit_Record;
+		if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+			["ai_lowgear_manager", diag_tickTime - _perfStart, Format["groupUnits:%1;started:%2", _perfUnits, _perfStarted], "CLIENT"] Call PerformanceAudit_Record;
+		};
 	};
 
 	sleep 5;

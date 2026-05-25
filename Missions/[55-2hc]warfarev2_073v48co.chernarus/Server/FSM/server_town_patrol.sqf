@@ -45,8 +45,10 @@ while {!WFBE_GameOver || _aliveTeam} do {
 		};
 	};
 	if !(isNil "PerformanceAudit_Record") then {
-		_perfScope = if (isServer && !hasInterface) then {"SERVER"} else {"CLIENT"};
-		["town_patrol", diag_tickTime - _perfStart, Format["town:%1;side:%2;alive:%3;units:%4;mode:%5;changed:%6;focus:%7", _location getVariable "name", _sideID, _aliveTeam, count (units _team), _mode, _perfModeChange, !(isNull _focus)], _perfScope] Call PerformanceAudit_Record;
+		if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+			_perfScope = if (isServer && !hasInterface) then {"SERVER"} else {"CLIENT"};
+			["town_patrol", diag_tickTime - _perfStart, Format["town:%1;side:%2;alive:%3;units:%4;mode:%5;changed:%6;focus:%7", _location getVariable "name", _sideID, _aliveTeam, count (units _team), _mode, _perfModeChange, !(isNull _focus)], _perfScope] Call PerformanceAudit_Record;
+		};
 	};
 	sleep 30;
 };

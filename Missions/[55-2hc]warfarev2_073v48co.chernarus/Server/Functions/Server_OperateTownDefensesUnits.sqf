@@ -113,6 +113,8 @@ switch (_action) do {
 };
 
 if !(isNil "PerformanceAudit_Record") then {
-	_perfScope = if (isServer && !hasInterface) then {"SERVER"} else {"CLIENT"};
-	["town_defenses_units", _perfActive, Format["town:%1;side:%2;action:%3;defenses:%4;spawned:%5;delegated:%6;removed:%7;cycleMs:%8", _town getVariable "name", _side, _action, _perfTotal, _perfSpawned, _perfDelegated, _perfRemoved, round ((diag_tickTime - _perfStart) * 1000)], _perfScope] Call PerformanceAudit_Record;
+	if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+		_perfScope = if (isServer && !hasInterface) then {"SERVER"} else {"CLIENT"};
+		["town_defenses_units", _perfActive, Format["town:%1;side:%2;action:%3;defenses:%4;spawned:%5;delegated:%6;removed:%7;cycleMs:%8", _town getVariable "name", _side, _action, _perfTotal, _perfSpawned, _perfDelegated, _perfRemoved, round ((diag_tickTime - _perfStart) * 1000)], _perfScope] Call PerformanceAudit_Record;
+	};
 };

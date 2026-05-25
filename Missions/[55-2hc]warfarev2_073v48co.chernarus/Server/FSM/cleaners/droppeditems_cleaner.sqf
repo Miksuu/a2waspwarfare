@@ -33,7 +33,9 @@ while {!WFBE_GameOver} do {
 	{_perfItemStart = diag_tickTime;deleteVehicle _x;_perfActive = _perfActive + (diag_tickTime - _perfItemStart);_perfDeleted = _perfDeleted + 1;sleep 0.5;} forEach _clear;
 
 	if !(isNil "PerformanceAudit_Record") then {
-		["cleaner_droppeditems", _perfActive, Format["scanned:%1;deleted:%2;weaponholders:%3;mines:%4;mineE:%5;cycleMs:%6", _perfScanned, _perfDeleted, _perfWeaponholders, _perfMines, _perfMineE, round ((diag_tickTime - _perfStart) * 1000)], "SERVER"] Call PerformanceAudit_Record;
+		if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+			["cleaner_droppeditems", _perfActive, Format["scanned:%1;deleted:%2;weaponholders:%3;mines:%4;mineE:%5;cycleMs:%6", _perfScanned, _perfDeleted, _perfWeaponholders, _perfMines, _perfMineE, round ((diag_tickTime - _perfStart) * 1000)], "SERVER"] Call PerformanceAudit_Record;
+		};
 	};
 
 	if(!(isNil "_timer"))then{

@@ -135,7 +135,9 @@ if !(_isMan) then { //--- Vehicle Specific.
 // --- 				[Side specific initialization] (Run on the desired client team).
 _perfSideMatch = sideID == _sideID;
 if !(isNil "PerformanceAudit_Record") then {
-	["init_unit_client_setup", diag_tickTime - _perfStart, Format["type:%1;side:%2;isMan:%3;sideMatch:%4;aar:%5;trackInf:%6", _unit_kind, _sideID, _isMan, _perfSideMatch, _perfAARStarted, missionNamespace getVariable ["WFBE_C_UNITS_TRACK_INFANTRY", -1]], "CLIENT"] Call PerformanceAudit_Record;
+	if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+		["init_unit_client_setup", diag_tickTime - _perfStart, Format["type:%1;side:%2;isMan:%3;sideMatch:%4;aar:%5;trackInf:%6", _unit_kind, _sideID, _isMan, _perfSideMatch, _perfAARStarted, missionNamespace getVariable ["WFBE_C_UNITS_TRACK_INFANTRY", -1]], "CLIENT"] Call PerformanceAudit_Record;
+	};
 };
 if (!_perfSideMatch) exitWith {};
 
@@ -197,7 +199,9 @@ _perfMarkerRefresh = _params select 6;
 
 // Marty: Count side-specific marker script spawns separately from their periodic update cost.
 if !(isNil "PerformanceAudit_Record") then {
-	["init_unit_marker_spawn", 0, Format["type:%1;side:%2;isMan:%3;markerType:%4;refresh:%5;groupPlayer:%6;blinkingEH:%7", _unit_kind, _sideID, _isMan, _perfMarkerType, _perfMarkerRefresh, group _unit == group player, _perfBlinkingEH], "CLIENT"] Call PerformanceAudit_Record;
+	if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+		["init_unit_marker_spawn", 0, Format["type:%1;side:%2;isMan:%3;markerType:%4;refresh:%5;groupPlayer:%6;blinkingEH:%7", _unit_kind, _sideID, _isMan, _perfMarkerType, _perfMarkerRefresh, group _unit == group player, _perfBlinkingEH], "CLIENT"] Call PerformanceAudit_Record;
+	};
 };
 
 // Marty : eventHandler for glitch rocket detection

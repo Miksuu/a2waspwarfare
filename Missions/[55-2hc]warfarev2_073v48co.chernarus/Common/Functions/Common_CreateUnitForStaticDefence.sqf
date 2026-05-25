@@ -60,8 +60,10 @@ if (_built > 0) then {[str _side,'UnitsCreated',_built] call UpdateStatistics};
 ["INFORMATION", Format["Common_CreateUnitForstaticDefence.sqf:  [%1] was activated witha total of [%3] units.", _side, _built]] Call WFBE_CO_FNC_LogContent;
 
 if !(isNil "PerformanceAudit_Record") then {
-	_perfScope = if (isServer && !hasInterface) then {"SERVER"} else {"CLIENT"};
-	["create_static_defense_units", _perfActive, Format["side:%1;groups:%2;units:%3;moveIn:%4;cycleMs:%5", _sideID, count _groups, _built, _moveInGunner, round ((diag_tickTime - _perfStart) * 1000)], _perfScope] Call PerformanceAudit_Record;
+	if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+		_perfScope = if (isServer && !hasInterface) then {"SERVER"} else {"CLIENT"};
+		["create_static_defense_units", _perfActive, Format["side:%1;groups:%2;units:%3;moveIn:%4;cycleMs:%5", _sideID, count _groups, _built, _moveInGunner, round ((diag_tickTime - _perfStart) * 1000)], _perfScope] Call PerformanceAudit_Record;
+	};
 };
 
 [_teams]

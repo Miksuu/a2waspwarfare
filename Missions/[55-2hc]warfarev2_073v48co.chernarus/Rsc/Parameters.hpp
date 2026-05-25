@@ -540,4 +540,11 @@
 		default = 1800;
 	};
 
+	class WFBE_C_PERFORMANCE_AUDIT_ENABLED {
+		title = "Performance audit";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 1;
+	};
+
 };
