@@ -1,5 +1,5 @@
 // Marty: Performance Audit locals.
-Private ["_currentPos","_deathMarkerColor","_deathMarkerSize","_deathMarkerType","_delete","_deletePrevious","_distanceToPlayer","_initialPos","_isHQ","_lastMarkerPos","_lastMarkerSize","_lastMarkerType","_markerColor","_markerName","_markerPosThreshold","_markerSize","_markerText","_markerType","_perfStart","_positionWrites","_refreshRate","_side","_skippedWrites","_sleepRate","_slowInfantry","_targetMarkerSize","_targetMarkerType","_trackDeath","_tracked","_trackedKind","_trackedType","_typeWrites"];
+Private ["_canMoveTracked","_currentPos","_deathMarkerColor","_deathMarkerSize","_deathMarkerType","_delete","_deletePrevious","_distanceToPlayer","_initialPos","_isHQ","_lastMarkerPos","_lastMarkerSize","_lastMarkerType","_markerColor","_markerName","_markerPosThreshold","_markerSize","_markerText","_markerType","_perfStart","_positionWrites","_refreshRate","_side","_sizeChanged","_skippedWrites","_sleepRate","_slowInfantry","_targetMarkerSize","_targetMarkerType","_trackDeath","_tracked","_trackedKind","_trackedType","_typeWrites"];
 
 waitUntil {commonInitComplete};
 
@@ -34,7 +34,7 @@ if (_tracked isKindOf "Ship") then {_trackedKind = "ship"};
 _initialPos = getPos _tracked;
 _lastMarkerPos = _initialPos;
 _lastMarkerType = _markerType;
-_lastMarkerSize = _markerSize;
+_lastMarkerSize = +_markerSize;
 _positionWrites = 0;
 _typeWrites = 0;
 _skippedWrites = 0;
@@ -77,13 +77,9 @@ if (_isHQ) then {
 		_perfStart = diag_tickTime;
 
 		_currentPos = getPos _tracked;
-		if ((_currentPos distance _lastMarkerPos) > _markerPosThreshold) then {
-			_markerName setMarkerPosLocal _currentPos;
-			_lastMarkerPos = _currentPos;
-			_positionWrites = _positionWrites + 1;
-		} else {
-			_skippedWrites = _skippedWrites + 1;
-		};
+		_markerName setMarkerPosLocal _currentPos;
+		_lastMarkerPos = _currentPos;
+		_positionWrites = _positionWrites + 1;
 
 		// Marty: Performance Audit record for one HQ marker update.
 		if !(isNil "PerformanceAudit_Record") then {
@@ -107,7 +103,15 @@ if (_isHQ) then {
 			// Marty: Performance Audit timing for one unit/vehicle marker update.
 			_perfStart = diag_tickTime;
 
-			if (!(canMove _tracked)) then {
+			// Marty: Keep position refresh independent from type/size bookkeeping so marker caching cannot freeze units.
+			_currentPos = getPos _tracked;
+			_markerName setMarkerPosLocal _currentPos;
+			_lastMarkerPos = _currentPos;
+			_positionWrites = _positionWrites + 1;
+
+			_canMoveTracked = true;
+			if (_trackedKind != "man") then {_canMoveTracked = canMove _tracked};
+			if (!_canMoveTracked) then {
 				_targetMarkerType = "mil_objective";
 				_targetMarkerSize = [0.5,0.5];
 			} else {
@@ -123,18 +127,10 @@ if (_isHQ) then {
 				_skippedWrites = _skippedWrites + 1;
 			};
 
-			if !(_targetMarkerSize == _lastMarkerSize) then {
+			_sizeChanged = ((_targetMarkerSize select 0) != (_lastMarkerSize select 0)) || ((_targetMarkerSize select 1) != (_lastMarkerSize select 1));
+			if (_sizeChanged) then {
 				_markerName setMarkerSizeLocal _targetMarkerSize;
-				_lastMarkerSize = _targetMarkerSize;
-			} else {
-				_skippedWrites = _skippedWrites + 1;
-			};
-
-			_currentPos = getPos _tracked;
-			if ((_currentPos distance _lastMarkerPos) > _markerPosThreshold) then {
-				_markerName setMarkerPosLocal _currentPos;
-				_lastMarkerPos = _currentPos;
-				_positionWrites = _positionWrites + 1;
+				_lastMarkerSize = +_targetMarkerSize;
 			} else {
 				_skippedWrites = _skippedWrites + 1;
 			};
