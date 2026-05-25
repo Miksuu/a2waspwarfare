@@ -1,5 +1,5 @@
 // Marty: Performance Audit locals.
-Private ["_canMoveTracked","_cargoText","_cargoUnitsInVehicle","_crewText","_crewUnitsInVehicle","_currentPos","_deathMarkerColor","_deathMarkerSize","_deathMarkerType","_delete","_deletePrevious","_distanceToPlayer","_groupUnitsInVehicle","_initialPos","_isHQ","_lastMarkerPos","_lastMarkerSize","_lastMarkerText","_lastMarkerType","_markerColor","_markerName","_markerPosThreshold","_markerSize","_markerText","_markerType","_member","_memberVehicle","_perfStart","_positionWrites","_refreshRate","_roleUnit","_side","_sizeChanged","_skippedWrites","_sleepRate","_slowInfantry","_targetMarkerSize","_targetMarkerText","_targetMarkerType","_trackDeath","_tracked","_trackedKind","_trackedType","_trackedVehicle","_typeWrites","_unitText"];
+Private ["_canMoveTracked","_cargoText","_cargoUnitsInVehicle","_crewText","_crewUnitsInVehicle","_currentPos","_deathMarkerColor","_deathMarkerSize","_deathMarkerType","_delete","_deletePrevious","_groupUnitsInVehicle","_initialPos","_isHQ","_lastMarkerPos","_lastMarkerSize","_lastMarkerText","_lastMarkerType","_markerColor","_markerName","_markerPosThreshold","_markerSize","_markerText","_markerType","_member","_memberVehicle","_perfStart","_positionWrites","_refreshRate","_roleUnit","_side","_sizeChanged","_skippedWrites","_sleepRate","_slowInfantry","_targetMarkerSize","_targetMarkerText","_targetMarkerType","_trackDeath","_tracked","_trackedKind","_trackedType","_trackedVehicle","_typeWrites","_unitText"];
 
 waitUntil {commonInitComplete};
 
@@ -94,11 +94,9 @@ if (_isHQ) then {
 
 	while {!(isNull _tracked) && alive _tracked} do {
 
-			// Marty: Slow distant and non-player infantry markers without changing important nearby/player refreshes.
+			// Marty: Keep player-group infantry at one-second refresh; other infantry uses a stable three-second refresh.
 			_sleepRate = _refreshRate;
-			_distanceToPlayer = player distance _tracked;
 			if (_slowInfantry) then {_sleepRate = _sleepRate max 3};
-			if (_distanceToPlayer > 2500) then {_sleepRate = _sleepRate max 4};
 			sleep _sleepRate;
 
 			// Marty: Performance Audit timing for one unit/vehicle marker update.
