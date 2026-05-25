@@ -254,7 +254,9 @@ while {!WFBE_GameOver} do {
 
 	// Marty: Performance Audit record for one full town capture/supply server cycle.
 	if !(isNil "PerformanceAudit_Record") then {
-		["server_town", _perfActive, Format["towns:%1;nearEntities:%2;detected:%3;networkWrites:%4;captures:%5;cycleMs:%6", _perfTowns, _perfNearEntities, _perfDetected, _perfNetworkWrites, _perfCaptures, round ((diag_tickTime - _perfStart) * 1000)], "SERVER"] Call PerformanceAudit_Record;
+		if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+			["server_town", _perfActive, Format["towns:%1;nearEntities:%2;detected:%3;networkWrites:%4;captures:%5;cycleMs:%6", _perfTowns, _perfNearEntities, _perfDetected, _perfNetworkWrites, _perfCaptures, round ((diag_tickTime - _perfStart) * 1000)], "SERVER"] Call PerformanceAudit_Record;
+		};
 	};
 
 	_isTimeToUpdateSuppluys = false;

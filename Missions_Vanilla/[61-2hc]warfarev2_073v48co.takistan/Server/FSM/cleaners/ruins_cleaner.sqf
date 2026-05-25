@@ -18,7 +18,9 @@ while {!WFBE_GameOver} do {
 		sleep 0.5;
 	} forEach _clear;
 	if !(isNil "PerformanceAudit_Record") then {
-		["cleaner_ruins", _perfActive, Format["scanned:%1;deleted:%2;cycleMs:%3", _perfScanned, _perfDeleted, round ((diag_tickTime - _perfStart) * 1000)], "SERVER"] Call PerformanceAudit_Record;
+		if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+			["cleaner_ruins", _perfActive, Format["scanned:%1;deleted:%2;cycleMs:%3", _perfScanned, _perfDeleted, round ((diag_tickTime - _perfStart) * 1000)], "SERVER"] Call PerformanceAudit_Record;
+		};
 	};
 	if(!(isNil "_timer"))then{
 		sleep _timer;

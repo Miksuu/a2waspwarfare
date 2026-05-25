@@ -52,7 +52,9 @@ while {!gameOver || !(alive _vehicle)} do {
 
 	// Marty: Performance Audit record for salvage vehicle scanning.
 	if !(isNil "PerformanceAudit_Record") then {
-		["updatesalvage", diag_tickTime - _perfStart, Format["vehicles:%1;wrecks:%2;alive:%3", _perfVehicles, _perfWrecks, alive _vehicle], "CLIENT"] Call PerformanceAudit_Record;
+		if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+			["updatesalvage", diag_tickTime - _perfStart, Format["vehicles:%1;wrecks:%2;alive:%3", _perfVehicles, _perfWrecks, alive _vehicle], "CLIENT"] Call PerformanceAudit_Record;
+		};
 	};
 
 	sleep 5;

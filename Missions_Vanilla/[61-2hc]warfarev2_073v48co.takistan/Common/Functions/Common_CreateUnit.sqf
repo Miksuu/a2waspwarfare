@@ -80,8 +80,10 @@ _unit addEventHandler ['Killed', Format ['[_this select 0,_this select 1,%1] Spa
 
 // Marty: Audit one unit creation so logs can correlate client marker init storms with AI growth.
 if !(isNil "PerformanceAudit_Record") then {
-	_perfScope = if (isServer && !hasInterface) then {"SERVER"} else {"CLIENT"};
-	["createunit", diag_tickTime - _perfStart, Format["type:%1;side:%2;global:%3;trackInf:%4;init:%5;leaderPlayer:%6;isMan:%7", _type, _side, _global, _trackInfantry, _globalInitMode, _leaderIsPlayer, _unit isKindOf "Man"], _perfScope] Call PerformanceAudit_Record;
+	if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+		_perfScope = if (isServer && !hasInterface) then {"SERVER"} else {"CLIENT"};
+		["createunit", diag_tickTime - _perfStart, Format["type:%1;side:%2;global:%3;trackInf:%4;init:%5;leaderPlayer:%6;isMan:%7", _type, _side, _global, _trackInfantry, _globalInitMode, _leaderIsPlayer, _unit isKindOf "Man"], _perfScope] Call PerformanceAudit_Record;
+	};
 };
 
 _unit

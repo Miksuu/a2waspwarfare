@@ -22,6 +22,8 @@ while { true } do {
 
 	// Marty: Performance Audit record for AntiStack score sampling.
 	if !(isNil "PerformanceAudit_Record") then {
-		["antistack_update_score", diag_tickTime - _perfStart, Format["allUnits:%1;players:%2", _perfAllUnits, _perfPlayers], "SERVER"] Call PerformanceAudit_Record;
+		if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+			["antistack_update_score", diag_tickTime - _perfStart, Format["allUnits:%1;players:%2", _perfAllUnits, _perfPlayers], "SERVER"] Call PerformanceAudit_Record;
+		};
 	};
 };

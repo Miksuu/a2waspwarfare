@@ -27,7 +27,9 @@ _retVal = [_town, _side, _groups, _positions, _teams, false] call WFBE_CO_FNC_Cr
 _town_vehicles = _retVal select 1;
 
 if !(isNil "PerformanceAudit_Record") then {
-	["delegate_townai_client", diag_tickTime - _perfStart, Format["town:%1;side:%2;groups:%3;teams:%4;vehicles:%5", _town getVariable "name", _side, count _groups, count _teams, count _town_vehicles], "CLIENT"] Call PerformanceAudit_Record;
+	if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+		["delegate_townai_client", diag_tickTime - _perfStart, Format["town:%1;side:%2;groups:%3;teams:%4;vehicles:%5", _town getVariable "name", _side, count _groups, count _teams, count _town_vehicles], "CLIENT"] Call PerformanceAudit_Record;
+	};
 };
 
 if (count _town_vehicles > 0) then {["RequestSpecial", ["update-town-delegation", _town, _town_vehicles]] Call WFBE_CO_FNC_SendToServer}; //--- If there is any vehicles, we give them to the server.

@@ -318,7 +318,9 @@ while {true} do {
 		};
 
 		if !(isNil "PerformanceAudit_Record") then {
-			["player_ai_watchdog", diag_tickTime - _perfStart, Format["groupUnits:%1;watched:%2;recovered:%3", _perfGroupUnits, _perfWatched, _perfRecovered], "CLIENT"] Call PerformanceAudit_Record;
+			if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+				["player_ai_watchdog", diag_tickTime - _perfStart, Format["groupUnits:%1;watched:%2;recovered:%3", _perfGroupUnits, _perfWatched, _perfRecovered], "CLIENT"] Call PerformanceAudit_Record;
+			};
 		};
 	};
 };

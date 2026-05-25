@@ -72,8 +72,10 @@ _rearmor = {
 
 // Marty: Audit exposes that CreateUnit now receives the team global flag.
 if !(isNil "PerformanceAudit_Record") then {
-	_perfScope = if (isServer && !hasInterface) then {"SERVER"} else {"CLIENT"};
-	["createteam", diag_tickTime - _perfStart, Format["side:%1;global:%2;templates:%3;infantry:%4;vehicles:%5;crews:%6;skipped:%7;unitGlobalForwarded:true", _sideID, _global, count _list, _perfInfantry, _perfVehicles, _perfCrew, _perfSkipped], _perfScope] Call PerformanceAudit_Record;
+	if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+		_perfScope = if (isServer && !hasInterface) then {"SERVER"} else {"CLIENT"};
+		["createteam", diag_tickTime - _perfStart, Format["side:%1;global:%2;templates:%3;infantry:%4;vehicles:%5;crews:%6;skipped:%7;unitGlobalForwarded:true", _sideID, _global, count _list, _perfInfantry, _perfVehicles, _perfCrew, _perfSkipped], _perfScope] Call PerformanceAudit_Record;
+	};
 };
 
 [_units,_vehicles,_team,_crews]

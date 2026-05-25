@@ -197,7 +197,9 @@ while {true} do {
 
 	if (isNull _display) then {
 		if !(isNil "PerformanceAudit_Record") then {
-			["client_rhud", diag_tickTime - _perfStart, Format["enabled:%1;fpsOnly:%2;visibleMap:%3;display:null", RUBHUD, RUBFPSHUD, visibleMap], "CLIENT"] Call PerformanceAudit_Record;
+			if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+				["client_rhud", diag_tickTime - _perfStart, Format["enabled:%1;fpsOnly:%2;visibleMap:%3;display:null", RUBHUD, RUBFPSHUD, visibleMap], "CLIENT"] Call PerformanceAudit_Record;
+			};
 		};
 	} else {
 		// Marty: RHUD full mode wins over the FPS-only overlay; both toggles can stay independent.
@@ -363,7 +365,9 @@ while {true} do {
 
 		// Marty: Performance Audit record for the local HUD refresh.
 		if !(isNil "PerformanceAudit_Record") then {
-			["client_rhud", diag_tickTime - _perfStart, Format["enabled:%1;fpsOnly:%2;visibleMap:%3", RUBHUD, RUBFPSHUD, visibleMap], "CLIENT"] Call PerformanceAudit_Record;
+			if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+				["client_rhud", diag_tickTime - _perfStart, Format["enabled:%1;fpsOnly:%2;visibleMap:%3", RUBHUD, RUBFPSHUD, visibleMap], "CLIENT"] Call PerformanceAudit_Record;
+			};
 		};
 	};
 };

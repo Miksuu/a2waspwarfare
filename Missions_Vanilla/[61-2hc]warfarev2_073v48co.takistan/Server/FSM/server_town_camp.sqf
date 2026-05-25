@@ -149,7 +149,9 @@ while {!WFBE_GameOver} do {
 
 	// Marty: Performance Audit record for one global camp capture server cycle.
 	if !(isNil "PerformanceAudit_Record") then {
-		["server_town_camp", _perfActive, Format["workers:%1;camps:%2;nearEntities:%3;detected:%4;networkWrites:%5;captures:%6;cycleMs:%7", count _workers, _perfCamps, _perfNearEntities, _perfDetected, _perfNetworkWrites, _perfCaptures, round ((diag_tickTime - _perfStart) * 1000)], "SERVER"] Call PerformanceAudit_Record;
+		if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+			["server_town_camp", _perfActive, Format["workers:%1;camps:%2;nearEntities:%3;detected:%4;networkWrites:%5;captures:%6;cycleMs:%7", count _workers, _perfCamps, _perfNearEntities, _perfDetected, _perfNetworkWrites, _perfCaptures, round ((diag_tickTime - _perfStart) * 1000)], "SERVER"] Call PerformanceAudit_Record;
+		};
 	};
 
 	sleep _scanDelay;

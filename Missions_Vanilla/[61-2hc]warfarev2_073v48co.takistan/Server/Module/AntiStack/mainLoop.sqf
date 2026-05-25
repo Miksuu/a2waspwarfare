@@ -39,6 +39,8 @@ while { !WFBE_GameOver } do {
 
 	// Marty: Performance Audit record for AntiStack database score flush.
 	if !(isNil "PerformanceAudit_Record") then {
-		["antistack_main", diag_tickTime - _perfStart, Format["allUnits:%1;players:%2;dbCalls:%3", _perfAllUnits, _perfPlayers, _perfDbCalls], "SERVER"] Call PerformanceAudit_Record;
+		if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+			["antistack_main", diag_tickTime - _perfStart, Format["allUnits:%1;players:%2;dbCalls:%3", _perfAllUnits, _perfPlayers, _perfDbCalls], "SERVER"] Call PerformanceAudit_Record;
+		};
 	};
 };

@@ -70,8 +70,10 @@ if (_builtveh > 0) then {[str _side,'VehiclesCreated',_builtveh] call UpdateStat
 
 // Marty: Audit town AI creation separately from the long-running town monitor.
 if !(isNil "PerformanceAudit_Record") then {
-	_perfScope = if (isServer && !hasInterface) then {"SERVER"} else {"CLIENT"};
-	["createtownunits", _perfActive, Format["town:%1;side:%2;groups:%3;teams:%4;units:%5;vehicles:%6;global:%7;cycleMs:%8", _town getVariable "name", _side, count _groups, _perfCreateTeams, _built, _builtveh, _global, round ((diag_tickTime - _perfStart) * 1000)], _perfScope] Call PerformanceAudit_Record;
+	if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+		_perfScope = if (isServer && !hasInterface) then {"SERVER"} else {"CLIENT"};
+		["createtownunits", _perfActive, Format["town:%1;side:%2;groups:%3;teams:%4;units:%5;vehicles:%6;global:%7;cycleMs:%8", _town getVariable "name", _side, count _groups, _perfCreateTeams, _built, _builtveh, _global, round ((diag_tickTime - _perfStart) * 1000)], _perfScope] Call PerformanceAudit_Record;
+	};
 };
 
 [_town_teams, _town_vehicles]

@@ -93,7 +93,9 @@ while {!gameOver} do {
 
 		// Marty: Include cache efficiency and display state in the existing audit payload.
 		if !(isNil "PerformanceAudit_Record") then {
-			["updatetownmarkers", diag_tickTime - _perfStart, Format["towns:%1;groupUnits:%2;visible:%3;textWrites:%4;skippedTextWrites:%5;distanceChecks:%6;map:%7;gps:%8;changedSupplyText:%9", _perfTowns, _perfUnits, _perfVisible, _perfTextWrites, _perfSkippedTextWrites, _perfDistanceChecks, _mapVisible, _gpsVisible, _perfChangedSupplyText], "CLIENT"] Call PerformanceAudit_Record;
+			if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+				["updatetownmarkers", diag_tickTime - _perfStart, Format["towns:%1;groupUnits:%2;visible:%3;textWrites:%4;skippedTextWrites:%5;distanceChecks:%6;map:%7;gps:%8;changedSupplyText:%9", _perfTowns, _perfUnits, _perfVisible, _perfTextWrites, _perfSkippedTextWrites, _perfDistanceChecks, _mapVisible, _gpsVisible, _perfChangedSupplyText], "CLIENT"] Call PerformanceAudit_Record;
+			};
 		};
 		
 		// Marty: Closed map/GPS state keeps polling fast, but schedules the next heavy pass farther out.

@@ -22,7 +22,9 @@ while {!gameOver} do {
 
 	// Marty: Performance Audit record for the empty vehicle collector.
 	if !(isNil "PerformanceAudit_Record") then {
-		["emptyvehiclescollector", diag_tickTime - _perfStart, Format["queued:%1;handled:%2", count _vehicles, _perfHandled], "SERVER"] Call PerformanceAudit_Record;
+		if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+			["emptyvehiclescollector", diag_tickTime - _perfStart, Format["queued:%1;handled:%2", count _vehicles, _perfHandled], "SERVER"] Call PerformanceAudit_Record;
+		};
 	};
 
 	sleep 0.5
