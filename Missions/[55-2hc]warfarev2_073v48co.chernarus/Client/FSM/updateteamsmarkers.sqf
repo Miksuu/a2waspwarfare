@@ -1,5 +1,5 @@
 // Marty: Performance Audit locals and marker update cache.
-private["_sideText","_label","_count","_marker","_markerIndex","_team","_leader","_leaderVehicle","_leaderChanged","_updateAILeaders","_updateThisLeader","_nextAIUpdate","_playerAFKstate","_markerColor","_markerAlpha","_markerNames","_lastLeaders","_lastTexts","_lastAlphas","_lastColors","_wfMenuDisplays","_mapConsumerVisible","_perfStart","_perfMarkerOps","_perfPlayerLeaders","_perfAILeaders","_perfSkippedWrites"];
+private["_sideText","_label","_count","_marker","_markerIndex","_team","_leader","_leaderVehicle","_leaderChanged","_sharedVehicleUnits","_updateAILeaders","_updateThisLeader","_nextAIUpdate","_playerAFKstate","_markerColor","_markerAlpha","_markerNames","_lastLeaders","_lastTexts","_lastAlphas","_lastColors","_wfMenuDisplays","_mapConsumerVisible","_perfStart","_perfMarkerOps","_perfPlayerLeaders","_perfAILeaders","_perfSkippedWrites"];
 
 _sideText = sideJoinedText;
 _label = "";
@@ -89,6 +89,20 @@ while {!gameOver} do {
 						_label = Format[" %1", name _leader];
 						if !(isNil "_playerAFKstate") then {
 							if (_playerAFKstate) then {_label = Format[" %1 (AFK)", name _leader]};
+						};
+						// Marty: Keep the player leader arrow visible in shared vehicles, but hide the name so AI labels remain readable.
+						call {
+							if (player != _leader) exitWith {};
+							if ((vehicle _leader) == _leader) exitWith {};
+
+							_sharedVehicleUnits = 0;
+							{
+								if ((alive _x) && ((vehicle _x) == (vehicle _leader))) then {
+									_sharedVehicleUnits = _sharedVehicleUnits + 1;
+								};
+							} forEach (units group player);
+
+							if (_sharedVehicleUnits > 1) then {_label = ""};
 						};
 					} else {
 						_perfAILeaders = _perfAILeaders + 1;
