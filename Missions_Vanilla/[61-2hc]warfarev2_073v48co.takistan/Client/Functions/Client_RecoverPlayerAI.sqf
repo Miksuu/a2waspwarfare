@@ -104,6 +104,12 @@ if (leader (group _player) != _player) exitWith {
 
 _min_destination_distance = 2;
 
+// Automatic recovery must stay conservative to avoid refreshing tiny completed
+// vehicle orders and causing repeated "ready" radio replies.
+if (_is_automatic_recovery) then {
+	_min_destination_distance = 50;
+};
+
 // Reject invalid engine sentinel destinations such as [0,0,1e+009].
 _max_valid_destination_coordinate = 50000;
 _max_valid_destination_z = 10000;
