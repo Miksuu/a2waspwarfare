@@ -148,6 +148,11 @@ if !(isNull (_commander)) then {
 	};
 };
 
+// Marty: When AntiStack is disabled, the score sampling loop is not running; skip DB persistence to avoid false missing-score errors.
+if ((missionNamespace getVariable ["WFBE_C_ANTISTACK_ENABLED", 1]) == 0) exitWith {
+	["INFORMATION", Format ["Server_PlayerDisconnected.sqf: AntiStack is disabled; skipped score DB save for player [%1] [%2].", _name, _uid]] Call WFBE_CO_FNC_LogContent;
+};
+
 //--- Save the player stats to database.
 _playerScore = missionNamespace getVariable format ["WFBE_CO_CURRENT_SCORE_PLAYER_%1", _uid];
 

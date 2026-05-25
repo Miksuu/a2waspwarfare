@@ -5,6 +5,11 @@ private ["_playerStats","_playerScore","_playerPrevStats","_playerPrevScoreTotal
 _miniSleep = _this select 0;
 _mainSleep = _this select 1;
 
+// Marty: Keep this loop dormant if called while the AntiStack mission parameter is disabled.
+if ((missionNamespace getVariable ["WFBE_C_ANTISTACK_ENABLED", 1]) == 0) exitWith {
+	["INFORMATION", "MainLoop.sqf: AntiStack is disabled; database score flush loop stopped before start."] Call WFBE_CO_FNC_LogContent;
+};
+
 ["INFORMATION", "MainLoop.sqf: Starting main loop..."] Call WFBE_CO_FNC_LogContent;
 
 while { !WFBE_GameOver } do {

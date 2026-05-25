@@ -540,6 +540,14 @@
 		default = 1800;
 	};
 
+	// Marty: Controlled ON/OFF switch for AntiStack performance comparison runs; default keeps current behavior.
+	class WFBE_C_ANTISTACK_ENABLED {
+		title = "AntiStack";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 1;
+	};
+
 	class WFBE_C_PERFORMANCE_AUDIT_ENABLED {
 		title = "Performance audit";
 		values[] = {0,1};

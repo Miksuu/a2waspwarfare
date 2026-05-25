@@ -1,6 +1,11 @@
 // Call to database
 private ["_procedureName","_procedureCode","_attemptsMax","_sleep","_attempts","_responseReceived","_parameters","_uid","_score","_requestID","_response","_responseCode","_responseTotalScore","_responseTicks","_playerSkill","_responseStats","_isArray","_parametersTemp"];
 
+// Marty: Neutral return for callers that still ask for AntiStack data while the module is disabled.
+if ((missionNamespace getVariable ["WFBE_C_ANTISTACK_ENABLED", 1]) == 0) exitWith {
+	[0, 1]
+};
+
 _procedureName = _this select 0;
 _parameters = _this select 1;
 _sleep = if (count _this > 2) then {_this select 2} else {0.10};
