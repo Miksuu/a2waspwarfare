@@ -1,5 +1,5 @@
-// Marty: Optimized town AI monitor; activation is budgeted and air/ground detection is split.
-Private["_town","_range","_range_detect","_range_detect_active","_position","_groups","_town_camps","_town_camps_count","_town_teams","_airHeight","_unitsInactiveMax","_patrol_delay","_patrol_enabled","_ai_delegation_enabled","_town_defender_enabled","_town_occupation_enabled","_activationBudget","_activationBudgetMax","_detected","_groundDetected","_enemies","_enemies_ground","_scanBudget","_scanBudgetMax","_scanRefs","_scanDelay","_scanActiveDelay","_scanNearDelay","_scanFarDelay","_scanCriticalRange","_scanNearRange","_scanDistance","_scanDistanceMin","_scanNext","_scanDue","_scanSkipped","_scannedTowns","_skippedTowns","_townScanned","_isActiveTown","_unit","_sideID","_side","_side_enabled","_dynRange","_camps","_camp","_positions","_teams","_use_server","_retVal","_groupIndex"];
+// Marty: Optimized town AI monitor; activation is budgeted and ignores aircraft-only fly-bys.
+Private["_town","_range","_range_detect","_range_detect_active","_position","_groups","_town_camps","_town_camps_count","_town_teams","_unitsInactiveMax","_patrol_delay","_patrol_enabled","_ai_delegation_enabled","_town_defender_enabled","_town_occupation_enabled","_activationBudget","_activationBudgetMax","_detected","_detectedRaw","_enemies","_scanBudget","_scanBudgetMax","_scanRefs","_scanRef","_scanRefCount","_scanRefLimitPerPlayer","_scanUnit","_scanDelay","_scanActiveDelay","_scanNearDelay","_scanFarDelay","_scanCriticalRange","_scanNearRange","_scanDistance","_scanDistanceMin","_scanNext","_scanDue","_scanSkipped","_scannedTowns","_skippedTowns","_townScanned","_isActiveTown","_unit","_sideID","_side","_side_enabled","_dynRange","_camps","_camp","_positions","_teams","_use_server","_retVal","_groupIndex"];
 
 for "_j" from 0 to ((count towns) - 1) step 1 do
 {
@@ -12,7 +12,6 @@ _range = 600;
 _range_detect = _range * (missionNamespace getVariable "WFBE_C_TOWNS_DETECTION_RANGE_COEF");
 _range_detect_active = _range * (missionNamespace getVariable "WFBE_C_TOWNS_DETECTION_RANGE_ACTIVE_COEF");
 
-_airHeight = missionNamespace getVariable "WFBE_C_TOWNS_DETECTION_RANGE_AIR";
 _unitsInactiveMax = missionNamespace getVariable "WFBE_C_TOWNS_UNITS_INACTIVE";
 _patrol_delay = missionNamespace getVariable "WFBE_C_PATROLS_DELAY_SPAWN";
 _ai_delegation_enabled = missionNamespace getVariable "WFBE_C_AI_DELEGATION";
@@ -57,13 +56,33 @@ while {!WFBE_GameOver} do {
 	_perfActive = 0;
 	_activationBudget = _activationBudgetMax;
 	_scanBudget = _scanBudgetMax;
+	// Marty: Player-led ground squads also drive town scan priority, but aircraft never wake town AI.
 	_scanRefs = [];
+	_scanRefLimitPerPlayer = 8;
 
-	// Marty: Player proximity is a cheap pre-filter for town AI scans; AI-only activity is still covered by the slow far scan.
+	// Marty: Use each player's living group units as scan references, capped per player and deduplicated by vehicle.
 	{
 		_unit = _x;
-		if (isPlayer _unit) then {
-			[_scanRefs, vehicle _unit] call WFBE_CO_FNC_ArrayPush;
+		call {
+			if !(isPlayer _unit) exitWith {};
+			if !(alive _unit) exitWith {};
+
+			_scanRefCount = 0;
+			{
+				_scanUnit = _x;
+				call {
+					if (_scanRefCount >= _scanRefLimitPerPlayer) exitWith {};
+					if !(alive _scanUnit) exitWith {};
+
+					_scanRef = vehicle _scanUnit;
+					if (isNull _scanRef) exitWith {};
+					if (_scanRef isKindOf "Air") exitWith {};
+					if (_scanRef in _scanRefs) exitWith {};
+
+					[_scanRefs, _scanRef] call WFBE_CO_FNC_ArrayPush;
+					_scanRefCount = _scanRefCount + 1;
+				};
+			} forEach (units group _unit);
 		};
 	} forEach (if (isMultiplayer) then {playableUnits} else {switchableUnits});
 
@@ -138,14 +157,20 @@ while {!WFBE_GameOver} do {
 					_townScanned = true;
 
 					_dynRange = if (_isActiveTown) then {_range_detect_active} else {_range_detect};
-					// Marty: Scan once, then split low/ground threats from high air threats. The old code forced ground activation.
-					_detected = _town nearEntities [["Man","Car","Motorcycle","Tank","Air","Ship"],_dynRange];
-					_groundDetected = _detected unitsBelowHeight _airHeight;
+					// Marty: Ignore Air entirely for town activation so fly-bys do not spawn town defenders or AA groups.
+					_detectedRaw = _town nearEntities [["Man","Car","Motorcycle","Tank","Ship"],_dynRange];
+					_detected = [];
+					{
+						_scanUnit = _x;
+						call {
+							if ((vehicle _scanUnit) isKindOf "Air") exitWith {};
+							[_detected, _scanUnit] call WFBE_CO_FNC_ArrayPush;
+						};
+					} forEach _detectedRaw;
 					_perfNearEntities = _perfNearEntities + 1;
 					_perfDetected = _perfDetected + count _detected;
 
 					_enemies = [_detected, _side] Call WFBE_CO_FNC_GetAreaEnemiesCount;
-					_enemies_ground = [_groundDetected, _side] Call WFBE_CO_FNC_GetAreaEnemiesCount;
 					if (_enemies > 0) then {_scanDelay = _scanActiveDelay};
 					_town setVariable ["wfbe_ai_next_scan", time + _scanDelay];
 
@@ -159,30 +184,16 @@ while {!WFBE_GameOver} do {
 					};
 
 					if(!(_town getVariable "wfbe_active")) then {
-						// Marty: Do not spend the per-cycle spawn budget on an already active air-only town.
-						if (_activationBudget > 0 && (!(_town getVariable "wfbe_active_air") || _enemies_ground > 0)) then {
+						// Marty: Spend activation budget only on non-Air enemies; aircraft are ignored before enemy counting.
+						if (_activationBudget > 0) then {
 							_activationBudget = _activationBudget - 1;
 
-							if(_enemies_ground > 0) then {
-								_town setVariable ["wfbe_active", true];
+							_town setVariable ["wfbe_active", true];
 
-								if (_side == WFBE_DEFENDER) then {
-									_groups = [_town, _side] Call WFBE_SE_FNC_GetTownGroupsDefender
-								} else {
-									_groups = [_town, _side] Call WFBE_SE_FNC_GetTownGroups;
-								};
-							};
-
-							if(_enemies_ground == 0 && _enemies > 0) then {
-								if(!(_town getVariable "wfbe_active_air")) then {
-									_town setVariable ["wfbe_active_air", true];
-
-									if (_side == WFBE_DEFENDER) then {
-										_groups = [_town, _side, true] Call WFBE_SE_FNC_GetTownGroupsDefender
-									} else {
-										_groups = [_town, _side, true] Call WFBE_SE_FNC_GetTownGroups;
-									};
-								};
+							if (_side == WFBE_DEFENDER) then {
+								_groups = [_town, _side] Call WFBE_SE_FNC_GetTownGroupsDefender
+							} else {
+								_groups = [_town, _side] Call WFBE_SE_FNC_GetTownGroups;
 							};
 
 							if (count _groups > 0) then {
