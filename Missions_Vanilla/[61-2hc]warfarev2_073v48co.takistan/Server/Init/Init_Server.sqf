@@ -588,16 +588,24 @@ call WFBE_CO_FNC_InitAFKkickHandler;
 
 [] execVM "Server\Module\serverFPS\monitorServerFPS.sqf";
 
-[] execVM "Server\Module\AntiStack\countPlayerScores.sqf";
+// Marty: AntiStack remains compiled for dependencies, but its scheduled loops and DB session state are optional for controlled ON/OFF audits.
+_antiStackEnabled = ((missionNamespace getVariable ["WFBE_C_ANTISTACK_ENABLED", 1]) == 1);
+["INFORMATION", Format ["Init_Server.sqf: AntiStack is [%1] for this session.", if (_antiStackEnabled) then {"ENABLED"} else {"DISABLED"}]] Call WFBE_CO_FNC_LogContent;
+if !(isNil "PerformanceAudit_Record") then {
+	if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
+		["antistack_state", 0, Format ["enabled:%1;state:%2", missionNamespace getVariable ["WFBE_C_ANTISTACK_ENABLED", 1], if (_antiStackEnabled) then {"enabled"} else {"disabled"}], "SERVER"] Call PerformanceAudit_Record;
+	};
+};
+if (_antiStackEnabled) then {
+	[] execVM "Server\Module\AntiStack\countPlayerScores.sqf";
+	[] execVM "Server\Module\AntiStack\monitorTeamToJoin.sqf";
+	[] execVM "Server\Module\AntiStack\skillDiffCompensation.sqf";
 
-[] execVM "Server\Module\AntiStack\monitorTeamToJoin.sqf";
-
-[] execVM "Server\Module\AntiStack\skillDiffCompensation.sqf";
-
-// 0 = NONE
-// 1 = CHERNARUS
-// 2 = TAKISTAN
-["SET_MAP", 2] call WFBE_SE_FNC_CallDatabaseSetMap;
+	// 0 = NONE
+	// 1 = CHERNARUS
+	// 2 = TAKISTAN
+	["SET_MAP", 2] call WFBE_SE_FNC_CallDatabaseSetMap;
+};
 
 _logMatchWinPlayerCountThreshold = 10;
 

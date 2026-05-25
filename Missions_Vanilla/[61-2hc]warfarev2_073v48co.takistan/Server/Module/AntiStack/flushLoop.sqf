@@ -7,6 +7,11 @@ _miniSleep = _this select 2;
 
 _playersOnServer = [];
 
+// Marty: Keep this loop dormant if called while the AntiStack mission parameter is disabled.
+if ((missionNamespace getVariable ["WFBE_C_ANTISTACK_ENABLED", 1]) == 0) exitWith {
+	["INFORMATION", "FlushLoop.sqf: AntiStack is disabled; player list flush loop stopped before start."] Call WFBE_CO_FNC_LogContent;
+};
+
 uiSleep _initialSleep;
 
 while { !WFBE_GameOver } do {

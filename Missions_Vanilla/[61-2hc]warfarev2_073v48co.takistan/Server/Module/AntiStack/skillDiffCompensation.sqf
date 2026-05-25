@@ -1,5 +1,10 @@
 private ["_teamSkillWest", "_teamSkillEast", "_teamWestSkillTicksTriggerThresholdExceeded0", "_teamEastSkillTicksTriggerThresholdExceeded", "_teamWestSkillTicksEndTriggerThresholdExceeded", "_teamEastSkillTicksEndTriggerThresholdExceeded", "_skillDiff", "_teamWestSupplyIncome", "_teamEastSupplyIncome", "_skillTicksDifference", "_supplyCompensationPercentage", "_supplyCompensationAmount", "_includeStagnation"];
 
+// Marty: Hard guard for direct execVM calls when the mission parameter disables AntiStack.
+if ((missionNamespace getVariable ["WFBE_C_ANTISTACK_ENABLED", 1]) == 0) exitWith {
+    ["INFORMATION", "SkillDiffCompensation.sqf: AntiStack is disabled; skill compensation loop was not started."] Call WFBE_CO_FNC_LogContent;
+};
+
 while {!WFBE_GameOver} do {
 
     sleep 120;

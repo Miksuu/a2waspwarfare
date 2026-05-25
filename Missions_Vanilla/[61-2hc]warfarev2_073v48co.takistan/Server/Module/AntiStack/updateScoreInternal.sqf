@@ -5,6 +5,11 @@ private ["_playerStats","_playerScore","_playerPrevStats","_playerPrevScoreTotal
 _sleep = _this select 0;
 _miniSleep = _this select 1;
 
+// Marty: Keep this loop dormant if called while the AntiStack mission parameter is disabled.
+if ((missionNamespace getVariable ["WFBE_C_ANTISTACK_ENABLED", 1]) == 0) exitWith {
+	["INFORMATION", "UpdateScoreInternal.sqf: AntiStack is disabled; score sampling loop stopped before start."] Call WFBE_CO_FNC_LogContent;
+};
+
 while { true } do {
 	uiSleep _sleep;
 	// Marty: Performance Audit timing for AntiStack score sampling.

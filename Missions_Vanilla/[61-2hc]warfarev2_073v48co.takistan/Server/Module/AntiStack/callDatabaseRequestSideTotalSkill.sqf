@@ -1,6 +1,11 @@
 // Call to database
 private ["_procedureName","_procedureCode","_parameters","_uid","_score","_response","_requestID","_responseCode","_responseTotalScore","_responseTicks","_playerSkill","_responseStats","_isArray","_parametersTemp","_side","_responseTotalSkill","_sleep","_procedureCodeRequestTotalSkill","_attempts","_attemptsMax","_sideAsNumber"];
 
+// Marty: Neutral team skill for callers that still ask while the AntiStack mission parameter disables DB work.
+if ((missionNamespace getVariable ["WFBE_C_ANTISTACK_ENABLED", 1]) == 0) exitWith {
+	0
+};
+
 _procedureName = _this select 0;
 _side = _this select 1;
 _sleep = 3;

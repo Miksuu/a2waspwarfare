@@ -166,6 +166,8 @@ with missionNamespace do {
 	WFBE_C_ECONOMY_SUPPLY_MISSION_MULTIPLIER = 20;
 
 //--- Anti-stack.
+	// Marty: Default to enabled when older mission parameter sets do not define the AntiStack switch.
+	if (isNil "WFBE_C_ANTISTACK_ENABLED") then {WFBE_C_ANTISTACK_ENABLED = 1};
 	TEAM_SKILL_TICKS_WEST = 0;
 	TEAM_SKILL_TICKS_EAST = 0;
 	TEAM_SKILL_TICKS_DIFF_THRESHOLD = 30;

@@ -1,6 +1,11 @@
 // Call to database
 private ["_procedureName","_procedureCode","_parameters","_uid","_score","_response","_responseCode","_responseTotalScore","_responseTicks","_playerSkill","_responseStats","_isArray","_parametersTemp"];
 
+// Marty: No-op success for score stores when the AntiStack mission parameter disables DB work.
+if ((missionNamespace getVariable ["WFBE_C_ANTISTACK_ENABLED", 1]) == 0) exitWith {
+	1
+};
+
 _procedureName = _this select 0;
 _parameters = _this select 1;
 

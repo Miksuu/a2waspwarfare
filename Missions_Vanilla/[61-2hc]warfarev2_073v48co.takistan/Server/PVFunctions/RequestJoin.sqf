@@ -14,6 +14,17 @@ _skillBLUFOR = 0;
 _skillOPFOR = 0;
 _reason = "";
 
+// Marty: AntiStack OFF means no skill/team-stack validation for this session; answer the client and leave side tracking untouched.
+if ((missionNamespace getVariable ["WFBE_C_ANTISTACK_ENABLED", 1]) == 0) exitWith {
+	if (WF_A2_Vanilla) then {
+		[_uid, "HandleSpecial", ["join-answer", true, _skillBLUFOR, _skillOPFOR]] Call WFBE_CO_FNC_SendToClients;
+	} else {
+		[_player, "HandleSpecial", ["join-answer", true, _skillBLUFOR, _skillOPFOR]] Call WFBE_CO_FNC_SendToClient;
+	};
+
+	["INFORMATION", Format["RequestJoin.sqf: AntiStack is disabled; player [%1] [%2] can join side [%3] without AntiStack validation.", _name, _uid, _side]] Call WFBE_CO_FNC_LogContent;
+};
+
 if ( !(isNil "_teamJoinedConfirmed")) then { //--- Retrieve JIP Information if there's any.
 
 	if (_teamJoinedConfirmed != _side) then {
