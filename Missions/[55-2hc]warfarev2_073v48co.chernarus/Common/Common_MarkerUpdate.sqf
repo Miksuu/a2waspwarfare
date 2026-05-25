@@ -1,5 +1,5 @@
 // Marty: Performance Audit locals.
-Private ["_canMoveTracked","_currentPos","_deathMarkerColor","_deathMarkerSize","_deathMarkerType","_delete","_deletePrevious","_distanceToPlayer","_initialPos","_isHQ","_lastMarkerPos","_lastMarkerSize","_lastMarkerType","_markerColor","_markerName","_markerPosThreshold","_markerSize","_markerText","_markerType","_perfStart","_positionWrites","_refreshRate","_side","_sizeChanged","_skippedWrites","_sleepRate","_slowInfantry","_targetMarkerSize","_targetMarkerType","_trackDeath","_tracked","_trackedKind","_trackedType","_typeWrites"];
+Private ["_canMoveTracked","_cargoText","_cargoUnitsInVehicle","_crewText","_crewUnitsInVehicle","_currentPos","_deathMarkerColor","_deathMarkerSize","_deathMarkerType","_delete","_deletePrevious","_distanceToPlayer","_groupUnitsInVehicle","_initialPos","_isHQ","_lastMarkerPos","_lastMarkerSize","_lastMarkerText","_lastMarkerType","_markerColor","_markerName","_markerPosThreshold","_markerSize","_markerText","_markerType","_member","_memberVehicle","_perfStart","_positionWrites","_refreshRate","_roleUnit","_side","_sizeChanged","_skippedWrites","_sleepRate","_slowInfantry","_targetMarkerSize","_targetMarkerText","_targetMarkerType","_trackDeath","_tracked","_trackedKind","_trackedType","_trackedVehicle","_typeWrites","_unitText"];
 
 waitUntil {commonInitComplete};
 
@@ -35,6 +35,7 @@ _initialPos = getPos _tracked;
 _lastMarkerPos = _initialPos;
 _lastMarkerType = _markerType;
 _lastMarkerSize = +_markerSize;
+_lastMarkerText = _markerText;
 _positionWrites = 0;
 _typeWrites = 0;
 _skippedWrites = 0;
@@ -108,6 +109,84 @@ if (_isHQ) then {
 			_markerName setMarkerPosLocal _currentPos;
 			_lastMarkerPos = _currentPos;
 			_positionWrites = _positionWrites + 1;
+
+			// Marty: When player-group infantry share one vehicle, show readable crew-first text like 2/4/3 | 5/6.
+			_targetMarkerText = _markerText;
+			call {
+				if (_markerText == "") exitWith {};
+				if (_trackedKind != "man") exitWith {};
+				if (group _tracked != group player) exitWith {};
+
+				_trackedVehicle = vehicle _tracked;
+				if (_trackedVehicle == _tracked) exitWith {};
+
+				_groupUnitsInVehicle = [];
+				{
+					_member = _x;
+					_memberVehicle = vehicle _member;
+					if ((alive _member) && (_memberVehicle == _trackedVehicle)) then {
+						_groupUnitsInVehicle = _groupUnitsInVehicle + [_member];
+					};
+				} forEach (units group player);
+
+				if (count _groupUnitsInVehicle < 2) exitWith {};
+				if ((_groupUnitsInVehicle select 0) != _tracked) exitWith {_targetMarkerText = ""};
+
+				_crewUnitsInVehicle = [];
+				{
+					_roleUnit = _x;
+					call {
+						if (isNull _roleUnit) exitWith {};
+						if !(_roleUnit in _groupUnitsInVehicle) exitWith {};
+						if (_roleUnit in _crewUnitsInVehicle) exitWith {};
+						_crewUnitsInVehicle = _crewUnitsInVehicle + [_roleUnit];
+					};
+				} forEach [driver _trackedVehicle, gunner _trackedVehicle, commander _trackedVehicle];
+
+				_cargoUnitsInVehicle = [];
+				{
+					_member = _x;
+					if !(_member in _crewUnitsInVehicle) then {
+						_cargoUnitsInVehicle = _cargoUnitsInVehicle + [_member];
+					};
+				} forEach _groupUnitsInVehicle;
+
+				_crewText = "";
+				{
+					_unitText = _x Call GetAIDigit;
+					if (_crewText == "") then {
+						_crewText = _unitText;
+					} else {
+						_crewText = Format["%1/%2", _crewText, _unitText];
+					};
+				} forEach _crewUnitsInVehicle;
+
+				_cargoText = "";
+				{
+					_unitText = _x Call GetAIDigit;
+					if (_cargoText == "") then {
+						_cargoText = _unitText;
+					} else {
+						_cargoText = Format["%1/%2", _cargoText, _unitText];
+					};
+				} forEach _cargoUnitsInVehicle;
+
+				_targetMarkerText = _crewText;
+				if (_cargoText != "") then {
+					if (_targetMarkerText == "") then {
+						_targetMarkerText = _cargoText;
+					} else {
+						_targetMarkerText = Format["%1 | %2", _targetMarkerText, _cargoText];
+					};
+				};
+			};
+
+			if (_targetMarkerText != _lastMarkerText) then {
+				_markerName setMarkerTextLocal _targetMarkerText;
+				_lastMarkerText = _targetMarkerText;
+			} else {
+				_skippedWrites = _skippedWrites + 1;
+			};
 
 			_canMoveTracked = true;
 			if (_trackedKind != "man") then {_canMoveTracked = canMove _tracked};
