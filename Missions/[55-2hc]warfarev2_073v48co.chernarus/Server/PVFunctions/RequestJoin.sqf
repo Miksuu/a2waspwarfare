@@ -14,17 +14,6 @@ _skillBLUFOR = 0;
 _skillOPFOR = 0;
 _reason = "";
 
-// Marty: AntiStack OFF means no skill/team-stack validation for this session; answer the client and leave side tracking untouched.
-if ((missionNamespace getVariable ["WFBE_C_ANTISTACK_ENABLED", 1]) == 0) exitWith {
-	if (WF_A2_Vanilla) then {
-		[_uid, "HandleSpecial", ["join-answer", true, _skillBLUFOR, _skillOPFOR]] Call WFBE_CO_FNC_SendToClients;
-	} else {
-		[_player, "HandleSpecial", ["join-answer", true, _skillBLUFOR, _skillOPFOR]] Call WFBE_CO_FNC_SendToClient;
-	};
-
-	["INFORMATION", Format["RequestJoin.sqf: AntiStack is disabled; player [%1] [%2] can join side [%3] without AntiStack validation.", _name, _uid, _side]] Call WFBE_CO_FNC_LogContent;
-};
-
 if ( !(isNil "_teamJoinedConfirmed")) then { //--- Retrieve JIP Information if there's any.
 
 	if (_teamJoinedConfirmed != _side) then {
@@ -56,18 +45,27 @@ if ( !(isNil "_teamJoinedConfirmed")) then { //--- Retrieve JIP Information if t
 
 	} else {
 
-		["INFORMATION", Format["RequestJoin.sqf: Player [%1] (UID: [%2]) hasn't joined either side in this match. Checking team skills...", _name, _uid]] Call WFBE_CO_FNC_LogContent;
+		call {
+			// Marty: Keep teamswap protection active, but skip only the AntiStack skill DB check when the module is disabled.
+			if ((missionNamespace getVariable ["WFBE_C_ANTISTACK_ENABLED", 1]) == 0) exitWith {
+				_canJoin = true;
+				_reason = " (AntiStack skill balancing disabled. Joining allowed without skill check.)";
+				["INFORMATION", Format["RequestJoin.sqf: AntiStack skill balancing is disabled; player [%1] (UID: [%2]) can join side [%3] without team skill check.", _name, _uid, _side]] Call WFBE_CO_FNC_LogContent;
+			};
 
-		_skillBLUFOR = [west, _uid] Call WFBE_SE_FNC_GetTeamScore;
-		_skillOPFOR = [east, _uid] Call WFBE_SE_FNC_GetTeamScore;
+			["INFORMATION", Format["RequestJoin.sqf: Player [%1] (UID: [%2]) hasn't joined either side in this match. Checking team skills...", _name, _uid]] Call WFBE_CO_FNC_LogContent;
 
-		_canJoin = [_side, _name, _uid, _player, _skillBLUFOR, _skillOPFOR] call WFBE_SE_FNC_CompareTeamScores;
+			_skillBLUFOR = [west, _uid] Call WFBE_SE_FNC_GetTeamScore;
+			_skillOPFOR = [east, _uid] Call WFBE_SE_FNC_GetTeamScore;
 
-		if (_canJoin) then {
-			_reason = " (Player joined the weaker team. Joining allowed.)";
-		} else {
-			_reason = " (Player attempted to join the stronger team. Joining denied.)";
-		}
+			_canJoin = [_side, _name, _uid, _player, _skillBLUFOR, _skillOPFOR] call WFBE_SE_FNC_CompareTeamScores;
+
+			if (_canJoin) then {
+				_reason = " (Player joined the weaker team. Joining allowed.)";
+			} else {
+				_reason = " (Player attempted to join the stronger team. Joining denied.)";
+			}
+		};
 
 	};
 };
