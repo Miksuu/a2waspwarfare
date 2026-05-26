@@ -146,6 +146,22 @@ while {!gameOver} do {
 							_leader setVariable ["OriginalMarkerColor", _markerColor, false];
 						};
 					};
+				} else {
+					if ((_lastTexts select _markerIndex) != "") then {
+						_marker setMarkerTextLocal "";
+						_lastTexts set [_markerIndex, ""];
+						_perfMarkerOps = _perfMarkerOps + 1;
+					};
+
+					if ((_lastAlphas select _markerIndex) != 0) then {
+						_marker setMarkerAlphaLocal 0;
+						_lastAlphas set [_markerIndex, 0];
+						_perfMarkerOps = _perfMarkerOps + 1;
+					};
+
+					if ((_lastLeaders select _markerIndex) != objNull) then {
+						_lastLeaders set [_markerIndex, objNull];
+					};
 				};
 			};
 
