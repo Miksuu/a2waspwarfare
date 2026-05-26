@@ -102,8 +102,8 @@ while {alive player && dialog} do {
 	
 	if (MenuAction == 3) then {
 		MenuAction = -1;
-		// Marty: Teach players the faster map disband shortcut whenever they use the classic WF menu button.
-		titleText [localize "STR_WF_TEAM_DisbandMapShortcutTip", "PLAIN DOWN", 2];
+		// Marty: Teach players the faster map selection/disband shortcuts whenever they use the classic WF menu button.
+		titleText [localize "STR_WF_TEAM_MapShortcutDisbandTip", "PLAIN DOWN", 3];
 		_curUnitSel = lbCurSel 13013;
 		if (_curUnitSel != -1) then {
 			_vehicle = vehicle (_units select _curUnitSel);

@@ -235,6 +235,12 @@ _display displayAddEventHandler ["KeyDown","if ((_this select 1) in [29,157]) th
 _display displayAddEventHandler ["KeyUp","if ((_this select 1) in [29,157]) then {missionNamespace setVariable ['WFBE_CLIENT_MAP_DISBAND_CTRL_DOWN', false]}; false"];
 onMapSingleClick {[_pos, _shift, _alt, _units] call WFBE_CL_FNC_HandleMapSingleClick};
 
+// Marty: Show the map AI shortcut tip once, the first time the player opens the map.
+[] Spawn {
+	waitUntil {sleep 0.5; visibleMap};
+	titleText [localize "STR_WF_TEAM_MapShortcutTip", "PLAIN DOWN", 5];
+};
+
 WFBE_CO_FNC_DisableTabLock = compile preprocessFileLineNumbers "Common\Functions\Common_DisableTablock.sqf";
 
 _display displayAddEventHandler ["KeyDown", "_this call WFBE_CO_FNC_DisableTabLock"];

@@ -3338,6 +3338,22 @@
         <Russian>Подсказка: ИИ можно распустить прямо на карте: Ctrl + клик по значку юнита.</Russian>
         <Italian>Suggerimento: puoi smobilitare un'IA dalla mappa con Ctrl + clic sulla sua icona unità.</Italian>
       </Key>
+      <!-- Marty: First map opening tip for direct AI command shortcuts. -->
+      <Key ID="STR_WF_TEAM_MapShortcutTip">
+        <English>Tip: on the map, click one of your AI icons to select it. Ctrl + click an AI icon to disband it.</English>
+        <French>Astuce : sur la carte, cliquez sur une icône IA pour la sélectionner. Ctrl + clic sur une icône IA pour la dissoudre.</French>
+        <German>Tipp: Klicke auf der Karte auf ein KI-Symbol, um sie auszuwählen. Strg + Klick auf ein KI-Symbol entfernt sie.</German>
+        <Russian>Подсказка: на карте щёлкните по значку своего ИИ, чтобы выбрать его. Ctrl + щелчок по значку ИИ распускает его.</Russian>
+        <Italian>Suggerimento: sulla mappa, clicca su un'icona IA per selezionarla. Ctrl + clic su un'icona IA per smobilitarla.</Italian>
+      </Key>
+      <!-- Marty: Team menu reminder for direct AI command shortcuts. -->
+      <Key ID="STR_WF_TEAM_MapShortcutDisbandTip">
+        <English>Map shortcut: Ctrl + click an AI icon to disband it. Also, you can click one of your AI icons to select it.</English>
+        <French>Raccourci carte : Ctrl + clic sur une icône IA pour la dissoudre. Par ailleurs, vous pouvez aussi cliquer sur une icône IA pour la sélectionner afin de la déplacer directement sur la carte.</French>
+        <German>Kartenkürzel: Strg + Klick auf ein KI-Symbol entfernt sie. Außerdem kannst du auf ein KI-Symbol klicken, um sie auszuwählen.</German>
+        <Russian>Карта: Ctrl + щелчок по значку ИИ распускает его. Кроме того, щелчок по значку своего ИИ выбирает его.</Russian>
+        <Italian>Scorciatoia mappa: Ctrl + clic su un'icona IA per smobilitarla. Inoltre, puoi cliccare su un'icona IA per selezionarla.</Italian>
+      </Key>
 	  <Key ID="STR_WF_TEAM_GraphicFilterLabel">
         <English>Graphic-Filter:</English>
         <French>Filtre Graphique:</French>
