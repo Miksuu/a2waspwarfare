@@ -45,6 +45,7 @@ Private [
 	"_perfStart",
 	"_perfWatched",
 	"_player",
+	"_player_vehicle",
 	"_recovery_cooldown",
 	"_required_close_stuck_time",
 	"_required_stuck_time",
@@ -160,6 +161,7 @@ while {true} do {
 		if (!alive _player) exitWith {};
 		if (leader (group _player) != _player) exitWith {};
 
+		_player_vehicle = vehicle _player;
 		_current_time = time;
 		_stuck_units_to_recover = [];
 
@@ -177,6 +179,11 @@ while {true} do {
 				if (_current_unit == _player) exitWith {false};
 
 				_vehicle = vehicle _current_unit;
+
+				// Do not auto-recover crew inside the player's current vehicle.
+				// Recovery orders can conflict with the player's crew commands.
+				if (_player_vehicle != _player && _vehicle == _player_vehicle) exitWith {false};
+
 				_driver = driver _vehicle;
 				_is_movement_controller = false;
 
