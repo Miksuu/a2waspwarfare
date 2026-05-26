@@ -59,6 +59,7 @@ Private [
 	"_min_destination_distance",
 	"_movement_can_work",
 	"_player",
+	"_player_vehicle",
 	"_saved_movement_data",
 	"_show_success_message",
 	"_source_units",
@@ -90,6 +91,7 @@ _show_success_message = true;
 
 if (isNull _player) exitWith {};
 if (!alive _player) exitWith {};
+_player_vehicle = vehicle _player;
 
 if (leader (group _player) != _player) exitWith {
 	"AI recovery is available only to the group leader." Call GroupChatMessage;
@@ -192,6 +194,7 @@ if (_is_automatic_recovery) then {
 		if (!alive _current_unit) exitWith {false};
 		if (isPlayer _current_unit) exitWith {false};
 		if (_current_unit == _player) exitWith {false};
+		if (_player_vehicle != _player && vehicle _current_unit == _player_vehicle) exitWith {false};
 
 		true
 	};
@@ -547,6 +550,7 @@ if (!_is_automatic_recovery) then {
 		"_phase2_data",
 		"_phase3_data",
 		"_player",
+		"_player_vehicle",
 		"_saved_movement_data",
 		"_should_try_phase_2",
 		"_show_success_message",
@@ -563,6 +567,7 @@ if (!_is_automatic_recovery) then {
 	_show_success_message = _this select 2;
 	_player = _this select 3;
 	_is_automatic_recovery = _this select 4;
+	_player_vehicle = vehicle _player;
 
 	sleep 5;
 
@@ -809,6 +814,8 @@ if (!_is_automatic_recovery) then {
 					systemChat Format [_success_message, _current_unit];
 				};
 			} else {
+				_player_vehicle = vehicle _player;
+
 				_can_try_phase_3 = Call {
 					if (_is_automatic_recovery) exitWith {false};
 					if (isNull _player) exitWith {false};
@@ -817,6 +824,7 @@ if (!_is_automatic_recovery) then {
 					if (!alive _current_unit) exitWith {false};
 					if (isNull _vehicle) exitWith {false};
 					if (_vehicle == _current_unit) exitWith {false};
+					if (_player_vehicle != _player && _vehicle == _player_vehicle) exitWith {false};
 					if (!local _current_unit) exitWith {false};
 					if (!local _vehicle) exitWith {false};
 					if (!([_current_unit, _vehicle] Call _movement_can_work)) exitWith {false};
@@ -861,6 +869,7 @@ if (!_is_automatic_recovery) then {
 			if (isNull _player) exitWith {false};
 			if (!alive _player) exitWith {false};
 			if (isNull _vehicle) exitWith {false};
+			if ((vehicle _player) != _player && _vehicle == (vehicle _player)) exitWith {false};
 			if (!local _current_unit) exitWith {false};
 			if (!local _vehicle) exitWith {false};
 
@@ -911,6 +920,7 @@ if (!_is_automatic_recovery) then {
 			if (isNull _current_unit) exitWith {false};
 			if (!alive _current_unit) exitWith {false};
 			if (isNull _vehicle) exitWith {false};
+			if (!(isNull _player) && alive _player && (vehicle _player) != _player && _vehicle == (vehicle _player)) exitWith {false};
 			if (!([_current_unit, _vehicle] Call _movement_can_work)) exitWith {false};
 
 			true
