@@ -30,8 +30,8 @@ _scanNearRange = _range_detect_active + 2500;
 for "_k" from 0 to ((count towns) - 1) step 1 do
 {
 	_town = towns select _k;
-	_town setVariable ["wfbe_active", false];
-	_town setVariable ["wfbe_active_air", false];
+	_town setVariable ["wfbe_active", false, true];
+	_town setVariable ["wfbe_active_air", false, true];
 	_town setVariable ["wfbe_inactivity", 0];
 	_town setVariable ["wfbe_active_override", false];
 	_town setVariable ['wfbe_active_vehicles', []];
@@ -180,7 +180,7 @@ while {!WFBE_GameOver} do {
 
 					if (_town getVariable "wfbe_active_override") then {
 						_town setVariable ["wfbe_active_override", false];
-						_town setVariable ["wfbe_active", false];
+						_town setVariable ["wfbe_active", false, true];
 					};
 
 					if(!(_town getVariable "wfbe_active")) then {
@@ -188,7 +188,7 @@ while {!WFBE_GameOver} do {
 						if (_activationBudget > 0) then {
 							_activationBudget = _activationBudget - 1;
 
-							_town setVariable ["wfbe_active", true];
+							_town setVariable ["wfbe_active", true, true];
 
 							if (_side == WFBE_DEFENDER) then {
 								_groups = [_town, _side] Call WFBE_SE_FNC_GetTownGroupsDefender
@@ -267,8 +267,8 @@ while {!WFBE_GameOver} do {
 					//// inner block
 					// Marty: Performance Audit counter for town AI despawn.
 					_perfDespawns = _perfDespawns + 1;
-					_town setVariable ["wfbe_active", false];
-					_town setVariable ["wfbe_active_air", false];
+					_town setVariable ["wfbe_active", false, true];
+					_town setVariable ["wfbe_active_air", false, true];
 
 					//--- Teams Units.
 					{

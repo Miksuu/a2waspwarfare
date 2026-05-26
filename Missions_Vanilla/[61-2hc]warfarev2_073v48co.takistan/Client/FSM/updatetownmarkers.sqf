@@ -1,5 +1,5 @@
 // Marty: Added local caches and audit counters for town marker refresh.
-private["_canCollectSupply","_closedPollDelay","_closedRefreshDelay","_displayVisible","_gpsVisible","_i","_lastTownTexts","_lastText","_mapVisible","_marker","_markerText","_maxSupplyValue","_nextClosedRefresh","_perfChangedSupplyText","_perfDistanceChecks","_perfSkippedTextWrites","_perfStart","_perfTextWrites","_perfTowns","_perfUnits","_perfVisible","_range","_refreshDelay","_shouldRefresh","_skillType","_sleepDelay","_suffix","_supplyValue","_tcarm","_town","_townMarkers","_townSupplyMissionCoolDownEnabled","_units","_visible"];
+private["_canCollectSupply","_closedPollDelay","_closedRefreshDelay","_displayVisible","_gpsVisible","_i","_lastTownTexts","_lastText","_mapVisible","_marker","_markerText","_maxSupplyValue","_nextClosedRefresh","_perfChangedSupplyText","_perfDistanceChecks","_perfSkippedTextWrites","_perfStart","_perfTextWrites","_perfTowns","_perfUnits","_perfVisible","_range","_refreshDelay","_shouldRefresh","_skillType","_sleepDelay","_startingSupplyValue","_suffix","_supplyValue","_tcarm","_town","_townActive","_townAttacked","_townMarkers","_townSupplyMissionCoolDownEnabled","_units","_visible"];
 
 _tcarm = missionNamespace getVariable "WFBE_C_PLAYERS_MARKER_TOWN_RANGE";
 
@@ -57,6 +57,19 @@ while {!gameOver} do {
 					if (_town distance _x < _range) exitWith {_visible = true};
 				} forEach _units;
 			};
+
+			_townActive = false;
+			if !(isNil {_town getVariable "wfbe_active"}) then {_townActive = _town getVariable "wfbe_active"};
+			if (!_townActive && !(isNil {_town getVariable "wfbe_active_air"})) then {_townActive = _town getVariable "wfbe_active_air"};
+			_townAttacked = false;
+			if !(isNil {_town getVariable "supplyValue"}) then {
+				if !(isNil {_town getVariable "startingSupplyValue"}) then {
+					_supplyValue = _town getVariable "supplyValue";
+					_startingSupplyValue = _town getVariable "startingSupplyValue";
+					_townAttacked = _supplyValue < _startingSupplyValue;
+				};
+			};
+			if (!_visible && (_townActive || _townAttacked)) then {_visible = true};
 
 			_marker = _townMarkers select _i;
 			_markerText = "";
