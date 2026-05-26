@@ -8,7 +8,7 @@
 */
 
 // Marty: Ctrl-click map disband falls back to the legacy setDamage disband method.
-Private ["_aiId","_alt","_candidate","_candidateDistance","_candidatePosition","_candidatePosition2D","_candidateVehicle","_clickPosition2D","_ctrlPressed","_distance","_group","_message","_position","_range","_selectedUnits","_shift","_storedPosition","_target","_units"];
+Private ["_aiId","_alt","_candidate","_candidateDistance","_candidatePosition","_candidatePosition2D","_candidateVehicle","_clickPosition2D","_ctrlPressed","_distance","_group","_message","_position","_range","_selectedUnits","_shift","_storedPosition","_target","_units","_plainClick","_selectedGroupUnits","_targetVehicle","_driver","_gunner","_commander","_crewPriority","_crewUnit","_selectionHandled","_isSelectableMapUnit","_isVehicleIcon"];
 
 _position = _this select 0;
 _shift = _this select 1;
@@ -91,6 +91,76 @@ if (_ctrlPressed) exitWith {
 	titleText [_message, "PLAIN DOWN"];
 	false
 };
+
+// Marty: Plain map click selects one nearby AI only when no group unit is already selected.
+_selectionHandled = call {
+	_plainClick = (!_shift && !_alt);
+	if !(_plainClick) exitWith {false};
+
+	_selectedGroupUnits = groupSelectedUnits player;
+	if ((count _selectedGroupUnits) > 0) exitWith {false};
+
+	_range = 75;
+	_target = objNull;
+	_targetVehicle = objNull;
+	_distance = 999999;
+	_units = ((units group player) Call WFBE_CO_FNC_GetLiveUnits) - [player];
+	_clickPosition2D = [_position select 0, _position select 1, 0];
+
+	if ((count _units) == 0) exitWith {false};
+
+	{
+		_candidate = _x;
+		_candidateVehicle = vehicle _candidate;
+		_candidatePosition = getPos _candidateVehicle;
+		_candidatePosition2D = [_candidatePosition select 0, _candidatePosition select 1, 0];
+		_candidateDistance = _candidatePosition2D distance _clickPosition2D;
+
+		if (_candidateDistance < _distance) then {
+			_targetVehicle = _candidateVehicle;
+			_distance = _candidateDistance;
+		};
+	} forEach _units;
+
+	if (isNull _targetVehicle) exitWith {false};
+	if (_distance > _range) exitWith {false};
+
+	_isSelectableMapUnit = {
+		_crewUnit = _this;
+		if (isNull _crewUnit) exitWith {false};
+		if !(alive _crewUnit) exitWith {false};
+		if (_crewUnit == player) exitWith {false};
+		if (isPlayer _crewUnit) exitWith {false};
+		if ((group _crewUnit) != (group player)) exitWith {false};
+		true
+	};
+
+	_target = _targetVehicle;
+	_isVehicleIcon = !(_targetVehicle isKindOf "Man");
+
+	if (_isVehicleIcon) then {
+		_driver = driver _targetVehicle;
+		_gunner = gunner _targetVehicle;
+		_commander = commander _targetVehicle;
+		_crewPriority = [_driver, _gunner, _commander];
+		_target = objNull;
+
+		{
+			_crewUnit = _x;
+			if (isNull _target) then {
+				if (_crewUnit call _isSelectableMapUnit) then {_target = _crewUnit};
+			};
+		} forEach _crewPriority;
+	};
+
+	if !(_target call _isSelectableMapUnit) exitWith {false};
+
+	{player groupSelectUnit [_x, false]} forEach units group player;
+	player groupSelectUnit [_target, true];
+	true
+};
+
+if (_selectionHandled) exitWith {true};
 
 if (_shift && (leader (group player)) == player) then {
 	_group = group player;
