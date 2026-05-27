@@ -1,5 +1,5 @@
 // Marty: Optimized town AI monitor; activation is budgeted and ignores aircraft-only fly-bys.
-Private["_town","_range","_range_detect","_range_detect_active","_position","_groups","_town_camps","_town_camps_count","_town_teams","_unitsInactiveMax","_patrol_delay","_patrol_enabled","_ai_delegation_enabled","_town_defender_enabled","_town_occupation_enabled","_activationBudget","_activationBudgetMax","_detected","_detectedRaw","_enemies","_scanBudget","_scanBudgetMax","_scanRefs","_scanRef","_scanRefCount","_scanRefLimitPerPlayer","_scanUnit","_scanDelay","_scanActiveDelay","_scanNearDelay","_scanFarDelay","_scanCriticalRange","_scanNearRange","_scanDistance","_scanDistanceMin","_scanNext","_scanDue","_scanSkipped","_scannedTowns","_skippedTowns","_townScanned","_isActiveTown","_unit","_sideID","_side","_side_enabled","_dynRange","_camps","_camp","_positions","_teams","_use_server","_retVal","_groupIndex"];
+Private["_activeSideIDs","_town","_range","_range_detect","_range_detect_active","_position","_groups","_town_camps","_town_camps_count","_town_teams","_unitsInactiveMax","_patrol_delay","_patrol_enabled","_ai_delegation_enabled","_town_defender_enabled","_town_occupation_enabled","_activationBudget","_activationBudgetMax","_detected","_detectedRaw","_enemies","_scanBudget","_scanBudgetMax","_scanRefs","_scanRef","_scanRefCount","_scanRefLimitPerPlayer","_scanUnit","_scanDelay","_scanActiveDelay","_scanNearDelay","_scanFarDelay","_scanCriticalRange","_scanNearRange","_scanDistance","_scanDistanceMin","_scanNext","_scanDue","_scanSkipped","_scannedTowns","_skippedTowns","_townScanned","_isActiveTown","_unit","_sideID","_side","_side_enabled","_dynRange","_camps","_camp","_positions","_teams","_use_server","_retVal","_groupIndex"];
 
 for "_j" from 0 to ((count towns) - 1) step 1 do
 {
@@ -32,6 +32,8 @@ for "_k" from 0 to ((count towns) - 1) step 1 do
 	_town = towns select _k;
 	_town setVariable ["wfbe_active", false, true];
 	_town setVariable ["wfbe_active_air", false, true];
+	// Marty: Clients use this side list to reveal active-town SV without leaking it to every team.
+	_town setVariable ["wfbe_active_sideIDs", [], true];
 	_town setVariable ["wfbe_inactivity", 0];
 	_town setVariable ["wfbe_active_override", false];
 	_town setVariable ['wfbe_active_vehicles', []];
@@ -176,7 +178,13 @@ while {!WFBE_GameOver} do {
 
 					if(_enemies > 0)then{
 					///
-					if (_enemies > 0) then {_town setVariable ["wfbe_inactivity", time]};
+					// Marty: Publish only the side IDs that actually woke this town AI, not the global active flag alone.
+					_activeSideIDs = [];
+					if (_side != west && (west countSide _detected) > 0) then {_activeSideIDs set [count _activeSideIDs, WFBE_C_WEST_ID]};
+					if (_side != east && (east countSide _detected) > 0) then {_activeSideIDs set [count _activeSideIDs, WFBE_C_EAST_ID]};
+					if (_side != resistance && (resistance countSide _detected) > 0) then {_activeSideIDs set [count _activeSideIDs, WFBE_C_GUER_ID]};
+					_town setVariable ["wfbe_active_sideIDs", _activeSideIDs, true];
+					_town setVariable ["wfbe_inactivity", time];
 
 					if (_town getVariable "wfbe_active_override") then {
 						_town setVariable ["wfbe_active_override", false];
@@ -269,6 +277,8 @@ while {!WFBE_GameOver} do {
 					_perfDespawns = _perfDespawns + 1;
 					_town setVariable ["wfbe_active", false, true];
 					_town setVariable ["wfbe_active_air", false, true];
+					// Marty: Clear side-scoped active visibility when the town deactivates.
+					_town setVariable ["wfbe_active_sideIDs", [], true];
 
 					//--- Teams Units.
 					{
