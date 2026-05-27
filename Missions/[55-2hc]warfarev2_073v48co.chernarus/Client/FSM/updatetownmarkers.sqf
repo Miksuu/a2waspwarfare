@@ -1,5 +1,5 @@
 // Marty: Added local caches and audit counters for town marker refresh.
-private["_canCollectSupply","_closedPollDelay","_closedRefreshDelay","_displayVisible","_gpsVisible","_i","_lastTownTexts","_lastText","_mapVisible","_marker","_markerText","_maxSupplyValue","_nextClosedRefresh","_perfChangedSupplyText","_perfDistanceChecks","_perfSkippedTextWrites","_perfStart","_perfTextWrites","_perfTowns","_perfUnits","_perfVisible","_range","_refreshDelay","_shouldRefresh","_skillType","_sleepDelay","_startingSupplyValue","_suffix","_supplyValue","_tcarm","_town","_townActive","_townAttacked","_townMarkers","_townSupplyMissionCoolDownEnabled","_units","_visible"];
+private["_activeSideIDs","_attackerSideIDs","_canCollectSupply","_closedPollDelay","_closedRefreshDelay","_displayVisible","_gpsVisible","_i","_lastTownTexts","_lastText","_mapVisible","_marker","_markerText","_maxSupplyValue","_nextClosedRefresh","_perfChangedSupplyText","_perfDistanceChecks","_perfSkippedTextWrites","_perfStart","_perfTextWrites","_perfTowns","_perfUnits","_perfVisible","_range","_refreshDelay","_shouldRefresh","_skillType","_sleepDelay","_startingSupplyValue","_suffix","_supplyValue","_tcarm","_town","_townActiveForSide","_townAttacked","_townAttackedForSide","_townMarkers","_townSideID","_townSupplyMissionCoolDownEnabled","_units","_visible"];
 
 _tcarm = missionNamespace getVariable "WFBE_C_PLAYERS_MARKER_TOWN_RANGE";
 
@@ -48,28 +48,39 @@ while {!gameOver} do {
 			_town = _x;
 			_perfTowns = _perfTowns + 1;
 			_range = (_town getVariable "range") * _tcarm;
+			_townSideID = _town getVariable "sideID";
 			_visible = false;
 			
+			// Marty: Base town SV visibility stays local to friendly ownership or this player's live group proximity.
 			// Marty: Keep the same visibility rules, but stop distance checks as soon as one live unit reveals the town.
-			if ((_town getVariable "sideID") == sideID) then {_visible = true} else {
+			if (_townSideID == sideID) then {_visible = true} else {
 				{
 					_perfDistanceChecks = _perfDistanceChecks + 1;
 					if (_town distance _x < _range) exitWith {_visible = true};
 				} forEach _units;
 			};
 
-			_townActive = false;
-			if !(isNil {_town getVariable "wfbe_active"}) then {_townActive = _town getVariable "wfbe_active"};
-			if (!_townActive && !(isNil {_town getVariable "wfbe_active_air"})) then {_townActive = _town getVariable "wfbe_active_air"};
-			_townAttacked = false;
-			if !(isNil {_town getVariable "supplyValue"}) then {
-				if !(isNil {_town getVariable "startingSupplyValue"}) then {
-					_supplyValue = _town getVariable "supplyValue";
-					_startingSupplyValue = _town getVariable "startingSupplyValue";
-					_townAttacked = _supplyValue < _startingSupplyValue;
-				};
+			// Marty: Active/attacked state is networked, so only reveal remote SV to sides involved in that state.
+			_townActiveForSide = false;
+			_activeSideIDs = [];
+			if !(isNil {_town getVariable "wfbe_active_sideIDs"}) then {_activeSideIDs = _town getVariable "wfbe_active_sideIDs"};
+			if (sideID in _activeSideIDs) then {_townActiveForSide = true};
+
+			_townAttackedForSide = false;
+			_attackerSideIDs = [];
+			if !(isNil {_town getVariable "wfbe_attacker_sideIDs"}) then {_attackerSideIDs = _town getVariable "wfbe_attacker_sideIDs"};
+			if (sideID in _attackerSideIDs) then {_townAttackedForSide = true};
+
+			_townAttacked = call {
+				if (!_townAttackedForSide) exitWith {false};
+				if (isNil {_town getVariable "supplyValue"}) exitWith {false};
+				if (isNil {_town getVariable "startingSupplyValue"}) exitWith {false};
+				_supplyValue = _town getVariable "supplyValue";
+				_startingSupplyValue = _town getVariable "startingSupplyValue";
+				_supplyValue < _startingSupplyValue
 			};
-			if (!_visible && (_townActive || _townAttacked)) then {_visible = true};
+
+			if (!_visible && (_townActiveForSide || _townAttacked)) then {_visible = true};
 
 			_marker = _townMarkers select _i;
 			_markerText = "";
