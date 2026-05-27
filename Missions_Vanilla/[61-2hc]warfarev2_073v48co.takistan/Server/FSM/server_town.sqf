@@ -199,6 +199,13 @@ while {!WFBE_GameOver} do {
 				if (_activeEnemies > 0 && time > _timeAttacked && (missionNamespace getVariable Format ["WFBE_%1_PRESENT",_side])) then {_timeAttacked = time + 60;[_side, "IsUnderAttack", ["Town", _location]] Spawn SideMessage};
 			};
 
+			// Marty: Publish the side IDs currently reducing town SV so clients do not reveal attacked-town SV globally.
+			_attackerSideIDs = [];
+			if (_west > 0) then {_attackerSideIDs set [count _attackerSideIDs, WFBE_C_WEST_ID]};
+			if (_east > 0) then {_attackerSideIDs set [count _attackerSideIDs, WFBE_C_EAST_ID]};
+			if (_resistance > 0) then {_attackerSideIDs set [count _attackerSideIDs, WFBE_C_GUER_ID]};
+			_location setVariable ["wfbe_attacker_sideIDs", _attackerSideIDs, true];
+
 			_supplyValue = round(_supplyValue - (_resistance + _east + _west) * _rate);
 			if (_supplyValue < 1) then {_supplyValue = _startingSupplyValue; _captured = true};
 			// Marty: Performance Audit counter for networked town state writes.
