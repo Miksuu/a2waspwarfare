@@ -196,8 +196,15 @@ missionNamespace setVariable ['WFBE_C_QUEUE_DEPOT',0];
 missionNamespace setVariable ['WFBE_C_QUEUE_DEPOT_MAX',4];
 
 //--- Handle the weather.
-_weat = missionNamespace getVariable "WFBE_C_ENVIRONMENT_WEATHER";
-if (_weat != 3) then {
+// Marty: Accelerated skipTime makes low clouds stutter, so day/night owns the weather and keeps each client sky clear.
+Call {
+	_weat = missionNamespace getVariable "WFBE_C_ENVIRONMENT_WEATHER";
+	if ((missionNamespace getVariable "WFBE_DAYNIGHT_ENABLED") == 1) exitWith {
+		0 setOvercast 0;
+		0 setRain 0;
+	};
+	if (_weat == 3) exitWith {};
+
 	_oc = 0.05;
 	switch (_weat) do {
 		case 0: {_oc = 0};
@@ -207,7 +214,8 @@ if (_weat != 3) then {
 	60 setOvercast _oc;
 };
 
-if ((missionNamespace getVariable "WFBE_C_ENVIRONMENT_WEATHER_VOLUMETRIC") > 0) then {[] Exec "CA\Modules\clouds\data\scripts\bis_cloudsystem.sqs"};
+// Marty: Volumetric clouds are disabled globally; never start the BIS cloud system on clients.
+missionNamespace setVariable ["WFBE_C_ENVIRONMENT_WEATHER_VOLUMETRIC", 0];
 
 //--- Global Client Variables.
 sideID = sideJoined Call GetSideID;
