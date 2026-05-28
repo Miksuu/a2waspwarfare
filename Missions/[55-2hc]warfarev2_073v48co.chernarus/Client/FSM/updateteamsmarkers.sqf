@@ -1,5 +1,5 @@
 // Marty: Performance Audit locals and marker update cache.
-private["_sideText","_label","_count","_marker","_markerIndex","_team","_leader","_leaderVehicle","_leaderChanged","_sharedVehicleUnits","_updateAILeaders","_updateThisLeader","_nextAIUpdate","_playerAFKstate","_markerColor","_markerAlpha","_markerNames","_lastLeaders","_lastTexts","_lastAlphas","_lastColors","_wfMenuDisplays","_mapConsumerVisible","_perfStart","_perfMarkerOps","_perfPlayerLeaders","_perfAILeaders","_perfSkippedWrites"];
+private["_sideText","_label","_count","_marker","_markerIndex","_team","_leader","_leaderVehicle","_leaderChanged","_botUnitsInVehicle","_crewUnitsInVehicle","_cargoUnitsInVehicle","_crewText","_cargoText","_member","_memberVehicle","_roleUnit","_unitText","_updateAILeaders","_updateThisLeader","_nextAIUpdate","_playerAFKstate","_markerColor","_markerAlpha","_markerNames","_lastLeaders","_lastTexts","_lastAlphas","_lastColors","_wfMenuDisplays","_mapConsumerVisible","_perfStart","_perfMarkerOps","_perfPlayerLeaders","_perfAILeaders","_perfSkippedWrites"];
 
 _sideText = sideJoinedText;
 _label = "";
@@ -90,19 +90,65 @@ while {!gameOver} do {
 						if !(isNil "_playerAFKstate") then {
 							if (_playerAFKstate) then {_label = Format[" %1 (AFK)", name _leader]};
 						};
-						// Marty: Keep the player leader arrow visible in shared vehicles, but hide the name so AI labels remain readable.
+						// Marty: Keep the player leader arrow and append embarked bot numbers with crew first, then cargo.
 						call {
-							if (player != _leader) exitWith {};
-							if ((vehicle _leader) == _leader) exitWith {};
+							_leaderVehicle = vehicle _leader;
+							if (_leaderVehicle == _leader) exitWith {};
 
-							_sharedVehicleUnits = 0;
+							_botUnitsInVehicle = [];
 							{
-								if ((alive _x) && ((vehicle _x) == (vehicle _leader))) then {
-									_sharedVehicleUnits = _sharedVehicleUnits + 1;
+								_member = _x;
+								_memberVehicle = vehicle _member;
+								if ((alive _member) && !(_member == _leader) && !(isPlayer _member) && (_memberVehicle == _leaderVehicle)) then {
+									_botUnitsInVehicle = _botUnitsInVehicle + [_member];
 								};
-							} forEach (units group player);
+							} forEach (units group _leader);
 
-							if (_sharedVehicleUnits > 1) then {_label = ""};
+							if ((count _botUnitsInVehicle) == 0) exitWith {};
+
+							_crewUnitsInVehicle = [];
+							{
+								_roleUnit = _x;
+								call {
+									if (isNull _roleUnit) exitWith {};
+									if !(_roleUnit in _botUnitsInVehicle) exitWith {};
+									if (_roleUnit in _crewUnitsInVehicle) exitWith {};
+									_crewUnitsInVehicle = _crewUnitsInVehicle + [_roleUnit];
+								};
+							} forEach [driver _leaderVehicle, gunner _leaderVehicle, commander _leaderVehicle];
+
+							_cargoUnitsInVehicle = [];
+							{
+								_member = _x;
+								if !(_member in _crewUnitsInVehicle) then {
+									_cargoUnitsInVehicle = _cargoUnitsInVehicle + [_member];
+								};
+							} forEach _botUnitsInVehicle;
+
+							_crewText = "";
+							{
+								_unitText = _x Call GetAIDigit;
+								if (_crewText == "") then {
+									_crewText = _unitText;
+								} else {
+									_crewText = Format["%1/%2", _crewText, _unitText];
+								};
+							} forEach _crewUnitsInVehicle;
+
+							_cargoText = "";
+							{
+								_unitText = _x Call GetAIDigit;
+								if (_cargoText == "") then {
+									_cargoText = _unitText;
+								} else {
+									_cargoText = Format["%1/%2", _cargoText, _unitText];
+								};
+							} forEach _cargoUnitsInVehicle;
+
+							if (_crewText != "") then {_label = Format["%1 %2", _label, _crewText]};
+							if (_cargoText == "") exitWith {};
+							if (_crewText == "") exitWith {_label = Format["%1 %2", _label, _cargoText]};
+							_label = Format["%1 | %2", _label, _cargoText];
 						};
 					} else {
 						_perfAILeaders = _perfAILeaders + 1;
