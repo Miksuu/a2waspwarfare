@@ -46,6 +46,9 @@ GetSleepFPS = Compile preprocessFileLineNumbers "Common\Functions\Common_GetSlee
 // Marty: Load the local Performance Audit helpers before client/server loops start using them.
 Call Compile preprocessFileLineNumbers "Common\Functions\Common_PerformanceAudit.sqf";
 GetTeamArtillery = Compile preprocessFileLineNumbers "Common\Functions\Common_GetTeamArtillery.sqf";
+// Marty: Artillery ammo selector helpers used by the Tactical Center.
+WFBE_CO_FNC_GetArtilleryAmmoOptions = Compile preprocessFileLineNumbers "Common\Functions\Common_GetArtilleryAmmoOptions.sqf";
+WFBE_CO_FNC_LoadArtilleryAmmo = Compile preprocessFileLineNumbers "Common\Functions\Common_LoadArtilleryAmmo.sqf";
 GetTeamAutonomous = Compile preprocessFileLineNumbers "Common\Functions\Common_GetTeamAutonomous.sqf";
 GetTeamFunds = Compile preprocessFileLineNumbers "Common\Functions\Common_GetTeamFunds.sqf";
 GetTeamMoveMode = Compile preprocessFileLineNumbers "Common\Functions\Common_GetTeamMoveMode.sqf";

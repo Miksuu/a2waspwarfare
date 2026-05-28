@@ -42,7 +42,8 @@ _pard = missionNamespace getVariable "WFBE_C_PLAYERS_SUPPORT_PARATROOPERS_DELAY"
 {lbAdd[17008,_x]} forEach (missionNamespace getVariable Format ["WFBE_%1_ARTILLERY_DISPLAY_NAME",sideJoinedText]);
 lbSetCurSel[17008,0];
 
-_IDCS = [17005,17006,17007,17008];
+// Marty: Include the artillery ammo selector in the artillery enable/disable state.
+_IDCS = [17005,17006,17007,17008,17034];
 if ((missionNamespace getVariable "WFBE_C_ARTILLERY") == 0) then {{ctrlEnable [_x,false]} forEach _IDCS};
 
 {ctrlEnable [_x, false]} forEach [17010,17011,17012,17013,17014,17015,17017,17018,17020];
@@ -77,6 +78,43 @@ _maxRange = 200;
 _requestMarkerTransition = false;
 _requestRangedList = true;
 _startLoad = true;
+// Marty: Cache ammo options and remember the last selected ammo per artillery type while the menu is open.
+_currentAmmoOptions = [];
+_ignoreAmmoComboAction = false;
+_selectedAmmoByArtillery = [];
+_artilleryDisplayNames = missionNamespace getVariable Format ["WFBE_%1_ARTILLERY_DISPLAY_NAME",sideJoinedText];
+for "_i" from 0 to (count _artilleryDisplayNames) - 1 do {_selectedAmmoByArtillery set [_i, 0]};
+
+// Marty: Rebuild ammo choices from the selected artillery type and current upgrade level.
+_refreshAmmoCombo = {
+	Private ["_ammoIndex","_artilleryIndex","_displayName","_i","_selectedAmmoIndex","_selectedComboIndex"];
+
+	_artilleryIndex = lbCurSel 17008;
+	lbClear 17034;
+	_currentAmmoOptions = [];
+	ctrlEnable [17034,false];
+
+	if (_artilleryIndex < 0) exitWith {};
+
+	_currentAmmoOptions = [sideJoinedText, _artilleryIndex] Call WFBE_CO_FNC_GetArtilleryAmmoOptions;
+	if (count _currentAmmoOptions == 0) exitWith {};
+
+	for "_i" from 0 to (count _currentAmmoOptions) - 1 do {
+		_displayName = (_currentAmmoOptions select _i) select 0;
+		lbAdd [17034, _displayName];
+		lbSetValue [17034, _i, (_currentAmmoOptions select _i) select 3];
+	};
+
+	_selectedAmmoIndex = _selectedAmmoByArtillery select _artilleryIndex;
+	_selectedComboIndex = 0;
+	for "_i" from 0 to (count _currentAmmoOptions) - 1 do {
+		if (((_currentAmmoOptions select _i) select 3) == _selectedAmmoIndex) then {_selectedComboIndex = _i};
+	};
+
+	ctrlEnable [17034,true];
+	_ignoreAmmoComboAction = true;
+	lbSetCurSel [17034, _selectedComboIndex];
+};
 
 //--- Startup coloration.
 with uinamespace do {
@@ -521,11 +559,52 @@ while {alive player && dialog} do {
 		_minRange = (missionNamespace getVariable Format ["WFBE_%1_ARTILLERY_RANGES_MIN",sideJoined]) select _index;
 		_maxRange = round(((missionNamespace getVariable Format ["WFBE_%1_ARTILLERY_RANGES_MAX",sideJoined]) select _index) / (missionNamespace getVariable "WFBE_C_ARTILLERY"));
 
+		// Marty: Refresh available ammunition whenever the artillery type changes.
+		[] Call _refreshAmmoCombo;
+
 		_trackingArray = [group player,true,lbCurSel(17008),sideJoined] Call GetTeamArtillery;
 		
 		_requestMarkerTransition = true;
 		_requestRangedList = true;
 		_startLoad = false;
+	};
+
+	// Marty: If programmatic combo selection did not fire an event, keep the next real player click active.
+	if (_ignoreAmmoComboAction && MenuAction != 201) then {_ignoreAmmoComboAction = false};
+
+	// Marty: Load the selected ammo type on every matching artillery unit owned by the player group.
+	if (MenuAction == 201) then {
+		MenuAction = -1;
+
+		if (_ignoreAmmoComboAction) then {
+			_ignoreAmmoComboAction = false;
+		} else {
+			_artilleryIndex = lbCurSel 17008;
+			_ammoComboIndex = lbCurSel 17034;
+
+			_canLoadAmmo = true;
+			if (_artilleryIndex < 0) then {_canLoadAmmo = false};
+			if (_ammoComboIndex < 0) then {_canLoadAmmo = false};
+			if (_ammoComboIndex >= (count _currentAmmoOptions)) then {_canLoadAmmo = false};
+
+			if (_canLoadAmmo) then {
+				_ammoOption = _currentAmmoOptions select _ammoComboIndex;
+				_ammoIndex = _ammoOption select 3;
+				_ammoName = _ammoOption select 0;
+				_units = [Group player,true,_artilleryIndex,sideJoinedText] Call GetTeamArtillery;
+				_loadedCount = 0;
+
+				_selectedAmmoByArtillery set [_artilleryIndex, _ammoIndex];
+				{
+					if ([_x, sideJoinedText, _artilleryIndex, _ammoIndex] Call WFBE_CO_FNC_LoadArtilleryAmmo) then {
+						_loadedCount = _loadedCount + 1;
+					};
+				} forEach _units;
+
+				hintSilent Format ["Artillery ammo %1 requested on %2 unit(s).", _ammoName, _loadedCount];
+				["INFORMATION", Format ["GUI_Menu_Tactical.sqf: Player [%1] requested artillery ammo [%2] for [%3] [%4 unit(s)].", name player, _ammoName, (missionNamespace getVariable Format ["WFBE_%1_ARTILLERY_DISPLAY_NAME",sideJoinedText]) select _artilleryIndex, _loadedCount]] Call WFBE_CO_FNC_LogContent;
+			};
+		};
 	};
 	
 	//--- Focus on an artillery cannon.
