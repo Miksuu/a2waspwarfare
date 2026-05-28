@@ -142,17 +142,23 @@ if ((missionNamespace getVariable "WFBE_C_TOWNS_PATROLS") > 0) then {
 [] Call Compile preprocessFile 'Server\Init\Init_Defenses.sqf';
 
 //--- Weather.
-_weat = missionNamespace getVariable "WFBE_C_ENVIRONMENT_WEATHER";
-if (_weat != 3) then {
-	if (isDedicated) then {
-		_oc = 0.05;
-		switch (_weat) do {
-			case 0: {_oc = 0};
-			case 1: {_oc = 0.5};
-			case 2: {_oc = 1};
-		};
-		60 setOvercast _oc;
+// Marty: Accelerated skipTime makes low clouds stutter, so day/night owns the weather and keeps the server sky clear.
+Call {
+	_weat = missionNamespace getVariable "WFBE_C_ENVIRONMENT_WEATHER";
+	if ((missionNamespace getVariable "WFBE_DAYNIGHT_ENABLED") == 1) exitWith {
+		0 setOvercast 0;
+		0 setRain 0;
 	};
+	if (_weat == 3) exitWith {};
+	if (!isDedicated) exitWith {};
+
+	_oc = 0.05;
+	switch (_weat) do {
+		case 0: {_oc = 0};
+		case 1: {_oc = 0.5};
+		case 2: {_oc = 1};
+	};
+	60 setOvercast _oc;
 };
 
 ["INITIALIZATION", "Init_Server.sqf: Weather module is loaded."] Call WFBE_CO_FNC_LogContent;

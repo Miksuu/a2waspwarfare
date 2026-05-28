@@ -204,10 +204,11 @@
 		texts[] = {"January","February","March","April","May","June","July","August","September","October","November","December"};
 		default = 6;
 	};
+	// Marty: Volumetric clouds are disabled globally because the BIS cloud system can cost FPS and stutter with skipTime.
 	class WFBE_C_ENVIRONMENT_WEATHER_VOLUMETRIC {
 		title = "$STR_WF_PARAMETER_Clouds";
-		values[] = {0,1};
-		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		values[] = {0};
+		texts[] = {"$STR_WF_Disabled"};
 		default = 0;
 	};
 	class WFBE_C_ENVIRONMENT_WEATHER {

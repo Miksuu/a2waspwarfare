@@ -207,7 +207,8 @@ with missionNamespace do {
 	if (isNil "WFBE_C_ENVIRONMENT_STARTING_HOUR") then {WFBE_C_ENVIRONMENT_STARTING_HOUR = 9}; //--- Starting Hour of the day.
 	if (isNil "WFBE_C_ENVIRONMENT_STARTING_MONTH") then {WFBE_C_ENVIRONMENT_STARTING_MONTH = 6}; //--- Starting Month of the year.
 	if (isNil "WFBE_C_ENVIRONMENT_WEATHER") then {WFBE_C_ENVIRONMENT_WEATHER = 0}; //--- Weather Type, 0: Clear, 1: Cloudy, 2: Rainy)
-	if (isNil "WFBE_C_ENVIRONMENT_WEATHER_VOLUMETRIC") then {WFBE_C_ENVIRONMENT_WEATHER_VOLUMETRIC = 0}; //--- Enable volumetric clouds.
+	// Marty: Volumetric clouds are disabled globally; override any stale parameter value.
+	WFBE_C_ENVIRONMENT_WEATHER_VOLUMETRIC = 0; //--- Disable volumetric clouds.
 	WFBE_C_ENVIRONMENT_WEATHER_TRANSITION = 600; //--- Weather Transition period, change weather overcast each x seconds (longer is more realistic).
 
 //--- Gameplay.
