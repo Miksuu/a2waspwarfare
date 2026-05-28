@@ -2222,10 +2222,11 @@ class RscMenu_Tactical {
 			w = 0.2;
 			text = $STR_WF_TACTICAL_Artillery;
 		};
+		// Marty: Shift the radius controls down to make room for artillery ammo selection.
 		class CA_Artillery_Label_Radius : RscText {
 			idc = 17030;
 			x = 0.00602637;
-			y = 0.182926;
+			y = 0.223262;
 			w = 0.2;
 			text = $STR_WF_TACTICAL_ArtilleryRadius;
 		};
@@ -2236,10 +2237,11 @@ class RscMenu_Tactical {
 			w = 0.2;
 			text = $STR_WF_TACTICAL_Artillery;
 		};
+		// Marty: Keep the radius slider aligned with the shifted radius label.
 		class CA_Artillery_Slider : RscXSliderH {
 			idc = 17005;
 			x = 0.14652;
-			y = 0.188795;
+			y = 0.229131;
 			w = 0.224033;
 			h = 0.029412;
 		};
@@ -2270,6 +2272,22 @@ class RscMenu_Tactical {
 			w = 0.147;
 			h = 0.029412;
 			onLBSelChanged = "MenuAction = 200";
+		};
+		// Marty: Ammo selector applies the selected shell type to all matching player artillery units.
+		class CA_Artillery_Label_Ammo : RscText {
+			idc = 17033;
+			x = 0.00434496;
+			y = 0.182926;
+			w = 0.2;
+			text = "Ammo:";
+		};
+		class CA_Artillery_Ammo_Combo : RscCombo {
+			idc = 17034;
+			x = 0.145945;
+			y = 0.186553;
+			w = 0.224033;
+			h = 0.029412;
+			onLBSelChanged = "MenuAction = 201";
 		};
 		class CA_Support_SubTitle : RscText_SubTitle {
 			idc = 17009;
@@ -2351,12 +2369,13 @@ class RscMenu_Tactical {
 			action = "MenuAction = 40";
 			tooltip = $STR_WF_TOOLTIP_ArtilleryToggle;
 		};
+		// Marty: Move the artillery status table down after adding the ammo selector.
 		class CA_ArtilleryList : RscListBoxA {
 			idc = 17024;
 			x = 0.00459768;
-			y = 0.270084;
+			y = 0.309084;
 			w = 0.365209;
-			h = 0.235;
+			h = 0.196;
 			columns[] = {0.02, 0.55};
 			drawSideArrows = 0;
 			idcRight = -1;
@@ -2370,10 +2389,11 @@ class RscMenu_Tactical {
 			
 			onLBSelChanged = "MenuAction = 60";
 		};	
+		// Marty: Keep the artillery overview title aligned with the shifted table.
 		class CA_ArtilleryTable_Label : RscText {
 			idc = 17025;
 			x = 0.00495766;
-			y = 0.226604;
+			y = 0.265604;
 			w = 0.339999;
 		};
 		/* Separators */
