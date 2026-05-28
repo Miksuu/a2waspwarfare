@@ -40,6 +40,7 @@ while {!WFBE_GameOver} do {
 	_perfDetected = 0;
 	_perfNetworkWrites = 0;
 	_perfCaptures = 0;
+	_perfAIWakeSignals = 0;
 	_perfActive = 0;
 
 	for "_i" from 0 to ((count towns) - 1) step 1 do
@@ -66,6 +67,44 @@ while {!WFBE_GameOver} do {
 					case WFBE_C_WEST_ID: {_east + _resistance};
 					case WFBE_C_EAST_ID: {_west + _resistance};
 					case WFBE_C_GUER_ID: {_east + _west};
+				};
+
+				// Marty: Town AI activation is driven by the capture scan; ignore aircraft so fly-bys never wake defenders.
+				_aiObjects = [];
+				{
+					_aiUnit = _x;
+					call {
+						if ((vehicle _aiUnit) isKindOf "Air") exitWith {};
+						[_aiObjects, _aiUnit] call WFBE_CO_FNC_ArrayPush;
+					};
+				} forEach _objects;
+
+				_aiWest = west countSide _aiObjects;
+				_aiEast = east countSide _aiObjects;
+				_aiResistance = resistance countSide _aiObjects;
+				_aiActiveEnemies = switch (_sideID) do {
+					case WFBE_C_WEST_ID: {_aiEast + _aiResistance};
+					case WFBE_C_EAST_ID: {_aiWest + _aiResistance};
+					case WFBE_C_GUER_ID: {_aiEast + _aiWest};
+					default {0};
+				};
+				_aiSideEnabled = call {
+					if (_sideID == WFBE_C_UNKNOWN_ID) exitWith {false};
+					if (_side == WFBE_DEFENDER) exitWith {_town_defender_enabled};
+					_town_occupation_enabled
+				};
+				_aiAttackSideIDs = [];
+				if (_sideID != WFBE_C_WEST_ID && _aiWest > 0) then {_aiAttackSideIDs set [count _aiAttackSideIDs, WFBE_C_WEST_ID]};
+				if (_sideID != WFBE_C_EAST_ID && _aiEast > 0) then {_aiAttackSideIDs set [count _aiAttackSideIDs, WFBE_C_EAST_ID]};
+				if (_sideID != WFBE_C_GUER_ID && _aiResistance > 0) then {_aiAttackSideIDs set [count _aiAttackSideIDs, WFBE_C_GUER_ID]};
+
+				if (_aiSideEnabled && _aiActiveEnemies > 0) then {
+					_location setVariable ["wfbe_ai_force_activation", true];
+					_location setVariable ["wfbe_ai_attack_sideIDs", _aiAttackSideIDs];
+					_perfAIWakeSignals = _perfAIWakeSignals + 1;
+				} else {
+					_location setVariable ["wfbe_ai_force_activation", false];
+					_location setVariable ["wfbe_ai_attack_sideIDs", []];
 				};
 
 				_supplyValue = _location getVariable "supplyValue";
@@ -233,6 +272,9 @@ while {!WFBE_GameOver} do {
 			if (missionNamespace getVariable Format ["WFBE_%1_PRESENT",_newSide]) then {[_newSide, "Captured", _location] Spawn SideMessage};
 
 			_location setVariable ["sideID",_newSID,true];
+			// Marty: The next capture scan will decide whether the new owner needs town AI; clear stale attack wake state now.
+			_location setVariable ["wfbe_ai_force_activation", false];
+			_location setVariable ["wfbe_ai_attack_sideIDs", []];
 			// Marty: Performance Audit counters for town capture network events.
 			_perfNetworkWrites = _perfNetworkWrites + 1;
 			_perfCaptures = _perfCaptures + 1;
@@ -262,7 +304,7 @@ while {!WFBE_GameOver} do {
 	// Marty: Performance Audit record for one full town capture/supply server cycle.
 	if !(isNil "PerformanceAudit_Record") then {
 		if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
-			["server_town", _perfActive, Format["towns:%1;nearEntities:%2;detected:%3;networkWrites:%4;captures:%5;cycleMs:%6", _perfTowns, _perfNearEntities, _perfDetected, _perfNetworkWrites, _perfCaptures, round ((diag_tickTime - _perfStart) * 1000)], "SERVER"] Call PerformanceAudit_Record;
+			["server_town", _perfActive, Format["towns:%1;nearEntities:%2;detected:%3;aiWakeSignals:%4;networkWrites:%5;captures:%6;cycleMs:%7", _perfTowns, _perfNearEntities, _perfDetected, _perfAIWakeSignals, _perfNetworkWrites, _perfCaptures, round ((diag_tickTime - _perfStart) * 1000)], "SERVER"] Call PerformanceAudit_Record;
 		};
 	};
 
