@@ -70,7 +70,8 @@ with missionNamespace do {
 //--- Day/night cycles.
 	// Marty: Defaults used when mission parameters do not provide the accelerated day/night settings.
 	if (isNil "WFBE_DAYNIGHT_ENABLED") then {WFBE_DAYNIGHT_ENABLED = 1}; //--- Enable the hybrid accelerated day/night cycle.
-	if (isNil "WFBE_DAY_DURATION") then {WFBE_DAY_DURATION = 90};     //--- Real-life duration of daytime in minutes
+	// Marty: Match the mission parameter's 180-minute daytime default.
+	if (isNil "WFBE_DAY_DURATION") then {WFBE_DAY_DURATION = 180};    //--- Real-life duration of daytime in minutes
 	if (isNil "WFBE_NIGHT_DURATION") then {WFBE_NIGHT_DURATION = 30}; //--- Real-life duration of nighttime in minutes
 	// Marty: Hybrid day/night sync tuning. Clients animate with small local skipTime steps; setDate is reserved for JIP and exceptional hard corrections.
 	if (isNil "WFBE_DAYNIGHT_CLIENT_TICK") then {WFBE_DAYNIGHT_CLIENT_TICK = 0.1}; //--- Seconds between each small client-side time step.
