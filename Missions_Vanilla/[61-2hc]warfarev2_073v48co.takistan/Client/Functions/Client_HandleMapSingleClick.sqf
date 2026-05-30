@@ -86,6 +86,8 @@ if (_ctrlPressed) exitWith {
 	};
 
 	_aiId = _target Call WFBE_CL_FNC_GetAIID;
+	// Marty: Manual disband already informs the player, so the command bar cleanup must stay radio-silent.
+	_target setVariable ["CommandBar_DeadUnits_SilentRemoval", true, false];
 	_target setDamage 1;
 	_message = Format ["Disbanded AI %1.", _aiId];
 	titleText [_message, "PLAIN DOWN"];

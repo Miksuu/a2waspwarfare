@@ -495,6 +495,8 @@ while {alive player && dialog} do {
 		_iddx = lnbCurSelRow 14041;
 		if (_iddx != -1) then {
 			_unit = _detailGroup select _iddx;
+			// Marty: Manual command-menu disband should not trigger the automatic dead-unit radio line.
+			_unit setVariable ["CommandBar_DeadUnits_SilentRemoval", true, false];
 			_unit setDamage 1;
 			_detailGroup = if (!_isAll) then {(units(clientTeams select (_curSel - 1))) Call GetLiveUnits} else {[]};
 			[_detailGroup,14041] Call UIFillListTeamOrders;

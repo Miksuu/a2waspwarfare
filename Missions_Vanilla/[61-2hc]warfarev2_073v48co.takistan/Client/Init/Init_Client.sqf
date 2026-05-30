@@ -513,6 +513,8 @@ missionNamespace setVariable ["COIN_UseHelper", _greenList];
 player Call WFBE_CL_FNC_AddWFMenuAction;
 player Call WFBE_CL_FNC_AddPlayerAIActions;
 [] Spawn Compile preprocessFileLineNumbers "Client\Functions\Client_WatchdogPlayerAI.sqf";
+// Marty: Refresh the native command bar when dead AI subordinates are not yet known by the local leader.
+[] Spawn Compile preprocessFileLineNumbers "Client\Functions\Client_WatchdogCommandBarDeadUnits.sqf";
 
 // Marty: Safety refresh for the WF menu.
 // If another script removes the action by mistake, it comes back without waiting for respawn.
