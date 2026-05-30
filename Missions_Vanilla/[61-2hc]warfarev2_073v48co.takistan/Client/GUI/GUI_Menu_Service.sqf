@@ -18,6 +18,126 @@ _lastVeh = objNull;
 _lastDmg = 0;
 _lastFue = 0;
 
+// Marty: Shared service helpers used by the selected-unit buttons and the new all-unit buttons.
+_martyServiceGetPrice = {
+	Private ["_action","_get","_price","_type","_veh"];
+	_veh = _this select 0;
+	_action = _this select 1;
+	_price = 0;
+
+	if (_action == "HEAL") exitWith {
+		if (_veh isKindOf "Man") exitWith {round((getDammage _veh) * (missionNamespace getVariable "WFBE_C_UNITS_SUPPORT_HEAL_PRICE"))};
+		{
+			if (alive _x) then {
+				_price = _price + round((getDammage _x) * (missionNamespace getVariable "WFBE_C_UNITS_SUPPORT_HEAL_PRICE"));
+			};
+		} forEach (crew _veh);
+		_price
+	};
+
+	if (_veh isKindOf "Man") exitWith {0};
+
+	_type = typeOf _veh;
+	_get = missionNamespace getVariable _type;
+
+	if (_action == "REPAIR") exitWith {
+		if (getDammage _veh <= 0) exitWith {0};
+		if (isNil "_get") exitWith {500};
+		round((getDammage _veh) * ((_get select QUERYUNITPRICE) / (missionNamespace getVariable "WFBE_C_UNITS_SUPPORT_REPAIR_PRICE")))
+	};
+
+	if (_action == "REARM") exitWith {
+		if (isNil "_get") exitWith {500};
+		round((_get select QUERYUNITPRICE) / (missionNamespace getVariable "WFBE_C_UNITS_SUPPORT_REARM_PRICE"))
+	};
+
+	0
+};
+
+// Marty: Vehicles cannot use vehicle services while moving too fast or airborne; infantry healing remains allowed.
+_martyServiceCanUse = {
+	Private ["_veh"];
+	_veh = _this select 0;
+
+	if (_veh isKindOf "Man") exitWith {true};
+	if (((getPos _veh) select 2) > 2) exitWith {false};
+	if (speed _veh > 20) exitWith {false};
+
+	true
+};
+
+// Marty: Build an all-or-nothing batch from the current service list.
+_martyServiceBuildBatch = {
+	Private ["_action","_batch","_canAdd","_effective","_i","_nearSupport","_price","_priceOne","_seen","_supports","_veh"];
+	_action = _this select 0;
+	_effective = _this select 1;
+	_nearSupport = _this select 2;
+	_batch = [];
+	_seen = [];
+	_price = 0;
+
+	for "_i" from 0 to ((count _effective) - 1) do {
+		_veh = vehicle (_effective select _i);
+		_canAdd = true;
+
+		if (_veh in _seen) then {_canAdd = false};
+		if !(alive _veh) then {_canAdd = false};
+		if !([_veh] Call _martyServiceCanUse) then {_canAdd = false};
+
+		if (_canAdd) then {
+			_seen = _seen + [_veh];
+			_priceOne = [_veh,_action] Call _martyServiceGetPrice;
+
+			if (_priceOne > 0) then {
+				_supports = _nearSupport select _i;
+				_batch = _batch + [[_veh,_supports]];
+				_price = _price + _priceOne;
+			};
+		};
+	};
+
+	[_batch,_price]
+};
+
+// Marty: Charge once, then queue the existing service scripts with a tiny delay to keep the client responsive.
+_martyServiceStartBatch = {
+	Private ["_action","_batch","_funds","_label","_price","_spType","_typeRepair"];
+	_action = _this select 0;
+	_batch = _this select 1;
+	_price = _this select 2;
+	_typeRepair = _this select 3;
+	_spType = _this select 4;
+	_label = _this select 5;
+
+	if ((count _batch) == 0) exitWith {hint Format ["No units eligible for %1 all.", _label]};
+
+	_funds = Call GetPlayerFunds;
+	if (_funds < _price) exitWith {hint Format ["Not enough funds for %1 all: $%2 needed.", _label, _price - _funds]};
+
+	-_price Call ChangePlayerFunds;
+	hint Format ["%1 all queued: %2 units for $%3.", _label, (count _batch), _price];
+
+	[_batch,_action,_typeRepair,_spType] Spawn {
+		Private ["_action","_batch","_i","_item","_spType","_supports","_typeRepair","_veh"];
+		_batch = _this select 0;
+		_action = _this select 1;
+		_typeRepair = _this select 2;
+		_spType = _this select 3;
+
+		for "_i" from 0 to ((count _batch) - 1) do {
+			_item = _batch select _i;
+			_veh = _item select 0;
+			_supports = _item select 1;
+
+			if (_action == "REARM") then {[_veh,_supports,_typeRepair,_spType] Spawn SupportRearm};
+			if (_action == "REPAIR") then {[_veh,_supports,_typeRepair,_spType] Spawn SupportRepair};
+			if (_action == "HEAL") then {[_veh,_supports,_typeRepair,_spType] Spawn SupportHeal};
+
+			sleep 0.35;
+		};
+	};
+};
+
 _buildings = (sideJoined) Call WFBE_CO_FNC_GetSideStructures;
 
 //--- Service Point.
@@ -120,60 +240,59 @@ while {true} do {
 	if (side group player != sideJoined) exitWith {closeDialog 0};
 	if (!dialog) exitWith {};
 	_curSel = lbCurSel(20002);
+	_funds = Call GetPlayerFunds;
 
+	// Marty: Refresh batch prices from the current list so all-unit buttons stay all-or-nothing.
+	_martyRearmBatchData = ["REARM",_effective,_nearSupport] Call _martyServiceBuildBatch;
+	_martyRepairBatchData = ["REPAIR",_effective,_nearSupport] Call _martyServiceBuildBatch;
+	_martyHealBatchData = ["HEAL",_effective,_nearSupport] Call _martyServiceBuildBatch;
+	_martyRearmBatch = _martyRearmBatchData select 0;
+	_martyRepairBatch = _martyRepairBatchData select 0;
+	_martyHealBatch = _martyHealBatchData select 0;
+	_martyRearmPrice = _martyRearmBatchData select 1;
+	_martyRepairPrice = _martyRepairBatchData select 1;
+	_martyHealPrice = _martyHealBatchData select 1;
+
+	ctrlSetText [20016,"$"+str(_martyRearmPrice)];
+	ctrlSetText [20018,"$"+str(_martyRepairPrice)];
+	ctrlSetText [20020,"$"+str(_martyHealPrice)];
+
+	_martyEnableRearm = false;
+	_martyEnableRepair = false;
+	_martyEnableHeal = false;
+	if ((count _martyRearmBatch) > 0) then {_martyEnableRearm = _funds >= _martyRearmPrice};
+	if ((count _martyRepairBatch) > 0) then {_martyEnableRepair = _funds >= _martyRepairPrice};
+	if ((count _martyHealBatch) > 0) then {_martyEnableHeal = _funds >= _martyHealPrice};
+
+	ctrlEnable [20015,_martyEnableRearm];
+	ctrlEnable [20017,_martyEnableRepair];
+	ctrlEnable [20019,_martyEnableHeal];
+
+	// Marty: Single-unit buttons use the same service price and eligibility helpers as the batch buttons.
 	if (_curSel != -1) then {
 		_veh = (vehicle (_effective select _curSel));
-		_funds = Call GetPlayerFunds;
 		
 		if (_veh isKindOf "Man") then {
 			{ctrlEnable [_x,false]} forEach [20003,20004,20005];
-			_enabled = if (_funds >= _healPrice) then {true} else {false};
-			ctrlEnable [20008,_enabled];
 			//--- Healing.
-			_healPrice = round((getDammage _veh)*(missionNamespace getVariable "WFBE_C_UNITS_SUPPORT_HEAL_PRICE"));
+			_healPrice = [_veh,"HEAL"] Call _martyServiceGetPrice;
+			_enabled = if (_healPrice > 0 && _funds >= _healPrice) then {true} else {false};
+			ctrlEnable [20008,_enabled];
 			ctrlSetText [20011,"$0"];
 			ctrlSetText [20012,"$0"];
 			ctrlSetText [20013,"$0"];
 			ctrlSetText [20014,"$"+str(_healPrice)];
 		} else {
 			//--- Prevent on the air re-supply.
-			_canBeUsed = if ((getPos _veh) select 2 <= 2 && speed _veh <= 20) then {true} else {false};
-			_enabled = if (_canBeUsed && _funds >= _rearmPrice) then {true} else {false};
-			ctrlEnable [20003,_enabled];
-			_enabled = if (_canBeUsed && _funds >= _repairPrice) then {true} else {false};
-			ctrlEnable [20004,_enabled];
-			_enabled = if (_canBeUsed && _funds >= _refuelPrice) then {true} else {false};
-			ctrlEnable [20005,_enabled];
-			_enabled = if (_canBeUsed && _funds >= _healPrice) then {true} else {false};
-			ctrlEnable [20008,_enabled];
+			_canBeUsed = [_veh] Call _martyServiceCanUse;
 			//--- Healing.
-			_healPrice = 0;
-			{
-				if (alive _x) then {_healPrice = _healPrice + round((getDammage _x)*(missionNamespace getVariable "WFBE_C_UNITS_SUPPORT_HEAL_PRICE"))};
-			} forEach (crew _veh);
+			_healPrice = [_veh,"HEAL"] Call _martyServiceGetPrice;
 			ctrlSetText [20014,"$"+str(_healPrice)];
 			//--- Repair.
-			if (_veh != _lastVeh || getDammage _veh != _lastDmg) then {
-				_type = typeOf _veh;
-				_lastDmg = getDammage _veh;
-				_get = missionNamespace getVariable _type;
-				if !(isNil '_get') then {
-					_repairPrice = round((getDammage _veh)*((_get select QUERYUNITPRICE)/(missionNamespace getVariable "WFBE_C_UNITS_SUPPORT_REPAIR_PRICE")));
-				} else {
-					_repairPrice = 500;
-				};
-			};
+			_repairPrice = [_veh,"REPAIR"] Call _martyServiceGetPrice;
 			ctrlSetText [20012,"$"+str(_repairPrice)];
 			//--- Rearm.
-			if (_veh != _lastVeh) then {
-				_type = typeOf _veh;
-				_get = missionNamespace getVariable _type;
-				if !(isNil '_get') then {
-					_rearmPrice = round((_get select QUERYUNITPRICE)/(missionNamespace getVariable "WFBE_C_UNITS_SUPPORT_REARM_PRICE"));
-				} else {
-					_rearmPrice = 500;
-				};
-			};
+			_rearmPrice = [_veh,"REARM"] Call _martyServiceGetPrice;
 			ctrlSetText [20011,"$"+str(_rearmPrice)];
 			//--- Refuel.
 			if (_veh != _lastVeh || fuel _veh != _lastFue) then {
@@ -188,6 +307,15 @@ while {true} do {
 				};
 			};
 			ctrlSetText [20013,"$"+str(_refuelPrice)];
+
+			_enabled = if (_canBeUsed && _rearmPrice > 0 && _funds >= _rearmPrice) then {true} else {false};
+			ctrlEnable [20003,_enabled];
+			_enabled = if (_canBeUsed && _repairPrice > 0 && _funds >= _repairPrice) then {true} else {false};
+			ctrlEnable [20004,_enabled];
+			_enabled = if (_canBeUsed && _refuelPrice > 0 && _funds >= _refuelPrice) then {true} else {false};
+			ctrlEnable [20005,_enabled];
+			_enabled = if (_canBeUsed && _healPrice > 0 && _funds >= _healPrice) then {true} else {false};
+			ctrlEnable [20008,_enabled];
 		};
 		
 		_lastVeh = _veh;
@@ -235,6 +363,22 @@ while {true} do {
 		};
 	} else {
 		{ctrlEnable[_x,false]} forEach [20003,20004,20005,20008];
+	};
+
+	// Marty: All-unit service actions are based on the same refreshed batch data used to enable the buttons.
+	if (MenuAction == 11) then {
+		MenuAction = -1;
+		["REARM",_martyRearmBatch,_martyRearmPrice,_typeRepair,_spType,"Rearm"] Call _martyServiceStartBatch;
+	};
+
+	if (MenuAction == 12) then {
+		MenuAction = -1;
+		["REPAIR",_martyRepairBatch,_martyRepairPrice,_typeRepair,_spType,"Repair"] Call _martyServiceStartBatch;
+	};
+
+	if (MenuAction == 15) then {
+		MenuAction = -1;
+		["HEAL",_martyHealBatch,_martyHealPrice,_typeRepair,_spType,"Heal"] Call _martyServiceStartBatch;
 	};
 	
 	//--- EASA. TBD: Add dialog;

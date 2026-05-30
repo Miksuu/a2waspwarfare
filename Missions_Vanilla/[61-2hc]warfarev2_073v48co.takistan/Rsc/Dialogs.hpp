@@ -2873,11 +2873,12 @@ class RscMenu_Service {
 	onLoad = "ExecVM ""Client\GUI\GUI_Menu_Service.sqf""";
 	
 	class controlsBackground {
+		// Marty: Extend the service menu to fit the EASA row under the batch buttons.
 		class Background_M : RscText {
 			x = 0.157263;
 			y = 0.151421;
 			w = 0.687155;
-			h = 0.699949;
+			h = 0.815949;
 			moving = 1;
 			colorBackground[] = WFBE_Background_Color;
 		};
@@ -2889,9 +2890,10 @@ class RscMenu_Service {
 			moving = 1;
 			colorBackground[] = WFBE_Background_Color_Header;
 		};
+		// Marty: Move the footer down with the enlarged service menu.
 		class Background_F : RscText {
 			x = 0.157263;
-			y = 0.798870;
+			y = 0.914870;
 			w = 0.687155;
 			h = 0.0525;
 			moving = 1;
@@ -2954,13 +2956,30 @@ class RscMenu_Service {
 			text = $STR_WF_SERVICE_Heal;
 			action = "MenuAction = 5";
 		};
-		class CA_EASA_Button : RscButton {
-			idc = 20010;
+		// Marty: Batch service buttons use one total price each and queue only eligible units from the list.
+		class CA_RearmAll_Button : RscButton {
+			idc = 20015;
 			x = 0.161261;
 			y = 0.747311;
-			w = 0.565918;
-			text = $STR_WF_SERVICE_EASA;
-			action = "MenuAction = 7";
+			w = 0.22;
+			text = "Rearm All";
+			action = "MenuAction = 11";
+		};
+		class CA_RepairAll_Button : RscButton {
+			idc = 20017;
+			x = 0.50748;
+			y = 0.747311;
+			w = 0.22;
+			text = "Repair All";
+			action = "MenuAction = 12";
+		};
+		class CA_HealAll_Button : RscButton {
+			idc = 20019;
+			x = 0.161261;
+			y = 0.794819;
+			w = 0.22;
+			text = "Heal All";
+			action = "MenuAction = 15";
 		};
 		class CA_LabelRearm: RscText {
 			idc = 20011;
@@ -2986,17 +3005,44 @@ class RscMenu_Service {
 			y = 0.699691;
 			w = 0.12;
 		};
+		// Marty: Total prices for the all-unit service buttons.
+		class CA_LabelRearmAll: CA_LabelRearm {
+			idc = 20016;
+			x = 0.388739;
+			y = 0.750672;
+			w = 0.12;
+		};
+		class CA_LabelRepairAll : CA_LabelRearmAll {
+			idc = 20018;
+			x = 0.734957;
+		};
+		class CA_LabelHealAll : CA_LabelRearmAll {
+			idc = 20020;
+			x = 0.388739;
+			y = 0.798180;
+		};
+		// Marty: Put EASA below the three batch service buttons as its own secondary action row.
+		class CA_EASA_Button : RscButton {
+			idc = 20010;
+			x = 0.162101;
+			y = 0.842327;
+			w = 0.677143;
+			text = $STR_WF_SERVICE_EASA;
+			action = "MenuAction = 7";
+		};
 		/* Back */
+		// Marty: Align footer buttons with the enlarged service window.
 		class Back_Button : RscButton_Back {
 			x = 0.737046;
-			y = 0.803685;
+			y = 0.919685;
 			action = "MenuAction = 8";
 			tooltip = $STR_WF_TOOLTIP_BackButton;
 		};
 		/* Exit */
+		// Marty: Align footer buttons with the enlarged service window.
 		class Exit_Button : RscButton_Exit {
 			x = 0.800311;
-			y = 0.803685;
+			y = 0.919685;
 			onButtonClick = "closeDialog 0;";
 			tooltip = $STR_WF_TOOLTIP_CloseButton;
 		};
