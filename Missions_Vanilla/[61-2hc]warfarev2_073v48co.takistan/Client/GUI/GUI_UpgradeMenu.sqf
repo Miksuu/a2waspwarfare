@@ -42,6 +42,73 @@ if !(_player_commander) then {ctrlEnable [504007, false]};
 
 WFBE_MenuAction = -1;
 
+// Marty: Keep the countdown display isolated from the main menu loop so the Upgrade button flow stays untouched.
+[_upgrade_labels, _upgrade_times] spawn {
+	Private ["_html","_labels","_lastRemaining","_remaining","_remainingMinutes","_remainingSeconds","_remainingSecondsText","_runningEndTime","_runningId","_runningLabel","_runningLevel","_runningState","_runningTime","_storedEndTime","_storedId","_times","_upgrades"];
+
+	disableSerialization;
+
+	_labels = _this select 0;
+	_times = _this select 1;
+	_runningEndTime = -1;
+	_lastRemaining = -2;
+
+	while {alive player && dialog} do {
+		_runningState = WFBE_Client_Logic getVariable "wfbe_upgrading";
+		if (isNil "_runningState") then {_runningState = false};
+
+		_runningId = WFBE_Client_Logic getVariable "wfbe_upgrading_id";
+		if (isNil "_runningId") then {_runningId = -1};
+
+		if !(_runningState) then {
+			_runningEndTime = -1;
+			_lastRemaining = -2;
+			WFBE_Client_Logic setVariable ["wfbe_upgrading_countdown_id", -1, false];
+			WFBE_Client_Logic setVariable ["wfbe_upgrading_countdown_end_time", -1, false];
+			// Marty: Re-read the display when needed instead of keeping a display variable alive across sleep.
+			if !(isNil {uiNamespace getVariable "wfbe_display_upgrades"}) then {((uiNamespace getVariable "wfbe_display_upgrades") displayCtrl 504006) ctrlSetStructuredText (parseText "")};
+			sleep 1;
+		};
+
+		if (_runningState) then {
+			_storedId = WFBE_Client_Logic getVariable "wfbe_upgrading_countdown_id";
+			if (isNil "_storedId") then {_storedId = -1};
+			_storedEndTime = WFBE_Client_Logic getVariable "wfbe_upgrading_countdown_end_time";
+			if (isNil "_storedEndTime") then {_storedEndTime = -1};
+			if (_storedId == _runningId && _storedEndTime > time) then {_runningEndTime = _storedEndTime};
+
+			if (_storedId != _runningId || _runningEndTime < time) then {
+				_runningTime = 0;
+				if (_runningId >= 0 && _runningId < count _times) then {
+					_upgrades = (WFBE_Client_SideJoined) call WFBE_CO_FNC_GetSideUpgrades;
+					_runningLevel = _upgrades select _runningId;
+					if (_runningLevel < count (_times select _runningId)) then {_runningTime = (_times select _runningId) select _runningLevel};
+				};
+				_runningEndTime = time + _runningTime;
+				WFBE_Client_Logic setVariable ["wfbe_upgrading_countdown_id", _runningId, false];
+				WFBE_Client_Logic setVariable ["wfbe_upgrading_countdown_end_time", _runningEndTime, false];
+			};
+
+			_remaining = ceil (_runningEndTime - time);
+			if (_remaining < 0) then {_remaining = 0};
+
+			if (_remaining != _lastRemaining) then {
+				_lastRemaining = _remaining;
+				_runningLabel = if (_runningId >= 0 && _runningId < count _labels) then {_labels select _runningId} else {"An upgrade"};
+				_remainingMinutes = floor (_remaining / 60);
+				_remainingSeconds = _remaining - (_remainingMinutes * 60);
+				_remainingSecondsText = if (_remainingSeconds < 10) then {Format["0%1", _remainingSeconds]} else {str _remainingSeconds};
+				_html = Format["<t><t color='#B6F563'>%1</t> is currently running - <t color='#F5D363'>%2:%3</t> remaining</t>", _runningLabel, _remainingMinutes, _remainingSecondsText];
+
+				// Marty: Re-read the display when needed instead of keeping a display variable alive across sleep.
+				if !(isNil {uiNamespace getVariable "wfbe_display_upgrades"}) then {((uiNamespace getVariable "wfbe_display_upgrades") displayCtrl 504006) ctrlSetStructuredText (parseText _html)};
+			};
+
+			sleep 1;
+		};
+	};
+};
+
 while {alive player && dialog} do {
 	if (WFBE_MenuAction == 1) then {WFBE_MenuAction = -1; if (_player_commander) then {_purchase = true}};
 	if (WFBE_MenuAction == 2) then {WFBE_MenuAction = -1;_update_upgrade = true};
@@ -162,10 +229,13 @@ while {alive player && dialog} do {
 							// Marty: Keep the active upgrade ID beside the existing running flag for immediate local menu feedback.
 							WFBE_Client_Logic setVariable ["wfbe_upgrading", true, true];
 							WFBE_Client_Logic setVariable ["wfbe_upgrading_id", _id, true];
+							// Marty: Store a local end time so closing and reopening the menu does not reset the displayed countdown.
+							_upgrade_time = (_upgrade_times select _id) select _upgrade_current;
+							WFBE_Client_Logic setVariable ["wfbe_upgrading_countdown_id", _id, false];
+							WFBE_Client_Logic setVariable ["wfbe_upgrading_countdown_end_time", time + _upgrade_time, false];
 							//todo spawn local upgrade thread & timer & hint
 							//--- Pure client, spawn an upgrade thread, which is local to the client in case the client tickrate is above the server tickrate.
 							if !(isServer) then {
-								_upgrade_time = (_upgrade_times select _id) select _upgrade_current;
 								[_id, _upgrade_current, _upgrade_time] spawn {
 									sleep (_this select 2);
 									["RequestSpecial", ["upgrade-sync", WFBE_Client_SideJoined, _this select 0, _this select 1]] Call WFBE_CO_FNC_SendToServer;
