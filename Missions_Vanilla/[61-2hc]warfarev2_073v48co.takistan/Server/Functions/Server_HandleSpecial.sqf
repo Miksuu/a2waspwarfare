@@ -114,6 +114,61 @@ switch (_args select 0) do {
 	case "process-killed-hq": {
 		(_args select 1) Spawn WFBE_SE_FNC_OnHQKilled;
 	};
+	// Marty: Authoritative cleanup for dead player AI that can remain in the command bar on dedicated servers.
+	case "commandbar-cleanup-dead-unit": {
+		_args Spawn {
+			Private ["_attempt","_requester","_requesterGroup","_unit","_warningLogged"];
+
+			_requester = _this select 1;
+			_unit = _this select 2;
+
+			if (isNull _requester) exitWith {};
+			if (isNull _unit) exitWith {};
+			if (!alive _requester) exitWith {};
+			if (alive _unit) exitWith {};
+			if (isPlayer _unit) exitWith {};
+			if (_unit in playableUnits) exitWith {};
+
+			_requesterGroup = group _requester;
+			if (isNull _requesterGroup) exitWith {};
+			if (leader _requesterGroup != _requester) exitWith {};
+			if ((group _unit) != _requesterGroup) exitWith {
+				[_requester, "HandleSpecial", ["commandbar-force-dead-cleanup", _unit]] Call WFBE_CO_FNC_SendToClient;
+			};
+
+			if (_unit getVariable ["CommandBar_DeadUnits_ServerCleanupRunning", false]) exitWith {};
+			_unit setVariable ["CommandBar_DeadUnits_ServerCleanupRunning", true, false];
+
+			for "_attempt" from 0 to 20 do {
+				if (isNull _unit) exitWith {};
+				if (alive _unit) exitWith {};
+				if ((group _unit) != _requesterGroup) exitWith {};
+
+				if (local _unit) then {
+					[_unit] joinSilent grpNull;
+				} else {
+					if !(WF_A2_Vanilla) then {_unit setOwner (owner _requester)};
+					if ((_attempt mod 4) == 0) then {
+						[_requester, "HandleSpecial", ["commandbar-force-dead-cleanup", _unit]] Call WFBE_CO_FNC_SendToClient;
+					};
+				};
+
+				sleep 0.25;
+			};
+
+			if (!isNull _unit) then {
+				if (!alive _unit && (group _unit) == _requesterGroup) then {
+					_warningLogged = _unit getVariable ["CommandBar_DeadUnits_ServerCleanupWarningLogged", false];
+					if !(_warningLogged) then {
+						_unit setVariable ["CommandBar_DeadUnits_ServerCleanupWarningLogged", true, false];
+						["WARNING", Format ["Server_HandleSpecial.sqf: Command bar dead-unit cleanup did not detach [%1] from [%2].", _unit, _requesterGroup]] Call WFBE_CO_FNC_LogContent;
+					};
+				};
+			};
+
+			if (!isNull _unit) then {_unit setVariable ["CommandBar_DeadUnits_ServerCleanupRunning", false, false]};
+		};
+	};
 	case "connected-hc": {
 		Private ["_hc","_id","_uid"];
 		_hc = _args select 1;

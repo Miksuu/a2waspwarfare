@@ -17,6 +17,8 @@ Private [
 	"_aiVoiceToken1",
 	"_aiVoiceToken2",
 	"_aiVoiceToken",
+	"_alreadyNotified",
+	"_cleanupRequestTime",
 	"_currentUnits",
 	"_deadUnits",
 	"_firstDigit",
@@ -115,11 +117,21 @@ while {!gameOver} do {
 
 			_unitGroup = group _unit;
 			if (_unitGroup == _group) then {
-				_silentRemoval = _unit getVariable ["CommandBar_DeadUnits_SilentRemoval", false];
+				_cleanupRequestTime = _unit getVariable ["CommandBar_DeadUnits_ServerCleanupRequestTime", -1000];
+				if ((time - _cleanupRequestTime) > 10) then {
+					// Marty: Ask the server periodically to make group removal authoritative when locality blocks local cleanup.
+					_unit setVariable ["CommandBar_DeadUnits_ServerCleanupRequestTime", time, false];
+					["RequestSpecial", ["commandbar-cleanup-dead-unit", _player, _unit]] Call WFBE_CO_FNC_SendToServer;
+				};
 
-				// Marty: Announce combat deaths, but keep manual disband cleanup silent.
+				_silentRemoval = _unit getVariable ["CommandBar_DeadUnits_SilentRemoval", false];
+				_alreadyNotified = _unit getVariable ["CommandBar_DeadUnits_Notified", false];
+				_unit setVariable ["CommandBar_DeadUnits_Notified", true, false];
+
+				// Marty: Announce combat deaths once, but keep manual disband and repeated cleanup silent.
 				Call {
 					if (_silentRemoval) exitWith {};
+					if (_alreadyNotified) exitWith {};
 					_aiId = _unit Call WFBE_CL_FNC_GetAIID;
 					_aiIdNumber = parseNumber _aiId;
 					_aiVoiceToken = switch (_aiIdNumber) do {
