@@ -14,7 +14,7 @@ _maxSpeed = 2;
 
 // Marty: Keep the per-vehicle checks linear so future tuning stays readable.
 _processVehicle = {
-	private ["_vehicle","_now","_upZ","_velocity","_speed","_lastFlip","_since","_pos","_isWrongType","_isTilted","_isSlow","_isGrounded","_isDry","_isReady"];
+	private ["_vehicle","_now","_upZ","_velocity","_speed","_lastFlip","_since","_pos","_isWrongType","_isTilted","_isSlow","_isGrounded","_isDry","_isReady","_vehicleName","_message"];
 
 	_vehicle = _this select 0;
 	_now = _this select 1;
@@ -60,6 +60,12 @@ _processVehicle = {
 	_vehicle setVelocity [0,0,-0.5];
 	_vehicle setVariable ["WFBE_AutoFlip_LastFlip", _now, true];
 	_vehicle setVariable ["WFBE_AutoFlip_StuckSince", -1, false];
+
+	// Marty: Notify only this client when its local AutoFlip watcher actually rights a vehicle.
+	_vehicleName = [typeOf _vehicle, "displayName"] Call GetConfigInfo;
+	_message = localize "STR_WF_INFO_AutoFlip_Righted";
+	if (_message == "") then {_message = "Auto-flip: %1 was righted."};
+	systemChat Format [_message, _vehicleName];
 
 	if (WF_Debug) then {
 		["AUTOFLIP", Format ["AutoFlip: righted %1 at %2 after %3 seconds.", typeOf _vehicle, _pos, round (_now - _since)]] Call WFBE_CO_FNC_LogContent;

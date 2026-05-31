@@ -9488,6 +9488,15 @@
       <Italian>Movimento IA ripristinato: %1.</Italian>
     </Key>
 
+    <!-- Marty: Client notification when AutoFlip rights a flipped vehicle. -->
+    <Key ID="STR_WF_INFO_AutoFlip_Righted">
+      <English>Auto-flip: %1 was righted.</English>
+      <French>Auto-flip : %1 a ete retourne automatiquement.</French>
+      <German>Auto-Flip: %1 wurde automatisch wieder aufgerichtet.</German>
+      <Russian>Auto-flip: %1 was righted.</Russian>
+      <Italian>Auto-flip: %1 e stato raddrizzato automaticamente.</Italian>
+    </Key>
+
     </Container>
   </Package>
 </Project>
