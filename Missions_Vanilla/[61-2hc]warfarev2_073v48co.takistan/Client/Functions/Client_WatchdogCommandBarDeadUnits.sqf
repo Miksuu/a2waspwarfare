@@ -18,11 +18,13 @@ Private [
 	"_aiVoiceToken2",
 	"_aiVoiceToken",
 	"_alreadyNotified",
+	"_announcedDeadUnits",
 	"_cleanupRequestTime",
 	"_currentUnits",
 	"_deadUnits",
 	"_firstDigit",
 	"_group",
+	"_knownAliveUnits",
 	"_knownUnits",
 	"_lastVehicle",
 	"_player",
@@ -31,13 +33,16 @@ Private [
 	"_silentRemoval",
 	"_unit",
 	"_unitGroup",
-	"_vehicle"
+	"_vehicle",
+	"_wasSeenAlive"
 ];
 
 if (missionNamespace getVariable ["CommandBar_DeadUnits_Watchdog_Running", false]) exitWith {};
 missionNamespace setVariable ["CommandBar_DeadUnits_Watchdog_Running", true];
 
 _checkInterval = 1;
+_announcedDeadUnits = [];
+_knownAliveUnits = [];
 _knownUnits = [];
 
 sleep 5;
@@ -58,6 +63,8 @@ while {!gameOver} do {
 
 		// Marty: Remember current AI subordinates so a dead unit can still be handled after a manual disband.
 		_currentUnits = units _group;
+		_announcedDeadUnits = _announcedDeadUnits - [objNull];
+		_knownAliveUnits = _knownAliveUnits - [objNull];
 		_knownUnits = _knownUnits - [objNull];
 		_deadUnits = [];
 
@@ -66,6 +73,9 @@ while {!gameOver} do {
 
 			if (!isPlayer _unit && _unit != _player) then {
 				if !(_unit in _knownUnits) then {_knownUnits = _knownUnits + [_unit]};
+				if (alive _unit) then {
+					if !(_unit in _knownAliveUnits) then {_knownAliveUnits = _knownAliveUnits + [_unit]};
+				};
 
 				_vehicle = assignedVehicle _unit;
 				if (isNull _vehicle) then {_vehicle = vehicle _unit};
@@ -125,13 +135,15 @@ while {!gameOver} do {
 				};
 
 				_silentRemoval = _unit getVariable ["CommandBar_DeadUnits_SilentRemoval", false];
-				_alreadyNotified = _unit getVariable ["CommandBar_DeadUnits_Notified", false];
-				_unit setVariable ["CommandBar_DeadUnits_Notified", true, false];
+				_alreadyNotified = _unit in _announcedDeadUnits;
+				_wasSeenAlive = _unit in _knownAliveUnits;
+				if !(_alreadyNotified) then {_announcedDeadUnits set [count _announcedDeadUnits, _unit]};
 
 				// Marty: Announce combat deaths once, but keep manual disband and repeated cleanup silent.
 				Call {
 					if (_silentRemoval) exitWith {};
 					if (_alreadyNotified) exitWith {};
+					if !(_wasSeenAlive) exitWith {};
 					_aiId = _unit Call WFBE_CL_FNC_GetAIID;
 					_aiIdNumber = parseNumber _aiId;
 					_aiVoiceToken = switch (_aiIdNumber) do {
