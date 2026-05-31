@@ -22,7 +22,17 @@ if !(isNil '_profile_var') then {
 		missionNamespace setVariable ["AUTO_DISTANCE_VIEW_TARGET_FPS", _profile_var];
 	};
 };
-	
+
+//--- High climbing default.
+WFBE_HighClimbingDefaultEnabled = false;
+_profile_var = profileNamespace getVariable "WFBE_HIGH_CLIMBING_DEFAULT_ENABLED";
+if !(isNil '_profile_var') then {
+	if (typeName _profile_var == "BOOL") then {
+		WFBE_HighClimbingDefaultEnabled = _profile_var;
+	};
+};
+missionNamespace setVariable ["WFBE_HighClimbingDefaultEnabled", WFBE_HighClimbingDefaultEnabled];
+		
 //--- Terrain Grid.
 _profile_var = profileNamespace getVariable "WFBE_PERSISTENT_CONST_TERRAIN_GRID";
 if !(isNil '_profile_var') then {

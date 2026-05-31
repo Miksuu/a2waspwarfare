@@ -27,6 +27,9 @@ Private [
 
 _vehicle = _this;
 
+if (Local_HighClimbingRunning) exitWith {};
+Local_HighClimbingRunning = true;
+
 _direction = {
 	private["_vel","_veh","_vdir","_dir"];
 	
@@ -65,6 +68,7 @@ if (_vehicle isKindOf "Tank") then {
 while {
 	(player == driver _vehicle) &&
 	{Local_HighClimbingModeOn} &&
+	{_vehicle getVariable ["WFBE_HighClimbingEnabled", false]} &&
 	{canMove _vehicle}
 } do {
 
@@ -98,3 +102,4 @@ while {
 };
 
 Local_HighClimbingModeOn = false;
+Local_HighClimbingRunning = false;

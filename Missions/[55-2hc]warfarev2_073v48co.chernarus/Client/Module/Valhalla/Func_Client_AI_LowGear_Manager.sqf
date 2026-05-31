@@ -9,7 +9,7 @@
 */
 
 // Marty: Performance Audit locals.
-Private ["_unit","_vehicle", "_driver", "_perfStart", "_perfUnits", "_perfStarted"];
+Private ["_unit","_vehicle", "_driver", "_enabled", "_perfStart", "_perfUnits", "_perfStarted"];
 
 while {!gameOver} do {
 
@@ -17,6 +17,32 @@ while {!gameOver} do {
 	_perfStart = diag_tickTime;
 	_perfUnits = count (units group player);
 	_perfStarted = 0;
+
+	_vehicle = vehicle player;
+	if (
+		_vehicle != player &&
+		{canMove _vehicle}
+	) then {
+			_enabled = _vehicle getVariable ["WFBE_HighClimbingEnabled", objNull];
+
+			if (typeName _enabled != "BOOL") then {
+				_enabled = false;
+				if (_vehicle isKindOf "Tank" || {_vehicle isKindOf "Car"}) then {
+					_enabled = missionNamespace getVariable ["WFBE_HighClimbingDefaultEnabled", false];
+				};
+
+			_vehicle setVariable ["WFBE_HighClimbingEnabled", _enabled, true];
+		};
+
+		if (player == driver _vehicle && {_enabled} && {!Local_HighClimbingModeOn} && {!Local_HighClimbingRunning}) then {
+			Local_HighClimbingModeOn = true;
+			_vehicle spawn VALHALLA_FNC_LowGear;
+		};
+
+		if (!_enabled && {Local_HighClimbingModeOn}) then {
+			Local_HighClimbingModeOn = false;
+		};
+	};
 
 	{
 		_vehicle = vehicle _x;

@@ -70,14 +70,14 @@ if (_unit_kind in (missionNamespace getVariable "WFBE_REPAIRTRUCKS")) then { //-
 
 if (_unit isKindOf "Tank") then { //--- Tanks.
 	//--- Valhalla Low gear.
-	_unit addAction ["<t color='#FFBD4C'>"+(localize "STR_ACT_LowGearOn")+"</t>","Client\Module\Valhalla\LowGear_Toggle.sqf", [], 91, false, true, "", "(player==driver _target) && !Local_HighClimbingModeOn && canMove _target"];
-	_unit addAction ["<t color='#FFBD4C'>"+(localize "STR_ACT_LowGearOff")+"</t>","Client\Module\Valhalla\LowGear_Toggle.sqf", [], 91, false, true, "", "(player==driver _target) && Local_HighClimbingModeOn && canMove _target"];
+	_unit addAction ["<t color='#FFBD4C'>"+(localize "STR_ACT_LowGearOn")+"</t>","Client\Module\Valhalla\LowGear_Toggle.sqf", [], 91, false, true, "", "(vehicle player == _target) && !(_target getVariable ['WFBE_HighClimbingEnabled', missionNamespace getVariable ['WFBE_HighClimbingDefaultEnabled', false]]) && canMove _target"];
+	_unit addAction ["<t color='#FFBD4C'>"+(localize "STR_ACT_LowGearOff")+"</t>","Client\Module\Valhalla\LowGear_Toggle.sqf", [], 91, false, true, "", "(vehicle player == _target) && (_target getVariable ['WFBE_HighClimbingEnabled', missionNamespace getVariable ['WFBE_HighClimbingDefaultEnabled', false]]) && canMove _target"];
 };
 
 if (_unit isKindOf "Car") then { //--- Lights vehicles.
 	//--- Valhalla Low gear.
-	_unit addAction ["<t color='#FFBD4C'>"+(localize "STR_ACT_LowGearOn")+"</t>","Client\Module\Valhalla\LowGear_Toggle.sqf", [], 91, false, true, "", "(player==driver _target) && !Local_HighClimbingModeOn && canMove _target"];
-	_unit addAction ["<t color='#FFBD4C'>"+(localize "STR_ACT_LowGearOff")+"</t>","Client\Module\Valhalla\LowGear_Toggle.sqf", [], 91, false, true, "", "(player==driver _target) && Local_HighClimbingModeOn && canMove _target"];
+	_unit addAction ["<t color='#FFBD4C'>"+(localize "STR_ACT_LowGearOn")+"</t>","Client\Module\Valhalla\LowGear_Toggle.sqf", [], 91, false, true, "", "(player==driver _target) && !(_target getVariable ['WFBE_HighClimbingEnabled', missionNamespace getVariable ['WFBE_HighClimbingDefaultEnabled', false]]) && canMove _target"];
+	_unit addAction ["<t color='#FFBD4C'>"+(localize "STR_ACT_LowGearOff")+"</t>","Client\Module\Valhalla\LowGear_Toggle.sqf", [], 91, false, true, "", "(player==driver _target) && (_target getVariable ['WFBE_HighClimbingEnabled', missionNamespace getVariable ['WFBE_HighClimbingDefaultEnabled', false]]) && canMove _target"];
 };
 
 if (_unit isKindOf "Ship") then { //--- Boats.
