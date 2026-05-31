@@ -109,7 +109,7 @@ WFBE_CL_FNC_Reveal_UAV = {
 };
 
 WFBE_CL_FNC_Upgrade_Started = {
-	Private ["_upgrade","_level", "_upgradeCost"];
+	Private ["_storedEndTime","_storedId","_upgrade","_level", "_upgradeCost","_upgradeTime"];
 	_upgrade = _this select 0;
 	_level = _this select 1;
 
@@ -118,8 +118,17 @@ WFBE_CL_FNC_Upgrade_Started = {
 		["RequestChangeScore", [player, (score player + (round ((_upgradeCost / 100) * WFBE_UPGRADE_SCORE_COEF)))]] Call WFBE_CO_FNC_SendToServer;
 	};
 
-	// Marty: Cache the started upgrade ID locally so the upgrade menu can name the running upgrade immediately.
+	// Marty: Cache the started upgrade ID and local countdown end time so reopening the menu keeps the remaining time stable.
+	_upgradeTime = ((missionNamespace getVariable Format["WFBE_C_UPGRADES_%1_TIMES", WFBE_Client_SideJoinedText]) select _upgrade) select (_level - 1);
 	WFBE_Client_Logic setVariable ["wfbe_upgrading_id", _upgrade];
+	_storedId = WFBE_Client_Logic getVariable "wfbe_upgrading_countdown_id";
+	if (isNil "_storedId") then {_storedId = -1};
+	_storedEndTime = WFBE_Client_Logic getVariable "wfbe_upgrading_countdown_end_time";
+	if (isNil "_storedEndTime") then {_storedEndTime = -1};
+	if (_storedId != _upgrade || _storedEndTime < time) then {
+		WFBE_Client_Logic setVariable ["wfbe_upgrading_countdown_id", _upgrade, false];
+		WFBE_Client_Logic setVariable ["wfbe_upgrading_countdown_end_time", time + _upgradeTime, false];
+	};
 	(Format [Localize "STR_WF_CHAT_Upgrade_Started_Message",(missionNamespace getVariable "WFBE_C_UPGRADES_LABELS") select _upgrade, _level]) Call CommandChatMessage;
 };
 
@@ -176,8 +185,10 @@ WFBE_CL_FNC_Upgrade_Complete = {
 	_level = _this select 1;
 
 	(Format [Localize "STR_WF_CHAT_Upgrade_Complete_Message",(missionNamespace getVariable "WFBE_C_UPGRADES_LABELS") select _upgrade, _level]) Call CommandChatMessage;
-	// Marty: Clear the local cached upgrade ID when completion is announced.
+	// Marty: Clear the local cached upgrade ID and countdown when completion is announced.
 	WFBE_Client_Logic setVariable ["wfbe_upgrading_id", -1];
+	WFBE_Client_Logic setVariable ["wfbe_upgrading_countdown_id", -1, false];
+	WFBE_Client_Logic setVariable ["wfbe_upgrading_countdown_end_time", -1, false];
 
 	// Marty: Refresh local artillery vehicles after Artillery Ammunition unlocks new special rounds.
 	// Existing empty artillery is equipped only when it is bought, built or rearmed, so scanning group units is not enough.

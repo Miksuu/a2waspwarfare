@@ -16,7 +16,7 @@ _upgrade_isplayer = _this select 3;
 
 _upgrade_time = ((missionNamespace getVariable Format["WFBE_C_UPGRADES_%1_TIMES",str _side]) select _upgrade_id) select _upgrade_level;
 _logic = (_side) Call WFBE_CO_FNC_GetSideLogic;
-// Marty: Publish the active upgrade ID from the server for clients that open the upgrade menu mid-process.
+// Marty: Publish only the active upgrade ID from the server; the menu computes its own display countdown without touching the upgrade flow.
 _logic setVariable ["wfbe_upgrading", true, true];
 _logic setVariable ["wfbe_upgrading_id", _upgrade_id, true];
 

@@ -131,10 +131,11 @@ class WFBE_UpgradeMenu {
 		};
 		class CA_Details : CA_UpgradeDetails {
 			idc = 504006;
+			// Marty: Align the running-upgrade status with the Upgrade button while keeping enough height for the countdown.
 			x = 0.01;
-			y = 0.765;
-			w = 0.4;
-			h = 0.035;
+			y = 0.748;
+			w = 0.56;
+			h = 0.047;
 			size = 0.0250;
 			shadow = 2;
 		};
