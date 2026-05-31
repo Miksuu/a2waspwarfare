@@ -9296,12 +9296,13 @@
         <Italian>Attenzione! Abbiamo lanciato uno sciopero nucleare. Esci dall'area contrassegnata sulla mappa al più presto. Conto alla rovescia %1 minuti.</Italian>
     </Key>
 
+    <!-- Marty: Include the selected artillery ammunition in the team warning. -->
     <Key ID="STR_WF_INFO_Arty_called_message">
-        <English>%1 has initiated an artillery strike. The impact location has been marked on the map.</English>
-        <French>%1 a déclenché une frappe d'artillerie. L'emplacement de l'impact a été marqué sur la carte.</French>
-        <German>%1 hat einen Feuerbefehl für die Artillerie erteilt. Die Einschlagstelle wurde auf der Karte markiert.</German>
-        <Russian>%1 начал артиллерийский удар. Место попадания отмечено на карте.</Russian>
-        <Italian>%1 ha lanciato un attacco di artiglieria. La posizione dell'impatto è stata segnata sulla mappa.</Italian>
+        <English>%1 has initiated an artillery strike with %2. The impact location has been marked on the map.</English>
+        <French>%1 a déclenché une frappe d'artillerie avec %2. L'emplacement de l'impact a été marqué sur la carte.</French>
+        <German>%1 hat einen Feuerbefehl für die Artillerie mit %2 erteilt. Die Einschlagstelle wurde auf der Karte markiert.</German>
+        <Russian>%1 начал артиллерийский удар боеприпасом %2. Место попадания отмечено на карте.</Russian>
+        <Italian>%1 ha lanciato un attacco di artiglieria con %2. La posizione dell'impatto è stata segnata sulla mappa.</Italian>
     </Key>
 
     <Key ID="STR_WF_INFO_Arty_cool_down_over">
