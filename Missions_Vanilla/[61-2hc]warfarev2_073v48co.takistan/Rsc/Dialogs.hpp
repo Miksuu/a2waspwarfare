@@ -1400,16 +1400,25 @@ class RscMenu_Team {
 			h = 0.035;
 			onLBSelChanged = "MenuAction = 6";
 		};
-		/* Vote PopUp */
-		class VPOPON_Button : RscButton {
-			idc = 13019;
-			x = 0.203;
-			y = 0.755;
-			w = 0.279;
-			text = "";
-			action = "MenuAction = 13";
-		};
-		/* Seperator */
+			/* High climbing preference */
+			class CA_HighClimbing_Default_Button : RscButton {
+				idc = 13020;
+				x = 0.203;
+				y = 0.733;
+				w = 0.279;
+				text = "";
+				action = "MenuAction = 14";
+			};
+			/* Vote PopUp */
+			class VPOPON_Button : RscButton {
+				idc = 13019;
+				x = 0.203;
+				y = 0.772;
+				w = 0.279;
+				text = "";
+				action = "MenuAction = 13";
+			};
+			/* Seperator */
 		class Line_TRH1 : RscText {
 			x = 0.192941;
 			y = 0.455916;

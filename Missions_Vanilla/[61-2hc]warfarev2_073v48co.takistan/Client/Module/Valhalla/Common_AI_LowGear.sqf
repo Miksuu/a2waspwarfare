@@ -32,7 +32,9 @@ Private [
 	"_driver",
 	"_isMovingForward",
 	"_currentCommand",
-	"_canAssist"
+	"_canAssist",
+	"_highClimbingEnabled",
+	"_sleepDelay"
 ];
 
 _vehicle = _this;
@@ -84,6 +86,7 @@ while {
 	{local _vehicle}
 } do {
 
+	_sleepDelay = 0.5;
 	_driver = driver _vehicle;
 
 	if (!isNull _driver) then {
@@ -91,14 +94,20 @@ while {
 		// Only AI drivers.
 		if (!isPlayer _driver && {isEngineOn _vehicle}) then {
 
+			_sleepDelay = 0.1;
 			_speed = speed _vehicle;
 			_vel = velocity _vehicle;
 			_currentCommand = currentCommand _driver;
+			_highClimbingEnabled = _vehicle getVariable ["WFBE_HighClimbingEnabled", false];
 
-			// Do not let the climbing assist fight explicit player orders.
+			// Do not let the climbing assist fight explicit stop orders.
 			// If the AI driver has been stopped, or is currently processing STOP/WAIT,
 			// the tank may still roll downhill, but the script must not boost that roll.
-			_canAssist = !(stopped _driver) && {!(_currentCommand in ["WAIT", "STOP"])};
+			_canAssist = _highClimbingEnabled && {!(stopped _driver)} && {!(_currentCommand in ["WAIT", "STOP"])};
+
+			if (!_highClimbingEnabled) then {
+				_sleepDelay = 0.5;
+			};
 
 			_isMovingForward = [_vel, _vehicle] call _direction;
 
@@ -123,7 +132,7 @@ while {
 		};
 	};
 
-	sleep 0.1;
+	sleep _sleepDelay;
 };
 
 _vehicle setVariable ["AI_LowGear_Running", false, false];
