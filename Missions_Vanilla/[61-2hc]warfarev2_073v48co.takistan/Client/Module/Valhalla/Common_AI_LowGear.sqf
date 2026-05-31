@@ -31,6 +31,7 @@ Private [
 	"_vel",
 	"_driver",
 	"_isMovingForward",
+	"_hasPlayerCrew",
 	"_currentCommand",
 	"_canAssist",
 	"_highClimbingEnabled",
@@ -94,11 +95,16 @@ while {
 		// Only AI drivers.
 		if (!isPlayer _driver && {isEngineOn _vehicle}) then {
 
-			_sleepDelay = 0.1;
-			_speed = speed _vehicle;
-			_vel = velocity _vehicle;
-			_currentCommand = currentCommand _driver;
-			_highClimbingEnabled = _vehicle getVariable ["WFBE_HighClimbingEnabled", false];
+				_sleepDelay = 0.1;
+				_speed = speed _vehicle;
+				_vel = velocity _vehicle;
+				_currentCommand = currentCommand _driver;
+				_hasPlayerCrew = {isPlayer _x} count crew _vehicle > 0;
+				_highClimbingEnabled = if (_hasPlayerCrew) then {
+					_vehicle getVariable ["WFBE_HighClimbingEnabled", false]
+				} else {
+					true
+				};
 
 			// Do not let the climbing assist fight explicit stop orders.
 			// If the AI driver has been stopped, or is currently processing STOP/WAIT,
