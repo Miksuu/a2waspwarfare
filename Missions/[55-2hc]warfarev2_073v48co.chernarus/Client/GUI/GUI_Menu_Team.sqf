@@ -11,6 +11,11 @@ if (votePopUp) then {
 } else {
 	ctrlSetText[13019, localize "STR_WF_VOTING_PopUpOnButton"];
 };
+if (missionNamespace getVariable ["WFBE_HighClimbingDefaultEnabled", false]) then {
+	ctrlSetText[13020, localize "STR_WF_TEAM_HighClimbingDefaultOn"];
+} else {
+	ctrlSetText[13020, localize "STR_WF_TEAM_HighClimbingDefaultOff"];
+};
 
 ctrlSetText [13002, Format [localize "STR_WF_TEAM_ViewDistanceLabel",_currentVD]];
 ctrlSetText [13004, Format [localize "STR_WF_TEAM_TerrainGridLabel",currentTG]];
@@ -164,6 +169,27 @@ while {alive player && dialog} do {
 		} else {
 			votePopUp = true;
 			ctrlSetText[13019, localize "STR_WF_VOTING_PopUpOffButton"];
+		};
+	};
+
+	//--- High climbing default preference.
+	if (MenuAction == 14) then {
+		MenuAction = -1;
+		WFBE_HighClimbingDefaultEnabled = !(missionNamespace getVariable ["WFBE_HighClimbingDefaultEnabled", false]);
+		missionNamespace setVariable ["WFBE_HighClimbingDefaultEnabled", WFBE_HighClimbingDefaultEnabled];
+
+		if (WFBE_HighClimbingDefaultEnabled) then {
+			ctrlSetText[13020, localize "STR_WF_TEAM_HighClimbingDefaultOn"];
+		} else {
+			ctrlSetText[13020, localize "STR_WF_TEAM_HighClimbingDefaultOff"];
+		};
+
+		if !(isNil 'WFBE_CO_FNC_SetProfileVariable') then {
+			['WFBE_HIGH_CLIMBING_DEFAULT_ENABLED', WFBE_HighClimbingDefaultEnabled] Call WFBE_CO_FNC_SetProfileVariable;
+			_need_save = true;
+		} else {
+			profileNamespace setVariable ['WFBE_HIGH_CLIMBING_DEFAULT_ENABLED', WFBE_HighClimbingDefaultEnabled];
+			saveProfileNamespace;
 		};
 	};
 	
