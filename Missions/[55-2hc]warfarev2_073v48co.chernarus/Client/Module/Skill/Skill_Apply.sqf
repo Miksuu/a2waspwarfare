@@ -62,14 +62,14 @@ switch (WFBE_SK_V_Type) do {
 	case 'SpecOps': {
 		// Supply truck mission
 		_unit addAction [
-			"<t color='#00e83e'>" + 'LOAD SUPPLIES TO TRUCK' + "</t>",
+			"<t color='#00e83e'>" + 'LOAD SUPPLIES' + "</t>",
 			'Client\Module\supplyMission\supplyMissionStart.sqf',
 			[], 
 			80, 
 			false, 
 			true, 
 			"", 
-			"(player distance (call GetClosestFriendlyLocation) < 70) && (typeOf cursorTarget in ['WarfareSupplyTruck_RU', 'WarfareSupplyTruck_USMC', 'WarfareSupplyTruck_INS', 'WarfareSupplyTruck_Gue', 'WarfareSupplyTruck_CDF', 'UralSupply_TK_EP1', 'MtvrSupply_DES_EP1'])"
+			"(player distance (call GetClosestFriendlyLocation) < 70) && (typeOf cursorTarget in WFBE_C_SUPPLY_VEHICLE_TYPES)"
 		];
 
 		_unit addAction [

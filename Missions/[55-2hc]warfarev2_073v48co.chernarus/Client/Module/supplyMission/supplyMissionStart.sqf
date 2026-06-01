@@ -15,7 +15,7 @@ if (_supplyMissionAlreadyActiveInTown) exitWith {
 
 _cursorTarget = cursorTarget;
 
-if (typeOf _cursorTarget in ['WarfareSupplyTruck_RU', 'WarfareSupplyTruck_USMC', 'WarfareSupplyTruck_INS', 'WarfareSupplyTruck_Gue', 'WarfareSupplyTruck_CDF', 'UralSupply_TK_EP1', 'MtvrSupply_DES_EP1'] && (_cursorTarget distance player < 50)) then {
+if (typeOf _cursorTarget in WFBE_C_SUPPLY_VEHICLE_TYPES && (_cursorTarget distance player < 50)) then {
     WFBE_CL_VAR_ASSOCIATED_SUPPLY_TRUCK = _cursorTarget;
     WFBE_CL_VAR_ASSOCIATED_SUPPLY_TRUCK setVariable ["SupplyFromTown", _sourceTown, true];
 
@@ -33,13 +33,13 @@ if (typeOf _cursorTarget in ['WarfareSupplyTruck_RU', 'WarfareSupplyTruck_USMC',
     
     WFBE_CL_VAR_ASSOCIATED_SUPPLY_TRUCK setVariable ["SupplyAmount", _supplyAmount, true];
 
-    format ["You loaded S %1 to your truck from %2. Note that supplies from one town only fit in your truck at a time!", _supplyAmount, str (_sourceTown)] call GroupChatMessage;
+    format ["You loaded S %1 to your vehicle from %2. Note that supplies from one town only fit in your vehicle at a time!", _supplyAmount, str (_sourceTown)] call GroupChatMessage;
 
     WFBE_Client_PV_SupplyMissionStarted = [player, WFBE_CL_VAR_ASSOCIATED_SUPPLY_TRUCK, _sourceTown, sideJoined];
     publicVariableServer "WFBE_Client_PV_SupplyMissionStarted";
     
 } else {
-    if (typeOf _cursorTarget in ['WarfareSupplyTruck_RU', 'WarfareSupplyTruck_USMC', 'WarfareSupplyTruck_INS', 'WarfareSupplyTruck_Gue', 'WarfareSupplyTruck_CDF', 'UralSupply_TK_EP1', 'MtvrSupply_DES_EP1'] && (_cursorTarget distance player >= 50)) then {
+    if (typeOf _cursorTarget in WFBE_C_SUPPLY_VEHICLE_TYPES && (_cursorTarget distance player >= 50)) then {
         format ["Your supply truck is too far away to collect the supply from this town!"] call GroupChatMessage;
     };
 };
