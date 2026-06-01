@@ -9,7 +9,7 @@
 */
 
 // Marty: Optional global init flag lets town AI skip client marker/action setup.
-Private ["_global", "_groups", "_lock", "_perfActive", "_perfCreateTeams", "_perfItemStart", "_perfScope", "_perfStart", "_position", "_positions", "_side", "_sideID", "_team", "_teams", "_town", "_town_teams", "_town_vehicles"];
+Private ["_crews", "_global", "_groups", "_lock", "_perfActive", "_perfCreateTeams", "_perfItemStart", "_perfScope", "_perfStart", "_position", "_positions", "_side", "_sideID", "_team", "_teams", "_town", "_townDefenderAI", "_town_teams", "_town_vehicles", "_units"];
 
 _town = _this select 0;
 _side = _this select 1;
@@ -19,6 +19,8 @@ _teams = _this select 4;
 // Marty: Town AI can opt out of global Init_Unit marker/action setup to avoid client marker storms.
 _global = if (count _this > 5) then {_this select 5} else {true};
 _sideID = (_side) call WFBE_CO_FNC_GetSideID;
+// Marty: Mark resistance town-spawned AI so other town activation scans can ignore defender bleed-over.
+_townDefenderAI = (_side == WFBE_DEFENDER);
 
 _built = 0;
 _builtveh = 0;
@@ -42,9 +44,19 @@ for '_i' from 0 to count(_groups)-1 do {
 	_retVal = [_groups select _i, _position, _side, _lock, _team, _global, 90] call WFBE_CO_FNC_CreateTeam;
 	_perfActive = _perfActive + (diag_tickTime - _perfItemStart);
 	_perfCreateTeams = _perfCreateTeams + 1;
+	_units = _retVal select 0;
 	_vehicles = _retVal select 1;
-	_built = _built + count(_retVal select 0);
+	_crews = _retVal select 3;
+	_built = _built + count(_units);
 	_builtveh = _builtveh + (count _vehicles);
+
+	// Marty: Keep the flag on units, crews, vehicles and group for locality-safe activation filtering.
+	if (_townDefenderAI) then {
+		_team setVariable ["WFBE_IsTownDefenderAI", true];
+		{
+			_x setVariable ["WFBE_IsTownDefenderAI", true, true];
+		} forEach (_units + _crews + _vehicles);
+	};
 
 	[_town, _team, _sideID] execVM "Server\FSM\server_town_patrol.sqf";
 	[_team, 400, _position] spawn WFBE_CO_FNC_RevealArea;

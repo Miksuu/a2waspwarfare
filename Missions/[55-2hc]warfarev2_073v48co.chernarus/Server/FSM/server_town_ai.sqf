@@ -1,5 +1,5 @@
 // Marty: Reliable town AI monitor based on the old pre-capture activation scan; aircraft are ignored.
-Private["_activeSideIDs","_town","_range","_range_detect","_range_detect_active","_position","_groups","_town_teams","_unitsInactiveMax","_patrol_delay","_patrol_enabled","_ai_delegation_enabled","_town_defender_enabled","_town_occupation_enabled","_detected","_detectedRaw","_enemies","_perfTowns","_perfNearEntities","_perfDetected","_perfActivations","_perfDespawns","_perfSpawnGroups","_perfActive","_perfItemStart","_perfStart","_skippedTowns","_townScanned","_sideID","_side","_side_enabled","_isActiveTown","_dynRange","_scanUnit","_camps","_camp","_positions","_teams","_use_server","_retVal","_groupIndex"];
+Private["_activeSideIDs","_town","_range","_range_detect","_range_detect_active","_position","_groups","_town_teams","_unitsInactiveMax","_patrol_delay","_patrol_enabled","_ai_delegation_enabled","_town_defender_enabled","_town_occupation_enabled","_detected","_detectedRaw","_enemies","_perfTowns","_perfNearEntities","_perfDetected","_perfActivations","_perfDespawns","_perfSpawnGroups","_perfActive","_perfItemStart","_perfStart","_skippedTowns","_townScanned","_sideID","_side","_side_enabled","_isActiveTown","_dynRange","_scanUnit","_scanVehicle","_camps","_camp","_positions","_teams","_use_server","_retVal","_groupIndex"];
 
 for "_j" from 0 to ((count towns) - 1) step 1 do
 {
@@ -86,8 +86,13 @@ while {!WFBE_GameOver} do {
 				_detected = [];
 				{
 					_scanUnit = _x;
+					_scanVehicle = vehicle _scanUnit;
 					call {
-						if ((vehicle _scanUnit) isKindOf "Air") exitWith {};
+						if (_scanVehicle isKindOf "Air") exitWith {};
+						// Marty: Town defenders may patrol into nearby enemy detection radii; do not let them wake those towns.
+						if (_scanUnit getVariable ["WFBE_IsTownDefenderAI", false]) exitWith {};
+						if (_scanVehicle getVariable ["WFBE_IsTownDefenderAI", false]) exitWith {};
+						if ((_scanUnit isKindOf "Man") && ((group _scanUnit) getVariable ["WFBE_IsTownDefenderAI", false])) exitWith {};
 						[_detected, _scanUnit] call WFBE_CO_FNC_ArrayPush;
 					};
 				} forEach _detectedRaw;
