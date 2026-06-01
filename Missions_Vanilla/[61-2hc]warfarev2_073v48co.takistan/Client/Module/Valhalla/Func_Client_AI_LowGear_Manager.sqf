@@ -23,13 +23,13 @@ while {!gameOver} do {
 		_vehicle != player &&
 		{canMove _vehicle}
 	) then {
-			_enabled = _vehicle getVariable ["WFBE_HighClimbingEnabled", objNull];
+		_enabled = _vehicle getVariable ["WFBE_HighClimbingEnabled", objNull];
 
-			if (typeName _enabled != "BOOL") then {
-				_enabled = false;
-				if (_vehicle isKindOf "Tank" || {_vehicle isKindOf "Car"}) then {
-					_enabled = missionNamespace getVariable ["WFBE_HighClimbingDefaultEnabled", false];
-				};
+		if (typeName _enabled != "BOOL") then {
+			_enabled = false;
+			if (_vehicle isKindOf "Tank" || {_vehicle isKindOf "Car"}) then {
+				_enabled = missionNamespace getVariable ["WFBE_HighClimbingDefaultEnabled", false];
+			};
 
 			_vehicle setVariable ["WFBE_HighClimbingEnabled", _enabled, true];
 		};

@@ -1,4 +1,5 @@
-Private ['_canCreate','_commander','_crews','_driver','_firstDone','_global','_gunner','_list','_lockVehicles','_perfCrew','_perfInfantry','_perfScope','_perfSkipped','_perfStart','_perfVehicles','_position','_probability','_side','_sideID','_team','_type','_unit','_units','_vehicle','_vehicles','_rearmor'];
+// Marty: Crew placement uses explicit private locals because town AI may be created on server, client, or headless client.
+Private ['_canCreate','_commander','_crewRole','_crewUnit','_crews','_driver','_firstDone','_global','_gunner','_list','_lockVehicles','_perfCrew','_perfInfantry','_perfScope','_perfSkipped','_perfStart','_perfVehicles','_position','_probability','_side','_sideID','_team','_type','_unit','_units','_vehicle','_vehicles','_rearmor'];
 
 _list = _this select 0;
 _position = _this select 1;
@@ -57,18 +58,45 @@ _rearmor = {
 			_vehicle = [_x, _position, _sideID, 0, _lockVehicles, true, _global, "FORM"] Call WFBE_CO_FNC_CreateVehicle;
 			_perfVehicles = _perfVehicles + 1;
 			_type = if (_vehicle isKindOf 'Man') then {missionNamespace getVariable Format ['WFBE_%1SOLDIER',_side]} else {if (_vehicle isKindOf 'Air') then {missionNamespace getVariable Format ['WFBE_%1PILOT',_side]} else {missionNamespace getVariable Format ['WFBE_%1CREW',_side]}};
-			// Marty: Vehicle crews follow the same global-init flag as their vehicle to avoid town AI marker loops.
-			if (_vehicle emptyPositions 'driver' > 0) then {_driver = [_type,_team,_position,_sideID,_global] Call WFBE_CO_FNC_CreateUnit;_driver moveInDriver _vehicle;_driver addeventhandler ["HandleDamage",format ["_this Call %1", _rearmor]];_crews = _crews + [_driver];_perfCrew = _perfCrew + 1};
-			if (_vehicle emptyPositions 'gunner' > 0) then {_gunner = [_type,_team,_position,_sideID,_global] Call WFBE_CO_FNC_CreateUnit;_gunner moveInGunner _vehicle;_gunner addeventhandler ["HandleDamage",format ["_this Call %1", _rearmor]];_crews = _crews + [_gunner];_perfCrew = _perfCrew + 1};
-			if (_vehicle emptyPositions 'commander' > 0) then {_commander = [_type,_team,_position,_sideID,_global] Call WFBE_CO_FNC_CreateUnit;_commander addeventhandler ["HandleDamage",format ["_this Call %1", _rearmor]];_commander moveInCommander _vehicle;_crews = _crews + [_commander];_perfCrew = _perfCrew + 1};
+			// Marty: Assign crew roles before moveIn so locked or delegated town vehicles keep their crews mounted.
+			_vehicle allowCrewInImmobile true;
+			_team addVehicle _vehicle;
+			{
+				_crewRole = _x;
+				call {
+					if ((_vehicle emptyPositions _crewRole) <= 0) exitWith {};
+					_crewUnit = [_type,_team,_position,_sideID,_global] Call WFBE_CO_FNC_CreateUnit;
+					[_crewUnit] allowGetIn true;
+
+					switch (_crewRole) do {
+						case "driver": {
+							_crewUnit assignAsDriver _vehicle;
+							[_crewUnit] orderGetIn true;
+							_crewUnit moveInDriver _vehicle;
+						};
+						case "gunner": {
+							_crewUnit assignAsGunner _vehicle;
+							[_crewUnit] orderGetIn true;
+							_crewUnit moveInGunner _vehicle;
+						};
+						case "commander": {
+							_crewUnit assignAsCommander _vehicle;
+							[_crewUnit] orderGetIn true;
+							_crewUnit moveInCommander _vehicle;
+						};
+					};
+
+					_crewUnit addeventhandler ["HandleDamage",format ["_this Call %1", _rearmor]];
+					_crews = _crews + [_crewUnit];
+					_perfCrew = _perfCrew + 1;
+				};
+			} forEach ["driver","gunner","commander"];
 			_vehicles = _vehicles + [_vehicle];
 		};
 	} else {
 		_perfSkipped = _perfSkipped + 1;
 	};
 } forEach _list;
-
-{_team addVehicle _x} forEach _vehicles; //--- Add vehicles.
 
 // Marty: Audit exposes that CreateUnit now receives the team global flag.
 if !(isNil "PerformanceAudit_Record") then {
