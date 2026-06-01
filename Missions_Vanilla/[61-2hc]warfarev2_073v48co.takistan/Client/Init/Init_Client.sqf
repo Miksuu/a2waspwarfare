@@ -262,10 +262,13 @@ WFBE_CO_FNC_HandleAFKkeys = compile preprocessFileLineNumbers "Client\Module\AFK
 AFKthresholdExceededName = name player;
 WFBE_CO_VAR_AFKkickThreshold = 30;
 WFBE_CO_VAR_NotAFK_update = false;
+// Marty: Separate physical movement from map-command activity for AFK marker text only.
+WFBE_CO_VAR_NotAFK_MovementUpdate = false;
 // Marty: Keep anti-kick activity and physical movement separate for Command & Conquer marker state.
 player setVariable ["lastActionTime", time];
 player setVariable ["lastMovementTime", time];
 // Marty: Networked marker state for immobile players who are still actively commanding from map clicks.
+player setVariable ["WASP_AFK", false, true];
 player setVariable ["WASP_CommandAndConquer", false, true];
 
 _display displayAddEventHandler ["KeyDown", "_this call WFBE_CO_FNC_HandleAFKkeys"];

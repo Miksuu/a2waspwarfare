@@ -12,7 +12,9 @@ _handled = false;
 _moveButtons = actionKeys "MoveBack" + actionKeys "MoveDown" + actionKeys "MoveForward" + actionKeys "MoveFastForward" + actionKeys "MoveLeft" + actionKeys "MoveRight";
 
 if (_key in _moveButtons) then {
+    // Marty: Keep movement activity separate from map-command activity so marker text can show Command & Conquer without touching commander role logic.
     WFBE_CO_VAR_NotAFK_update = true;
+    WFBE_CO_VAR_NotAFK_MovementUpdate = true;
     _handled = false;
 };
 

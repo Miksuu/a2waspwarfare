@@ -111,21 +111,9 @@ while {alive player && dialog} do {
 		titleText [localize "STR_WF_TEAM_MapShortcutDisbandTip", "PLAIN DOWN", 3];
 		_curUnitSel = lbCurSel 13013;
 		if (_curUnitSel != -1) then {
-			Private ["_crewUnit","_targetUnit","_vehicleCrew"];
+			Private ["_targetUnit"];
 			_targetUnit = _units select _curUnitSel;
 			_vehicle = vehicle _targetUnit;
-
-			// Marty: Classic menu disband is explicit, so silence the later dead-unit radio cleanup for affected crew.
-			_vehicleCrew = crew _vehicle;
-			{
-				_crewUnit = _x;
-				Call {
-					if (isPlayer _crewUnit) exitWith {};
-					if (_crewUnit in playableUnits) exitWith {};
-					_crewUnit setVariable ["CommandBar_DeadUnits_SilentRemoval", true, false];
-				};
-			} forEach _vehicleCrew;
-			_targetUnit setVariable ["CommandBar_DeadUnits_SilentRemoval", true, false];
 
 			_destroy = [_targetUnit];
 			if (_vehicle != _targetUnit) then {_destroy = _destroy + [_vehicle]};
