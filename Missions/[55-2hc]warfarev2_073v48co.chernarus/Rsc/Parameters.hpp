@@ -555,7 +555,8 @@
 		title = "Performance audit";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 1;
+		// Marty: Keep the audit opt-in while the client commander/AFK regressions are being stabilized.
+		default = 0;
 	};
 
 };

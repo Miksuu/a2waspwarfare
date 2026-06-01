@@ -1,5 +1,5 @@
 // Marty: Performance Audit locals.
-private["_toggle_auto_distance_view","_lastCommanderTeam","_changeCommander","_timer", "_sideHQ", "_perfLoopStart", "_perfAFKStart", "_perfAFKBroadcasts","_lastMapCommandClickTime","_mapCommandWindow","_commandAndConquerActive","_lastCommandAndConquerState","_lastMovementTime","_movementElapsedTime","_countDownMoveState","_countDownKick"];
+private["_toggle_auto_distance_view","_lastCommanderTeam","_changeCommander","_timer", "_sideHQ", "_perfLoopStart", "_perfAFKStart", "_perfAFKBroadcasts","_lastMapCommandClickTime","_mapCommandWindow","_commandAndConquerActive","_lastCommandAndConquerState","_lastMovementTime","_movementElapsedTime","_countDownMoveState","_countDownKick","_afkShouldBe"];
 
 commanderTeam = (sideJoined) Call WFBE_CO_FNC_GetCommanderTeam;
 
@@ -37,6 +37,57 @@ while {!gameOver} do {
 	// Marty: Performance Audit timing for the full client update tick.
 	_perfLoopStart = diag_tickTime;
 	_perfAFKBroadcasts = 0;
+
+	// Marty: Refresh the local commander cache before optional AFK/audit/marker work so WF menu access cannot lag behind those systems.
+	commanderTeam = (sideJoined) Call WFBE_CO_FNC_GetCommanderTeam;
+	if (IsNull commanderTeam && !IsNull _lastCommanderTeam) then {_changeCommander = true};
+	if (!IsNull commanderTeam && IsNull _lastCommanderTeam) then {_changeCommander = true};
+	if (!isNull commanderTeam && !isNull _lastCommanderTeam) then {
+		if (commanderTeam != _lastCommanderTeam) then {_changeCommander = true};
+	};
+
+	// Marty: Apply commander transition side effects before AFK/audit/marker work so commander menus and HQ actions are not blocked by those systems.
+	if(_changeCommander && !gameOver) then {
+		_changeCommander = false;
+		_lastCommanderTeam = commanderTeam;
+		_MHQ = (sideJoined) Call WFBE_CO_FNC_GetSideHQ;
+
+		if (IsNull commanderTeam) then {
+			if (!IsNull _MHQ) then {
+				_MHQ RemoveAction 0;
+				_MHQ RemoveAction 1;
+				_MHQ RemoveAction 2;
+				_MHQ RemoveAction 3;
+			};
+			if (!isNil "HQAction") then {player removeAction HQAction};
+			if (count (hcAllGroups player) > 0) then {HCRemoveAllGroups player};
+			{[_x,false] Call SetTeamAutonomous} forEach clientTeams;
+		};
+
+		if (!isNull(commanderTeam)) then {
+			if (commanderTeam == Group player) then {
+				if (!IsNull _MHQ) then {
+					_MHQ addAction [localize "STR_WF_Unlock_MHQ","Client\Action\Action_ToggleLock.sqf", [], 95, false, true, '', 'alive _target && locked _target'];
+					_MHQ addAction [localize "STR_WF_Lock_MHQ","Client\Action\Action_ToggleLock.sqf", [], 94, false, true, '', 'alive _target && !(locked _target)'];
+				};
+				_deployed = (sideJoined) Call WFBE_CO_FNC_GetSideHQDeployStatus;
+				if (_deployed) then {
+					[missionNamespace getVariable "WFBE_C_BASE_COIN_AREA_HQ_DEPLOYED",true,MCoin] Call Compile PreprocessFile "Client\Init\Init_Coin.sqf";
+				} else {
+					[missionNamespace getVariable "WFBE_C_BASE_COIN_AREA_HQ_UNDEPLOYED",false,MCoin] Call Compile PreprocessFile "Client\Init\Init_Coin.sqf";
+				};
+				HQAction = leader(group player) addAction [localize "STR_WF_BuildMenu","Client\Action\Action_Build.sqf", [_MHQ], 100, false, true, "", "hqInRange && canBuildWHQ && (_target == player)"];
+				[Localize "STR_WF_CHAT_PlayerCommanderTitleText"] Call TitleTextMessage;
+				hint parseText format ["<t color='fff700'>%1</t>", localize "STR_WF_CHAT_PlayerCommander"];
+				playSound ["commanderNotification", true];
+				playSound ["newCommander",true];
+				["INFORMATION", Format ["Player %1 has become a new commander in %2 team).", name player, side player]] Call WFBE_CO_FNC_LogContent;
+			} else {
+				if (!isNil "HQAction") then {player removeAction HQAction};
+				if (count (hcAllGroups player) > 0) then {HCRemoveAllGroups player};
+			};
+		};
+	};
 
 	// Marty : update HQ wreck marker on map in case a player join after the game already begin or if the wreck is moved.
 	if (playerSide == west) then 
@@ -123,24 +174,12 @@ while {!gameOver} do {
 
 	private ["_afk"];
 
-	// Marty: Performance Audit counter for networked AFK state writes.
-	_perfAFKBroadcasts = _perfAFKBroadcasts + 1;
-	player setVariable ["WASP_AFK", false, true]; 
+	// Marty: Only broadcast AFK marker state when it changes; do not force false then true every client tick.
 	_afk = player getVariable ["WASP_AFK", false];
-
-	// Marty: The visible AFK marker follows physical movement, not command-map clicks.
-	if (_countDownMoveState < 600) then {
-		if (!_afk) then {
-			// Marty: Performance Audit counter for networked AFK state writes.
-			_perfAFKBroadcasts = _perfAFKBroadcasts + 1;
-			player setVariable ["WASP_AFK", true, true];  // true = broadcast
-		};
-	} else {
-		if (_afk) then {
-			// Marty: Performance Audit counter for networked AFK state writes.
-			_perfAFKBroadcasts = _perfAFKBroadcasts + 1;
-			player setVariable ["WASP_AFK", false, true];
-		};
+	_afkShouldBe = _countDownMoveState < 600;
+	if (_afk != _afkShouldBe) then {
+		_perfAFKBroadcasts = _perfAFKBroadcasts + 1;
+		player setVariable ["WASP_AFK", _afkShouldBe, true];
 	};
 
 	// Marty: A recent real map click marks an immobile player as actively commanding instead of simply AFK.
@@ -199,56 +238,6 @@ while {!gameOver} do {
 		if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
 			["updateclient_afk", diag_tickTime - _perfAFKStart, Format["afkBroadcasts:%1;countDown:%2;moveCountDown:%3", _perfAFKBroadcasts, _countDownKick, _countDownMoveState], "CLIENT"] Call PerformanceAudit_Record;
 		};
-	};
-
-	commanderTeam = (sideJoined) Call WFBE_CO_FNC_GetCommanderTeam;
-	if (IsNull commanderTeam && !IsNull _lastCommanderTeam) then {_changeCommander = true};
-	if (!IsNull commanderTeam && IsNull _lastCommanderTeam) then {_changeCommander = true};
-	if (!isNull commanderTeam && !isNull _lastCommanderTeam) then {
-		if (commanderTeam != _lastCommanderTeam) then {_changeCommander = true};
-	};
-
-	if(_changeCommander && !gameOver) then {
-		_changeCommander = false;
-		_lastCommanderTeam = commanderTeam;
-		_MHQ = (sideJoined) Call WFBE_CO_FNC_GetSideHQ;
-
-		if (IsNull commanderTeam) then {
-			if (!IsNull _MHQ) then {
-				_MHQ RemoveAction 0;
-				_MHQ RemoveAction 1;
-				_MHQ RemoveAction 2;
-				_MHQ RemoveAction 3;
-			};
-			if (!isNil "HQAction") then {player removeAction HQAction};
-			if (count (hcAllGroups player) > 0) then {HCRemoveAllGroups player};
-			{[_x,false] Call SetTeamAutonomous} forEach clientTeams;
-		};
-
-		if (!isNull(commanderTeam)) then {
-			if (commanderTeam == Group player) then {
-				if (!IsNull _MHQ) then {
-					_MHQ addAction [localize "STR_WF_Unlock_MHQ","Client\Action\Action_ToggleLock.sqf", [], 95, false, true, '', 'alive _target && locked _target'];
-					_MHQ addAction [localize "STR_WF_Lock_MHQ","Client\Action\Action_ToggleLock.sqf", [], 94, false, true, '', 'alive _target && !(locked _target)'];
-				};
-				_deployed = (sideJoined) Call WFBE_CO_FNC_GetSideHQDeployStatus;
-				if (_deployed) then {
-					[missionNamespace getVariable "WFBE_C_BASE_COIN_AREA_HQ_DEPLOYED",true,MCoin] Call Compile PreprocessFile "Client\Init\Init_Coin.sqf";
-				} else {
-					[missionNamespace getVariable "WFBE_C_BASE_COIN_AREA_HQ_UNDEPLOYED",false,MCoin] Call Compile PreprocessFile "Client\Init\Init_Coin.sqf";
-				};
-				HQAction = leader(group player) addAction [localize "STR_WF_BuildMenu","Client\Action\Action_Build.sqf", [_MHQ], 100, false, true, "", "hqInRange && canBuildWHQ && (_target == player)"];
-				[Localize "STR_WF_CHAT_PlayerCommanderTitleText"] Call TitleTextMessage;
-				hint parseText format ["<t color='fff700'>%1</t>", localize "STR_WF_CHAT_PlayerCommander"];
-				playSound ["commanderNotification", true];
-				playSound ["newCommander",true];
-				["INFORMATION", Format ["Player %1 has become a new commander in %2 team).", name player, side player]] Call WFBE_CO_FNC_LogContent;
-			} else {
-				if (!isNil "HQAction") then {player removeAction HQAction};
-				if (count (hcAllGroups player) > 0) then {HCRemoveAllGroups player};
-			};
-		};
-
 	};
 
 	if (!isNull commanderTeam) then {

@@ -8,6 +8,10 @@ WFBE_CL_FNC_Commander_Assigned = {
 	_commanderTeam = _this select 0;
 	_text = Localize "STR_WF_CHAT_AI_Commander";
 
+	// Marty: Keep the local command UI cache synchronized as soon as the server announces a direct commander assignment.
+	commanderTeam = _commanderTeam;
+	WFBE_ForceUpdate = true;
+
 	if (!isNull _commanderTeam) then {
 		_text = Format[localize "STR_WF_CHAT_VoteForNewCommander",name (leader _commanderTeam)];
 		if (group player == _commanderTeam) then {_text = localize "STR_WF_CHAT_PlayerCommanderTitleText"};
@@ -24,6 +28,10 @@ WFBE_CL_FNC_Commander_VoteEnd = {
 	Private["_commanderTeam","_text"];
 	_commanderTeam = _this select 0;
 	_text = Localize "STR_WF_CHAT_AI_Commander";
+
+	// Marty: Apply the voted commander locally immediately so the WF menu unlocks without waiting for the update client loop.
+	commanderTeam = _commanderTeam;
+	WFBE_ForceUpdate = true;
 
 	if (!isNull _commanderTeam) then {
 		_text = Format[localize "STR_WF_CHAT_VoteForNewCommander",name (leader _commanderTeam)];
