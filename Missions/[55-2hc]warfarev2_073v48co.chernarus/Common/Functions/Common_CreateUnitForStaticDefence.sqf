@@ -9,7 +9,7 @@
 		- Move In Gunner immidietly or not
 */
 
-Private ["_built", "_builtveh", "_defence", "_groups", "_moveInGunner", "_perfActive", "_perfItemStart", "_perfScope", "_perfStart", "_position", "_positions", "_side", "_sideID", "_team", "_teams", "_town", "_town_teams", "_town_vehicles", "_unit"];
+Private ["_built", "_builtveh", "_defence", "_groups", "_moveInGunner", "_perfActive", "_perfItemStart", "_perfScope", "_perfStart", "_position", "_positions", "_side", "_sideID", "_team", "_teams", "_townDefenderAI", "_town_vehicles", "_unit"];
 
 _side = _this select 0;
 _groups = _this select 1;
@@ -17,6 +17,8 @@ _positions = _this select 2;
 _team = _this select 3;
 _defence = _this select 4;
 _moveInGunner = _this select 5;
+// Marty: Optional flag marks town static defender AI without affecting player/base defenses.
+_townDefenderAI = if (count _this > 6) then {_this select 6} else {false};
 _sideID = (_side) call WFBE_CO_FNC_GetSideID;
 
 _built = 0;
@@ -37,6 +39,12 @@ for '_i' from 0 to count(_groups)-1 do {
 	_unit = [_groups select _i, _team, _position, _sideID] Call WFBE_CO_FNC_CreateUnit;
 	_perfActive = _perfActive + (diag_tickTime - _perfItemStart);
 	_built  = _built + 1;
+
+	// Marty: Mark delegated town static gunners for enemy-town activation filtering.
+	if (_townDefenderAI) then {
+		_unit setVariable ["WFBE_IsTownDefenderAI", true, true];
+		(group _unit) setVariable ["WFBE_IsTownDefenderAI", true];
+	};
 
 	[_teams, _team] call WFBE_CO_FNC_ArrayPush;
 	_unit assignAsGunner _defence;

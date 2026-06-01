@@ -51,7 +51,8 @@ switch (_action) do {
 								};
 
 								if (count(missionNamespace getVariable "WFBE_HEADLESSCLIENTS_ID") > 0) then {
-									[_side, _groups, _positions, _team, _defense, true] Call WFBE_CO_FNC_DelegateAIStaticDefenceHeadless;
+									// Marty: Delegated town static gunners are also defender AI for town activation filtering.
+									[_side, _groups, _positions, _team, _defense, true, true] Call WFBE_CO_FNC_DelegateAIStaticDefenceHeadless;
 									_use_server = false;
 									_perfDelegated = _perfDelegated + 1;
 								};
@@ -61,6 +62,9 @@ switch (_action) do {
 
 					if (_use_server) then {
 						_unit = [missionNamespace getVariable Format ["WFBE_%1SOLDIER", _side],missionNamespace getVariable Format ["WFBE_%1_DefenseTeam", _side], getPos _x, _side] Call WFBE_CO_FNC_CreateUnit;
+						// Marty: Mark town static gunners so nearby enemy towns do not activate from them.
+						_unit setVariable ["WFBE_IsTownDefenderAI", true, true];
+						(group _unit) setVariable ["WFBE_IsTownDefenderAI", true];
 						_unit assignAsGunner _defense;
 						[_unit] orderGetIn true;
 						_unit moveInGunner _defense;
