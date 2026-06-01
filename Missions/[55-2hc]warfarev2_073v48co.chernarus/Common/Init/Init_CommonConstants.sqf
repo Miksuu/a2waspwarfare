@@ -165,8 +165,12 @@ with missionNamespace do {
 	WFBE_C_ECONOMY_SUPPLY_TIME_INCREASE_DELAY = 60; //--- Increase SV delay.
 	WFBE_C_ECONOMY_SUPPLY_MAX_TEAM_LIMIT = 50000;
 	WFBE_C_ECONOMY_SUPPLY_MISSION_MULTIPLIER = 20;
-	//--- Vehicle classnames eligible to run a supply mission (supply trucks + transport helicopters, both sides).
-	WFBE_C_SUPPLY_VEHICLE_TYPES = ['WarfareSupplyTruck_RU','WarfareSupplyTruck_USMC','WarfareSupplyTruck_INS','WarfareSupplyTruck_Gue','WarfareSupplyTruck_CDF','UralSupply_TK_EP1','MtvrSupply_DES_EP1','CH_47F_EP1','UH60M_EP1','MH60S','CH_47F_BAF','BAF_Merlin_HC3_D','Mi17_Ins','Mi17_TK_EP1','Mi17_medevac_RU','Mi17_Civilian'];
+	//--- Supply-mission vehicle types. Trucks are always eligible; helicopters unlock with the Supply upgrade.
+	WFBE_C_SUPPLY_TRUCK_TYPES = ['WarfareSupplyTruck_RU','WarfareSupplyTruck_USMC','WarfareSupplyTruck_INS','WarfareSupplyTruck_Gue','WarfareSupplyTruck_CDF','UralSupply_TK_EP1','MtvrSupply_DES_EP1'];
+	WFBE_C_SUPPLY_HELI_TYPES_T2 = ['UH60M_EP1','MH60S','Mi17_Ins','Mi17_TK_EP1','Mi17_medevac_RU','Mi17_Civilian'];  //--- Light transport: unlock at Supply upgrade 2.
+	WFBE_C_SUPPLY_HELI_TYPES_T3 = ['CH_47F_EP1','CH_47F_BAF','BAF_Merlin_HC3_D'];                                   //--- Heavy transport: unlock at Supply upgrade 3, +20% payload.
+	WFBE_C_SUPPLY_HELI_TYPES = WFBE_C_SUPPLY_HELI_TYPES_T2 + WFBE_C_SUPPLY_HELI_TYPES_T3;
+	WFBE_C_SUPPLY_VEHICLE_TYPES = WFBE_C_SUPPLY_TRUCK_TYPES + WFBE_C_SUPPLY_HELI_TYPES;  //--- All supply-capable (used for buy-menu highlight).
 
 //--- Anti-stack.
 	// Marty: Default to enabled when older mission parameter sets do not define the AntiStack switch.

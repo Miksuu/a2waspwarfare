@@ -69,7 +69,7 @@ switch (WFBE_SK_V_Type) do {
 			false, 
 			true, 
 			"", 
-			"(player distance (call GetClosestFriendlyLocation) < 70) && (typeOf cursorTarget in WFBE_C_SUPPLY_VEHICLE_TYPES)"
+			"(player distance (call GetClosestFriendlyLocation) < 70) && ((typeOf cursorTarget in WFBE_C_SUPPLY_TRUCK_TYPES) || ((typeOf cursorTarget in WFBE_C_SUPPLY_HELI_TYPES_T2) && (((sideJoined call WFBE_CO_FNC_GetSideUpgrades) select WFBE_UP_SUPPLYRATE) >= 2)) || ((typeOf cursorTarget in WFBE_C_SUPPLY_HELI_TYPES_T3) && (((sideJoined call WFBE_CO_FNC_GetSideUpgrades) select WFBE_UP_SUPPLYRATE) >= 3)))"
 		];
 
 		_unit addAction [
