@@ -1,5 +1,5 @@
 // Marty: Performance Audit locals and marker update cache.
-private["_sideText","_label","_count","_marker","_markerIndex","_team","_leader","_leaderVehicle","_leaderChanged","_botUnitsInVehicle","_crewUnitsInVehicle","_cargoUnitsInVehicle","_crewText","_cargoText","_member","_memberVehicle","_roleUnit","_unitText","_updateAILeaders","_updateThisLeader","_nextAIUpdate","_playerAFKstate","_markerColor","_markerAlpha","_markerNames","_lastLeaders","_lastTexts","_lastAlphas","_lastColors","_wfMenuDisplays","_mapConsumerVisible","_perfStart","_perfMarkerOps","_perfPlayerLeaders","_perfAILeaders","_perfSkippedWrites"];
+private["_sideText","_label","_count","_marker","_markerIndex","_team","_leader","_leaderVehicle","_leaderChanged","_botUnitsInVehicle","_crewUnitsInVehicle","_cargoUnitsInVehicle","_crewText","_cargoText","_member","_memberVehicle","_roleUnit","_unitText","_updateAILeaders","_updateThisLeader","_nextAIUpdate","_playerAFKstate","_playerCommandAndConquerState","_markerColor","_markerAlpha","_markerNames","_lastLeaders","_lastTexts","_lastAlphas","_lastColors","_wfMenuDisplays","_mapConsumerVisible","_perfStart","_perfMarkerOps","_perfPlayerLeaders","_perfAILeaders","_perfSkippedWrites"];
 
 _sideText = sideJoinedText;
 _label = "";
@@ -87,8 +87,13 @@ while {!gameOver} do {
 						_markerAlpha = 1;
 						_playerAFKstate = _leader getVariable "WASP_AFK";
 						_label = Format[" %1", name _leader];
-						if !(isNil "_playerAFKstate") then {
-							if (_playerAFKstate) then {_label = Format[" %1 (AFK)", name _leader]};
+						// Marty: Keep the legacy AFK label, but show recent real map-click command activity as Command & Conquer.
+						call {
+							if (isNil "_playerAFKstate") exitWith {};
+							if !(_playerAFKstate) exitWith {};
+							_playerCommandAndConquerState = _leader getVariable ["WASP_CommandAndConquer", false];
+							if (_playerCommandAndConquerState) exitWith {_label = Format[" %1 (Command & Conquer)", name _leader]};
+							_label = Format[" %1 (AFK)", name _leader];
 						};
 						// Marty: Keep the player leader arrow and append embarked bot numbers with crew first, then cargo.
 						call {
