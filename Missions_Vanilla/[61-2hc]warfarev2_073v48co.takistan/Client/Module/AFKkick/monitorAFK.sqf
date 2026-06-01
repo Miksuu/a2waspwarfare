@@ -18,7 +18,8 @@ while {!gameOver} do {
 
     if (_timer >= (WFBE_CO_VAR_AFKkickThreshold / 1.5)) then {
         _timeLeftToKick = WFBE_CO_VAR_AFKkickThreshold - _timer + 1;
-        hint format ["If you don't move or open map in %1 minutes, you will be kicked for being AFK.",_timeLeftToKick];
+        // Marty: Map opening alone is not activity; real map command clicks refresh the AFK timer elsewhere.
+        hint format ["If you don't move or command on the map in %1 minutes, you will be kicked for being AFK.",_timeLeftToKick];
     };
 
     if (_timer > WFBE_CO_VAR_AFKkickThreshold) then {

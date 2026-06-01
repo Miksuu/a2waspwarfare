@@ -1,5 +1,5 @@
 // Marty: Performance Audit locals.
-private["_toggle_auto_distance_view","_lastCommanderTeam","_changeCommander","_timer", "_sideHQ", "_perfLoopStart", "_perfAFKStart", "_perfAFKBroadcasts"];
+private["_toggle_auto_distance_view","_lastCommanderTeam","_changeCommander","_timer", "_sideHQ", "_perfLoopStart", "_perfAFKStart", "_perfAFKBroadcasts","_lastMapCommandClickTime","_mapCommandWindow","_commandAndConquerActive","_lastCommandAndConquerState","_lastMovementTime","_movementElapsedTime","_countDownMoveState","_countDownKick"];
 
 commanderTeam = (sideJoined) Call WFBE_CO_FNC_GetCommanderTeam;
 
@@ -113,36 +113,54 @@ while {!gameOver} do {
 	// calculate the elapsed time from last action of the player 
 	_currentTime = time ;
 	_lastActionTime = player getVariable ["lastActionTime", time];
+	// Marty: Marker AFK state remains movement-based, while actual anti-kick activity can include command-map clicks.
+	_lastMovementTime = player getVariable ["lastMovementTime", time];
 	_elapsedTime = _currentTime - _lastActionTime ;
+	_movementElapsedTime = _currentTime - _lastMovementTime;
 	_countDownKick =round(_inactivityTimeout - _elapsedTime);
+	_countDownMoveState = round(_inactivityTimeout - _movementElapsedTime);
 	//player sideChat format ["Elapsed Time: %1 seconds", _elapsedTime]; // Display the inacticity time of the player for testing purpose	
 
-	private ["_afk", "_countDownKick"];
+	private ["_afk"];
 
 	// Marty: Performance Audit counter for networked AFK state writes.
 	_perfAFKBroadcasts = _perfAFKBroadcasts + 1;
 	player setVariable ["WASP_AFK", false, true]; 
 	_afk = player getVariable ["WASP_AFK", false];
 
-	if (_countDownKick < 600) then {
+	// Marty: The visible AFK marker follows physical movement, not command-map clicks.
+	if (_countDownMoveState < 600) then {
 		if (!_afk) then {
 			// Marty: Performance Audit counter for networked AFK state writes.
 			_perfAFKBroadcasts = _perfAFKBroadcasts + 1;
 			player setVariable ["WASP_AFK", true, true];  // true = broadcast
-		};
-
-		if (_countDownKick > 120) then {
-			if ((_countDownKick % 30) == 0) then {
-				hint format ["You are AFK. If you don't move you will be kicked in %1 minutes.", round (_countDownKick / 60)];
-			};
-		} else {
-			hint format ["You are AFK. If you don't move you will be kicked in %1 seconds.", _countDownKick];
 		};
 	} else {
 		if (_afk) then {
 			// Marty: Performance Audit counter for networked AFK state writes.
 			_perfAFKBroadcasts = _perfAFKBroadcasts + 1;
 			player setVariable ["WASP_AFK", false, true];
+		};
+	};
+
+	// Marty: A recent real map click marks an immobile player as actively commanding instead of simply AFK.
+	_lastMapCommandClickTime = missionNamespace getVariable ["WFBE_CLIENT_LAST_MAP_COMMAND_CLICK_TIME", -5000];
+	_mapCommandWindow = missionNamespace getVariable ["WFBE_CLIENT_COMMAND_AND_CONQUER_WINDOW", 180];
+	_commandAndConquerActive = (time - _lastMapCommandClickTime) <= _mapCommandWindow;
+	_lastCommandAndConquerState = player getVariable ["WASP_CommandAndConquer", false];
+	if (_lastCommandAndConquerState != _commandAndConquerActive) then {
+		_perfAFKBroadcasts = _perfAFKBroadcasts + 1;
+		player setVariable ["WASP_CommandAndConquer", _commandAndConquerActive, true];
+	};
+
+	// Marty: Kick warning follows actual activity, so recent command-map clicks do not show a false kick countdown.
+	if (_countDownKick < 600) then {
+		call {
+			if (_countDownKick <= 120) exitWith {
+				hint format ["You are AFK. If you don't move or command on the map you will be kicked in %1 seconds.", _countDownKick];
+			};
+			if ((_countDownKick % 30) != 0) exitWith {};
+			hint format ["You are AFK. If you don't move or command on the map you will be kicked in %1 minutes.", round (_countDownKick / 60)];
 		};
 	};
 
@@ -167,8 +185,10 @@ while {!gameOver} do {
 	_currentPosition 	= getPos player;
 	_lastPosition 		= player getVariable ["lastPosition", getPos player] ;
       
+	// Marty: Movement refreshes both the anti-kick activity timer and the movement-only marker timer.
 	if (str(_currentPosition) != str(_lastPosition)) then {            	 
-         player setVariable ["lastActionTime", time]; // If the player moved, it saves the current time into lastActionTime variable.
+		player setVariable ["lastActionTime", time];
+		player setVariable ["lastMovementTime", time];
     };
 
 	player setVariable ["lastPosition", position player]; // Saving the last position of the player with the current one.
@@ -177,7 +197,7 @@ while {!gameOver} do {
 	// Marty: Performance Audit record for the legacy AFK block.
 	if !(isNil "PerformanceAudit_Record") then {
 		if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
-			["updateclient_afk", diag_tickTime - _perfAFKStart, Format["afkBroadcasts:%1;countDown:%2", _perfAFKBroadcasts, _countDownKick], "CLIENT"] Call PerformanceAudit_Record;
+			["updateclient_afk", diag_tickTime - _perfAFKStart, Format["afkBroadcasts:%1;countDown:%2;moveCountDown:%3", _perfAFKBroadcasts, _countDownKick, _countDownMoveState], "CLIENT"] Call PerformanceAudit_Record;
 		};
 	};
 

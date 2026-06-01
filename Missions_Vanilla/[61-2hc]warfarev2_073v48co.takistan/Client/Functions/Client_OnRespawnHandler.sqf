@@ -8,6 +8,13 @@ _typeof = typeOf _spawn;
 WFBE_Client_IsRespawning = false;
 _allowCustom = true;
 
+// Marty: Respawn creates a fresh player object, so reset AFK activity and map-command marker state on it.
+_unit setVariable ["lastActionTime", time];
+_unit setVariable ["lastMovementTime", time];
+_unit setVariable ["WASP_CommandAndConquer", false, true];
+missionNamespace setVariable ["WFBE_CLIENT_LAST_MAP_COMMAND_CLICK_TIME", -5000];
+missionNamespace setVariable ["WFBE_CLIENT_LAST_MAP_COMMAND_CLICK_POS", []];
+
 //--- Default gear enforcement on mobile respawn.
 if ((missionNamespace getVariable "WFBE_C_RESPAWN_MOBILE") == 2) then {
 	if (_typeof in (missionNamespace getVariable Format ["WFBE_%1AMBULANCES",sideJoinedText])) then {_allowCustom = false};
