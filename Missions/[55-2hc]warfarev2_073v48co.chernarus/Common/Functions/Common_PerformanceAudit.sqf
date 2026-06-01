@@ -5,7 +5,8 @@
 		No network synchronization is used; each client/server writes only to its own RPT.
 */
 
-if (isNil "PerformanceAuditEnabled") then {PerformanceAuditEnabled = ((missionNamespace getVariable ["WFBE_C_PERFORMANCE_AUDIT_ENABLED", 1]) > 0)};
+// Marty: Performance audit is disabled by default unless the mission parameter explicitly enables it.
+if (isNil "PerformanceAuditEnabled") then {PerformanceAuditEnabled = ((missionNamespace getVariable ["WFBE_C_PERFORMANCE_AUDIT_ENABLED", 0]) > 0)};
 if (isNil "PerformanceAuditFlushInterval") then {PerformanceAuditFlushInterval = 60};
 if (isNil "PerformanceAuditData_CLIENT") then {PerformanceAuditData_CLIENT = []};
 if (isNil "PerformanceAuditData_SERVER") then {PerformanceAuditData_SERVER = []};

@@ -80,25 +80,6 @@ class Sentences
 		class 3 {type = "simple";};
 	};
   };
-  // Marty: Local radio voice used when the command bar removes a dead AI subordinate.
-  class UnitDown
-  {
-	text = "";
-	speech[] = {%1, IsDownE};
-	class Arguments {
-		class 1 {type = "simple";};
-	};
-  };
-  // Marty: Two-token unit numbers keep IDs above twelve audible across the available radio protocols.
-  class UnitDownTwoPart
-  {
-	text = "";
-	speech[] = {%1, %2, IsDownE};
-	class Arguments {
-		class 1 {type = "simple";};
-		class 2 {type = "simple";};
-	};
-  };
   class simple
   {
 	text = "%1";

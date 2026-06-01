@@ -42,6 +42,8 @@ switch (_request) do {
 			_unit = _this select 0;
 			if (isNull _unit) exitWith {};
 
+			["INFORMATION", Format ["COMMAND_BAR_DEAD_UNIT CLIENT_FORCE_RECEIVED player:%1 unit:%2 unitGroup:%3 playerGroup:%4 localUnit:%5", name player, _unit, group _unit, group player, local _unit]] Call WFBE_CO_FNC_LogContent;
+
 			_deadline = time + 3;
 			waitUntil {sleep 0.05; isNull _unit || local _unit || time > _deadline};
 
@@ -50,6 +52,12 @@ switch (_request) do {
 			if (isPlayer _unit) exitWith {};
 			if (_unit in playableUnits) exitWith {};
 			if ((group _unit) != (group player)) exitWith {};
+			if !(local _unit) then {
+				["WARNING", Format ["COMMAND_BAR_DEAD_UNIT CLIENT_FORCE_NOT_LOCAL player:%1 unit:%2 unitGroup:%3 localUnit:%4", name player, _unit, group _unit, local _unit]] Call WFBE_CO_FNC_LogContent;
+			};
+			if (WF_Debug) then {
+				["DEBUG", Format ["COMMAND_BAR_DEAD_UNIT CLIENT_FORCE_JOIN player:%1 unit:%2 unitGroup:%3 localUnit:%4", name player, _unit, group _unit, local _unit]] Call WFBE_CO_FNC_LogContent;
+			};
 
 			player groupSelectUnit [_unit, false];
 			[_unit] joinSilent grpNull;

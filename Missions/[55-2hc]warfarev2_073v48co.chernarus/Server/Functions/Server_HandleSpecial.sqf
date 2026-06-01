@@ -117,7 +117,7 @@ switch (_args select 0) do {
 	// Marty: Authoritative cleanup for dead player AI that can remain in the command bar on dedicated servers.
 	case "commandbar-cleanup-dead-unit": {
 		_args Spawn {
-			Private ["_attempt","_requester","_requesterGroup","_unit","_warningLogged"];
+			Private ["_acceptedLogged","_alreadyDetachedLogged","_attempt","_requester","_requesterGroup","_successLogged","_unit","_warningLogged"];
 
 			_requester = _this select 1;
 			_unit = _this select 2;
@@ -133,11 +133,21 @@ switch (_args select 0) do {
 			if (isNull _requesterGroup) exitWith {};
 			if (leader _requesterGroup != _requester) exitWith {};
 			if ((group _unit) != _requesterGroup) exitWith {
+				_alreadyDetachedLogged = _unit getVariable ["CommandBar_DeadUnits_ServerAlreadyDetachedLogged", false];
+				if !(_alreadyDetachedLogged) then {
+					_unit setVariable ["CommandBar_DeadUnits_ServerAlreadyDetachedLogged", true, false];
+					["INFORMATION", Format ["COMMAND_BAR_DEAD_UNIT SERVER_ALREADY_DETACHED requester:%1 unit:%2 unitGroup:%3 requesterGroup:%4 localUnit:%5 unitOwner:%6 requesterOwner:%7", name _requester, _unit, group _unit, _requesterGroup, local _unit, owner _unit, owner _requester]] Call WFBE_CO_FNC_LogContent;
+				};
 				[_requester, "HandleSpecial", ["commandbar-force-dead-cleanup", _unit]] Call WFBE_CO_FNC_SendToClient;
 			};
 
 			if (_unit getVariable ["CommandBar_DeadUnits_ServerCleanupRunning", false]) exitWith {};
 			_unit setVariable ["CommandBar_DeadUnits_ServerCleanupRunning", true, false];
+			_acceptedLogged = _unit getVariable ["CommandBar_DeadUnits_ServerAcceptedLogged", false];
+			if !(_acceptedLogged) then {
+				_unit setVariable ["CommandBar_DeadUnits_ServerAcceptedLogged", true, false];
+				["INFORMATION", Format ["COMMAND_BAR_DEAD_UNIT SERVER_ACCEPTED requester:%1 unit:%2 type:%3 unitGroup:%4 localUnit:%5 unitOwner:%6 requesterOwner:%7", name _requester, _unit, typeOf _unit, _requesterGroup, local _unit, owner _unit, owner _requester]] Call WFBE_CO_FNC_LogContent;
+			};
 
 			for "_attempt" from 0 to 20 do {
 				if (isNull _unit) exitWith {};
@@ -145,10 +155,16 @@ switch (_args select 0) do {
 				if ((group _unit) != _requesterGroup) exitWith {};
 
 				if (local _unit) then {
+					if (WF_Debug) then {
+						["DEBUG", Format ["COMMAND_BAR_DEAD_UNIT SERVER_JOIN_ATTEMPT attempt:%1 requester:%2 unit:%3 localUnit:%4 unitOwner:%5", _attempt, name _requester, _unit, local _unit, owner _unit]] Call WFBE_CO_FNC_LogContent;
+					};
 					[_unit] joinSilent grpNull;
 				} else {
 					if !(WF_A2_Vanilla) then {_unit setOwner (owner _requester)};
 					if ((_attempt mod 4) == 0) then {
+						if (WF_Debug) then {
+							["DEBUG", Format ["COMMAND_BAR_DEAD_UNIT SERVER_TRANSFER_REQUEST attempt:%1 requester:%2 unit:%3 localUnit:%4 unitOwner:%5 requesterOwner:%6", _attempt, name _requester, _unit, local _unit, owner _unit, owner _requester]] Call WFBE_CO_FNC_LogContent;
+						};
 						[_requester, "HandleSpecial", ["commandbar-force-dead-cleanup", _unit]] Call WFBE_CO_FNC_SendToClient;
 					};
 				};
@@ -157,11 +173,18 @@ switch (_args select 0) do {
 			};
 
 			if (!isNull _unit) then {
+				if (!alive _unit && (group _unit) != _requesterGroup) then {
+					_successLogged = _unit getVariable ["CommandBar_DeadUnits_ServerSuccessLogged", false];
+					if !(_successLogged) then {
+						_unit setVariable ["CommandBar_DeadUnits_ServerSuccessLogged", true, false];
+						["INFORMATION", Format ["COMMAND_BAR_DEAD_UNIT SERVER_DETACHED requester:%1 unit:%2 finalGroup:%3 requesterGroup:%4 localUnit:%5 unitOwner:%6", name _requester, _unit, group _unit, _requesterGroup, local _unit, owner _unit]] Call WFBE_CO_FNC_LogContent;
+					};
+				};
 				if (!alive _unit && (group _unit) == _requesterGroup) then {
 					_warningLogged = _unit getVariable ["CommandBar_DeadUnits_ServerCleanupWarningLogged", false];
 					if !(_warningLogged) then {
 						_unit setVariable ["CommandBar_DeadUnits_ServerCleanupWarningLogged", true, false];
-						["WARNING", Format ["Server_HandleSpecial.sqf: Command bar dead-unit cleanup did not detach [%1] from [%2].", _unit, _requesterGroup]] Call WFBE_CO_FNC_LogContent;
+						["WARNING", Format ["COMMAND_BAR_DEAD_UNIT SERVER_STILL_STUCK requester:%1 unit:%2 requesterGroup:%3 localUnit:%4 unitOwner:%5 requesterOwner:%6", name _requester, _unit, _requesterGroup, local _unit, owner _unit, owner _requester]] Call WFBE_CO_FNC_LogContent;
 					};
 				};
 			};

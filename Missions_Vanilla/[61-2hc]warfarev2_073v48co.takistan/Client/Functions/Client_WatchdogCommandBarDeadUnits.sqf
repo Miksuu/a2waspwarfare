@@ -12,37 +12,26 @@
 
 Private [
 	"_checkInterval",
-	"_aiId",
-	"_aiIdNumber",
-	"_aiVoiceToken1",
-	"_aiVoiceToken2",
-	"_aiVoiceToken",
-	"_alreadyNotified",
-	"_announcedDeadUnits",
 	"_cleanupRequestTime",
+	"_cleanupRequestCount",
 	"_currentUnits",
 	"_deadUnits",
-	"_firstDigit",
+	"_detachedLogged",
+	"_detectedLogged",
 	"_group",
-	"_knownAliveUnits",
 	"_knownUnits",
 	"_lastVehicle",
 	"_player",
-	"_secondDigit",
 	"_shouldReveal",
-	"_silentRemoval",
 	"_unit",
 	"_unitGroup",
-	"_vehicle",
-	"_wasSeenAlive"
+	"_vehicle"
 ];
 
 if (missionNamespace getVariable ["CommandBar_DeadUnits_Watchdog_Running", false]) exitWith {};
 missionNamespace setVariable ["CommandBar_DeadUnits_Watchdog_Running", true];
 
 _checkInterval = 1;
-_announcedDeadUnits = [];
-_knownAliveUnits = [];
 _knownUnits = [];
 
 sleep 5;
@@ -63,8 +52,6 @@ while {!gameOver} do {
 
 		// Marty: Remember current AI subordinates so a dead unit can still be handled after a manual disband.
 		_currentUnits = units _group;
-		_announcedDeadUnits = _announcedDeadUnits - [objNull];
-		_knownAliveUnits = _knownAliveUnits - [objNull];
 		_knownUnits = _knownUnits - [objNull];
 		_deadUnits = [];
 
@@ -73,9 +60,6 @@ while {!gameOver} do {
 
 			if (!isPlayer _unit && _unit != _player) then {
 				if !(_unit in _knownUnits) then {_knownUnits = _knownUnits + [_unit]};
-				if (alive _unit) then {
-					if !(_unit in _knownAliveUnits) then {_knownAliveUnits = _knownAliveUnits + [_unit]};
-				};
 
 				_vehicle = assignedVehicle _unit;
 				if (isNull _vehicle) then {_vehicle = vehicle _unit};
@@ -111,6 +95,12 @@ while {!gameOver} do {
 		// Marty: Force the local command bar to forget dead subordinates without deleting their bodies.
 		{
 			_unit = _x;
+			_detectedLogged = _unit getVariable ["CommandBar_DeadUnits_ClientDetectedLogged", false];
+			if !(_detectedLogged) then {
+				_unit setVariable ["CommandBar_DeadUnits_ClientDetectedLogged", true, false];
+				["INFORMATION", Format ["COMMAND_BAR_DEAD_UNIT CLIENT_DETECTED player:%1 side:%2 unit:%3 type:%4 unitGroup:%5 playerGroup:%6 localUnit:%7 currentUnits:%8 knownUnits:%9", name _player, side _player, _unit, typeOf _unit, group _unit, _group, local _unit, count _currentUnits, count _knownUnits]] Call WFBE_CO_FNC_LogContent;
+			};
+
 			_group reveal _unit;
 			_player reveal _unit;
 
@@ -126,91 +116,34 @@ while {!gameOver} do {
 			};
 
 			_unitGroup = group _unit;
+			if (_unitGroup != _group) then {
+				_detachedLogged = _unit getVariable ["CommandBar_DeadUnits_ClientDetachedLogged", false];
+				if !(_detachedLogged) then {
+					_unit setVariable ["CommandBar_DeadUnits_ClientDetachedLogged", true, false];
+					["INFORMATION", Format ["COMMAND_BAR_DEAD_UNIT CLIENT_DETACHED_OBSERVED player:%1 unit:%2 unitGroup:%3 playerGroup:%4 localUnit:%5", name _player, _unit, _unitGroup, _group, local _unit]] Call WFBE_CO_FNC_LogContent;
+				};
+			};
+
 			if (_unitGroup == _group) then {
 				_cleanupRequestTime = _unit getVariable ["CommandBar_DeadUnits_ServerCleanupRequestTime", -1000];
 				if ((time - _cleanupRequestTime) > 10) then {
 					// Marty: Ask the server periodically to make group removal authoritative when locality blocks local cleanup.
 					_unit setVariable ["CommandBar_DeadUnits_ServerCleanupRequestTime", time, false];
+					_cleanupRequestCount = _unit getVariable ["CommandBar_DeadUnits_ServerCleanupRequestCount", 0];
+					_cleanupRequestCount = _cleanupRequestCount + 1;
+					_unit setVariable ["CommandBar_DeadUnits_ServerCleanupRequestCount", _cleanupRequestCount, false];
+
+					if (WF_Debug) then {
+						["DEBUG", Format ["COMMAND_BAR_DEAD_UNIT CLIENT_REQUEST_SERVER_CLEANUP player:%1 unit:%2 requestCount:%3 unitGroup:%4 localUnit:%5 vehicle:%6 vehicleAlive:%7 vehicleLocal:%8", name _player, _unit, _cleanupRequestCount, _unitGroup, local _unit, _vehicle, alive _vehicle, local _vehicle]] Call WFBE_CO_FNC_LogContent;
+					};
+					if (_cleanupRequestCount == 3) then {
+						["WARNING", Format ["COMMAND_BAR_DEAD_UNIT CLIENT_STILL_STUCK player:%1 unit:%2 requestCount:%3 unitGroup:%4 localUnit:%5", name _player, _unit, _cleanupRequestCount, _unitGroup, local _unit]] Call WFBE_CO_FNC_LogContent;
+					};
+
 					["RequestSpecial", ["commandbar-cleanup-dead-unit", _player, _unit]] Call WFBE_CO_FNC_SendToServer;
 				};
 
-				_silentRemoval = _unit getVariable ["CommandBar_DeadUnits_SilentRemoval", false];
-				_alreadyNotified = _unit in _announcedDeadUnits;
-				_wasSeenAlive = _unit in _knownAliveUnits;
-				if !(_alreadyNotified) then {_announcedDeadUnits set [count _announcedDeadUnits, _unit]};
-
-				// Marty: Announce combat deaths once, but keep manual disband and repeated cleanup silent.
-				Call {
-					if (_silentRemoval) exitWith {};
-					if (_alreadyNotified) exitWith {};
-					if !(_wasSeenAlive) exitWith {};
-					_aiId = _unit Call WFBE_CL_FNC_GetAIID;
-					_aiIdNumber = parseNumber _aiId;
-					_aiVoiceToken = switch (_aiIdNumber) do {
-						case 1: {"one"};
-						case 2: {"two"};
-						case 3: {"three"};
-						case 4: {"four"};
-						case 5: {"five"};
-						case 6: {"six"};
-						case 7: {"seven"};
-						case 8: {"eight"};
-						case 9: {"nine"};
-						case 10: {"ten"};
-						case 11: {"eleven"};
-						case 12: {"twelve"};
-						default {""};
-					};
-
-					if (_aiVoiceToken != "") exitWith {
-						_player kbTell [sideHQ, WFBE_V_HQTopicSide, "UnitDown", ["1", "", _aiId, [_aiVoiceToken]], true];
-					};
-
-					if (_aiIdNumber < 13) exitWith {
-						_player kbTell [sideHQ, WFBE_V_HQTopicSide, "UnitDown", ["1", "", _aiId, [_aiId]], true];
-					};
-
-					if (_aiIdNumber > 59) exitWith {
-						_player kbTell [sideHQ, WFBE_V_HQTopicSide, "UnitDown", ["1", "", _aiId, [_aiId]], true];
-					};
-
-					_firstDigit = floor (_aiIdNumber / 10);
-					_secondDigit = _aiIdNumber - (_firstDigit * 10);
-
-					// Marty: IDs 13-59 are spoken digit-by-digit so EP1 and vanilla protocols all have matching words.
-					_aiVoiceToken1 = switch (_firstDigit) do {
-						case 1: {"one2"};
-						case 2: {"two2"};
-						case 3: {"three2"};
-						case 4: {"four2"};
-						case 5: {"five2"};
-						default {""};
-					};
-					_aiVoiceToken2 = switch (_secondDigit) do {
-						case 0: {"zero2"};
-						case 1: {"one2"};
-						case 2: {"two2"};
-						case 3: {"three2"};
-						case 4: {"four2"};
-						case 5: {"five2"};
-						case 6: {"six2"};
-						case 7: {"seven2"};
-						case 8: {"eight2"};
-						case 9: {"nine2"};
-						default {""};
-					};
-
-					if (_aiVoiceToken1 == "") exitWith {
-						_player kbTell [sideHQ, WFBE_V_HQTopicSide, "UnitDown", ["1", "", _aiId, [_aiId]], true];
-					};
-
-					if (_aiVoiceToken2 == "") exitWith {
-						_player kbTell [sideHQ, WFBE_V_HQTopicSide, "UnitDown", ["1", "", _aiId, [_aiId]], true];
-					};
-
-					_player kbTell [sideHQ, WFBE_V_HQTopicSide, "UnitDownTwoPart", ["1", "", str _firstDigit, [_aiVoiceToken1]], ["2", "", str _secondDigit, [_aiVoiceToken2]], true];
-				};
-
+				// Marty: Keep this cleanup silent; production MP can leak or loop custom radio speech across clients.
 				player groupSelectUnit [_unit, false];
 				[_unit] joinSilent grpNull;
 			};
