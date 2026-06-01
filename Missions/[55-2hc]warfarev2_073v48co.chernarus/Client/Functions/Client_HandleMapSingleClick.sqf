@@ -23,6 +23,10 @@ if (_hasCommandableUnits) then {
 	missionNamespace setVariable ["WFBE_CLIENT_LAST_MAP_COMMAND_CLICK_POS", _position];
 	player setVariable ["lastActionTime", time];
 	if !(isNil "WFBE_CO_VAR_NotAFK_update") then {WFBE_CO_VAR_NotAFK_update = true};
+	// Marty: This is marker text only; it never changes the Warfare commander role.
+	if (player getVariable ["WASP_AFK", false]) then {
+		player setVariable ["WASP_CommandAndConquer", true, true];
+	};
 };
 
 // Marty: Ctrl-click selects the nearest AI in the player's group and disbands it immediately.
@@ -95,8 +99,6 @@ if (_ctrlPressed) exitWith {
 	};
 
 	_aiId = _target Call WFBE_CL_FNC_GetAIID;
-	// Marty: Manual disband already informs the player, so the command bar cleanup must stay radio-silent.
-	_target setVariable ["CommandBar_DeadUnits_SilentRemoval", true, false];
 	_target setDamage 1;
 	_message = Format ["Disbanded AI %1.", _aiId];
 	titleText [_message, "PLAIN DOWN"];
