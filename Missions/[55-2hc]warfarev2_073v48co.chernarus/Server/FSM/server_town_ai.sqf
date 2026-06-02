@@ -1,5 +1,5 @@
 // Marty: Reliable town AI monitor based on the old pre-capture activation scan; aircraft are ignored.
-Private["_activeSideIDs","_town","_range","_range_detect","_range_detect_active","_position","_groups","_town_teams","_unitsInactiveMax","_patrol_delay","_patrol_enabled","_ai_delegation_enabled","_town_defender_enabled","_town_occupation_enabled","_detected","_detectedRaw","_enemies","_perfTowns","_perfNearEntities","_perfDetected","_perfActivations","_perfDespawns","_perfSpawnGroups","_perfActive","_perfItemStart","_perfStart","_skippedTowns","_townScanned","_sideID","_side","_side_enabled","_isActiveTown","_dynRange","_scanUnit","_scanVehicle","_camps","_camp","_positions","_teams","_use_server","_retVal","_groupIndex"];
+Private["_activeSideIDs","_town","_range","_range_detect","_range_detect_active","_position","_groups","_spawnGroups","_town_teams","_unitsInactiveMax","_patrol_delay","_patrol_enabled","_ai_delegation_enabled","_town_defender_enabled","_town_occupation_enabled","_detected","_detectedRaw","_enemies","_perfTowns","_perfNearEntities","_perfDetected","_perfActivations","_perfDespawns","_perfSpawnGroups","_perfActive","_perfItemStart","_perfStart","_skippedTowns","_townScanned","_sideID","_side","_side_enabled","_isActiveTown","_dynRange","_scanUnit","_scanVehicle","_camps","_camp","_positions","_team","_teams","_use_server","_retVal","_groupIndex"];
 
 for "_j" from 0 to ((count towns) - 1) step 1 do
 {
@@ -129,6 +129,11 @@ while {!WFBE_GameOver} do {
 						// Marty: Count the activation even if a bad config leaves only static defenses to man.
 						_perfActivations = _perfActivations + 1;
 
+						// Marty: Event-only diagnostics for town AI activation state and requested templates.
+						if (missionNamespace getVariable ["TownDefenseDiagnosticsEnabled", false]) then {
+							["TOWN_DEFENSE_DIAG", Format ["activation_start town:%1;side:%2;sideID:%3;groupsRequested:%4;detected:%5;west:%6;east:%7;res:%8;activeSideIDs:%9;teamsBefore:%10;vehiclesBefore:%11", _town getVariable "name", _side, _sideID, count _groups, count _detected, west countSide _detected, east countSide _detected, resistance countSide _detected, _activeSideIDs, count _town_teams, count (_town getVariable ["wfbe_active_vehicles", []])]] Call WFBE_CO_FNC_LogContent;
+						};
+
 						if (count _groups == 0) then {
 							["WARNING", Format ["server_town_ai.sqf: Town [%1] activation for [%2] had no group templates; static defenses will still be manned.", _town getVariable "name", _side]] Call WFBE_CO_FNC_LogContent;
 						} else {
@@ -142,6 +147,7 @@ while {!WFBE_GameOver} do {
 							_camps = +(_town getVariable "camps");
 							_positions = [];
 							_teams = [];
+							_spawnGroups = [];
 							// Marty: Use a separate group index so town iteration is never affected by activation work.
 							for '_groupIndex' from 0 to count(_groups)-1 do {
 								_position = [];
@@ -153,36 +159,66 @@ while {!WFBE_GameOver} do {
 									_position = ([getPos _town, 50, 300] call WFBE_CO_FNC_GetRandomPosition);
 								};
 								_position = [_position, 50] call WFBE_CO_FNC_GetEmptyPosition;
-								[_positions, _position] call WFBE_CO_FNC_ArrayPush;
-								[_teams, createGroup _side] call WFBE_CO_FNC_ArrayPush;
+								// Marty: If the engine group limit is reached, skip this template before any vehicle can spawn empty.
+								_team = createGroup _side;
+								if (isNull _team) then {
+									["WARNING", Format ["server_town_ai.sqf: Town [%1] could not create group for [%2]; skipped template [%3].", _town getVariable "name", _side, _groups select _groupIndex]] Call WFBE_CO_FNC_LogContent;
+								} else {
+									[_positions, _position] call WFBE_CO_FNC_ArrayPush;
+									[_teams, _team] call WFBE_CO_FNC_ArrayPush;
+									[_spawnGroups, _groups select _groupIndex] call WFBE_CO_FNC_ArrayPush;
+								};
 							};
+							_groups = _spawnGroups;
 
 							_use_server = true;
 
-							switch (_ai_delegation_enabled) do {
-								case 1: { //--- Client side delegation.
-									_retVal = [_town, _side, _groups, _positions, _teams] Call WFBE_SE_FNC_DelegateAITown;
-									_town_teams = _town_teams + _teams;
-									_town setVariable ['wfbe_active_vehicles', (_town getVariable 'wfbe_active_vehicles') + (_retVal select 1)];
-									_use_server = false;
+							// Marty: No valid groups means no safe town unit spawn; static defenses are handled below.
+							if (count _groups == 0) then {
+								["WARNING", Format ["server_town_ai.sqf: Town [%1] activation for [%2] had group templates but no valid groups could be created.", _town getVariable "name", _side]] Call WFBE_CO_FNC_LogContent;
+							} else {
+								// Marty: Event-only diagnostics for valid groups after engine group creation.
+								if (missionNamespace getVariable ["TownDefenseDiagnosticsEnabled", false]) then {
+									["TOWN_DEFENSE_DIAG", Format ["activation_groups town:%1;side:%2;validGroups:%3;positions:%4;teams:%5;delegation:%6;headless:%7", _town getVariable "name", _side, count _groups, count _positions, count _teams, _ai_delegation_enabled, count (missionNamespace getVariable ["WFBE_HEADLESSCLIENTS_ID", []])]] Call WFBE_CO_FNC_LogContent;
 								};
-								case 2: { //--- Headless Client delegation.
-									if (count(missionNamespace getVariable "WFBE_HEADLESSCLIENTS_ID") > 0) then {
-										[_town, _side, _groups, _positions, _teams] Call WFBE_CO_FNC_DelegateAITownHeadless;
+
+								switch (_ai_delegation_enabled) do {
+									case 1: { //--- Client side delegation.
+										_retVal = [_town, _side, _groups, _positions, _teams] Call WFBE_SE_FNC_DelegateAITown;
 										_town_teams = _town_teams + _teams;
-										_town setVariable ['wfbe_town_teams', _town_teams];
+										_town setVariable ['wfbe_active_vehicles', (_town getVariable 'wfbe_active_vehicles') + (_retVal select 1)];
 										_use_server = false;
+										// Marty: Event-only diagnostics for client delegation path.
+										if (missionNamespace getVariable ["TownDefenseDiagnosticsEnabled", false]) then {
+											["TOWN_DEFENSE_DIAG", Format ["activation_delegated_client town:%1;side:%2;teamsTracked:%3;vehiclesReturned:%4", _town getVariable "name", _side, count _town_teams, count (_retVal select 1)]] Call WFBE_CO_FNC_LogContent;
+										};
+									};
+									case 2: { //--- Headless Client delegation.
+										if (count(missionNamespace getVariable "WFBE_HEADLESSCLIENTS_ID") > 0) then {
+											[_town, _side, _groups, _positions, _teams] Call WFBE_CO_FNC_DelegateAITownHeadless;
+											_town_teams = _town_teams + _teams;
+											_town setVariable ['wfbe_town_teams', _town_teams];
+											_use_server = false;
+											// Marty: Event-only diagnostics for headless delegation path.
+											if (missionNamespace getVariable ["TownDefenseDiagnosticsEnabled", false]) then {
+												["TOWN_DEFENSE_DIAG", Format ["activation_delegated_headless town:%1;side:%2;groups:%3;teamsTracked:%4;headless:%5", _town getVariable "name", _side, count _groups, count _town_teams, count (missionNamespace getVariable ["WFBE_HEADLESSCLIENTS_ID", []])]] Call WFBE_CO_FNC_LogContent;
+											};
+										};
 									};
 								};
-							};
 
-							//--- Use Server AI.
-							if (_use_server) then {
-								// Marty: Town AI does not need client-side unit marker/action initialization.
-								_retVal = [_town, _side, _groups, _positions, _teams, false] Call WFBE_CO_FNC_CreateTownUnits;
-								_town_teams = _town_teams + _teams;
-								_town setVariable ['wfbe_active_vehicles', (_town getVariable 'wfbe_active_vehicles') + (_retVal select 1)];
-								_town setVariable ['wfbe_town_teams', _town_teams];
+								//--- Use Server AI.
+								if (_use_server) then {
+									// Marty: Town AI does not need client-side unit marker/action initialization.
+									_retVal = [_town, _side, _groups, _positions, _teams, false] Call WFBE_CO_FNC_CreateTownUnits;
+									_town_teams = _town_teams + _teams;
+									_town setVariable ['wfbe_active_vehicles', (_town getVariable 'wfbe_active_vehicles') + (_retVal select 1)];
+									_town setVariable ['wfbe_town_teams', _town_teams];
+									// Marty: Event-only diagnostics for server-side town unit creation result.
+									if (missionNamespace getVariable ["TownDefenseDiagnosticsEnabled", false]) then {
+										["TOWN_DEFENSE_DIAG", Format ["activation_server_create town:%1;side:%2;teamsReturned:%3;vehiclesReturned:%4;teamsTracked:%5;vehiclesTracked:%6", _town getVariable "name", _side, count (_retVal select 0), count (_retVal select 1), count _town_teams, count (_town getVariable ["wfbe_active_vehicles", []])]] Call WFBE_CO_FNC_LogContent;
+									};
+								};
 							};
 						};
 

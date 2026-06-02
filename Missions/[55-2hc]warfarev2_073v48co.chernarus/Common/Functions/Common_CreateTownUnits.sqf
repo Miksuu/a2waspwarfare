@@ -9,7 +9,7 @@
 */
 
 // Marty: Optional global init flag lets town AI skip client marker/action setup.
-Private ["_crews", "_global", "_groups", "_lock", "_perfActive", "_perfCreateTeams", "_perfItemStart", "_perfScope", "_perfStart", "_position", "_positions", "_side", "_sideID", "_team", "_teams", "_town", "_townDefenderAI", "_town_teams", "_town_vehicles", "_units"];
+Private ["_crews", "_global", "_groups", "_lock", "_perfActive", "_perfCreateTeams", "_perfItemStart", "_perfScope", "_perfStart", "_position", "_positions", "_retVal", "_side", "_sideID", "_team", "_teams", "_town", "_townDefenderAI", "_town_teams", "_town_vehicles", "_units"];
 
 _town = _this select 0;
 _side = _this select 1;
@@ -46,10 +46,20 @@ for '_i' from 0 to count(_groups)-1 do {
 	_perfCreateTeams = _perfCreateTeams + 1;
 	_units = _retVal select 0;
 	_vehicles = _retVal select 1;
+	_team = _retVal select 2;
 	_crews = _retVal select 3;
 	_built = _built + count(_units);
 	_builtveh = _builtveh + (count _vehicles);
 
+	// Marty: Event-only diagnostics for the actual unit/vehicle creation result on server, client, or HC locality.
+	if (missionNamespace getVariable ["TownDefenseDiagnosticsEnabled", false]) then {
+		["TOWN_DEFENSE_DIAG", Format ["create_town_units_result town:%1;side:%2;template:%3;groupNull:%4;units:%5;crews:%6;vehicles:%7;global:%8;localServer:%9;hasInterface:%10", _town getVariable "name", _side, _groups select _i, isNull _team, count _units, count _crews, count _vehicles, _global, isServer, hasInterface]] Call WFBE_CO_FNC_LogContent;
+	};
+
+	// Marty: If the group could not be created or no units survived creation, skip patrol/reveal setup cleanly.
+	if (isNull _team) then {
+		["WARNING", Format["Common_CreateTownUnits.sqf: Town [%1] [%2] skipped template %3 because the group is null.", _town, _side, _groups select _i]] Call WFBE_CO_FNC_LogContent;
+	} else {
 	// Marty: Keep the flag on units, crews, vehicles and group for locality-safe activation filtering.
 	if (_townDefenderAI) then {
 		_team setVariable ["WFBE_IsTownDefenderAI", true];
@@ -58,9 +68,16 @@ for '_i' from 0 to count(_groups)-1 do {
 		} forEach (_units + _crews + _vehicles);
 	};
 
-	[_town, _team, _sideID] execVM "Server\FSM\server_town_patrol.sqf";
-	[_team, 400, _position] spawn WFBE_CO_FNC_RevealArea;
-	[_town_teams, _team] call WFBE_CO_FNC_ArrayPush;
+	if ((count _units) + (count _crews) > 0) then {
+		[_town, _team, _sideID] execVM "Server\FSM\server_town_patrol.sqf";
+		[_team, 400, _position] spawn WFBE_CO_FNC_RevealArea;
+		[_town_teams, _team] call WFBE_CO_FNC_ArrayPush;
+		_team allowFleeing 0; //--- Make the units brave.
+	} else {
+		["WARNING", Format["Common_CreateTownUnits.sqf: Town [%1] [%2] template %3 created no units; patrol setup skipped.", _town, _side, _groups select _i]] Call WFBE_CO_FNC_LogContent;
+		deleteGroup _team;
+	};
+	};
 	{
 		[_town_vehicles, _x] call WFBE_CO_FNC_ArrayPush;
 		if (isServer) then {
@@ -68,8 +85,6 @@ for '_i' from 0 to count(_groups)-1 do {
 			_x setVariable ["WFBE_Taxi_Prohib", true];
 		};
 	} forEach _vehicles;
-
-	_team allowFleeing 0; //--- Make the units brave.
 
 	// Marty: Spread town AI creation over scheduled frames instead of building every group in one burst.
 	sleep 0.5;

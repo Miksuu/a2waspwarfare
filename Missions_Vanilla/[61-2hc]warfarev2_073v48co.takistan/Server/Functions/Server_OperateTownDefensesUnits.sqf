@@ -62,15 +62,20 @@ switch (_action) do {
 
 					if (_use_server) then {
 						_unit = [missionNamespace getVariable Format ["WFBE_%1SOLDIER", _side],missionNamespace getVariable Format ["WFBE_%1_DefenseTeam", _side], getPos _x, _side] Call WFBE_CO_FNC_CreateUnit;
-						// Marty: Mark town static gunners so nearby enemy towns do not activate from them.
-						_unit setVariable ["WFBE_IsTownDefenderAI", true, true];
-						(group _unit) setVariable ["WFBE_IsTownDefenderAI", true];
-						_unit assignAsGunner _defense;
-						[_unit] orderGetIn true;
-						_unit moveInGunner _defense;
-						[group _unit, 175, getPos _defense] spawn WFBE_CO_FNC_RevealArea;
-						_x setVariable ["wfbe_defense_operator", _unit]; //--- Track the original gunner.
-						_perfSpawned = _perfSpawned + 1;
+						// Marty: If unit creation fails, leave the static empty instead of running commands on objNull.
+						if (isNull _unit) then {
+							["WARNING", Format ["Server_OperateTownDefensesUnits.sqf : Town [%1] failed to create static gunner for [%2].", _town getVariable "name", _side]] Call WFBE_CO_FNC_LogContent;
+						} else {
+							// Marty: Mark town static gunners so nearby enemy towns do not activate from them.
+							_unit setVariable ["WFBE_IsTownDefenderAI", true, true];
+							(group _unit) setVariable ["WFBE_IsTownDefenderAI", true];
+							_unit assignAsGunner _defense;
+							[_unit] orderGetIn true;
+							_unit moveInGunner _defense;
+							[group _unit, 175, getPos _defense] spawn WFBE_CO_FNC_RevealArea;
+							_x setVariable ["wfbe_defense_operator", _unit]; //--- Track the original gunner.
+							_perfSpawned = _perfSpawned + 1;
+						};
 					};
 				};
 
