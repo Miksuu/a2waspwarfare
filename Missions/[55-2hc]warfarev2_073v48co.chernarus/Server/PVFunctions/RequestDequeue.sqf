@@ -11,6 +11,9 @@ _id   = _this select 1;
 _logik = (_side) Call WFBE_CO_FNC_GetSideLogic;
 if (isNull _logik) exitWith {};
 
+//--- Must have a (human) commander team to own the queue (mirror RequestEnqueue; never trust the client).
+if (isNull (_side Call WFBE_CO_FNC_GetCommanderTeam)) exitWith {};
+
 _queue = + (_logik getVariable "wfbe_upgrade_queue");
 if !(_id in _queue) exitWith {};
 
