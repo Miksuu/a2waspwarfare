@@ -163,6 +163,14 @@ _n = _n		+ ["RULaunchersBox"];
 _n = _n		+ ["RUSpecialWeaponsBox"];
 _n = _n		+ [if (IS_chernarus_map_dependent) then {"INS_WarfareBVehicleServicePoint"} else {"TK_WarfareBVehicleServicePoint_Base_EP1"}];
 
+//--- WDDM commander positions (Stage 1): build-menu anchors; composition spawned by Server_ConstructPosition.sqf
+_n = _n		+ ["Land_Ind_BoardsPack1"];	//--- AA Position (Large)
+_n = _n		+ ["Land_Ind_BoardsPack2"];	//--- Artillery Position (Large)
+_n = _n		+ ["Land_WoodenRamp"];		//--- Mixed Position (Large)
+_n = _n		+ ["Paleta1"];				//--- Base Wall - Straight
+_n = _n		+ ["Paleta2"];				//--- Base Wall - Corner
+_n = _n		+ ["RoadBarrier_long"];		//--- Base Wall - Gate
+
 /* Class used for AI, AI will attempt to build those */
 missionNamespace setVariable [Format["WFBE_%1DEFENSES_MG", _side], ['KORD_high_TK_EP1']];
 missionNamespace setVariable [Format["WFBE_%1DEFENSES_GL", _side], ['AGS_TK_EP1']];

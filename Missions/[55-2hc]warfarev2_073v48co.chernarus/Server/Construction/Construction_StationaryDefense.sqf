@@ -9,7 +9,7 @@ _isAIQuery = _this select 5;
 _manRange = if (count _this > 6) then {_this select 6} else {missionNamespace getVariable "WFBE_C_BASE_DEFENSE_MANNING_RANGE"};
 _sideID = (_side) Call GetSideID;
 
-_area = [_position,((_side) Call WFBE_CO_FNC_GetSideLogic) getVariable "wfbe_basearea"] Call WFBE_CO_FNC_GetClosestEntity4; hintsilent format ["%1",_area];
+_area = [_position,((_side) Call WFBE_CO_FNC_GetSideLogic) getVariable "wfbe_basearea"] Call WFBE_CO_FNC_GetClosestEntity4;
 _availweapons = _area getVariable "weapons";
 
 _defense = createVehicle [_type, _position, [], 0, "NONE"];
