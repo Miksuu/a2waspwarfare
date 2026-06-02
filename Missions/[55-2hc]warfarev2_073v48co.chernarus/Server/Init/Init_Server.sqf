@@ -23,6 +23,7 @@ CanUpdateTeam = Compile preprocessFile "Server\Functions\Server_CanUpdateTeam.sq
 ChangeAICommanderFunds = Compile preprocessFile "Server\Functions\Server_ChangeAICommanderFunds.sqf";
 ConstructDefense = Compile preprocessFile "Server\Construction\Construction_StationaryDefense.sqf";
 CreateDefenseTemplate = Compile preprocessFile "Server\Functions\Server_CreateDefenseTemplate.sqf";
+Server_ConstructPosition = Compile preprocessFile "Server\Functions\Server_ConstructPosition.sqf";
 HandleBuildingRepair = Compile preprocessFile "Server\Functions\Server_HandleBuildingRepair.sqf";
 GetAICommanderFunds = Compile preprocessFile "Server\Functions\Server_GetAICommanderFunds.sqf";
 HandleBuildingDamage = Compile preprocessFile "Server\Functions\Server_HandleBuildingDamage.sqf";

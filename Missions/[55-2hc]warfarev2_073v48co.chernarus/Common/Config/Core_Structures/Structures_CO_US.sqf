@@ -165,6 +165,14 @@ _n = _n		+ ["USLaunchers_EP1"];
 _n = _n		+ ["USSpecialWeapons_EP1"];
 _n = _n		+ [if (IS_chernarus_map_dependent) then {"CDF_WarfareBVehicleServicePoint"} else {"US_WarfareBVehicleServicePoint_Base_EP1"}];
 
+//--- WDDM commander positions (Stage 1): build-menu anchors; composition spawned by Server_ConstructPosition.sqf
+_n = _n		+ ["Land_Ind_BoardsPack1"];	//--- AA Position (Large)
+_n = _n		+ ["Land_Ind_BoardsPack2"];	//--- Artillery Position (Large)
+_n = _n		+ ["Land_WoodenRamp"];		//--- Mixed Position (Large)
+_n = _n		+ ["Paleta1"];				//--- Base Wall - Straight
+_n = _n		+ ["Paleta2"];				//--- Base Wall - Corner
+_n = _n		+ ["RoadBarrier_long"];		//--- Base Wall - Gate
+
 /* Class used for AI, AI will attempt to build those */
 missionNamespace setVariable [Format["WFBE_%1DEFENSES_MG", _side], ['M2StaticMG_US_EP1']];
 missionNamespace setVariable [Format["WFBE_%1DEFENSES_GL", _side], ['MK19_TriPod_US_EP1']];
