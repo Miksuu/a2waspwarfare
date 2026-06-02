@@ -126,7 +126,7 @@ while {alive player && dialog} do {
 		for '_i' from 0 to count(_upgrades_old)-1 do {if ((_upgrades_old select _i) != (_upgrades select _i)) exitWith {_update_list = true}};
 		_queue_now = WFBE_Client_Logic getVariable "wfbe_upgrade_queue";
 		if (isNil "_queue_now") then {_queue_now = []};
-		if !(_queue_now isEqualTo _queue_old) then {_update_list = true; _update_upgrade = true; _queue_old = + _queue_now};
+		if ((str _queue_now) != (str _queue_old)) then {_update_list = true; _update_upgrade = true; _queue_old = + _queue_now};
 		if (_update_list) then {
 			_update_list = false;
 			for '_i' from 0 to count(_upgrades_old)-1 do {lnbSetText[504001, [_i, 0], Format ["%1/%2",_upgrades select _i,_upgrade_levels select _i]]};
@@ -299,7 +299,7 @@ while {alive player && dialog} do {
 	if (isNil "_running_id") then {_running_id = -1};
 	_qlist = WFBE_Client_Logic getVariable "wfbe_upgrade_queue";
 	if (isNil "_qlist") then {_qlist = []};
-	if ((_upgrade_isupgrading && !(WFBE_Client_Logic getVariable "wfbe_upgrading")) || (!_upgrade_isupgrading && (WFBE_Client_Logic getVariable "wfbe_upgrading")) || (_upgrade_running_id != _running_id) || !(_qlist isEqualTo _queue_footer_old)) then {
+	if ((_upgrade_isupgrading && !(WFBE_Client_Logic getVariable "wfbe_upgrading")) || (!_upgrade_isupgrading && (WFBE_Client_Logic getVariable "wfbe_upgrading")) || (_upgrade_running_id != _running_id) || ((str _qlist) != (str _queue_footer_old))) then {
 		_upgrade_isupgrading = (WFBE_Client_Logic getVariable "wfbe_upgrading");
 		_upgrade_running_id = _running_id;
 		_running_label = if (_upgrade_running_id >= 0 && _upgrade_running_id < count _upgrade_labels) then {_upgrade_labels select _upgrade_running_id} else {"An upgrade"};
