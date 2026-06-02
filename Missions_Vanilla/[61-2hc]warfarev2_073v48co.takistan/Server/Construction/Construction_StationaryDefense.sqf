@@ -1,5 +1,5 @@
 /* Description: Creates Defenses. */
-Private ["_buildings","_defense","_direction","_isAIQuery","_isArtillery","_manned","_position","_side","_sideID","_type","_area","_availweapons"];
+Private ["_area","_availweapons","_buildings","_builtByRepairTruck","_defense","_direction","_isAIQuery","_isArtillery","_manned","_manRange","_position","_side","_sideID","_type"];
 _type = _this select 0;
 _side = _this select 1;
 _position = _this select 2;
@@ -7,6 +7,7 @@ _direction = _this select 3;
 _manned = _this select 4;
 _isAIQuery = _this select 5;
 _manRange = if (count _this > 6) then {_this select 6} else {missionNamespace getVariable "WFBE_C_BASE_DEFENSE_MANNING_RANGE"};
+_builtByRepairTruck = if (count _this > 7) then {_this select 7} else {false};
 _sideID = (_side) Call GetSideID;
 
 _area = [_position,((_side) Call WFBE_CO_FNC_GetSideLogic) getVariable "wfbe_basearea"] Call WFBE_CO_FNC_GetClosestEntity4; hintsilent format ["%1",_area];
@@ -16,6 +17,12 @@ _defense = createVehicle [_type, _position, [], 0, "NONE"];
 _defense setDir _direction;
 _defense setPos _position;
 _defense setVariable ["side" ,_side];
+if (_builtByRepairTruck) then {
+	_defense setVariable ["WFBE_BuiltByRepairTruck", true, true];
+	if ((typeOf _defense) isKindOf "Base_WarfareBVehicleServicePoint") then {
+		_defense setVariable ["WFBE_RepairTruckServicePoint", true, true];
+	};
+};
 ["INFORMATION", Format ["Construction_StationaryDefense.sqf: [%1] Defense [%2] has been constructed.", str _side, _type]] Call WFBE_CO_FNC_LogContent;
 
 //--- If it's a minefield, we exit the script while spawning it.

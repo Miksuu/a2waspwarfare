@@ -3,6 +3,7 @@ MenuAction = -1;
 _type = (missionNamespace getVariable 'WFBE_EASA_Vehicles') find (typeOf (vehicle player));
 if (_type == -1) exitWith {["ERROR", Format ["GUI_Menu_EASA.sqf: Player vehicle [%1] was not found within the list.", vehicle player]] Call WFBE_CO_FNC_LogContent};
 _data = ((missionNamespace getVariable 'WFBE_EASA_Loadouts') select _type);
+_repairPointEASA = if (isNil "WFBE_CL_V_RepairPointEASAActive") then {false} else {WFBE_CL_V_RepairPointEASAActive};
 
 _listBox = 23003;
 
@@ -44,13 +45,35 @@ while {alive player && dialog} do {
 			_index = lnbValue[_listBox, [_index, 0]]; //--- Retrieve the real index.
 			
 			_row = _data select _index; //--- Get the row from the data array.
-			if (_funds > (_row select 0)) then {
-				[vehicle player, _index, true] Call EASA_Equip;
-				-(_row select 0) Call ChangePlayerFunds;
-				hint parseText(Format[localize 'STR_WF_INFO_EASA_Purchase', _row select 1]);
-				closeDialog 0;
-			} else {
-				hint parseText(Format[localize 'STR_WF_INFO_Funds_Missing',(_row select 0) - _funds, _row select 1]);
+			_canUseEASA = true;
+			if (_repairPointEASA) then {
+				_canUseEASA = false;
+				if (time - WFBE_SK_V_LastUse_RepairPointEASA <= WFBE_SK_V_Reload_RepairPointEASA) then {
+					hint Format ["Repair point EASA is cooling down. Wait %1 seconds.", ceil(WFBE_SK_V_Reload_RepairPointEASA - (time - WFBE_SK_V_LastUse_RepairPointEASA))];
+					closeDialog 0;
+				} else {
+					if !(isNil "WFBE_CL_FNC_CanUseRepairPointEASA") then {
+						_canUseEASA = [player, vehicle player] Call WFBE_CL_FNC_CanUseRepairPointEASA;
+					};
+				};
+				if (!_canUseEASA && dialog) then {
+					hint "Only Engineers can use EASA at repair-truck service points.";
+					closeDialog 0;
+				};
+			};
+			if (_canUseEASA) then {
+				if (_funds > (_row select 0)) then {
+					[vehicle player, _index, true] Call EASA_Equip;
+					-(_row select 0) Call ChangePlayerFunds;
+					if (_repairPointEASA) then {
+						WFBE_SK_V_LastUse_RepairPointEASA = time;
+						WFBE_CL_V_RepairPointEASAActive = false;
+					};
+					hint parseText(Format[localize 'STR_WF_INFO_EASA_Purchase', _row select 1]);
+					closeDialog 0;
+				} else {
+					hint parseText(Format[localize 'STR_WF_INFO_Funds_Missing',(_row select 0) - _funds, _row select 1]);
+				};
 			};
 		};
 	};
