@@ -362,7 +362,12 @@ if ((typeOf _vehicle) isKindOf "Tank" || (typeOf _vehicle) isKindOf "Car") then 
 
 
 	//--- Empty Vehicle.
-	if (!_driver && !_gunner && !_commander) exitWith {};
+	if (!_driver && !_gunner && !_commander) exitWith {
+		//--- Release fix (#3): empty-vehicle exit must still release the per-factory queue slot,
+		//--- otherwise WFBE_C_QUEUE_<type> leaks one each empty purchase and the factory soft-locks at its cap.
+		unitQueu = unitQueu - _cpt;
+		missionNamespace setVariable [Format["WFBE_C_QUEUE_%1",_factory],(missionNamespace getVariable Format["WFBE_C_QUEUE_%1",_factory])-1];
+	};
 
 	//--- Crew Management.
 	_crew = missionNamespace getVariable Format ["WFBE_%1SOLDIER",sideJoinedText];
