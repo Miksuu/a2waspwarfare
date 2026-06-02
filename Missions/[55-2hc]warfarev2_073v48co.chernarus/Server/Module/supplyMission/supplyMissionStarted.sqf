@@ -1,9 +1,11 @@
 "WFBE_Client_PV_SupplyMissionStarted" addPublicVariableEventHandler {
     (_this select 1) spawn {
-        private ['_associatedSupplyTruck', '_associatedSourceTown', '_sidePlayer','_iteratedObject','_friendlyCommandCenterInProximity','_playerObject','_match','_currentSupplyTruckDriverLeader','_playerIsDrivingSupplyTruck','_playerisInProximityOfSupplyTruck'];
+        private ['_associatedSupplyTruck', '_associatedSourceTown', '_sidePlayer','_iteratedObject','_friendlyCommandCenterInProximity','_playerObject','_match','_currentSupplyTruckDriverLeader','_playerIsDrivingSupplyTruck','_playerisInProximityOfSupplyTruck','_byHeli','_vp','_cp','_dx','_dy'];
         _playerObject = _this select 0;
         _associatedSupplyTruck = _this select 1;
         _associatedSourceTown = _this select 2;
+        _byHeli = _associatedSupplyTruck getVariable "SupplyByHeli";
+        if (isNil "_byHeli") then { _byHeli = false; };
 
         _associatedSourceTown setVariable ['LastSupplyMissionRun', time];
 
@@ -43,9 +45,12 @@
 			
             {
        			if (_x isKindOf "Base_WarfareBUAVterminal") then {
-            	    _friendlyCommandCenterInProximity = true;
+            	    //--- Helicopters fly high: qualify on HORIZONTAL (2D) distance to the CC, ignore altitude. Trucks unchanged.
+            	    _vp = getPos _associatedSupplyTruck; _cp = getPos _x;
+            	    _dx = (_vp select 0) - (_cp select 0); _dy = (_vp select 1) - (_cp select 1);
+            	    if ((!_byHeli) || (((_dx*_dx)+(_dy*_dy)) < 6400)) then { _friendlyCommandCenterInProximity = true; };
         		};
-    		} forEach (nearestObjects [(getPos _associatedSupplyTruck), [], 80]);
+    		} forEach (nearestObjects [(getPos _associatedSupplyTruck), ["Base_WarfareBUAVterminal"], (if (_byHeli) then {400} else {80})]);
 
             if (_friendlyCommandCenterInProximity) exitWith {
                 {
