@@ -595,7 +595,9 @@ call WFBE_CO_FNC_InitAFKkickHandler;
 
 // [] execVM "Server\Functions\Server_MapBlinkingUnits.sqf";
 
-[] execVM "Server\Module\serverFPS\monitorServerFPS.sqf";
+// [removed in release fix #7] monitorServerFPS.sqf was a redundant second FPS publisher: its PV
+// "WFBE_VAR_SERVER_FPS" has no reader anywhere (the live HUD reads SERVER_FPS_GUI from serverFpsGUI.sqf).
+// The file has been deleted; serverFpsGUI.sqf remains the single publisher.
 
 // Marty: AntiStack remains compiled for dependencies, but its scheduled loops and DB session state are optional for controlled ON/OFF audits.
 _antiStackEnabled = ((missionNamespace getVariable ["WFBE_C_ANTISTACK_ENABLED", 1]) == 1);
