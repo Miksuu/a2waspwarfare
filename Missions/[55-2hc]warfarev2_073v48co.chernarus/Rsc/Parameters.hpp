@@ -1,6 +1,13 @@
 /* Parameters */
 
 	class Params {
+	//--- Supply-helicopter feature toggle: shelve the heli feature from the lobby (default Enabled).
+	class WFBE_C_SUPPLY_HELI_ENABLED {
+		title = "Supply Helicopters";
+		values[] = {0,1};
+		texts[] = {"Disabled","Enabled"};
+		default = 1;
+	};
 	// Marty: Allow admins to run the mission with or without the accelerated day/night cycle.
 	class WFBE_DAYNIGHT_ENABLED {
 		title = "$STR_WF_PARAMETER_DAYNIGHT_ENABLED";
