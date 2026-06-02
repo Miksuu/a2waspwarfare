@@ -25,9 +25,22 @@ _leaderIsPlayer = false;
 
 if (typeName _side == "SIDE") then {_side = (_side) Call WFBE_CO_FNC_GetSideID};
 
+// Marty: Do not attempt createUnit on grpNull; callers can degrade without spawning empty vehicles.
+if (isNull _team) exitWith {
+	["WARNING", Format ["Common_CreateUnit.sqf: Unit [%1] for side [%2] was not created because target group is null.", _type, _side]] Call WFBE_CO_FNC_LogContent;
+	objNull
+};
+
 _get = missionNamespace getVariable _type;
 _skill = if !(isNil '_get') then {_get select QUERYUNITSKILL} else {missionNamespace getVariable "WFBE_C_UNITS_SKILL_DEFAULT"};
 _unit = _team createUnit [_type, _position, [], 5, _special];
+
+// Marty: Stop cleanly if the engine refused the unit, usually because a group/unit limit was reached.
+if (isNull _unit) exitWith {
+	["WARNING", Format ["Common_CreateUnit.sqf: Unit [%1] for side [%2] failed to create in group [%3] at [%4].", _type, _side, _team, _position]] Call WFBE_CO_FNC_LogContent;
+	objNull
+};
+
 _unit setSkill _skill;
 
 if(side _unit == east && !(_unit hasWeapon "NVGoggles")) then {
