@@ -12,7 +12,7 @@ This release bundles five community features and three performance/bug fixes int
 
 | # | Item | Type | Source | Merge / commit |
 |---|------|------|--------|----------------|
-| 1 | Supply helicopters (per side) | Feature | `supply-heli-rescope` | `1a9799cd` |
+| 1 | Supply helicopters (per side, + lobby on/off toggle) | Feature | `supply-heli-rescope` | `1a9799cd` + `ac7e7fd0` |
 | 2 | WDDM commander-buildable defense positions | Feature | `feat/commander-positions` | `2a9996ae` |
 | 3 | Commander upgrade queue | Feature | PR #5 `feat/upgrade-queue` | `f91d0f36` |
 | 4 | Engineer EASA at repair-truck service points | Feature | PR #6 `codex/engineer-repairpoint-rearm` | `3ec81e20` |
@@ -26,7 +26,7 @@ This release bundles five community features and three performance/bug fixes int
 ## 2. Patchnotes (player-facing)
 
 **New**
-- **Supply helicopters** — each side can buy a single transport supply helicopter (alongside the supply truck). Fly to a friendly town, use **LOAD SUPPLIES**, deliver to your Command Center for the same reward/cooldown as the truck. Higher tiers add a heavy lift; a cash-run option pays the pilot and tithes a share to the commander.
+- **Supply helicopters** — each side can buy a single transport supply helicopter (alongside the supply truck). Fly to a friendly town, use **LOAD SUPPLIES**, deliver to your Command Center for the same reward/cooldown as the truck. Higher tiers add a heavy lift; a cash-run option pays the pilot and tithes a share to the commander. Admins can disable supply helicopters from the server lobby (`WFBE_C_SUPPLY_HELI_ENABLED`, default on).
 - **Commander defense positions (WDDM)** — the commander can build pre-designed multi-object defense compositions and modular base walls from the build menu (9 presets: AA / artillery / mixed emplacements per side, plus wall straight/corner/gate). Guns are manned and scored exactly like hand-built defenses.
 - **Commander upgrade queue** — queue tech upgrades; the server auto-starts the next one the moment the side can afford it. The current upgrade (with countdown) and the next queued upgrade show on the HUD under server FPS. Manage the queue from the WF upgrade menu. Nothing is charged until an upgrade actually starts.
 - **Engineer EASA at repair points** — Engineer-class players can re-equip aircraft loadouts (EASA) at a service point **built from a repair truck**, with a 60-second cooldown after use. Base-built service points are unchanged.
@@ -44,6 +44,7 @@ This release bundles five community features and three performance/bug fixes int
 ### 3.1 Supply helicopters — `1a9799cd`
 Rescoped to **one supply helicopter per side** (not a whole class list). Reuses the existing supply-truck delivery pipeline (server-side delivery is vehicle-agnostic). Adds `WFBE_C_SUPPLY_VEHICLE_TYPES` as the single source of truth and de-duplicates three hardcoded classname lists.
 Files: `Common/Init/Init_CommonConstants.sqf`, `Client/Module/supplyMission/supplyMissionStart.sqf`, `Client/Module/Skill/Skill_Apply.sqf`, `Client/GUI/GUI_Menu_BuyUnits.sqf`, `Client/Functions/Client_UIFillListBuyUnits.sqf`, `Server/Module/supplyMission/{supplyMissionStarted,supplyMissionCompleted,supplyMissionCompletedMessage}.sqf`.
+**Update `ac7e7fd0`:** added a lobby on/off toggle (`Rsc/Parameters.hpp` → `WFBE_C_SUPPLY_HELI_ENABLED`, default *Enabled*; gated in `Init_CommonConstants.sqf` so disabling clears the heli type-lists) plus a lift-capable-heli hint in the buy menu (`GUI_Menu_BuyUnits.sqf`). This makes supply helicopters the one feature in the bundle that can be turned off **live, no repack**.
 
 ### 3.2 WDDM commander positions — `2a9996ae`
 Build-menu "anchor" classnames route through a new `Server_ConstructPosition` that resolves a `WFBE_NEURODEF_*` template and places each child through the stock `ConstructDefense` (so manning/scoring/artillery behave identically). Flat MVP prices; no upgrade gate.
@@ -75,7 +76,7 @@ Files: `Common/Functions/Common_OnUnitHit.sqf`, `Common/Init/Init_CommonConstant
 - **This release targets Chernarus.** Build/host `Missions/[55-2hc]warfarev2_073v48co.chernarus`.
 - **Takistan / map rotation — read this:** the Takistan tree on this branch contains **only** the upgrade-queue, Engineer-EASA, and delayed-vehicle-kill-rewards mirrors (carried from their source branches). Supply helicopters, WDDM positions, and the three fixes are **Chernarus-only** here. Do **not** host Takistan from this branch expecting parity. For full parity, run `Tools/LoadoutManager` (`dotnet run`, needs the `7za` env var) to regenerate Takistan from the now-updated Chernarus source — that propagates everything (all non-skip-listed files) in one pass.
 - **BattlEye:** no filter changes required. The new PV channels (`WFBE_PVF_RequestEnqueue/RequestDequeue`) and broadcasts ride the existing pass-through `publicvariable.txt`.
-- **No new mission parameters / no schema changes.** Per decision, features are not behind lobby toggles in this release — removal is via git (below).
+- **One new mission parameter:** `WFBE_C_SUPPLY_HELI_ENABLED` (server lobby, default ON) toggles supply helicopters at runtime — no repack. The other four features have no toggle; remove them via git (below). No schema changes.
 
 ---
 
@@ -93,7 +94,7 @@ git revert <commit-sha>
 
 | To remove | Run |
 |-----------|-----|
-| Supply helicopters | `git revert -m 1 1a9799cd` |
+| Supply helicopters | Lobby (live): set `WFBE_C_SUPPLY_HELI_ENABLED` = *Disabled*. Git (full): `git revert -m 1 ac7e7fd0` then `git revert -m 1 1a9799cd` |
 | WDDM commander positions | `git revert -m 1 2a9996ae` |
 | Commander upgrade queue | `git revert -m 1 f91d0f36` |
 | Engineer EASA at repair points | `git revert -m 1 3ec81e20` |
