@@ -69,6 +69,8 @@ HUD lines (current + next)          • idle?  no upgrade running (wfbe_upgradin
 
 ### 5.1 Data model
 
+**Terminology note (per wiki cross-check).** The wiki uses "SV" to mean a *per-town* `supplyValue`. The resource upgrades actually cost — and that this feature gates on — is the **side supply pool** `wfbe_supply_<side>` (the wiki calls this "side supply"). Miksuu's request ("auto-start once there is enough SV") maps to the **side supply pool**, which is exactly what the upgrade affordability check already uses (`GUI_UpgradeMenu.sqf:208`, via `WFBE_CO_FNC_GetSideSupply`). This spec uses "side supply" for precision; "SV" in the original request = side supply.
+
 New variable on each side-logic object (`WFBE_L_BLU` / `WFBE_L_OPF` / `WFBE_L_GUE`), broadcast:
 
 - `wfbe_upgrade_queue` — `Array` of upgrade IDs (integers 0–21), front = next to start. Example `[2, 3, 1]`.
@@ -103,10 +105,11 @@ Loop (≈ every 5 s, FPS-aware via `GetSleepFPS`, `while {!gameOver}`), for each
    - supply: when `WFBE_C_ECONOMY_CURRENCY_SYSTEM == 0`, require `(_side Call WFBE_CO_FNC_GetSideSupply) >= (_cost select 0)`.
    - funds: require `(_comTeam Call WFBE_CO_FNC_GetTeamFunds) >= (_cost select 1)`.
 10. Prerequisites: re-run the same LINKS check the menu uses (`WFBE_C_UPGRADES_<side>_LINKS[_id][_current]`). Since levels only increase and we forbid queuing unmet prereqs (§5.4), this is defensive; if unmet → skip (do not pop — wait).
-11. If all pass → **start it**:
+11. If all pass → **start it** (mirroring `Server_AI_Com_Upgrade.sqf:41-51`'s structure, with corrected indices):
     - Pop the head: `_queue deleteAt 0; _logik setVariable ["wfbe_upgrade_queue", _queue, true];`
-    - **Deduct (correct indices — NOT the AI-path swap):**
-      - `[_side, -(_cost select 0), "Queued tech upgrade.", false] Call ChangeSideSupply;` (only when currency system 0)
+    - **Set the gate synchronously** so the next 5 s tick can't double-start: `_logik setVariable ["wfbe_upgrading", true, true]; _logik setVariable ["wfbe_upgrading_id", _id, true];` (the AI path does this at `:43-44`; `ProcessUpgrade` sets them again — redundant but race-safe).
+    - **Deduct (correct indices — NOT the AI-path swap at `:47-51`):**
+      - `[_side, -(_cost select 0), "Queued tech upgrade.", false] Call ChangeSideSupply;` (only when currency system 0). Calling `ChangeSideSupply` from server code is proven safe — the income loop does exactly this at `updateresources.sqf:49`. Because we deduct only *after* confirming `supply >= cost`, the result is ≥ 0, so the negative-flip branch in `Server_ChangeSideSupply.sqf` is never hit.
       - `[_comTeam, -(_cost select 1)] Call WFBE_CO_FNC_ChangeTeamFunds;`
     - `[_side, _id, _current, false] Spawn WFBE_SE_FNC_ProcessUpgrade;` — `_upgrade_isplayer = false` so it runs the full-timer path (no client sync needed), exactly like the AI commander.
 
@@ -119,7 +122,9 @@ Mirror the existing tiny `Server\PVFunctions\RequestUpgrade.sqf` (which just `_t
 - `Server\PVFunctions\RequestEnqueue.sqf` — payload `[side, upgradeId]`. Validates (commander exists for that side, upgrade enabled, not maxed, not already running, not already queued, prereqs currently met) then appends `upgradeId` to `wfbe_upgrade_queue` and re-broadcasts.
 - `Server\PVFunctions\RequestDequeue.sqf` — payload `[side, upgradeId]`. Removes the first matching id from `wfbe_upgrade_queue` and re-broadcasts.
 
-Both are registered the same way `RequestUpgrade` is (the existing PV-function registration path). The client sends via `["RequestEnqueue", [side, id]] call WFBE_CO_FNC_SendToServer`. Server re-validates (never trust the client) — this matters because deduction is server-side and the enqueue is the only authority on what enters the queue.
+**Registration (verified mechanism).** Add `"RequestEnqueue"` and `"RequestDequeue"` to the `_serverCommandPV` list in `Common\Init\Init_PublicVariables.sqf` (lines 9–22) and drop the two files in `Server\PVFunctions\`. The init loop auto-compiles `SRVFNC<Name>` and registers an `addPublicVariableEventHandler` on `WFBE_PVF_<Name>` → `WFBE_SE_FNC_HandlePVF` → spawns the handler with the payload. The client sends via `["RequestEnqueue", [side, id]] call WFBE_CO_FNC_SendToServer` (each request name rides its own `WFBE_PVF_<Name>` channel). Server re-validates (never trust the client) — this matters because deduction is server-side and enqueue is the only authority on what enters the queue.
+
+*(Alternative considered: piggyback on the existing `RequestSpecial` channel via new `Server_HandleSpecial.sqf` cases — zero registration changes — but dedicated handlers match how `RequestUpgrade` itself is structured, so we keep them dedicated.)*
 
 ### 5.4 Client — WF upgrade menu (`GUI_UpgradeMenu.sqf` + `Dialogs.hpp`)
 
@@ -157,6 +162,9 @@ Both are registered the same way `RequestUpgrade` is (the existing PV-function r
 - **Manual upgrade of a queued item:** allowed; the queued entry simply advances it another level when it fires (or drops if maxed). Non-breaking.
 - **Currency modes:** "full price" honours `WFBE_C_ECONOMY_CURRENCY_SYSTEM` — funds-only servers (mode 1) skip the supply check/deduction; the queue still gates on funds.
 - **Duplicate prevention:** an upgrade already queued or currently running cannot be enqueued again (Queue button shows Dequeue when queued).
+- **AI commander non-interference:** the driver only acts when a human commander team exists and the queue is non-empty. Under an AI commander the queue stays empty (only a human commander can enqueue) and the commander-funds read is ~0, so the driver is inert and cannot collide with `Server_AI_Com_Upgrade.sqf`.
+- **HQ destruction:** handled transitively — losing the HQ loses the commander, so `GetCommanderTeam` returns objNull and the driver waits. Queued state persists as side-state until a commander returns.
+- **Alignment with planned economy-authority migration (DR-23):** the wiki flags that upgrade purchase is slated to move server-authoritative. This queue is *already* server-authoritative (server-side deduction), so it aligns with — rather than fights — that migration. The manual instant-upgrade path keeps its existing client-side debit (unchanged; that pre-existing P1 gap is out of scope here).
 
 ## 7. Discovered issues (out of scope — flagged, not fixed here)
 
@@ -178,6 +186,7 @@ A diff of the tree list will be confirmed at implementation time; identical logi
 3. **Boot the local Arma 2 OA dedicated server** (the WASP test rig) with the packed mission; scan the server `.rpt` for script errors during mission init — a clean init proves all new scripts compile and the `Init_Server` additions don't break startup. This is the primary regression guard.
 4. **Behavioural (where feasible on the test rig):** queue several upgrades, confirm they auto-fire as town supply income accrues; confirm SV + commander funds are deducted on fire (not on queue); cancel a queued item; confirm HUD shows current + next and footer/tags update; confirm the **manual Upgrade button still behaves exactly as before** (instant when idle + affordable).
 5. **Isolation check:** `git diff` confirms `Server_ProcessUpgrade.sqf` and the AI path are unmodified, and `feat/supply-helicopter` is untouched.
+6. **BattlEye (verified):** no filter edits required. `BattlEyeFilter/publicvariable.txt` contains only `5 "kickAFK"` with no default-deny, and there is no `scripts.txt`/`remoteexec.txt`. The new `WFBE_PVF_RequestEnqueue`/`RequestDequeue` channels and the `setVariable [...,true]` queue broadcast pass unfiltered — consistent with the existing posture (none of the current `RequestX` PVFs are filtered either). The feature will not kick players.
 
 ## 10. File-by-file change list (primary tree; ×N for mirrored trees)
 
@@ -187,7 +196,7 @@ A diff of the tree list will be confirmed at implementation time; identical logi
 | `Server\FSM\upgradeQueue.sqf` | **new** — auto-start driver loop | ~60 |
 | `Server\PVFunctions\RequestEnqueue.sqf` | **new** — validate + append | ~30 |
 | `Server\PVFunctions\RequestDequeue.sqf` | **new** — remove by id | ~12 |
-| (PV registration) | register the two handlers like `RequestUpgrade` | ~4 |
+| `Common\Init\Init_PublicVariables.sqf` | add 2 names to `_serverCommandPV` | ~2 |
 | `Client\GUI\GUI_UpgradeMenu.sqf` | Queue/Dequeue action, row tags, footer queue text, button label | ~55 |
 | `Rsc\Dialogs.hpp` | one Queue button in `WFBE_UpgradeMenu` | ~12 |
 | `Client\Client_UpdateRHUD.sqf` | two HUD lines + client-local countdown | ~45 |
@@ -198,3 +207,13 @@ A diff of the tree list will be confirmed at implementation time; identical logi
 ## 11. Out of scope (recap)
 
 Leaderboard/miksuu.com feed; queue reordering; stacking multiple levels of one upgrade; AI-path index-bug fix.
+
+## 12. Wiki cross-check (2026-06-02)
+
+Verified against the project developer wiki (local clone confirmed up to date with the live GitHub wiki):
+
+- **CONFIRMED:** upgrades cost supply + funds; one-at-a-time gated by `wfbe_upgrading`; **no existing upgrade queue**; commander is a voted player with funds on the team object (`wfbe_funds`) resolved via side-logic `wfbe_commander`; upgrade state (`wfbe_upgrades`/`wfbe_upgrading`/`wfbe_upgrading_id`) is replicated; server FPS rides a toggleable RHUD. (`Upgrades-And-Research-Atlas.md`, `Economy-Authority-First-Cut.md`, `Commander-HQ-Lifecycle-Atlas.md`, `Client-UI-Systems-Atlas.md`.)
+- **CORRECTED:** "SV" in the wiki = per-town `supplyValue`; the resource this feature gates on is the **side supply pool** (`wfbe_supply_<side>`). See the §5.1 terminology note.
+- **EXISTING QUEUE PATTERN:** the factory unit-production FIFO (`queu` on the building + `WFBE_C_QUEUE_<type>` client caps) is FIFO, no-reorder, with a queue-hint display — our simple-list upgrade queue is UX-consistent with it. We deliberately do **not** copy its client-authoritative, token-based mechanism (known-fragile, DR-33); the upgrade queue is server-authoritative side-state instead.
+- **NO CONFLICTING INTENT:** no prior plan or abandoned feature for upgrade queuing (the AI `WFBE_C_UPGRADES_<side>_AI_ORDER` is AI-only).
+- **BattlEye:** no edits required (see §9.6).
