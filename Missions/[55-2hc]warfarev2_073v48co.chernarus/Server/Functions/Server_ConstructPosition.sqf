@@ -36,10 +36,9 @@ if (isNil "_template") exitWith {
 };
 if (count _template == 0) exitWith {[]};
 
-//--- Invisible origin: convert each child's model-space offset to world space (same math as CreateDefenseTemplate).
-_origin = "Land_HelipadEmpty" createVehicle _pos;
-_origin setDir _dir;
-_origin setPos _pos;
+//--- Convert each child's model-space offset to world space by direct rotation about _pos (Arma dir = CW from north).
+//--- (A Land_HelipadEmpty "origin" + modelToWorld was unreliable: the helper spawned at [0,0,0], so the whole
+//---  composition built ~12km away at the map corner. Direct trig is deterministic and needs no spawned helper.)
 
 _created = [];
 for "_i" from 0 to (count _template - 1) do {
@@ -48,7 +47,11 @@ for "_i" from 0 to (count _template - 1) do {
 	_relPos = _entry select 1;
 	_relDir = _entry select 2;
 
-	_worldPos = _origin modelToWorld _relPos;
+	_worldPos = [
+		(_pos select 0) + (_relPos select 0) * (cos _dir) + (_relPos select 1) * (sin _dir),
+		(_pos select 1) - (_relPos select 0) * (sin _dir) + (_relPos select 1) * (cos _dir),
+		0
+	];
 	_worldPos set [2, 0];
 	_worldDir = _dir - _relDir;
 
@@ -57,7 +60,7 @@ for "_i" from 0 to (count _template - 1) do {
 	if (!isNil "_one") then {_created = _created + [_one]};
 };
 
-deleteVehicle _origin;
+//--- (origin helper removed: child positions are computed by direct rotation above)
 
 ["INFORMATION", Format ["Server_ConstructPosition.sqf: [%1] position [%2] built (%3 objects).", str _side, _anchorType, count _created]] Call WFBE_CO_FNC_LogContent;
 _created
