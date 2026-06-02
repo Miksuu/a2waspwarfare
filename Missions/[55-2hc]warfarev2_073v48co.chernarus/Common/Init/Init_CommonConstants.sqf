@@ -165,6 +165,10 @@ with missionNamespace do {
 	WFBE_C_ECONOMY_SUPPLY_TIME_INCREASE_DELAY = 60; //--- Increase SV delay.
 	WFBE_C_ECONOMY_SUPPLY_MAX_TEAM_LIMIT = 50000;
 	WFBE_C_ECONOMY_SUPPLY_MISSION_MULTIPLIER = 20;
+	//--- Supply-mission economy knobs (tunable in one place; shared by client reward + server payouts).
+	WFBE_C_SUPPLY_HELI_REWARD_MULT      = 1.25;  //--- Pilot air-delivery bonus (+25%, money and score).
+	WFBE_C_SUPPLY_CASHRUN_COMMANDER_CUT = 0.20;  //--- Commander tithe on cash runs (20% of pilot reward, minted on top).
+	WFBE_C_SUPPLY_INTERDICTION_CUT      = 0.25;  //--- Enemy reward for downing a loaded supply vehicle (25% of cargo).
 	//--- Supply-mission vehicle types. Trucks are always eligible; the supply helicopter unlocks with the Supply upgrade.
 	WFBE_C_SUPPLY_TRUCK_TYPES = ['WarfareSupplyTruck_RU','WarfareSupplyTruck_USMC','WarfareSupplyTruck_INS','WarfareSupplyTruck_Gue','WarfareSupplyTruck_CDF','UralSupply_TK_EP1','MtvrSupply_DES_EP1'];
 	//--- One supply helicopter per side. Gains LOAD SUPPLIES at Supply upgrade 2; deliveries become cash runs at upgrade 3.

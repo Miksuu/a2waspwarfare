@@ -14,7 +14,7 @@
 
     //--- #5: air delivery pays the pilot 25% more.
     _reward = _supplyAmount;
-    if (_byHeli) then { _reward = round (_supplyAmount * 1.25); };
+    if (_byHeli) then { _reward = round (_supplyAmount * WFBE_C_SUPPLY_HELI_REWARD_MULT); };
     
     if ((side player) == _side) then {
         if (_playerObject == player) then {
@@ -28,7 +28,7 @@
 
     if (player == _playerObject) then {
         _scoreGain = round ((_supplyAmount / 100) * WFBE_SUPPLY_MISSION_SCORE_COEF);
-        if (_byHeli) then { _scoreGain = round (_scoreGain * 1.25); };
+        if (_byHeli) then { _scoreGain = round (_scoreGain * WFBE_C_SUPPLY_HELI_REWARD_MULT); };
         ["RequestChangeScore", [player, (score player + _scoreGain)]] Call WFBE_CO_FNC_SendToServer;
     };
 };

@@ -29,11 +29,10 @@
     WFBE_Server_PV_SupplyMissionCompletedMessage = [format ["%1 has transported S %2 to base from %3.", _namePlayer, _supplyAmount, _sourceTownStr], _sidePlayer, _supplyAmount, _playerObject, _byHeli, _cashRun];
 
     if (_cashRun) then {
+        //--- Cash run: pilot is paid client-side; commander gets a tithe minted on top. Pool gets nothing.
         _comTeam = (_sidePlayer) call WFBE_CO_FNC_GetCommanderTeam;
         if (!isNull _comTeam) then {
-            [_comTeam, _supplyAmount] Call WFBE_CO_FNC_ChangeTeamFunds;
-        } else {
-            [_sidePlayer, _supplyAmount, format ["Air cash run by %1: S %2 from %3 (no commander - banked as supply).", _namePlayer, _supplyAmount, _sourceTown], false] Call ChangeSideSupply;
+            [_comTeam, round (_supplyAmount * WFBE_C_SUPPLY_HELI_REWARD_MULT * WFBE_C_SUPPLY_CASHRUN_COMMANDER_CUT)] Call WFBE_CO_FNC_ChangeTeamFunds;
         };
     } else {
         [_sidePlayer, _supplyAmount, format ["Supply mission completed by %1. S %2 brought from %3 for team %4. ",_namePlayer, _supplyAmount, _sourceTown, _sidePlayer], false] Call ChangeSideSupply;

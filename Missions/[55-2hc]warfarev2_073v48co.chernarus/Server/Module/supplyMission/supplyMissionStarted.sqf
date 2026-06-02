@@ -19,7 +19,7 @@
             if ((_amt > 0) && {!isNull _killer}) then {
                 _killerSide = side group _killer;
                 if (_killerSide in WFBE_PRESENTSIDES) then {
-                    _reward = round (_amt * 0.25);
+                    _reward = round (_amt * WFBE_C_SUPPLY_INTERDICTION_CUT);
                     [_killerSide, _reward, format ["Logistics interdiction: enemy supply vehicle destroyed (+S %1).", _reward], false] call ChangeSideSupply;
                 };
                 _veh setVariable ["SupplyAmount", 0, true];
