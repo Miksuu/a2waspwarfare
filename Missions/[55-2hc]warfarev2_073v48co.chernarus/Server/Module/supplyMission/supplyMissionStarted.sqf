@@ -8,7 +8,9 @@
         _associatedSourceTown setVariable ['LastSupplyMissionRun', time];
 
         //--- Interdiction: if the loaded supply vehicle is destroyed, reward the killer's side a share of the cargo.
-        _associatedSupplyTruck addEventHandler ["Killed", {
+        if (isNil {_associatedSupplyTruck getVariable "wfbe_supply_killed_eh_set"}) then {
+            _associatedSupplyTruck setVariable ["wfbe_supply_killed_eh_set", true, true];
+            _associatedSupplyTruck addEventHandler ["Killed", {
             private ["_veh","_killer","_amt","_killerSide","_reward"];
             _veh = _this select 0;
             _killer = _this select 1;
@@ -23,6 +25,7 @@
                 _veh setVariable ["SupplyAmount", 0, true];
             };
         }];
+        };
 
         _friendlyCommandCenterInProximity = false;
         _playerisInProximityOfSupplyTruck = false;

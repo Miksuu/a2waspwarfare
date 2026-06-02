@@ -165,11 +165,10 @@ with missionNamespace do {
 	WFBE_C_ECONOMY_SUPPLY_TIME_INCREASE_DELAY = 60; //--- Increase SV delay.
 	WFBE_C_ECONOMY_SUPPLY_MAX_TEAM_LIMIT = 50000;
 	WFBE_C_ECONOMY_SUPPLY_MISSION_MULTIPLIER = 20;
-	//--- Supply-mission vehicle types. Trucks are always eligible; helicopters unlock with the Supply upgrade.
+	//--- Supply-mission vehicle types. Trucks are always eligible; the supply helicopter unlocks with the Supply upgrade.
 	WFBE_C_SUPPLY_TRUCK_TYPES = ['WarfareSupplyTruck_RU','WarfareSupplyTruck_USMC','WarfareSupplyTruck_INS','WarfareSupplyTruck_Gue','WarfareSupplyTruck_CDF','UralSupply_TK_EP1','MtvrSupply_DES_EP1'];
-	WFBE_C_SUPPLY_HELI_TYPES_T2 = ['UH60M_EP1','MH60S','Mi17_Ins','Mi17_TK_EP1','Mi17_medevac_RU','Mi17_Civilian'];  //--- Light transport: unlock at Supply upgrade 2.
-	WFBE_C_SUPPLY_HELI_TYPES_T3 = ['CH_47F_EP1','CH_47F_BAF','BAF_Merlin_HC3_D'];                                   //--- Heavy transport: unlock at Supply upgrade 3, +20% payload.
-	WFBE_C_SUPPLY_HELI_TYPES = WFBE_C_SUPPLY_HELI_TYPES_T2 + WFBE_C_SUPPLY_HELI_TYPES_T3;
+	//--- One supply helicopter per side. Gains LOAD SUPPLIES at Supply upgrade 2; deliveries become cash runs at upgrade 3.
+	WFBE_C_SUPPLY_HELI_TYPES = if (IS_chernarus_map_dependent) then { ['MH60S','Mi17_Ins'] } else { ['UH60M_EP1','Mi17_TK_EP1'] };  //--- Chernarus: WEST USMC / EAST Mi-17. Else Takistan: WEST US / EAST TKA (verify generated buy lists).
 	WFBE_C_SUPPLY_VEHICLE_TYPES = WFBE_C_SUPPLY_TRUCK_TYPES + WFBE_C_SUPPLY_HELI_TYPES;  //--- All supply-capable (used for buy-menu highlight).
 
 //--- Anti-stack.
