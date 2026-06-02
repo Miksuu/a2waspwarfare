@@ -9,7 +9,7 @@ _friendlyCommandCenterInProximity = false;
     if (_x isKindOf "Base_WarfareBUAVterminal") then {
         _friendlyCommandCenterInProximity = true;
     };
-} forEach (nearestObjects [(getPos _associatedSupplyTruck), [], 100]);
+} forEach (nearestObjects [(getPos _associatedSupplyTruck), ["Base_WarfareBUAVterminal"], 100]);
 
 // diag_log format ["monitorCCproximity.sqf: after iteration, _friendlyCommandCenterInProximity: %1, _associatedSupplyTruck: %2", _friendlyCommandCenterInProximity, _associatedSupplyTruck];
 

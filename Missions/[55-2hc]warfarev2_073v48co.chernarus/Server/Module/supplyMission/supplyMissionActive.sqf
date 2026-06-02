@@ -21,7 +21,7 @@ while { alive _associatedSupplyTruck && !_supplyMissionForThisTownCompleted } do
 		if (_x isKindOf "Base_WarfareBUAVterminal") then {
     	    _friendlyCommandCenterInProximity = true;
 		};
-	} forEach (nearestObjects [(getPos _associatedSupplyTruck), [], 100]);
+	} forEach (nearestObjects [(getPos _associatedSupplyTruck), ["Base_WarfareBUAVterminal"], 100]);
 
     if (_friendlyCommandCenterInProximity) exitWith {
         {
