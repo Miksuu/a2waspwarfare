@@ -26,6 +26,7 @@ WFBE_SK_V_LastUse_MASH = -1200;
 WFBE_SK_V_LastUse_Lockpick = -1200;
 WFBE_SK_V_LastUse_Salvage = -1200;
 WFBE_SK_V_LastUse_Spot = -1200;
+WFBE_SK_V_LastUse_RepairPointEASA = -1200;
 
 /* Skills Timeout */
 WFBE_SK_V_Reload_Repair = 25;
@@ -34,6 +35,7 @@ WFBE_SK_V_Reload_MASH = 600;
 WFBE_SK_V_Reload_Lockpick = 5;
 WFBE_SK_V_Reload_Salvage = 10;
 WFBE_SK_V_Reload_Spot = 8;
+WFBE_SK_V_Reload_RepairPointEASA = 60;
 
 
 /* Find the player type */
