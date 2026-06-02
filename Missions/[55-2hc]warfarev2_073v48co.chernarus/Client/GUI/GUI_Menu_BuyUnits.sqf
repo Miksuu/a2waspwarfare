@@ -452,6 +452,10 @@ while {alive player && dialog} do {
 						hintSilent parseText "Supply helicopters work like supply trucks but deliver supply by air. <br/> <br/>Requires Supply upgrade level 2. At upgrade 3, deliveries become CASH RUNS straight to the commander's funds. Air delivery pays the pilot a larger reward. <br/> <br/>Aim at a friendly [+SUPPLY] town's helicopter, use LOAD SUPPLIES, then fly to your Command Center (marked C). A loaded helicopter shot down hands the enemy a share of the cargo.";
 					};
 					
+					if (!(_unit in WFBE_C_SUPPLY_HELI_TYPES) && {_unit in (missionNamespace getVariable [format ["WFBE_%1LIFTVEHICLE", sideJoinedText], []])}) then {
+						hintSilent parseText "Lift-capable helicopter. <br/> <br/>Can sling-load vehicles and objects once the Airlift upgrade is unlocked. (Not a supply helicopter.)";
+					};
+
 					_artyClassnames = missionNamespace getVariable Format ['WFBE_%1_ARTILLERY_CLASSNAMES', sideJoinedText];
 					_varPosInNestedArray = [_artyClassnames, _unit] call WFBE_CL_FNC_FindVariableInNestedArray;
 					_isNotArtillery = [_varPosInNestedArray, -1] call BIS_fnc_areEqual;
