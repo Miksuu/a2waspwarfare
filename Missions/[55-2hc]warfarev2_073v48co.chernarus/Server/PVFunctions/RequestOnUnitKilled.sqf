@@ -6,18 +6,22 @@
 		- Killed side ID.
 */
 
-Private ["_get","_killed","_killed_isplayer","_killed_group","_killed_isman","_killed_side","_killed_type","_killer","_killer_group","_killer_isplayer","_killer_iswfteam","_killer_side","_killer_type","_killer_vehicle","_killer_uid","_killer_award","_points","_nameOfKilledUnit"];
+Private ["_get","_killed","_killed_isplayer","_killed_group","_killed_isman","_killed_side","_killed_type","_killer","_killer_group","_killer_isplayer","_killer_iswfteam","_killer_side","_killer_type","_killer_vehicle","_killer_uid","_killer_award","_last_hit","_last_hit_time","_last_hit_window","_points","_nameOfKilledUnit","_type"];
 
 _killed = _this select 0;
 _killer = _this select 1;
 _killed_side = (_this select 2) Call GetSideFromID;
-_type= typeOf _killed;
+_type = typeOf _killed;
 
-if (_killer == _killed || isNull _killer) then { //--- The killed may be the killer (suicide) or bailed before destruction.
-	_last_hit = _killed getVariable "wfbe_lasthitby";
-	if !(isNil '_last_hit') then {
-		if (alive _last_hit) then {
-			if (side _last_hit != _killed_side && (time - (_killed getVariable "wfbe_lasthittime")) < 25) then {_killer = _last_hit};
+if (!(_killed isKindOf "Man") && (_killer == _killed || isNull _killer || !alive _killer)) then { //--- Vehicles may crash or burn out after a valid hit.
+	_last_hit = _killed getVariable ["wfbe_lasthitby", objNull];
+	_last_hit_time = _killed getVariable ["wfbe_lasthittime", -1];
+	_last_hit_window = missionNamespace getVariable ["WFBE_C_UNITS_LAST_HIT_REWARD_WINDOW", 60];
+
+	if !(isNull _last_hit) then {
+		if (alive _last_hit && side _last_hit != _killed_side && _last_hit_time >= 0 && (time - _last_hit_time) <= _last_hit_window) then {
+			_killer = _last_hit;
+			["INFORMATION", Format ["RequestOnUnitKilled.sqf: [%1] Vehicle [%2] delayed kill attributed to last hitter [%3] after [%4] seconds.", _killed_side, _killed, _killer, round(time - _last_hit_time)]] Call WFBE_CO_FNC_LogContent;
 		};
 	};
 };
