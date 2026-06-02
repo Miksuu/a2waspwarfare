@@ -99,6 +99,10 @@ lnbClear _listBox;
 		lnbSetColor [_listBox,[_i,1],[1.0, 0.5, 0.25, 1.0]]
 	};
 
+	if (_x in WFBE_C_SUPPLY_HELI_TYPES) then {
+		lnbSetColor [_listBox,[_i,1],[1.0, 0.5, 0.25, 1.0]]
+	};
+
 		_i = _i + 1;
 	};
 	_u = _u + 1;

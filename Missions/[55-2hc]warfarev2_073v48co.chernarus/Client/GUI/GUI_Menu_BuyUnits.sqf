@@ -448,6 +448,9 @@ while {alive player && dialog} do {
 					if (_unit in (missionNamespace getVariable Format ["WFBE_%1SUPPLYTRUCKS", sideJoinedText])) then {
 						hintSilent parseText "Supply trucks can be used to boost the supply income of your team. <br/> <br/>You can collect extra supply by driving to friendly town center (next to main depot of town), getting out of your supply truck, aiming at it and using action menu (mouse scroll) -> LOAD SUPPLIES... Then just drive next to friendly Command Center (marked with C) on map. <br/> <br/> Note that you need to have selected Support slot/class in server lobby. There also needs to be [+SUPPLY] mark after town name for you to be able to collect the extra supply.";
 					};
+					if (_unit in WFBE_C_SUPPLY_HELI_TYPES) then {
+						hintSilent parseText "Supply helicopters work like supply trucks but deliver supply by air. <br/> <br/>Requires Supply upgrade level 2. At upgrade 3, deliveries become CASH RUNS straight to the commander's funds. Air delivery pays the pilot a larger reward. <br/> <br/>Aim at a friendly [+SUPPLY] town's helicopter, use LOAD SUPPLIES, then fly to your Command Center (marked C). A loaded helicopter shot down hands the enemy a share of the cargo.";
+					};
 					
 					_artyClassnames = missionNamespace getVariable Format ['WFBE_%1_ARTILLERY_CLASSNAMES', sideJoinedText];
 					_varPosInNestedArray = [_artyClassnames, _unit] call WFBE_CL_FNC_FindVariableInNestedArray;
