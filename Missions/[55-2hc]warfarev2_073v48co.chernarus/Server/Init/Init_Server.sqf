@@ -367,6 +367,7 @@ emptyQueu = [];
 		_logik setVariable ["wfbe_upgrading", false, true];
 		// Marty: Track the running upgrade ID so clients can display the upgrade name in the menu.
 		_logik setVariable ["wfbe_upgrading_id", -1, true];
+		_logik setVariable ["wfbe_upgrade_queue", [], true];
 		_logik setVariable ["wfbe_votetime", missionNamespace getVariable "WFBE_C_GAMEPLAY_VOTE_TIME", true];
 		_logik setVariable ["wfbe_hqinuse",false];
 
