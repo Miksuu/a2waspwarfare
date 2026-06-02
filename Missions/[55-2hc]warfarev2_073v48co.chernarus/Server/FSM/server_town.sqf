@@ -226,6 +226,11 @@ while {!WFBE_GameOver} do {
 		if(_captured) then {
 			["INFORMATION", Format ["server_town.sqf: Town [%1] was captured by [%2] From [%3].", _location, _newSide, _side]] Call WFBE_CO_FNC_LogContent;
 
+			// Marty: Event-only diagnostics for captured-town AI state before side replacement work.
+			if (missionNamespace getVariable ["TownDefenseDiagnosticsEnabled", false]) then {
+				["TOWN_DEFENSE_DIAG", Format ["capture_before town:%1;oldSide:%2;newSide:%3;sv:%4;active:%5;activeAir:%6;teams:%7;vehicles:%8;activeSideIDs:%9", _location getVariable "name", _sideID, _newSID, _supplyValue, _location getVariable ["wfbe_active", false], _location getVariable ["wfbe_active_air", false], count (_location getVariable ["wfbe_town_teams", []]), count (_location getVariable ["wfbe_active_vehicles", []]), _location getVariable ["wfbe_active_sideIDs", []]]] Call WFBE_CO_FNC_LogContent;
+			};
+
 			if (_sideID != WFBE_C_UNKNOWN_ID) then {
 				if (missionNamespace getVariable Format ["WFBE_%1_PRESENT",_side]) then {[_side, "Lost", _location] Spawn SideMessage};
 			};
@@ -253,6 +258,11 @@ while {!WFBE_GameOver} do {
 
 			//--- If the side is defined, we create the new side's defenses.
 			if (_side_enabled) then {[_location, _newSide, _sideID] Call WFBE_SE_FNC_ManageTownDefenses};
+
+			// Marty: Event-only diagnostics for captured-town static defense replacement decision.
+			if (missionNamespace getVariable ["TownDefenseDiagnosticsEnabled", false]) then {
+				["TOWN_DEFENSE_DIAG", Format ["capture_after town:%1;oldSide:%2;newSide:%3;sideEnabled:%4;active:%5;activeAir:%6;teams:%7;vehicles:%8;defenses:%9", _location getVariable "name", _sideID, _newSID, _side_enabled, _location getVariable ["wfbe_active", false], _location getVariable ["wfbe_active_air", false], count (_location getVariable ["wfbe_town_teams", []]), count (_location getVariable ["wfbe_active_vehicles", []]), count (_location getVariable ["wfbe_town_defenses", []])]] Call WFBE_CO_FNC_LogContent;
+			};
 		};
 		};
 		_perfActive = _perfActive + (diag_tickTime - _perfItemStart);
