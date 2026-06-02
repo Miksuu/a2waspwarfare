@@ -149,29 +149,17 @@ if (count _sp > 0) then {
 
 if ((missionNamespace getVariable "WFBE_C_MODULE_WFBE_EASA") > 0) then {
 	_enable = false;
-	_enableRepairPointEASA = false;
-	WFBE_CL_V_RepairPointEASAActive = false;
 	_currentUpgrades = (sideJoined) Call WFBE_CO_FNC_GetSideUpgrades;
 	_easaLevel = _currentUpgrades select WFBE_UP_EASA;
-	if (_easaLevel > 0) then {
-		if (typeOf(vehicle player) in (missionNamespace getVariable 'WFBE_EASA_Vehicles')) then {
-			if (driver (vehicle player) == player) then {
-				if (!(isNull _csp)) then {
-					if (player distance _csp < (missionNamespace getVariable "WFBE_C_UNITS_SUPPORT_RANGE")) then {_enable = true};
-				};
-				if (!_enable && !isNil "WFBE_CL_FNC_CanUseRepairPointEASA") then {
-					if ([player, vehicle player] Call WFBE_CL_FNC_CanUseRepairPointEASA) then {
-						_enable = true;
-						_enableRepairPointEASA = true;
-					};
-				};
+	if (!(isNull _csp) && _easaLevel > 0) then {
+		if (player distance _csp < (missionNamespace getVariable "WFBE_C_UNITS_SUPPORT_RANGE")) then {
+			if (typeOf(vehicle player) in (missionNamespace getVariable 'WFBE_EASA_Vehicles')) then {
+				if (driver (vehicle player) == player) then {_enable = true};
 			};
 		};
 	};
-	WFBE_CL_V_RepairPointEASAActive = _enableRepairPointEASA;
 	ctrlEnable [20010,_enable];
 } else {
-	WFBE_CL_V_RepairPointEASAActive = false;
 	ctrlEnable [20010,false];
 };
 

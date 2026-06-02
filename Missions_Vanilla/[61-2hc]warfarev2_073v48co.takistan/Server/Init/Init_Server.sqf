@@ -367,7 +367,6 @@ emptyQueu = [];
 		_logik setVariable ["wfbe_upgrading", false, true];
 		// Marty: Track the running upgrade ID so clients can display the upgrade name in the menu.
 		_logik setVariable ["wfbe_upgrading_id", -1, true];
-		_logik setVariable ["wfbe_upgrade_queue", [], true];
 		_logik setVariable ["wfbe_votetime", missionNamespace getVariable "WFBE_C_GAMEPLAY_VOTE_TIME", true];
 		_logik setVariable ["wfbe_hqinuse",false];
 
@@ -530,7 +529,6 @@ WF_Logic setVariable ["emptyVehicles",[],true];
 		["INITIALIZATION", "Init_Server.sqf: Victory Condition FSM is initialized."] Call WFBE_CO_FNC_LogContent;
 
 	[] ExecVM "Server\FSM\updateresources.sqf";
-	[] ExecVM "Server\FSM\upgradeQueue.sqf";
 	["INITIALIZATION", "Init_Server.sqf: Resources FSM is initialized."] Call WFBE_CO_FNC_LogContent;
 };
 

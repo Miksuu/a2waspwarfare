@@ -16,15 +16,14 @@ private[
 	"_status", "_health", "_healthAct", "_healthColor", "_uptime", "_commanderText", "_mbu", "_currentUnitsCount", "_maxUnitsCount",
 	"_isCommanderTeam", "_aiText", "_aiColor", "_moneyText", "_totalSupplyValue", "_compensation", "_clientFPS", "_clientFPSColor",
 	"_serverFPS", "_serverFPSColor", "_hudMode", "_lastHudMode", "_RHUDUpdateFPS", "_RHUDSetFPSPosition", "_RHUDSetFullPosition", "_clientLabel", "_serverLabel", "_showMissingServer",
-	"_labelX", "_valueX", "_startY", "_rowH", "_labelW", "_valueW", "_lineH", "_rowY", "_layoutPairs",
-	"_RHUDUpdateUpgrade", "_RHUD_upgId", "_RHUD_upgEnd"
+	"_labelX", "_valueX", "_startY", "_rowH", "_labelW", "_valueW", "_lineH", "_rowY", "_layoutPairs"
 ];
 
 _total = count towns;
 _display = displayNull;
 _lastDisplay = displayNull;
 _controls = [];
-_rhudIDC = [1345,1346,1347,1348,1349,1350,1351,1352,1353,1354,1355,1356,1357,1358,1359,1360,1361,1362,1363,1364,1365,1366,1367,1368,1369,1370,1371];
+_rhudIDC = [1345,1346,1347,1348,1349,1350,1351,1352,1353,1354,1355,1356,1357,1358,1359,1360,1361,1362,1363,1364,1365,1366,1367];
 _lastTexts = [];
 _lastColors = [];
 _lastShown = [];
@@ -126,53 +125,6 @@ _RHUDUpdateFPS = {
 	[22, _serverFPSColor] call _RHUDSetColor;
 };
 
-_RHUDUpdateUpgrade = {
-	private ["_up","_id","_labels","_times","_lbl","_lvl","_dur","_remain","_mm","_ss","_txt","_queue","_upgrades"];
-	_labels = missionNamespace getVariable "WFBE_C_UPGRADES_LABELS";
-	if (isNil "_labels") exitWith {};
-
-	_up = WFBE_Client_Logic getVariable "wfbe_upgrading";
-	if (isNil "_up") then {_up = false};
-	_id = WFBE_Client_Logic getVariable "wfbe_upgrading_id";
-	if (isNil "_id") then {_id = -1};
-
-	//--- Current (indices 23/24).
-	if (_up && _id >= 0 && _id < count _labels) then {
-		_lbl = _labels select _id;
-		if (_RHUD_upgId != _id) then {
-			_times = missionNamespace getVariable Format["WFBE_C_UPGRADES_%1_TIMES", WFBE_Client_SideJoinedText];
-			_upgrades = (WFBE_Client_SideJoined) call WFBE_CO_FNC_GetSideUpgrades;
-			_lvl = _upgrades select _id;
-			_dur = 0;
-			if (_lvl < count (_times select _id)) then {_dur = (_times select _id) select _lvl};
-			_RHUD_upgId = _id;
-			_RHUD_upgEnd = time + _dur;
-		};
-		_remain = ceil (_RHUD_upgEnd - time);
-		if (_remain < 0) then {_remain = 0};
-		_mm = floor (_remain / 60);
-		_ss = _remain - (_mm * 60);
-		_txt = if (_ss < 10) then {Format["%1 %2:0%3", _lbl, _mm, _ss]} else {Format["%1 %2:%3", _lbl, _mm, _ss]};
-		[23, "Upgrade:"] call _RHUDSetText;
-		[24, _txt] call _RHUDSetText;
-	} else {
-		_RHUD_upgId = -1;
-		[23, ""] call _RHUDSetText;
-		[24, ""] call _RHUDSetText;
-	};
-
-	//--- Next (indices 25/26).
-	_queue = WFBE_Client_Logic getVariable "wfbe_upgrade_queue";
-	if (isNil "_queue") then {_queue = []};
-	if (count _queue > 0 && {(_queue select 0) < count _labels}) then {
-		[25, "Next:"] call _RHUDSetText;
-		[26, _labels select (_queue select 0)] call _RHUDSetText;
-	} else {
-		[25, ""] call _RHUDSetText;
-		[26, ""] call _RHUDSetText;
-	};
-};
-
 _RHUDSetFPSPosition = {
 	private["_mini", "_labelX", "_valueX", "_row1Y", "_row2Y", "_labelW", "_valueW", "_lineH"];
 	_mini = _this;
@@ -214,7 +166,7 @@ _RHUDSetFullPosition = {
 
 	(_controls select 0) ctrlSetPosition [_labelX, _startY + (0.021 * safezoneH), 0.145 * safezoneW, 0.001 * safezoneH];
 
-	_layoutPairs = [[1,2],[3,4],[5,6],[7,8],[9,10],[11,12],[13,14],[15,16],[17,18],[19,20],[21,22],[23,24],[25,26]];
+	_layoutPairs = [[1,2],[3,4],[5,6],[7,8],[9,10],[11,12],[13,14],[15,16],[17,18],[19,20],[21,22]];
 	for "_idx" from 0 to ((count _layoutPairs) - 1) do {
 		_rowY = _startY + (_idx * _rowH);
 		(_controls select ((_layoutPairs select _idx) select 0)) ctrlSetPosition [_labelX, _rowY, _labelW, _lineH];
@@ -227,9 +179,6 @@ _RHUDSetFullPosition = {
 };
 
 sleep 10;
-
-_RHUD_upgId = -1;
-_RHUD_upgEnd = 0;
 
 while {true} do {
 	sleep 1;
@@ -411,7 +360,6 @@ while {true} do {
 
 			// Marty: Keep full RHUD FPS labels expanded while updating their values.
 			["FPS Client:", "FPS Server:", false] call _RHUDUpdateFPS;
-			call _RHUDUpdateUpgrade;
 			};
 		};
 

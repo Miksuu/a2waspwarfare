@@ -123,21 +123,11 @@ class WFBE_UpgradeMenu {
 			idc = 504007;
 			x = 0.595;
 			y = 0.762;
-			w = 0.095;
+			w = 0.2;
 			h = 0.035;
-			sizeEx = 0.03;
+			sizeEx = 0.035;
 			text = "Upgrade";
 			action = "WFBE_MenuAction = 1";
-		};
-		class CA_QueueUpgrade : RscButton_Main {
-			idc = 504008;
-			x = 0.700;
-			y = 0.762;
-			w = 0.095;
-			h = 0.035;
-			sizeEx = 0.03;
-			text = "Queue";
-			action = "WFBE_MenuAction = 3";
 		};
 		class CA_Details : CA_UpgradeDetails {
 			idc = 504006;
