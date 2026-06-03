@@ -17,6 +17,14 @@ _lastUse = 0;
 ctrlEnable [23016,false];
 if (_supplySystem != 0) then {ctrlShow [23016, false]};
 
+//--- QoL: Economy Overview dashboard (read-only) + sell-marker state.
+_sellMarkers = [];
+_lastDash = -10;
+_dash = _display DisplayCtrl 23020;
+_econInterval = missionNamespace getVariable ["WFBE_C_ECONOMY_INCOME_INTERVAL", 60];
+if (_econInterval <= 0) then {_econInterval = 60};
+_totalTowns = count towns;
+
 if (_incomeSystem in [3,4]) then {
 	sliderSetRange[23010,0,missionNamespace getVariable "WFBE_C_ECONOMY_INCOME_PERCENT_MAX"];
 	_income = WFBE_Client_Logic getVariable "wfbe_commander_percent";
@@ -150,6 +158,48 @@ while {alive player && dialog} do {
 		};
 	};
 	
+	//--- QoL: Economy Overview dashboard + sell-mode markers/preview (read-only).
+	if (MenuAction == 105) then {
+		if (count _sellMarkers == 0) then {
+			_sNames2 = missionNamespace getVariable Format ["WFBE_%1STRUCTURENAMES",sideJoinedText];
+			_sCosts2 = missionNamespace getVariable Format ["WFBE_%1STRUCTURECOSTS",sideJoinedText];
+			_salePct = missionNamespace getVariable "WFBE_C_STRUCTURES_SALE_PERCENT";
+			{
+				_i2 = _sNames2 find (typeOf _x);
+				if (_i2 > 0 && isNil {_x getVariable "WFBE_SOLD"}) then {
+					_ref2 = round(((_sCosts2 select _i2) * _salePct) / 100);
+					_mk = Format ["wfbe_econ_sell_%1", _forEachIndex];
+					createMarkerLocal [_mk, getPos _x];
+					_mk setMarkerTypeLocal "mil_dot";
+					_mk setMarkerColorLocal "ColorYellow";
+					_mk setMarkerSizeLocal [0.7,0.7];
+					_mk setMarkerTextLocal Format ["$%1", _ref2];
+					_sellMarkers pushBack _mk;
+				};
+			} forEach ((sideJoined) Call WFBE_CO_FNC_GetSideStructures);
+		};
+		_pPos = _map posScreenToWorld[mouseX,mouseY];
+		_pNear = [_pPos,((sideJoined) Call WFBE_CO_FNC_GetSideStructures)] Call WFBE_CO_FNC_GetClosestEntity;
+		_pTxt = "<t color='#ffae3a' shadow='1'>SELL MODE - click a structure to sell.</t>";
+		if (!isNull _pNear && _pNear distance _pPos < 100 && isNil {_pNear getVariable "WFBE_SOLD"}) then {
+			_pId = (missionNamespace getVariable Format ["WFBE_%1STRUCTURENAMES",sideJoinedText]) find (typeOf _pNear);
+			if (_pId > 0) then {
+				_pRef = round(((missionNamespace getVariable Format ["WFBE_%1STRUCTURECOSTS",sideJoinedText]) select _pId) * (missionNamespace getVariable "WFBE_C_STRUCTURES_SALE_PERCENT") / 100);
+				_pTxt = _pTxt + Format ["<br/><t color='#e0b94f' shadow='1'>%1</t> - refund <t color='#76f563' shadow='1'>$%2</t>", getText (configFile >> "CfgVehicles" >> (typeOf _pNear) >> "displayName"), _pRef];
+			};
+		};
+		_dash ctrlSetStructuredText (parseText _pTxt);
+		_lastDash = -10;
+	} else {
+		if (count _sellMarkers > 0) then {{deleteMarkerLocal _x} forEach _sellMarkers; _sellMarkers = []};
+		if (time - _lastDash > 1) then {
+			_lastDash = time;
+			_pool = (sideJoined) Call GetTownsIncome;
+			_perMin = round(_pool * 60 / _econInterval);
+			_dash ctrlSetStructuredText (parseText Format ["<t color='#9fb0bc' shadow='1'>Income pool: </t><t color='#e0b94f' shadow='1'>$%1/min</t><t color='#9fb0bc' shadow='1'>  ($%2/hr)</t><br/><t color='#9fb0bc' shadow='1'>Towns held: </t><t shadow='1'>%3 / %4</t><br/><t color='#9fb0bc' shadow='1'>Supply: </t><t shadow='1'>%5</t>", _perMin, (_perMin * 60), (sideJoined Call GetTownsHeld), _totalTowns, ((sideJoined) Call GetSideSupply)]);
+		};
+	};
+
 	sleep 0.1;
 	
 	//--- Back Button.
@@ -159,3 +209,7 @@ while {alive player && dialog} do {
 		createDialog "WF_Menu";
 	};
 };
+
+//--- QoL: clean up sell markers when the dialog closes (global map overlays).
+{deleteMarkerLocal _x} forEach _sellMarkers;
+_sellMarkers = [];

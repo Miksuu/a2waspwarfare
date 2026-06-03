@@ -2969,7 +2969,16 @@ class RscMenu_Economy {
 			x = 0.0322372;
 			y = 0.264119;
 			w = 0.25;
-			text = "Economy Workers";
+			text = "Economy Overview";
+		};
+		class CA_EconomyDashboard : RscStructuredText {
+			idc = 23020;
+			x = 0.0372786;
+			y = 0.305000;
+			w = 0.360000;
+			h = 0.140000;
+			size = 0.030;
+			shadow = 1;
 		};
 		/* Income */
 		class CA_LabelPartIncome : CA_LabelPartWorkers {
