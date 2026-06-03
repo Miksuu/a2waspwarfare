@@ -1,7 +1,7 @@
 
 "WFBE_Server_PV_SupplyMissionCompleted" addPublicVariableEventHandler {
 
-    private ['_namePlayer', '_associatedSupplyTruck', '_supplyAmount', '_sourceTown', '_sourceTownStr', '_sidePlayer', '_logMessage', '_byHeli', '_cashRun', '_comTeam', '_upgradeLevel'];
+    private ['_namePlayer', '_associatedSupplyTruck', '_supplyAmount', '_sourceTown', '_sourceTownStr', '_sidePlayer', '_logMessage', '_byHeli', '_cashRun', '_comTeam', '_airLevel'];
 
     _playerObject = (_this select 1) select 0;
     _namePlayer = name ((_this select 1) select 0);
@@ -23,8 +23,8 @@
 
     _byHeli = _associatedSupplyTruck getVariable "SupplyByHeli";
     if (isNil "_byHeli") then { _byHeli = false; };
-    _upgradeLevel = ((_sidePlayer) call WFBE_CO_FNC_GetSideUpgrades) select WFBE_UP_SUPPLYRATE;
-    _cashRun = (_byHeli && (_upgradeLevel >= 3));
+    _airLevel = ((_sidePlayer) call WFBE_CO_FNC_GetSideUpgrades) select WFBE_UP_AIR;
+    _cashRun = (_byHeli && (_airLevel >= 4));
 
     WFBE_Server_PV_SupplyMissionCompletedMessage = [format ["%1 has transported S %2 to base from %3.", _namePlayer, _supplyAmount, _sourceTownStr], _sidePlayer, _supplyAmount, _playerObject, _byHeli, _cashRun];
 
