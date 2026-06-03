@@ -494,7 +494,7 @@ _IDCS = _IDCS - [_currentIDC];
 			ctrlSetText [12034,Format ["$ %1",_currentCost]];
 			_updateDetails = false;
 		} else {
-			{ctrlSetText [_x , ""]} forEach [12009,12010,12027,12028,12029,12030,12031,12032,12033,12034,12035,12036,12037,12038,12039];
+			{ctrlSetText [_x , ""]} forEach [12009,12033,12034,12035,12036,12037,12038,12039];
 			(_display displayCtrl 12022) ctrlSetStructuredText (parseText '');
 		};
 	};
