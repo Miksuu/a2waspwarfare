@@ -201,6 +201,17 @@ missionNamespace setVariable ['WFBE_C_QUEUE_AIRPORT_MAX',2];
 missionNamespace setVariable ['WFBE_C_QUEUE_DEPOT',0];
 missionNamespace setVariable ['WFBE_C_QUEUE_DEPOT_MAX',4];
 
+//--- QoL: one-shot match-info hint summarising the active mission parameters (shown shortly after spawn).
+[] spawn {
+	waitUntil {!isNull player && alive player && time > 5};
+	private ["_msg"];
+	_msg = "<t size='1.3'>WASP Warfare</t><br/><br/>";
+	_msg = _msg + format ["AI Commander: %1<br/>", if ((missionNamespace getVariable ['WFBE_C_AI_COMMANDER_ENABLED',1]) == 1) then {"On"} else {"Off"}];
+	_msg = _msg + format ["Supply helicopters: %1<br/>", if ((missionNamespace getVariable ['WFBE_C_SUPPLY_HELI_ENABLED',1]) == 1) then {"On"} else {"Off"}];
+	_msg = _msg + format ["Accelerated day/night: %1", if ((missionNamespace getVariable ['WFBE_DAYNIGHT_ENABLED',1]) == 1) then {"On"} else {"Off"}];
+	hintSilent parseText _msg;
+};
+
 //--- Handle the weather.
 // Marty: Accelerated skipTime makes low clouds stutter, so day/night owns the weather and keeps each client sky clear.
 Call {
