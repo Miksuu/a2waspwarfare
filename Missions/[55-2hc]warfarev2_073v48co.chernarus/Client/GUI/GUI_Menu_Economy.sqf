@@ -107,16 +107,18 @@ while {alive player && dialog} do {
 		
 		//--- Sell Building.
 		if (MenuAction == 105) then {
-			MenuAction = -1;
 			_isCommander = false;
 			if (!isNull(commanderTeam)) then {if (commanderTeam == group player) then {_isCommander = true}};
-			if !(_isCommander) exitWith {};
+			if !(_isCommander) exitWith {MenuAction = -1};
 			_position = _map posScreenToWorld[mouseX,mouseY];
 			_structures = (sideJoined) Call WFBE_CO_FNC_GetSideStructures;
 			_closest = [_position,_structures] Call WFBE_CO_FNC_GetClosestEntity;
-			if (!isNull _closest) then {
-				//--- 100 meters close only.
-				if (_closest distance _position < 100 && isNil {_closest getVariable "WFBE_SOLD"}) then {
+			if (!isNull _closest && _closest distance _position < 100 && isNil {_closest getVariable "WFBE_SOLD"}) then {
+				_scName = getText (configFile >> "CfgVehicles" >> (typeOf _closest) >> "displayName");
+				_scId = (missionNamespace getVariable Format ["WFBE_%1STRUCTURENAMES",sideJoinedText]) find (typeOf _closest);
+				_scRef = if (_scId > 0) then {round(((missionNamespace getVariable Format ["WFBE_%1STRUCTURECOSTS",sideJoinedText]) select _scId) * (missionNamespace getVariable "WFBE_C_STRUCTURES_SALE_PERCENT") / 100)} else {0};
+				if ([Format ["wf_sell_%1", _closest], Format ["<t color='#ff5a5a' size='1.1'>Sell %1?</t><br/>Refund $%2. Click it again to confirm.", _scName, _scRef]] call WFBE_CL_FNC_ConfirmAction) then {
+					MenuAction = -1;
 					//--- Spawn a sell thread.
 					(_closest) Spawn {
 						Private ["_closest","_delay","_id","_supplyB","_type"];
@@ -154,6 +156,8 @@ while {alive player && dialog} do {
 						_closest setDammage 1;
 					};
 				};
+			} else {
+				MenuAction = -1;
 			};
 		};
 	};

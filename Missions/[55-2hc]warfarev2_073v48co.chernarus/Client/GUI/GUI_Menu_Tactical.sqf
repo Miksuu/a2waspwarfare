@@ -462,6 +462,7 @@ while {alive player && dialog} do {
 		};
 		//--- ICBM Strike.
 		if (MenuAction == 8) then {
+			if (!(["wf_icbm", Format ["<t color='#ff5a5a' size='1.1'>Confirm ICBM strike?</t><br/>Cost $%1. Click the target on the map again to confirm.", _currentFee]] call WFBE_CL_FNC_ConfirmAction)) exitWith {};
 			_forceReload = true;
 			if !(scriptDone _textAnimHandler) then {terminate _textAnimHandler};
 			[17022] Call SetControlFadeAnimStop;
