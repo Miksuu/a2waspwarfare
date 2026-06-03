@@ -129,7 +129,7 @@ while {alive player && dialog} do {
 		if ((str _queue_now) != (str _queue_old)) then {_update_list = true; _update_upgrade = true; _queue_old = + _queue_now};
 		if (_update_list) then {
 			_update_list = false;
-			for '_i' from 0 to count(_upgrades_old)-1 do {lnbSetText[504001, [_i, 0], Format ["%1/%2",_upgrades select _i,_upgrade_levels select _i]]};
+			//--- QoL fix: removed dead raw-index refresh loop (it wrote rows in unsorted order, then was instantly overwritten by the sorted loop below).
 			
 			_i = 0;
 			{

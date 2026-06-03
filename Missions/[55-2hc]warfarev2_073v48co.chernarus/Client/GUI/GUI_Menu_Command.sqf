@@ -16,6 +16,7 @@ _IDCTasks = [14017,14018,14021,14022,14030,14032];
 _IDCDetails = [14030,14041,14042,14043];
 {ctrlShow[_x,false]} forEach (_IDCTasks + _IDCDetails);
 {ctrlShow[_x,true]} forEach _IDCTeam;
+ctrlShow [14501, false];	//--- QoL: hide the non-functional "Tasks" tab (its SetTask network sends are commented out; clicking only fired radio chatter and set no task)
 _TaskTypes = ["Assist","Attack","Defend","Destroy","Guard","Hold","Patrol","Move","Search and Destroy","Seize","Support"];
 _TaskDuration = [1,2,3,4,5,6,7,8,9,10,15,20,25,30,35,40,45,50,55,60];
 _TaskDurationLabel = ["1 Min","2 Min","3 Min","4 Min","5 Min","6 Min","7 Min","8 Min","9 Min","10 Min","15 Min","20 Min","25 Min","30 Min","35 Min","40 Min","45 Min","50 Min","55 Min","60 Min"];

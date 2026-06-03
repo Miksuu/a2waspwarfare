@@ -3,10 +3,6 @@ disableSerialization;
 _display = _this select 0;
 _map = _display DisplayCtrl 23002;
 
-_hqDeployed = (sideJoined) Call WFBE_CO_FNC_GetSideHQDeployStatus;
-if (!_hqDeployed || (missionNamespace getVariable "WFBE_C_STRUCTURES_CONSTRUCTION_MODE") == 0) then {ctrlEnable [23004, false];ctrlEnable [23006, false]};
-if ((missionNamespace getVariable "WFBE_C_STRUCTURES_CONSTRUCTION_MODE") == 0) then {ctrlSetText[23005, localize 'STR_WF_Disabled']};
-
 MenuAction = -1;
 
 _incomeSystem = missionNamespace getVariable "WFBE_C_ECONOMY_INCOME_SYSTEM";

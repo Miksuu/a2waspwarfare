@@ -768,6 +768,17 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 						getText (configFile >> "cfgvehicles" >> _type >> "displayname"),
 						if (isnull _selected) then {""} else {str round ((1 - damage _selected) * 100) + "%"}
 					];
+					//--- QoL (C3): show build count vs limit for this structure while placing.
+					_cbIdx = _buildingsNames find _type;
+					if (_cbIdx != -1) then {
+						_cbLive = WFBE_Client_Logic getVariable "wfbe_structures_live";
+						if (!isNil "_cbLive" && {_cbIdx < count _cbLive}) then {
+							_cbCur = _cbLive select _cbIdx;
+							_cbLim = missionNamespace getVariable (Format ['WFBE_C_STRUCTURES_MAX_%1',(_buildingsType select _cbIdx)]);
+							if (isNil '_cbLim') then {_cbLim = 4};
+							_textHeader = _textHeader + format ["<t color='%1' shadow='1' align='center' size='1.0'>Built: %2 / %3</t><br />",if (_cbCur >= _cbLim) then {'#F56363'} else {'#76F563'},_cbCur,_cbLim];
+						};
+					};
 					_textPicture = format ["<t color='#42b6ff' shadow='2' align='left' size='2.8'><img image='%1'/></t> ",_filePicture];
 				};
 
