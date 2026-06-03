@@ -4,6 +4,7 @@ _unit = _this select 1;
 _vehi = _this select 2;
 _factory = _this select 3;
 _cpt = _this select 4;
+_currentCost = if (count _this > 5) then {_this select 5} else {0}; //--- FC2: purchase price, for refund if the factory is destroyed mid-build.
 
 _isMan = if (_unit isKindOf "Man") then {true} else {false};
 
@@ -367,6 +368,8 @@ if ((typeOf _vehicle) isKindOf "Tank" || (typeOf _vehicle) isKindOf "Car") then 
 		//--- otherwise WFBE_C_QUEUE_<type> leaks one each empty purchase and the factory soft-locks at its cap.
 		unitQueu = unitQueu - _cpt;
 		missionNamespace setVariable [Format["WFBE_C_QUEUE_%1",_factory],(missionNamespace getVariable Format["WFBE_C_QUEUE_%1",_factory])-1];
+		//--- FC2: factory destroyed before the unit was built -> refund the purchase price.
+		if (_currentCost > 0) then {(_currentCost) Call ChangePlayerFunds};
 	};
 
 	//--- Crew Management.

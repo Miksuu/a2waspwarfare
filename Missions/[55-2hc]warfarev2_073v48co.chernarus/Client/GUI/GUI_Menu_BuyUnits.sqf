@@ -159,7 +159,7 @@ _IDCS = _IDCS - [_currentIDC];
 					_txt = parseText(Format [localize 'STR_WF_INFO_BuyEffective',_currentUnitLabel]);
 					if (!isNil '_queu') then {if (count _queu > 0) then {_txt = parseText(Format [localize 'STR_WF_INFO_Queu',_currentUnitLabel])}};
 					hint _txt;
-					_params = if (_isInfantry) then {[_closest,_unit,[],_type,_cpt]} else {[_closest,_unit,[profilenamespace getvariable "wfbe_c_driver_enabled_by_default" ,_gunner,_commander,_extracrew,_isLocked],_type,_cpt]};
+					_params = if (_isInfantry) then {[_closest,_unit,[],_type,_cpt,_currentCost]} else {[_closest,_unit,[profilenamespace getvariable "wfbe_c_driver_enabled_by_default" ,_gunner,_commander,_extracrew,_isLocked],_type,_cpt,_currentCost]};
 					_params Spawn BuildUnit;
 					-(_currentCost) Call ChangePlayerFunds;
 				} else {
