@@ -1927,13 +1927,6 @@
         <Russian>Геймплей: Дистанция видимости</Russian>
         <Italian>Gameplay: View Distance</Italian>
       </Key>
-	  <Key ID="STR_WF_PARAMETER_ObjectDistanceLabel">
-        <English>Object Distance</English>
-        <French>Object d'affichage</French>
-        <German>Objekt-Sichtweite</German>
-        <Russian>Видимость Объектов</Russian>
-        <Italian>Oggetto Visiva</Italian>
-      </Key>
 	<!--Modul-->
       <Key ID="STR_WF_PARAMETER_EASA">
         <English>MODULE: EASA</English>
@@ -3403,13 +3396,6 @@
 	        <Russian>High climbing default: OFF</Russian>
 	        <Italian>High climbing default: OFF</Italian>
 	      </Key>
-		  <Key ID="STR_WF_TEAM_ObjectDistanceLabel">
-        <English>Object Distance: %1m</English>
-        <French>Object d'affichage: %1m</French>
-        <German>Objekt-Sichtweite: %1m</German>
-        <Russian>Видимость Объектов: %1m</Russian>
-        <Italian>Oggetto Visiva: %1m</Italian>
-      </Key>
       <Key ID="STR_WF_TEAM_ViewDistanceLabel"><!--shared U-->
         <English>View Distance: %1m</English>
         <French>Distance d'affichage: %1m</French>

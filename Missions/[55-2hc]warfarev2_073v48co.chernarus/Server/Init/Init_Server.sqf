@@ -87,11 +87,8 @@ WFBE_SE_FNC_CallDatabaseRequestSideTotalSkill = Compile preprocessFileLineNumber
 WFBE_SE_FNC_CallDatabaseFlushPlayerList = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseFlushPlayerList.sqf";
 WFBE_SE_FNC_CallDatabaseSetMap = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseSetMap.sqf";
 //WFBE_CO_FNC_InitAFKkickHandler = Compile preprocessFileLineNumbers "Server\Module\afkKick\initAFKkickHandler.sqf";
-WFBE_CO_FNC_LogGameEnd = Compile preprocessFileLineNumbers "Server\Functions\Server_LogGameEnd.sqf";
 // WFBE_CO_FNC_monitorServerFPS = Compile preprocessFileLineNumbers "Server\Module\serverFPS\monitorServerFPS.sqf";
-WFBE_SE_FNC_PlayerObjectsList = Call Compile preprocessFileLineNumbers "Server\Module\supplyMission\playerObjectsList.sqf";
 //WFBE_SE_FNC_MASH_MARKER = Call Compile preprocessFileLineNumbers "Server\Module\MASH\MASHMarker.sqf";
-WFBE_SE_FNC_AwardScorePlayer = Compile preprocessFileLineNumbers "Server\Functions\Server_AwardScorePlayer.sqf";
 WFBE_SE_FNC_AttackWave = Call Compile preprocessFileLineNumbers "Server\PVFunctions\AttackWave.sqf";
 WFBE_SE_FNC_AttackWavePVEH = Call Compile preprocessFileLineNumbers "Server\Functions\Server_AttackWave.sqf";
 
@@ -593,7 +590,6 @@ waitUntil {time > 0};
 
 call WFBE_CO_FNC_InitAFKkickHandler;
 
-// [] execVM "Server\Functions\Server_MapBlinkingUnits.sqf";
 
 // [removed in release fix #7] monitorServerFPS.sqf was a redundant second FPS publisher: its PV
 // "WFBE_VAR_SERVER_FPS" has no reader anywhere (the live HUD reads SERVER_FPS_GUI from serverFpsGUI.sqf).

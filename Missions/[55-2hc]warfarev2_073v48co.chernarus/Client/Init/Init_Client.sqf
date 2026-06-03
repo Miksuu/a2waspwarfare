@@ -137,9 +137,7 @@ WFBE_CL_FNC_FindVariableInNestedArray = Compile preprocessFileLineNumbers "Clien
 WFBE_CL_PV_ReceiveSupplyValue = Call Compile preprocessFileLineNumbers "Client\Functions\Client_ReceiveSupplyValue.sqf";
 WFBE_CL_FNC_ReturnAircraftNameFromItsType = Compile preprocessFileLineNumbers "Common\Common_ReturnAircraftNameFromItsType.sqf";
 WFBE_CL_FNC_SetMapIconStatusInCombat = Compile preprocessFileLineNumbers "Client\Functions\Client_SetMapIconStatusInCombat.sqf";
-// WFBE_CL_FNC_BlinkMapIcons = Compile preprocessFileLineNumbers "Client\Functions\Client_BlinkMapIcons.sqf";
 WFBE_CL_FNC_BlinkMapIcon = Compile preprocessFileLineNumbers "Client\Functions\Client_BlinkMapIcon.sqf";
-// WFBE_CL_FNC_AddUnitToTrack = Compile preprocessFileLineNumbers "Client\Functions\Client_AddUnitToTrack.sqf";
 
 //Affichage Rubber maps:
 	Local_GUIWorking = false;
@@ -597,7 +595,6 @@ WF_Logic setVariable ['filler','primary'];
 if (WF_Debug) then {
 	//player addEventHandler ["HandleDamage", {false}];
 	// player setCaptive true;
-	// player addEventHandler ["HandleDamage", {false;if (player != (_this select 3)) then {(_this select 3) setDammage 1}}]; //--- God-Slayer mode.
 };
 execVM "limitThirdPersonView.sqf";
 
@@ -796,7 +793,6 @@ player setVariable ["score", 0];
 if ((missionNamespace getVariable ["WFBE_C_MAP_ICON_BLINKING_ENABLED", 0]) == 1) then {
 	[] execVM "Client\Functions\Client_BookkeepBlinkingIcons.sqf";
 };
-// [] execVM "Client\Functions\Client_BlinkMapIcons.sqf";
 
 _video = ["Videos\intro720p.ogv"] call BIS_fnc_playVideo;
 
