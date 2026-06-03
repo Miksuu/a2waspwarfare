@@ -114,7 +114,7 @@ if ((typeOf _vehicle) isKindOf "Tank" || (typeOf _vehicle) isKindOf "Car") then 
 
 
 	if ((missionNamespace getVariable "WFBE_C_MODULE_WFBE_IRSMOKE") > 0) then { //--- IR Smoke
-		if (((sideJoined) Call WFBE_CO_FNC_GetSideUpgrades) select WFBE_UP_IRSMOKE > 0) then { //--- Make sure that the unit is defined in IRS_Init and that the upgrade is available.
+		if (((_side) Call WFBE_CO_FNC_GetSideUpgrades) select WFBE_UP_IRSMOKE > 0) then { //--- AI8: use the buying side (_side), not client-side sideJoined (wrong/nil on a dedicated server). Make sure the unit is defined in IRS_Init and the upgrade is available.
 			_get = missionNamespace getVariable Format ["%1_IRS", (typeOf _vehicle)];
 			if !(isNil '_get') then {
 				_vehicle setVariable ["wfbe_irs_flares", _get select 1, true];
