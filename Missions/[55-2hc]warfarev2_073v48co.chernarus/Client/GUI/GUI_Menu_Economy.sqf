@@ -182,7 +182,7 @@ while {alive player && dialog} do {
 					_ref2 = round(((_sCosts2 select _i2) * _salePct) / 100);
 					_mk = Format ["wfbe_econ_sell_%1", _forEachIndex];
 					createMarkerLocal [_mk, getPos _x];
-					_mk setMarkerTypeLocal "mil_dot";
+					_mk setMarkerTypeLocal "Empty";
 					_mk setMarkerColorLocal "ColorYellow";
 					_mk setMarkerSizeLocal [0.7,0.7];
 					_mk setMarkerTextLocal Format ["$%1", _ref2];
