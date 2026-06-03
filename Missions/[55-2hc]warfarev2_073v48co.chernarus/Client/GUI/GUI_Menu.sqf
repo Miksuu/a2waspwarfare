@@ -27,7 +27,12 @@ while {alive player && dialog} do {
 
 	//--- Uptime.
 	_uptime = Call GetTime; //added-MrNiceGuy
-	ctrlSetText [11015,Format[localize 'STR_WF_MAIN_Uptime',_uptime select 0,_uptime select 1,_uptime select 2, _uptime select 3]];
+	//--- QoL: append the in-game (accelerated day/night) clock to the WF-menu uptime line.
+	private ["_clkH","_clkM"];
+	_clkH = date select 3; _clkM = date select 4;
+	_clkH = if (_clkH < 10) then {"0" + str _clkH} else {str _clkH};
+	_clkM = if (_clkM < 10) then {"0" + str _clkM} else {str _clkM};
+	ctrlSetText [11015, (Format[localize 'STR_WF_MAIN_Uptime',_uptime select 0,_uptime select 1,_uptime select 2, _uptime select 3]) + format ["    Time %1:%2", _clkH, _clkM]];
 
 	//--- Buy Units.
 	if (MenuAction == 1) exitWith {
