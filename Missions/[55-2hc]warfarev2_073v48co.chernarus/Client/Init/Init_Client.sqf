@@ -487,13 +487,14 @@ if (time < 30) then {
     if (count _buildings > 0) then {
 	    for "_i" from ((count _buildings) - 1) to 0 do {
 	        _structureType = (_buildings select _i) getVariable "wfbe_structure_type";
-	        if (_structureType == "Barracks" || _structureType == "Light" || _structureType == "Heavy" || _structureType == "Aircraft") exitWith {
+	        if ((_structureType == "Barracks" || _structureType == "Light" || _structureType == "Heavy" || _structureType == "Aircraft") && alive (_buildings select _i)) exitWith {	//--- FIX(deadspawn): only pick a LIVE factory, never a destroyed wreck
 	            _base = _buildings select _i;
 			};
 		};
 	};
 
-    // if (count _buildings > 0) then {_base = _buildings select ((count _buildings) - 1)};
+	    //--- FIX(deadspawn): if no live factory was found and the HQ is dead, fall back to the side start position instead of spawning on a wreck.
+	    if (isNull _base || {!alive _base}) then { _base = WFBE_Client_Logic getVariable "wfbe_startpos" };
 };
 
 ["INITIALIZATION", Format["Init_Client.sqf: Client spawn location has been determined at [%1].", _base]] Call WFBE_CO_FNC_LogContent;
