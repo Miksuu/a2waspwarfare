@@ -162,6 +162,14 @@ while {alive player && dialog} do {
 		};
 	};
 	
+	//--- FIX: Back button checked BEFORE the dashboard block so a dashboard hiccup can never starve it (regression: dashboard added below ran before the old back-button check).
+	if (MenuAction == 5) exitWith {
+		MenuAction = -1;
+		{deleteMarkerLocal _x} forEach _sellMarkers; _sellMarkers = [];
+		closeDialog 0;
+		createDialog "WF_Menu";
+	};
+
 	//--- QoL: Economy Overview dashboard + sell-mode markers/preview (read-only).
 	if (MenuAction == 105) then {
 		if (count _sellMarkers == 0) then {
@@ -178,7 +186,7 @@ while {alive player && dialog} do {
 					_mk setMarkerColorLocal "ColorYellow";
 					_mk setMarkerSizeLocal [0.7,0.7];
 					_mk setMarkerTextLocal Format ["$%1", _ref2];
-					_sellMarkers pushBack _mk;
+					_sellMarkers set [count _sellMarkers, _mk];	//--- FIX: pushBack is Arma-3-only; A2 OA 1.64 has no pushBack (was throwing "Undefined" every sell-mode tick)
 				};
 			} forEach ((sideJoined) Call WFBE_CO_FNC_GetSideStructures);
 		};
@@ -200,7 +208,7 @@ while {alive player && dialog} do {
 			_lastDash = time;
 			_pool = (sideJoined) Call GetTownsIncome;
 			_perMin = round(_pool * 60 / _econInterval);
-			_dash ctrlSetStructuredText (parseText Format ["<t color='#9fb0bc' shadow='1'>Income pool: </t><t color='#e0b94f' shadow='1'>$%1/min</t><t color='#9fb0bc' shadow='1'>  ($%2/hr)</t><br/><t color='#9fb0bc' shadow='1'>Towns held: </t><t shadow='1'>%3 / %4</t><br/><t color='#9fb0bc' shadow='1'>Supply: </t><t shadow='1'>%5</t>", _perMin, (_perMin * 60), (sideJoined Call GetTownsHeld), _totalTowns, ((sideJoined) Call GetSideSupply)]);
+			_dash ctrlSetStructuredText (parseText Format ["<t color='#9fb0bc' shadow='1'>Income pool: </t><t color='#e0b94f' shadow='1'>$%1/min</t><t color='#9fb0bc' shadow='1'>  ($%2/hr)</t><br/><t color='#9fb0bc' shadow='1'>Towns held: </t><t shadow='1'>%3 / %4</t><br/><t color='#9fb0bc' shadow='1'>Supply: </t><t shadow='1'>%5</t>", _perMin, (_perMin * 60), (sideJoined Call GetTownsHeld), _totalTowns, (missionNamespace getVariable [format ["wfbe_supply_%1", str sideJoined], "?"])]);	//--- FIX: non-blocking read (GetSideSupply does a publicVariableServer+waitUntil that can stall this loop)
 		};
 	};
 

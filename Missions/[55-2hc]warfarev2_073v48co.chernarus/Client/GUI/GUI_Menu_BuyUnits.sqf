@@ -204,7 +204,7 @@ _IDCS = _IDCS - [_currentIDC];
 			private ["_q","_m","_txt"];
 			_q = missionNamespace getVariable [format ["WFBE_C_QUEUE_%1", _tabKey select _tabI], -1];
 			_m = missionNamespace getVariable [format ["WFBE_C_QUEUE_%1_MAX", _tabKey select _tabI], -1];
-			_txt = if (_q >= 0 && _m >= 0) then {format ["%1 (%2/%3)", _tabBase select _tabI, _q, _m]} else {_tabBase select _tabI};
+			_txt = _tabBase select _tabI;	//--- FIX: never append text to the tab control — it is an RscClickableText whose text is a .paa ICON path; appending "(q/max)" corrupted it to "con_barracks.paa (0/10)" (engine "picture not found", tab icons vanished, only Barracks visible). Queue total still shows in the header.
 			if (_txt != (_tabLast select _tabI)) then {(_display displayCtrl _x) ctrlSetText _txt; _tabLast set [_tabI, _txt]};
 			_tabI = _tabI + 1;
 		} forEach _tabIDC;

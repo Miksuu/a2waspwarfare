@@ -1188,11 +1188,11 @@
 
 <!--Main Menu - ALL DONE-->
       <Key ID="STR_WF_MAIN_CommandMenu"><!--shared U-->
-        <English>Placeholder Mapvote</English>
-        <French>Placeholder Mapvote</French>
-        <German>Placeholder Mapvote</German>
-        <Russian>Placeholder Mapvote</Russian>
-        <Italian>Placeholder Mapvote</Italian>
+        <English>Command Center</English>
+        <French>Command Center</French>
+        <German>Command Center</German>
+        <Russian>Command Center</Russian>
+        <Italian>Command Center</Italian>
       </Key>
       <Key ID="STR_WF_MAIN_EconomyMenu"><!--shared U-->
         <English>Economy</English>

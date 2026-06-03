@@ -32,7 +32,7 @@ while {alive player && dialog} do {
 	_clkH = date select 3; _clkM = date select 4;
 	_clkH = if (_clkH < 10) then {"0" + str _clkH} else {str _clkH};
 	_clkM = if (_clkM < 10) then {"0" + str _clkM} else {str _clkM};
-	ctrlSetText [11015, (Format[localize 'STR_WF_MAIN_Uptime',_uptime select 0,_uptime select 1,_uptime select 2, _uptime select 3]) + format ["    Time %1:%2", _clkH, _clkM]];
+	ctrlSetText [11015, format ["Uptime: %1h %2m    Time %3:%4", (_uptime select 0) * 24 + (_uptime select 1), _uptime select 2, _clkH, _clkM]];	//--- QoL: compact uptime (hours/min only) so it no longer overruns the clock + help icon
 
 	//--- Buy Units.
 	if (MenuAction == 1) exitWith {
