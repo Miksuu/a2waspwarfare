@@ -221,7 +221,13 @@ _i = 0;
 			_descVehi = [typeOf (vehicle _x), 'displayName'] Call GetConfigInfo;
 			_isInVehicle = " [" + _descVehi + "] ";
 		};
-		_txt = "["+_finalNumber+"] "+ _desc + _isInVehicle;
+		private ["_svc","_state"];
+			//--- QoL: open-time damage (and fuel, for vehicles) snapshot on each service-list row.
+			_svc = vehicle _x;
+			_state = " (dmg " + str (round ((getDammage _svc) * 100)) + "%";
+			if !(_svc isKindOf "Man") then {_state = _state + " fuel " + str (round ((fuel _svc) * 100)) + "%"};
+			_state = _state + ")";
+			_txt = "["+_finalNumber+"] "+ _desc + _isInVehicle + _state;
 		lbAdd[20002,_txt];
 		
 		_i = _i + 1;
@@ -335,10 +341,12 @@ while {true} do {
 		//--- Rearm.
 		if (MenuAction == 1) then {
 			MenuAction = -1;
+			if (_funds >= _rearmPrice) then { //--- QoL: affordability guard (parity with repair/heal)
 			-_rearmPrice Call ChangePlayerFunds;
 			
 			//--- Spawn a Rearm thread.
 			[_veh,_nearSupport select _curSel,_typeRepair,_spType] Spawn SupportRearm;
+			};
 		};	
 		
 		//--- Repair.
@@ -356,10 +364,12 @@ while {true} do {
 		//--- Refuel.
 		if (MenuAction == 3) then {
 			MenuAction = -1;
+			if (_funds >= _refuelPrice) then { //--- QoL: affordability guard (parity with repair/heal)
 			-_refuelPrice Call ChangePlayerFunds;
 
 			//--- Spawn a Refuel thread.
 			[_veh,_nearSupport select _curSel,_typeRepair,_spType] Spawn SupportRefuel;
+			};
 		};
 		
 		//--- Heal.
