@@ -79,7 +79,7 @@ WFBE_SE_FNC_CompareTeamScores = Compile preprocessFileLineNumbers "Server\Module
 WFBE_SE_FNC_CallDatabaseSendPlayerList = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseSendPlayerList.sqf";
 WFBE_SE_FNC_GetTeamScoreMonitor = Compile preprocessFileLineNumbers "Server\Module\AntiStack\getTeamScoreMonitor.sqf";
 WFBE_SE_PVEH_ClientHasConnectedAtLaunch = Call Compile preprocessFileLineNumbers "Server\Module\AntiStack\clientHasConnectedAtLaunch.sqf";
-WFBE_SE_FNC_SupplyMissionActive = Compile preprocessFileLineNumbers "Server\Module\supplyMission\supplyMissionActive.sqf";
+//--- SM8/XR9: removed dead WFBE_SE_FNC_SupplyMissionActive (supplyMissionActive.sqf) -- compiled, zero callers (superseded by supplyMissionStarted.sqf).
 WFBE_SE_FNC_ChangeSideSupply = Call Compile preprocessFileLineNumbers "Server\Functions\Server_ChangeSideSupply.sqf";
 WFBE_SE_FNC_AwardScorePlayer = Compile preprocessFileLineNumbers "Server\Functions\Server_AwardScorePlayer.sqf";
 WFBE_SE_PV_RequestSupplyValue = Call Compile preprocessFileLineNumbers "Server\Functions\Server_PV_RequestSupplyValue.sqf";

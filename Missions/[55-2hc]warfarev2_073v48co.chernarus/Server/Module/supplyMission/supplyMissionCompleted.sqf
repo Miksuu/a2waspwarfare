@@ -39,6 +39,7 @@
     };
     _associatedSupplyTruck setVariable ["SupplyAmount", 0, true];
     _associatedSupplyTruck setVariable ["SupplyFromTown", objNull, true];
+    _associatedSupplyTruck setVariable ["SupplyByHeli", false, true]; //--- XR3: clear the heli flag too, so a reused vehicle's next run isn't mis-classified as a cash-run.
 
     _logMessage = format ["%1 has brought S %2 from %3 to base (SIDE: %4).", _namePlayer, _supplyAmount, _sourceTown, _sidePlayer];
 
