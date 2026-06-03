@@ -27,7 +27,18 @@ for '_i' from 0 to count(_data)-1 do {
 	};
 };
 
-if (((lnbSize _listBox) select 0) > 0) then {lnbSetCurSelRow [_listBox,0]} else {lnbSetCurSelRow [_listBox,-1]};
+//--- QoL: mark and pre-select the loadout currently equipped on the vehicle.
+private ["_active","_rows","_activeRow"];
+_active = (vehicle player) getVariable ["WFBE_EASA_Setup", -1];
+_rows = (lnbSize _listBox) select 0;
+_activeRow = -1;
+for "_r" from 0 to (_rows - 1) do {
+	if ((lnbValue [_listBox, [_r, 0]]) == _active) then {
+		_activeRow = _r;
+		lnbSetColor [_listBox, [_r, 1], [0.5, 1, 0.5, 1]]; //--- green = currently equipped
+	};
+};
+if (_rows > 0) then {lnbSetCurSelRow [_listBox, (if (_activeRow != -1) then {_activeRow} else {0})]} else {lnbSetCurSelRow [_listBox, -1]};
 
 while {alive player && dialog} do {
 	sleep 0.1;

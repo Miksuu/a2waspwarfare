@@ -75,7 +75,15 @@ _IDCS = _IDCS - [_currentIDC];
 } forEach _IDCS;
 
 //--- Loop.
-while {alive player && dialog} do {
+//--- QoL: cache the factory-tab base labels so we can append live queue counts without losing them.
+	private ["_tabIDC","_tabKey","_tabBase","_tabLast","_tabI"];
+	_tabIDC = [12005,12006,12007,12008,12020,12021];
+	_tabKey = ["Barracks","Light","Heavy","Aircraft","Depot","Airport"];
+	_tabBase = [];
+	{_tabBase set [count _tabBase, ctrlText (_display displayCtrl _x)]} forEach _tabIDC;
+	_tabLast = ["","","","","",""];
+
+	while {alive player && dialog} do {
 	//--- Nothing in range? exit!.
 	if (!barracksInRange && !lightInRange && !heavyInRange && !aircraftInRange && !hangarInRange && !depotInRange) exitWith {closeDialog 0};
 	if (side group player != sideJoined || !dialog) exitWith {closeDialog 0};
@@ -189,6 +197,17 @@ while {alive player && dialog} do {
 	
 	//--- Player funds.
 	ctrlSetText [12019,Format [localize 'STR_WF_UNITS_Cash',Call GetPlayerFunds]];
+
+		//--- QoL: live queue count on factory tabs (change-detected to avoid per-tick UI churn).
+		_tabI = 0;
+		{
+			private ["_q","_m","_txt"];
+			_q = missionNamespace getVariable [format ["WFBE_C_QUEUE_%1", _tabKey select _tabI], -1];
+			_m = missionNamespace getVariable [format ["WFBE_C_QUEUE_%1_MAX", _tabKey select _tabI], -1];
+			_txt = if (_q >= 0 && _m >= 0) then {format ["%1 (%2/%3)", _tabBase select _tabI, _q, _m]} else {_tabBase select _tabI};
+			if (_txt != (_tabLast select _tabI)) then {(_display displayCtrl _x) ctrlSetText _txt; _tabLast set [_tabI, _txt]};
+			_tabI = _tabI + 1;
+		} forEach _tabIDC;
 	
 	//--- Update tabs.
 	if (_update) then {
@@ -258,7 +277,7 @@ while {alive player && dialog} do {
 			ctrlSetText [12009,_currentUnit select QUERYUNITPICTURE];
 			ctrlSetText [12033,_currentUnit select QUERYUNITFACTION];
 			ctrlSetText [12035,str (_currentUnit select QUERYUNITTIME)];
-			_currentCost = floor ((_currentUnit select QUERYUNITPRICE) * ATTACK_WAVE_PRICE_MODIFIER);
+			_currentCost = round (((_currentUnit select QUERYUNITPRICE) * ATTACK_WAVE_PRICE_MODIFIER) * UNIT_COST_MODIFIER); //--- QoL: match the list/purchase formula (incl. unit-cost upgrade discount)
 			
 			_isInfantry = if (_unit isKindOf 'Man') then {true} else {false};
 			
@@ -421,6 +440,9 @@ while {alive player && dialog} do {
 				(_display displayCtrl 12022) ctrlSetStructuredText (parseText _txt);
 			};
 			
+			//--- QoL: show the full purchase cost (base + crew) in the dialog's price field (idc 12034).
+			ctrlSetText [12034, format ["$%1", _currentCost]];
+
 			//--- Lock Icon.
 			if !(_isInfantry) then {
 				ctrlShow[_IDCLock,true];
