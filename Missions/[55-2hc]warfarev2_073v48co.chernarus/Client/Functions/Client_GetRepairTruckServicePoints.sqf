@@ -11,6 +11,6 @@ _points = [];
 	if (alive _x && (_x getVariable ["WFBE_RepairTruckServicePoint", false])) then {
 		_points = _points + [_x];
 	};
-} forEach ((getPos _unit) nearEntities [["Base_WarfareBVehicleServicePoint"], _range]);
+} forEach (nearestObjects [getPos _unit, ["Base_WarfareBVehicleServicePoint"], _range]);	//--- FIX: nearEntities never finds the service point (it is a static BUILDING, not an entity) -> EASA button never enabled. nearestObjects scans all object types.
 
 _points
