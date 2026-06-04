@@ -231,6 +231,32 @@ while {!WFBE_GameOver} do {
 				["TOWN_DEFENSE_DIAG", Format ["capture_before town:%1;oldSide:%2;newSide:%3;sv:%4;active:%5;activeAir:%6;teams:%7;vehicles:%8;activeSideIDs:%9", _location getVariable "name", _sideID, _newSID, _supplyValue, _location getVariable ["wfbe_active", false], _location getVariable ["wfbe_active_air", false], count (_location getVariable ["wfbe_town_teams", []]), count (_location getVariable ["wfbe_active_vehicles", []]), _location getVariable ["wfbe_active_sideIDs", []]]] Call WFBE_CO_FNC_LogContent;
 			};
 
+			// Marty: A captured town must drop the previous side's active AI state or the new side never spawns occupation teams.
+			_captureTeams = +(_location getVariable ["wfbe_town_teams", []]);
+			_captureVehicles = +(_location getVariable ["wfbe_active_vehicles", []]);
+			{
+				_captureGroup = _x;
+				if !(isNil "_captureGroup") then {
+					if !(isNull _captureGroup) then {
+						{deleteVehicle _x} forEach units _captureGroup;
+						deleteGroup _captureGroup;
+					};
+				};
+			} forEach _captureTeams;
+			{
+				if ((alive _x) && !(isPlayer (leader (group _x)))) then {deleteVehicle _x};
+			} forEach _captureVehicles;
+			_location setVariable ["wfbe_active", false, true];
+			_location setVariable ["wfbe_active_air", false, true];
+			_location setVariable ["wfbe_active_sideIDs", [], true];
+			_location setVariable ["wfbe_active_override", false];
+			_location setVariable ["wfbe_inactivity", time];
+			_location setVariable ["wfbe_town_teams", []];
+			_location setVariable ["wfbe_active_vehicles", []];
+			if (missionNamespace getVariable ["TownDefenseDiagnosticsEnabled", false]) then {
+				["TOWN_DEFENSE_DIAG", Format ["capture_cleanup town:%1;oldSide:%2;newSide:%3;teamsRemoved:%4;vehiclesRemoved:%5;active:%6;activeAir:%7;teams:%8;vehicles:%9", _location getVariable "name", _sideID, _newSID, count _captureTeams, count _captureVehicles, _location getVariable ["wfbe_active", false], _location getVariable ["wfbe_active_air", false], count (_location getVariable ["wfbe_town_teams", []]), count (_location getVariable ["wfbe_active_vehicles", []])]] Call WFBE_CO_FNC_LogContent;
+			};
+
 			if (_sideID != WFBE_C_UNKNOWN_ID) then {
 				if (missionNamespace getVariable Format ["WFBE_%1_PRESENT",_side]) then {[_side, "Lost", _location] Spawn SideMessage};
 			};
