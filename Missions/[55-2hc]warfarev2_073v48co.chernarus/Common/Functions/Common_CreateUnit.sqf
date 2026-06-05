@@ -9,7 +9,7 @@
 		- {PLacement}
 */
 
-Private ["_get", "_global", "_globalInitMode", "_leaderIsPlayer", "_perfScope", "_perfStart", "_position", "_side", "_sideValue", "_skill", "_special", "_team", "_trackInfantry", "_type", "_unit"];
+Private ["_get", "_global", "_globalInitMode", "_leaderIsPlayer", "_perfScope", "_perfStart", "_position", "_side", "_sideValue", "_skill", "_special", "_team", "_teamLeader", "_trackInfantry", "_type", "_unit"];
 
 _type = _this select 0;
 _team = _this select 1;
@@ -30,9 +30,12 @@ if (typeName _side == "SIDE") then {
 	_sideValue = _side Call WFBE_CO_FNC_GetSideFromID;
 };
 if (isNull _team) then {_team = createGroup _sideValue};
-if (!local _team) then {
-	["WARNING", Format ["Common_CreateUnit.sqf: Team [%1] for unit [%2] is not local here; creating local fallback group.", _team, _type]] Call WFBE_CO_FNC_LogContent;
-	_team = createGroup _sideValue;
+if ((count units _team) > 0) then {
+	_teamLeader = leader _team;
+	if (!(isNull _teamLeader) && {!local _teamLeader}) then {
+		["WARNING", Format ["Common_CreateUnit.sqf: Team [%1] leader [%2] for unit [%3] is not local here; creating local fallback group.", _team, _teamLeader, _type]] Call WFBE_CO_FNC_LogContent;
+		_team = createGroup _sideValue;
+	};
 };
 
 _get = missionNamespace getVariable _type;

@@ -9,7 +9,7 @@
 		- Move In Gunner immidietly or not
 */
 
-Private ["_assignedUnit", "_built", "_builtveh", "_defence", "_groups", "_manningInProgress", "_moveInGunner", "_perfActive", "_perfItemStart", "_perfScope", "_perfStart", "_position", "_positions", "_side", "_sideID", "_team", "_teams", "_townDefenderAI", "_town_vehicles", "_unit"];
+Private ["_assignedUnit", "_built", "_builtveh", "_defence", "_groups", "_manningInProgress", "_moveInGunner", "_perfActive", "_perfItemStart", "_perfScope", "_perfStart", "_position", "_positions", "_side", "_sideID", "_team", "_teamLeader", "_teams", "_townDefenderAI", "_town_vehicles", "_unit"];
 
 _side = _this select 0;
 _groups = _this select 1;
@@ -64,7 +64,10 @@ for '_i' from 0 to count(_groups)-1 do {
 	_sideID = (_side) Call GetSideID;
 	_perfItemStart = diag_tickTime;
 	if (isNull _team) then {_team = createGroup _side};
-	if (!local _team) then {_team = createGroup _side};
+	if ((count units _team) > 0) then {
+		_teamLeader = leader _team;
+		if (!(isNull _teamLeader) && {!local _teamLeader}) then {_team = createGroup _side};
+	};
 	_unit = [_groups select _i, _team, _position, _sideID] Call WFBE_CO_FNC_CreateUnit;
 	if (isNull _unit) exitWith {
 		["WARNING", Format["Common_CreateUnitForstaticDefence.sqf: [%1] failed to create static gunner template %2 at %3", _side, _groups select _i, _position]] Call WFBE_CO_FNC_LogContent;
