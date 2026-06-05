@@ -27,7 +27,18 @@ while {alive player && dialog} do {
 
 	//--- Uptime.
 	_uptime = Call GetTime; //added-MrNiceGuy
-	ctrlSetText [11015,Format[localize 'STR_WF_MAIN_Uptime',_uptime select 0,_uptime select 1,_uptime select 2, _uptime select 3]];
+	//--- QoL: compact strategic snapshot for the WF-menu top strip.
+	private ["_clkH","_clkM","_playerCount","_playerSlots","_townsHeld","_townsTotal"];
+	_clkH = date select 3; _clkM = date select 4;
+	_clkH = if (_clkH < 10) then {"0" + str _clkH} else {str _clkH};
+	_clkM = if (_clkM < 10) then {"0" + str _clkM} else {str _clkM};
+	_playerCount = {isPlayer _x} count playableUnits;
+	if (_playerCount == 0 && (isPlayer player)) then {_playerCount = 1};
+	_playerSlots = count playableUnits;
+	if (_playerSlots < _playerCount) then {_playerSlots = _playerCount};
+	_townsTotal = if (isNil "towns") then {0} else {count towns};
+	_townsHeld = if (_townsTotal > 0) then {sideJoined Call GetTownsHeld} else {0};
+	ctrlSetText [11015, format ["Uptime: %1h %2m Time %3:%4 Players %5/%6 Towns %7/%8", (_uptime select 0) * 24 + (_uptime select 1), _uptime select 2, _clkH, _clkM, _playerCount, _playerSlots, _townsHeld, _townsTotal]];	//--- QoL: compact top-strip status
 
 	//--- Buy Units.
 	if (MenuAction == 1) exitWith {
