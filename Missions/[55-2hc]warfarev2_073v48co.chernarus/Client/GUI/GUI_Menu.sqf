@@ -210,10 +210,12 @@ while {alive player && dialog} do {
 		if(RUBHUD)then{RUBHUD = false}else{RUBHUD = true};
 	};
 
-	// Marty: Lightweight FPS-only HUD toggle.
+	// Marty: Reuse the old FPS-only slot as a GPS toggle; client/server FPS now lives in RHUD.
 	if (MenuAction == 19) then {
 		MenuAction = -1;
-		if(RUBFPSHUD)then{RUBFPSHUD = false}else{RUBFPSHUD = true};
+		_gpsEnabled = !(shownGPS);
+		showGPS _gpsEnabled;
+		if (_gpsEnabled) then {hint "GPS: ON"} else {hint "GPS: OFF"};
 	};
 
 	if (MenuAction == 17) then {

@@ -2,8 +2,7 @@ disableSerialization;
 
 // Marty: Keep the shared OptionsAvailable resource alive for action icons, but do not show RHUD by default.
 if (isNil "RUBHUD") then {RUBHUD = false};
-if (isNil "RUBFPSHUD") then {RUBFPSHUD = false};
-if !(isNil "BIS_CONTROL_CAM") then {RUBHUD = false; RUBFPSHUD = false};
+if !(isNil "BIS_CONTROL_CAM") then {RUBHUD = false};
 CutRsc["OptionsAvailable","PLAIN",0];
 
 waituntil{!isnil"totalTowns"};
@@ -266,13 +265,11 @@ while {true} do {
 	if (isNull _display) then {
 		if !(isNil "PerformanceAudit_Record") then {
 			if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
-				["client_rhud", diag_tickTime - _perfStart, Format["enabled:%1;fpsOnly:%2;visibleMap:%3;display:null", RUBHUD, RUBFPSHUD, visibleMap], "CLIENT"] Call PerformanceAudit_Record;
+				["client_rhud", diag_tickTime - _perfStart, Format["enabled:%1;visibleMap:%2;display:null", RUBHUD, visibleMap], "CLIENT"] Call PerformanceAudit_Record;
 			};
 		};
 	} else {
-		// Marty: RHUD full mode wins over the FPS-only overlay; both toggles can stay independent.
 		_hudMode = "hidden";
-		if (RUBFPSHUD) then {_hudMode = "fps"};
 		if (RUBHUD) then {_hudMode = "full"};
 
 		switch (_hudMode) do {
@@ -285,24 +282,6 @@ while {true} do {
 					_hudWasShown = false;
 					_lastHudMode = _hudMode;
 				};
-			};
-			case "fps": {
-				if (_lastHudMode != _hudMode) then {
-					for "_idx" from 0 to ((count _rhudIDC) - 1) do {
-						[_idx, false] call _RHUDSetShow;
-					};
-					[19, true] call _RHUDSetShow;
-					[20, true] call _RHUDSetShow;
-					[21, true] call _RHUDSetShow;
-					[22, true] call _RHUDSetShow;
-					// Marty: FPS-only overlay belongs in the upper-right corner and needs wider label/value spacing.
-					true call _RHUDSetFPSPosition;
-					_labelsApplied = false;
-					_hudWasShown = false;
-					_lastHudMode = _hudMode;
-				};
-
-				["Client:", "Server:", true] call _RHUDUpdateFPS;
 			};
 			case "full": {
 				if (_lastHudMode != _hudMode) then {
@@ -414,7 +393,7 @@ while {true} do {
 		// Marty: Performance Audit record for the local HUD refresh.
 		if !(isNil "PerformanceAudit_Record") then {
 			if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
-				["client_rhud", diag_tickTime - _perfStart, Format["enabled:%1;fpsOnly:%2;visibleMap:%3", RUBHUD, RUBFPSHUD, visibleMap], "CLIENT"] Call PerformanceAudit_Record;
+				["client_rhud", diag_tickTime - _perfStart, Format["enabled:%1;visibleMap:%2", RUBHUD, visibleMap], "CLIENT"] Call PerformanceAudit_Record;
 			};
 		};
 	};

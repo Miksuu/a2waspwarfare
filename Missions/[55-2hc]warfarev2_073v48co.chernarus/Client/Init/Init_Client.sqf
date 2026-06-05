@@ -346,8 +346,6 @@ if (isMultiplayer) then {["RequestSpecial", ["update-teamleader", WFBE_Client_Te
 /* HUD ON/OFF VALUE */
 // Marty: Start RHUD hidden; players can still toggle it from the menu.
 if (isNil "RUBHUD") then {RUBHUD = false};
-// Marty: Separate lightweight FPS-only HUD toggle, hidden by default.
-if (isNil "RUBFPSHUD") then {RUBFPSHUD = false};
 if (isNil "RUBGPS") then {RUBGPS = 1};
 if (isNil "RUBOSD") then {RUBOSD = 1};
 
