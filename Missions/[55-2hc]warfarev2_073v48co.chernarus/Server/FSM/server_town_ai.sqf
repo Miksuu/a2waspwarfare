@@ -148,6 +148,10 @@ while {!WFBE_GameOver} do {
 							_positions = [];
 							_teams = [];
 							_spawnGroups = [];
+							// Marty: Diagnose activation paths that stop between activation_start and activation_groups.
+							if (missionNamespace getVariable ["TownDefenseDiagnosticsEnabled", false]) then {
+								["TOWN_DEFENSE_DIAG", Format ["activation_group_build_start town:%1;side:%2;requested:%3;camps:%4", _town getVariable "name", _side, count _groups, count _camps]] Call WFBE_CO_FNC_LogContent;
+							};
 							// Marty: Use a separate group index so town iteration is never affected by activation work.
 							for '_groupIndex' from 0 to count(_groups)-1 do {
 								_position = [];
@@ -168,6 +172,10 @@ while {!WFBE_GameOver} do {
 									[_teams, _team] call WFBE_CO_FNC_ArrayPush;
 									[_spawnGroups, _groups select _groupIndex] call WFBE_CO_FNC_ArrayPush;
 								};
+							};
+							// Marty: If this line is missing after activation_group_build_start, the failure happened during position/group construction.
+							if (missionNamespace getVariable ["TownDefenseDiagnosticsEnabled", false]) then {
+								["TOWN_DEFENSE_DIAG", Format ["activation_group_build_done town:%1;side:%2;requested:%3;created:%4;positions:%5", _town getVariable "name", _side, count _groups, count _spawnGroups, count _positions]] Call WFBE_CO_FNC_LogContent;
 							};
 							_groups = _spawnGroups;
 

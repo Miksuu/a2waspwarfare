@@ -9,7 +9,7 @@
 		- Move In Gunner immidietly or not
 */
 
-Private ["_built", "_builtveh", "_defence", "_groups", "_moveInGunner", "_perfActive", "_perfItemStart", "_perfScope", "_perfStart", "_position", "_positions", "_side", "_sideID", "_team", "_teams", "_townDefenderAI", "_town_vehicles", "_unit"];
+Private ["_built", "_builtveh", "_defence", "_diagEnabled", "_groups", "_moveInGunner", "_perfActive", "_perfItemStart", "_perfScope", "_perfStart", "_position", "_positions", "_side", "_sideID", "_team", "_teams", "_townDefenderAI", "_town_vehicles", "_unit"];
 
 _side = _this select 0;
 _groups = _this select 1;
@@ -27,6 +27,8 @@ _teams = [];
 // Marty: Performance Audit measures delegated/static defense unit creation source.
 _perfStart = diag_tickTime;
 _perfActive = 0;
+// Marty: Static gunner diagnostics are gated separately from WF_Debug and avoid building Format payloads when disabled.
+_diagEnabled = missionNamespace getVariable ["TownDefenseDiagnosticsEnabled", false];
 
 // Marty: Static defense delegation can arrive with grpNull if group creation limits are hit; fail before touching defenses.
 if (isNull _team) then {_team = createGroup _side};
@@ -45,6 +47,10 @@ for '_i' from 0 to count(_groups)-1 do {
 	_perfItemStart = diag_tickTime;
 	_unit = [_groups select _i, _team, _position, _sideID] Call WFBE_CO_FNC_CreateUnit;
 	_perfActive = _perfActive + (diag_tickTime - _perfItemStart);
+	// Marty: Diagnose HC/client static gunner creation before seating logic.
+	if (_diagEnabled) then {
+		["TOWN_DEFENSE_DIAG", Format ["static_create_unit_result side:%1;template:%2;unitNull:%3;teamNull:%4;defense:%5;moveIn:%6;localServer:%7;hasInterface:%8", _side, _groups select _i, isNull _unit, isNull _team, typeOf _defence, _moveInGunner, isServer, hasInterface]] Call WFBE_CO_FNC_LogContent;
+	};
 	// Marty: Do not assign or move null gunners if createUnit fails under engine limits.
 	if (isNull _unit) then {
 		["WARNING", Format["Common_CreateUnitForstaticDefence.sqf: [%1] failed to create gunner [%2] at [%3].", _side, _groups select _i, _position]] Call WFBE_CO_FNC_LogContent;
@@ -65,6 +71,10 @@ for '_i' from 0 to count(_groups)-1 do {
 			_unit moveInGunner _defence
 		}else{
 			[_unit] allowGetIn true
+		};
+		// Marty: Confirm whether delegated static gunners are actually seated or become loose infantry.
+		if (_diagEnabled) then {
+			["TOWN_DEFENSE_DIAG", Format ["static_move_result side:%1;unit:%2;defense:%3;inDefense:%4;marked:%5;teamMarked:%6;localServer:%7;hasInterface:%8", _side, typeOf _unit, typeOf _defence, vehicle _unit == _defence, _unit getVariable ["WFBE_IsTownDefenderAI", false], (group _unit) getVariable ["WFBE_IsTownDefenderAI", false], isServer, hasInterface]] Call WFBE_CO_FNC_LogContent;
 		};
 
 		[group _unit, 175, getPos _defence] spawn WFBE_CO_FNC_RevealArea;
