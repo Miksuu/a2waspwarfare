@@ -1,3 +1,4 @@
+disableSerialization;
 MenuAction = -1;
 
 _vehi = [group player,false] Call GetTeamVehicles;
@@ -17,6 +18,11 @@ _rearmPrice = 0;
 _lastVeh = objNull;
 _lastDmg = 0;
 _lastFue = 0;
+
+if (isNil "WFBE_PR8_ServiceMenuProofLogged") then {
+	WFBE_PR8_ServiceMenuProofLogged = true;
+	["INFORMATION", "GUI_Menu_Service.sqf: PR8 service menu active (full-service row, refuel-all, damage/fuel status, repair-point EASA gate)."] Call WFBE_CO_FNC_LogContent;
+};
 
 // Marty: Shared service helpers used by the selected-unit buttons and the new all-unit buttons.
 _martyServiceGetPrice = {
@@ -340,6 +346,15 @@ while {true} do {
 	if (!dialog) exitWith {};
 	_curSel = lbCurSel(20002);
 	_funds = Call GetPlayerFunds;
+	_veh = objNull;
+	_desc = "";
+	_blockReason = "";
+	_canBeUsed = false;
+	_martyFullData = [[],0];
+	_martyFullActions = [];
+	_martyFullPrice = 0;
+	_martyFullEnabled = false;
+	if ((_curSel < 0) || (_curSel >= count _effective)) then {_curSel = -1};
 
 	// Marty: Refresh batch prices from the current list so all-unit buttons stay all-or-nothing.
 	_martyRearmBatchData = ["REARM",_effective,_nearSupport] Call _martyServiceBuildBatch;
@@ -392,8 +407,10 @@ while {true} do {
 			ctrlSetText [20013,"$0"];
 			ctrlSetText [20014,"$"+str(_healPrice)];
 			_martyFullData = [_veh] Call _martyServiceBuildFull;
-			_martyFullActions = _martyFullData select 0;
-			_martyFullPrice = _martyFullData select 1;
+			if ((typeName _martyFullData == "ARRAY") && {(count _martyFullData) > 1}) then {
+				_martyFullActions = _martyFullData select 0;
+				_martyFullPrice = _martyFullData select 1;
+			};
 		} else {
 			//--- Prevent on the air re-supply.
 			ctrlSetText [20008,"Heal Crew"];
@@ -419,8 +436,10 @@ while {true} do {
 			_enabled = if (_canBeUsed && _healPrice > 0 && _funds >= _healPrice) then {true} else {false};
 			ctrlEnable [20008,_enabled];
 			_martyFullData = [_veh] Call _martyServiceBuildFull;
-			_martyFullActions = _martyFullData select 0;
-			_martyFullPrice = _martyFullData select 1;
+			if ((typeName _martyFullData == "ARRAY") && {(count _martyFullData) > 1}) then {
+				_martyFullActions = _martyFullData select 0;
+				_martyFullPrice = _martyFullData select 1;
+			};
 		};
 
 		ctrlSetText [20024,"$"+str(_martyFullPrice)];
@@ -434,7 +453,10 @@ while {true} do {
 		};
 		_damageText = str(round((getDammage _veh) * 100)) + "%";
 		_fuelText = if (_veh isKindOf "Man") then {"infantry"} else {"fuel " + str(round((fuel _veh) * 100)) + "%"};
-		ctrlSetText [20021,Format["%1 dmg %2 %3 | %4 | All Rm $%5 Rp $%6 Rf $%7 Hl $%8",_desc,_damageText,_fuelText,_serviceState,_martyRearmPrice,_martyRepairPrice,_martyRefuelPrice,_martyHealPrice]];
+		_dialog = findDisplay 20000;
+		if (!isNull _dialog) then {
+			(_dialog displayCtrl 20021) ctrlSetStructuredText (parseText Format["<t color='#f0e68c' shadow='1'>%1 dmg %2 %3 | %4</t><br/><t color='#f0e68c' shadow='1'>All Rm $%5 | Rp $%6 | Rf $%7 | Hl $%8</t>",_desc,_damageText,_fuelText,_serviceState,_martyRearmPrice,_martyRepairPrice,_martyRefuelPrice,_martyHealPrice]);
+		};
 		
 		_lastVeh = _veh;
 		
@@ -485,7 +507,10 @@ while {true} do {
 		};
 	} else {
 		{ctrlEnable[_x,false]} forEach [20003,20004,20005,20008,20015,20017,20019,20022,20023];
-		ctrlSetText [20021,"No service target selected"];
+		_dialog = findDisplay 20000;
+		if (!isNull _dialog) then {
+			(_dialog displayCtrl 20021) ctrlSetStructuredText (parseText "<t color='#f0e68c' shadow='1'>No service target selected</t>");
+		};
 		ctrlSetText [20024,"$0"];
 	};
 
@@ -512,7 +537,7 @@ while {true} do {
 
 	if (MenuAction == 16) then {
 		MenuAction = -1;
-		if (_curSel != -1) then {
+		if ((_curSel != -1) && {!isNull _veh}) then {
 			[_veh,_nearSupport select _curSel,_martyFullActions,_martyFullPrice,_typeRepair,_spType] Call _martyServiceStartFull;
 		};
 	};

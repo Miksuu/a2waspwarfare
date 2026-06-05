@@ -11,11 +11,11 @@ waituntil{!isnil"totalTowns"};
 // Marty: Cache RHUD controls and values so hidden/unchanged HUD state does not rewrite UI every second.
 private[
 	"_total", "_perfStart", "_display", "_lastDisplay", "_controls", "_rhudIDC", "_lastTexts", "_lastColors", "_lastShown", "_lastBackgroundColor",
-	"_labelsApplied", "_hiddenApplied", "_hudWasShown", "_lastTownRefresh", "_incomeText", "_supplyText", "_supplyMinText", "_cityText",
+	"_labelsApplied", "_hiddenApplied", "_hudWasShown", "_lastTownRefresh", "_incomeText", "_supplyText", "_supplyMinText",
 	"_RHUDResetControlCache", "_RHUDSetShow", "_RHUDSetText", "_RHUDSetColor", "_RHUDGetDisplay", "_idx", "_player", "_side", "_bgColor",
 	"_status", "_health", "_healthAct", "_healthColor", "_uptime", "_commanderText", "_mbu", "_currentUnitsCount", "_maxUnitsCount",
 	"_isCommanderTeam", "_aiText", "_aiColor", "_moneyText", "_totalSupplyValue", "_compensation", "_clientFPS", "_clientFPSColor",
-	"_serverFPS", "_serverFPSColor", "_hudMode", "_lastHudMode", "_RHUDUpdateFPS", "_RHUDSetFPSPosition", "_RHUDSetFullPosition", "_clientLabel", "_serverLabel", "_showMissingServer",
+	"_serverFPS", "_serverFPSColor", "_hudFPSColor", "_hudMode", "_lastHudMode", "_RHUDUpdateFPS", "_RHUDUpdateServerFPSRow", "_RHUDSetFPSPosition", "_RHUDSetFullPosition", "_clientLabel", "_serverLabel", "_showMissingServer",
 	"_labelX", "_valueX", "_startY", "_rowH", "_labelW", "_valueW", "_lineH", "_rowY", "_layoutPairs",
 	"_RHUDUpdateUpgrade", "_RHUD_upgId", "_RHUD_upgEnd"
 ];
@@ -37,7 +37,6 @@ _lastTownRefresh = -999;
 _incomeText = "";
 _supplyText = "";
 _supplyMinText = "";
-_cityText = "";
 
 _RHUDResetControlCache = {
 	_controls = [];
@@ -124,6 +123,24 @@ _RHUDUpdateFPS = {
 	if (_serverFPS < 20) then {_serverFPSColor = [1, 0, 0, 1]};
 	[22, format ["%1", _serverFPS]] call _RHUDSetText;
 	[22, _serverFPSColor] call _RHUDSetColor;
+};
+
+_RHUDUpdateServerFPSRow = {
+	_clientFPS = round(diag_fps);
+	_serverFPS = missionNamespace getVariable "SERVER_FPS_GUI";
+	if (isNil {_serverFPS}) exitWith {
+		_hudFPSColor = [0, 1, 0, 1];
+		if (_clientFPS < 40) then {_hudFPSColor = [1, 0.8431, 0, 1]};
+		if (_clientFPS < 20) then {_hudFPSColor = [1, 0, 0, 1]};
+		[14, format ["%1 / ...", _clientFPS]] call _RHUDSetText;
+		[14, _hudFPSColor] call _RHUDSetColor;
+	};
+
+	_hudFPSColor = [0, 1, 0, 1];
+	if (_clientFPS < 40 || _serverFPS < 40) then {_hudFPSColor = [1, 0.8431, 0, 1]};
+	if (_clientFPS < 20 || _serverFPS < 20) then {_hudFPSColor = [1, 0, 0, 1]};
+	[14, format ["%1 / %2", _clientFPS, _serverFPS]] call _RHUDSetText;
+	[14, _hudFPSColor] call _RHUDSetColor;
 };
 
 _RHUDUpdateUpgrade = {
@@ -214,7 +231,7 @@ _RHUDSetFullPosition = {
 
 	(_controls select 0) ctrlSetPosition [_labelX, _startY + (0.021 * safezoneH), 0.145 * safezoneW, 0.001 * safezoneH];
 
-	_layoutPairs = [[1,2],[3,4],[5,6],[7,8],[9,10],[11,12],[13,14],[15,16],[17,18],[19,20],[21,22],[23,24],[25,26]];
+	_layoutPairs = [[1,2],[3,4],[5,6],[7,8],[9,10],[11,12],[13,14],[23,24],[25,26]];
 	for "_idx" from 0 to ((count _layoutPairs) - 1) do {
 		_rowY = _startY + (_idx * _rowH);
 		(_controls select ((_layoutPairs select _idx) select 0)) ctrlSetPosition [_labelX, _rowY, _labelW, _lineH];
@@ -300,19 +317,14 @@ while {true} do {
 				for "_idx" from 0 to ((count _rhudIDC) - 1) do {
 					[_idx, true] call _RHUDSetShow;
 				};
+				{[_x, false] call _RHUDSetShow} forEach [15,16,17,18,19,20,21,22];
 				[1, "Health:"] call _RHUDSetText;
-				[3, "UpTime:"] call _RHUDSetText;
-				[5, "Commander:"] call _RHUDSetText;
-				[7, "AI:"] call _RHUDSetText;
-				[9, "Money:"] call _RHUDSetText;
-				[11, "Income:"] call _RHUDSetText;
-				[13, "Supply:"] call _RHUDSetText;
-				[15, "SV Min:"] call _RHUDSetText;
-				[17, "City:"] call _RHUDSetText;
-				// Marty: Spell out the two FPS rows in the full RHUD.
-				[19, "FPS Client:"] call _RHUDSetText;
-				[21, "FPS Server:"] call _RHUDSetText;
-				[22, ""] call _RHUDSetText;
+				[3, "Commander:"] call _RHUDSetText;
+				[5, "AI:"] call _RHUDSetText;
+				[7, "Money:"] call _RHUDSetText;
+				[9, "Supply:"] call _RHUDSetText;
+				[11, "SV+:"] call _RHUDSetText;
+				[13, "FPS C/S:"] call _RHUDSetText;
 				_labelsApplied = true;
 				_hiddenApplied = false;
 			};
@@ -344,20 +356,11 @@ while {true} do {
 			[2, Format ["%1/100",str(round _healthAct)]] call _RHUDSetText;
 			[2, _healthColor] call _RHUDSetColor;
 
-			//UPTIME
-			_uptime = Call GetTime; //added-MrNiceGuy
-			[4, [0.7, 0.7, 0.7, 1]] call _RHUDSetColor;
-			if (_uptime select 2 >= 10) then {
-				[4, Format ["%1:%2:%3",_uptime select 1,_uptime select 2, _uptime select 3]] call _RHUDSetText;
-			} else {
-				[4, Format ["%1:0%2:%3",_uptime select 1,_uptime select 2, _uptime select 3]] call _RHUDSetText;
-			};
-
 			//COMMANDER
 			_commanderText = " No Commander";
 			if (!isNull commanderTeam) then {_commanderText = Format [" %1", name (leader commanderTeam)]};
-			[6, [0.85, 0, 0, 1]] call _RHUDSetColor;
-			[6, _commanderText] call _RHUDSetText;
+			[4, [0.85, 0, 0, 1]] call _RHUDSetColor;
+			[4, _commanderText] call _RHUDSetText;
 
 			//AI COUNT
 			_mbu = missionNamespace getVariable 'WFBE_C_PLAYERS_AI_MAX';
@@ -378,13 +381,8 @@ while {true} do {
 			_aiColor = [0, 1, 0, 1];
 			if (_currentUnitsCount >= _maxUnitsCount/2) then {_aiColor = [1, 0.8431, 0, 1]};
 			if (_currentUnitsCount >= _maxUnitsCount) then {_aiColor = [1, 0, 0, 1]};
-			[8, _aiText] call _RHUDSetText;
-			[8, _aiColor] call _RHUDSetColor;
-
-			//MONEY
-			_moneyText = Format ["%1 $",Call GetPlayerFunds];
-			[10, _moneyText] call _RHUDSetText;
-			[10, [0, 0.825294, 0.449803, 1]] call _RHUDSetColor;
+			[6, _aiText] call _RHUDSetText;
+			[6, _aiColor] call _RHUDSetColor;
 
 			// Marty: Town/economy aggregates walk the towns array, so refresh them less often than volatile HUD values.
 			if (time - _lastTownRefresh > 3) then {
@@ -396,21 +394,19 @@ while {true} do {
 				if (_side == EAST) then {_compensation = SUPPLY_COMPENSATION_AMOUNT_EAST};
 				_supplyMinText = Format ["+ %1", _totalSupplyValue];
 				if (_compensation > 0) then {_supplyMinText = Format ["+ %1 (+ %2)", _totalSupplyValue, _compensation]};
-				_cityText = Format ["%1 on %2", sideJoined Call GetTownsHeld,_total];
 				_lastTownRefresh = time;
 			};
 
-			[12, _incomeText] call _RHUDSetText;
-			[12, [0, 0.825294, 0.449803, 1]] call _RHUDSetColor;
-			[14, _supplyText] call _RHUDSetText;
-			[14, [1, 0.8831, 0, 1]] call _RHUDSetColor;
-			[16, _supplyMinText] call _RHUDSetText;
-			[16, [1, 0.6831, 0, 1]] call _RHUDSetColor;
-			[18, _cityText] call _RHUDSetText;
-			[18, [0.85, 0, 0, 1]] call _RHUDSetColor;
+			//MONEY / INCOME
+			_moneyText = Format ["%1 $ | %2", Call GetPlayerFunds, _incomeText];
+			[8, _moneyText] call _RHUDSetText;
+			[8, [0, 0.825294, 0.449803, 1]] call _RHUDSetColor;
+			[10, _supplyText] call _RHUDSetText;
+			[10, [1, 0.8831, 0, 1]] call _RHUDSetColor;
+			[12, _supplyMinText] call _RHUDSetText;
+			[12, [1, 0.6831, 0, 1]] call _RHUDSetColor;
 
-			// Marty: Keep full RHUD FPS labels expanded while updating their values.
-			["FPS Client:", "FPS Server:", false] call _RHUDUpdateFPS;
+			call _RHUDUpdateServerFPSRow;
 			call _RHUDUpdateUpgrade;
 			};
 		};

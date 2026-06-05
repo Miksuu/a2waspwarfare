@@ -165,6 +165,19 @@ with missionNamespace do {
 	WFBE_C_ECONOMY_SUPPLY_TIME_INCREASE_DELAY = 60; //--- Increase SV delay.
 	WFBE_C_ECONOMY_SUPPLY_MAX_TEAM_LIMIT = 50000;
 	WFBE_C_ECONOMY_SUPPLY_MISSION_MULTIPLIER = 20;
+	//--- Supply-mission economy knobs (tunable in one place; shared by client reward + server payouts).
+	WFBE_C_SUPPLY_HELI_REWARD_MULT      = 1.25;  //--- Pilot air-delivery bonus (+25%, money and score).
+	WFBE_C_SUPPLY_CASHRUN_COMMANDER_CUT = 0.20;  //--- Commander tithe on cash runs (20% of pilot reward, minted on top).
+	WFBE_C_SUPPLY_INTERDICTION_CUT      = 0.25;  //--- Enemy reward for downing a loaded supply vehicle (25% of cargo).
+	WFBE_C_SUPPLY_HELI_LOAD_TIME        = 15; //--- Seconds to load a helicopter at a town (channeled; stay next to it).
+	WFBE_C_SUPPLY_HELI_UNLOAD_TIME      = 15; //--- Seconds the helicopter must hover/sit at the Command Center to unload.
+	//--- Supply-mission vehicle types. Trucks are always eligible; the supply helicopter unlocks with the Aircraft Factory upgrade.
+	WFBE_C_SUPPLY_TRUCK_TYPES = ['WarfareSupplyTruck_RU','WarfareSupplyTruck_USMC','WarfareSupplyTruck_INS','WarfareSupplyTruck_Gue','WarfareSupplyTruck_CDF','UralSupply_TK_EP1','MtvrSupply_DES_EP1'];
+	//--- One supply helicopter per side. Gains LOAD SUPPLIES at Air upgrade 3; deliveries become cash runs at Air 4.
+	WFBE_C_SUPPLY_HELI_TYPES = if (IS_chernarus_map_dependent) then { ['MH60S','Mi17_Ins'] } else { ['UH60M_EP1','Mi17_TK_EP1'] };  //--- Chernarus: WEST USMC / EAST Mi-17. Else Takistan: WEST US / EAST TKA (verify generated buy lists).
+	if (isNil "WFBE_C_SUPPLY_HELI_ENABLED") then {WFBE_C_SUPPLY_HELI_ENABLED = 1};
+	if (WFBE_C_SUPPLY_HELI_ENABLED != 1) then {WFBE_C_SUPPLY_HELI_TYPES = [];}; //--- lobby toggle: shelve the heli feature without a repack.
+	WFBE_C_SUPPLY_VEHICLE_TYPES = WFBE_C_SUPPLY_TRUCK_TYPES + WFBE_C_SUPPLY_HELI_TYPES;  //--- All supply-capable (used for buy-menu highlight).
 
 //--- Anti-stack.
 	// Marty: Default to enabled when older mission parameter sets do not define the AntiStack switch.
@@ -345,6 +358,7 @@ if (WF_A2_Vanilla) then {
 //--- Units.
 	if (isNil "WFBE_C_UNITS_BALANCING") then {WFBE_C_UNITS_BALANCING = 1}; //--- Enable Units weaponry balancing.
 	if (isNil "WFBE_C_UNITS_BOUNTY") then {WFBE_C_UNITS_BOUNTY = 1}; //--- Enable Units bounty on kill.
+	if (isNil "WFBE_C_UNITS_LAST_HIT_REWARD_WINDOW") then {WFBE_C_UNITS_LAST_HIT_REWARD_WINDOW = 60}; //--- Seconds where a damaged vehicle can still award its last valid hitter.
 	if (isNil "WFBE_C_UNITS_CLEAN_TIMEOUT") then {WFBE_C_UNITS_CLEAN_TIMEOUT = 60}; //--- Lifespan of a dead body.
 	if (isNil "WFBE_C_UNITS_EMPTY_TIMEOUT") then {WFBE_C_UNITS_EMPTY_TIMEOUT = 1200}; //--- Lifespan of an empty vehicle.
 		WFBE_C_UNITS_BODIES_TIMEOUT = 60;
@@ -436,5 +450,26 @@ missionNamespace setVariable ["WFBE_C_UNKNOWN_COLOR", "ColorBlue"];
 	WFBE_C_TOWNS_UNITS_COEF = switch (WFBE_C_TOWNS_OCCUPATION) do {case 1: {1}; case 2: {1.5}; case 3: {2}; case 4: {2.5}; default {1}};
 	WFBE_C_TOWNS_UNITS_DEFENDER_COEF = switch (WFBE_C_TOWNS_DEFENDER) do {case 1: {1}; case 2: {1.5}; case 3: {2}; case 4: {2.5}; default {1}};
 };
+
+// --- Player stats (feature-flagged; OFF by default) ---
+WFBE_C_STATS_ENABLED = false;
+WFBE_C_STATS_FLUSH_INTERVAL = 60;
+WFBE_STAT_KILLS_INFANTRY   = 0;
+WFBE_STAT_KILLS_VEHICLE    = 1;
+WFBE_STAT_KILLS_AIR        = 2;
+WFBE_STAT_KILLS_STATIC     = 3;
+WFBE_STAT_KILLS_FACTORY    = 4;
+WFBE_STAT_KILLS_HQ         = 5;
+WFBE_STAT_DEATHS           = 6;
+WFBE_STAT_PVP_KILLS        = 7;
+WFBE_STAT_SUPPLY_RUNS      = 8;
+WFBE_STAT_SUPPLY_VALUE     = 9;
+WFBE_STAT_CAPTURES_TOWN    = 10;
+WFBE_STAT_CAPTURES_CAMP    = 11;
+WFBE_STAT_STRUCTURES_BUILT = 12;
+WFBE_STAT_DEFENSES_BUILT   = 13;
+WFBE_STAT_PLAYTIME         = 14;
+WFBE_STAT_FIELD_COUNT      = 15;
+WFBE_STATS_DIRTY_UIDS = [];
 
 ["INITIALIZATION", "Init_CommonConstants.sqf: Constants are defined."] Call WFBE_CO_FNC_LogContent;

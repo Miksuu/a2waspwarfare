@@ -31,6 +31,7 @@ _l = _l + ["CampCaptured"];
 _l = _l + ["ChangeScore"];
 //_l = _l + ["DatabaseDebug"];
 _l = _l + ["HandleSpecial"];
+_l = _l + ["HandleParatrooperMarkerCreation"];
 _l = _l + ["LocalizeMessage"];
 _l = _l + ["SetTask"];
 _l = _l + ["SetVehicleLock"];

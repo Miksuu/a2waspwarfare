@@ -129,7 +129,8 @@ WFBE_CL_FNC_UI_Gear_UpdateTarget = Compile preprocessFileLineNumbers "Client\Fun
 WFBE_CL_FNC_UI_Gear_UpdateView = Compile preprocessFileLineNumbers "Client\Functions\Client_UI_Gear_UpdateView.sqf";
 WFBE_CL_FNC_UI_Respawn_Selector = Compile preprocessFileLineNumbers "Client\Functions\Client_UI_Respawn_Selector.sqf";
 WFBE_CL_FNC_SupplyMissionCompletedMessage = Call Compile preprocessFileLineNumbers "Client\Module\supplyMission\supplyMissionCompletedMessage.sqf";
-WFBE_CL_FNC_SupplyMissionStart = Call Compile preprocessFileLineNumbers "Client\Module\supplyMission\supplyMissionStart.sqf";
+WFBE_CL_FNC_SupplyMissionStart = Compile preprocessFileLineNumbers "Client\Module\supplyMission\supplyMissionStart.sqf";
+WFBE_CL_FNC_SupplyMissionUnload = Compile preprocessFileLineNumbers "Client\Module\supplyMission\supplyMissionUnload.sqf";
 WFBE_CL_FNC_TownSupplyStatus = Call Compile preprocessFileLineNumbers "Client\Module\supplyMission\townSupplyStatus.sqf";
 //--- SM9/XR2: removed dead WFBE_CL_FNC_CheckCCProximity (checkCCProximity.sqf) -- compiled, zero callers.
 //WFBE_CL_FNC_ReceiverMASHmarker = Call Compile preprocessFileLineNumbers "Client\Module\MASH\receiverMASHmarker.sqf";
@@ -585,8 +586,6 @@ if (count _default <= 3) then {
 /* Default gear menu filler. */
 WF_Logic setVariable ['filler','primary'];
 
-/* Skill Module. */
-[] Call Compile preprocessFile "Client\Module\Skill\Skill_Init.sqf";
 (player) Call WFBE_SK_FNC_Apply;
 
 [] execVM "WASP\baserep\init.sqf";

@@ -1175,8 +1175,8 @@ class WF_Menu {
 			idc = 11015;
 			x = 0.178164;
 			y = 0.19379;
-			w = 0.800001;
-			sizeEx = 0.035;
+			w = 0.600000;
+			sizeEx = 0.031;
 		};
 		class CA_PA_Button : RscClickableText {
 			idc = 11012;
@@ -2500,19 +2500,19 @@ class RscMenu_Service {
 			rowHeight = 0.025;
 			sizeEx = 0.035;
 		};
-		class CA_ServiceInfo : RscText {
+		class CA_ServiceInfo : RscStructuredText {
 			idc = 20021;
 			x = 0.162101;
 			y = 0.604500;
 			w = 0.677143;
-			h = 0.035000;
-			sizeEx = 0.026;
+			h = 0.060000;
+			size = 0.021;
 			colorBackground[] = WFBE_Background_Color_Footer;
 		};
 		class CA_Rearm_Button : RscButton {
 			idc = 20003;
 			x = 0.161261;
-			y = 0.650391;
+			y = 0.666391;
 			w = 0.165;
 			text = $STR_WF_SERVICE_Rearm;
 			action = "MenuAction = 1";
@@ -2520,7 +2520,7 @@ class RscMenu_Service {
 		class CA_Repair_Button : RscButton {
 			idc = 20004;
 			x = 0.50748;
-			y = 0.650391;
+			y = 0.666391;
 			w = 0.165;
 			text = $STR_WF_SERVICE_Repair;
 			action = "MenuAction = 2";
@@ -2528,7 +2528,7 @@ class RscMenu_Service {
 		class CA_Refuel_Button : RscButton {
 			idc = 20005;
 			x = 0.161261;
-			y = 0.697899;
+			y = 0.713899;
 			w = 0.165;
 			text = $STR_WF_SERVICE_Refuel;
 			action = "MenuAction = 3";
@@ -2536,7 +2536,7 @@ class RscMenu_Service {
 		class CA_Heal_Button : RscButton {
 			idc = 20008;
 			x = 0.50748;
-			y = 0.697899;
+			y = 0.713899;
 			w = 0.165;
 			text = $STR_WF_SERVICE_Heal;
 			action = "MenuAction = 5";
@@ -2545,7 +2545,7 @@ class RscMenu_Service {
 		class CA_RearmAll_Button : RscButton {
 			idc = 20015;
 			x = 0.329261;
-			y = 0.650391;
+			y = 0.666391;
 			w = 0.052;
 			text = "All";
 			action = "MenuAction = 11";
@@ -2553,7 +2553,7 @@ class RscMenu_Service {
 		class CA_RepairAll_Button : RscButton {
 			idc = 20017;
 			x = 0.675480;
-			y = 0.650391;
+			y = 0.666391;
 			w = 0.052;
 			text = "All";
 			action = "MenuAction = 12";
@@ -2561,7 +2561,7 @@ class RscMenu_Service {
 		class CA_RefuelAll_Button : RscButton {
 			idc = 20022;
 			x = 0.329261;
-			y = 0.697899;
+			y = 0.713899;
 			w = 0.052;
 			text = "All";
 			action = "MenuAction = 13";
@@ -2569,7 +2569,7 @@ class RscMenu_Service {
 		class CA_HealAll_Button : RscButton {
 			idc = 20019;
 			x = 0.675480;
-			y = 0.697899;
+			y = 0.713899;
 			w = 0.052;
 			text = "All";
 			action = "MenuAction = 15";
@@ -2577,26 +2577,26 @@ class RscMenu_Service {
 		class CA_LabelRearm: RscText {
 			idc = 20011;
 			x = 0.388739;
-			y = 0.653752;
+			y = 0.669752;
 			w = 0.12;
 		};
 		class CA_LabelRepair : CA_LabelRearm {
 			idc = 20012;
-			x = 0.734957;
-			y = 0.653752;
-			w = 0.12;
+			x = 0.724957;
+			y = 0.669752;
+			w = 0.095;
 		};
 		class CA_LabelRefuel : CA_LabelRearm {
 			idc = 20013;
 			x = 0.388739;
-			y = 0.699691;
+			y = 0.715691;
 			w = 0.12;
 		};
 		class CA_LabelHeal : CA_LabelRearm {
 			idc = 20014;
-			x = 0.734957;
-			y = 0.699691;
-			w = 0.12;
+			x = 0.724957;
+			y = 0.715691;
+			w = 0.095;
 		};
 		// Marty: Hidden total-price labels kept so older scripts/control maps stay harmless.
 		class CA_LabelRearmAll: CA_LabelRearm {

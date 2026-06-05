@@ -51,6 +51,26 @@ if (_killer_side == sideEnemy) then { //--- Make sure the killer is not renegade
 
 if (_killer_side == civilian) exitWith {}; //--- Side couldn't be determined? exit.
 
+// Player-stats: record resolved enemy kills after delayed vehicle attribution. No-op unless stats are enabled.
+if (!(isNil "WFBE_C_STATS_ENABLED")) then {
+	if (WFBE_C_STATS_ENABLED && (_killer_side != _killed_side)) then {
+		private ["_attrUid","_idx"];
+		_attrUid = if (_killer_isplayer) then {getPlayerUID _killer} else {getPlayerUID (leader _killer_group)};
+		if (_attrUid != "") then {
+			_idx = WFBE_STAT_KILLS_INFANTRY;
+			if (!_killed_isman) then {
+				if (_killed isKindOf "Air") then {
+					_idx = WFBE_STAT_KILLS_AIR;
+				} else {
+					if (_killed isKindOf "StaticWeapon") then {_idx = WFBE_STAT_KILLS_STATIC} else {_idx = WFBE_STAT_KILLS_VEHICLE};
+				};
+			};
+			[_attrUid, _idx, 1] call WFBE_SE_FNC_RecordStat;
+			if (_killed_isplayer) then {[_attrUid, WFBE_STAT_PVP_KILLS, 1] call WFBE_SE_FNC_RecordStat};
+		};
+	};
+};
+
 if (WF_A2_Vanilla) then { //--- Garbage Collector.
 	if (!isServer || local player) then {_objects = (WF_Logic getVariable "trash") + [_killed];	WF_Logic setVariable ["trash",_objects,true];} else {_killed setVariable ["wfbe_trashed", true];_killed Spawn TrashObject};
 } else {
@@ -93,7 +113,7 @@ if (!isNil '_get' && _killer_iswfteam) then { //--- Make sure that type killed t
 			[_killer_uid, "AwardBounty", [_killed_type, false, _killer_award]] Call WFBE_CO_FNC_SendToClients;
 
 			if (vehicle _killed != _killed && alive _killed) then { //--- Kill assist (players in the same vehicle).
-				{if (alive _x && isPlayer _x) then {[getPlayerUID(_x), "AwardBounty", [_objectType, true]] Call WFBE_CO_FNC_SendToClients}} forEach ((crew (vehicle _killed)) - [_killer, player]);
+				{if (alive _x && isPlayer _x) then {[getPlayerUID(_x), "AwardBounty", [_killed_type, true]] Call WFBE_CO_FNC_SendToClients}} forEach ((crew (vehicle _killed)) - [_killer, player]);
 			};
 
 			};

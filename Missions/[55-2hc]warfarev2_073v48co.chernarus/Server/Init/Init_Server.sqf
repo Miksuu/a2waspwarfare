@@ -295,6 +295,10 @@ if (_use_random) then {
 
 [] execVM "Server\CallExtensions\GlobalGameStats.sqf";
 
+// Player-stats: define the buffer helper, then launch the RPT flush loop. Both no-op unless WFBE_C_STATS_ENABLED.
+call compile preprocessFileLineNumbers "Server\Stats\RecordStat.sqf";
+[] execVM "Server\Stats\StatsFlush.sqf";
+
 emptyQueu = [];
 
 //--- Global sides initialization.
@@ -379,7 +383,7 @@ emptyQueu = [];
 		if ((missionNamespace getVariable "WFBE_C_BASE_AREA") > 0) then {_logik setVariable ["wfbe_basearea", [], true]};
 		if ((missionNamespace getVariable "WFBE_C_ECONOMY_SUPPLY_SYSTEM") == 0 && (missionNamespace getVariable "WFBE_C_AI_COMMANDER_ENABLED") > 0) then {
 			_logik setVariable ["wfbe_ai_supplytrucks", []];
-			[_side] Spawn UpdateSupplyTruck;
+			["WARNING", Format ["Init_Server.sqf: AI supply-truck logistics are disabled for [%1]; legacy UpdateSupplyTruck depends on missing Server\FSM\supplytruck.fsm.", _side]] Call WFBE_CO_FNC_LogContent;
 		};
 		if ((missionNamespace getVariable "WFBE_C_RESPAWN_MASH") > 0) then {_logik setVariable ["wfbe_mash", objNull, true]};
 		if ((missionNamespace getVariable "WFBE_C_ECONOMY_CURRENCY_SYSTEM") == 0) then {missionNamespace setVariable [format ["wfbe_supply_%1", str _side], missionNamespace getVariable Format ["WFBE_C_ECONOMY_SUPPLY_START_%1", _side]]};

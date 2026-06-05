@@ -19,7 +19,9 @@
         _sourceTown = objNull;
     };
 
-    if ((isNull _sourceTown) || (_supplyAmount <= 0)) exitWith {};
+    if ((isNull _sourceTown) || (_supplyAmount <= 0)) exitWith {
+        ["INFORMATION", Format ["SupplyMissionCompleted.sqf: Ignored completion for %1 (source:%2 amount:%3).", _associatedSupplyTruck, _sourceTown, _supplyAmount]] call WFBE_CO_FNC_LogContent;
+    };
 
     _byHeli = _associatedSupplyTruck getVariable "SupplyByHeli";
     if (isNil "_byHeli") then { _byHeli = false; };
@@ -40,10 +42,12 @@
     _associatedSupplyTruck setVariable ["SupplyAmount", 0, true];
     _associatedSupplyTruck setVariable ["SupplyFromTown", objNull, true];
     _associatedSupplyTruck setVariable ["SupplyByHeli", false, true]; //--- XR3: clear the heli flag too, so a reused vehicle's next run isn't mis-classified as a cash-run.
+    _associatedSupplyTruck setVariable ["SupplyLoading", false, true];
 
     _logMessage = format ["%1 has brought S %2 from %3 to base (SIDE: %4).", _namePlayer, _supplyAmount, _sourceTown, _sidePlayer];
 
     ["INFORMATION", _logMessage] call WFBE_CO_FNC_LogContent;
+    ["INFORMATION", Format ["SupplyMissionCompleted.sqf: Completion accepted (byHeli:%1 cashRun:%2 amount:%3 vehicle:%4).", _byHeli, _cashRun, _supplyAmount, _associatedSupplyTruck]] call WFBE_CO_FNC_LogContent;
 
     publicVariable "WFBE_Server_PV_SupplyMissionCompletedMessage";
 

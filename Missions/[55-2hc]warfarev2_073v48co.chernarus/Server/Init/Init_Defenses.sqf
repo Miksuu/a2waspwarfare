@@ -38,6 +38,38 @@ missionNamespace setVariable ['WFBE_NEURODEF_SERVICEPOINT_WALLS',[
 
 ]];
 
+//--- AARadar intentionally has no auto walls. It should stay a plain radar structure.
+missionNamespace setVariable ['WFBE_NEURODEF_AARADAR_WALLS',[
+
+]];
+
+//--- Shielded HQ walls (WDDM: hq_concrete_walk_exit), tight funnel layout from PR8 live test.
+missionNamespace setVariable ['WFBE_NEURODEF_HEADQUARTERS_WALLS',[
+	['Concrete_Wall_EP1',[-4.8,7.2,0],0],
+	['Concrete_Wall_EP1',[-2.4,7.2,0],0],
+	['Concrete_Wall_EP1',[0,7.2,0],0],
+	['Concrete_Wall_EP1',[2.4,7.2,0],0],
+	['Concrete_Wall_EP1',[4.8,7.2,0],0],
+	['Concrete_Wall_EP1',[-7.2,-4.8,0],90],
+	['Concrete_Wall_EP1',[-7.2,-2.4,0],90],
+	['Concrete_Wall_EP1',[-7.2,0,0],90],
+	['Concrete_Wall_EP1',[-7.2,2.4,0],90],
+	['Concrete_Wall_EP1',[-7.2,4.8,0],90],
+	['Concrete_Wall_EP1',[7.2,-4.8,0],90],
+	['Concrete_Wall_EP1',[7.2,-2.4,0],90],
+	['Concrete_Wall_EP1',[7.2,0,0],90],
+	['Concrete_Wall_EP1',[7.2,2.4,0],90],
+	['Concrete_Wall_EP1',[7.2,4.8,0],90],
+	['Concrete_Wall_EP1',[-4.8,-7.2,0],0],
+	['Concrete_Wall_EP1',[-2.4,-7.2,0],0],
+	['Concrete_Wall_EP1',[2.4,-7.2,0],0],
+	['Concrete_Wall_EP1',[4.8,-7.2,0],0],
+	['Land_CncBlock_Stripes',[-1.1,-8.0,0],335],
+	['Land_CncBlock_Stripes',[1.1,-8.0,0],25],
+	['Land_CncBlock_Stripes',[-2.9,-6.6,0],325],
+	['Land_CncBlock_Stripes',[2.9,-6.6,0],35]
+]];
+
 missionNamespace setVariable ['WFBE_NEURODEF_HEAVY_WALLS',[
 	['Land_HBarrier_large',[14,-1,0],90],
 	['Land_HBarrier_large',[14,9,0],-90],
@@ -65,39 +97,6 @@ missionNamespace setVariable ['WFBE_NEURODEF_AIRCRAFT_WALLS',[
 	['Land_HBarrier_large',[-11,-9,0],90],
 	['Land_HBarrier_large',[-11,6,0],90],
 	['Land_HBarrier_large',[-11,9,0],90]
-]];
-
-//--- Shielded HQ walls (WDDM: hq_concrete_walk_exit). To remove for now, set this template to [] and rerun Tools\LoadoutManager.
-missionNamespace setVariable ['WFBE_NEURODEF_HEADQUARTERS_WALLS',[
-	['Concrete_Wall_EP1',[-10.8,13,0],0],
-	['Concrete_Wall_EP1',[-7.2,13,0],0],
-	['Concrete_Wall_EP1',[-3.6,13,0],0],
-	['Concrete_Wall_EP1',[0,13,0],0],
-	['Concrete_Wall_EP1',[3.6,13,0],0],
-	['Concrete_Wall_EP1',[7.2,13,0],0],
-	['Concrete_Wall_EP1',[10.8,13,0],0],
-	['Concrete_Wall_EP1',[-13,-10.8,0],90],
-	['Concrete_Wall_EP1',[-13,-7.2,0],90],
-	['Concrete_Wall_EP1',[-13,-3.6,0],90],
-	['Concrete_Wall_EP1',[-13,0,0],90],
-	['Concrete_Wall_EP1',[-13,3.6,0],90],
-	['Concrete_Wall_EP1',[-13,7.2,0],90],
-	['Concrete_Wall_EP1',[-13,10.8,0],90],
-	['Concrete_Wall_EP1',[13,-10.8,0],90],
-	['Concrete_Wall_EP1',[13,-7.2,0],90],
-	['Concrete_Wall_EP1',[13,-3.6,0],90],
-	['Concrete_Wall_EP1',[13,0,0],90],
-	['Concrete_Wall_EP1',[13,3.6,0],90],
-	['Concrete_Wall_EP1',[13,7.2,0],90],
-	['Concrete_Wall_EP1',[13,10.8,0],90],
-	['Concrete_Wall_EP1',[-10.8,-13,0],0],
-	['Concrete_Wall_EP1',[-7.2,-13,0],0],
-	['Concrete_Wall_EP1',[-3.6,-13,0],0],
-	['Concrete_Wall_EP1',[3.6,-13,0],0],
-	['Concrete_Wall_EP1',[7.2,-13,0],0],
-	['Concrete_Wall_EP1',[10.8,-13,0],0],
-	['Land_CncBlock_Stripes',[-2.7,-13.4,0],0],
-	['Land_CncBlock_Stripes',[2.7,-13.4,0],0]
 ]];
 
 missionNamespace setVariable ['WFBE_NEURODEF_MG',[
@@ -149,8 +148,8 @@ missionNamespace setVariable ['WFBE_NEURODEF_WALL_GATE',[
 //--- AA position (LARGE, manned) ---
 missionNamespace setVariable ['WFBE_NEURODEF_AAPOS_WEST',[
 	['Stinger_Pod_US_EP1',[-8,6,0],330],['Stinger_Pod_US_EP1',[0,8,0],0],['Stinger_Pod_US_EP1',[8,6,0],30],
-	['Land_fort_bagfence_round',[-8,6,0],0],['Land_fort_bagfence_round',[0,8,0],0],['Land_fort_bagfence_round',[8,6,0],0],
-	['M2StaticMG',[0,-4,0],180],['Land_fort_bagfence_round',[0,-4,0],0],
+	['Land_fort_bagfence_round',[-8,4.4,0],0],['Land_fort_bagfence_round',[0,6.2,0],0],['Land_fort_bagfence_round',[8,4.4,0],0],
+	['M2StaticMG',[0,-4,0],180],['Land_fort_bagfence_round',[0,-6.2,0],0],
 	['USLaunchers_EP1',[-4,2,0],0],['USLaunchers_EP1',[4,2,0],0],
 	['Land_CamoNetVar_NATO',[-4,6,0],0],['Land_CamoNetVar_NATO',[4,6,0],0],
 	['Fort_RazorWire',[-7,-6,0],0],['Fort_RazorWire',[7,-6,0],0]
@@ -168,10 +167,9 @@ missionNamespace setVariable ['WFBE_NEURODEF_AAPOS_EAST',[
 missionNamespace setVariable ['WFBE_NEURODEF_ARTYPOS_WEST',[
 	['M119_US_EP1',[-9,4,0],0],['M119_US_EP1',[0,5,0],0],['M119_US_EP1',[9,4,0],0],
 	['USBasicAmmunitionBox_EP1',[-9,-1,0],0],['USBasicAmmunitionBox_EP1',[0,0,0],0],['USBasicAmmunitionBox_EP1',[9,-1,0],0],
-	['Land_CamoNetVar_NATO',[-9,4,0],0],['Land_CamoNetVar_NATO',[9,4,0],0],
 	['Land_fort_bagfence_long',[-13,3,0],90],['Land_fort_bagfence_long',[13,3,0],90],
 	['Land_fort_bagfence_long',[-6,-3,0],0],['Land_fort_bagfence_long',[6,-3,0],0],
-	['M2StaticMG',[0,-5,0],180],['Land_fort_bagfence_round',[0,-5,0],0],
+	['M2StaticMG',[0,-5,0],180],['Land_fort_bagfence_round',[0,-7,0],0],
 	['Fort_RazorWire',[-8,-7,0],0],['Fort_RazorWire',[8,-7,0],0]
 ]];
 missionNamespace setVariable ['WFBE_NEURODEF_ARTYPOS_EAST',[
@@ -186,8 +184,7 @@ missionNamespace setVariable ['WFBE_NEURODEF_ARTYPOS_EAST',[
 //--- Mixed position (LARGE, manned, combined arms, no artillery) ---
 missionNamespace setVariable ['WFBE_NEURODEF_MIXEDPOS_WEST',[
 	['M2StaticMG',[-9,3,0],335],['M2StaticMG',[9,3,0],25],['TOW_TriPod_US_EP1',[0,6,0],0],
-	['Stinger_Pod_US_EP1',[0,-2,0],0],['Land_fort_bagfence_round',[0,-2,0],0],
-	['Land_CamoNetVar_NATO',[0,6,0],0],
+	['Stinger_Pod_US_EP1',[0,-2,0],0],['Land_fort_bagfence_round',[0,-4,0],0],
 	['USBasicAmmunitionBox_EP1',[-4,0,0],0],['USBasicAmmunitionBox_EP1',[4,0,0],0],
 	['Land_fort_bagfence_corner',[-10,1,0],270],['Land_fort_bagfence_long',[-10,-3,0],0],
 	['Land_fort_bagfence_long',[10,-3,0],0],['Land_fort_bagfence_corner',[10,1,0],180],
@@ -196,7 +193,7 @@ missionNamespace setVariable ['WFBE_NEURODEF_MIXEDPOS_WEST',[
 ]];
 missionNamespace setVariable ['WFBE_NEURODEF_MIXEDPOS_EAST',[
 	['DSHKM_TK_INS_EP1',[-8,4,0],350],['DSHKM_TK_INS_EP1',[8,4,0],10],['Metis_TK_EP1',[0,6,0],0],
-	['Igla_AA_pod_TK_EP1',[0,-2,0],0],['Land_fort_bagfence_round',[0,-2,0],0],
+	['Igla_AA_pod_TK_EP1',[0,-2,0],0],['Land_fort_bagfence_round',[0,-4,0],0],
 	['TKBasicAmmunitionBox_EP1',[-4,0,0],0],['TKBasicAmmunitionBox_EP1',[4,0,0],0],
 	['Land_HBarrier_large',[-10,3,0],90],['Land_HBarrier_large',[10,3,0],90],
 	['Land_HBarrier_large',[-6,-3,0],0],['Land_HBarrier_large',[0,-3,0],0],['Land_HBarrier_large',[6,-3,0],0],

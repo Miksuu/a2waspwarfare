@@ -9,7 +9,7 @@
 		- {PLacement}
 */
 
-Private ["_get", "_global", "_globalInitMode", "_leaderIsPlayer", "_perfScope", "_perfStart", "_position", "_side", "_skill", "_special", "_team", "_trackInfantry", "_type", "_unit"];
+Private ["_get", "_global", "_globalInitMode", "_leaderIsPlayer", "_perfScope", "_perfStart", "_position", "_side", "_sideValue", "_skill", "_special", "_team", "_trackInfantry", "_type", "_unit"];
 
 _type = _this select 0;
 _team = _this select 1;
@@ -23,11 +23,25 @@ _globalInitMode = "globalFalse";
 _trackInfantry = missionNamespace getVariable ["WFBE_C_UNITS_TRACK_INFANTRY", -1];
 _leaderIsPlayer = false;
 
-if (typeName _side == "SIDE") then {_side = (_side) Call WFBE_CO_FNC_GetSideID};
+_sideValue = _side;
+if (typeName _side == "SIDE") then {
+	_side = (_side) Call WFBE_CO_FNC_GetSideID;
+} else {
+	_sideValue = _side Call WFBE_CO_FNC_GetSideFromID;
+};
+if (isNull _team) then {_team = createGroup _sideValue};
+if (!local _team) then {
+	["WARNING", Format ["Common_CreateUnit.sqf: Team [%1] for unit [%2] is not local here; creating local fallback group.", _team, _type]] Call WFBE_CO_FNC_LogContent;
+	_team = createGroup _sideValue;
+};
 
 _get = missionNamespace getVariable _type;
 _skill = if !(isNil '_get') then {_get select QUERYUNITSKILL} else {missionNamespace getVariable "WFBE_C_UNITS_SKILL_DEFAULT"};
 _unit = _team createUnit [_type, _position, [], 5, _special];
+if (isNull _unit) exitWith {
+	["WARNING", Format ["Common_CreateUnit.sqf: Failed to create unit [%1] at [%2] for side [%3] team [%4].", _type, _position, _side, _team]] Call WFBE_CO_FNC_LogContent;
+	objNull
+};
 _unit setSkill _skill;
 
 if(side _unit == east && !(_unit hasWeapon "NVGoggles")) then {

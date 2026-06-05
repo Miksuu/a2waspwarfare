@@ -6,8 +6,8 @@ MenuAction = -1;
 _listUnits = [];
 
 _closest = objNull;
-_commander = false;
-_extracrew = false;
+_commander = true;
+_extracrew = true;
 _countAlive = 0;
 _currentCost = 0;
 _currentIDC = 0;
@@ -15,7 +15,7 @@ _disabledColor = [0.7961, 0.8000, 0.7961, 1];
 _display = _this select 0;
 _enabledColor = [0, 1, 0, 1];
 _enabledColor2 = [1, 0, 0, 1]; //---NEW (LOCK)
-_gunner = false;
+_gunner = true;
 _IDCLock = 12023;
 _IDCS = [12005,12006,12007,12008,12020,12021];
 _IDCSVehi = [12012,12013,12014,12041];
@@ -36,11 +36,9 @@ _updateMap = true;
 _val = 0;
 _mbu = missionNamespace getVariable 'WFBE_C_PLAYERS_AI_MAX';
 
-_driverEnabledByDefault = profileNamespace getVariable "WFBE_C_DRIVER_ENABLED_BY_DEFAULT";
-
-if (isNil "_driverEnabledByDefault") then {
-	profileNamespace setVariable ["WFBE_C_DRIVER_ENABLED_BY_DEFAULT", false];
-};
+_driverEnabledByDefault = true;
+profileNamespace setVariable ["wfbe_c_driver_enabled_by_default", true];
+profileNamespace setVariable ["WFBE_C_DRIVER_ENABLED_BY_DEFAULT", true];
 
 
 ctrlSetText[12025,localize 'STR_WF_UNITS_FactionChoiceLabel' + ":"]; // changed-MrNiceGuy
@@ -178,7 +176,13 @@ _IDCS = _IDCS - [_currentIDC];
 	if (MenuAction == 106) then {MenuAction = -1;if (hangarInRange) then {_currentIDC = 12021;_type = 'Airport';_val = 3;_update = true}};
 	
 	//--- driver-gunner-commander icons.
-	if (MenuAction == 201) then {MenuAction = -1;if (profileNamespace getVariable "WFBE_C_DRIVER_ENABLED_BY_DEFAULT") then {profileNamespace setVariable ["WFBE_C_DRIVER_ENABLED_BY_DEFAULT", false]} else {profileNamespace setVariable ["WFBE_C_DRIVER_ENABLED_BY_DEFAULT", true]};_updateDetails = true};
+	if (MenuAction == 201) then {
+		MenuAction = -1;
+		_driverEnabledByDefault = !(profileNamespace getVariable "wfbe_c_driver_enabled_by_default");
+		profileNamespace setVariable ["wfbe_c_driver_enabled_by_default", _driverEnabledByDefault];
+		profileNamespace setVariable ["WFBE_C_DRIVER_ENABLED_BY_DEFAULT", _driverEnabledByDefault];
+		_updateDetails = true;
+	};
 	if (MenuAction == 202) then {MenuAction = -1;_gunner = if (_gunner) then {false} else {true};_updateDetails = true};
 	if (MenuAction == 203) then {MenuAction = -1;_commander = if (_commander) then {false} else {true};_updateDetails = true};
 	if (MenuAction == 204) then {MenuAction = -1;_extracrew = if (_extracrew) then {false} else {true};_updateDetails = true};
@@ -300,10 +304,11 @@ _IDCS = _IDCS - [_currentIDC];
 						if (_lastType != _type || _lastSel != _currentRow) then {_maxOut = true};
 
 						if (_maxOut) then {
-							profilenamespace getvariable "wfbe_c_driver_enabled_by_default";
+							profilenamespace setVariable ["wfbe_c_driver_enabled_by_default", true];
+							profilenamespace setVariable ["WFBE_C_DRIVER_ENABLED_BY_DEFAULT", true];
 							_gunner = true;
 							_commander = true;
-							_extracrew = false;
+							_extracrew = true;
 						};
 						
 						if !(_hasGunner) then {_gunner = false};
@@ -344,19 +349,19 @@ _IDCS = _IDCS - [_currentIDC];
 						
 						switch (_slots) do {
 							case 1: {
-								if (_maxOut) then {profilenamespace setVariable ["wfbe_c_driver_enabled_by_default", true]};
+								if (_maxOut) then {profilenamespace setVariable ["wfbe_c_driver_enabled_by_default", true];profilenamespace setVariable ["WFBE_C_DRIVER_ENABLED_BY_DEFAULT", true]};
 								if (profilenamespace getvariable "wfbe_c_driver_enabled_by_default" ) then {_extra = _extra + 1};
 								_gunner = false;
 								_commander = false;
 							};
 							case 2: {
-								if (_maxOut) then {profilenamespace setVariable ["wfbe_c_driver_enabled_by_default", true];_gunner = true};
+								if (_maxOut) then {profilenamespace setVariable ["wfbe_c_driver_enabled_by_default", true];profilenamespace setVariable ["WFBE_C_DRIVER_ENABLED_BY_DEFAULT", true];_gunner = true};
 								if (profilenamespace getvariable "wfbe_c_driver_enabled_by_default" ) then {_extra = _extra + 1};
 								if (_gunner) then {_extra = _extra + 1};
 								_commander = false;
 							};
 							case 3: {
-								if (_maxOut) then {profilenamespace setVariable ["wfbe_c_driver_enabled_by_default", true];_gunner = true;_commander = true};
+								if (_maxOut) then {profilenamespace setVariable ["wfbe_c_driver_enabled_by_default", true];profilenamespace setVariable ["WFBE_C_DRIVER_ENABLED_BY_DEFAULT", true];_gunner = true;_commander = true};
 								if (profilenamespace getvariable "wfbe_c_driver_enabled_by_default" ) then {_extra = _extra + 1};
 								if (_gunner) then {_extra = _extra + 1};
 								if (_commander) then {_extra = _extra + 1};					
@@ -390,6 +395,7 @@ _IDCS = _IDCS - [_currentIDC];
 				} else {
 					{ctrlShow [_x,false]} forEach (_IDCSVehi);
 					profilenamespace setVariable ["wfbe_c_driver_enabled_by_default", false];
+					profilenamespace setVariable ["WFBE_C_DRIVER_ENABLED_BY_DEFAULT", false];
 					_gunner = false;
 					_commander = false;
 					_extracrew = false;
@@ -402,6 +408,7 @@ _IDCS = _IDCS - [_currentIDC];
 			
 				{ctrlShow [_x,false]} forEach (_IDCSVehi);
 				profilenamespace setVariable ["wfbe_c_driver_enabled_by_default", false];
+				profilenamespace setVariable ["WFBE_C_DRIVER_ENABLED_BY_DEFAULT", false];
 				_gunner = false;
 				_commander = false;
 				_extracrew = false;

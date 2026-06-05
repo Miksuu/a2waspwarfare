@@ -8,7 +8,7 @@
 		- Teams
 */
 
-Private ["_groups", "_perfStart", "_positions", "_retVal", "_side", "_teams", "_town", "_town_vehicles"];
+Private ["_groups", "_i", "_perfStart", "_positions", "_retVal", "_side", "_team", "_teams", "_town", "_town_vehicles"];
 
 _town = _this select 0;
 _side = _this select 1;
@@ -21,6 +21,13 @@ _perfStart = diag_tickTime;
 ["INFORMATION", Format["Client_DelegateTownAI.sqf: Received a town delegation request from the server for [%1] [%2].", _side, _town]] Call WFBE_CO_FNC_LogContent;
 
 sleep (random 1); //--- Delay a bit to prevent a bandwidth congestion.
+
+for "_i" from 0 to ((count _teams) - 1) do {
+	_team = _teams select _i;
+	if (isNull _team) then {_team = createGroup _side};
+	if (!local _team) then {_team = createGroup _side};
+	_teams set [_i, _team];
+};
 
 // Marty: Delegated town AI should not start client marker/update scripts for every spawned unit.
 _retVal = [_town, _side, _groups, _positions, _teams, false] call WFBE_CO_FNC_CreateTownUnits;

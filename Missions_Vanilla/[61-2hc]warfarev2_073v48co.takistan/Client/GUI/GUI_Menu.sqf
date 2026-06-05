@@ -28,7 +28,7 @@ while {alive player && dialog} do {
 	//--- Uptime.
 	_uptime = Call GetTime; //added-MrNiceGuy
 	//--- QoL: compact strategic snapshot for the WF-menu top strip.
-	private ["_clkH","_clkM","_playerCount","_playerSlots","_townsHeld","_townsTotal"];
+	private ["_clkH","_clkM","_playerCount","_playerSlots","_townsHeld","_townsTotal","_totalSupplyValue","_compensation","_svPlusText"];
 	_clkH = date select 3; _clkM = date select 4;
 	_clkH = if (_clkH < 10) then {"0" + str _clkH} else {str _clkH};
 	_clkM = if (_clkM < 10) then {"0" + str _clkM} else {str _clkM};
@@ -38,7 +38,13 @@ while {alive player && dialog} do {
 	if (_playerSlots < _playerCount) then {_playerSlots = _playerCount};
 	_townsTotal = if (isNil "towns") then {0} else {count towns};
 	_townsHeld = if (_townsTotal > 0) then {sideJoined Call GetTownsHeld} else {0};
-	ctrlSetText [11015, format ["Uptime: %1h %2m Time %3:%4 Players %5/%6 Towns %7/%8", (_uptime select 0) * 24 + (_uptime select 1), _uptime select 2, _clkH, _clkM, _playerCount, _playerSlots, _townsHeld, _townsTotal]];	//--- QoL: compact top-strip status
+	_totalSupplyValue = sideJoined Call GetTotalSupplyValue;
+	_compensation = 0;
+	if (sideJoined == WEST) then {_compensation = SUPPLY_COMPENSATION_AMOUNT_WEST};
+	if (sideJoined == EAST) then {_compensation = SUPPLY_COMPENSATION_AMOUNT_EAST};
+	_svPlusText = Format ["+ %1", _totalSupplyValue];
+	if (_compensation > 0) then {_svPlusText = Format ["+ %1 (+ %2)", _totalSupplyValue, _compensation]};
+	ctrlSetText [11015, format ["Uptime: %1h %2m | Time %3:%4 | Players %5/%6 | Towns %7/%8 | SV+ %9", (_uptime select 0) * 24 + (_uptime select 1), _uptime select 2, _clkH, _clkM, _playerCount, _playerSlots, _townsHeld, _townsTotal, _svPlusText]];	//--- QoL: compact top-strip status
 
 	//--- Buy Units.
 	if (MenuAction == 1) exitWith {

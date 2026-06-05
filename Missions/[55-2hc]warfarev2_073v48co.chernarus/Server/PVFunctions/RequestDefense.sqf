@@ -5,6 +5,7 @@ _pos = _this select 2;
 _dir = _this select 3;
 _manned = _this select 4;
 _builtByRepairTruck = if (count _this > 5) then {_this select 5} else {false};
+// Defense auto-manning defaults on client-side and Custom Action 16 can still toggle it off/on.
 
 _index = (missionNamespace getVariable Format["WFBE_%1DEFENSENAMES",str _side]) find _defenseType;
 if (_index != -1) then {

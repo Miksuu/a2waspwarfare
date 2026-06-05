@@ -4,6 +4,8 @@ _display = _this select 0;
 _map = _display DisplayCtrl 23002;
 
 MenuAction = -1;
+mouseButtonDown = -1;
+mouseButtonUp = -1;
 
 _incomeSystem = missionNamespace getVariable "WFBE_C_ECONOMY_INCOME_SYSTEM";
 _incomeDividision = missionNamespace getVariable "WFBE_C_ECONOMY_INCOME_DIVIDED";
@@ -119,6 +121,12 @@ while {alive player && dialog} do {
 				_scRef = if (_scId > 0) then {round(((missionNamespace getVariable Format ["WFBE_%1STRUCTURECOSTS",sideJoinedText]) select _scId) * (missionNamespace getVariable "WFBE_C_STRUCTURES_SALE_PERCENT") / 100)} else {0};
 				if ([Format ["wf_sell_%1", _closest], Format ["<t color='#ff5a5a' size='1.1'>Sell %1?</t><br/>Refund $%2. Click it again to confirm.", _scName, _scRef]] call WFBE_CL_FNC_ConfirmAction) then {
 					MenuAction = -1;
+					mouseButtonDown = -1;
+					mouseButtonUp = -1;
+					uiNamespace setVariable ["wfbe_confirm_key", ""];
+					uiNamespace setVariable ["wfbe_confirm_time", -1000];
+					hintSilent "";
+					{deleteMarkerLocal _x} forEach _sellMarkers; _sellMarkers = [];
 					//--- Spawn a sell thread.
 					(_closest) Spawn {
 						Private ["_closest","_delay","_id","_supplyB","_type"];
@@ -131,7 +139,7 @@ while {alive player && dialog} do {
 						// WFBE_LocalizeMessage = [sideJoined,'CLTFNCLOCALIZEMESSAGE',['StructureSell',_type,_delay]];
 						// publicVariable 'WFBE_LocalizeMessage';
 						[sideJoined, "LocalizeMessage", ['StructureSell',_type,_delay, _closest]] Call WFBE_CO_FNC_SendToClients;
-						['StructureSell',_type,_delay, _closest] Spawn CLTFNCLocalizeMessage;
+						if (!isHostedServer) then {['StructureSell',_type,_delay, _closest] Spawn CLTFNCLocalizeMessage};
 						
 						sleep _delay;
 						
@@ -151,13 +159,18 @@ while {alive player && dialog} do {
 						// WFBE_LocalizeMessage = [sideJoined,'CLTFNCLOCALIZEMESSAGE',['StructureSold',_type]];
 						// publicVariable 'WFBE_LocalizeMessage';
 						[sideJoined, "LocalizeMessage",['StructureSold',_type, _closest]] Call WFBE_CO_FNC_SendToClients;
-						['StructureSold',_type, _closest] Spawn CLTFNCLocalizeMessage;
+						if (!isHostedServer) then {['StructureSold',_type, _closest] Spawn CLTFNCLocalizeMessage};
 						if ((missionNamespace getVariable "WFBE_C_STRUCTURES_CONSTRUCTION_MODE") == 1) then {_closest setVariable ["sold",true,true]};
 						_closest setDammage 1;
 					};
 				};
 			} else {
 				MenuAction = -1;
+				mouseButtonDown = -1;
+				mouseButtonUp = -1;
+				uiNamespace setVariable ["wfbe_confirm_key", ""];
+				uiNamespace setVariable ["wfbe_confirm_time", -1000];
+				hintSilent "";
 			};
 		};
 	};
@@ -165,6 +178,11 @@ while {alive player && dialog} do {
 	//--- FIX: Back button checked BEFORE the dashboard block so a dashboard hiccup can never starve it (regression: dashboard added below ran before the old back-button check).
 	if (MenuAction == 5) exitWith {
 		MenuAction = -1;
+		mouseButtonDown = -1;
+		mouseButtonUp = -1;
+		uiNamespace setVariable ["wfbe_confirm_key", ""];
+		uiNamespace setVariable ["wfbe_confirm_time", -1000];
+		hintSilent "";
 		{deleteMarkerLocal _x} forEach _sellMarkers; _sellMarkers = [];
 		closeDialog 0;
 		createDialog "WF_Menu";
@@ -217,11 +235,22 @@ while {alive player && dialog} do {
 	//--- Back Button.
 	if (MenuAction == 5) exitWith { //---added-MrNiceGuy
 		MenuAction = -1;
+		mouseButtonDown = -1;
+		mouseButtonUp = -1;
+		uiNamespace setVariable ["wfbe_confirm_key", ""];
+		uiNamespace setVariable ["wfbe_confirm_time", -1000];
+		hintSilent "";
 		closeDialog 0;
 		createDialog "WF_Menu";
 	};
 };
 
 //--- QoL: clean up sell markers when the dialog closes (global map overlays).
+MenuAction = -1;
+mouseButtonDown = -1;
+mouseButtonUp = -1;
+uiNamespace setVariable ["wfbe_confirm_key", ""];
+uiNamespace setVariable ["wfbe_confirm_time", -1000];
+hintSilent "";
 {deleteMarkerLocal _x} forEach _sellMarkers;
 _sellMarkers = [];

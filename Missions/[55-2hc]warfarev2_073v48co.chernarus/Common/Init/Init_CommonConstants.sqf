@@ -170,7 +170,7 @@ with missionNamespace do {
 	WFBE_C_SUPPLY_CASHRUN_COMMANDER_CUT = 0.20;  //--- Commander tithe on cash runs (20% of pilot reward, minted on top).
 	WFBE_C_SUPPLY_INTERDICTION_CUT      = 0.25;  //--- Enemy reward for downing a loaded supply vehicle (25% of cargo).
 	WFBE_C_SUPPLY_HELI_LOAD_TIME        = 15; //--- Seconds to load a helicopter at a town (channeled; stay next to it).
-	WFBE_C_SUPPLY_HELI_UNLOAD_TIME      = 5;  //--- Seconds the helicopter must hover/sit at the Command Center to unload.
+	WFBE_C_SUPPLY_HELI_UNLOAD_TIME      = 15; //--- Seconds the helicopter must hover/sit at the Command Center to unload.
 	//--- Supply-mission vehicle types. Trucks are always eligible; the supply helicopter unlocks with the Aircraft Factory upgrade.
 	WFBE_C_SUPPLY_TRUCK_TYPES = ['WarfareSupplyTruck_RU','WarfareSupplyTruck_USMC','WarfareSupplyTruck_INS','WarfareSupplyTruck_Gue','WarfareSupplyTruck_CDF','UralSupply_TK_EP1','MtvrSupply_DES_EP1'];
 	//--- One supply helicopter per side. Gains LOAD SUPPLIES at Air upgrade 3; deliveries become cash runs at Air 4.
@@ -450,5 +450,26 @@ missionNamespace setVariable ["WFBE_C_UNKNOWN_COLOR", "ColorBlue"];
 	WFBE_C_TOWNS_UNITS_COEF = switch (WFBE_C_TOWNS_OCCUPATION) do {case 1: {1}; case 2: {1.5}; case 3: {2}; case 4: {2.5}; default {1}};
 	WFBE_C_TOWNS_UNITS_DEFENDER_COEF = switch (WFBE_C_TOWNS_DEFENDER) do {case 1: {1}; case 2: {1.5}; case 3: {2}; case 4: {2.5}; default {1}};
 };
+
+// --- Player stats (feature-flagged; OFF by default) ---
+WFBE_C_STATS_ENABLED = false;
+WFBE_C_STATS_FLUSH_INTERVAL = 60;
+WFBE_STAT_KILLS_INFANTRY   = 0;
+WFBE_STAT_KILLS_VEHICLE    = 1;
+WFBE_STAT_KILLS_AIR        = 2;
+WFBE_STAT_KILLS_STATIC     = 3;
+WFBE_STAT_KILLS_FACTORY    = 4;
+WFBE_STAT_KILLS_HQ         = 5;
+WFBE_STAT_DEATHS           = 6;
+WFBE_STAT_PVP_KILLS        = 7;
+WFBE_STAT_SUPPLY_RUNS      = 8;
+WFBE_STAT_SUPPLY_VALUE     = 9;
+WFBE_STAT_CAPTURES_TOWN    = 10;
+WFBE_STAT_CAPTURES_CAMP    = 11;
+WFBE_STAT_STRUCTURES_BUILT = 12;
+WFBE_STAT_DEFENSES_BUILT   = 13;
+WFBE_STAT_PLAYTIME         = 14;
+WFBE_STAT_FIELD_COUNT      = 15;
+WFBE_STATS_DIRTY_UIDS = [];
 
 ["INITIALIZATION", "Init_CommonConstants.sqf: Constants are defined."] Call WFBE_CO_FNC_LogContent;

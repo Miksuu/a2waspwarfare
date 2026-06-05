@@ -52,8 +52,10 @@ _rearmor = {
 		if (_x isKindOf 'Man') then {
 			// Marty: Forward the team global-init flag so town AI infantry can skip client marker/action setup.
 			_unit = [_x,_team,_position,_sideID,_global] Call WFBE_CO_FNC_CreateUnit;
-			_units = _units + [_unit];
-			_perfInfantry = _perfInfantry + 1;
+			if (!isNull _unit) then {
+				_units = _units + [_unit];
+				_perfInfantry = _perfInfantry + 1;
+			};
 		} else {
 			_vehicle = [_x, _position, _sideID, 0, _lockVehicles, true, _global, "FORM"] Call WFBE_CO_FNC_CreateVehicle;
 			_perfVehicles = _perfVehicles + 1;
@@ -66,6 +68,7 @@ _rearmor = {
 				call {
 					if ((_vehicle emptyPositions _crewRole) <= 0) exitWith {};
 					_crewUnit = [_type,_team,_position,_sideID,_global] Call WFBE_CO_FNC_CreateUnit;
+					if (isNull _crewUnit) exitWith {};
 					[_crewUnit] allowGetIn true;
 
 					switch (_crewRole) do {

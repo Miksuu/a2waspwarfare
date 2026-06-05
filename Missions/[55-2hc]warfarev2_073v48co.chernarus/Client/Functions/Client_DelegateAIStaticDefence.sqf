@@ -24,6 +24,9 @@ _townDefenderAI = if (count _this > 6) then {_this select 6} else {false};
 
 sleep (random 1); //--- Delay a bit to prevent a bandwidth congestion.
 
+if (isNull _team) then {_team = createGroup _side};
+if (!local _team) then {_team = createGroup _side};
+
 // Marty: Preserve the town-defender marker when this static unit is created on a client or HC.
 _retVal = [_side, _groups, _positions, _team, _defence, _moveInGunner, _townDefenderAI] call WFBE_CO_FNC_CreateUnitForStaticDefence;
 _teams = _retVal select 0;

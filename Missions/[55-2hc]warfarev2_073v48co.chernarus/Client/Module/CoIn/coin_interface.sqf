@@ -232,6 +232,7 @@ BIS_CONTROL_CAM_Handler = {
 		if ((_key in (actionKeys "User16")) && ((missionNamespace getVariable "WFBE_C_BASE_DEFENSE_MAX_AI") > 0)) then {
 			if (manningDefense) then {manningDefense = false} else {manningDefense = true};
 			_status = if (manningDefense) then {localize "STR_WF_On"} else {localize "STR_WF_Off"};
+			hintSilent Format ["Auto-manning defense: %1", _status];
 			_logic setVariable ["WF_RequestUpdate",true];
 		};
 

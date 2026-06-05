@@ -232,6 +232,7 @@ BIS_CONTROL_CAM_Handler = {
 		if ((_key in (actionKeys "User16")) && ((missionNamespace getVariable "WFBE_C_BASE_DEFENSE_MAX_AI") > 0)) then {
 			if (manningDefense) then {manningDefense = false} else {manningDefense = true};
 			_status = if (manningDefense) then {localize "STR_WF_On"} else {localize "STR_WF_Off"};
+			hintSilent Format ["Auto-manning defense: %1", _status];
 			_logic setVariable ["WF_RequestUpdate",true];
 		};
 
@@ -528,8 +529,8 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 
 					(uiNamespace getVariable "COIN_displayMain") displayRemoveEventHandler ["KeyDown",WF_COIN_DEH1];
 					(uiNamespace getVariable "COIN_displayMain") displayRemoveEventHandler ["KeyUp",WF_COIN_DEH2];
-					(uiNamespace getVariable "COIN_displayMain") displayRemoveEventHandler ["MouseButtonDown",WF_COIN_DEH2];
-					(uiNamespace getVariable "COIN_displayMain") displayRemoveEventHandler ["MouseButtonUp",WF_COIN_DEH3];
+					(uiNamespace getVariable "COIN_displayMain") displayRemoveEventHandler ["MouseButtonDown",WF_COIN_DEH3];
+					(uiNamespace getVariable "COIN_displayMain") displayRemoveEventHandler ["MouseButtonUp",WF_COIN_DEH4];
 
 					//--- Behold the placeholders
 					BIS_COIN_QUIT = nil;
@@ -719,7 +720,7 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 						};
 
 						if (_class in _defenses) then {
-							["RequestDefense", [sideJoined,_class,_pos,_dir,manningDefense]] Call WFBE_CO_FNC_SendToServer;
+							["RequestDefense", [sideJoined,_class,_pos,_dir,manningDefense,(_logic == RCoin)]] Call WFBE_CO_FNC_SendToServer;
 							lastBuilt = _par;
 							_area = [_pos,((sidejoined) Call WFBE_CO_FNC_GetSideLogic) getVariable "wfbe_basearea"] Call WFBE_CO_FNC_GetClosestEntity2;
 							_get = _area getVariable 'avail';
@@ -768,6 +769,17 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 						getText (configFile >> "cfgvehicles" >> _type >> "displayname"),
 						if (isnull _selected) then {""} else {str round ((1 - damage _selected) * 100) + "%"}
 					];
+					//--- QoL (C3): show build count vs limit for this structure while placing.
+					_cbIdx = _buildingsNames find _type;
+					if (_cbIdx != -1) then {
+						_cbLive = WFBE_Client_Logic getVariable "wfbe_structures_live";
+						if (!isNil "_cbLive" && {_cbIdx < count _cbLive}) then {
+							_cbCur = _cbLive select _cbIdx;
+							_cbLim = missionNamespace getVariable (Format ['WFBE_C_STRUCTURES_MAX_%1',(_buildingsType select _cbIdx)]);
+							if (isNil '_cbLim') then {_cbLim = 4};
+							_textHeader = _textHeader + format ["<t color='%1' shadow='1' align='center' size='1.0'>Built: %2 / %3</t><br />",if (_cbCur >= _cbLim) then {'#F56363'} else {'#76F563'},_cbCur,_cbLim];
+						};
+					};
 					_textPicture = format ["<t color='#42b6ff' shadow='2' align='left' size='2.8'><img image='%1'/></t> ",_filePicture];
 				};
 

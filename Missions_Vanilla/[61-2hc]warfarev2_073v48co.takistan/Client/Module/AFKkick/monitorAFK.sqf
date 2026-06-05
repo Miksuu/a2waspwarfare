@@ -27,7 +27,7 @@ while {!gameOver} do {
 
     _afkShouldBe = _movementTimer >= (WFBE_CO_VAR_AFKkickThreshold / 1.5);
     _afk = player getVariable ["WASP_AFK", false];
-    if (_afk != _afkShouldBe) then {
+    if ((_afk && !_afkShouldBe) || (!_afk && _afkShouldBe)) then {
         player setVariable ["WASP_AFK", _afkShouldBe, true];
     };
 
@@ -36,7 +36,7 @@ while {!gameOver} do {
     _mapCommandWindow = missionNamespace getVariable ["WFBE_CLIENT_COMMAND_AND_CONQUER_WINDOW", 180];
     _commandAndConquerShouldBe = _afkShouldBe && ((time - _lastMapCommandClickTime) <= _mapCommandWindow);
     _commandAndConquer = player getVariable ["WASP_CommandAndConquer", false];
-    if (_commandAndConquer != _commandAndConquerShouldBe) then {
+    if ((_commandAndConquer && !_commandAndConquerShouldBe) || (!_commandAndConquer && _commandAndConquerShouldBe)) then {
         player setVariable ["WASP_CommandAndConquer", _commandAndConquerShouldBe, true];
     };
 

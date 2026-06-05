@@ -9,7 +9,7 @@
 		- Move In Gunner immidietly or not
 */
 
-Private ["_built", "_builtveh", "_defence", "_groups", "_moveInGunner", "_perfActive", "_perfItemStart", "_perfScope", "_perfStart", "_position", "_positions", "_side", "_sideID", "_team", "_teams", "_townDefenderAI", "_town_vehicles", "_unit"];
+Private ["_assignedUnit", "_built", "_builtveh", "_defence", "_groups", "_manningInProgress", "_moveInGunner", "_perfActive", "_perfItemStart", "_perfScope", "_perfStart", "_position", "_positions", "_side", "_sideID", "_team", "_teams", "_townDefenderAI", "_town_vehicles", "_unit"];
 
 _side = _this select 0;
 _groups = _this select 1;
@@ -28,6 +28,33 @@ _teams = [];
 _perfStart = diag_tickTime;
 _perfActive = 0;
 
+if !(isNull (gunner _defence)) exitWith {
+	["INFORMATION", Format["Common_CreateUnitForstaticDefence.sqf: [%1] skipped duplicate request for [%2], gunner already alive.", _side, typeOf _defence]] Call WFBE_CO_FNC_LogContent;
+	[_teams]
+};
+
+_assignedUnit = _defence getVariable "WFBE_StaticDefenseAssignedUnit";
+if (isNil "_assignedUnit") then {_assignedUnit = objNull};
+if (!(isNull _assignedUnit) && !(alive _assignedUnit)) then {
+	_defence setVariable ["WFBE_StaticDefenseAssignedUnit", objNull, true];
+};
+if (!(isNull _assignedUnit) && (alive _assignedUnit)) exitWith {
+	[_assignedUnit] allowGetIn true;
+	_assignedUnit assignAsGunner _defence;
+	[_assignedUnit] orderGetIn true;
+	if (_moveInGunner) then {_assignedUnit moveInGunner _defence};
+	["INFORMATION", Format["Common_CreateUnitForstaticDefence.sqf: [%1] skipped duplicate request for [%2], assigned unit still alive.", _side, typeOf _defence]] Call WFBE_CO_FNC_LogContent;
+	[_teams]
+};
+
+_manningInProgress = _defence getVariable "WFBE_StaticDefenseManningInProgress";
+if (isNil "_manningInProgress") then {_manningInProgress = false};
+if (_manningInProgress) exitWith {
+	["INFORMATION", Format["Common_CreateUnitForstaticDefence.sqf: [%1] skipped duplicate request for [%2], manning already in progress.", _side, typeOf _defence]] Call WFBE_CO_FNC_LogContent;
+	[_teams]
+};
+_defence setVariable ["WFBE_StaticDefenseManningInProgress", true, true];
+
 for '_i' from 0 to count(_groups)-1 do {
 	_position = _positions select _i;
 	//_team = _teams select _i;
@@ -36,7 +63,13 @@ for '_i' from 0 to count(_groups)-1 do {
 
 	_sideID = (_side) Call GetSideID;
 	_perfItemStart = diag_tickTime;
+	if (isNull _team) then {_team = createGroup _side};
+	if (!local _team) then {_team = createGroup _side};
 	_unit = [_groups select _i, _team, _position, _sideID] Call WFBE_CO_FNC_CreateUnit;
+	if (isNull _unit) exitWith {
+		["WARNING", Format["Common_CreateUnitForstaticDefence.sqf: [%1] failed to create static gunner template %2 at %3", _side, _groups select _i, _position]] Call WFBE_CO_FNC_LogContent;
+	};
+	_defence setVariable ["WFBE_StaticDefenseAssignedUnit", _unit, true];
 	_perfActive = _perfActive + (diag_tickTime - _perfItemStart);
 	_built  = _built + 1;
 
@@ -47,13 +80,32 @@ for '_i' from 0 to count(_groups)-1 do {
 	};
 
 	[_teams, _team] call WFBE_CO_FNC_ArrayPush;
+	[_unit] allowGetIn true;
 	_unit assignAsGunner _defence;
 	[_unit] orderGetIn true;
 
 	if(_moveInGunner)then{
-		_unit moveInGunner _defence
+		_unit moveInGunner _defence;
+		[_unit,_defence] Spawn {
+			Private ["_defence","_unit"];
+			_unit = _this select 0;
+			_defence = _this select 1;
+			sleep 1;
+			if (alive _unit && alive _defence && (gunner _defence != _unit)) then {
+				_unit setPosATL (getPosATL _defence);
+				[_unit] allowGetIn true;
+				_unit assignAsGunner _defence;
+				[_unit] orderGetIn true;
+				_unit moveInGunner _defence;
+				["WARNING", Format["Common_CreateUnitForstaticDefence.sqf: retried instant static manning for [%1].", typeOf _defence]] Call WFBE_CO_FNC_LogContent;
+			};
+			if (alive _unit && alive _defence && (gunner _defence == _unit)) then {
+				_unit disableAI "MOVE";
+				_unit setVariable ["WFBE_StaticDefenseSettled", true, true];
+			};
+		};
 	}else{
-		[_unit] allowGetIn true
+		[_unit] allowGetIn true;
 	};
 
 	[group _unit, 175, getPos _defence] spawn WFBE_CO_FNC_RevealArea;
@@ -65,7 +117,9 @@ for '_i' from 0 to count(_groups)-1 do {
 
 if (_built > 0) then {[str _side,'UnitsCreated',_built] call UpdateStatistics};
 
-["INFORMATION", Format["Common_CreateUnitForstaticDefence.sqf:  [%1] was activated witha total of [%3] units.", _side, _built]] Call WFBE_CO_FNC_LogContent;
+_defence setVariable ["WFBE_StaticDefenseManningInProgress", false, true];
+
+["INFORMATION", Format["Common_CreateUnitForstaticDefence.sqf:  [%1] was activated with a total of [%2] units.", _side, _built]] Call WFBE_CO_FNC_LogContent;
 
 if !(isNil "PerformanceAudit_Record") then {
 	if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {

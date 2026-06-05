@@ -1,7 +1,7 @@
 //*****************************************************************************************
 //Description: Creates a small construction site.
 //*****************************************************************************************
-Private ["_construct","_constructed","_direction","_group","_index","_logik","_nearLogic","_objects","_position","_rlType","_side","_sideID","_site","_siteName","_startTime","_structures","_structuresNames","_time","_timeNextUpdate","_type"];
+Private ["_construct","_constructed","_defenses","_direction","_group","_index","_logik","_nearLogic","_objects","_position","_rlType","_side","_sideID","_site","_siteName","_startTime","_structures","_structuresNames","_time","_timeNextUpdate","_type"];
 _type = _this select 0;
 _side = _this select 1;
 _position = _this select 2;
@@ -122,9 +122,14 @@ _site setPos _position;
 _site setVariable ["wfbe_side", _side];
 _site setVariable ["wfbe_structure_type", _rlType];
 
-if(isAutoWallConstructingEnabled)then{
-_defenses = [_site, missionNamespace getVariable format ["WFBE_NEURODEF_%1_WALLS", _rlType]] call CreateDefenseTemplate;
-_site setVariable ["WFBE_Walls", _defenses];
+if(isAutoWallConstructingEnabled && _rlType != "AARadar")then{
+	_defenses = [_site, missionNamespace getVariable format ["WFBE_NEURODEF_%1_WALLS", _rlType]] call CreateDefenseTemplate;
+	_site setVariable ["WFBE_Walls", _defenses];
+} else {
+	_site setVariable ["WFBE_Walls", []];
+	if (_rlType == "AARadar") then {
+		["INFORMATION", Format ["Construction_MediumSite.sqf: [%1] AARadar auto walls skipped by PR8 no-wall guard.", str _side]] Call WFBE_CO_FNC_LogContent;
+	};
 };
 
 [_side, "Constructed", ["Base", _site]] Spawn SideMessage;

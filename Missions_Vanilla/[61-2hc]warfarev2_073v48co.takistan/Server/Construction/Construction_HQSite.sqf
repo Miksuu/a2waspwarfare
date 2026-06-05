@@ -38,6 +38,7 @@ if (!_deployed) then {
 	_site addEventHandler ['handleDamage',{[_this select 0,_this select 2,_this select 3, _this select 4] Call BuildingHandleDamages}];
 	_defenses = [_site, missionNamespace getVariable "WFBE_NEURODEF_HEADQUARTERS_WALLS"] call CreateDefenseTemplate;
 	_site setVariable ["wfbe_hq_walls", _defenses];
+	_site setVariable ["WFBE_Walls", _defenses];
 
 	//--- base area limits.
 	if ((missionNamespace getVariable "WFBE_C_BASE_AREA") > 0) then {
@@ -69,7 +70,7 @@ if (!_deployed) then {
 	_direction = getDir _HQ;
 	_HQName = missionNamespace getVariable Format["WFBE_%1MHQNAME",_sideText];
 
-	_defenses = _HQ getVariable ["wfbe_hq_walls", []];
+	_defenses = _HQ getVariable ["wfbe_hq_walls", _HQ getVariable ["WFBE_Walls", []]];
 	{if (!isNull _x) then {deleteVehicle _x}} forEach _defenses;
 
 	_HQ setPos [1,1,1];
