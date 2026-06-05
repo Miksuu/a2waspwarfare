@@ -2930,15 +2930,24 @@ class RscMenu_Service {
 			x = 0.162101;
 			y = 0.209804;
 			w = 0.677143;
-			h = 0.429553;
+			h = 0.385000;
 			rowHeight = 0.025;
 			sizeEx = 0.035;
+		};
+		class CA_ServiceInfo : RscText {
+			idc = 20021;
+			x = 0.162101;
+			y = 0.604500;
+			w = 0.677143;
+			h = 0.035000;
+			sizeEx = 0.026;
+			colorBackground[] = WFBE_Background_Color_Footer;
 		};
 		class CA_Rearm_Button : RscButton {
 			idc = 20003;
 			x = 0.161261;
 			y = 0.650391;
-			w = 0.22;
+			w = 0.165;
 			text = $STR_WF_SERVICE_Rearm;
 			action = "MenuAction = 1";
 		};
@@ -2946,7 +2955,7 @@ class RscMenu_Service {
 			idc = 20004;
 			x = 0.50748;
 			y = 0.650391;
-			w = 0.22;
+			w = 0.165;
 			text = $STR_WF_SERVICE_Repair;
 			action = "MenuAction = 2";
 		};
@@ -2954,7 +2963,7 @@ class RscMenu_Service {
 			idc = 20005;
 			x = 0.161261;
 			y = 0.697899;
-			w = 0.22;
+			w = 0.165;
 			text = $STR_WF_SERVICE_Refuel;
 			action = "MenuAction = 3";
 		};
@@ -2962,33 +2971,41 @@ class RscMenu_Service {
 			idc = 20008;
 			x = 0.50748;
 			y = 0.697899;
-			w = 0.22;
+			w = 0.165;
 			text = $STR_WF_SERVICE_Heal;
 			action = "MenuAction = 5";
 		};
-		// Marty: Batch service buttons use one total price each and queue only eligible units from the list.
+		// Marty: Compact all-unit buttons sit inside the old single-action button width.
 		class CA_RearmAll_Button : RscButton {
 			idc = 20015;
-			x = 0.161261;
-			y = 0.747311;
-			w = 0.22;
-			text = "Rearm All";
+			x = 0.329261;
+			y = 0.650391;
+			w = 0.052;
+			text = "All";
 			action = "MenuAction = 11";
 		};
 		class CA_RepairAll_Button : RscButton {
 			idc = 20017;
-			x = 0.50748;
-			y = 0.747311;
-			w = 0.22;
-			text = "Repair All";
+			x = 0.675480;
+			y = 0.650391;
+			w = 0.052;
+			text = "All";
 			action = "MenuAction = 12";
+		};
+		class CA_RefuelAll_Button : RscButton {
+			idc = 20022;
+			x = 0.329261;
+			y = 0.697899;
+			w = 0.052;
+			text = "All";
+			action = "MenuAction = 13";
 		};
 		class CA_HealAll_Button : RscButton {
 			idc = 20019;
-			x = 0.161261;
-			y = 0.794819;
-			w = 0.22;
-			text = "Heal All";
+			x = 0.675480;
+			y = 0.697899;
+			w = 0.052;
+			text = "All";
 			action = "MenuAction = 15";
 		};
 		class CA_LabelRearm: RscText {
@@ -3015,29 +3032,41 @@ class RscMenu_Service {
 			y = 0.699691;
 			w = 0.12;
 		};
-		// Marty: Total prices for the all-unit service buttons.
+		// Marty: Hidden total-price labels kept so older scripts/control maps stay harmless.
 		class CA_LabelRearmAll: CA_LabelRearm {
 			idc = 20016;
+			x = 0;
+			y = 0;
+			w = 0;
+			h = 0;
+		};
+		class CA_LabelRepairAll : CA_LabelRearmAll {
+			idc = 20018;
+		};
+		class CA_LabelHealAll : CA_LabelRearmAll {
+			idc = 20020;
+		};
+		class CA_FullService_Button : RscButton {
+			idc = 20023;
+			x = 0.161261;
+			y = 0.747311;
+			w = 0.22;
+			text = "Full Service";
+			action = "MenuAction = 16";
+		};
+		class CA_LabelFullService : CA_LabelRearm {
+			idc = 20024;
 			x = 0.388739;
 			y = 0.750672;
 			w = 0.12;
 		};
-		class CA_LabelRepairAll : CA_LabelRearmAll {
-			idc = 20018;
-			x = 0.734957;
-		};
-		class CA_LabelHealAll : CA_LabelRearmAll {
-			idc = 20020;
-			x = 0.388739;
-			y = 0.798180;
-		};
-		// Marty: Put EASA below the three batch service buttons as its own secondary action row.
+		// Marty: Keep EASA visible as a loadout/configuration action, not a generic service action.
 		class CA_EASA_Button : RscButton {
 			idc = 20010;
-			x = 0.162101;
-			y = 0.842327;
-			w = 0.677143;
-			text = $STR_WF_SERVICE_EASA;
+			x = 0.50748;
+			y = 0.747311;
+			w = 0.331764;
+			text = "Loadout (EASA)";
 			action = "MenuAction = 7";
 		};
 		/* Back */
