@@ -67,6 +67,39 @@ missionNamespace setVariable ['WFBE_NEURODEF_AIRCRAFT_WALLS',[
 	['Land_HBarrier_large',[-11,9,0],90]
 ]];
 
+//--- Shielded HQ walls (WDDM: hq_concrete_walk_exit). To remove for now, set this template to [] and rerun Tools\LoadoutManager.
+missionNamespace setVariable ['WFBE_NEURODEF_HEADQUARTERS_WALLS',[
+	['Concrete_Wall_EP1',[-10.8,13,0],0],
+	['Concrete_Wall_EP1',[-7.2,13,0],0],
+	['Concrete_Wall_EP1',[-3.6,13,0],0],
+	['Concrete_Wall_EP1',[0,13,0],0],
+	['Concrete_Wall_EP1',[3.6,13,0],0],
+	['Concrete_Wall_EP1',[7.2,13,0],0],
+	['Concrete_Wall_EP1',[10.8,13,0],0],
+	['Concrete_Wall_EP1',[-13,-10.8,0],90],
+	['Concrete_Wall_EP1',[-13,-7.2,0],90],
+	['Concrete_Wall_EP1',[-13,-3.6,0],90],
+	['Concrete_Wall_EP1',[-13,0,0],90],
+	['Concrete_Wall_EP1',[-13,3.6,0],90],
+	['Concrete_Wall_EP1',[-13,7.2,0],90],
+	['Concrete_Wall_EP1',[-13,10.8,0],90],
+	['Concrete_Wall_EP1',[13,-10.8,0],90],
+	['Concrete_Wall_EP1',[13,-7.2,0],90],
+	['Concrete_Wall_EP1',[13,-3.6,0],90],
+	['Concrete_Wall_EP1',[13,0,0],90],
+	['Concrete_Wall_EP1',[13,3.6,0],90],
+	['Concrete_Wall_EP1',[13,7.2,0],90],
+	['Concrete_Wall_EP1',[13,10.8,0],90],
+	['Concrete_Wall_EP1',[-10.8,-13,0],0],
+	['Concrete_Wall_EP1',[-7.2,-13,0],0],
+	['Concrete_Wall_EP1',[-3.6,-13,0],0],
+	['Concrete_Wall_EP1',[3.6,-13,0],0],
+	['Concrete_Wall_EP1',[7.2,-13,0],0],
+	['Concrete_Wall_EP1',[10.8,-13,0],0],
+	['Land_CncBlock_Stripes',[-2.7,-13.4,0],0],
+	['Land_CncBlock_Stripes',[2.7,-13.4,0],0]
+]];
+
 missionNamespace setVariable ['WFBE_NEURODEF_MG',[
 	[if (WF_A2_Vanilla) then {'Land_fortified_nest_small'} else {'Land_fortified_nest_small_EP1'},[0.25,0,0],180],
 	['Land_fort_bagfence_corner',[-1,-3,0],0]
