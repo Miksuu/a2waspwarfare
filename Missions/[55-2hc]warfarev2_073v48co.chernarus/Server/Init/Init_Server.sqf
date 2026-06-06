@@ -52,9 +52,13 @@ WFBE_SE_FNC_GetTownGroupsDefender = Compile preprocessFileLineNumbers "Server\Fu
 WFBE_SE_FNC_GetTownPatrol = Compile preprocessFileLineNumbers "Server\Functions\Server_GetTownPatrol.sqf";
 WFBE_SE_FNC_HandleEmptyVehicle = Compile preprocessFileLineNumbers "Server\Functions\Server_HandleEmptyVehicle.sqf";
 WFBE_SE_FNC_HandlePVF = Compile preprocessFileLineNumbers "Server\Functions\Server_HandlePVF.sqf";
+// Marty: Cleans captured-town defense assets after their temporary persistence window.
+WFBE_SE_FNC_CleanupExpiredTownDefenseAssets = Compile preprocessFileLineNumbers "Server\Functions\Server_CleanupExpiredTownDefenseAssets.sqf";
 WFBE_SE_FNC_ManageTownDefenses = Compile preprocessFileLineNumbers "Server\Functions\Server_ManageTownDefenses.sqf";
 WFBE_SE_FNC_OnHQKilled = Compile preprocessFileLineNumbers "Server\Functions\Server_OnHQKilled.sqf";
 WFBE_SE_FNC_OperateTownDefensesUnits = Compile preprocessFileLineNumbers "Server\Functions\Server_OperateTownDefensesUnits.sqf";
+// Marty: Debug-only town defense state messages relayed to clients with systemChat.
+WFBE_SE_FNC_SendTownDebugChat = Compile preprocessFileLineNumbers "Server\Functions\Server_SendTownDebugChat.sqf";
 WFBE_SE_FNC_ProcessUpgrade = Compile preprocessFileLineNumbers "Server\Functions\Server_ProcessUpgrade.sqf";
 WFBE_SE_FNC_SetCampsToSide = Compile preprocessFileLineNumbers "Server\Functions\Server_SetCampsToSide.sqf";
 WFBE_SE_FNC_SetLocalityOwner = if !(WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Server\Functions\Server_SetLocalityOwner.sqf"} else {{}};
