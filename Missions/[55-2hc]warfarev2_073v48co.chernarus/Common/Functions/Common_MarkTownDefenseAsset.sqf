@@ -22,7 +22,8 @@ if (_assetType == "GROUP") exitWith {
 	_asset setVariable ["WFBE_TownDefenseSideID", _sideID];
 	_asset setVariable ["WFBE_TownDefenseRole", _role];
 	_asset setVariable ["WFBE_TownDefenseCreatedAt", _createdAt];
-	if (_expireAt >= 0) then {_asset setVariable ["WFBE_TownDefenseExpireAt", _expireAt]};
+	// Marty: Clear stale expiration when an asset is re-marked as active.
+	_asset setVariable ["WFBE_TownDefenseExpireAt", _expireAt];
 
 	if (_diagEnabled) then {
 		["TOWN_DEFENSE_DIAG", Format ["mark_town_defense_asset town:%1;assetType:%2;role:%3;sideID:%4;units:%5;expireAt:%6;localServer:%7;hasInterface:%8", _town getVariable "name", _assetType, _role, _sideID, count units _asset, _expireAt, isServer, hasInterface]] Call WFBE_CO_FNC_LogContent;
@@ -37,7 +38,8 @@ _asset setVariable ["WFBE_TownDefenseOwner", _town, true];
 _asset setVariable ["WFBE_TownDefenseSideID", _sideID, true];
 _asset setVariable ["WFBE_TownDefenseRole", _role, true];
 _asset setVariable ["WFBE_TownDefenseCreatedAt", _createdAt, true];
-if (_expireAt >= 0) then {_asset setVariable ["WFBE_TownDefenseExpireAt", _expireAt, true]};
+// Marty: Clear stale expiration when an asset is re-marked as active.
+_asset setVariable ["WFBE_TownDefenseExpireAt", _expireAt, true];
 
 if (_diagEnabled) then {
 	["TOWN_DEFENSE_DIAG", Format ["mark_town_defense_asset town:%1;assetType:%2;role:%3;sideID:%4;class:%5;alive:%6;expireAt:%7;localServer:%8;hasInterface:%9", _town getVariable "name", _assetType, _role, _sideID, typeOf _asset, alive _asset, _expireAt, isServer, hasInterface]] Call WFBE_CO_FNC_LogContent;

@@ -53,6 +53,8 @@ WFBE_SE_FNC_HandleEmptyVehicle = Compile preprocessFileLineNumbers "Server\Funct
 WFBE_SE_FNC_HandlePVF = Compile preprocessFileLineNumbers "Server\Functions\Server_HandlePVF.sqf";
 // Marty: Cleans captured-town defense assets after their temporary persistence window.
 WFBE_SE_FNC_CleanupExpiredTownDefenseAssets = Compile preprocessFileLineNumbers "Server\Functions\Server_CleanupExpiredTownDefenseAssets.sqf";
+// Marty: Frees empty/expired town-defense groups when the engine group pool is under pressure.
+WFBE_SE_FNC_CleanupTownDefenseGroupPool = Compile preprocessFileLineNumbers "Server\Functions\Server_CleanupTownDefenseGroupPool.sqf";
 WFBE_SE_FNC_ManageTownDefenses = Compile preprocessFileLineNumbers "Server\Functions\Server_ManageTownDefenses.sqf";
 WFBE_SE_FNC_OnHQKilled = Compile preprocessFileLineNumbers "Server\Functions\Server_OnHQKilled.sqf";
 WFBE_SE_FNC_OperateTownDefensesUnits = Compile preprocessFileLineNumbers "Server\Functions\Server_OperateTownDefensesUnits.sqf";
