@@ -34,6 +34,10 @@ switch (_request) do {
 	case "set-hq-killed-eh": {if !(isServer) then {(_args select 0) addEventHandler ["killed", {["RequestSpecial", ["process-killed-hq", _this]] Call WFBE_CO_FNC_SendToServer}]};};
 	case "auto-wall-constructing-changed":{ isAutoWallConstructingEnabled = (_args select 0)};
 	case "attack-wave": {ATTACK_WAVE_PRICE_MODIFIER = (_args select 0);};
+	// Marty: Display server town-defense diagnostics in-game only during mission debug sessions.
+	case "town-debug-message": {
+		if (WF_Debug) then {systemChat (_args select 0)};
+	};
 	// Marty: Server-side command bar cleanup can transfer dead AI locality back to the player for final detachment.
 	case "commandbar-force-dead-cleanup": {
 		_args Spawn {

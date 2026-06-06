@@ -9,7 +9,7 @@
 		- Move In Gunner immidietly or not
 */
 
-Private ["_built", "_builtveh", "_defence", "_diagEnabled", "_groups", "_moveInGunner", "_perfActive", "_perfItemStart", "_perfScope", "_perfStart", "_position", "_positions", "_side", "_sideID", "_team", "_teams", "_townDefenderAI", "_town_vehicles", "_unit"];
+Private ["_built", "_builtveh", "_defence", "_diagEnabled", "_groups", "_moveInGunner", "_perfActive", "_perfItemStart", "_perfScope", "_perfStart", "_position", "_positions", "_side", "_sideID", "_team", "_teams", "_town", "_townDefenderAI", "_town_vehicles", "_unit"];
 
 _side = _this select 0;
 _groups = _this select 1;
@@ -19,6 +19,8 @@ _defence = _this select 4;
 _moveInGunner = _this select 5;
 // Marty: Optional flag marks town static defender AI without affecting player/base defenses.
 _townDefenderAI = if (count _this > 6) then {_this select 6} else {false};
+// Marty: Optional town owner lets delegated static gunners be cleaned from the right captured town.
+_town = if (count _this > 7) then {_this select 7} else {objNull};
 _sideID = (_side) call WFBE_CO_FNC_GetSideID;
 
 _built = 0;
@@ -57,10 +59,10 @@ for '_i' from 0 to count(_groups)-1 do {
 	} else {
 		_built  = _built + 1;
 
-		// Marty: Mark delegated town static gunners for enemy-town activation filtering.
+		// Marty: Mark delegated town static gunners for enemy-town activation filtering and owner-scoped cleanup.
 		if (_townDefenderAI) then {
-			_unit setVariable ["WFBE_IsTownDefenderAI", true, true];
-			(group _unit) setVariable ["WFBE_IsTownDefenderAI", true];
+			[_town, _unit, _sideID, "static_gunner"] Call WFBE_CO_FNC_MarkTownDefenseAsset;
+			[_town, group _unit, _sideID, "static_group"] Call WFBE_CO_FNC_MarkTownDefenseAsset;
 		};
 
 		[_teams, _team] call WFBE_CO_FNC_ArrayPush;
