@@ -3,11 +3,13 @@
 	Author: Marty
 */
 
-Private ["_asset", "_assetType", "_createdAt", "_diagEnabled", "_forcePersistent", "_group", "_groupsDeleted", "_keptActive", "_keptPersistent", "_keptVehicles", "_objectsDeleted", "_owner", "_persistent", "_persistentBefore", "_pressure", "_reason", "_refsPruned", "_role", "_sideID", "_town", "_townGroups", "_unitsDeleted", "_vehicle", "_vehicles"];
+Private ["_asset", "_assetType", "_capturedRoles", "_createdAt", "_diagEnabled", "_forcePersistent", "_group", "_groupsDeleted", "_keptActive", "_keptPersistent", "_keptVehicles", "_objectsDeleted", "_owner", "_persistent", "_persistentBefore", "_pressure", "_reason", "_refsPruned", "_role", "_sideID", "_town", "_townGroups", "_unitsDeleted", "_vehicle", "_vehicles"];
 
 _reason = if (count _this > 0) then {_this select 0} else {"scheduled"};
 _pressure = if (count _this > 1) then {_this select 1} else {false};
 _diagEnabled = missionNamespace getVariable ["TownDefenseDiagnosticsEnabled", false];
+// Marty: Arma 2 OA cannot use string find here, so captured roles are matched explicitly.
+_capturedRoles = ["captured_mobile_group", "captured_mobile_unit", "captured_mobile_vehicle", "captured_static_gunner", "captured_static_group"];
 
 _groupsDeleted = 0;
 _unitsDeleted = 0;
@@ -86,7 +88,8 @@ _refsPruned = 0;
 			};
 		};
 
-		if (_pressure && (_owner == _town) && ((_role find "captured") >= 0)) then {_forcePersistent = true};
+		// Marty: Pressure cleanup may shorten only captured-town persistence assets.
+		if (_pressure && (_owner == _town) && (_role in _capturedRoles)) then {_forcePersistent = true};
 
 		call {
 			if ((_assetType != "GROUP") && (_assetType != "OBJECT")) exitWith {
@@ -160,7 +163,8 @@ _refsPruned = 0;
 					};
 				};
 
-				if (_pressure && ((_role find "captured") >= 0)) exitWith {
+				// Marty: Pressure cleanup may shorten only captured-town persistence groups.
+				if (_pressure && (_role in _capturedRoles)) exitWith {
 					if (({isPlayer _x} count units _group) > 0) then {
 						if (_diagEnabled) then {
 							["TOWN_DEFENSE_DIAG", Format ["group_pool_orphan_pressure_keep_player_group reason:%1;owner:%2;role:%3;sideID:%4;units:%5", _reason, if (isNull _owner) then {"<null>"} else {_owner getVariable ["name", str _owner]}, _role, _sideID, count units _group]] Call WFBE_CO_FNC_LogContent;
