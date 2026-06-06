@@ -1216,26 +1216,28 @@ class WF_Menu {
 			tooltip = $STR_WF_TOOLTIP_CloseButton;
 		};
 		
-		class CA_HUD_Button : RscClickableText {
+		class CA_HUD_Button : RscButton_Main {
 			idc = 11018;
-			x = 0.410;
-			y = 0.78000;
-			w = 0.040;
-			h = 0.040;
-			text = "Client\images\hud_bis.paa";
+			x = 0.408;
+			y = 0.767144;
+			w = 0.042;
+			h = 0.045;
+			text = "HUD";
+			sizeEx = 0.026;
 			action = "MenuAction = 16";
-			tooltip = "ALL SCREEN HUD On/Off";
+			tooltip = "HUD On/Off";
 		};		
 		// Marty: Reuse the old FPS-only HUD slot for GPS; FPS now lives in the RHUD/sidebar.
-		class CA_GPS_Button : RscClickableText {
+		class CA_GPS_Button : RscButton_Main {
 			idc = 11019;
 			x = 0.455;
-			y = 0.78000;
-			w = 0.040;
-			h = 0.040;
-			text = "\ca\ui\data\map_background2_co.paa";
+			y = 0.767144;
+			w = 0.042;
+			h = 0.045;
+			text = "GPS";
+			sizeEx = 0.026;
 			action = "MenuAction = 19";
-			tooltip = "GPS / Mini Map On/Off";
+			tooltip = "Enable GPS / Mini Map";
 		};
 	};
 };
@@ -2505,14 +2507,14 @@ class RscMenu_Service {
 			x = 0.162101;
 			y = 0.604500;
 			w = 0.677143;
-			h = 0.060000;
+			h = 0.082000;
 			size = 0.021;
 			colorBackground[] = WFBE_Background_Color_Footer;
 		};
 		class CA_Rearm_Button : RscButton {
 			idc = 20003;
 			x = 0.161261;
-			y = 0.666391;
+			y = 0.686391;
 			w = 0.165;
 			text = $STR_WF_SERVICE_Rearm;
 			action = "MenuAction = 1";
@@ -2520,7 +2522,7 @@ class RscMenu_Service {
 		class CA_Repair_Button : RscButton {
 			idc = 20004;
 			x = 0.50748;
-			y = 0.666391;
+			y = 0.686391;
 			w = 0.165;
 			text = $STR_WF_SERVICE_Repair;
 			action = "MenuAction = 2";
@@ -2528,7 +2530,7 @@ class RscMenu_Service {
 		class CA_Refuel_Button : RscButton {
 			idc = 20005;
 			x = 0.161261;
-			y = 0.713899;
+			y = 0.733899;
 			w = 0.165;
 			text = $STR_WF_SERVICE_Refuel;
 			action = "MenuAction = 3";
@@ -2536,7 +2538,7 @@ class RscMenu_Service {
 		class CA_Heal_Button : RscButton {
 			idc = 20008;
 			x = 0.50748;
-			y = 0.713899;
+			y = 0.733899;
 			w = 0.165;
 			text = $STR_WF_SERVICE_Heal;
 			action = "MenuAction = 5";
@@ -2545,7 +2547,7 @@ class RscMenu_Service {
 		class CA_RearmAll_Button : RscButton {
 			idc = 20015;
 			x = 0.329261;
-			y = 0.666391;
+			y = 0.686391;
 			w = 0.052;
 			text = "All";
 			action = "MenuAction = 11";
@@ -2553,7 +2555,7 @@ class RscMenu_Service {
 		class CA_RepairAll_Button : RscButton {
 			idc = 20017;
 			x = 0.675480;
-			y = 0.666391;
+			y = 0.686391;
 			w = 0.052;
 			text = "All";
 			action = "MenuAction = 12";
@@ -2561,7 +2563,7 @@ class RscMenu_Service {
 		class CA_RefuelAll_Button : RscButton {
 			idc = 20022;
 			x = 0.329261;
-			y = 0.713899;
+			y = 0.733899;
 			w = 0.052;
 			text = "All";
 			action = "MenuAction = 13";
@@ -2569,7 +2571,7 @@ class RscMenu_Service {
 		class CA_HealAll_Button : RscButton {
 			idc = 20019;
 			x = 0.675480;
-			y = 0.713899;
+			y = 0.733899;
 			w = 0.052;
 			text = "All";
 			action = "MenuAction = 15";
@@ -2577,25 +2579,25 @@ class RscMenu_Service {
 		class CA_LabelRearm: RscText {
 			idc = 20011;
 			x = 0.388739;
-			y = 0.669752;
+			y = 0.689752;
 			w = 0.12;
 		};
 		class CA_LabelRepair : CA_LabelRearm {
 			idc = 20012;
 			x = 0.724957;
-			y = 0.669752;
+			y = 0.689752;
 			w = 0.095;
 		};
 		class CA_LabelRefuel : CA_LabelRearm {
 			idc = 20013;
 			x = 0.388739;
-			y = 0.715691;
+			y = 0.735691;
 			w = 0.12;
 		};
 		class CA_LabelHeal : CA_LabelRearm {
 			idc = 20014;
 			x = 0.724957;
-			y = 0.715691;
+			y = 0.735691;
 			w = 0.095;
 		};
 		// Marty: Hidden total-price labels kept so older scripts/control maps stay harmless.
@@ -2615,7 +2617,7 @@ class RscMenu_Service {
 		class CA_FullService_Button : RscButton {
 			idc = 20023;
 			x = 0.161261;
-			y = 0.747311;
+			y = 0.767311;
 			w = 0.22;
 			text = "Full Service";
 			action = "MenuAction = 16";
@@ -2623,14 +2625,14 @@ class RscMenu_Service {
 		class CA_LabelFullService : CA_LabelRearm {
 			idc = 20024;
 			x = 0.388739;
-			y = 0.750672;
+			y = 0.770672;
 			w = 0.12;
 		};
 		// Marty: Keep EASA visible as a loadout/configuration action, not a generic service action.
 		class CA_EASA_Button : RscButton {
 			idc = 20010;
 			x = 0.50748;
-			y = 0.747311;
+			y = 0.767311;
 			w = 0.331764;
 			text = "Loadout (EASA)";
 			action = "MenuAction = 7";

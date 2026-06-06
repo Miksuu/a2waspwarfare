@@ -42,9 +42,9 @@ while {alive player && dialog} do {
 	_compensation = 0;
 	if (sideJoined == WEST) then {_compensation = SUPPLY_COMPENSATION_AMOUNT_WEST};
 	if (sideJoined == EAST) then {_compensation = SUPPLY_COMPENSATION_AMOUNT_EAST};
-	_svPlusText = Format ["+ %1", _totalSupplyValue];
-	if (_compensation > 0) then {_svPlusText = Format ["+ %1 (+ %2)", _totalSupplyValue, _compensation]};
-	ctrlSetText [11015, format ["Uptime: %1h %2m | Time %3:%4 | Players %5/%6 | Towns %7/%8 | SV+ %9", (_uptime select 0) * 24 + (_uptime select 1), _uptime select 2, _clkH, _clkM, _playerCount, _playerSlots, _townsHeld, _townsTotal, _svPlusText]];	//--- QoL: compact top-strip status
+	_svPlusText = Format ["+%1", _totalSupplyValue];
+	if (_compensation > 0) then {_svPlusText = Format ["+%1 (+%2)", _totalSupplyValue, _compensation]};
+	ctrlSetText [11015, format ["Uptime: %1h %2m | Time %3:%4 | Players %5/%6 | Towns %7/%8 | SV %9", (_uptime select 0) * 24 + (_uptime select 1), _uptime select 2, _clkH, _clkM, _playerCount, _playerSlots, _townsHeld, _townsTotal, _svPlusText]];	//--- QoL: compact top-strip status
 
 	//--- Buy Units.
 	if (MenuAction == 1) exitWith {
@@ -210,12 +210,26 @@ while {alive player && dialog} do {
 		if(RUBHUD)then{RUBHUD = false}else{RUBHUD = true};
 	};
 
-	// Marty: Reuse the old FPS-only slot as a GPS toggle; client/server FPS now lives in RHUD.
-	if (MenuAction == 19) then {
+	// Marty: Reuse the old FPS-only slot as a GPS enabler; client/server FPS now lives in RHUD.
+	if (MenuAction == 19) exitWith {
 		MenuAction = -1;
-		_gpsEnabled = !(shownGPS);
-		showGPS _gpsEnabled;
-		if (_gpsEnabled) then {hint "GPS: ON"} else {hint "GPS: OFF"};
+		missionNamespace setVariable ["WFBE_Client_MenuGPSState", true];
+		if (!isNull player && {!("ItemGPS" in weapons player)}) then {player addWeapon "ItemGPS"};
+		closeDialog 0;
+		[] Spawn {
+			sleep 0.15;
+			missionNamespace setVariable ["WFBE_Client_MenuGPSState", true];
+			if (!isNull player && {!("ItemGPS" in weapons player)}) then {player addWeapon "ItemGPS"};
+			RUBGPS = 1;
+			showGPS true;
+			sleep 0.10;
+			showGPS true;
+			if (shownGPS) then {
+				hint "GPS enabled.\nUse your GPS keybind if the mini-map is still hidden.";
+			} else {
+				hint "GPS could not be enabled yet.\nCheck that your unit has GPS gear.";
+			};
+		};
 	};
 
 	if (MenuAction == 17) then {

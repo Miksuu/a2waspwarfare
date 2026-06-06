@@ -1,7 +1,7 @@
 disableSerialization;
 
-// Marty: Keep the shared OptionsAvailable resource alive for action icons, but do not show RHUD by default.
-if (isNil "RUBHUD") then {RUBHUD = false};
+// Marty: Keep the shared OptionsAvailable resource alive for action icons, and show RHUD by default.
+if (isNil "RUBHUD") then {RUBHUD = true};
 if !(isNil "BIS_CONTROL_CAM") then {RUBHUD = false};
 CutRsc["OptionsAvailable","PLAIN",0];
 
@@ -10,10 +10,10 @@ waituntil{!isnil"totalTowns"};
 // Marty: Cache RHUD controls and values so hidden/unchanged HUD state does not rewrite UI every second.
 private[
 	"_total", "_perfStart", "_display", "_lastDisplay", "_controls", "_rhudIDC", "_lastTexts", "_lastColors", "_lastShown", "_lastBackgroundColor",
-	"_labelsApplied", "_hiddenApplied", "_hudWasShown", "_lastTownRefresh", "_incomeText", "_supplyText", "_supplyMinText",
+	"_labelsApplied", "_hiddenApplied", "_hudWasShown", "_lastTownRefresh", "_incomeText", "_supplyText", "_baseText", "_baseColor",
 	"_RHUDResetControlCache", "_RHUDSetShow", "_RHUDSetText", "_RHUDSetColor", "_RHUDGetDisplay", "_idx", "_player", "_side", "_bgColor",
 	"_status", "_health", "_healthAct", "_healthColor", "_uptime", "_commanderText", "_mbu", "_currentUnitsCount", "_maxUnitsCount",
-	"_isCommanderTeam", "_aiText", "_aiColor", "_moneyText", "_totalSupplyValue", "_compensation", "_clientFPS", "_clientFPSColor",
+	"_isCommanderTeam", "_aiText", "_aiColor", "_moneyText", "_baseStructures", "_baseHq", "_baseTotal", "_baseDamaged", "_clientFPS", "_clientFPSColor",
 	"_serverFPS", "_serverFPSColor", "_hudFPSColor", "_hudMode", "_lastHudMode", "_RHUDUpdateFPS", "_RHUDUpdateServerFPSRow", "_RHUDSetFPSPosition", "_RHUDSetFullPosition", "_clientLabel", "_serverLabel", "_showMissingServer",
 	"_labelX", "_valueX", "_startY", "_rowH", "_labelW", "_valueW", "_lineH", "_rowY", "_layoutPairs",
 	"_RHUDUpdateUpgrade", "_RHUD_upgId", "_RHUD_upgEnd"
@@ -35,7 +35,8 @@ _lastHudMode = "";
 _lastTownRefresh = -999;
 _incomeText = "";
 _supplyText = "";
-_supplyMinText = "";
+_baseText = "";
+_baseColor = [0, 1, 0, 1];
 
 _RHUDResetControlCache = {
 	_controls = [];
@@ -302,7 +303,7 @@ while {true} do {
 				[5, "AI:"] call _RHUDSetText;
 				[7, "Money:"] call _RHUDSetText;
 				[9, "Supply:"] call _RHUDSetText;
-				[11, "SV+:"] call _RHUDSetText;
+				[11, "Base:"] call _RHUDSetText;
 				[13, "FPS C/S:"] call _RHUDSetText;
 				_labelsApplied = true;
 				_hiddenApplied = false;
@@ -367,12 +368,24 @@ while {true} do {
 			if (time - _lastTownRefresh > 3) then {
 				_incomeText = Format ["+ %1 $",sideJoined Call GetIncome];
 				_supplyText = Format ["%1",(sideJoined) Call GetSideSupply];
-				_totalSupplyValue = sideJoined Call GetTotalSupplyValue;
-				_compensation = 0;
-				if (_side == WEST) then {_compensation = SUPPLY_COMPENSATION_AMOUNT_WEST};
-				if (_side == EAST) then {_compensation = SUPPLY_COMPENSATION_AMOUNT_EAST};
-				_supplyMinText = Format ["+ %1", _totalSupplyValue];
-				if (_compensation > 0) then {_supplyMinText = Format ["+ %1 (+ %2)", _totalSupplyValue, _compensation]};
+				_baseStructures = sideJoined Call WFBE_CO_FNC_GetSideStructures;
+				_baseHq = sideJoined Call WFBE_CO_FNC_GetSideHQ;
+				if (!isNull _baseHq) then {_baseStructures = _baseStructures + [_baseHq]};
+				_baseTotal = 0;
+				_baseDamaged = 0;
+				{
+					if (!isNull _x && {alive _x}) then {
+						_baseTotal = _baseTotal + 1;
+						if (damage _x > 0.10) then {_baseDamaged = _baseDamaged + 1};
+					};
+				} forEach _baseStructures;
+				_baseText = Format ["%1 ok", _baseTotal];
+				_baseColor = [0, 1, 0, 1];
+				if (_baseDamaged > 0) then {
+					_baseText = Format ["%1 ok | D%2", _baseTotal, _baseDamaged];
+					_baseColor = [1, 0.8431, 0, 1];
+				};
+				if (_baseTotal == 0) then {_baseColor = [1, 0, 0, 1]};
 				_lastTownRefresh = time;
 			};
 
@@ -382,8 +395,8 @@ while {true} do {
 			[8, [0, 0.825294, 0.449803, 1]] call _RHUDSetColor;
 			[10, _supplyText] call _RHUDSetText;
 			[10, [1, 0.8831, 0, 1]] call _RHUDSetColor;
-			[12, _supplyMinText] call _RHUDSetText;
-			[12, [1, 0.6831, 0, 1]] call _RHUDSetColor;
+			[12, _baseText] call _RHUDSetText;
+			[12, _baseColor] call _RHUDSetColor;
 
 			call _RHUDUpdateServerFPSRow;
 			call _RHUDUpdateUpgrade;

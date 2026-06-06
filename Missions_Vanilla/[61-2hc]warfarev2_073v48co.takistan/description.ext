@@ -62,5 +62,6 @@
 #endif
 loadScreen = "loadScreen.jpg";
 enableSentences = false;
+showGPS = 1;
 disableChannels[]={3,6};
 disabledAI=0;

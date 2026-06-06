@@ -452,10 +452,10 @@ while {true} do {
 			if ((count _martyFullActions) == 0) then {_serviceState = "No selected service needed"};
 		};
 		_damageText = str(round((getDammage _veh) * 100)) + "%";
-		_fuelText = if (_veh isKindOf "Man") then {"infantry"} else {"fuel " + str(round((fuel _veh) * 100)) + "%"};
+		_fuelText = if (_veh isKindOf "Man") then {"Inf"} else {str(round((fuel _veh) * 100)) + "%"};
 		_dialog = findDisplay 20000;
 		if (!isNull _dialog) then {
-			(_dialog displayCtrl 20021) ctrlSetStructuredText (parseText Format["<t color='#f0e68c' shadow='1'>%1 dmg %2 %3 | %4</t><br/><t color='#f0e68c' shadow='1'>All Rm $%5 | Rp $%6 | Rf $%7 | Hl $%8</t>",_desc,_damageText,_fuelText,_serviceState,_martyRearmPrice,_martyRepairPrice,_martyRefuelPrice,_martyHealPrice]);
+			(_dialog displayCtrl 20021) ctrlSetStructuredText (parseText Format["<t color='#f0e68c' shadow='1'>%1 | Dmg %2 | Fuel %3</t><br /><t color='#f0e68c' shadow='1'>%4 | All Rm $%5 Rp $%6 Rf $%7 Hl $%8</t>",_desc,_damageText,_fuelText,_serviceState,_martyRearmPrice,_martyRepairPrice,_martyRefuelPrice,_martyHealPrice]);
 		};
 		
 		_lastVeh = _veh;
