@@ -1,5 +1,5 @@
 // Marty: Reliable town AI monitor based on the old pre-capture activation scan; aircraft are ignored.
-Private["_activeSideIDs","_town","_range","_range_detect","_range_detect_active","_position","_groups","_spawnGroups","_town_teams","_unitsInactiveMax","_patrol_delay","_patrol_enabled","_ai_delegation_enabled","_town_defender_enabled","_town_occupation_enabled","_detected","_detectedRaw","_enemies","_perfTowns","_perfNearEntities","_perfDetected","_perfActivations","_perfDespawns","_perfSpawnGroups","_perfActive","_perfItemStart","_perfStart","_skippedTowns","_townScanned","_sideID","_side","_side_enabled","_isActiveTown","_dynRange","_scanUnit","_scanVehicle","_camps","_camp","_positions","_team","_teams","_use_server","_retVal","_groupIndex"];
+Private["_activeSideIDs","_town","_range","_range_detect","_range_detect_active","_position","_groups","_spawnGroups","_town_teams","_unitsInactiveMax","_patrol_delay","_patrol_enabled","_ai_delegation_enabled","_town_defender_enabled","_town_occupation_enabled","_detected","_detectedRaw","_enemies","_perfTowns","_perfNearEntities","_perfDetected","_perfActivations","_perfDespawns","_perfSpawnGroups","_perfActive","_perfItemStart","_perfStart","_skippedTowns","_townScanned","_sideID","_side","_side_enabled","_isActiveTown","_dynRange","_scanUnit","_scanVehicle","_camps","_camp","_positions","_team","_teams","_use_server","_retVal","_groupIndex","_removedTeams","_removedVehicles"];
 
 for "_j" from 0 to ((count towns) - 1) step 1 do
 {
@@ -29,6 +29,8 @@ for "_k" from 0 to ((count towns) - 1) step 1 do
 	_town setVariable ["wfbe_active_override", false];
 	_town setVariable ['wfbe_active_vehicles', []];
 	_town setVariable ['wfbe_town_teams', []];
+	// Marty: Captured-town defenders are kept here until their persistence timeout expires.
+	_town setVariable ["wfbe_persistent_town_defense_assets", []];
 	sleep 0.01;
 };
 
@@ -55,6 +57,8 @@ while {!WFBE_GameOver} do {
 
 		_town = towns select _i;
 		_perfTowns = _perfTowns + 1;
+		// Marty: Cleanup is owner-scoped per town, so multiple active towns cannot delete each other's defenders.
+		[_town] Call WFBE_SE_FNC_CleanupExpiredTownDefenseAssets;
 		_town_teams = _town getVariable "wfbe_town_teams";
 		_patrol_enabled = if (!isNil {_town getVariable "wfbe_patrol_enabled"}) then {true} else {false};
 
@@ -135,7 +139,8 @@ while {!WFBE_GameOver} do {
 						};
 
 						if (count _groups == 0) then {
-							["WARNING", Format ["server_town_ai.sqf: Town [%1] activation for [%2] had no group templates; static defenses will still be manned.", _town getVariable "name", _side]] Call WFBE_CO_FNC_LogContent;
+							// Marty: Static handling is side-scoped below, so empty mobile templates are reported without promising statics.
+							["WARNING", Format ["server_town_ai.sqf: Town [%1] activation for [%2] had no mobile group templates.", _town getVariable "name", _side]] Call WFBE_CO_FNC_LogContent;
 						} else {
 							// Marty: Performance Audit counters for town AI activation.
 							_perfSpawnGroups = _perfSpawnGroups + count _groups;
@@ -227,11 +232,19 @@ while {!WFBE_GameOver} do {
 										["TOWN_DEFENSE_DIAG", Format ["activation_server_create town:%1;side:%2;teamsReturned:%3;vehiclesReturned:%4;teamsTracked:%5;vehiclesTracked:%6", _town getVariable "name", _side, count (_retVal select 0), count (_retVal select 1), count _town_teams, count (_town getVariable ["wfbe_active_vehicles", []])]] Call WFBE_CO_FNC_LogContent;
 									};
 								};
+								// Marty: In-game debug summary for testers following a town activation.
+								[Format ["[Town Debug] %1 activated | Owner: %2 | Threat: WEST %3, EAST %4, RES %5 | Defenses: %6 groups, %7 vehicles", _town getVariable "name", str _side, west countSide _detected, east countSide _detected, resistance countSide _detected, count _town_teams, count (_town getVariable ["wfbe_active_vehicles", []])]] Call WFBE_SE_FNC_SendTownDebugChat;
 							};
 						};
 
-						//--- Man the defenses.
-						[_town, _side, "spawn"] Call WFBE_SE_FNC_OperateTownDefensesUnits;
+						// Marty: Static weapons are only manned for resistance towns; BLUFOR/OPFOR occupation uses mobile defenders only.
+						if (_side == WFBE_DEFENDER) then {
+							[_town, _side, "spawn"] Call WFBE_SE_FNC_OperateTownDefensesUnits;
+						} else {
+							if (missionNamespace getVariable ["TownDefenseDiagnosticsEnabled", false]) then {
+								["TOWN_DEFENSE_DIAG", Format ["activation_static_skipped town:%1;side:%2;reason:occupation_mobile_only", _town getVariable "name", _side]] Call WFBE_CO_FNC_LogContent;
+							};
+						};
 					};
 				};
 
@@ -248,6 +261,8 @@ while {!WFBE_GameOver} do {
 					_town setVariable ["wfbe_active_sideIDs", [], true];
 
 					//--- Teams Units.
+					_removedTeams = count _town_teams;
+					_removedVehicles = count (_town getVariable 'wfbe_active_vehicles');
 					{
 						if !(isNil '_x') then {
 							if !(isNull _x) then {
@@ -265,10 +280,14 @@ while {!WFBE_GameOver} do {
 					} forEach (_town getVariable 'wfbe_active_vehicles');
 
 					_town_teams = [];
+					// Marty: Clear the networked tracked teams list after normal inactivity despawn to prevent stale teams accumulating.
+					_town setVariable ['wfbe_town_teams', []];
 					_town setVariable ['wfbe_active_vehicles', []];
 
 					//--- Despawn the town defenses unit.
 					[_town, _side, "remove"] Call WFBE_SE_FNC_OperateTownDefensesUnits;
+					// Marty: In-game debug summary for the normal no-threat despawn path.
+					[Format ["[Town Debug] %1 deactivated | No threat for %2s | Removed: %3 groups, %4 vehicles", _town getVariable "name", _unitsInactiveMax, _removedTeams, _removedVehicles]] Call WFBE_SE_FNC_SendTownDebugChat;
 					//// end of inner block
 				};
 			};

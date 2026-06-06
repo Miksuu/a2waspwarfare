@@ -9,7 +9,7 @@
 */
 
 // Marty: Optional global init flag lets town AI skip client marker/action setup.
-Private ["_crews", "_global", "_groups", "_lock", "_perfActive", "_perfCreateTeams", "_perfItemStart", "_perfScope", "_perfStart", "_position", "_positions", "_retVal", "_side", "_sideID", "_team", "_teams", "_town", "_townDefenderAI", "_town_teams", "_town_vehicles", "_units"];
+Private ["_crews", "_global", "_groups", "_lock", "_perfActive", "_perfCreateTeams", "_perfItemStart", "_perfScope", "_perfStart", "_position", "_positions", "_retVal", "_side", "_sideID", "_team", "_teams", "_town", "_town_teams", "_town_vehicles", "_units", "_vehicles"];
 
 _town = _this select 0;
 _side = _this select 1;
@@ -19,8 +19,6 @@ _teams = _this select 4;
 // Marty: Town AI can opt out of global Init_Unit marker/action setup to avoid client marker storms.
 _global = if (count _this > 5) then {_this select 5} else {true};
 _sideID = (_side) call WFBE_CO_FNC_GetSideID;
-// Marty: Mark resistance town-spawned AI so other town activation scans can ignore defender bleed-over.
-_townDefenderAI = (_side == WFBE_DEFENDER);
 
 _built = 0;
 _builtveh = 0;
@@ -60,13 +58,11 @@ for '_i' from 0 to count(_groups)-1 do {
 	if (isNull _team) then {
 		["WARNING", Format["Common_CreateTownUnits.sqf: Town [%1] [%2] skipped template %3 because the group is null.", _town, _side, _groups select _i]] Call WFBE_CO_FNC_LogContent;
 	} else {
-	// Marty: Keep the flag on units, crews, vehicles and group for locality-safe activation filtering.
-	if (_townDefenderAI) then {
-		_team setVariable ["WFBE_IsTownDefenderAI", true];
-		{
-			_x setVariable ["WFBE_IsTownDefenderAI", true, true];
-		} forEach (_units + _crews + _vehicles);
-	};
+	// Marty: Mark every town-spawned defense or occupation asset with its owning town for filtering, persistence and cleanup.
+	[_town, _team, _sideID, "mobile_group"] Call WFBE_CO_FNC_MarkTownDefenseAsset;
+	{[_town, _x, _sideID, "mobile_unit"] Call WFBE_CO_FNC_MarkTownDefenseAsset} forEach _units;
+	{[_town, _x, _sideID, "mobile_crew"] Call WFBE_CO_FNC_MarkTownDefenseAsset} forEach _crews;
+	{[_town, _x, _sideID, "mobile_vehicle"] Call WFBE_CO_FNC_MarkTownDefenseAsset} forEach _vehicles;
 
 	if ((count _units) + (count _crews) > 0) then {
 		[_town, _team, _sideID] execVM "Server\FSM\server_town_patrol.sqf";
