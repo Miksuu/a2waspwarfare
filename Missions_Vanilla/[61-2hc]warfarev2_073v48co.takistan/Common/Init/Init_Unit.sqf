@@ -173,5 +173,6 @@ _unit addEventHandler ["Fired", {
 }];
 
 _unit setVariable ["OriginalMarkerColor", _color, false];
+_unit setVariable ["JustDisabled", false, false];
 
 _params Spawn MarkerUpdate;

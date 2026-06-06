@@ -21,6 +21,7 @@ player setPos ([getMarkerPos Format["%1TempRespawnMarker",sideJoinedText],1,10] 
 }];
 
 (vehicle player) setVariable ["OriginalMarkerColor", "ColorOrange", false];
+(vehicle player) setVariable ["JustDisabled", false, false];
 
 _rearmor = {
    				_ammo = _this select 4;
@@ -713,7 +714,14 @@ publicVariableServer "WFBE_C_PLAYER_OBJECT";
 
 player setVariable ["score", 0];
 
-[] execVM "Client\Functions\Client_BookkeepBlinkingIcons.sqf";
+if (side player == west) then {
+	[] execVM "Client\Functions\Client_BookkeepBlinkingIcons_WEST.sqf";
+};
+
+if (side player == east) then {
+	[] execVM "Client\Functions\Client_BookkeepBlinkingIcons_EAST.sqf";
+};
+
 // [] execVM "Client\Functions\Client_BlinkMapIcons.sqf";
 
 _video = ["Videos\intro720p.ogv"] call BIS_fnc_playVideo;

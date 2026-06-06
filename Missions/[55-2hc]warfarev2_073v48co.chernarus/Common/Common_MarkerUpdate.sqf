@@ -26,10 +26,6 @@ _markerName setMarkerTypeLocal _markerType;
 _markerName setMarkerColorLocal _markerColor;
 _markerName setMarkerSizeLocal _markerSize;
 
-if (!(canMove _tracked)) then {
-	_markerName setMarkerTextLocal "   X";
-};
-
 _tracked setVariable ["unitMarkerBlink", _markerName, false];
 _tracked setVariable ["OriginalMarkerColor", _markerColor, false];
 
