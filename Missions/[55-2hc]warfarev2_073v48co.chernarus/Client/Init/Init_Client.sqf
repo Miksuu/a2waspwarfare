@@ -21,6 +21,7 @@ player setPos ([getMarkerPos Format["%1TempRespawnMarker",sideJoinedText],1,10] 
 }];
 
 (vehicle player) setVariable ["OriginalMarkerColor", "ColorOrange", false];
+(vehicle player) setVariable ["JustDisabled", false, false];
 
 _rearmor = {
    				_ammo = _this select 4;
