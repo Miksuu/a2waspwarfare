@@ -34,6 +34,8 @@ switch (_action) do {
 			_defense = _x getVariable "wfbe_defense";
 			_use_server = true;
 			if !(isNil '_defense') then {
+				// Marty: Store town-defense ownership on the static weapon before any server or HC gunner creation path.
+				[_town, _defense, _sideID, "static_weapon"] Call WFBE_CO_FNC_MarkTownDefenseAsset;
 				_positions = [];
 				_groups = [];
 				// Marty: Trace static gunner state before any server or HC creation path.
@@ -58,8 +60,8 @@ switch (_action) do {
 								};
 
 								if (count(missionNamespace getVariable "WFBE_HEADLESSCLIENTS_ID") > 0) then {
-									// Marty: Delegated town static gunners are also defender AI for town activation filtering.
-									[_side, _groups, _positions, _team, _defense, true, true] Call WFBE_CO_FNC_DelegateAIStaticDefenceHeadless;
+									// Marty: Delegated town static gunners carry the owning town for activation filtering and cleanup.
+									[_side, _groups, _positions, _team, _defense, true, true, _town] Call WFBE_CO_FNC_DelegateAIStaticDefenceHeadless;
 									// Marty: Confirm delegated static gunners so HC-side orphan cases can be correlated in RPT.
 									if (_diagEnabled) then {
 										["TOWN_DEFENSE_DIAG", Format ["static_spawn_delegated town:%1;side:%2;defense:%3;groups:%4;teamNull:%5;headless:%6", _town getVariable "name", _side, typeOf _defense, count _groups, isNull _team, count (missionNamespace getVariable ["WFBE_HEADLESSCLIENTS_ID", []])]] Call WFBE_CO_FNC_LogContent;
@@ -77,9 +79,9 @@ switch (_action) do {
 						if (isNull _unit) then {
 							["WARNING", Format ["Server_OperateTownDefensesUnits.sqf : Town [%1] failed to create static gunner for [%2].", _town getVariable "name", _side]] Call WFBE_CO_FNC_LogContent;
 						} else {
-							// Marty: Mark town static gunners so nearby enemy towns do not activate from them.
-							_unit setVariable ["WFBE_IsTownDefenderAI", true, true];
-							(group _unit) setVariable ["WFBE_IsTownDefenderAI", true];
+							// Marty: Mark town static gunners so nearby enemy towns do not activate from them and cleanup stays town-scoped.
+							[_town, _unit, _sideID, "static_gunner"] Call WFBE_CO_FNC_MarkTownDefenseAsset;
+							[_town, group _unit, _sideID, "static_group"] Call WFBE_CO_FNC_MarkTownDefenseAsset;
 							_unit assignAsGunner _defense;
 							[_unit] orderGetIn true;
 							_unit moveInGunner _defense;
