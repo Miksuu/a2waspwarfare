@@ -20,7 +20,8 @@
             if (isNil "_amt") then { _amt = 0; };
             if ((_amt > 0) && {!isNull _killer}) then {
                 _killerSide = side group _killer;
-                if (_killerSide in WFBE_PRESENTSIDES) then {
+                //--- Only a genuine ENEMY kill pays interdiction. Guards friendly-fire / self-destruct from minting own-side supply.
+                if ((_killerSide in WFBE_PRESENTSIDES) && {_killerSide != (side _veh)}) then {
                     _reward = round (_amt * WFBE_C_SUPPLY_INTERDICTION_CUT);
                     [_killerSide, _reward, format ["Logistics interdiction: enemy supply vehicle destroyed (+S %1).", _reward], false] call ChangeSideSupply;
                 };

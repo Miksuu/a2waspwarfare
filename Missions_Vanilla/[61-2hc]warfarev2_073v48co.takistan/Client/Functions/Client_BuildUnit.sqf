@@ -212,6 +212,8 @@ _spawnedUnits = [];
 if (!alive _building || isNull _building) exitWith {
 	unitQueu = unitQueu - _cpt;
 	missionNamespace setVariable [Format["WFBE_C_QUEUE_%1",_factory],(missionNamespace getVariable Format["WFBE_C_QUEUE_%1",_factory])-1];
+	//--- FC2: factory was destroyed mid-build (nothing spawned) -> refund the purchase price. This is the real destroyed-factory path.
+	if (_currentCost > 0) then {(_currentCost) Call ChangePlayerFunds};
 };
 
 if (_isMan) then {
@@ -366,10 +368,10 @@ if ((typeOf _vehicle) isKindOf "Tank" || (typeOf _vehicle) isKindOf "Car") then 
 	if (!_driver && !_gunner && !_commander) exitWith {
 		//--- Release fix (#3): empty-vehicle exit must still release the per-factory queue slot,
 		//--- otherwise WFBE_C_QUEUE_<type> leaks one each empty purchase and the factory soft-locks at its cap.
+		//--- NO refund here: this is the normal crewless/Depot purchase path and the vehicle WAS already
+		//--- spawned above. (The genuine destroyed-factory refund lives in the !alive _building exit earlier.)
 		unitQueu = unitQueu - _cpt;
 		missionNamespace setVariable [Format["WFBE_C_QUEUE_%1",_factory],(missionNamespace getVariable Format["WFBE_C_QUEUE_%1",_factory])-1];
-		//--- FC2: factory destroyed before the unit was built -> refund the purchase price.
-		if (_currentCost > 0) then {(_currentCost) Call ChangePlayerFunds};
 	};
 
 	//--- Crew Management.

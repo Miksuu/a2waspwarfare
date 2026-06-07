@@ -17,8 +17,11 @@ _dual = (missionNamespace getVariable "WFBE_C_ECONOMY_CURRENCY_SYSTEM") == 0;
 while {!gameOver} do {
 	{
 		_logik = (_x) Call WFBE_CO_FNC_GetSideLogic;
-		if (!isNull _logik && {!(_logik getVariable "wfbe_upgrading")}) then {
-			_queue = + (_logik getVariable "wfbe_upgrade_queue");
+		//--- getVariable defaults guard a present-but-uninitialized side (e.g. resistance in a future
+		//--- three-way setup): WFBE_PRESENTSIDES can include a side whose logic never got these vars,
+		//--- and the bare-string reads would make !(nil) / + nil throw.
+		if (!isNull _logik && {!(_logik getVariable ["wfbe_upgrading", false])}) then {
+			_queue = + (_logik getVariable ["wfbe_upgrade_queue", []]);
 			if (count _queue > 0) then {
 				_id = _queue select 0;
 				_upgrades = (_x) Call WFBE_CO_FNC_GetSideUpgrades;
