@@ -75,4 +75,10 @@ while {true} do {
 //--- Fix the damages?
 if (_cts != 0) then {
 	_veh setDammage 0;
+	//--- Jets: a full repair restores fuel to 100% and re-arms the SPAAG survival mechanic.
+	if (_veh isKindOf "Plane") then {
+		_veh setFuel 1;
+		_veh setVariable ["wfbe_jet_aa_hits", 0, true];
+		_veh setVariable ["wfbe_jet_aa_lasthit", -100, true];
+	};
 };
