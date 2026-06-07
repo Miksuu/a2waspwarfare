@@ -481,13 +481,6 @@
 		texts[] = {"$STR_WF_Disabled","$STR_WF_PARAMETER_Light","$STR_WF_PARAMETER_Medium","$STR_WF_PARAMETER_Hard","$STR_WF_PARAMETER_Impossible"};
 		default = 1;
 	};
-	class WFBE_C_TOWN_DEFENSE_DIAGNOSTICS {
-		title = "Town Defense Diagnostics";
-		values[] = {0,1};
-		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		// Marty: Enable focused town defense diagnostics by default for live investigation.
-		default = 1;
-	};
 	class WFBE_C_TOWNS_PATROLS {
 		title = "$STR_WF_PARAMETER_MaxResPatrols";
 		values[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,22,24,26,28,30,32,34,36,38,40,50,60,70,80,90,100};
