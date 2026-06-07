@@ -166,6 +166,11 @@ waitUntil {commonInitComplete};
 
 ["INITIALIZATION", Format ["Init_Client.sqf: Common initialization is complete at [%1]", time]] Call WFBE_CO_FNC_LogContent;
 
+// Marty: Show the test build marker once in debug mode so testers can confirm the running PBO version.
+if (WF_Debug) then {
+	systemChat "TD Debug build: 2026-06-07 01:46";
+};
+
 if (ARMA_VERSION >= 162 && ARMA_RELEASENUMBER > 97105 || ARMA_VERSION > 162) then {
 	//--- Profile namespace related.
 	WFBE_CL_FNC_UI_Gear_SaveTemplateProfile = Compile preprocessFileLineNumbers "Client\Functions\Client_UI_Gear_SaveTemplateProfile.sqf";
