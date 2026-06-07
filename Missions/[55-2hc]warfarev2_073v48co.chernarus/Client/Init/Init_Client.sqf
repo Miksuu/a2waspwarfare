@@ -89,6 +89,8 @@ BIS_FNC_GUIget = {UInamespace getVariable (_this select 0)};
 WFBE_CL_FNC_AddWFMenuAction = Compile preprocessFileLineNumbers "Client\Functions\Client_AddWFMenuAction.sqf";
 WFBE_CL_FNC_AddPlayerAIActions = Compile preprocessFileLineNumbers "Client\Functions\Client_AddPlayerAIActions.sqf";
 WFBE_CL_FNC_ChangeClientFunds = Compile preprocessFileLineNumbers "Client\Functions\Client_ChangePlayerFunds.sqf";
+// Marty: Local cleanup for town AI delegated to this client or headless client.
+WFBE_CL_FNC_CleanupDelegatedTownAI = Compile preprocessFileLineNumbers "Client\Functions\Client_CleanupDelegatedTownAI.sqf";
 WFBE_CL_FNC_DelegateTownAI = Compile preprocessFileLineNumbers "Client\Functions\Client_DelegateTownAI.sqf";
 WFBE_CL_FNC_DelegateAI = Compile preprocessFileLineNumbers "Client\Functions\Client_DelegateAI.sqf";
 WFBE_CL_FNC_DelegateAIStaticDefence = Compile preprocessFileLineNumbers "Client\Functions\Client_DelegateAIStaticDefence.sqf";
@@ -168,7 +170,7 @@ waitUntil {commonInitComplete};
 
 // Marty: Show the test build marker once in debug mode so testers can confirm the running PBO version.
 if (WF_Debug) then {
-	systemChat "TD Debug build: 2026-06-07 12:55";
+	systemChat "TD Debug build: 2026-06-07 22:19";
 };
 
 if (ARMA_VERSION >= 162 && ARMA_RELEASENUMBER > 97105 || ARMA_VERSION > 162) then {
