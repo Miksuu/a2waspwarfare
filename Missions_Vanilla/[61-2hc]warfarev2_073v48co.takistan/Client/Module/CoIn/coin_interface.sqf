@@ -893,6 +893,7 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 						_itemcost = _x select 2;
 						_itemcash = 0;
 						if (typename _itemcost == "ARRAY") then {_itemcash = _itemcost select 0; _itemcost = _itemcost select 1};
+						if (isNil "_itemcost" || {typeName _itemcost != "SCALAR"}) then {_itemcost = 0}; //--- PR8 (claude): a malformed item (invalid anchor class -> [cash,<null>] cost) leaves _itemcost nil; force numeric to stop the _canAffordCount/_itemcost undefined-variable RPT cascade.
 						_cashValue = _cashValues select _itemcash;
 						_cashDescription = if (count _fundsDescription > _itemcash) then {_fundsDescription select _itemcash} else {"?"};
 						_itemname = if (count _x > 3) then {_x select 3} else {getText (configFile >> "CfgVehicles" >> _itemclass >> "displayName")};
@@ -907,6 +908,7 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 						};
 						if (_itemcategory == _i/*_category*/) then {
 							_canAfford = if (_cashValue - _itemcost >= 0 && !_buildLimit) then {1} else {0};
+							if (isNil "_canAfford") then {_canAfford = 0}; //--- PR8 (claude): belt-and-suspenders so a bad cost can't leave _canAffordCount undefined.
 							_canAffordCount = _canAffordCount + _canAfford;
 							// _text = _itemname + " - " + _cashDescription + str _itemcost;
 							// _arrayNamesLong = _arrayNamesLong + [_text + "                   "];
