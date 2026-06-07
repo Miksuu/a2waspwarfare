@@ -33,30 +33,16 @@ for "_j" from 0 to ((count towns) - 1) step 1 do
 
 while {!WFBE_GameOver} do {
 
-	// Marty: Performance Audit timing for one full town capture/supply server cycle.
-	_perfStart = diag_tickTime;
-	_perfTowns = 0;
-	_perfNearEntities = 0;
-	_perfDetected = 0;
-	_perfNetworkWrites = 0;
-	_perfCaptures = 0;
-	_perfActive = 0;
-
 	for "_i" from 0 to ((count towns) - 1) step 1 do
 	{
-		// Marty: Performance Audit active time excludes the cooperative sleep below.
-		_perfItemStart = diag_tickTime;
 
 		_location = towns select _i;
-		_perfTowns = _perfTowns + 1;
 		_startingSupplyValue = _location getVariable "startingSupplyValue";
 		_maxSupplyValue = _location getVariable "maxSupplyValue";
 
 				_sideID = _location getVariable "sideID";
 				_side = (_sideID) Call WFBE_CO_FNC_GetSideFromID;
 				_objects = (_location nearEntities[["Man","Car","Motorcycle","Tank","Air","Ship"], 	_town_capture_range]) unitsBelowHeight 10;
-				_perfNearEntities = _perfNearEntities + 1;
-				_perfDetected = _perfDetected + count _objects;
 
 				_west = west countSide _objects;
 				_east = east countSide _objects;
@@ -92,8 +78,6 @@ while {!WFBE_GameOver} do {
 							};
 							_supplyValue = _supplyValue + _increaseOf;
 							if (_supplyValue > _maxSupplyValue) then {_supplyValue = _maxSupplyValue};
-							// Marty: Performance Audit counter for networked town state writes.
-							_perfNetworkWrites = _perfNetworkWrites + 1;
 							_location setVariable ["supplyValue", _supplyValue, true];
 						};
 					};
@@ -199,17 +183,8 @@ while {!WFBE_GameOver} do {
 				if (_activeEnemies > 0 && time > _timeAttacked && (missionNamespace getVariable Format ["WFBE_%1_PRESENT",_side])) then {_timeAttacked = time + 60;[_side, "IsUnderAttack", ["Town", _location]] Spawn SideMessage};
 			};
 
-			// Marty: Publish the side IDs currently reducing town SV so clients do not reveal attacked-town SV globally.
-			_attackerSideIDs = [];
-			if (_west > 0) then {_attackerSideIDs set [count _attackerSideIDs, WFBE_C_WEST_ID]};
-			if (_east > 0) then {_attackerSideIDs set [count _attackerSideIDs, WFBE_C_EAST_ID]};
-			if (_resistance > 0) then {_attackerSideIDs set [count _attackerSideIDs, WFBE_C_GUER_ID]};
-			_location setVariable ["wfbe_attacker_sideIDs", _attackerSideIDs, true];
-
 			_supplyValue = round(_supplyValue - (_resistance + _east + _west) * _rate);
 			if (_supplyValue < 1) then {_supplyValue = _startingSupplyValue; _captured = true};
-			// Marty: Performance Audit counter for networked town state writes.
-			_perfNetworkWrites = _perfNetworkWrites + 1;
 			_location setVariable ["supplyValue",_supplyValue,true];
 		};
 
@@ -217,59 +192,12 @@ while {!WFBE_GameOver} do {
 			if (_supplyValue < _startingSupplyValue) then {
 				_supplyValue = _supplyValue + _force * _town_capture_rate;
 				if (_supplyValue > _startingSupplyValue) then {_supplyValue = _startingSupplyValue};
-				// Marty: Performance Audit counter for networked town state writes.
-				_perfNetworkWrites = _perfNetworkWrites + 1;
 				_location setVariable ["supplyValue",_supplyValue,true];
 			};
 		};
 
 		if(_captured) then {
 			["INFORMATION", Format ["server_town.sqf: Town [%1] was captured by [%2] From [%3].", _location, _newSide, _side]] Call WFBE_CO_FNC_LogContent;
-
-			// Marty: Event-only diagnostics for captured-town AI state before side replacement work.
-			if (missionNamespace getVariable ["TownDefenseDiagnosticsEnabled", false]) then {
-				["TOWN_DEFENSE_DIAG", Format ["capture_before town:%1;oldSide:%2;newSide:%3;sv:%4;active:%5;activeAir:%6;teams:%7;vehicles:%8;activeSideIDs:%9", _location getVariable "name", _sideID, _newSID, _supplyValue, _location getVariable ["wfbe_active", false], _location getVariable ["wfbe_active_air", false], count (_location getVariable ["wfbe_town_teams", []]), count (_location getVariable ["wfbe_active_vehicles", []]), _location getVariable ["wfbe_active_sideIDs", []]]] Call WFBE_CO_FNC_LogContent;
-			};
-
-			// Marty: A captured town drops active tracking for respawn reliability, but old defenders persist briefly and are cleaned later.
-			_captureTeams = +(_location getVariable ["wfbe_town_teams", []]);
-			_captureVehicles = +(_location getVariable ["wfbe_active_vehicles", []]);
-			// Marty: Keep production persistence at 10 minutes, but shorten it to 1 minute when mission debug is enabled.
-			_persistDelay = missionNamespace getVariable ["WFBE_C_TOWN_DEFENSE_CAPTURE_PERSIST_TIME", 600];
-			if (WF_Debug) then {_persistDelay = 60};
-			_persistUntil = time + _persistDelay;
-			_persistentAssets = +(_location getVariable ["wfbe_persistent_town_defense_assets", []]);
-			{
-				_captureGroup = _x;
-				if !(isNil "_captureGroup") then {
-					if !(isNull _captureGroup) then {
-						[_location, _captureGroup, _sideID, "captured_mobile_group", _persistUntil] Call WFBE_CO_FNC_MarkTownDefenseAsset;
-						{
-							[_location, _x, _sideID, "captured_mobile_unit", _persistUntil] Call WFBE_CO_FNC_MarkTownDefenseAsset;
-						} forEach units _captureGroup;
-						if !(_captureGroup in _persistentAssets) then {[_persistentAssets, _captureGroup] Call WFBE_CO_FNC_ArrayPush};
-					};
-				};
-			} forEach _captureTeams;
-			{
-				if !(isNull _x) then {
-					[_location, _x, _sideID, "captured_mobile_vehicle", _persistUntil] Call WFBE_CO_FNC_MarkTownDefenseAsset;
-					if !(_x in _persistentAssets) then {[_persistentAssets, _x] Call WFBE_CO_FNC_ArrayPush};
-				};
-			} forEach _captureVehicles;
-			_location setVariable ["wfbe_persistent_town_defense_assets", _persistentAssets];
-			_location setVariable ["wfbe_active", false, true];
-			_location setVariable ["wfbe_active_air", false, true];
-			_location setVariable ["wfbe_active_sideIDs", [], true];
-			_location setVariable ["wfbe_active_override", false];
-			_location setVariable ["wfbe_inactivity", time];
-			_location setVariable ["wfbe_town_teams", []];
-			_location setVariable ["wfbe_active_vehicles", []];
-			if (missionNamespace getVariable ["TownDefenseDiagnosticsEnabled", false]) then {
-				["TOWN_DEFENSE_DIAG", Format ["capture_persist_defenses town:%1;oldSide:%2;newSide:%3;teamsPersisted:%4;vehiclesPersisted:%5;expireIn:%6;persistentAssets:%7;active:%8;activeAir:%9;teams:%10;vehicles:%11", _location getVariable "name", _sideID, _newSID, count _captureTeams, count _captureVehicles, _persistDelay, count _persistentAssets, _location getVariable ["wfbe_active", false], _location getVariable ["wfbe_active_air", false], count (_location getVariable ["wfbe_town_teams", []]), count (_location getVariable ["wfbe_active_vehicles", []])]] Call WFBE_CO_FNC_LogContent;
-			};
-			// Marty: In-game debug summary for testers; the helper exits immediately outside WF_Debug.
-			[Format ["[Town Debug] %1 captured %2 -> %3 | Old defenders kept %4s: %5 groups, %6 vehicles", _location getVariable "name", str _side, str _newSide, _persistDelay, count _captureTeams, count _captureVehicles]] Call WFBE_SE_FNC_SendTownDebugChat;
 
 			if (_sideID != WFBE_C_UNKNOWN_ID) then {
 				if (missionNamespace getVariable Format ["WFBE_%1_PRESENT",_side]) then {[_side, "Lost", _location] Spawn SideMessage};
@@ -278,12 +206,12 @@ while {!WFBE_GameOver} do {
 			if (missionNamespace getVariable Format ["WFBE_%1_PRESENT",_newSide]) then {[_newSide, "Captured", _location] Spawn SideMessage};
 
 			_location setVariable ["sideID",_newSID,true];
-			// Marty: Performance Audit counters for town capture network events.
-			_perfNetworkWrites = _perfNetworkWrites + 1;
-			_perfCaptures = _perfCaptures + 1;
 
 			[nil, "TownCaptured", [_location, _sideID, _newSID]] Call WFBE_CO_FNC_SendToClients;
 			if ((missionNamespace getVariable "WFBE_C_CAMPS_CREATE") > 0) then {[_location, _sideID, _newSID] Spawn WFBE_SE_FNC_SetCampsToSide};
+
+			//--- Clear the town defenses, units first then replace the defenses if needed.
+			[_location, _side, "remove"] Call WFBE_SE_FNC_OperateTownDefensesUnits;
 
 			//--- Check if the side is enabled in town and add defenses if needed.
 			_side_enabled = false;
@@ -293,59 +221,12 @@ while {!WFBE_GameOver} do {
 				if (_town_occupation_enabled) then {_side_enabled = true};
 			};
 
-			// Marty: Only resistance towns get static defense weapons; occupation towns rely on mobile defenders.
-			_staticDefensesRemoved = 0;
-			if (_side_enabled && _newSide == WFBE_DEFENDER) then {
-				[_location, _newSide, _sideID] Call WFBE_SE_FNC_ManageTownDefenses;
-			};
-			if (_newSide != WFBE_DEFENDER) then {
-				{
-					_defense = _x getVariable "wfbe_defense";
-					if !(isNil "_defense") then {
-						_gunner = gunner _defense;
-						if !(isNull _gunner) then {
-							if !(isPlayer _gunner) then {
-								unassignVehicle _gunner;
-								moveOut _gunner;
-								_gunner setPos (getPos _x);
-								[_location, _gunner, _sideID, "captured_static_gunner", _persistUntil] Call WFBE_CO_FNC_MarkTownDefenseAsset;
-								[_location, group _gunner, _sideID, "captured_static_group", _persistUntil] Call WFBE_CO_FNC_MarkTownDefenseAsset;
-								if !(_gunner in _persistentAssets) then {[_persistentAssets, _gunner] Call WFBE_CO_FNC_ArrayPush};
-								if !((group _gunner) in _persistentAssets) then {[_persistentAssets, group _gunner] Call WFBE_CO_FNC_ArrayPush};
-							};
-						};
-						if !(isNull _defense) then {
-							deleteVehicle _defense;
-							_staticDefensesRemoved = _staticDefensesRemoved + 1;
-						};
-						_x setVariable ["wfbe_defense", nil];
-					};
-				} forEach (_location getVariable ["wfbe_town_defenses", []]);
-				_location setVariable ["wfbe_persistent_town_defense_assets", _persistentAssets];
-				if (missionNamespace getVariable ["TownDefenseDiagnosticsEnabled", false]) then {
-					["TOWN_DEFENSE_DIAG", Format ["capture_static_defenses_removed town:%1;oldSide:%2;newSide:%3;removed:%4;persistentAssets:%5", _location getVariable "name", _sideID, _newSID, _staticDefensesRemoved, count _persistentAssets]] Call WFBE_CO_FNC_LogContent;
-				};
-				// Marty: In-game debug summary for occupation towns where static weapons are intentionally removed.
-				[Format ["[Town Debug] %1 statics removed | Weapons: %2 | Former gunners kept temporarily", _location getVariable "name", _staticDefensesRemoved]] Call WFBE_SE_FNC_SendTownDebugChat;
-			};
-
-			// Marty: Event-only diagnostics for captured-town static defense replacement decision.
-			if (missionNamespace getVariable ["TownDefenseDiagnosticsEnabled", false]) then {
-				["TOWN_DEFENSE_DIAG", Format ["capture_after town:%1;oldSide:%2;newSide:%3;sideEnabled:%4;active:%5;activeAir:%6;teams:%7;vehicles:%8;defenses:%9", _location getVariable "name", _sideID, _newSID, _side_enabled, _location getVariable ["wfbe_active", false], _location getVariable ["wfbe_active_air", false], count (_location getVariable ["wfbe_town_teams", []]), count (_location getVariable ["wfbe_active_vehicles", []]), count (_location getVariable ["wfbe_town_defenses", []])]] Call WFBE_CO_FNC_LogContent;
-			};
+			//--- If the side is defined, we create the new side's defenses.
+			if (_side_enabled) then {[_location, _newSide, _sideID] Call WFBE_SE_FNC_ManageTownDefenses};
 		};
 		};
-		_perfActive = _perfActive + (diag_tickTime - _perfItemStart);
 		sleep 0.05;
 	};
-
-	// Marty: Performance Audit record for one full town capture/supply server cycle.
-	if !(isNil "PerformanceAudit_Record") then {
-		if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {
-			["server_town", _perfActive, Format["towns:%1;nearEntities:%2;detected:%3;networkWrites:%4;captures:%5;cycleMs:%6", _perfTowns, _perfNearEntities, _perfDetected, _perfNetworkWrites, _perfCaptures, round ((diag_tickTime - _perfStart) * 1000)], "SERVER"] Call PerformanceAudit_Record;
-		};
-	};
-
 	_isTimeToUpdateSuppluys = false;
 	sleep 5;
 	if (time >= _lastUp) then {
