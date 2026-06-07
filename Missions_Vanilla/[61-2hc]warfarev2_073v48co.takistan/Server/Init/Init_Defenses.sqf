@@ -145,31 +145,32 @@ missionNamespace setVariable ['WFBE_NEURODEF_WALL_GATE',[
 	['Hedgehog',[-2.7,0,0],0],['Hedgehog',[2.7,0,0],0]
 ]];
 
-//--- AA position (LARGE, manned) ---
+//--- AA position (LIGHT tier, 2 AI) — dispersed twin AA; camo nets sit OFFSET behind the launchers so they never block upward fire ---
 missionNamespace setVariable ['WFBE_NEURODEF_AAPOS_WEST',[
-	['Stinger_Pod_US_EP1',[-8,6,0],330],['Stinger_Pod_US_EP1',[0,8,0],0],['Stinger_Pod_US_EP1',[8,6,0],30],
-	['Land_fort_bagfence_round',[-8,4.4,0],0],['Land_fort_bagfence_round',[0,6.2,0],0],['Land_fort_bagfence_round',[8,4.4,0],0],
-	['M2StaticMG',[0,-4,0],180],['Land_fort_bagfence_round',[0,-6.2,0],0],
-	['USLaunchers_EP1',[-4,2,0],0],['USLaunchers_EP1',[4,2,0],0],
-	['Land_CamoNetVar_NATO',[-4,6,0],0],['Land_CamoNetVar_NATO',[4,6,0],0],
-	['Fort_RazorWire',[-7,-6,0],0],['Fort_RazorWire',[7,-6,0],0]
+	['Stinger_Pod_US_EP1',[-5,3,0],340],['Stinger_Pod_US_EP1',[5,3,0],20],
+	['Land_fort_bagfence_round',[-5,3,0],0],['Land_fort_bagfence_round',[5,3,0],0],
+	['Land_CamoNetVar_NATO',[-5,0,0],0],['Land_CamoNetVar_NATO',[5,0,0],0],
+	['USLaunchers_EP1',[0,-2,0],0],
+	['Land_HBarrier_large',[-8,1,0],90],['Land_HBarrier_large',[8,1,0],90],
+	['Fort_RazorWire',[0,5,0],0]
 ]];
 missionNamespace setVariable ['WFBE_NEURODEF_AAPOS_EAST',[
-	['ZU23_TK_EP1',[-7,5,0],350],['ZU23_TK_EP1',[7,5,0],10],['Igla_AA_pod_TK_EP1',[0,7,0],0],
-	['DSHKM_TK_INS_EP1',[0,-4,0],180],
-	['TKVehicleBox_EP1',[-5,1,0],0],['TKVehicleBox_EP1',[5,1,0],0],
-	['Land_HBarrier_large',[-11,4,0],90],['Land_HBarrier_large',[11,4,0],90],
-	['Land_HBarrier_large',[-6,-2,0],0],['Land_HBarrier_large',[0,-2,0],0],['Land_HBarrier_large',[6,-2,0],0],
-	['Hedgehog',[-4,-6,0],0],['Hedgehog',[4,-6,0],0],['Fort_RazorWire',[0,-7,0],0]
+	['ZU23_TK_EP1',[-5,3,0],340],['Igla_AA_pod_TK_EP1',[5,3,0],20],
+	['Land_fort_bagfence_round',[-5,3,0],0],['Land_fort_bagfence_round',[5,3,0],0],
+	['Land_CamoNet_EAST',[-5,0,0],0],['Land_CamoNet_EAST',[5,0,0],0],
+	['TKVehicleBox_EP1',[0,-2,0],0],
+	['Land_HBarrier_large',[-8,1,0],90],['Land_HBarrier_large',[8,1,0],90],
+	['Fort_RazorWire',[0,5,0],0]
 ]];
 
-//--- Artillery position (LARGE, manned) ---
+//--- Artillery position (HEAVY tier, 4 AI) — 3-gun battery + rear MG security. Guns kept CLEAR of overhead cover (high-angle fire); concealment nets are at the REAR only ---
 missionNamespace setVariable ['WFBE_NEURODEF_ARTYPOS_WEST',[
 	['M119_US_EP1',[-9,4,0],0],['M119_US_EP1',[0,5,0],0],['M119_US_EP1',[9,4,0],0],
 	['USBasicAmmunitionBox_EP1',[-9,-1,0],0],['USBasicAmmunitionBox_EP1',[0,0,0],0],['USBasicAmmunitionBox_EP1',[9,-1,0],0],
 	['Land_fort_bagfence_long',[-13,3,0],90],['Land_fort_bagfence_long',[13,3,0],90],
 	['Land_fort_bagfence_long',[-6,-3,0],0],['Land_fort_bagfence_long',[6,-3,0],0],
-	['M2StaticMG',[0,-5,0],180],['Land_fort_bagfence_round',[0,-7,0],0],
+	['M2StaticMG',[0,-5,0],180],['Land_fort_bagfence_round',[0,-5,0],0],
+	['Land_CamoNetVar_NATO',[-5,-2,0],0],['Land_CamoNetVar_NATO',[5,-2,0],0],
 	['Fort_RazorWire',[-8,-7,0],0],['Fort_RazorWire',[8,-7,0],0]
 ]];
 missionNamespace setVariable ['WFBE_NEURODEF_ARTYPOS_EAST',[
@@ -177,27 +178,25 @@ missionNamespace setVariable ['WFBE_NEURODEF_ARTYPOS_EAST',[
 	['TKBasicAmmunitionBox_EP1',[-9,-1,0],0],['TKBasicAmmunitionBox_EP1',[0,0,0],0],['TKBasicAmmunitionBox_EP1',[9,-1,0],0],
 	['Land_HBarrier_large',[-13,3,0],90],['Land_HBarrier_large',[13,3,0],90],
 	['Land_HBarrier_large',[-9,-2,0],0],['Land_HBarrier_large',[-3,-2,0],0],['Land_HBarrier_large',[3,-2,0],0],['Land_HBarrier_large',[9,-2,0],0],
-	['DSHKM_TK_INS_EP1',[0,-5,0],180],
-	['Hedgehog',[-7,-6,0],0],['Hedgehog',[7,-6,0],0]
+	['DSHKM_TK_INS_EP1',[0,-5,0],180],['Land_fort_bagfence_round',[0,-5,0],0],
+	['Land_CamoNet_EAST',[-5,-3.5,0],0],['Land_CamoNet_EAST',[5,-3.5,0],0],
+	['Hedgehog',[-7,-7,0],0],['Hedgehog',[7,-7,0],0]
 ]];
 
-//--- Mixed position (LARGE, manned, combined arms, no artillery) ---
+//--- Mixed position (LIGHT tier, 2 AI) — compact MG + AT crossfire, angled for interlocking fire (no artillery) ---
 missionNamespace setVariable ['WFBE_NEURODEF_MIXEDPOS_WEST',[
-	['M2StaticMG',[-9,3,0],335],['M2StaticMG',[9,3,0],25],['TOW_TriPod_US_EP1',[0,6,0],0],
-	['Stinger_Pod_US_EP1',[0,-2,0],0],['Land_fort_bagfence_round',[0,-4,0],0],
-	['USBasicAmmunitionBox_EP1',[-4,0,0],0],['USBasicAmmunitionBox_EP1',[4,0,0],0],
-	['Land_fort_bagfence_corner',[-10,1,0],270],['Land_fort_bagfence_long',[-10,-3,0],0],
-	['Land_fort_bagfence_long',[10,-3,0],0],['Land_fort_bagfence_corner',[10,1,0],180],
-	['Land_HBarrier_large',[0,9,0],0],
-	['Fort_RazorWire',[-6,-6,0],0],['Fort_RazorWire',[6,-6,0],0]
+	['M2StaticMG',[-5,3,0],340],['TOW_TriPod_US_EP1',[5,3,0],20],
+	['Land_fort_bagfence_round',[-5,3,0],0],['Land_fort_bagfence_round',[5,3,0],0],
+	['USBasicAmmunitionBox_EP1',[0,-2,0],0],
+	['Land_fort_bagfence_long',[-7,0,0],0],['Land_fort_bagfence_long',[7,0,0],0],
+	['Fort_RazorWire',[0,5,0],0]
 ]];
 missionNamespace setVariable ['WFBE_NEURODEF_MIXEDPOS_EAST',[
-	['DSHKM_TK_INS_EP1',[-8,4,0],350],['DSHKM_TK_INS_EP1',[8,4,0],10],['Metis_TK_EP1',[0,6,0],0],
-	['Igla_AA_pod_TK_EP1',[0,-2,0],0],['Land_fort_bagfence_round',[0,-4,0],0],
-	['TKBasicAmmunitionBox_EP1',[-4,0,0],0],['TKBasicAmmunitionBox_EP1',[4,0,0],0],
-	['Land_HBarrier_large',[-10,3,0],90],['Land_HBarrier_large',[10,3,0],90],
-	['Land_HBarrier_large',[-6,-3,0],0],['Land_HBarrier_large',[0,-3,0],0],['Land_HBarrier_large',[6,-3,0],0],
-	['Hedgehog',[-6,-6,0],0],['Hedgehog',[6,-6,0],0],['Fort_RazorWire',[0,-7,0],0]
+	['DSHKM_TK_INS_EP1',[-5,3,0],340],['SPG9_TK_INS_EP1',[5,3,0],20],
+	['Land_fort_bagfence_round',[-5,3,0],0],['Land_fort_bagfence_round',[5,3,0],0],
+	['TKBasicAmmunitionBox_EP1',[0,-2,0],0],
+	['Land_fort_bagfence_long',[-7,0,0],0],['Land_fort_bagfence_long',[7,0,0],0],
+	['Fort_RazorWire',[0,5,0],0]
 ]];
 
 //--- Anchor (build-menu placeholder classname) -> composition template map.
