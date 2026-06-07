@@ -46,7 +46,11 @@ class RscTitles {
 		idd=10200;
 		movingEnable = 0;
 		duration=15000;
-		name="gps";
+		// GPS FIX: was name="gps", which bound this map-LESS HUD overlay to the engine GPS slot,
+		// so showGPS had nothing with a map to render and the GPS/mini-map never appeared. This
+		// overlay is shown via cutRsc (Init_Client) independently, so renaming it frees the GPS
+		// slot and lets the vanilla GPS receiver (ItemGPS + showGPS true from the WF-menu button) work.
+		name="wf_hud_overlay";
 		controls[]={"txt_dwn","txt_crw","OptionsIcon0","OptionsIcon1","OptionsIcon2","OptionsIcon3","OptionsIcon4","OptionsIcon5","OptionsIcon6"};
 		onload="uiNamespace setVariable['GUI',_this select 0];";
 
