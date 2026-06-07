@@ -1,14 +1,11 @@
 /* Structures */
+//--- Barracks: enclosed HESCO compound with a front walking gap (infantry factory — no vehicle egress to block).
+//--- Cleaner + FPS-lighter than scattered H-barriers (8 wall sections). Footprint/fit needs an in-engine check.
 missionNamespace setVariable ['WFBE_NEURODEF_BARRACKS_WALLS',[
-	['Land_HBarrier_large',[8,0,0],90],
-	['Land_HBarrier_large',[8,10,0],90],
-	['Land_HBarrier_large',[8,-7.5,0],90],
-	['Land_HBarrier_large',[5,-11,0],180],
-	['Land_HBarrier_large',[-6,-11,0],180],
-	['Land_HBarrier_large',[-9.5,-7.5,0],90],
-	['Land_HBarrier_large',[-9.5,2.5,0],90],
-	['Land_HBarrier_large',[5,13,0],180],
-	['Land_HBarrier_large',[-6,13,0],180]
+	['Base_WarfareBBarrier5x',[-7,11,0],0],['Base_WarfareBBarrier5x',[7,11,0],0],
+	['Base_WarfareBBarrier5x',[-7,-11,0],0],['Base_WarfareBBarrier5x',[7,-11,0],0],
+	['Base_WarfareBBarrier5x',[-11,-5,0],90],['Base_WarfareBBarrier5x',[-11,5,0],90],
+	['Base_WarfareBBarrier5x',[11,-5,0],90],['Base_WarfareBBarrier5x',[11,5,0],90]
 ]];
 
 missionNamespace setVariable ['WFBE_NEURODEF_LIGHT_WALLS',[
