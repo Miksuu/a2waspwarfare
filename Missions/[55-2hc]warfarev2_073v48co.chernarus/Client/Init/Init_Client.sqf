@@ -168,7 +168,7 @@ waitUntil {commonInitComplete};
 
 // Marty: Show the test build marker once in debug mode so testers can confirm the running PBO version.
 if (WF_Debug) then {
-	systemChat "TD Debug build: 2026-06-07 01:46";
+	systemChat "TD Debug build: 2026-06-07 11:16";
 };
 
 if (ARMA_VERSION >= 162 && ARMA_RELEASENUMBER > 97105 || ARMA_VERSION > 162) then {
