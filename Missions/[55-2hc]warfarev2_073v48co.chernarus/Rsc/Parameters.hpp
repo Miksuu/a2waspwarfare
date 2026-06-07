@@ -486,7 +486,7 @@
 		title = "$STR_WF_PARAMETER_MaxResPatrols";
 		values[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,22,24,26,28,30,32,34,36,38,40,50,60,70,80,90,100};
 		texts[] = {"$STR_WF_Disabled","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","22","24","26","28","30","32","34","36","38","40","50","60","70","80","90","100"};
-		default = 6;   //--- Town patrols ON by default (up to 6 towns). 0 disables. Each patrol is a roaming AI group — this is the main perf lever for the feature.
+		default = 0;   //--- Town patrols OFF by default; DR-57 fix makes them work when enabled. Set >0 in the lobby (number of towns to patrol) to turn on. Each patrol is a roaming AI group — main perf lever.
 	};
 	class WFBE_C_TOWNS_BUILD_PROTECTION_RANGE {
 		title = "$STR_WF_PARAMETER_TownProtectionRange";
