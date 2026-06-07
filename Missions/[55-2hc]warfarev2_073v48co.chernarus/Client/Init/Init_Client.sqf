@@ -168,7 +168,7 @@ waitUntil {commonInitComplete};
 
 // Marty: Show the test build marker once in debug mode so testers can confirm the running PBO version.
 if (WF_Debug) then {
-	systemChat "TD Debug build: 2026-06-07 11:16";
+	systemChat "TD Debug build: 2026-06-07 11:49";
 };
 
 if (ARMA_VERSION >= 162 && ARMA_RELEASENUMBER > 97105 || ARMA_VERSION > 162) then {
@@ -183,10 +183,6 @@ missionNamespace setVariable ["AUTO_SEND_SPAWNED_UNITS_TO_WAYPOINT", false];
 missionNamespace setVariable ["WFBE_CLIENT_LAST_TEAMLEADER_MAP_ORDER_POSITION", []];
 missionNamespace setVariable ["WFBE_CLIENT_LAST_TEAMLEADER_MAP_ORDER_GROUP", grpNull];
 missionNamespace setVariable ["WFBE_CLIENT_LAST_TEAMLEADER_MAP_ORDER_TIME", -5000];
-// Marty: Timestamp used to distinguish active map commanders from players who only left the map open.
-missionNamespace setVariable ["WFBE_CLIENT_LAST_MAP_COMMAND_CLICK_TIME", -5000];
-missionNamespace setVariable ["WFBE_CLIENT_LAST_MAP_COMMAND_CLICK_POS", []];
-missionNamespace setVariable ["WFBE_CLIENT_COMMAND_AND_CONQUER_WINDOW", 180];
 // Marty: State used by Ctrl-click map disband because onMapSingleClick does not expose Ctrl.
 missionNamespace setVariable ["WFBE_CLIENT_MAP_DISBAND_CTRL_DOWN", false];
 
@@ -267,14 +263,6 @@ WFBE_CO_FNC_HandleAFKkeys = compile preprocessFileLineNumbers "Client\Module\AFK
 AFKthresholdExceededName = name player;
 WFBE_CO_VAR_AFKkickThreshold = 30;
 WFBE_CO_VAR_NotAFK_update = false;
-// Marty: Separate physical movement from map-command activity for AFK marker text only.
-WFBE_CO_VAR_NotAFK_MovementUpdate = false;
-// Marty: Keep anti-kick activity and physical movement separate for Command & Conquer marker state.
-player setVariable ["lastActionTime", time];
-player setVariable ["lastMovementTime", time];
-// Marty: Networked marker state for immobile players who are still actively commanding from map clicks.
-player setVariable ["WASP_AFK", false, true];
-player setVariable ["WASP_CommandAndConquer", false, true];
 
 _display displayAddEventHandler ["KeyDown", "_this call WFBE_CO_FNC_HandleAFKkeys"];
 

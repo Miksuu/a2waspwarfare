@@ -117,14 +117,32 @@ while {!gameOver} do {
 	_countDownKick =round(_inactivityTimeout - _elapsedTime);
 	//player sideChat format ["Elapsed Time: %1 seconds", _elapsedTime]; // Display the inacticity time of the player for testing purpose	
 
-	// Marty: Kick warning follows actual activity, so recent command-map clicks do not show a false kick countdown.
+	private ["_afk", "_countDownKick"];
+
+	// Marty: Performance Audit counter for networked AFK state writes.
+	_perfAFKBroadcasts = _perfAFKBroadcasts + 1;
+	player setVariable ["WASP_AFK", false, true];
+	_afk = player getVariable ["WASP_AFK", false];
+
 	if (_countDownKick < 600) then {
-		call {
-			if (_countDownKick <= 120) exitWith {
-				hint format ["You are AFK. If you don't move or command on the map you will be kicked in %1 seconds.", _countDownKick];
+		if (!_afk) then {
+			// Marty: Performance Audit counter for networked AFK state writes.
+			_perfAFKBroadcasts = _perfAFKBroadcasts + 1;
+			player setVariable ["WASP_AFK", true, true];  // true = broadcast
+		};
+
+		if (_countDownKick > 120) then {
+			if ((_countDownKick % 30) == 0) then {
+				hint format ["You are AFK. If you don't move you will be kicked in %1 minutes.", round (_countDownKick / 60)];
 			};
-			if ((_countDownKick % 30) != 0) exitWith {};
-			hint format ["You are AFK. If you don't move or command on the map you will be kicked in %1 minutes.", round (_countDownKick / 60)];
+		} else {
+			hint format ["You are AFK. If you don't move you will be kicked in %1 seconds.", _countDownKick];
+		};
+	} else {
+		if (_afk) then {
+			// Marty: Performance Audit counter for networked AFK state writes.
+			_perfAFKBroadcasts = _perfAFKBroadcasts + 1;
+			player setVariable ["WASP_AFK", false, true];
 		};
 	};
 
@@ -149,9 +167,8 @@ while {!gameOver} do {
 	_currentPosition 	= getPos player;
 	_lastPosition 		= player getVariable ["lastPosition", getPos player] ;
       
-	// Marty: Preserve the original command-client AFK activity behavior; Command & Conquer marker state is handled in monitorAFK.sqf.
 	if (str(_currentPosition) != str(_lastPosition)) then {            	 
-		player setVariable ["lastActionTime", time];
+         player setVariable ["lastActionTime", time]; // If the player moved, it saves the current time into lastActionTime variable.
     };
 
 	player setVariable ["lastPosition", position player]; // Saving the last position of the player with the current one.
