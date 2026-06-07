@@ -175,13 +175,22 @@ _i = _i + [['','',200,0,0,0,'Fortification',0,'Civilians',[]]];
 //--- Label/price/category only; the anchor model is just the placement ghost (the composition
 //--- itself is spawned by Server\Functions\Server_ConstructPosition.sqf). Price is a flat MVP value.
 _c = _c + ['Land_Ind_BoardsPack1'];
-_i = _i + [['AA Position (Large)','',4000,0,0,0,'Defense',0,'Civilians',[]]];
+_i = _i + [['AA Position (Light, 2 AI)','',2500,0,0,0,'Defense',0,'Civilians',[]]];
+
+_c = _c + ['RoadBarrier'];
+_i = _i + [['AA Position (Heavy, 4 AI)','',4500,0,0,0,'Defense',0,'Civilians',[]]];
+
+_c = _c + ['RoadBarrier_light'];
+_i = _i + [['Artillery (Light, 1 AI)','',2500,0,0,0,'Defense',0,'Civilians',[]]];
 
 _c = _c + ['Land_Ind_BoardsPack2'];
-_i = _i + [['Artillery Position (Large)','',4500,0,0,0,'Defense',0,'Civilians',[]]];
+_i = _i + [['Artillery (Heavy, 4 AI)','',5000,0,0,0,'Defense',0,'Civilians',[]]];
 
 _c = _c + ['Land_WoodenRamp'];
-_i = _i + [['Mixed Position (Large)','',5000,0,0,0,'Defense',0,'Civilians',[]]];
+_i = _i + [['Mixed Position (Light, 2 AI)','',2500,0,0,0,'Defense',0,'Civilians',[]]];
+
+_c = _c + ['RoadCone'];
+_i = _i + [['Mixed Position (Heavy, 4 AI)','',5000,0,0,0,'Defense',0,'Civilians',[]]];
 
 _c = _c + ['Paleta1'];
 _i = _i + [['Base Wall - Straight','',250,0,0,0,'Fortification',0,'Civilians',[]]];

@@ -189,14 +189,65 @@ missionNamespace setVariable ['WFBE_NEURODEF_MIXEDPOS_EAST',[
 	['Fort_RazorWire',[0,5,0],0]
 ]];
 
+//--- HEAVY-tier counterparts + ARTY light: gives each manned role a true light/heavy buildable.
+//--- Heavy AA/Mixed reuse the original 4-AI compositions; ARTY light is a single clear-overhead gun.
+missionNamespace setVariable ['WFBE_NEURODEF_AAPOS_HEAVY_WEST',[
+	['Stinger_Pod_US_EP1',[-8,6,0],330],['Stinger_Pod_US_EP1',[0,8,0],0],['Stinger_Pod_US_EP1',[8,6,0],30],
+	['Land_fort_bagfence_round',[-8,4.4,0],0],['Land_fort_bagfence_round',[0,6.2,0],0],['Land_fort_bagfence_round',[8,4.4,0],0],
+	['M2StaticMG',[0,-4,0],180],['Land_fort_bagfence_round',[0,-6.2,0],0],
+	['USLaunchers_EP1',[-4,2,0],0],['USLaunchers_EP1',[4,2,0],0],
+	['Land_CamoNetVar_NATO',[-4,6,0],0],['Land_CamoNetVar_NATO',[4,6,0],0],
+	['Fort_RazorWire',[-7,-6,0],0],['Fort_RazorWire',[7,-6,0],0]
+]];
+missionNamespace setVariable ['WFBE_NEURODEF_AAPOS_HEAVY_EAST',[
+	['ZU23_TK_EP1',[-7,5,0],350],['ZU23_TK_EP1',[7,5,0],10],['Igla_AA_pod_TK_EP1',[0,7,0],0],
+	['DSHKM_TK_INS_EP1',[0,-4,0],180],
+	['TKVehicleBox_EP1',[-5,1,0],0],['TKVehicleBox_EP1',[5,1,0],0],
+	['Land_HBarrier_large',[-11,4,0],90],['Land_HBarrier_large',[11,4,0],90],
+	['Land_HBarrier_large',[-6,-2,0],0],['Land_HBarrier_large',[0,-2,0],0],['Land_HBarrier_large',[6,-2,0],0],
+	['Hedgehog',[-4,-6,0],0],['Hedgehog',[4,-6,0],0],['Fort_RazorWire',[0,-7,0],0]
+]];
+missionNamespace setVariable ['WFBE_NEURODEF_MIXEDPOS_HEAVY_WEST',[
+	['M2StaticMG',[-9,3,0],335],['M2StaticMG',[9,3,0],25],['TOW_TriPod_US_EP1',[0,6,0],0],
+	['Stinger_Pod_US_EP1',[0,-2,0],0],['Land_fort_bagfence_round',[0,-4,0],0],
+	['USBasicAmmunitionBox_EP1',[-4,0,0],0],['USBasicAmmunitionBox_EP1',[4,0,0],0],
+	['Land_fort_bagfence_corner',[-10,1,0],270],['Land_fort_bagfence_long',[-10,-3,0],0],
+	['Land_fort_bagfence_long',[10,-3,0],0],['Land_fort_bagfence_corner',[10,1,0],180],
+	['Land_HBarrier_large',[0,9,0],0],
+	['Fort_RazorWire',[-6,-6,0],0],['Fort_RazorWire',[6,-6,0],0]
+]];
+missionNamespace setVariable ['WFBE_NEURODEF_MIXEDPOS_HEAVY_EAST',[
+	['DSHKM_TK_INS_EP1',[-8,4,0],350],['DSHKM_TK_INS_EP1',[8,4,0],10],['Metis_TK_EP1',[0,6,0],0],
+	['Igla_AA_pod_TK_EP1',[0,-2,0],0],['Land_fort_bagfence_round',[0,-4,0],0],
+	['TKBasicAmmunitionBox_EP1',[-4,0,0],0],['TKBasicAmmunitionBox_EP1',[4,0,0],0],
+	['Land_HBarrier_large',[-10,3,0],90],['Land_HBarrier_large',[10,3,0],90],
+	['Land_HBarrier_large',[-6,-3,0],0],['Land_HBarrier_large',[0,-3,0],0],['Land_HBarrier_large',[6,-3,0],0],
+	['Hedgehog',[-6,-6,0],0],['Hedgehog',[6,-6,0],0],['Fort_RazorWire',[0,-7,0],0]
+]];
+missionNamespace setVariable ['WFBE_NEURODEF_ARTYPOS_LIGHT_WEST',[
+	['M119_US_EP1',[0,3,0],0],
+	['USBasicAmmunitionBox_EP1',[-3,-2,0],0],['USBasicAmmunitionBox_EP1',[3,-2,0],0],
+	['Land_fort_bagfence_long',[-5,1,0],90],['Land_fort_bagfence_long',[5,1,0],90],
+	['Fort_RazorWire',[0,5,0],0]
+]];
+missionNamespace setVariable ['WFBE_NEURODEF_ARTYPOS_LIGHT_EAST',[
+	['D30_TK_EP1',[0,3,0],0],
+	['TKBasicAmmunitionBox_EP1',[-3,-2,0],0],['TKBasicAmmunitionBox_EP1',[3,-2,0],0],
+	['Land_HBarrier_large',[-5,2,0],90],['Land_HBarrier_large',[5,2,0],90],
+	['Fort_RazorWire',[0,5,0],0]
+]];
+
 //--- Anchor (build-menu placeholder classname) -> composition template map.
 // [anchorClassname, baseTemplateVar, factionSpecific?]  (factionSpecific appends _WEST / _EAST at build time)
 WFBE_POSITION_TEMPLATE_MAP = [
-	['Land_Ind_BoardsPack1','WFBE_NEURODEF_AAPOS',true],
-	['Land_Ind_BoardsPack2','WFBE_NEURODEF_ARTYPOS',true],
-	['Land_WoodenRamp','WFBE_NEURODEF_MIXEDPOS',true],
+	['Land_Ind_BoardsPack1','WFBE_NEURODEF_AAPOS',true],			//--- AA (light, 2 AI)
+	['RoadBarrier','WFBE_NEURODEF_AAPOS_HEAVY',true],			//--- AA (heavy, 4 AI)
+	['RoadBarrier_light','WFBE_NEURODEF_ARTYPOS_LIGHT',true],	//--- Artillery (light, 1 AI)
+	['Land_Ind_BoardsPack2','WFBE_NEURODEF_ARTYPOS',true],		//--- Artillery (heavy, 4 AI)
+	['Land_WoodenRamp','WFBE_NEURODEF_MIXEDPOS',true],			//--- Mixed (light, 2 AI)
+	['RoadCone','WFBE_NEURODEF_MIXEDPOS_HEAVY',true],			//--- Mixed (heavy, 4 AI)
 	['Paleta1','WFBE_NEURODEF_WALL_STRAIGHT',false],
 	['Paleta2','WFBE_NEURODEF_WALL_CORNER',false],
 	['RoadBarrier_long','WFBE_NEURODEF_WALL_GATE',false]
 ];
-WFBE_POSITION_ANCHOR_NAMES = ['Land_Ind_BoardsPack1','Land_Ind_BoardsPack2','Land_WoodenRamp','Paleta1','Paleta2','RoadBarrier_long'];
+WFBE_POSITION_ANCHOR_NAMES = ['Land_Ind_BoardsPack1','RoadBarrier','RoadBarrier_light','Land_Ind_BoardsPack2','Land_WoodenRamp','RoadCone','Paleta1','Paleta2','RoadBarrier_long'];
