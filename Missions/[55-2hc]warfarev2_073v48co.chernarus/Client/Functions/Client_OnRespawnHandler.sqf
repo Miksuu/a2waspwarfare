@@ -8,6 +8,10 @@ _typeof = typeOf _spawn;
 WFBE_Client_IsRespawning = false;
 _allowCustom = true;
 
+// Marty: Respawn creates a fresh player object, so restart AFK tracking before any movement occurs.
+_unit setVariable ["lastActionTime", time];
+_unit setVariable ["lastPosition", position _unit];
+
 //--- Default gear enforcement on mobile respawn.
 if ((missionNamespace getVariable "WFBE_C_RESPAWN_MOBILE") == 2) then {
 	if (_typeof in (missionNamespace getVariable Format ["WFBE_%1AMBULANCES",sideJoinedText])) then {_allowCustom = false};

@@ -168,7 +168,7 @@ waitUntil {commonInitComplete};
 
 // Marty: Show the test build marker once in debug mode so testers can confirm the running PBO version.
 if (WF_Debug) then {
-	systemChat "TD Debug build: 2026-06-07 11:49";
+	systemChat "TD Debug build: 2026-06-07 12:55";
 };
 
 if (ARMA_VERSION >= 162 && ARMA_RELEASENUMBER > 97105 || ARMA_VERSION > 162) then {
@@ -263,6 +263,10 @@ WFBE_CO_FNC_HandleAFKkeys = compile preprocessFileLineNumbers "Client\Module\AFK
 AFKthresholdExceededName = name player;
 WFBE_CO_VAR_AFKkickThreshold = 30;
 WFBE_CO_VAR_NotAFK_update = false;
+// Marty: Start the AFK timer immediately, even if the player never moves after joining.
+player setVariable ["lastActionTime", time];
+player setVariable ["lastPosition", position player];
+["INFORMATION", Format ["AFK Diagnostic: initialized for player [%1]. time [%2] position [%3].", name player, time, position player]] Call WFBE_CO_FNC_LogContent;
 
 _display displayAddEventHandler ["KeyDown", "_this call WFBE_CO_FNC_HandleAFKkeys"];
 

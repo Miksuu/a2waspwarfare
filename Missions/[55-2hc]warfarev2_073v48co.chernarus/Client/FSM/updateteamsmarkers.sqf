@@ -1,5 +1,5 @@
 // Marty: Performance Audit locals and marker update cache.
-private["_sideText","_label","_count","_marker","_markerIndex","_team","_leader","_leaderVehicle","_leaderChanged","_botUnitsInVehicle","_crewUnitsInVehicle","_cargoUnitsInVehicle","_crewText","_cargoText","_member","_memberVehicle","_roleUnit","_unitText","_updateAILeaders","_updateThisLeader","_nextAIUpdate","_playerAFKstate","_markerColor","_markerAlpha","_markerNames","_lastLeaders","_lastTexts","_lastAlphas","_lastColors","_wfMenuDisplays","_mapConsumerVisible","_perfStart","_perfMarkerOps","_perfPlayerLeaders","_perfAILeaders","_perfSkippedWrites"];
+private["_sideText","_label","_count","_marker","_markerIndex","_team","_leader","_leaderVehicle","_leaderChanged","_botUnitsInVehicle","_crewUnitsInVehicle","_cargoUnitsInVehicle","_crewText","_cargoText","_member","_memberVehicle","_roleUnit","_unitText","_updateAILeaders","_updateThisLeader","_nextAIUpdate","_playerAFKstate","_afkMarkerDiagnosticNextLog","_markerColor","_markerAlpha","_markerNames","_lastLeaders","_lastTexts","_lastAlphas","_lastColors","_wfMenuDisplays","_mapConsumerVisible","_perfStart","_perfMarkerOps","_perfPlayerLeaders","_perfAILeaders","_perfSkippedWrites"];
 
 _sideText = sideJoinedText;
 _label = "";
@@ -10,6 +10,7 @@ _lastTexts = [];
 _lastAlphas = [];
 _lastColors = [];
 _nextAIUpdate = 0;
+_afkMarkerDiagnosticNextLog = 0;
 
 // Marty: Any open Warfare dialog can contain or lead to a minimap view; keep team markers live while these are visible.
 _wfMenuDisplays = [11000,12000,13000,14000,17000,18000,20000,21000,22000,23000,503000,504000,505000,508000,511000];
@@ -89,6 +90,15 @@ while {!gameOver} do {
 						_label = Format[" %1", name _leader];
 						if !(isNil "_playerAFKstate") then {
 							if (_playerAFKstate) then {_label = Format[" %1 (AFK)", name _leader]};
+						};
+						// Marty: WF_Debug map-side probe confirms the marker loop sees the networked AFK state.
+						if (WF_Debug && !(isNil "_playerAFKstate")) then {
+							call {
+								if !(_playerAFKstate) exitWith {};
+								if (time < _afkMarkerDiagnosticNextLog) exitWith {};
+								_afkMarkerDiagnosticNextLog = time + 15;
+								["INFORMATION", Format ["AFK Diagnostic: marker loop sees [%1] as AFK. label [%2] marker [%3] teamIndex [%4].", name _leader, _label, _marker, _markerIndex]] Call WFBE_CO_FNC_LogContent;
+							};
 						};
 						// Marty: Keep the player leader arrow and append embarked bot numbers with crew first, then cargo.
 						call {
