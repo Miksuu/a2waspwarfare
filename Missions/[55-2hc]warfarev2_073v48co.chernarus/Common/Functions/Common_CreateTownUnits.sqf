@@ -8,7 +8,7 @@
 		- Teams
 */
 
-Private ["_groups", "_lock", "_position", "_positions", "_retVal", "_side", "_sideID", "_team", "_teams", "_town", "_town_teams", "_town_vehicles", "_vehicles"];
+Private ["_groupCountCiv", "_groupCountEast", "_groupCountGuer", "_groupCountLogic", "_groupCountSide", "_groupCountWest", "_groupCountUnknown", "_groupMachine", "_groupSide", "_groups", "_lock", "_position", "_positions", "_retVal", "_side", "_sideID", "_team", "_teams", "_town", "_town_teams", "_town_vehicles", "_vehicles"];
 
 _town = _this select 0;
 _side = _this select 1;
@@ -60,6 +60,37 @@ for '_i' from 0 to count(_groups)-1 do {
 
 if (_built > 0) then {[str _side,'UnitsCreated',_built] call UpdateStatistics};
 if (_builtveh > 0) then {[str _side,'VehiclesCreated',_builtveh] call UpdateStatistics};
+
+// Marty: When a town activates empty, print the machine-side group counts near the failure.
+if ((_built + _builtveh) == 0) then {
+	_groupCountWest = 0;
+	_groupCountEast = 0;
+	_groupCountGuer = 0;
+	_groupCountCiv = 0;
+	_groupCountLogic = 0;
+	_groupCountUnknown = 0;
+	{
+		_groupSide = side _x;
+		switch (_groupSide) do {
+			case west: {_groupCountWest = _groupCountWest + 1};
+			case east: {_groupCountEast = _groupCountEast + 1};
+			case resistance: {_groupCountGuer = _groupCountGuer + 1};
+			case civilian: {_groupCountCiv = _groupCountCiv + 1};
+			case sideLogic: {_groupCountLogic = _groupCountLogic + 1};
+			default {_groupCountUnknown = _groupCountUnknown + 1};
+		};
+	} forEach allGroups;
+	_groupCountSide = switch (_side) do {
+		case west: {_groupCountWest};
+		case east: {_groupCountEast};
+		case resistance: {_groupCountGuer};
+		case civilian: {_groupCountCiv};
+		case sideLogic: {_groupCountLogic};
+		default {_groupCountUnknown};
+	};
+	_groupMachine = if (isServer) then {"SERVER"} else {if (hasInterface) then {"CLIENT"} else {"HC"}};
+	["WARNING", Format ["TOWN_GROUP_COUNT town_empty machine:%1 town:%2 side:%3 sideGroups:%4 total:%5 west:%6 east:%7 guer:%8 civ:%9 logic:%10 unknown:%11", _groupMachine, _town getVariable "name", _side, _groupCountSide, count allGroups, _groupCountWest, _groupCountEast, _groupCountGuer, _groupCountCiv, _groupCountLogic, _groupCountUnknown]] Call WFBE_CO_FNC_LogContent;
+};
 
 ["INFORMATION", Format["Common_CreateTownUnits.sqf: Town [%1] held by [%2] was activated witha total of [%3] units.", _town, _side, _built + _builtveh]] Call WFBE_CO_FNC_LogContent;
 
