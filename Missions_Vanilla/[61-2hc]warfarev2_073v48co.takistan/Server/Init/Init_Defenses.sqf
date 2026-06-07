@@ -112,16 +112,6 @@ missionNamespace setVariable ['WFBE_NEURODEF_AAPOD',[
 	['Land_fort_bagfence_corner',[-1.8,-5,0],0]
 ]];
 
-missionNamespace setVariable ['WFBE_NEURODEF_MASH',[
-	['Land_fort_bagfence_corner',[-3,3,0],270],
-	['Land_fort_bagfence_long',[-3.5,-0.2,0],90],
-	['Land_fort_bagfence_corner',[-2.5,-3.5,0],0],
-	['Land_fort_bagfence_long',[0.5,-4,0],0],
-	['Land_fort_bagfence_corner',[3.5,-3,0],90],
-	['Land_fort_bagfence_long',[4,-0.2,0],90],
-	['Land_fort_bagfence_corner',[3,3.5,0],180]
-]];
-
 //=============================================================================
 // WDDM commander positions (Stage 1) — composition templates authored in the
 // WDDM editor (rayswaynl/WDDM). Spawned by Server\Functions\Server_ConstructPosition.sqf

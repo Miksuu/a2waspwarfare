@@ -428,12 +428,6 @@
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled","$STR_WF_Enabled_DefaultGear"};
 		default = 0;
 	};
-	class WFBE_C_RESPAWN_MASH {
-		title = "$STR_WF_PARAMETER_Respawn_MASH";
-		values[] = {0,1,2};
-		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled","$STR_WF_Enabled_DefaultGear"};
-		default = 1;
-	};
 	class WFBE_C_RESPAWN_MOBILE {
 		title = "$STR_WF_PARAMETER_MobileRespawn";
 		values[] = {0,1,2};
