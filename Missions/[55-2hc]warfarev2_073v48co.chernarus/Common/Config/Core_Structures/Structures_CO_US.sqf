@@ -167,14 +167,14 @@ _n = _n		+ [if (IS_chernarus_map_dependent) then {"CDF_WarfareBVehicleServicePoi
 
 //--- WDDM commander positions (Stage 1): build-menu anchors; composition spawned by Server_ConstructPosition.sqf
 _n = _n		+ ["Land_Ind_BoardsPack1"];	//--- AA Position (Light)
-_n = _n		+ ["RoadBarrier"];			//--- AA Position (Heavy)
-_n = _n		+ ["RoadBarrier_light"];	//--- Artillery (Light)
+_n = _n		+ ["Land_CncBlock_Stripes"];			//--- AA Position (Heavy)
+_n = _n		+ ["Land_Barrel_sand"];	//--- Artillery (Light)
 _n = _n		+ ["Land_Ind_BoardsPack2"];	//--- Artillery (Heavy)
 _n = _n		+ ["Land_WoodenRamp"];		//--- Mixed Position (Light)
 _n = _n		+ ["RoadCone"];				//--- Mixed Position (Heavy)
 _n = _n		+ ["Paleta1"];				//--- Base Wall - Straight
 _n = _n		+ ["Paleta2"];				//--- Base Wall - Corner
-_n = _n		+ ["RoadBarrier_long"];		//--- Base Wall - Gate
+_n = _n		+ ["Land_Ind_Timbers"];		//--- Base Wall - Gate
 
 /* Class used for AI, AI will attempt to build those */
 missionNamespace setVariable [Format["WFBE_%1DEFENSES_MG", _side], ['M2StaticMG_US_EP1']];

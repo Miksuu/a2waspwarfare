@@ -238,13 +238,13 @@ missionNamespace setVariable ['WFBE_NEURODEF_ARTYPOS_LIGHT_EAST',[
 // [anchorClassname, baseTemplateVar, factionSpecific?]  (factionSpecific appends _WEST / _EAST at build time)
 WFBE_POSITION_TEMPLATE_MAP = [
 	['Land_Ind_BoardsPack1','WFBE_NEURODEF_AAPOS',true],			//--- AA (light, 2 AI)
-	['RoadBarrier','WFBE_NEURODEF_AAPOS_HEAVY',true],			//--- AA (heavy, 4 AI)
-	['RoadBarrier_light','WFBE_NEURODEF_ARTYPOS_LIGHT',true],	//--- Artillery (light, 1 AI)
+	['Land_CncBlock_Stripes','WFBE_NEURODEF_AAPOS_HEAVY',true],			//--- AA (heavy, 4 AI)
+	['Land_Barrel_sand','WFBE_NEURODEF_ARTYPOS_LIGHT',true],	//--- Artillery (light, 1 AI)
 	['Land_Ind_BoardsPack2','WFBE_NEURODEF_ARTYPOS',true],		//--- Artillery (heavy, 4 AI)
 	['Land_WoodenRamp','WFBE_NEURODEF_MIXEDPOS',true],			//--- Mixed (light, 2 AI)
 	['RoadCone','WFBE_NEURODEF_MIXEDPOS_HEAVY',true],			//--- Mixed (heavy, 4 AI)
 	['Paleta1','WFBE_NEURODEF_WALL_STRAIGHT',false],
 	['Paleta2','WFBE_NEURODEF_WALL_CORNER',false],
-	['RoadBarrier_long','WFBE_NEURODEF_WALL_GATE',false]
+	['Land_Ind_Timbers','WFBE_NEURODEF_WALL_GATE',false]
 ];
-WFBE_POSITION_ANCHOR_NAMES = ['Land_Ind_BoardsPack1','RoadBarrier','RoadBarrier_light','Land_Ind_BoardsPack2','Land_WoodenRamp','RoadCone','Paleta1','Paleta2','RoadBarrier_long'];
+WFBE_POSITION_ANCHOR_NAMES = ['Land_Ind_BoardsPack1','Land_CncBlock_Stripes','Land_Barrel_sand','Land_Ind_BoardsPack2','Land_WoodenRamp','RoadCone','Paleta1','Paleta2','Land_Ind_Timbers'];

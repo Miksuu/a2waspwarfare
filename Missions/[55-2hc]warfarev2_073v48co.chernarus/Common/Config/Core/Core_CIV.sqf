@@ -177,10 +177,10 @@ _i = _i + [['','',200,0,0,0,'Fortification',0,'Civilians',[]]];
 _c = _c + ['Land_Ind_BoardsPack1'];
 _i = _i + [['AA Position (Light, 2 AI)','',2500,0,0,0,'Defense',0,'Civilians',[]]];
 
-_c = _c + ['RoadBarrier'];
+_c = _c + ['Land_CncBlock_Stripes'];
 _i = _i + [['AA Position (Heavy, 4 AI)','',4500,0,0,0,'Defense',0,'Civilians',[]]];
 
-_c = _c + ['RoadBarrier_light'];
+_c = _c + ['Land_Barrel_sand'];
 _i = _i + [['Artillery (Light, 1 AI)','',2500,0,0,0,'Defense',0,'Civilians',[]]];
 
 _c = _c + ['Land_Ind_BoardsPack2'];
@@ -198,7 +198,7 @@ _i = _i + [['Base Wall - Straight','',250,0,0,0,'Fortification',0,'Civilians',[]
 _c = _c + ['Paleta2'];
 _i = _i + [['Base Wall - Corner','',300,0,0,0,'Fortification',0,'Civilians',[]]];
 
-_c = _c + ['RoadBarrier_long'];
+_c = _c + ['Land_Ind_Timbers'];
 _i = _i + [['Base Wall - Gate','',300,0,0,0,'Fortification',0,'Civilians',[]]];
 
 for '_z' from 0 to (count _c)-1 do {
