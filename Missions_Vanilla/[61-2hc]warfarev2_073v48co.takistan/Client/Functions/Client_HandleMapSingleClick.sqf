@@ -172,10 +172,12 @@ if (_shift && (leader (group player)) == player) then {
 };
 
 // Preserve the legacy debug teleport on plain map clicks without blocking shift-click move capture.
-if (WF_Debug && !_shift) then {
+if ((missionNamespace getVariable ["WFBE_DEBUG_TELEPORT_ARMED", false]) && !_shift) then {	//--- FIX: was "WF_Debug" => every map click teleported (ate the sell/ICBM confirm second-click). Now arm with the "[" key first.
 	vehicle player setPos _position;
 	(vehicle player) setVelocity [0,0,-0.1];
 	diag_log getPos player;
+		missionNamespace setVariable ["WFBE_DEBUG_TELEPORT_ARMED", false];	//--- one-shot: disarm after teleporting
+		hintSilent "Teleported.";
 };
 
 false

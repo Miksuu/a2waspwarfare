@@ -43,10 +43,15 @@ while {!WFBE_GameOver} do {
 		_town_teams = _town getVariable "wfbe_town_teams";
 		_patrol_enabled = if (!isNil {_town getVariable "wfbe_patrol_enabled"}) then {true} else {false};
 
-		//--- Towns patrol, if enabled.
+		//--- Towns patrol, if enabled. DR-57 fix: initialise the gate ONCE per town, not every
+		//--- ~5s cycle. The old unconditional reset refreshed wfbe_patrol_active_last every pass so
+		//--- the spawn gate (time - last > delay) never elapsed and town patrols never spawned.
+		//--- server_patrols.sqf:71-72 re-stamps active/last on patrol completion; we only seed them.
 		if (_patrol_enabled) then {
-			_town setVariable ["wfbe_patrol_active", false];
-			_town setVariable ["wfbe_patrol_active_last", time];
+			if (isNil {_town getVariable "wfbe_patrol_active"}) then {
+				_town setVariable ["wfbe_patrol_active", false];
+				_town setVariable ["wfbe_patrol_active_last", time];
+			};
 		};
 
 		_sideID = _town getVariable "sideID";

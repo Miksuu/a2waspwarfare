@@ -8,7 +8,7 @@
 		- Teams
 */
 
-Private ["_groups", "_positions", "_registry", "_side", "_team", "_teams", "_town", "_town_teams", "_town_vehicles"];
+Private ["_groups", "_i", "_perfStart", "_positions", "_registry", "_retVal", "_side", "_team", "_teams", "_town", "_town_teams", "_town_vehicles"];
 
 _town = _this select 0;
 _side = _this select 1;
@@ -19,6 +19,12 @@ _teams = _this select 4;
 ["INFORMATION", Format["Client_DelegateTownAI.sqf: Received a town delegation request from the server for [%1] [%2].", _side, _town]] Call WFBE_CO_FNC_LogContent;
 
 sleep (random 1); //--- Delay a bit to prevent a bandwidth congestion.
+
+for "_i" from 0 to ((count _teams) - 1) do {
+	_team = _teams select _i;
+	if (isNull _team || {(count units _team) == 0}) then {_team = createGroup _side};
+	_teams set [_i, _team];
+};
 
 _retVal = [_town, _side, _groups, _positions, _teams] call WFBE_CO_FNC_CreateTownUnits;
 // Marty: Register the actual local groups created by the HC/client so cleanup runs where deleteGroup is effective.

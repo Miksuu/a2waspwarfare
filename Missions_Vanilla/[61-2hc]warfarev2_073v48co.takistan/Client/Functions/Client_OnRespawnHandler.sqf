@@ -17,11 +17,6 @@ if ((missionNamespace getVariable "WFBE_C_RESPAWN_MOBILE") == 2) then {
 	if (_typeof in (missionNamespace getVariable Format ["WFBE_%1AMBULANCES",sideJoinedText])) then {_allowCustom = false};
 };
 
-//--- Default gear enforcement on mash respawn.
-if ((missionNamespace getVariable "WFBE_C_RESPAWN_MASH") == 2) then {
-	if (_typeof == (missionNamespace getVariable Format ["WFBE_%1FARP",sideJoinedText])) then {_allowCustom = false};
-};
-
 //--- Default gear enforcement on leader respawn.
 if ((missionNamespace getVariable "WFBE_C_RESPAWN_LEADER") == 2) then {
 	if (_spawn == leader group _unit) then {_allowCustom = false};

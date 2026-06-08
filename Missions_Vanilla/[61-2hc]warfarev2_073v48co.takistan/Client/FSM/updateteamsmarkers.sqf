@@ -13,7 +13,7 @@ _nextAIUpdate = 0;
 _afkMarkerDiagnosticNextLog = 0;
 
 // Marty: Any open Warfare dialog can contain or lead to a minimap view; keep team markers live while these are visible.
-_wfMenuDisplays = [11000,12000,13000,14000,17000,18000,20000,21000,22000,23000,503000,504000,505000,508000,511000];
+_wfMenuDisplays = [11000,12000,13000,14000,17000,20000,21000,22000,23000,503000,504000,505000,508000,511000];
 
 // Marty: Create the local squad markers once and cache their names by team index.
 {
