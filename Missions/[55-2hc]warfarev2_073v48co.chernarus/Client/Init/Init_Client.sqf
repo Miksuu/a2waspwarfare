@@ -89,6 +89,8 @@ BIS_FNC_GUIget = {UInamespace getVariable (_this select 0)};
 WFBE_CL_FNC_AddWFMenuAction = Compile preprocessFileLineNumbers "Client\Functions\Client_AddWFMenuAction.sqf";
 WFBE_CL_FNC_AddPlayerAIActions = Compile preprocessFileLineNumbers "Client\Functions\Client_AddPlayerAIActions.sqf";
 WFBE_CL_FNC_ChangeClientFunds = Compile preprocessFileLineNumbers "Client\Functions\Client_ChangePlayerFunds.sqf";
+// Marty: Local cleanup for town AI delegated to this client or headless client.
+WFBE_CL_FNC_CleanupDelegatedTownAI = Compile preprocessFileLineNumbers "Client\Functions\Client_CleanupDelegatedTownAI.sqf";
 WFBE_CL_FNC_DelegateTownAI = Compile preprocessFileLineNumbers "Client\Functions\Client_DelegateTownAI.sqf";
 WFBE_CL_FNC_DelegateAI = Compile preprocessFileLineNumbers "Client\Functions\Client_DelegateAI.sqf";
 WFBE_CL_FNC_DelegateAIStaticDefence = Compile preprocessFileLineNumbers "Client\Functions\Client_DelegateAIStaticDefence.sqf";
@@ -167,6 +169,12 @@ waitUntil {commonInitComplete};
 
 ["INITIALIZATION", Format ["Init_Client.sqf: Common initialization is complete at [%1]", time]] Call WFBE_CO_FNC_LogContent;
 
+// Marty: Show the test build marker once in debug mode so testers can confirm the running PBO version.
+if (WF_Debug) then {
+	systemChat "TD Debug build: 2026-06-08 00:07";
+};
+
+
 if (ARMA_VERSION >= 162 && ARMA_RELEASENUMBER > 97105 || ARMA_VERSION > 162) then {
 	//--- Profile namespace related.
 	WFBE_CL_FNC_UI_Gear_SaveTemplateProfile = Compile preprocessFileLineNumbers "Client\Functions\Client_UI_Gear_SaveTemplateProfile.sqf";
@@ -179,10 +187,6 @@ missionNamespace setVariable ["AUTO_SEND_SPAWNED_UNITS_TO_WAYPOINT", false];
 missionNamespace setVariable ["WFBE_CLIENT_LAST_TEAMLEADER_MAP_ORDER_POSITION", []];
 missionNamespace setVariable ["WFBE_CLIENT_LAST_TEAMLEADER_MAP_ORDER_GROUP", grpNull];
 missionNamespace setVariable ["WFBE_CLIENT_LAST_TEAMLEADER_MAP_ORDER_TIME", -5000];
-// Marty: Timestamp used to distinguish active map commanders from players who only left the map open.
-missionNamespace setVariable ["WFBE_CLIENT_LAST_MAP_COMMAND_CLICK_TIME", -5000];
-missionNamespace setVariable ["WFBE_CLIENT_LAST_MAP_COMMAND_CLICK_POS", []];
-missionNamespace setVariable ["WFBE_CLIENT_COMMAND_AND_CONQUER_WINDOW", 180];
 // Marty: State used by Ctrl-click map disband because onMapSingleClick does not expose Ctrl.
 missionNamespace setVariable ["WFBE_CLIENT_MAP_DISBAND_CTRL_DOWN", false];
 
@@ -265,14 +269,10 @@ WFBE_CO_FNC_HandleAFKkeys = compile preprocessFileLineNumbers "Client\Module\AFK
 AFKthresholdExceededName = name player;
 WFBE_CO_VAR_AFKkickThreshold = 30;
 WFBE_CO_VAR_NotAFK_update = false;
-// Marty: Separate physical movement from map-command activity for AFK marker text only.
-WFBE_CO_VAR_NotAFK_MovementUpdate = false;
-// Marty: Keep anti-kick activity and physical movement separate for Command & Conquer marker state.
+// Marty: Start the AFK timer immediately, even if the player never moves after joining.
 player setVariable ["lastActionTime", time];
-player setVariable ["lastMovementTime", time];
-// Marty: Networked marker state for immobile players who are still actively commanding from map clicks.
-player setVariable ["WASP_AFK", false, true];
-player setVariable ["WASP_CommandAndConquer", false, true];
+player setVariable ["lastPosition", position player];
+["INFORMATION", Format ["AFK Diagnostic: initialized for player [%1]. time [%2] position [%3].", name player, time, position player]] Call WFBE_CO_FNC_LogContent;
 
 _display displayAddEventHandler ["KeyDown", "_this call WFBE_CO_FNC_HandleAFKkeys"];
 
