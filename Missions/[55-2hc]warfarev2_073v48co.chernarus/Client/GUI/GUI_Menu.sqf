@@ -233,7 +233,7 @@ while {alive player && dialog} do {
 			sleep 0.10;
 			showGPS true;
 			if (shownGPS) then {
-				hint "GPS enabled.\nUse your GPS keybind if the mini-map is still hidden.";
+				hint "GPS enabled.\nIf the mini-map stays hidden, press CTRL + M to toggle it.";
 			} else {
 				hint "GPS could not be enabled yet.\nCheck that your unit has GPS gear.";
 			};
