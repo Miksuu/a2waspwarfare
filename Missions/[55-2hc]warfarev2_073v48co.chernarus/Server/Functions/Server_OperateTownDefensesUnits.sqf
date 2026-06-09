@@ -38,6 +38,8 @@ switch (_action) do {
 
 								if (isNull _team) then {
 									_team = createGroup _side;
+									// Marty: Mark town static defense team recreation when the shared side team was null.
+									[_team, "town_static_defense_team", Format ["town:%1;side:%2", _town getVariable "name", _side]] Call WFBE_CO_FNC_TraceGroup;
 									missionNamespace setVariable [format["WFBE_%1_DefenseTeam", _side], _team];
 								};
 

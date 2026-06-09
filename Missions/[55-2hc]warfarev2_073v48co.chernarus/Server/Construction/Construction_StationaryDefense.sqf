@@ -78,10 +78,14 @@ if (!isNull _area) then {
 
 		if (isNil '_team') then {
 			_team = createGroup _side;
+			// Marty: Mark fallback defense team creation for commander-built static weapons.
+			[_team, "base_static_defense_team", Format ["area:%1;type:%2", _area, _type]] Call WFBE_CO_FNC_TraceGroup;
 			_area setVariable ["DefenseTeam", _team];
 		}else{
 			if(side _team != _side) then{
 				_team = createGroup _side;
+				// Marty: Mark replacement defense team creation when an area side changes.
+				[_team, "base_static_defense_team", Format ["area:%1;type:%2;replace:true", _area, _type]] Call WFBE_CO_FNC_TraceGroup;
 			};
 			_area setVariable ["DefenseTeam", _team];
 		};

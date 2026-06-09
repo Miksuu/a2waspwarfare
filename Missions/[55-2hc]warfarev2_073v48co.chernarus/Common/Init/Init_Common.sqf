@@ -105,6 +105,10 @@ WFBE_CO_FNC_CreateUnitForStaticDefence = Compile preprocessFileLineNumbers "Comm
 WFBE_CO_FNC_CreateUnitsForResBases = Compile preprocessFileLineNumbers "Common\Functions\Common_CreateUnitsForResBases.sqf";
 WFBE_CO_FNC_CreateVehicle = Compile preprocessFileLineNumbers "Common\Functions\Common_CreateVehicle.sqf";
 WFBE_CO_FNC_CreateUnit = Compile preprocessFileLineNumbers "Common\Functions\Common_CreateUnit.sqf";
+// Marty: Group tracing helpers identify which feature owns the side group slots in RPT diagnostics.
+WFBE_CO_FNC_TraceGroup = Compile preprocessFileLineNumbers "Common\Functions\Common_TraceGroup.sqf";
+WFBE_CO_FNC_LogGroupCensus = Compile preprocessFileLineNumbers "Common\Functions\Common_LogGroupCensus.sqf";
+WFBE_CO_FNC_StartGroupCensus = Compile preprocessFileLineNumbers "Common\Functions\Common_StartGroupCensus.sqf";
 WFBE_CO_FNC_EquipBackpack = if !(WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Common\Functions\Common_EquipBackpack.sqf"} else {{}};
 WFBE_CO_FNC_EquipUnit = Compile preprocessFileLineNumbers "Common\Functions\Common_EquipUnit.sqf";
 WFBE_CO_FNC_EquipVehicle = if !(WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Common\Functions\Common_EquipVehicle.sqf"} else {{}};

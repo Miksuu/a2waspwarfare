@@ -1,7 +1,7 @@
 //*****************************************************************************************
 //Description: Creates a small construction site.
 //*****************************************************************************************
-Private ["_construct","_constructed","_direction","_group","_index","_logik","_nearLogic","_objects","_position","_rlType","_side","_sideID","_site","_siteName","_startTime","_structures","_structuresNames","_time","_timeNextUpdate","_type"];
+Private ["_construct","_constructed","_direction","_group","_index","_logik","_logicGroup","_nearLogic","_objects","_position","_rlType","_side","_sideID","_site","_siteName","_startTime","_structures","_structuresNames","_time","_timeNextUpdate","_type"];
 _type = _this select 0;
 _side = _this select 1;
 _position = _this select 2;
@@ -31,7 +31,10 @@ _construct = Compile PreprocessFile "ca\modules\dyno\data\scripts\objectMapper.s
 _constructed = ([_position,_direction,_objects] Call _construct);
 
 //--- Create the logic.
-(createGroup sideLogic) createUnit ["LocationLogicStart",_position,[],0,"NONE"];
+// Marty: Mark construction-site logic groups so they do not pollute combat group leak diagnostics.
+_logicGroup = createGroup sideLogic;
+[_logicGroup, "construction_medium_logic", Format ["side:%1;type:%2", _side, _type]] Call WFBE_CO_FNC_TraceGroup;
+_logicGroup createUnit ["LocationLogicStart",_position,[],0,"NONE"];
 
 _nearLogic = objNull;
 if ((missionNamespace getVariable "WFBE_C_STRUCTURES_CONSTRUCTION_MODE") == 0) then {

@@ -1,4 +1,4 @@
-Private["_town","_range","_range_detect","_range_detect_active","_position","_groups","_town_camps","_town_camps_count","_town_teams","_airHeight","_unitsInactiveMax","_patrol_delay","_patrol_enabled","_ai_delegation_enabled","_town_defender_enabled","_town_occupation_enabled"];
+Private["_town","_range","_range_detect","_range_detect_active","_position","_groups","_town_camps","_town_camps_count","_town_teams","_team","_airHeight","_unitsInactiveMax","_patrol_delay","_patrol_enabled","_ai_delegation_enabled","_town_defender_enabled","_town_occupation_enabled"];
 
 for "_j" from 0 to ((count towns) - 1) step 1 do
 {
@@ -127,7 +127,10 @@ while {!WFBE_GameOver} do {
 							};
 							_position = [_position, 50] call WFBE_CO_FNC_GetEmptyPosition;
 							[_positions, _position] call WFBE_CO_FNC_ArrayPush;
-							[_teams, createGroup _side] call WFBE_CO_FNC_ArrayPush;
+							// Marty: Mark the server-side town AI group allocated before server/HC creation.
+							_team = createGroup _side;
+							[_team, "town_ai_prealloc", Format ["town:%1;side:%2", _town getVariable "name", _side]] Call WFBE_CO_FNC_TraceGroup;
+							[_teams, _team] call WFBE_CO_FNC_ArrayPush;
 						};
 
 						_use_server = true;

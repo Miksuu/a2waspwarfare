@@ -1,4 +1,4 @@
-Private ["_areas","_commanderTeam","_deployed","_direction","_grp","_HQ","_HQName","_logic","_logik","_MHQ","_near","_position","_side","_sideText","_site","_type","_update"];
+Private ["_areas","_commanderTeam","_deployed","_defenseTeam","_direction","_grp","_HQ","_HQName","_logic","_logik","_MHQ","_near","_position","_side","_sideText","_site","_type","_update"];
 
 _type = _this select 0;
 _side = _this select 1;
@@ -47,8 +47,13 @@ if (!_deployed) then {
 		};
 		if (_update) then {
 			_grp = createGroup sideLogic;
+			// Marty: Mark HQ/base area logic group separately from side combat groups.
+			[_grp, "hq_area_logic", Format ["side:%1", _side]] Call WFBE_CO_FNC_TraceGroup;
 			_logic = _grp createUnit ["Logic",[0,0,0],[],0,"NONE"];
-			_logic setVariable ["DefenseTeam", createGroup _side];
+			// Marty: Mark the base-area defense team used for manning commander-built static defenses.
+			_defenseTeam = createGroup _side;
+			[_defenseTeam, "base_area_defense_team", Format ["side:%1", _side]] Call WFBE_CO_FNC_TraceGroup;
+			_logic setVariable ["DefenseTeam", _defenseTeam];
             (_logic getVariable "DefenseTeam") setVariable ["wfbe_persistent", true];
 	        _logic setVariable ["weapons",missionNamespace getVariable "WFBE_C_BASE_DEFENSE_MAX_AI"];
         [nil, "RequestBaseArea", [_logic, _position,_side,_logik,_areas]] Call WFBE_CO_FNC_SendToClients;

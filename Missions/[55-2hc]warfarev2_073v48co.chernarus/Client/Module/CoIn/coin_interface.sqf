@@ -66,6 +66,8 @@ BIS_CONTROL_CAM_keys = [];
 if (isNil "BIS_CONTROL_CAM_ASL") then {
 	createCenter sideLogic;
 	_logicGrp = createGroup sidelogic;
+	// Marty: Mark client-side COIN logic group so census can ignore UI construction camera helpers.
+	[_logicGrp, "coin_logic", Format ["player:%1", name player]] Call WFBE_CO_FNC_TraceGroup;
 	_logicASL = _logicGrp createUnit ["Logic",position player,[],0,"none"];
 	BIS_CONTROL_CAM_ASL = _logicASL;
 };

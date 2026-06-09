@@ -26,6 +26,8 @@ if !(isNil '_bd') then {
 _timeStart = time;
 _ran = round(random((count _ranPos)-1));
 _grp = createGroup _side;
+// Marty: Mark support groups so group census can separate temporary support calls from town/base defenses.
+[_grp, "support_para_ammo", Format ["caller:%1", _playerTeam]] Call WFBE_CO_FNC_TraceGroup;
 _vehicle = createVehicle [missionNamespace getVariable Format ["WFBE_%1PARAVEHI",str _side],(_ranPos select _ran), [], (_ranDir select _ran), "FLY"];
 _pilot = [missionNamespace getVariable Format ["WFBE_%1PILOT",str _side],_grp,[100,12000,0],_sideID] Call WFBE_CO_FNC_CreateUnit;
 [str _side,'VehiclesCreated',1] Call UpdateStatistics;

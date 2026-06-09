@@ -22,7 +22,11 @@ _perfSkipped = 0;
 
 if (typeName _list != "ARRAY") then { _list = [_list] };
 
-if (isNull _team) then {_team = createGroup _side}; //--- Create a group if none are given as a parameter.
+if (isNull _team) then {
+	_team = createGroup _side;
+	// Marty: Mark generic team creation so failures/leaks outside town AI still have an origin in census.
+	[_team, "create_team", Format ["side:%1;position:%2;templates:%3", _side, _position, (count _list)]] Call WFBE_CO_FNC_TraceGroup;
+}; //--- Create a group if none are given as a parameter.
 
 // Marty: createGroup can return grpNull when the per-side group limit is reached; fail the whole template before creating empty vehicles.
 if (isNull _team) exitWith {
