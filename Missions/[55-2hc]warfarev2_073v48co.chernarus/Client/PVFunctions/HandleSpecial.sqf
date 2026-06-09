@@ -12,6 +12,9 @@ switch (_request) do {
 	case "new-commander-assigned": {_args spawn WFBE_CL_FNC_Commander_Assigned};
 	// Marty: Run delegated town AI cleanup on the machine that owns the local groups.
 	case "cleanup-townai": {_args spawn WFBE_CL_FNC_CleanupDelegatedTownAI};
+	// Marty: Execute town defense artificial group tests on the machine selected by the server, normally the HC.
+	case "td-group-load-test-local": {_args spawn WFBE_CL_FNC_TownDefenseGroupLoadTest};
+	case "td-group-load-test-feedback": {if (hasInterface) then {systemChat (_args select 0)}};
 	case "delegate-townai": {_args spawn WFBE_CL_FNC_DelegateTownAI};
 	case "delegate-ai": {_args spawn WFBE_CL_FNC_DelegateAI};
 	case "delegate-ai-static-defence": {_args spawn WFBE_CL_FNC_DelegateAIStaticDefence};
