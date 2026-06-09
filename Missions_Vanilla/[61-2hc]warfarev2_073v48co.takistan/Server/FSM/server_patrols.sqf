@@ -16,6 +16,8 @@ _team = objNull;
 if (count _group > 0) then {
 	_team_alive = true;
 	_team = createGroup _side;
+	// Marty: Mark town patrol groups so long-lived patrols can be separated from town defense activations.
+	[_team, "town_patrol", Format ["origin:%1;side:%2", _location getVariable "name", _side]] Call WFBE_CO_FNC_TraceGroup;
 
 	_position = ([getPos _location, 50, 500] Call WFBE_CO_FNC_GetRandomPosition);
 	_position = [_position, 50] Call WFBE_CO_FNC_GetEmptyPosition;

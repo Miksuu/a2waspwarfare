@@ -72,6 +72,8 @@ for '_i' from 0 to count(_groups)-1 do {
 	_retVal = [_groups select _i, _position, _side, _lock, _team, true, 90] call WFBE_CO_FNC_CreateTeam;
 	// Marty: Track the actual group returned by CreateTeam, because delegated HC creation may replace grpNull locally.
 	_team = _retVal select 2;
+	// Marty: Mark actual town AI groups with town context after CreateTeam returns the group used locally.
+	[_team, "town_ai", Format ["town:%1;side:%2;template:%3", _town getVariable "name", _side, (_groups select _i)]] Call WFBE_CO_FNC_TraceGroup;
 	_vehicles = _retVal select 1;
 	_built = _built + count(_retVal select 0);
 	_builtveh = _builtveh + (count _vehicles);

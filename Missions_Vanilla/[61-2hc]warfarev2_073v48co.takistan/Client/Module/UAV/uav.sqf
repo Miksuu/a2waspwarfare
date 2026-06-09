@@ -31,6 +31,8 @@ _uav setVehicleInit Format["[this,%1] ExecVM 'Common\Init\Init_Unit.sqf';",sideI
 processInitCommands;
 
 _group = createGroup sideJoined;
+// Marty: Mark player UAV crew group so it is not confused with town/base AI leakage.
+[_group, "client_uav", Format ["player:%1;side:%2", name player, sideJoined]] Call WFBE_CO_FNC_TraceGroup;
 _driver = [missionNamespace getVariable Format ["WFBE_%1SOLDIER",sideJoinedText],_group,getPos _uav,WFBE_Client_SideID] Call WFBE_CO_FNC_CreateUnit;
 _driver moveInDriver _uav;
 

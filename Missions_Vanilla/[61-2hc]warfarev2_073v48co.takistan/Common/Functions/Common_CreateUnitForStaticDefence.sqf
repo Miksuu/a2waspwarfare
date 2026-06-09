@@ -28,6 +28,8 @@ for '_i' from 0 to count(_groups)-1 do {
 	//_team = _teams select _i;
 
 	["INFORMATION", Format["Common_CreateUnitForstaticDefence.sqf: [%1] will create a team template %2 at %3", _side, _groups select _i,_position]] Call WFBE_CO_FNC_LogContent;
+	// Marty: Mark static-defense manning group, including shared base/town defense teams delegated to HC.
+	[_team, "static_defense_manning", Format ["side:%1;defense:%2;moveIn:%3", _side, typeOf _defence, _moveInGunner]] Call WFBE_CO_FNC_TraceGroup;
 
 	_sideID = (_side) Call GetSideID;
 	_unit = [_groups select _i, _team, _position, _sideID] Call WFBE_CO_FNC_CreateUnit;

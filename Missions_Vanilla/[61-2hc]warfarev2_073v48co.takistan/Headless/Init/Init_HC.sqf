@@ -12,6 +12,9 @@ WFBE_CL_FNC_HandlePVF = Compile preprocessFileLineNumbers "Client\Functions\Clie
 
 ["INITIALIZATION", "Init_HC.sqf: Running the headless client initialization."] Call WFBE_CO_FNC_LogContent;
 
+// Marty: Periodic HC-side group census is essential because delegated AI groups are local to the HC.
+[120, "periodic"] Spawn WFBE_CO_FNC_StartGroupCensus;
+
 //--- We wait for the server full init (just in case!).
 sleep 20;
 

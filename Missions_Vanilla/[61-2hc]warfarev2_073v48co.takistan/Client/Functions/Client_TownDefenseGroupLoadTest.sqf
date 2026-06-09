@@ -73,6 +73,8 @@ if (_mode == "create") exitWith {
 		_group = createGroup _side;
 		if (isNull _group) exitWith {};
 
+		// Marty: Mark artificial test groups so production leaks are not mixed with load-test pressure.
+		[_group, "artificial_load_test", Format ["side:%1", _sideName]] Call WFBE_CO_FNC_TraceGroup;
 		_group setVariable ["WFBE_TD_DebugArtificial", true, false];
 		_group setVariable ["WFBE_TD_DebugArtificialSide", _sideName, false];
 		_registry set [count _registry, _group];

@@ -165,9 +165,15 @@ Call {
 
 //--- Static defenses groups in main towns.
 {
-	missionNamespace setVariable [Format ["WFBE_%1_DefenseTeam", _x], createGroup _x];
+	// Marty: Mark shared town/static defense teams; these persistent groups should not look like leaks in census.
+	_groupTrace = createGroup _x;
+	[_groupTrace, "shared_defense_team", Format ["side:%1", _x]] Call WFBE_CO_FNC_TraceGroup;
+	missionNamespace setVariable [Format ["WFBE_%1_DefenseTeam", _x], _groupTrace];
 	(missionNamespace getVariable Format ["WFBE_%1_DefenseTeam", _x]) setVariable ["wfbe_persistent", true];
 } forEach [west,east,resistance];
+
+// Marty: Periodic server-side group census for diagnosing WEST/EAST group-slot saturation.
+[120, "periodic"] Spawn WFBE_CO_FNC_StartGroupCensus;
 
 //--- Select whether the spawn restriction is enabled or not.
 _locationLogics = [];
@@ -394,10 +400,19 @@ emptyQueu = [];
 		_logik setVariable ["wfbe_structures_live", _str, true];
 
 		//--- Radio: Initialize the announcers entities.
-		_radio_hq1 = (createGroup sideLogic) createUnit ["Logic",[0,0,0],[],0,"NONE"];
-		_radio_hq2 = (createGroup sideLogic) createUnit ["Logic",[0,0,0],[],0,"NONE"];
-		[_radio_hq1] joinSilent (createGroup _side);
-		[_radio_hq2] joinSilent (createGroup _side);
+		// Marty: Mark radio groups so they are separated from AI combat groups in group census.
+		_radioLogicGroup1 = createGroup sideLogic;
+		[_radioLogicGroup1, "radio_hq_logic", Format ["side:%1;index:1", _side]] Call WFBE_CO_FNC_TraceGroup;
+		_radioLogicGroup2 = createGroup sideLogic;
+		[_radioLogicGroup2, "radio_hq_logic", Format ["side:%1;index:2", _side]] Call WFBE_CO_FNC_TraceGroup;
+		_radio_hq1 = _radioLogicGroup1 createUnit ["Logic",[0,0,0],[],0,"NONE"];
+		_radio_hq2 = _radioLogicGroup2 createUnit ["Logic",[0,0,0],[],0,"NONE"];
+		_radioSideGroup1 = createGroup _side;
+		[_radioSideGroup1, "radio_hq_side", Format ["side:%1;index:1", _side]] Call WFBE_CO_FNC_TraceGroup;
+		_radioSideGroup2 = createGroup _side;
+		[_radioSideGroup2, "radio_hq_side", Format ["side:%1;index:2", _side]] Call WFBE_CO_FNC_TraceGroup;
+		[_radio_hq1] joinSilent _radioSideGroup1;
+		[_radio_hq2] joinSilent _radioSideGroup2;
 		_logik setVariable ["wfbe_radio_hq", _radio_hq1, true];
 		_logik setVariable ["wfbe_radio_hq_rec", _radio_hq2];
 
@@ -569,7 +584,10 @@ if ((missionNamespace getVariable "WFBE_C_BASE_AREA") > 0) then {[] execVM "Serv
 //--- ALICE Module.
 if ((missionNamespace getVariable "WFBE_C_MODULE_BIS_ALICE") > 0) then {
 	_type = if (WF_A2_Vanilla) then {'AliceManager'} else {'Alice2Manager'};
-	_alice = (createGroup sideLogic) createUnit [_type,[0,0,0],[],0,"NONE"];
+	// Marty: Mark ALICE logic group to keep civilian module groups distinct in census.
+	_aliceGroup = createGroup sideLogic;
+	[_aliceGroup, "alice_logic", Format ["type:%1", _type]] Call WFBE_CO_FNC_TraceGroup;
+	_alice = _aliceGroup createUnit [_type,[0,0,0],[],0,"NONE"];
 
 	["INITIALIZATION", "Init_Server.sqf: BIS ALICE is defined."] Call WFBE_CO_FNC_LogContent;
 };
