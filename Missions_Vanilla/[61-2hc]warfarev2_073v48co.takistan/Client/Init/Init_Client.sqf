@@ -88,12 +88,16 @@ BIS_FNC_GUIget = {UInamespace getVariable (_this select 0)};
 // Marty: Centralized WF menu action helper. It keeps the mouse wheel WF menu tied to the current player object.
 WFBE_CL_FNC_AddWFMenuAction = Compile preprocessFileLineNumbers "Client\Functions\Client_AddWFMenuAction.sqf";
 WFBE_CL_FNC_AddPlayerAIActions = Compile preprocessFileLineNumbers "Client\Functions\Client_AddPlayerAIActions.sqf";
+// Marty: Debug-only town defense group saturation actions.
+WFBE_CL_FNC_AddTownDefenseDebugActions = Compile preprocessFileLineNumbers "Client\Functions\Client_AddTownDefenseDebugActions.sqf";
 WFBE_CL_FNC_ChangeClientFunds = Compile preprocessFileLineNumbers "Client\Functions\Client_ChangePlayerFunds.sqf";
 // Marty: Local cleanup for town AI delegated to this client or headless client.
 WFBE_CL_FNC_CleanupDelegatedTownAI = Compile preprocessFileLineNumbers "Client\Functions\Client_CleanupDelegatedTownAI.sqf";
 WFBE_CL_FNC_DelegateTownAI = Compile preprocessFileLineNumbers "Client\Functions\Client_DelegateTownAI.sqf";
 WFBE_CL_FNC_DelegateAI = Compile preprocessFileLineNumbers "Client\Functions\Client_DelegateAI.sqf";
 WFBE_CL_FNC_DelegateAIStaticDefence = Compile preprocessFileLineNumbers "Client\Functions\Client_DelegateAIStaticDefence.sqf";
+// Marty: Shared with HC so debug requests can create/delete artificial groups where town AI is delegated.
+WFBE_CL_FNC_TownDefenseGroupLoadTest = Compile preprocessFileLineNumbers "Client\Functions\Client_TownDefenseGroupLoadTest.sqf";
 WFBE_CL_FNC_GetAIID = Compile preprocessFileLineNumbers "Client\Functions\Client_GetAIID.sqf";
 WFBE_CL_FNC_GetBackpackContent = if !(WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Client\Functions\Client_GetBackpackContent.sqf"} else {{[[],[]]}};
 WFBE_CL_FNC_GetClientFunds = Compile preprocessFileLineNumbers "Client\Functions\Client_GetPlayerFunds.sqf";
@@ -170,7 +174,7 @@ waitUntil {commonInitComplete};
 
 // Marty: Show the test build marker once in debug mode so testers can confirm the running PBO version.
 if (WF_Debug) then {
-	systemChat "TD Debug build: 2026-06-09 01:56";
+	systemChat "TD Debug build: 2026-06-09 11:01";
 };
 
 if (ARMA_VERSION >= 162 && ARMA_RELEASENUMBER > 97105 || ARMA_VERSION > 162) then {
@@ -523,6 +527,8 @@ missionNamespace setVariable ["COIN_UseHelper", _greenList];
 // Marty: Add the WF menu through a helper so the action ID is stored on player instead of only in a global variable.
 player Call WFBE_CL_FNC_AddWFMenuAction;
 player Call WFBE_CL_FNC_AddPlayerAIActions;
+// Marty: Debug-only wheel actions for HC group saturation tests.
+if (WF_Debug) then {player Call WFBE_CL_FNC_AddTownDefenseDebugActions};
 [] Spawn Compile preprocessFileLineNumbers "Client\Functions\Client_WatchdogPlayerAI.sqf";
 // Marty: Refresh the native command bar when dead AI subordinates are not yet known by the local leader.
 [] Spawn Compile preprocessFileLineNumbers "Client\Functions\Client_WatchdogCommandBarDeadUnits.sqf";
@@ -538,6 +544,7 @@ player Call WFBE_CL_FNC_AddPlayerAIActions;
 
 		if (alive player && vehicle player == player && !_isRespawning) then {
 			player Call WFBE_CL_FNC_AddWFMenuAction;
+			if (WF_Debug) then {player Call WFBE_CL_FNC_AddTownDefenseDebugActions};
 		};
 
 		sleep 15;

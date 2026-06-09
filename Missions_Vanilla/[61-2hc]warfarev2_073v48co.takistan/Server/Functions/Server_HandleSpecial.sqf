@@ -134,6 +134,45 @@ switch (_args select 0) do {
 	case "process-killed-hq": {
 		(_args select 1) Spawn WFBE_SE_FNC_OnHQKilled;
 	};
+	// Marty: Relay debug-only town defense group saturation requests to the HC, where delegated town groups are local.
+	case "td-group-load-test": {
+		_args Spawn {
+			Private ["_clients","_count","_mode","_requester","_requesterName","_sideName","_targetGroup"];
+
+			if !(WF_Debug) exitWith {};
+
+			_mode = _this select 1;
+			_sideName = _this select 2;
+			_count = _this select 3;
+			_requester = _this select 4;
+			_requesterName = if (isNull _requester) then {"<null>"} else {name _requester};
+
+			if !(_mode in ["create", "delete", "count"]) exitWith {
+				["WARNING", Format ["TD_GROUP_LOAD_TEST server_invalid_mode mode:%1 side:%2 count:%3", _mode, _sideName, _count]] Call WFBE_CO_FNC_LogContent;
+			};
+			if !(_sideName in ["WEST", "EAST", "GUER", "ALL"]) exitWith {
+				["WARNING", Format ["TD_GROUP_LOAD_TEST server_invalid_side mode:%1 side:%2 count:%3", _mode, _sideName, _count]] Call WFBE_CO_FNC_LogContent;
+			};
+
+			_clients = missionNamespace getVariable ["WFBE_HEADLESSCLIENTS_ID", []];
+			if (count _clients == 0) exitWith {
+				["WARNING", Format ["TD_GROUP_LOAD_TEST no_headless_client mode:%1 side:%2 count:%3 requester:%4", _mode, _sideName, _count, _requesterName]] Call WFBE_CO_FNC_LogContent;
+				if !(isNull _requester) then {[_requester, "HandleSpecial", ["td-group-load-test-feedback", "TD Test: no headless client registered."]] Call WFBE_CO_FNC_SendToClient};
+			};
+
+			_targetGroup = _clients select 0;
+			if (isNull _targetGroup) exitWith {
+				["WARNING", Format ["TD_GROUP_LOAD_TEST null_headless_group mode:%1 side:%2 count:%3 requester:%4", _mode, _sideName, _count, _requesterName]] Call WFBE_CO_FNC_LogContent;
+			};
+			if (isNull (leader _targetGroup)) exitWith {
+				["WARNING", Format ["TD_GROUP_LOAD_TEST null_headless_leader mode:%1 side:%2 count:%3 requester:%4 hcGroup:%5", _mode, _sideName, _count, _requesterName, _targetGroup]] Call WFBE_CO_FNC_LogContent;
+			};
+
+			[leader _targetGroup, "HandleSpecial", ["td-group-load-test-local", _mode, _sideName, _count]] Call WFBE_CO_FNC_SendToClient;
+			["INFORMATION", Format ["TD_GROUP_LOAD_TEST server_forward mode:%1 side:%2 count:%3 requester:%4 hcGroup:%5 hcLeader:%6", _mode, _sideName, _count, _requesterName, _targetGroup, leader _targetGroup]] Call WFBE_CO_FNC_LogContent;
+			if !(isNull _requester) then {[_requester, "HandleSpecial", ["td-group-load-test-feedback", Format ["TD Test: %1 %2 request sent to HC.", _mode, _sideName]]] Call WFBE_CO_FNC_SendToClient};
+		};
+	};
 	// Marty: Authoritative cleanup for dead player AI that can remain in the command bar on dedicated servers.
 	case "commandbar-cleanup-dead-unit": {
 		_args Spawn {
