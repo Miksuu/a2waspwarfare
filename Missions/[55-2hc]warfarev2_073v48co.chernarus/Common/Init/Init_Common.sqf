@@ -109,6 +109,8 @@ WFBE_CO_FNC_CreateUnit = Compile preprocessFileLineNumbers "Common\Functions\Com
 WFBE_CO_FNC_TraceGroup = Compile preprocessFileLineNumbers "Common\Functions\Common_TraceGroup.sqf";
 WFBE_CO_FNC_LogGroupCensus = Compile preprocessFileLineNumbers "Common\Functions\Common_LogGroupCensus.sqf";
 WFBE_CO_FNC_StartGroupCensus = Compile preprocessFileLineNumbers "Common\Functions\Common_StartGroupCensus.sqf";
+// Marty: Empty group watchdog frees stale side group slots without touching Warfare player/team groups.
+WFBE_CO_FNC_StartEmptyGroupWatchdog = Compile preprocessFileLineNumbers "Common\Functions\Common_StartEmptyGroupWatchdog.sqf";
 WFBE_CO_FNC_EquipBackpack = if !(WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Common\Functions\Common_EquipBackpack.sqf"} else {{}};
 WFBE_CO_FNC_EquipUnit = Compile preprocessFileLineNumbers "Common\Functions\Common_EquipUnit.sqf";
 WFBE_CO_FNC_EquipVehicle = if !(WF_A2_Vanilla) then {Compile preprocessFileLineNumbers "Common\Functions\Common_EquipVehicle.sqf"} else {{}};

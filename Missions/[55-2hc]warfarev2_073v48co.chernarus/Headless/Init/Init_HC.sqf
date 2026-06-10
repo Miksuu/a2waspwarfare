@@ -15,6 +15,9 @@ WFBE_CL_FNC_HandlePVF = Compile preprocessFileLineNumbers "Client\Functions\Clie
 // Marty: Periodic HC-side group census is essential because delegated AI groups are local to the HC.
 [120, "periodic"] Spawn WFBE_CO_FNC_StartGroupCensus;
 
+// Marty: Reclaim stale empty side groups on the HC, where delegated AI group slots can remain local.
+[60, 60] Spawn WFBE_CO_FNC_StartEmptyGroupWatchdog;
+
 //--- We wait for the server full init (just in case!).
 sleep 20;
 
