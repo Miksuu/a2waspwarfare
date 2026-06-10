@@ -4,7 +4,7 @@
 		Aggregates current groups by side and trace source so RPT analysis can identify group leaks.
 */
 
-Private ["_civ","_context","_east","_empty","_event","_group","_groups","_guer","_hasPlayer","_i","_index","_local","_logic","_machine","_record","_side","_sideText","_source","_total","_units","_unknown","_vehicle","_vehicles","_west"];
+Private ["_civ","_context","_east","_empty","_event","_group","_groups","_guer","_hasPlayer","_i","_index","_leader","_local","_logic","_machine","_record","_side","_sideText","_source","_total","_units","_unknown","_vehicle","_vehicles","_west"];
 
 _event = if (count _this > 0) then {_this select 0} else {"periodic"};
 _context = if (count _this > 1) then {_this select 1} else {""};
@@ -49,7 +49,9 @@ _groups = [];
 	} forEach _units;
 
 	_empty = if ((count _units) == 0) then {1} else {0};
-	_local = if (local _group) then {1} else {0};
+	// Marty: Arma 2 OA local expects an object, so count a group as local only when its leader is local.
+	_leader = leader _group;
+	_local = if (isNull _leader) then {0} else {if (local _leader) then {1} else {0}};
 	_index = -1;
 
 	for "_i" from 0 to ((count _groups) - 1) do {
