@@ -175,6 +175,9 @@ Call {
 // Marty: Periodic server-side group census for diagnosing WEST/EAST group-slot saturation.
 [120, "periodic"] Spawn WFBE_CO_FNC_StartGroupCensus;
 
+// Marty: Reclaim stale empty side groups on the server after a confirmation delay.
+[60, 60] Spawn WFBE_CO_FNC_StartEmptyGroupWatchdog;
+
 //--- Select whether the spawn restriction is enabled or not.
 _locationLogics = [];
 if ((missionNamespace getVariable "WFBE_C_BASE_START_TOWN") > 0) then {
