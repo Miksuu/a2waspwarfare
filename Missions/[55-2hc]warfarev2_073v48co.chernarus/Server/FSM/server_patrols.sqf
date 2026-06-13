@@ -72,3 +72,6 @@ while {!WFBE_GameOver || _team_alive} do {
 
 _location setVariable ["wfbe_patrol_active", false];
 _location setVariable ["wfbe_patrol_active_last", time];
+
+// Marty: Patrol groups can end empty after all units die; reclaim the side group slot on the server.
+[_team, "town_patrol", Format ["origin:%1;side:%2", _location getVariable "name", _side]] Call WFBE_CO_FNC_DeleteGroupWhenDrained;

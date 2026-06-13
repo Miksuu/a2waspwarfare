@@ -28,11 +28,6 @@ _teams = _retVal select 0;
 //["RequestSpecial", ["update-delegation-static_defence", _teams]] Call WFBE_CO_FNC_SendToServer;
 
 {
-	_x Spawn {
-		Private ["_team"];
-		_team = _this;
-
-		while {count (units _team) > 0} do {sleep 1};
-		deleteGroup _team;
-	};
+	// Marty: Static gunners can leave dead bodies in their group; cleanup locally after no living unit remains.
+	[_x, "delegated_static_defense", Format ["side:%1;defense:%2;moveIn:%3", _side, typeOf _defence, _moveInGunner]] Spawn WFBE_CO_FNC_DeleteGroupWhenDrained;
 } forEach _teams; //--- Delete the group client-sided.

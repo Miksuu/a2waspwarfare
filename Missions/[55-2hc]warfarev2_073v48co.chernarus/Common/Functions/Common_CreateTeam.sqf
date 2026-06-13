@@ -1,5 +1,5 @@
 // Marty: Crew placement uses explicit private locals because town AI may be created on server, client, or headless client.
-Private ['_canCreate','_commander','_crewRole','_crewUnit','_crews','_driver','_firstDone','_global','_groupCountCiv','_groupCountEast','_groupCountGuer','_groupCountLogic','_groupCountSide','_groupCountWest','_groupCountUnknown','_groupMachine','_groupSide','_gunner','_list','_lockVehicles','_perfCrew','_perfInfantry','_perfScope','_perfSkipped','_perfStart','_perfVehicles','_position','_probability','_side','_sideID','_team','_type','_unit','_units','_vehicle','_vehicleCrews','_vehicles','_rearmor'];
+Private ['_canCreate','_commander','_crewRole','_crewUnit','_crews','_driver','_firstDone','_global','_groupCountCiv','_groupCountEast','_groupCountGuer','_groupCountLogic','_groupCountSide','_groupCountWest','_groupCountUnknown','_groupMachine','_groupSide','_gunner','_list','_lockVehicles','_perfCrew','_perfInfantry','_perfScope','_perfSkipped','_perfStart','_perfVehicles','_players','_position','_probability','_side','_sideID','_team','_type','_unit','_units','_vehicle','_vehicleCrews','_vehicles','_rearmor'];
 
 _list = _this select 0;
 _position = _this select 1;
@@ -58,7 +58,9 @@ if (isNull _team) exitWith {
 		default {_groupCountUnknown};
 	};
 	_groupMachine = if (isServer) then {"SERVER"} else {if (hasInterface) then {"CLIENT"} else {"HC"}};
-	["WARNING", Format ["TOWN_GROUP_COUNT create_failed machine:%1 side:%2 sideGroups:%3 total:%4 west:%5 east:%6 guer:%7 civ:%8 logic:%9 unknown:%10", _groupMachine, _side, _groupCountSide, count allGroups, _groupCountWest, _groupCountEast, _groupCountGuer, _groupCountCiv, _groupCountLogic, _groupCountUnknown]] Call WFBE_CO_FNC_LogContent;
+	_players = Call WFBE_CO_FNC_GetHumanPlayerCount;
+	// Marty: Include player count when group creation fails to correlate saturation with real server load.
+	["WARNING", Format ["TOWN_GROUP_COUNT create_failed machine:%1 side:%2 sideGroups:%3 total:%4 players:%5 west:%6 east:%7 guer:%8 civ:%9 logic:%10 unknown:%11", _groupMachine, _side, _groupCountSide, count allGroups, _players, _groupCountWest, _groupCountEast, _groupCountGuer, _groupCountCiv, _groupCountLogic, _groupCountUnknown]] Call WFBE_CO_FNC_LogContent;
 	["WARNING", Format ["Common_CreateTeam.sqf: Team template for side [%1] at [%2] was skipped because no valid group could be created. Templates:%3", _side, _position, count _list]] Call WFBE_CO_FNC_LogContent;
 	if !(isNil "PerformanceAudit_Record") then {
 		if (missionNamespace getVariable ["PerformanceAuditEnabled", true]) then {

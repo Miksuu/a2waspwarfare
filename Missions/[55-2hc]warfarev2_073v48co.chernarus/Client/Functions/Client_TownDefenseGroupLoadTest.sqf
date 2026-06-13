@@ -25,7 +25,7 @@ if !(_sideName in ["WEST", "EAST", "GUER", "ALL"]) exitWith {
 
 // Marty: Log local group counts on the machine being saturated, normally the HC.
 _logGroupCount = {
-	Private ["_eventName","_groupCountCiv","_groupCountEast","_groupCountGuer","_groupCountLogic","_groupCountSide","_groupCountWest","_groupCountUnknown","_groupMachine","_groupSide"];
+	Private ["_eventName","_groupCountCiv","_groupCountEast","_groupCountGuer","_groupCountLogic","_groupCountSide","_groupCountWest","_groupCountUnknown","_groupMachine","_groupSide","_players"];
 
 	_eventName = _this select 0;
 	_groupCountWest = 0;
@@ -55,7 +55,9 @@ _logGroupCount = {
 		default {_groupCountUnknown};
 	};
 	_groupMachine = if (isServer) then {"SERVER"} else {if (hasInterface) then {"CLIENT"} else {"HC"}};
-	["INFORMATION", Format ["TOWN_GROUP_COUNT %1 machine:%2 town:ARTIFICIAL side:%3 sideGroups:%4 total:%5 west:%6 east:%7 guer:%8 civ:%9 logic:%10 unknown:%11", _eventName, _groupMachine, _sideName, _groupCountSide, count allGroups, _groupCountWest, _groupCountEast, _groupCountGuer, _groupCountCiv, _groupCountLogic, _groupCountUnknown]] Call WFBE_CO_FNC_LogContent;
+	_players = Call WFBE_CO_FNC_GetHumanPlayerCount;
+	// Marty: Include players in artificial load-test group counts so test sessions resemble production reports.
+	["INFORMATION", Format ["TOWN_GROUP_COUNT %1 machine:%2 town:ARTIFICIAL side:%3 sideGroups:%4 total:%5 players:%6 west:%7 east:%8 guer:%9 civ:%10 logic:%11 unknown:%12", _eventName, _groupMachine, _sideName, _groupCountSide, count allGroups, _players, _groupCountWest, _groupCountEast, _groupCountGuer, _groupCountCiv, _groupCountLogic, _groupCountUnknown]] Call WFBE_CO_FNC_LogContent;
 };
 
 if (_mode == "count") exitWith {

@@ -26,7 +26,7 @@ _lock = if ((missionNamespace getVariable "WFBE_C_TOWNS_VEHICLES_LOCK_DEFENDER")
 
 // Marty: Record local group counts around town defense creation to diagnose Arma 2 OA per-side group pressure on server/HC.
 _logGroupCount = {
-	Private ["_event", "_groupCountCiv", "_groupCountEast", "_groupCountGuer", "_groupCountLogic", "_groupCountSide", "_groupCountWest", "_groupCountUnknown", "_groupMachine", "_groupSide", "_level"];
+	Private ["_event", "_groupCountCiv", "_groupCountEast", "_groupCountGuer", "_groupCountLogic", "_groupCountSide", "_groupCountWest", "_groupCountUnknown", "_groupMachine", "_groupSide", "_level", "_players"];
 
 	_event = _this select 0;
 	_level = _this select 1;
@@ -58,7 +58,9 @@ _logGroupCount = {
 		default {_groupCountUnknown};
 	};
 	_groupMachine = if (isServer) then {"SERVER"} else {if (hasInterface) then {"CLIENT"} else {"HC"}};
-	[_level, Format ["TOWN_GROUP_COUNT %1 machine:%2 town:%3 side:%4 sideGroups:%5 total:%6 west:%7 east:%8 guer:%9 civ:%10 logic:%11 unknown:%12", _event, _groupMachine, _town getVariable "name", _side, _groupCountSide, count allGroups, _groupCountWest, _groupCountEast, _groupCountGuer, _groupCountCiv, _groupCountLogic, _groupCountUnknown]] Call WFBE_CO_FNC_LogContent;
+	_players = Call WFBE_CO_FNC_GetHumanPlayerCount;
+	// Marty: Add human players to group pressure logs for production correlation.
+	[_level, Format ["TOWN_GROUP_COUNT %1 machine:%2 town:%3 side:%4 sideGroups:%5 total:%6 players:%7 west:%8 east:%9 guer:%10 civ:%11 logic:%12 unknown:%13", _event, _groupMachine, _town getVariable "name", _side, _groupCountSide, count allGroups, _players, _groupCountWest, _groupCountEast, _groupCountGuer, _groupCountCiv, _groupCountLogic, _groupCountUnknown]] Call WFBE_CO_FNC_LogContent;
 };
 
 ["activation_before", "INFORMATION"] call _logGroupCount;

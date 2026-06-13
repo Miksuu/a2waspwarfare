@@ -155,7 +155,7 @@ function Add-LineMatch {
 		return
 	}
 
-	$match = [regex]::Match($Line, 'TOWN_GROUP_COUNT\s+(\S+)\s+machine:(\S+)(?:\s+town:(.*?)\s+side:|\s+side:)(\S+)\s+sideGroups:(\d+)\s+total:(\d+)\s+west:(\d+)\s+east:(\d+)\s+guer:(\d+)\s+civ:(\d+)\s+logic:(\d+)\s+unknown:(\d+)')
+	$match = [regex]::Match($Line, 'TOWN_GROUP_COUNT\s+(\S+)\s+machine:(\S+)(?:\s+town:(.*?)\s+side:|\s+side:)(\S+)\s+sideGroups:(\d+)\s+total:(\d+)(?:\s+players:(\d+))?\s+west:(\d+)\s+east:(\d+)\s+guer:(\d+)\s+civ:(\d+)\s+logic:(\d+)\s+unknown:(\d+)')
 	if ($match.Success) {
 		$row = New-Row "group_count" $Role $File $LineNumber $Line
 		$row["event"] = $match.Groups[1].Value
@@ -164,17 +164,18 @@ function Add-LineMatch {
 		$row["side"] = $match.Groups[4].Value
 		$row["side_groups"] = Get-Int $match.Groups[5].Value
 		$row["total_groups"] = Get-Int $match.Groups[6].Value
-		$row["west"] = Get-Int $match.Groups[7].Value
-		$row["east"] = Get-Int $match.Groups[8].Value
-		$row["guer"] = Get-Int $match.Groups[9].Value
-		$row["civ"] = Get-Int $match.Groups[10].Value
-		$row["logic"] = Get-Int $match.Groups[11].Value
-		$row["unknown"] = Get-Int $match.Groups[12].Value
+		$row["players"] = if ($match.Groups[7].Success -and $match.Groups[7].Value -ne "") { Get-Int $match.Groups[7].Value } else { -1 }
+		$row["west"] = Get-Int $match.Groups[8].Value
+		$row["east"] = Get-Int $match.Groups[9].Value
+		$row["guer"] = Get-Int $match.Groups[10].Value
+		$row["civ"] = Get-Int $match.Groups[11].Value
+		$row["logic"] = Get-Int $match.Groups[12].Value
+		$row["unknown"] = Get-Int $match.Groups[13].Value
 		$script:GroupCounts.Add([pscustomobject]$row)
 		return
 	}
 
-	$match = [regex]::Match($Line, 'GROUP_TRACE\s+create\s+machine:(\S+)\s+source:(\S+)\s+side:(\S+)\s+group:(.*?)\s+context:(.*?)\s+local:(\S+)\s+units:(\d+)\s+total:(\d+)')
+	$match = [regex]::Match($Line, 'GROUP_TRACE\s+create\s+machine:(\S+)\s+source:(\S+)\s+side:(\S+)\s+group:(.*?)\s+context:(.*?)\s+local:(\S+)\s+units:(\d+)\s+total:(\d+)(?:\s+players:(\d+))?')
 	if ($match.Success) {
 		$row = New-Row "group_trace" $Role $File $LineNumber $Line
 		$row["machine"] = $match.Groups[1].Value
@@ -185,11 +186,12 @@ function Add-LineMatch {
 		$row["local"] = $match.Groups[6].Value
 		$row["units"] = Get-Int $match.Groups[7].Value
 		$row["total_groups"] = Get-Int $match.Groups[8].Value
+		$row["players"] = if ($match.Groups[9].Success -and $match.Groups[9].Value -ne "") { Get-Int $match.Groups[9].Value } else { -1 }
 		$script:GroupTraces.Add([pscustomobject]$row)
 		return
 	}
 
-	$match = [regex]::Match($Line, 'GROUP_CENSUS\s+event:(\S+)\s+machine:(\S+)\s+source:(\S+)\s+side:(\S+)\s+groups:(\d+)\s+empty:(\d+)\s+units:(\d+)\s+vehicles:(\d+)\s+localGroups:(\d+)\s+total:(\d+)\s+west:(\d+)\s+east:(\d+)\s+guer:(\d+)\s+civ:(\d+)\s+logic:(\d+)\s+unknown:(\d+)\s+context:(.*)')
+	$match = [regex]::Match($Line, 'GROUP_CENSUS\s+event:(\S+)\s+machine:(\S+)\s+source:(\S+)\s+side:(\S+)\s+groups:(\d+)\s+empty:(\d+)\s+units:(\d+)\s+vehicles:(\d+)\s+localGroups:(\d+)\s+total:(\d+)(?:\s+players:(\d+))?\s+west:(\d+)\s+east:(\d+)\s+guer:(\d+)\s+civ:(\d+)\s+logic:(\d+)\s+unknown:(\d+)\s+context:(.*)')
 	if ($match.Success) {
 		$row = New-Row "group_census" $Role $File $LineNumber $Line
 		$row["event"] = $match.Groups[1].Value
@@ -202,14 +204,56 @@ function Add-LineMatch {
 		$row["vehicles"] = Get-Int $match.Groups[8].Value
 		$row["local_groups"] = Get-Int $match.Groups[9].Value
 		$row["total_groups"] = Get-Int $match.Groups[10].Value
-		$row["west"] = Get-Int $match.Groups[11].Value
-		$row["east"] = Get-Int $match.Groups[12].Value
-		$row["guer"] = Get-Int $match.Groups[13].Value
-		$row["civ"] = Get-Int $match.Groups[14].Value
-		$row["logic"] = Get-Int $match.Groups[15].Value
-		$row["unknown"] = Get-Int $match.Groups[16].Value
-		$row["context"] = $match.Groups[17].Value
+		$row["players"] = if ($match.Groups[11].Success -and $match.Groups[11].Value -ne "") { Get-Int $match.Groups[11].Value } else { -1 }
+		$row["west"] = Get-Int $match.Groups[12].Value
+		$row["east"] = Get-Int $match.Groups[13].Value
+		$row["guer"] = Get-Int $match.Groups[14].Value
+		$row["civ"] = Get-Int $match.Groups[15].Value
+		$row["logic"] = Get-Int $match.Groups[16].Value
+		$row["unknown"] = Get-Int $match.Groups[17].Value
+		$row["context"] = $match.Groups[18].Value
 		$script:GroupCensus.Add([pscustomobject]$row)
+		return
+	}
+
+	$match = [regex]::Match($Line, 'GROUP_DRAIN_CLEANUP\s+force_clear\s+machine:(\S+)\s+source:(\S+)\s+group:(.*?)\s+units:(\d+)\s+players:(-?\d+)\s+context:(.*)')
+	if ($match.Success) {
+		$row = New-Row "group_drain_force_clear" $Role $File $LineNumber $Line
+		$row["machine"] = $match.Groups[1].Value
+		$row["source"] = $match.Groups[2].Value
+		$row["group"] = $match.Groups[3].Value
+		$row["deleted_units"] = Get-Int $match.Groups[4].Value
+		$row["players"] = Get-Int $match.Groups[5].Value
+		$row["context"] = $match.Groups[6].Value
+		$script:Cleanup.Add([pscustomobject]$row)
+		return
+	}
+
+	$match = [regex]::Match($Line, 'GROUP_DRAIN_CLEANUP\s+still_not_empty\s+machine:(\S+)\s+source:(\S+)\s+group:(.*?)\s+remaining:(\d+)\s+players:(-?\d+)\s+context:(.*)')
+	if ($match.Success) {
+		$row = New-Row "group_drain_still_not_empty" $Role $File $LineNumber $Line
+		$row["machine"] = $match.Groups[1].Value
+		$row["source"] = $match.Groups[2].Value
+		$row["group"] = $match.Groups[3].Value
+		$row["remaining_units"] = Get-Int $match.Groups[4].Value
+		$row["players"] = Get-Int $match.Groups[5].Value
+		$row["context"] = $match.Groups[6].Value
+		$script:Cleanup.Add([pscustomobject]$row)
+		return
+	}
+
+	$match = [regex]::Match($Line, 'GROUP_DRAIN_CLEANUP\s+result\s+machine:(\S+)\s+source:(\S+)\s+group:(.*?)\s+deletedUnits:(\d+)\s+deletedGroup:(\S+)\s+stillPresent:(\S+)\s+players:(-?\d+)\s+context:(.*)')
+	if ($match.Success) {
+		$row = New-Row "group_drain_result" $Role $File $LineNumber $Line
+		$row["machine"] = $match.Groups[1].Value
+		$row["source"] = $match.Groups[2].Value
+		$row["group"] = $match.Groups[3].Value
+		$row["deleted_units"] = Get-Int $match.Groups[4].Value
+		$row["deleted_group"] = $match.Groups[5].Value
+		$row["still_present"] = $match.Groups[6].Value
+		$row["players"] = Get-Int $match.Groups[7].Value
+		$row["context"] = $match.Groups[8].Value
+		$script:Cleanup.Add([pscustomobject]$row)
 		return
 	}
 
@@ -379,6 +423,8 @@ function Write-HtmlReport {
 	$maxWestGroupsHtml = if ((Get-ItemCount $GroupRows) -gt 0) { ($GroupRows | Measure-Object -Property west -Maximum).Maximum } else { 0 }
 	$maxEastGroupsHtml = if ((Get-ItemCount $GroupRows) -gt 0) { ($GroupRows | Measure-Object -Property east -Maximum).Maximum } else { 0 }
 	$maxGuerGroupsHtml = if ((Get-ItemCount $GroupRows) -gt 0) { ($GroupRows | Measure-Object -Property guer -Maximum).Maximum } else { 0 }
+	$playerHtmlRows = @(@($GroupRows) + @($GroupTraceRows) + @($GroupCensusRows) | Where-Object { (Test-HasProperty $_ "players") -and $_.players -ge 0 })
+	$maxPlayersHtml = if ((Get-ItemCount $playerHtmlRows) -gt 0) { ($playerHtmlRows | Measure-Object -Property players -Maximum).Maximum } else { 0 }
 	if ((Get-ItemCount $GroupCensusRows) -gt 0) {
 		$maxWestGroupsHtml = [Math]::Max($maxWestGroupsHtml, (($GroupCensusRows | Measure-Object -Property west -Maximum).Maximum))
 		$maxEastGroupsHtml = [Math]::Max($maxEastGroupsHtml, (($GroupCensusRows | Measure-Object -Property east -Maximum).Maximum))
@@ -419,6 +465,7 @@ function Write-HtmlReport {
 		@("Max WEST Groups", $maxWestGroupsHtml),
 		@("Max EAST Groups", $maxEastGroupsHtml),
 		@("Max GUER Groups", $maxGuerGroupsHtml),
+		@("Max Players", $maxPlayersHtml),
 		@("Cleanup Rows", (Get-ItemCount $CleanupRows)),
 		@("Delegation Rows", (Get-ItemCount $DelegationRows))
 	)
@@ -429,12 +476,12 @@ function Write-HtmlReport {
 
 	Add-HtmlTable $lines "Inputs" $Inputs @("Role","Path")
 	Add-HtmlTable $lines "Builds" $BuildRows @("source_role","build","source_file","line_number")
-	Add-HtmlTable $lines "Group Saturation Diagnostics" $GroupRows @("event","machine","town","side","side_groups","total_groups","west","east","guer","civ","logic","unknown","source_role","source_file","line_number")
-	Add-HtmlTable $lines "Group Creation Trace" $GroupTraceRows @("machine","source","side","group","context","local","units","total_groups","source_role","source_file","line_number")
-	Add-HtmlTable $lines "Group Census By Source" $GroupCensusRows @("event","machine","source","side","groups","empty","units","vehicles","local_groups","total_groups","west","east","guer","civ","logic","unknown","context","source_role","source_file","line_number")
+	Add-HtmlTable $lines "Group Saturation Diagnostics" $GroupRows @("event","machine","town","side","side_groups","total_groups","players","west","east","guer","civ","logic","unknown","source_role","source_file","line_number")
+	Add-HtmlTable $lines "Group Creation Trace" $GroupTraceRows @("machine","source","side","group","context","local","units","total_groups","players","source_role","source_file","line_number")
+	Add-HtmlTable $lines "Group Census By Source" $GroupCensusRows @("event","machine","source","side","groups","empty","units","vehicles","local_groups","total_groups","players","west","east","guer","civ","logic","unknown","context","source_role","source_file","line_number")
 	Add-HtmlTable $lines "Empty Town Activations" $EmptyRows @("source_role","town","side","units","source_file","line_number")
 	Add-HtmlTable $lines "createGroup Failures" $FailureRows @("source_role","side","templates","source_file","line_number")
-	Add-HtmlTable $lines "HC Cleanup" $CleanupRows @("kind","source_role","town","side","groups","deleted_groups","deleted_units","kept_groups","vehicles","registry","source_file","line_number")
+	Add-HtmlTable $lines "Cleanup" $CleanupRows @("kind","source_role","machine","source","town","side","group","groups","deleted_groups","deleted_group","deleted_units","kept_groups","remaining_units","still_present","vehicles","registry","players","context","source_file","line_number")
 	Add-HtmlTable $lines "Delegation Requests" $DelegationRows @("source_role","town","side","source_file","line_number")
 	Add-HtmlTable $lines "Interpretation" $InterpretationRows @("message")
 
@@ -494,6 +541,7 @@ $eastWestActivations = @($activationRows | Where-Object { $_.side -in @("EAST", 
 $guerActivations = @($activationRows | Where-Object { $_.side -in @("GUER", "RESISTANCE") })
 $keptCleanup = @($cleanupRows | Where-Object { $_.kind -eq "cleanup_done" -and $_.kept_groups -gt 0 })
 $groupNotEmpty = @($cleanupRows | Where-Object { $_.kind -eq "cleanup_group_not_empty" })
+$groupDrainStillNotEmpty = @($cleanupRows | Where-Object { $_.kind -eq "group_drain_still_not_empty" })
 $missingGroupCountForEmpty = ((Get-ItemCount $emptyRows) -gt 0 -and (Get-ItemCount $groupRows) -eq 0)
 $missingGroupCountForFailure = ((Get-ItemCount $failureRows) -gt 0 -and (Get-ItemCount $groupRows) -eq 0)
 $townDefenseSignalCount = (Get-ItemCount $activationRows) + (Get-ItemCount $failureRows) + (Get-ItemCount $groupRows) + (Get-ItemCount $groupTraceRows) + (Get-ItemCount $groupCensusRows) + (Get-ItemCount $cleanupRows) + (Get-ItemCount $delegationRows)
@@ -503,7 +551,7 @@ $verdictReason = "No empty town defense activation and no createGroup failure we
 if ($townDefenseSignalCount -eq 0) {
 	$verdict = "INCOMPLETE"
 	$verdictReason = "No town defense log line was found in the selected RPT. The file is probably the wrong RPT, a short/truncated extract, or from a period before town AI activation."
-} elseif ((Get-ItemCount $emptyRows) -gt 0 -or (Get-ItemCount $failureRows) -gt 0 -or (Get-ItemCount $keptCleanup) -gt 0 -or (Get-ItemCount $groupNotEmpty) -gt 0) {
+} elseif ((Get-ItemCount $emptyRows) -gt 0 -or (Get-ItemCount $failureRows) -gt 0 -or (Get-ItemCount $keptCleanup) -gt 0 -or (Get-ItemCount $groupNotEmpty) -gt 0 -or (Get-ItemCount $groupDrainStillNotEmpty) -gt 0) {
 	$verdict = "FAILURE"
 	$verdictReason = "Town defense spawning or cleanup anomalies were detected."
 } elseif ((Get-ItemCount $eastWestActivations) -eq 0) {
@@ -543,6 +591,9 @@ Add-ReportLine $report "- createGroup failures: $(Get-ItemCount $failureRows)"
 Add-ReportLine $report "- TOWN_GROUP_COUNT rows: $(Get-ItemCount $groupRows)"
 Add-ReportLine $report "- GROUP_TRACE rows: $(Get-ItemCount $groupTraceRows)"
 Add-ReportLine $report "- GROUP_CENSUS rows: $(Get-ItemCount $groupCensusRows)"
+$playerSamples = @(@($groupRows) + @($groupTraceRows) + @($groupCensusRows) | Where-Object { (Test-HasProperty $_ "players") -and $_.players -ge 0 })
+$maxPlayers = if ((Get-ItemCount $playerSamples) -gt 0) { ($playerSamples | Measure-Object -Property players -Maximum).Maximum } else { 0 }
+Add-ReportLine $report "- Max players observed in group diagnostics: $maxPlayers"
 Add-ReportLine $report "- Delegation requests: $(Get-ItemCount $delegationRows) ($(Get-CountBySideText $delegationRows))"
 Add-ReportLine $report "- Cleanup rows: $(Get-ItemCount $cleanupRows)"
 Add-ReportLine $report
@@ -559,9 +610,10 @@ if ((Get-ItemCount $groupRows) -gt 0) {
 	Add-ReportLine $report "- Max WEST groups observed: $maxWestGroups"
 	Add-ReportLine $report "- Max EAST groups observed: $maxEastGroups"
 	Add-ReportLine $report "- Max GUER groups observed: $maxGuerGroups"
+	Add-ReportLine $report "- Max players observed: $maxPlayers"
 	Add-ReportLine $report
 	$groupRows | Sort-Object source_file, line_number | Select-Object -Last 10 | ForEach-Object {
-		Add-ReportLine $report "- $($_.event) $($_.machine) town:$($_.town) side:$($_.side) sideGroups:$($_.side_groups) total:$($_.total_groups) west:$($_.west) east:$($_.east) guer:$($_.guer) at $([System.IO.Path]::GetFileName($_.source_file)):$($_.line_number)"
+		Add-ReportLine $report "- $($_.event) $($_.machine) town:$($_.town) side:$($_.side) sideGroups:$($_.side_groups) total:$($_.total_groups) players:$($_.players) west:$($_.west) east:$($_.east) guer:$($_.guer) at $([System.IO.Path]::GetFileName($_.source_file)):$($_.line_number)"
 	}
 	Add-ReportLine $report
 }
@@ -571,7 +623,7 @@ if ((Get-ItemCount $groupCensusRows) -gt 0) {
 	Add-ReportLine $report "## Group Census By Source"
 	Add-ReportLine $report "- Latest census source rows: $(Get-ItemCount $latestCensusRows)"
 	$latestCensusRows | Sort-Object groups -Descending | Select-Object -First 12 | ForEach-Object {
-		Add-ReportLine $report "- $($_.source_role) $($_.machine) source:$($_.source) side:$($_.side) groups:$($_.groups) empty:$($_.empty) units:$($_.units) vehicles:$($_.vehicles) total:$($_.total_groups) at $([System.IO.Path]::GetFileName($_.source_file)):$($_.line_number)"
+		Add-ReportLine $report "- $($_.source_role) $($_.machine) source:$($_.source) side:$($_.side) groups:$($_.groups) empty:$($_.empty) units:$($_.units) vehicles:$($_.vehicles) total:$($_.total_groups) players:$($_.players) at $([System.IO.Path]::GetFileName($_.source_file)):$($_.line_number)"
 	}
 	Add-ReportLine $report
 }
@@ -610,12 +662,13 @@ if ((Get-ItemCount $cleanupRows) -gt 0) {
 		$deletedUnits = ($doneRows | Measure-Object -Property deleted_units -Sum).Sum
 		$keptGroups = ($doneRows | Measure-Object -Property kept_groups -Sum).Sum
 	}
-	Add-ReportLine $report "## HC Cleanup"
+	Add-ReportLine $report "## Cleanup"
 	Add-ReportLine $report "- cleanup_done rows: $(Get-ItemCount $doneRows)"
 	Add-ReportLine $report "- deleted groups: $deletedGroups"
 	Add-ReportLine $report "- deleted units: $deletedUnits"
 	Add-ReportLine $report "- kept groups: $keptGroups"
 	Add-ReportLine $report "- group_not_empty rows: $(Get-ItemCount $groupNotEmpty)"
+	Add-ReportLine $report "- group_drain_still_not_empty rows: $(Get-ItemCount $groupDrainStillNotEmpty)"
 	Add-ReportLine $report
 }
 
@@ -734,6 +787,7 @@ $summary = [pscustomobject]@{
 	max_west_groups = if (((Get-ItemCount $groupRows) + (Get-ItemCount $groupCensusRows)) -gt 0) { (@($groupRows) + @($groupCensusRows) | Measure-Object -Property west -Maximum).Maximum } else { 0 }
 	max_east_groups = if (((Get-ItemCount $groupRows) + (Get-ItemCount $groupCensusRows)) -gt 0) { (@($groupRows) + @($groupCensusRows) | Measure-Object -Property east -Maximum).Maximum } else { 0 }
 	max_guer_groups = if (((Get-ItemCount $groupRows) + (Get-ItemCount $groupCensusRows)) -gt 0) { (@($groupRows) + @($groupCensusRows) | Measure-Object -Property guer -Maximum).Maximum } else { 0 }
+	max_players = $maxPlayers
 	cleanup_rows = (Get-ItemCount $cleanupRows)
 	delegation_rows = (Get-ItemCount $delegationRows)
 	output_path = $resolvedOutput

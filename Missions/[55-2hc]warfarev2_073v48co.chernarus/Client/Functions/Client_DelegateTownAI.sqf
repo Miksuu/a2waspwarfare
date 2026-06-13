@@ -38,12 +38,6 @@ missionNamespace setVariable ["WFBE_CL_TownAI_Groups", _registry];
 if ((count _town_teams) > 0 || (count _town_vehicles) > 0) then {["RequestSpecial", ["update-town-delegation", _town, _town_teams, _town_vehicles]] Call WFBE_CO_FNC_SendToServer};
 
 {
-	_x Spawn {
-		Private ["_team"];
-		_team = _this;
-		
-		if (isNull _team) exitWith {};
-		while {count (units _team) > 0} do {sleep 1};
-		deleteGroup _team;
-	};
+	// Marty: Delete delegated groups locally once all units are dead, clearing corpses that can block deleteGroup forever.
+	[_x, "delegated_town_ai", Format ["town:%1;side:%2", _town getVariable "name", _side]] Spawn WFBE_CO_FNC_DeleteGroupWhenDrained;
 } forEach _town_teams; //--- Delete the group client-sided once it naturally becomes empty.
