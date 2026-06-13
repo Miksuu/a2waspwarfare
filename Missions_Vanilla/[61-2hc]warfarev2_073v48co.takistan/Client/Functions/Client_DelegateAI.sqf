@@ -7,7 +7,7 @@
 		- Teams
 */
 
-Private ["_groups", "_positions", "_side", "_teams", "_town_vehicles"];
+Private ["_cleanupGroup", "_groups", "_positions", "_side", "_teams", "_town_vehicles"];
 
 _side = _this select 0;
 _unitType = (_this select 1) select 0;
@@ -23,10 +23,7 @@ _retVal = [_side, _unitType, _position, _team] call WFBE_CO_FNC_CreateUnitsForRe
 _teams = _retVal select 0;
 
 {
-	_x Spawn {
-		Private ["_team"];
-		_team = _this select 0;
-		while {count (units _team) > 0} do {sleep 1};
-		deleteGroup _team;
-	};
+	_cleanupGroup = if ((typeName _x) == "ARRAY") then {_x select 0} else {_x};
+	// Marty: Delegated resistance-base groups must be cleaned where they are local after all live units are gone.
+	[_cleanupGroup, "delegated_resbase_ai", Format ["side:%1;unit:%2", _side, _unitType]] Spawn WFBE_CO_FNC_DeleteGroupWhenDrained;
 } forEach _teams; //--- Delete the group client-sided.

@@ -4,7 +4,7 @@
 		Aggregates current groups by side and trace source so RPT analysis can identify group leaks.
 */
 
-Private ["_civ","_context","_east","_empty","_event","_group","_groups","_guer","_hasPlayer","_i","_index","_leader","_local","_logic","_machine","_record","_side","_sideText","_source","_total","_units","_unknown","_vehicle","_vehicles","_west"];
+Private ["_civ","_context","_east","_empty","_event","_group","_groups","_guer","_hasPlayer","_i","_index","_leader","_local","_logic","_machine","_players","_record","_side","_sideText","_source","_total","_units","_unknown","_vehicle","_vehicles","_west"];
 
 _event = if (count _this > 0) then {_this select 0} else {"periodic"};
 _context = if (count _this > 1) then {_this select 1} else {""};
@@ -73,7 +73,9 @@ _groups = [];
 } forEach allGroups;
 
 _total = count allGroups;
+_players = Call WFBE_CO_FNC_GetHumanPlayerCount;
 
 {
-	["INFORMATION", Format ["GROUP_CENSUS event:%1 machine:%2 source:%3 side:%4 groups:%5 empty:%6 units:%7 vehicles:%8 localGroups:%9 total:%10 west:%11 east:%12 guer:%13 civ:%14 logic:%15 unknown:%16 context:%17", _event, _machine, (_x select 0), (_x select 1), (_x select 2), (_x select 3), (_x select 4), (_x select 5), (_x select 6), _total, _west, _east, _guer, _civ, _logic, _unknown, _context]] Call WFBE_CO_FNC_LogContent;
+	// Marty: Include human player count so group pressure can be correlated with population in RPT analysis.
+	["INFORMATION", Format ["GROUP_CENSUS event:%1 machine:%2 source:%3 side:%4 groups:%5 empty:%6 units:%7 vehicles:%8 localGroups:%9 total:%10 players:%11 west:%12 east:%13 guer:%14 civ:%15 logic:%16 unknown:%17 context:%18", _event, _machine, (_x select 0), (_x select 1), (_x select 2), (_x select 3), (_x select 4), (_x select 5), (_x select 6), _total, _players, _west, _east, _guer, _civ, _logic, _unknown, _context]] Call WFBE_CO_FNC_LogContent;
 } forEach _groups;

@@ -106,6 +106,8 @@ WFBE_CO_FNC_CreateUnitsForResBases = Compile preprocessFileLineNumbers "Common\F
 WFBE_CO_FNC_CreateVehicle = Compile preprocessFileLineNumbers "Common\Functions\Common_CreateVehicle.sqf";
 WFBE_CO_FNC_CreateUnit = Compile preprocessFileLineNumbers "Common\Functions\Common_CreateUnit.sqf";
 // Marty: Group tracing helpers identify which feature owns the side group slots in RPT diagnostics.
+WFBE_CO_FNC_GetHumanPlayerCount = Compile preprocessFileLineNumbers "Common\Functions\Common_GetHumanPlayerCount.sqf";
+WFBE_CO_FNC_DeleteGroupWhenDrained = Compile preprocessFileLineNumbers "Common\Functions\Common_DeleteGroupWhenDrained.sqf";
 WFBE_CO_FNC_TraceGroup = Compile preprocessFileLineNumbers "Common\Functions\Common_TraceGroup.sqf";
 WFBE_CO_FNC_LogGroupCensus = Compile preprocessFileLineNumbers "Common\Functions\Common_LogGroupCensus.sqf";
 WFBE_CO_FNC_StartGroupCensus = Compile preprocessFileLineNumbers "Common\Functions\Common_StartGroupCensus.sqf";

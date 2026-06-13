@@ -13,7 +13,7 @@ if (missionNamespace getVariable ["WFBE_EmptyGroupWatchdogStarted", false]) exit
 missionNamespace setVariable ["WFBE_EmptyGroupWatchdogStarted", true];
 
 [_interval, _ttl] Spawn {
-	Private ["_age","_candidates","_deleteChecks","_deleteConfirmed","_deleted","_deleteStillPresent","_empty","_firstSeen","_group","_groupsNow","_interval","_logic","_machine","_observed","_protected","_protectedByVariable","_protectedGroups","_record","_side","_sideText","_source","_stillPresent","_teams","_total","_ttl","_west","_east","_guer"];
+	Private ["_age","_candidates","_deleteChecks","_deleteConfirmed","_deleted","_deleteStillPresent","_empty","_firstSeen","_group","_groupsNow","_interval","_logic","_machine","_observed","_players","_protected","_protectedByVariable","_protectedGroups","_record","_side","_sideText","_source","_stillPresent","_teams","_total","_ttl","_west","_east","_guer"];
 
 	_interval = _this select 0;
 	_ttl = _this select 1;
@@ -45,6 +45,7 @@ missionNamespace setVariable ["WFBE_EmptyGroupWatchdogStarted", true];
 		_east = 0;
 		_guer = 0;
 		_total = count allGroups;
+		_players = Call WFBE_CO_FNC_GetHumanPlayerCount;
 		_candidates = 0;
 		_observed = 0;
 		_deleted = 0;
@@ -93,27 +94,27 @@ missionNamespace setVariable ["WFBE_EmptyGroupWatchdogStarted", true];
 				if ((typeName _firstSeen) != "SCALAR") exitWith {
 					_group setVariable ["WFBE_EmptyGroupWatchdog_FirstSeen", time];
 					_observed = _observed + 1;
-					["INFORMATION", Format ["EMPTY_GROUP_WATCHDOG observe_reset machine:%1 side:%2 group:%3 source:%4 reason:invalid_first_seen value:%5 ttl:%6 total:%7 west:%8 east:%9 guer:%10", _machine, _sideText, _group, _source, _firstSeen, _ttl, _total, _west, _east, _guer]] Call WFBE_CO_FNC_LogContent;
+					["INFORMATION", Format ["EMPTY_GROUP_WATCHDOG observe_reset machine:%1 side:%2 group:%3 source:%4 reason:invalid_first_seen value:%5 ttl:%6 total:%7 players:%8 west:%9 east:%10 guer:%11", _machine, _sideText, _group, _source, _firstSeen, _ttl, _total, _players, _west, _east, _guer]] Call WFBE_CO_FNC_LogContent;
 				};
 				if ((str _firstSeen) == "scalar NaN") exitWith {
 					_group setVariable ["WFBE_EmptyGroupWatchdog_FirstSeen", time];
 					_observed = _observed + 1;
-					["INFORMATION", Format ["EMPTY_GROUP_WATCHDOG observe_reset machine:%1 side:%2 group:%3 source:%4 reason:nan_first_seen ttl:%5 total:%6 west:%7 east:%8 guer:%9", _machine, _sideText, _group, _source, _ttl, _total, _west, _east, _guer]] Call WFBE_CO_FNC_LogContent;
+					["INFORMATION", Format ["EMPTY_GROUP_WATCHDOG observe_reset machine:%1 side:%2 group:%3 source:%4 reason:nan_first_seen ttl:%5 total:%6 players:%7 west:%8 east:%9 guer:%10", _machine, _sideText, _group, _source, _ttl, _total, _players, _west, _east, _guer]] Call WFBE_CO_FNC_LogContent;
 				};
 				if (_firstSeen < 0) exitWith {
 					_group setVariable ["WFBE_EmptyGroupWatchdog_FirstSeen", time];
 					_observed = _observed + 1;
-					["INFORMATION", Format ["EMPTY_GROUP_WATCHDOG observe machine:%1 side:%2 group:%3 source:%4 ttl:%5 total:%6 west:%7 east:%8 guer:%9", _machine, _sideText, _group, _source, _ttl, _total, _west, _east, _guer]] Call WFBE_CO_FNC_LogContent;
+					["INFORMATION", Format ["EMPTY_GROUP_WATCHDOG observe machine:%1 side:%2 group:%3 source:%4 ttl:%5 total:%6 players:%7 west:%8 east:%9 guer:%10", _machine, _sideText, _group, _source, _ttl, _total, _players, _west, _east, _guer]] Call WFBE_CO_FNC_LogContent;
 				};
 				_age = time - _firstSeen;
 				if ((str _age) == "scalar NaN") exitWith {
 					_group setVariable ["WFBE_EmptyGroupWatchdog_FirstSeen", time];
 					_observed = _observed + 1;
-					["INFORMATION", Format ["EMPTY_GROUP_WATCHDOG observe_reset machine:%1 side:%2 group:%3 source:%4 reason:nan_age ttl:%5 total:%6 west:%7 east:%8 guer:%9", _machine, _sideText, _group, _source, _ttl, _total, _west, _east, _guer]] Call WFBE_CO_FNC_LogContent;
+					["INFORMATION", Format ["EMPTY_GROUP_WATCHDOG observe_reset machine:%1 side:%2 group:%3 source:%4 reason:nan_age ttl:%5 total:%6 players:%7 west:%8 east:%9 guer:%10", _machine, _sideText, _group, _source, _ttl, _total, _players, _west, _east, _guer]] Call WFBE_CO_FNC_LogContent;
 				};
 				if (_age < _ttl) exitWith {};
 
-				["WARNING", Format ["EMPTY_GROUP_WATCHDOG delete_attempt machine:%1 side:%2 group:%3 source:%4 age:%5 total:%6 west:%7 east:%8 guer:%9", _machine, _sideText, _group, _source, round _age, _total, _west, _east, _guer]] Call WFBE_CO_FNC_LogContent;
+				["WARNING", Format ["EMPTY_GROUP_WATCHDOG delete_attempt machine:%1 side:%2 group:%3 source:%4 age:%5 total:%6 players:%7 west:%8 east:%9 guer:%10", _machine, _sideText, _group, _source, round _age, _total, _players, _west, _east, _guer]] Call WFBE_CO_FNC_LogContent;
 				deleteGroup _group;
 				_deleted = _deleted + 1;
 				_deleteChecks set [count _deleteChecks, [_group, _sideText, _source, round _age]];
@@ -121,7 +122,7 @@ missionNamespace setVariable ["WFBE_EmptyGroupWatchdogStarted", true];
 		} forEach _groupsNow;
 
 		if (_candidates > 0 || _deleted > 0) then {
-			["INFORMATION", Format ["EMPTY_GROUP_WATCHDOG cycle machine:%1 scanned:%2 candidates:%3 observed:%4 deleted:%5 protectedEmpty:%6 west:%7 east:%8 guer:%9", _machine, _total, _candidates, _observed, _deleted, _protected, _west, _east, _guer]] Call WFBE_CO_FNC_LogContent;
+			["INFORMATION", Format ["EMPTY_GROUP_WATCHDOG cycle machine:%1 scanned:%2 players:%3 candidates:%4 observed:%5 deleted:%6 protectedEmpty:%7 west:%8 east:%9 guer:%10", _machine, _total, _players, _candidates, _observed, _deleted, _protected, _west, _east, _guer]] Call WFBE_CO_FNC_LogContent;
 		};
 
 		if (_deleted > 0) then {
@@ -136,10 +137,10 @@ missionNamespace setVariable ["WFBE_EmptyGroupWatchdogStarted", true];
 				_age = _record select 3;
 				_stillPresent = _group in allGroups;
 				if (_stillPresent) then {_deleteStillPresent = _deleteStillPresent + 1} else {_deleteConfirmed = _deleteConfirmed + 1};
-				["INFORMATION", Format ["EMPTY_GROUP_WATCHDOG delete_result machine:%1 side:%2 group:%3 source:%4 age:%5 stillPresent:%6", _machine, _sideText, _group, _source, _age, _stillPresent]] Call WFBE_CO_FNC_LogContent;
+				["INFORMATION", Format ["EMPTY_GROUP_WATCHDOG delete_result machine:%1 side:%2 group:%3 source:%4 age:%5 stillPresent:%6 players:%7", _machine, _sideText, _group, _source, _age, _stillPresent, _players]] Call WFBE_CO_FNC_LogContent;
 			} forEach _deleteChecks;
-			["INFORMATION", Format ["EMPTY_GROUP_WATCHDOG delete_summary machine:%1 attempted:%2 confirmedGone:%3 stillPresent:%4", _machine, _deleted, _deleteConfirmed, _deleteStillPresent]] Call WFBE_CO_FNC_LogContent;
-			["empty_watchdog", Format ["attempted:%1;confirmedGone:%2;stillPresent:%3", _deleted, _deleteConfirmed, _deleteStillPresent]] Call WFBE_CO_FNC_LogGroupCensus;
+			["INFORMATION", Format ["EMPTY_GROUP_WATCHDOG delete_summary machine:%1 attempted:%2 confirmedGone:%3 stillPresent:%4 players:%5", _machine, _deleted, _deleteConfirmed, _deleteStillPresent, _players]] Call WFBE_CO_FNC_LogContent;
+			["empty_watchdog", Format ["attempted:%1;confirmedGone:%2;stillPresent:%3;players:%4", _deleted, _deleteConfirmed, _deleteStillPresent, _players]] Call WFBE_CO_FNC_LogGroupCensus;
 		};
 
 		sleep _interval;
