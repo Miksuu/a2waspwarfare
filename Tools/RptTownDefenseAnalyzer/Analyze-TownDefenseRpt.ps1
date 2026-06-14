@@ -114,6 +114,35 @@ function Test-HasProperty {
 	return ($Object.PSObject.Properties.Name -contains $Name)
 }
 
+function Write-AnalyzerProgress {
+	param(
+		[int]$Percent,
+		[string]$Status,
+		[switch]$Completed
+	)
+
+	if ($Completed) {
+		Write-Progress -Activity "Town Defense RPT Analyzer" -Completed
+		try {
+			[Console]::WriteLine()
+			[Console]::WriteLine("Analysis complete. 100%")
+		} catch {
+			Write-Host "Analysis complete. 100%"
+		}
+		return
+	}
+
+	$clampedPercent = [Math]::Max(0, [Math]::Min(100, $Percent))
+	Write-Progress -Activity "Town Defense RPT Analyzer" -Status $Status -PercentComplete $clampedPercent
+
+	$message = "Analyzing in progress... {0,3}% - {1}" -f $clampedPercent, $Status
+	try {
+		[Console]::Write("`r$message")
+	} catch {
+		Write-Host $message
+	}
+}
+
 function ConvertTo-SafeFileName {
 	param([string]$Name)
 	return ($Name -replace '[\\/:*?"<>|]', '_')
@@ -253,6 +282,27 @@ function Add-LineMatch {
 		$row["still_present"] = $match.Groups[6].Value
 		$row["players"] = Get-Int $match.Groups[7].Value
 		$row["context"] = $match.Groups[8].Value
+		$script:Cleanup.Add([pscustomobject]$row)
+		return
+	}
+
+	$match = [regex]::Match($Line, 'CLIENT_EMPTY_GROUP_CLEANUP\s+player:(.*?)\s+uid:(\S+)\s+side:(\S+)\s+owner:(\S+)\s+machine:(\S+)\s+attempted:(\d+)\s+confirmedGone:(\d+)\s+stillPresent:(\d+)\s+candidates:(\d+)\s+protected:(\d+)\s+west:(\d+)\s+east:(\d+)\s+guer:(\d+)\s+total:(\d+)')
+	if ($match.Success) {
+		$row = New-Row "client_empty_group_cleanup" $Role $File $LineNumber $Line
+		$row["player"] = $match.Groups[1].Value
+		$row["uid"] = $match.Groups[2].Value
+		$row["side"] = $match.Groups[3].Value
+		$row["owner"] = $match.Groups[4].Value
+		$row["machine"] = $match.Groups[5].Value
+		$row["attempted"] = Get-Int $match.Groups[6].Value
+		$row["confirmed_gone"] = Get-Int $match.Groups[7].Value
+		$row["still_present_count"] = Get-Int $match.Groups[8].Value
+		$row["candidates"] = Get-Int $match.Groups[9].Value
+		$row["protected"] = Get-Int $match.Groups[10].Value
+		$row["west"] = Get-Int $match.Groups[11].Value
+		$row["east"] = Get-Int $match.Groups[12].Value
+		$row["guer"] = Get-Int $match.Groups[13].Value
+		$row["total_groups"] = Get-Int $match.Groups[14].Value
 		$script:Cleanup.Add([pscustomobject]$row)
 		return
 	}
@@ -467,6 +517,7 @@ function Write-HtmlReport {
 		@("Max GUER Groups", $maxGuerGroupsHtml),
 		@("Max Players", $maxPlayersHtml),
 		@("Cleanup Rows", (Get-ItemCount $CleanupRows)),
+		@("Client Cleanup Rows", (Get-ItemCount ($CleanupRows | Where-Object { (Test-HasProperty $_ "kind") -and $_.kind -eq "client_empty_group_cleanup" }))),
 		@("Delegation Rows", (Get-ItemCount $DelegationRows))
 	)
 	foreach ($card in $summaryCards) {
@@ -481,7 +532,7 @@ function Write-HtmlReport {
 	Add-HtmlTable $lines "Group Census By Source" $GroupCensusRows @("event","machine","source","side","groups","empty","units","vehicles","local_groups","total_groups","players","west","east","guer","civ","logic","unknown","context","source_role","source_file","line_number")
 	Add-HtmlTable $lines "Empty Town Activations" $EmptyRows @("source_role","town","side","units","source_file","line_number")
 	Add-HtmlTable $lines "createGroup Failures" $FailureRows @("source_role","side","templates","source_file","line_number")
-	Add-HtmlTable $lines "Cleanup" $CleanupRows @("kind","source_role","machine","source","town","side","group","groups","deleted_groups","deleted_group","deleted_units","kept_groups","remaining_units","still_present","vehicles","registry","players","context","source_file","line_number")
+	Add-HtmlTable $lines "Cleanup" $CleanupRows @("kind","source_role","player","uid","owner","machine","source","town","side","group","groups","attempted","confirmed_gone","still_present_count","candidates","protected","deleted_groups","deleted_group","deleted_units","kept_groups","remaining_units","still_present","vehicles","registry","players","west","east","guer","total_groups","context","source_file","line_number")
 	Add-HtmlTable $lines "Delegation Requests" $DelegationRows @("source_role","town","side","source_file","line_number")
 	Add-HtmlTable $lines "Interpretation" $InterpretationRows @("message")
 
@@ -509,15 +560,51 @@ if ($inputs.Count -eq 0) {
 
 $uniqueInputs = @($inputs.ToArray() | Sort-Object Path, Role -Unique)
 
+$totalBytes = 0
+foreach ($inputInfo in $uniqueInputs) {
+	$totalBytes += ([System.IO.FileInfo]$inputInfo.Path).Length
+}
+if ($totalBytes -lt 1) { $totalBytes = 1 }
+
+$completedBytes = 0
+$lastProgressPercent = -1
 foreach ($inputInfo in $uniqueInputs) {
 	$lineNumber = 0
-	Get-Content -LiteralPath $inputInfo.Path -ReadCount 1000 | ForEach-Object {
-		foreach ($line in $_) {
+	$nextProgressLine = 1000
+	$fileInfo = [System.IO.FileInfo]$inputInfo.Path
+	$fileLength = [Math]::Max(1, $fileInfo.Length)
+	$fileName = [System.IO.Path]::GetFileName($inputInfo.Path)
+	$reader = New-Object System.IO.StreamReader($inputInfo.Path, [System.Text.Encoding]::Default, $true)
+	try {
+		while (!$reader.EndOfStream) {
+			$line = $reader.ReadLine()
 			$lineNumber++
 			Add-LineMatch -Line $line -Role $inputInfo.Role -File $inputInfo.Path -LineNumber $lineNumber
+
+			if ($lineNumber -ge $nextProgressLine) {
+				$fileProgress = [Math]::Min($fileLength, $reader.BaseStream.Position)
+				$globalProgress = $completedBytes + $fileProgress
+				$percent = [int][Math]::Floor(($globalProgress * 100.0) / $totalBytes)
+				if ($percent -ne $lastProgressPercent) {
+					$status = "reading $($inputInfo.Role) $fileName, line $lineNumber"
+					Write-AnalyzerProgress -Percent $percent -Status $status
+					$lastProgressPercent = $percent
+				}
+				$nextProgressLine += 1000
+			}
 		}
+	} finally {
+		$reader.Close()
 	}
+
+	$completedBytes += $fileInfo.Length
+	$percent = [int][Math]::Floor(($completedBytes * 100.0) / $totalBytes)
+	$status = "finished $($inputInfo.Role) $fileName, $lineNumber lines"
+	Write-AnalyzerProgress -Percent $percent -Status $status
+	$lastProgressPercent = $percent
 }
+
+Write-AnalyzerProgress -Percent 100 -Status "writing report files"
 
 $resolvedOutput = if ([System.IO.Path]::IsPathRooted($OutputPath)) {
 	[System.IO.Path]::GetFullPath($OutputPath)
@@ -542,6 +629,7 @@ $guerActivations = @($activationRows | Where-Object { $_.side -in @("GUER", "RES
 $keptCleanup = @($cleanupRows | Where-Object { $_.kind -eq "cleanup_done" -and $_.kept_groups -gt 0 })
 $groupNotEmpty = @($cleanupRows | Where-Object { $_.kind -eq "cleanup_group_not_empty" })
 $groupDrainStillNotEmpty = @($cleanupRows | Where-Object { $_.kind -eq "group_drain_still_not_empty" })
+$clientEmptyGroupCleanup = @($cleanupRows | Where-Object { $_.kind -eq "client_empty_group_cleanup" })
 $missingGroupCountForEmpty = ((Get-ItemCount $emptyRows) -gt 0 -and (Get-ItemCount $groupRows) -eq 0)
 $missingGroupCountForFailure = ((Get-ItemCount $failureRows) -gt 0 -and (Get-ItemCount $groupRows) -eq 0)
 $townDefenseSignalCount = (Get-ItemCount $activationRows) + (Get-ItemCount $failureRows) + (Get-ItemCount $groupRows) + (Get-ItemCount $groupTraceRows) + (Get-ItemCount $groupCensusRows) + (Get-ItemCount $cleanupRows) + (Get-ItemCount $delegationRows)
@@ -591,6 +679,7 @@ Add-ReportLine $report "- createGroup failures: $(Get-ItemCount $failureRows)"
 Add-ReportLine $report "- TOWN_GROUP_COUNT rows: $(Get-ItemCount $groupRows)"
 Add-ReportLine $report "- GROUP_TRACE rows: $(Get-ItemCount $groupTraceRows)"
 Add-ReportLine $report "- GROUP_CENSUS rows: $(Get-ItemCount $groupCensusRows)"
+Add-ReportLine $report "- CLIENT_EMPTY_GROUP_CLEANUP rows: $(Get-ItemCount $clientEmptyGroupCleanup)"
 $playerSamples = @(@($groupRows) + @($groupTraceRows) + @($groupCensusRows) | Where-Object { (Test-HasProperty $_ "players") -and $_.players -ge 0 })
 $maxPlayers = if ((Get-ItemCount $playerSamples) -gt 0) { ($playerSamples | Measure-Object -Property players -Maximum).Maximum } else { 0 }
 Add-ReportLine $report "- Max players observed in group diagnostics: $maxPlayers"
@@ -669,6 +758,18 @@ if ((Get-ItemCount $cleanupRows) -gt 0) {
 	Add-ReportLine $report "- kept groups: $keptGroups"
 	Add-ReportLine $report "- group_not_empty rows: $(Get-ItemCount $groupNotEmpty)"
 	Add-ReportLine $report "- group_drain_still_not_empty rows: $(Get-ItemCount $groupDrainStillNotEmpty)"
+	Add-ReportLine $report "- client_empty_group_cleanup rows: $(Get-ItemCount $clientEmptyGroupCleanup)"
+	if ((Get-ItemCount $clientEmptyGroupCleanup) -gt 0) {
+		$clientAttempted = ($clientEmptyGroupCleanup | Measure-Object -Property attempted -Sum).Sum
+		$clientConfirmedGone = ($clientEmptyGroupCleanup | Measure-Object -Property confirmed_gone -Sum).Sum
+		$clientStillPresent = ($clientEmptyGroupCleanup | Measure-Object -Property still_present_count -Sum).Sum
+		Add-ReportLine $report "- client attempted: $clientAttempted"
+		Add-ReportLine $report "- client confirmed gone: $clientConfirmedGone"
+		Add-ReportLine $report "- client still present: $clientStillPresent"
+		$clientEmptyGroupCleanup | Sort-Object source_file, line_number | Select-Object -Last 10 | ForEach-Object {
+			Add-ReportLine $report "- client $($_.player) uid:$($_.uid) side:$($_.side) attempted:$($_.attempted) confirmedGone:$($_.confirmed_gone) stillPresent:$($_.still_present_count) west:$($_.west) east:$($_.east) guer:$($_.guer) at $([System.IO.Path]::GetFileName($_.source_file)):$($_.line_number)"
+		}
+	}
 	Add-ReportLine $report
 }
 
@@ -716,6 +817,11 @@ if ((Get-ItemCount $groupCensusRows) -gt 0) {
 }
 if ((Get-ItemCount $groupTraceRows) -gt 0) {
 	$message = "Use the Group Creation Trace table to confirm which scripts created groups before the side approached the 144 group limit."
+	$interpretationRows.Add([pscustomobject]@{ message = $message })
+	Add-ReportLine $report "- $message"
+}
+if ((Get-ItemCount $clientEmptyGroupCleanup) -gt 0) {
+	$message = "Use CLIENT_EMPTY_GROUP_CLEANUP rows to see whether player clients can delete empty groups that server/HC could not remove; confirmedGone > 0 means client locality was part of the issue."
 	$interpretationRows.Add([pscustomobject]@{ message = $message })
 	Add-ReportLine $report "- $message"
 }
@@ -789,11 +895,15 @@ $summary = [pscustomobject]@{
 	max_guer_groups = if (((Get-ItemCount $groupRows) + (Get-ItemCount $groupCensusRows)) -gt 0) { (@($groupRows) + @($groupCensusRows) | Measure-Object -Property guer -Maximum).Maximum } else { 0 }
 	max_players = $maxPlayers
 	cleanup_rows = (Get-ItemCount $cleanupRows)
+	client_empty_group_cleanup_rows = (Get-ItemCount $clientEmptyGroupCleanup)
+	client_empty_group_confirmed_gone = if ((Get-ItemCount $clientEmptyGroupCleanup) -gt 0) { ($clientEmptyGroupCleanup | Measure-Object -Property confirmed_gone -Sum).Sum } else { 0 }
+	client_empty_group_still_present = if ((Get-ItemCount $clientEmptyGroupCleanup) -gt 0) { ($clientEmptyGroupCleanup | Measure-Object -Property still_present_count -Sum).Sum } else { 0 }
 	delegation_rows = (Get-ItemCount $delegationRows)
 	output_path = $resolvedOutput
 }
 $summary | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath (Join-Path $resolvedOutput "town_defense_summary.json") -Encoding UTF8
 
+Write-AnalyzerProgress -Completed
 Write-Host $reportText
 Write-Host ""
 Write-Host "Output written to: $resolvedOutput"
