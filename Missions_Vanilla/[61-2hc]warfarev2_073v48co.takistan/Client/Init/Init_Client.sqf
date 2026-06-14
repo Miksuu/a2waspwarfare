@@ -174,7 +174,12 @@ waitUntil {commonInitComplete};
 
 // Marty: Show the test build marker once in debug mode so testers can confirm the running PBO version.
 if (WF_Debug) then {
-	systemChat "TD Debug build: 2026-06-13 20:29";
+	systemChat "TD Debug build: 2026-06-14 11:36";
+};
+
+// Marty: Client-local empty groups can only be deleted reliably by the owning client; report cleanup summaries to the server RPT.
+if (hasInterface && !isServer) then {
+	[60, 60] Spawn WFBE_CO_FNC_StartEmptyGroupWatchdog;
 };
 
 if (ARMA_VERSION >= 162 && ARMA_RELEASENUMBER > 97105 || ARMA_VERSION > 162) then {

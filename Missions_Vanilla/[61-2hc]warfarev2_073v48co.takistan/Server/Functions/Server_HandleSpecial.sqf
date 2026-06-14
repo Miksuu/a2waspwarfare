@@ -251,6 +251,32 @@ switch (_args select 0) do {
 			if (!isNull _unit) then {_unit setVariable ["CommandBar_DeadUnits_ServerCleanupRunning", false, false]};
 		};
 	};
+	// Marty: Centralize client-local empty group cleanup summaries in the server RPT.
+	case "client-empty-group-watchdog-report": {
+		Private ["_attempted","_candidates","_confirmedGone","_guer","_machine","_owner","_player","_playerName","_protected","_side","_stillPresent","_total","_uid","_west","_east"];
+
+		_player = _args select 1;
+		_machine = _args select 2;
+		_attempted = _args select 3;
+		_confirmedGone = _args select 4;
+		_stillPresent = _args select 5;
+		_candidates = _args select 6;
+		_protected = _args select 7;
+		_west = _args select 8;
+		_east = _args select 9;
+		_guer = _args select 10;
+		_total = _args select 11;
+
+		if (isNull _player) exitWith {
+			["WARNING", Format ["CLIENT_EMPTY_GROUP_CLEANUP player:<null> uid:<null> side:UNKNOWN owner:0 machine:%1 attempted:%2 confirmedGone:%3 stillPresent:%4 candidates:%5 protected:%6 west:%7 east:%8 guer:%9 total:%10", _machine, _attempted, _confirmedGone, _stillPresent, _candidates, _protected, _west, _east, _guer, _total]] Call WFBE_CO_FNC_LogContent;
+		};
+
+		_playerName = name _player;
+		_uid = getPlayerUID _player;
+		_side = str (side _player);
+		_owner = owner _player;
+		["INFORMATION", Format ["CLIENT_EMPTY_GROUP_CLEANUP player:%1 uid:%2 side:%3 owner:%4 machine:%5 attempted:%6 confirmedGone:%7 stillPresent:%8 candidates:%9 protected:%10 west:%11 east:%12 guer:%13 total:%14", _playerName, _uid, _side, _owner, _machine, _attempted, _confirmedGone, _stillPresent, _candidates, _protected, _west, _east, _guer, _total]] Call WFBE_CO_FNC_LogContent;
+	};
 	case "connected-hc": {
 		Private ["_hc","_id","_uid"];
 		_hc = _args select 1;

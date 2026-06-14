@@ -140,6 +140,10 @@ missionNamespace setVariable ["WFBE_EmptyGroupWatchdogStarted", true];
 				["INFORMATION", Format ["EMPTY_GROUP_WATCHDOG delete_result machine:%1 side:%2 group:%3 source:%4 age:%5 stillPresent:%6 players:%7", _machine, _sideText, _group, _source, _age, _stillPresent, _players]] Call WFBE_CO_FNC_LogContent;
 			} forEach _deleteChecks;
 			["INFORMATION", Format ["EMPTY_GROUP_WATCHDOG delete_summary machine:%1 attempted:%2 confirmedGone:%3 stillPresent:%4 players:%5", _machine, _deleted, _deleteConfirmed, _deleteStillPresent, _players]] Call WFBE_CO_FNC_LogContent;
+			// Marty: Player clients own some empty groups; forward compact cleanup results to the server RPT for centralized diagnosis.
+			if (_machine == "CLIENT") then {
+				["RequestSpecial", ["client-empty-group-watchdog-report", player, _machine, _deleted, _deleteConfirmed, _deleteStillPresent, _candidates, _protected, _west, _east, _guer, _total]] Call WFBE_CO_FNC_SendToServer;
+			};
 			["empty_watchdog", Format ["attempted:%1;confirmedGone:%2;stillPresent:%3;players:%4", _deleted, _deleteConfirmed, _deleteStillPresent, _players]] Call WFBE_CO_FNC_LogGroupCensus;
 		};
 
