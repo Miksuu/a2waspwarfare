@@ -6,7 +6,7 @@
 		title = "$STR_WF_PARAMETER_DAYNIGHT_ENABLED";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 1;
+		default = 0;
 	};
 	// Marty: Add the 180-minute day option and make it the default accelerated cycle length.
 	class WFBE_DAY_DURATION {
