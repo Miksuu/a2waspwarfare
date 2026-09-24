@@ -45,6 +45,13 @@ if !(isNil "Player_AI_Recover_Action") then {
 	Player_AI_Recover_Action = nil;
 };
 
+// Marty: Unit variables are transferred to the respawned player, so stale action IDs stored on the body
+// would make the helpers remove unrelated actions (FOB, skills) from the new unit. Reset them here.
+{_body removeAction _x} forEach (_body getVariable ["WFBE_TD_DebugGroupActions", []]);
+_body setVariable ["Player_AI_Diagnose_Action", -1, false];
+_body setVariable ["Player_AI_Recover_Action", -1, false];
+_body setVariable ["WFBE_TD_DebugGroupActions", [], false];
+
 
 //--- Close any existing dialogs.
 if (dialog) then {
