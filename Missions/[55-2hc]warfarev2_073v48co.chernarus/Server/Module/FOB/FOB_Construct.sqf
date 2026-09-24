@@ -45,7 +45,7 @@ if (_reason == "") then {
 	_enemyHQ = (_enemySide) Call WFBE_CO_FNC_GetSideHQ;
 	_enemyBuildings = (_enemySide) Call WFBE_CO_FNC_GetSideStructures;
 	if !(isNull _enemyHQ) then {_enemyBuildings = _enemyBuildings + [_enemyHQ]};
-	{if (alive _x && (_x distance _pos) < WFBE_C_FOB_ENEMY_BASE_RANGE) exitWith {_reason = Format ["Too close to the enemy base (%1m minimum).", WFBE_C_FOB_ENEMY_BASE_RANGE]}} forEach _enemyBuildings;
+	{if (alive _x && (_x distance _pos) < WFBE_C_FOB_ENEMY_BASE_RANGE) exitWith {_reason = Format ["Can't build here!", WFBE_C_FOB_ENEMY_BASE_RANGE]}} forEach _enemyBuildings;
 };
 
 if (WF_Debug) then {["DEBUG", Format ["FOB_Construct.sqf: player:%1 side:%2 pos:%3 fobs:%4 reason:[%5]", name _player, _side, _pos, count _fobs, _reason]] Call WFBE_CO_FNC_LogContent};
