@@ -28,7 +28,7 @@ while {!gameOver} do {
 			createMarkerLocal [_marker, getPos _fob];
 			//--- Flag in side color, scaled like the base factory markers.
 			_marker setMarkerTypeLocal "mil_flag";
-			_marker setMarkerColorLocal "ColorBlack";
+			_marker setMarkerColorLocal "ColorBrown";
 			_marker setMarkerSizeLocal [0.8,0.8];
 			_markers set [count _markers, [_fob, _marker]];
 		};
