@@ -3327,7 +3327,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Support (Supply run)";
+					description="Support (Supply run, Build FOB)";
 					synchronizations[]={255};
 				};
 			};
@@ -3349,7 +3349,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Support (Supply run)";
+					description="Support (Supply run, Build FOB)";
 					synchronizations[]={255};
 				};
 			};
@@ -3481,7 +3481,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Support (Supply run)";
+					description="Support (Supply run, Build FOB)";
 					synchronizations[]={255};
 				};
 			};
@@ -3657,7 +3657,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Support (Supply run)";
+					description="Support (Supply run, Build FOB)";
 					synchronizations[]={256};
 				};
 			};
@@ -3679,7 +3679,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Support (Supply run)";
+					description="Support (Supply run, Build FOB)";
 					synchronizations[]={256};
 				};
 			};
@@ -3767,7 +3767,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Support (Supply run)";
+					description="Support (Supply run, Build FOB)";
 					synchronizations[]={256};
 				};
 			};
@@ -3893,7 +3893,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Support (Supply run)";
+					description="Support (Supply run, Build FOB)";
 					synchronizations[]={255};
 				};
 			};
@@ -4200,7 +4200,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Support (Supply run)";
+					description="Support (Supply run, Build FOB)";
 					synchronizations[]={256};
 				};
 			};
@@ -4266,7 +4266,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Support (Supply run)";
+					description="Support (Supply run, Build FOB)";
 					synchronizations[]={255};
 				};
 			};
@@ -4332,7 +4332,7 @@ class Mission
 					rank="LIEUTENANT";
 					skill=0.60000002;
 					init="removeAllWeapons this";
-					description="Support (Supply run)";
+					description="Support (Supply run, Build FOB)";
 					synchronizations[]={256};
 				};
 			};
