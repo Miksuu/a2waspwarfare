@@ -26,8 +26,10 @@ while {!gameOver} do {
 			WFBE_CL_VAR_FOB_MARKER_COUNT = WFBE_CL_VAR_FOB_MARKER_COUNT + 1;
 			_marker = Format ["wfbe_fob_marker_%1", WFBE_CL_VAR_FOB_MARKER_COUNT];
 			createMarkerLocal [_marker, getPos _fob];
-			_marker setMarkerTypeLocal "mil_flag";
-			_marker setMarkerColorLocal WFBE_Client_Color;
+			//--- Same look as the base factories (small black box).
+			_marker setMarkerTypeLocal "mil_box";
+			_marker setMarkerColorLocal "ColorBlack";
+			_marker setMarkerSizeLocal [0.5,0.5];
 			_markers set [count _markers, [_fob, _marker]];
 		};
 
