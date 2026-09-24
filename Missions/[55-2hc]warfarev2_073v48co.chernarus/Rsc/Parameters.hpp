@@ -177,13 +177,13 @@
 		title = "$STR_WF_PARAMETER_Supply_East";
 		values[] = {1200,2400,3600,4800,6000,7200,8400,9600,12800,16000,19200,38400,76800};
 		texts[] = {"S 1200","S 2400","S 3600","S 4800","S 6000","S 7200","S 8400","S 9600","S 12800","S 16000","S 19200","S 38400","S 76800"};
-		default = 9600;
+		default = 12800;
 	};
 	class WFBE_C_ECONOMY_SUPPLY_START_WEST {
 		title = "$STR_WF_PARAMETER_Supply_West";
 		values[] = {1200,2400,3600,4800,6000,7200,8400,9600,12800,16000,19200,38400,76800};
 		texts[] = {"S 1200","S 2400","S 3600","S 4800","S 6000","S 7200","S 8400","S 9600","S 12800","S 16000","S 19200","S 38400","S 76800"};
-		default = 9600;
+		default = 12800;
 	};
 
 	class WFBE_C_MAX_ECONOMY_SUPPLY_LIMIT {
