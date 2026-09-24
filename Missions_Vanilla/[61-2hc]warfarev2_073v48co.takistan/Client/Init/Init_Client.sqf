@@ -135,6 +135,8 @@ WFBE_CL_FNC_SupplyMissionCompletedMessage = Call Compile preprocessFileLineNumbe
 WFBE_CL_FNC_SupplyMissionStart = Call Compile preprocessFileLineNumbers "Client\Module\supplyMission\supplyMissionStart.sqf";
 WFBE_CL_FNC_TownSupplyStatus = Call Compile preprocessFileLineNumbers "Client\Module\supplyMission\townSupplyStatus.sqf";
 WFBE_CL_FNC_CheckCCProximity = Compile preprocessFileLineNumbers "Client\Module\supplyMission\checkCCProximity.sqf";
+// Marty: Forward Operating Base (FOB) module for Support players.
+[] Call Compile preprocessFileLineNumbers "Client\Module\FOB\FOB_Init.sqf";
 //WFBE_CL_FNC_ReceiverMASHmarker = Call Compile preprocessFileLineNumbers "Client\Module\MASH\receiverMASHmarker.sqf";
 WFBE_CL_PVEH_HasConnectedAtLaunch = Call Compile preprocessFileLineNumbers "Client\Module\AntiStack\hasConnectedAtLaunchACK.sqf";
 WFBE_CL_FNC_FindVariableInNestedArray = Compile preprocessFileLineNumbers "Client\Functions\Client_FindVariableInNestedArray.sqf";
@@ -392,6 +394,7 @@ if ((missionNamespace getVariable "WFBE_C_UNITS_TRACK_LEADERS") > 0) then {[] ex
 	/* Handle the client actions */
 	["INITIALIZATION", "Init_Client.sqf: Initializing the Available Actions FSM"] Call WFBE_CO_FNC_LogContent;
 	[] execFSM "Client\FSM\updateavailableactions.fsm";
+	if ((missionNamespace getVariable "WFBE_C_FOB_ENABLED") > 0) then {[] execVM "Client\Module\FOB\FOB_Markers.sqf"};
 	/* Resources Handler */
 	if !((missionNamespace getVariable "WFBE_C_ECONOMY_INCOME_SYSTEM") in [3,4]) then {
 		["INITIALIZATION", "Init_Client.sqf: Initializing the Resources SQF"] Call WFBE_CO_FNC_LogContent;

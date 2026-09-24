@@ -39,6 +39,17 @@ switch (_request) do {
 	case "set-hq-killed-eh": {if !(isServer) then {(_args select 0) addEventHandler ["killed", {["RequestSpecial", ["process-killed-hq", _this]] Call WFBE_CO_FNC_SendToServer}]};};
 	case "auto-wall-constructing-changed":{ isAutoWallConstructingEnabled = (_args select 0)};
 	case "attack-wave": {ATTACK_WAVE_PRICE_MODIFIER = (_args select 0);};
+	// Marty: FOB request answers and side notifications.
+	case "fob-result": {_args call WFBE_CL_FNC_FOB_HandleResult};
+	case "fob-message": {(_args select 0) call CommandChatMessage};
+	case "fob-bounty": {
+		if (player == (_args select 0)) then {
+			(_args select 2) Call ChangePlayerFunds;
+			(Format ["You destroyed the enemy FOB near %1 and have been rewarded with $%2.", _args select 3, _args select 2]) call CommandChatMessage;
+		} else {
+			(Format ["%1 destroyed the enemy FOB near %2 and has been rewarded with $%3.", _args select 1, _args select 3, _args select 2]) call CommandChatMessage;
+		};
+	};
 	// Marty: Server-side command bar cleanup can transfer dead AI locality back to the player for final detachment.
 	case "commandbar-force-dead-cleanup": {
 		_args Spawn {

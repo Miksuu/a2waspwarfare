@@ -26,6 +26,9 @@ _checks = [_side,missionNamespace getVariable Format["WFBE_%1SERVICEPOINTTYPE",_
 if (count _checks > 0) then {_availableSpawn = _availableSpawn + _checks}; */
 
 
+// Marty: Friendly FOBs are respawn points from anywhere on the map, like base factories.
+if ((missionNamespace getVariable "WFBE_C_FOB_ENABLED") > 0) then {_availableSpawn = _availableSpawn + (Call WFBE_CL_FNC_FOB_GetList)};
+
 //--- HQ is dead, but we can spawn at other buildings.
 if (!alive _hq && count _availableSpawn > 1) then {_availableSpawn = _availableSpawn - [_hq]};
 

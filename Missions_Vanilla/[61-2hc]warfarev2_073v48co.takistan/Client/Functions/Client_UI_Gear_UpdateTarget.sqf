@@ -2,7 +2,7 @@
 	Update the target combobox of the gear menu according to the players unit.
 */
 
-Private ["_add","_camp_gear_enabled","_gear_mode","_near","_range","_structures","_target","_temp","_unit","_units","_vehicles"];
+Private ["_add","_camp_gear_enabled","_gear_mode","_label","_nObject","_near","_range","_structures","_target","_temp","_unit","_units","_vehicles"];
 _target = _this;
 
 lbClear 503004;
@@ -33,6 +33,10 @@ _camp_gear_enabled = if (_gear_mode in [1,2,3]) then {true} else {false};
 			case 3:{{if !(isNull _x) exitWith {_nObject = _x}} forEach [[vehicle _unit, _range] Call WFBE_CL_FNC_GetClosestCamp, [vehicle _unit, _range] Call WFBE_CL_FNC_GetClosestDepot]}; 
 		};
 		if !(isNull _nObject) then {_add = true};
+	};
+	// Marty: Units next to a friendly FOB can receive gear too, otherwise only nearby vehicles (e.g. the supply truck) are listed.
+	if (!_add && !isNull WFBE_CL_VAR_FOB_NEAR) then {
+		if ((vehicle _unit) distance WFBE_CL_VAR_FOB_NEAR <= WFBE_C_FOB_RANGE) then {_add = true};
 	};
 	if (_add && local _unit) then {[_units, _unit] Call WFBE_CO_FNC_ArrayPush};
 } forEach _temp;

@@ -36,6 +36,11 @@ _updateMap = true;
 _val = 0;
 _mbu = missionNamespace getVariable 'WFBE_C_PLAYERS_AI_MAX';
 
+// Marty: A FOB in range sells the WFBE_C_FOB_FACTORY_TYPES units, paid from the FOB budget.
+_fobHas = {fobInRange && (_this in WFBE_C_FOB_FACTORY_TYPES)};
+_isFOB = false;
+_lastFobInRange = fobInRange;
+
 _driverEnabledByDefault = profileNamespace getVariable "WFBE_C_DRIVER_ENABLED_BY_DEFAULT";
 
 if (isNil "_driverEnabledByDefault") then {
@@ -47,7 +52,7 @@ ctrlSetText[12025,localize 'STR_WF_UNITS_FactionChoiceLabel' + ":"]; // changed-
 
 //--- Get the closest Factory Type in range.
 _break = false;
-_status = [barracksInRange,lightInRange,heavyInRange,aircraftInRange,depotInRange,hangarInRange];
+_status = [barracksInRange || ('Barracks' Call _fobHas),lightInRange || ('Light' Call _fobHas),heavyInRange || ('Heavy' Call _fobHas),aircraftInRange || ('Aircraft' Call _fobHas),depotInRange,hangarInRange];
 _statusLabel = ['Barracks','Light','Heavy','Aircraft','Depot','Airport'];
 _statusVals = [0,1,2,3,4,3];
 for [{_i = 0},{(_i < 6) && !_break},{_i = _i + 1}] do {
@@ -77,7 +82,7 @@ _IDCS = _IDCS - [_currentIDC];
 //--- Loop.
 while {alive player && dialog} do {
 	//--- Nothing in range? exit!.
-	if (!barracksInRange && !lightInRange && !heavyInRange && !aircraftInRange && !hangarInRange && !depotInRange) exitWith {closeDialog 0};
+	if (!barracksInRange && !lightInRange && !heavyInRange && !aircraftInRange && !hangarInRange && !depotInRange && !fobInRange) exitWith {closeDialog 0};
 	if (side group player != sideJoined || !dialog) exitWith {closeDialog 0};
 	
 	//--- Purchase.
@@ -99,13 +104,21 @@ while {alive player && dialog} do {
 			_currentCost = _currentCost + ((missionNamespace getVariable "WFBE_C_UNITS_CREW_COST") * _extra);
 		};
 		if ((_currentRow) != -1) then {
-			_funds = Call GetPlayerFunds;
+			_isFOB = if (isNull _closest) then {false} else {!isNil {_closest getVariable "wfbe_fob_sideid"}};
+			_funds = if (_isFOB) then {_closest Call WFBE_CL_FNC_FOB_GetCash} else {Call GetPlayerFunds};
 			_skip = false;
 
 			Private ["_currentUnitLabelForFundsMissing"];
             _currentUnitLabelForFundsMissing = _currentUnit select QUERYUNITLABEL;
 
-			if (_funds < _currentCost) then {_skip = true;hint parseText(Format[localize 'STR_WF_INFO_Funds_Missing',_currentCost - _funds,_currentUnitLabelForFundsMissing])};
+			if (_funds < _currentCost) then {
+				_skip = true;
+				if (_isFOB) then {
+					hint parseText(Format["The FOB budget is missing $%1 to buy %2.<br /><br />Support players can refill it by unloading supply trucks next to the FOB.",_currentCost - _funds,_currentUnitLabelForFundsMissing]);
+				} else {
+					hint parseText(Format[localize 'STR_WF_INFO_Funds_Missing',_currentCost - _funds,_currentUnitLabelForFundsMissing]);
+				};
+			};
 			//--- Make sure that we own all camps before being able to purchase infantry.
 			if (_type == "Depot" && _isInfantry) then {
 				_totalCamps = _closest Call GetTotalCamps;
@@ -143,6 +156,14 @@ while {alive player && dialog} do {
 			if !(_skip) then {
 				//--- Check the max queu.
 				if ((missionNamespace getVariable Format["WFBE_C_QUEUE_%1",_type]) < (missionNamespace getVariable Format["WFBE_C_QUEUE_%1_MAX",_type])) then {
+					//--- FOB purchases are paid by the server from the FOB budget first.
+					_paid = true;
+					if (_isFOB) then {
+						_fobResult = ["fob-withdraw", [_closest, _currentCost]] Call WFBE_CL_FNC_FOB_Request;
+						_paid = _fobResult select 0;
+						if !(_paid) then {hint (_fobResult select 1)};
+					};
+					if (_paid) then {
 					missionNamespace setVariable [Format["WFBE_C_QUEUE_%1",_type],(missionNamespace getVariable Format["WFBE_C_QUEUE_%1",_type])+1];
 					Private ["_currentUnitLabel"];
                     _currentUnitLabel = _currentUnit select QUERYUNITLABEL;
@@ -153,7 +174,8 @@ while {alive player && dialog} do {
 					hint _txt;
 					_params = if (_isInfantry) then {[_closest,_unit,[],_type,_cpt]} else {[_closest,_unit,[profilenamespace getvariable "wfbe_c_driver_enabled_by_default" ,_gunner,_commander,_extracrew,_isLocked],_type,_cpt]};
 					_params Spawn BuildUnit;
-					-(_currentCost) Call ChangePlayerFunds;
+					if !(_isFOB) then {-(_currentCost) Call ChangePlayerFunds};
+					};
 				} else {
 					hint parseText(Format [localize 'STR_WF_INFO_Queu_Max',missionNamespace getVariable Format["WFBE_C_QUEUE_%1_MAX",_type]]);
 				};
@@ -162,10 +184,10 @@ while {alive player && dialog} do {
 	};
 	
 	//--- Tabs selection.
-	if (MenuAction == 101) then {MenuAction = -1;if (barracksInRange) then {_currentIDC = 12005;_type = 'Barracks';_val = 0;_update = true}};
-	if (MenuAction == 102) then {MenuAction = -1;if (lightInRange) then {_currentIDC = 12006;_type = 'Light';_val = 1;_update = true}};
-	if (MenuAction == 103) then {MenuAction = -1;if (heavyInRange) then {_currentIDC = 12007;_type = 'Heavy';_val = 2;_update = true}};
-	if (MenuAction == 104) then {MenuAction = -1;if (aircraftInRange) then {_currentIDC = 12008;_type = 'Aircraft';_val = 3;_update = true}};
+	if (MenuAction == 101) then {MenuAction = -1;if (barracksInRange || ('Barracks' Call _fobHas)) then {_currentIDC = 12005;_type = 'Barracks';_val = 0;_update = true}};
+	if (MenuAction == 102) then {MenuAction = -1;if (lightInRange || ('Light' Call _fobHas)) then {_currentIDC = 12006;_type = 'Light';_val = 1;_update = true}};
+	if (MenuAction == 103) then {MenuAction = -1;if (heavyInRange || ('Heavy' Call _fobHas)) then {_currentIDC = 12007;_type = 'Heavy';_val = 2;_update = true}};
+	if (MenuAction == 104) then {MenuAction = -1;if (aircraftInRange || ('Aircraft' Call _fobHas)) then {_currentIDC = 12008;_type = 'Aircraft';_val = 3;_update = true}};
 	if (MenuAction == 105) then {MenuAction = -1;if (depotInRange) then {_currentIDC = 12020;_type = 'Depot';_val = 4;_update = true}};
 	if (MenuAction == 106) then {MenuAction = -1;if (hangarInRange) then {_currentIDC = 12021;_type = 'Airport';_val = 3;_update = true}};
 	
@@ -188,7 +210,12 @@ while {alive player && dialog} do {
 	if (MenuAction == 401) then {MenuAction = -1;_isLocked = if (_isLocked) then {false} else {true};_updateDetails = true};
 	
 	//--- Player funds.
-	ctrlSetText [12019,Format [localize 'STR_WF_UNITS_Cash',Call GetPlayerFunds]];
+	_isFOB = if (isNull _closest) then {false} else {!isNil {_closest getVariable "wfbe_fob_sideid"}};
+	if (_isFOB) then {
+		ctrlSetText [12019,Format ["FOB Budget: $%1",_closest Call WFBE_CL_FNC_FOB_GetCash]];
+	} else {
+		ctrlSetText [12019,Format [localize 'STR_WF_UNITS_Cash',Call GetPlayerFunds]];
+	};
 	
 	//--- Update tabs.
 	if (_update) then {
@@ -215,15 +242,20 @@ while {alive player && dialog} do {
 			//--- Specials.
 			case 'Depot': {
 				_sorted = [[vehicle player, missionNamespace getVariable "WFBE_C_TOWNS_PURCHASE_RANGE"] Call WFBE_CL_FNC_GetClosestDepot];
+				_closest = _sorted select 0;
 			};
 			case 'Airport': {
 				_sorted = [[vehicle player, missionNamespace getVariable "WFBE_C_UNITS_PURCHASE_HANGAR_RANGE"] Call WFBE_CL_FNC_GetClosestAirport];
+				_closest = _sorted select 0;
 			};
 			//--- Factories
 			default {
 				_buildings = (sideJoined) Call WFBE_CO_FNC_GetSideStructures;
 				_factories = [sideJoined,missionNamespace getVariable Format ['WFBE_%1%2TYPE',sideJoinedText,_type],_buildings] Call GetFactories;
-				_sorted = [vehicle player,_factories] Call SortByDistance;
+				_baseInRange = switch (_type) do {case 'Barracks': {barracksInRange}; case 'Light': {lightInRange}; case 'Heavy': {heavyInRange}; case 'Aircraft': {aircraftInRange}; default {false}};
+				//--- Only the FOB is listed when it is the only reason we can buy here.
+				_sorted = if (_baseInRange || !(_type Call _fobHas)) then {[vehicle player,_factories] Call SortByDistance} else {[]};
+				if ((_type Call _fobHas) && !isNull WFBE_CL_VAR_FOB_NEAR) then {_sorted = [WFBE_CL_VAR_FOB_NEAR] + _sorted};
 				_closest = _sorted select 0;
 				_countAlive = count _factories;
 			};
@@ -233,7 +265,7 @@ while {alive player && dialog} do {
 		lbClear 12018;
 		{
 			_nearTown = ([_x, towns] Call WFBE_CO_FNC_GetClosestEntity) getVariable 'name';
-			_txt = _type + ' ' + _nearTown + ' ' + str (round((vehicle player) distance _x)) + 'M';
+			_txt = (if (isNil {_x getVariable "wfbe_fob_sideid"}) then {_type} else {'FOB'}) + ' ' + _nearTown + ' ' + str (round((vehicle player) distance _x)) + 'M';
 			lbAdd[12018,_txt];
 		} forEach _sorted;
 		lbSetCurSel [12018,0];
@@ -485,6 +517,12 @@ while {alive player && dialog} do {
 		_buildings = (sideJoined) Call WFBE_CO_FNC_GetSideStructures;
 		_factories = [sideJoined,missionNamespace getVariable Format ['WFBE_%1%2TYPE',sideJoinedText,_type],_buildings] Call GetFactories;
 		if (count _factories != _countAlive) then {_updateList = true};
+	};
+
+	//--- Refresh the factory list when we walk in or out of a FOB range.
+	if ((fobInRange && !_lastFobInRange) || (!fobInRange && _lastFobInRange)) then {
+		_lastFobInRange = fobInRange;
+		if (_type != 'Depot' && _type != 'Airport') then {_updateList = true};
 	};
 	
 	_lastSel = lnbCurSelRow _listBox;

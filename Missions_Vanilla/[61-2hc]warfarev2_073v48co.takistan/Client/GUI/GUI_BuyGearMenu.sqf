@@ -11,6 +11,9 @@ _lb_main = 503001;_lb_secondary = 503002;_lb_cargo = 503005;
 _tabs = ["Template","All","Primary","Secondary","Pistols","Equipment"];
 _funds_cli = 0;_price = 0;_tab_current_last = -1;
 _target = player;
+// Marty: When the FOB is the only gear source in range, the purchase is paid from the FOB budget.
+_fob_gear = WFBE_CL_VAR_FOB_GEAR;
+_is_fob_gear = !isNull _fob_gear;
 //--- Todo secure vanilla, remove not used.
 _target_weapons = weapons player;
 _target_magazines = magazines player;
@@ -29,10 +32,10 @@ WFBE_MenuAction = -1;
 while {true} do {
 	if (!alive player || !dialog) exitWith {closeDialog 0};
 
-	_funds = Call WFBE_CL_FNC_GetClientFunds;
+	_funds = if (_is_fob_gear) then {_fob_gear Call WFBE_CL_FNC_FOB_GetCash} else {Call WFBE_CL_FNC_GetClientFunds};
 	if (_funds_cli != _funds) then {
 		_funds_cli = _funds;
-		((uiNamespace getVariable "wfbe_display_buygear") displayCtrl 503011) ctrlSetStructuredText (parseText Format ["<t size='1.1'><t color='#42b6ff' shadow='1'>My Funds: </t><t shadow='1' color='#76F563'>$%1.</t></t>", _funds]);
+		((uiNamespace getVariable "wfbe_display_buygear") displayCtrl 503011) ctrlSetStructuredText (parseText Format ["<t size='1.1'><t color='#42b6ff' shadow='1'>%2: </t><t shadow='1' color='#76F563'>$%1.</t></t>", _funds, if (_is_fob_gear) then {"FOB Budget"} else {"My Funds"}]);
 	};
 
 	_tab_current = uiNamespace getVariable 'wfbe_display_buygear_tab';
@@ -418,7 +421,16 @@ while {true} do {
 	//--- Purchase
 	if (_purchase) then {
 		_purchase = false;
-		if ((Call WFBE_CL_FNC_GetClientFunds) >= _price) then {
+		_available = if (_is_fob_gear) then {_fob_gear Call WFBE_CL_FNC_FOB_GetCash} else {Call WFBE_CL_FNC_GetClientFunds};
+		_paid = _available >= _price;
+		_fob_msg = "";
+		//--- FOB gear is paid by the server first. Selling gear back at a FOB gives no refund.
+		if (_paid && _is_fob_gear && _price > 0 && (_has_inv_changed || _has_veh_changed)) then {
+			_fob_result = ["fob-withdraw", [_fob_gear, _price]] Call WFBE_CL_FNC_FOB_Request;
+			_paid = _fob_result select 0;
+			if !(_paid) then {_fob_msg = _fob_result select 1};
+		};
+		if (_paid) then {
 			_target_weapons = +_gear_sel_weapons;
 			_target_magazines = +_gear_sel_magazines;
 			_gear_sel_backpack = +_gear_backpack_content;
@@ -438,13 +450,18 @@ while {true} do {
 				_msg = _msg + Format["<t color='#B6F563'>%1</t>", [configFile >> 'CfgVehicles' >> typeOf _target, "displayName"] Call WFBE_CO_FNC_GetConfigEntry];
 				[vehicle _target, _gear_sel_vehicle] Call WFBE_CO_FNC_EquipVehicle;
 			};
-			-(_price) Call WFBE_CL_FNC_ChangeClientFunds;
-			if (_has_inv_changed || _has_veh_changed) then {hint parseText Format["<t color='#42b6ff' size='1.2' underline='1' shadow='1'>Information:</t><br /><br /><t>Purchased Equipement to %1 for $<t color='#F5D363'>%2</t>.</t>",_msg,_price];_price = 0;} else {hint parseText("<t color='#42b6ff' size='1.2' underline='1' shadow='1'>Information:</t><br /><br /><t>The gear was not purchased since nothing has changed.</t>");};
+			if !(_is_fob_gear) then {-(_price) Call WFBE_CL_FNC_ChangeClientFunds};
+			if (_has_inv_changed || _has_veh_changed) then {hint parseText Format["<t color='#42b6ff' size='1.2' underline='1' shadow='1'>Information:</t><br /><br /><t>Purchased Equipement to %1 for $<t color='#F5D363'>%2</t>%3.</t>",_msg,_price,if (_is_fob_gear) then {" from the FOB budget"} else {""}];_price = 0;} else {hint parseText("<t color='#42b6ff' size='1.2' underline='1' shadow='1'>Information:</t><br /><br /><t>The gear was not purchased since nothing has changed.</t>");};
 			_has_inv_changed = false;
 			_has_veh_changed = false;
 			_update_inventory = true;
 		} else {
-			hint parseText Format["<t color='#42b6ff' size='1.2' underline='1' shadow='1'>Information:</t><br /><br /><t><t color='#F56363'>Cannot</t> purchase equipment, missing $<t color='#F5D363'>%1</t>.</t>",_price - (Call WFBE_CL_FNC_GetClientFunds)];
+			if (_is_fob_gear) then {
+				if (_fob_msg == "") then {_fob_msg = Format ["The FOB budget is missing $%1. Support players can refill it by unloading supply trucks next to the FOB.", _price - _available]};
+				hint parseText Format["<t color='#42b6ff' size='1.2' underline='1' shadow='1'>Information:</t><br /><br /><t><t color='#F56363'>Cannot</t> purchase equipment. %1</t>",_fob_msg];
+			} else {
+				hint parseText Format["<t color='#42b6ff' size='1.2' underline='1' shadow='1'>Information:</t><br /><br /><t><t color='#F56363'>Cannot</t> purchase equipment, missing $<t color='#F5D363'>%1</t>.</t>",_price - (Call WFBE_CL_FNC_GetClientFunds)];
+			};
 		};
 	};
 

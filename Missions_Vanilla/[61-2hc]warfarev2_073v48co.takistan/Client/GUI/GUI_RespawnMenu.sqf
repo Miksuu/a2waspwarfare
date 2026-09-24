@@ -96,6 +96,7 @@ while {WFBE_RespawnTime > 0 && dialog && alive player} do {
 	if (_spawn_at != _spawn_at_current) then {
 		_spawn_at = _spawn_at_current;
 		_spawn_label = getText(configFile >> 'CfgVehicles' >> typeOf _spawn_at >> 'displayname');
+		if !(isNil {_spawn_at getVariable "wfbe_fob_sideid"}) then {_spawn_label = "FOB"};
 		((uiNamespace getVariable "wfbe_display_respawn") displayCtrl 511003) ctrlSetStructuredText parseText Format[localize "STR_WF_RESPAWN_Status_AT", _spawn_label];
 		WFBE_MarkerTracking = _spawn_at;
 	};

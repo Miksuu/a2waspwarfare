@@ -143,6 +143,8 @@ _buildings = (sideJoined) Call WFBE_CO_FNC_GetSideStructures;
 //--- Service Point.
 _csp = objNull;
 _sp = [sideJoined, missionNamespace getVariable Format ["WFBE_%1SERVICEPOINTTYPE",sideJoinedText],_buildings] Call GetFactories;
+// Marty: FOBs are regular service points.
+if ((missionNamespace getVariable "WFBE_C_FOB_ENABLED") > 0) then {_sp = _sp + (Call WFBE_CL_FNC_FOB_GetList)};
 if (count _sp > 0) then {
 	_csp = [vehicle player,_sp] Call WFBE_CO_FNC_GetClosestEntity;
 };
