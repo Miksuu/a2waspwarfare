@@ -194,6 +194,18 @@ class FSM
        "depotInRange = if !(isNull ([vehicle player, _tcr] Call WFBE_CL_FNC_GetClosestDepot)) then {true} else {false};" \n
        "if (depotInRange) then {serviceInRange = true};" \n
        "" \n
+       "//--- FOB (Forward Operating Base): service point, gear paid by the FOB when nothing else sells gear here." \n
+       "fobInRange = false;" \n
+       "WFBE_CL_VAR_FOB_GEAR = objNull;" \n
+       "if ((missionNamespace getVariable ""WFBE_C_FOB_ENABLED"") > 0) then {" \n
+       "	WFBE_CL_VAR_FOB_NEAR = [vehicle player, WFBE_C_FOB_RANGE] Call WFBE_CL_FNC_FOB_GetInRange;" \n
+       "	fobInRange = !isNull WFBE_CL_VAR_FOB_NEAR;" \n
+       "	if (fobInRange) then {" \n
+       "		serviceInRange = true;" \n
+       "		if !(gearInRange) then {gearInRange = true; WFBE_CL_VAR_FOB_GEAR = WFBE_CL_VAR_FOB_NEAR};" \n
+       "	};" \n
+       "};" \n
+       "" \n
        "_checks = ['COMMANDCENTERTYPE',_buildings,_ccr,sideJoined,player] Call BuildingInRange;" \n
        "_commandCenter = _checks;" \n
        "commandInRange = if (isNull _checks) then {false} else {true};" \n

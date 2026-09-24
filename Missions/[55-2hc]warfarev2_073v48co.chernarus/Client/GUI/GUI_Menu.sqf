@@ -1,7 +1,7 @@
 {ctrlEnable [_x, false]} forEach [11002, 11005, 11006, 11007, 11008];
 
 _enable = false;
-if ((barracksInRange || lightInRange || heavyInRange || aircraftInRange || hangarInRange || depotInRange) && (player == leader WFBE_Client_Team)) then {_enable = true};
+if ((barracksInRange || lightInRange || heavyInRange || aircraftInRange || hangarInRange || depotInRange || fobInRange) && (player == leader WFBE_Client_Team)) then {_enable = true};
 ctrlEnable [11001,_enable];
 ctrlEnable [11006,commandInRange && (player == leader WFBE_Client_Team)]; //--- Special Menu
 
@@ -14,7 +14,7 @@ while {alive player && dialog} do {
 
 	//--- Build Units.
 	_enable = false;
-	if ((barracksInRange || lightInRange || heavyInRange || aircraftInRange || hangarInRange || depotInRange) && (player == leader WFBE_Client_Team)) then {_enable = true};
+	if ((barracksInRange || lightInRange || heavyInRange || aircraftInRange || hangarInRange || depotInRange || fobInRange) && (player == leader WFBE_Client_Team)) then {_enable = true};
 	ctrlEnable [11001,_enable];
 	ctrlEnable [11002,gearInRange];
 

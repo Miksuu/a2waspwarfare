@@ -180,6 +180,23 @@ with missionNamespace do {
 	WFBE_SUPPLY_MISSION_SCORE_COEF = 1.5;
 	WFBE_UPGRADE_SCORE_COEF = 0.5;
 
+//--- Forward Operating Base (FOB), built by Support players.
+	// Marty: FOB is a service point that also sells Barracks/Light/Heavy units and gear, paid from its own cash budget.
+	if (isNil "WFBE_C_FOB_ENABLED") then {WFBE_C_FOB_ENABLED = 1};
+	WFBE_C_FOB_COST = 5000; //--- Construction cost, paid by the Support player.
+	WFBE_C_FOB_MAX_PER_SIDE = 2;
+	WFBE_C_FOB_CASH_MAX = 25000; //--- Maximum cash budget a FOB can hold.
+	WFBE_C_FOB_SUPPLY_TO_CASH = 6; //--- 2000 supply = 12000 cash.
+	WFBE_C_FOB_RANGE = 50; //--- Buy units, gear and service range around the FOB.
+	WFBE_C_FOB_UNLOAD_RANGE = 60; //--- Supply truck must be this close to the FOB to unload.
+	WFBE_C_FOB_DISMANTLE_TIME = 60; //--- Seconds of work to dismantle a FOB.
+	WFBE_C_FOB_DISMANTLE_RANGE = 30; //--- The Support player must stay this close to the FOB while dismantling.
+	WFBE_C_FOB_MIN_DISTANCE = 1000; //--- Minimum distance between two friendly FOBs.
+	WFBE_C_FOB_HOSTILE_TOWN_RANGE = 500; //--- Cannot build this close to a town that is not ours.
+	WFBE_C_FOB_ENEMY_BASE_RANGE = 800; //--- Cannot build this close to an enemy HQ or base structure.
+	WFBE_C_FOB_FACTORY_TYPES = ["Barracks","Light","Heavy"]; //--- Buy Units tabs available at a FOB.
+	WFBE_C_FOB_SUPPLYTRUCK_TYPES = ['WarfareSupplyTruck_RU', 'WarfareSupplyTruck_USMC', 'WarfareSupplyTruck_INS', 'WarfareSupplyTruck_Gue', 'WarfareSupplyTruck_CDF', 'UralSupply_TK_EP1', 'MtvrSupply_DES_EP1'];
+
 //--- Supply income stagnation when no players.
 	TEAM_WEST_TICKS_NO_PLAYERS = 0;
 	TEAM_EAST_TICKS_NO_PLAYERS = 0;

@@ -69,6 +69,13 @@ WFBE_SE_FNC_SupplyMissionStarted = Call Compile preprocessFileLineNumbers "Serve
 WFBE_SE_FNC_PlayerObjectsList = Call Compile preprocessFileLineNumbers "Server\Module\supplyMission\playerObjectsList.sqf";
 WFBE_SE_FNC_MASH_MARKER = Call Compile preprocessFileLineNumbers "Server\Module\MASH\MASHMarker.sqf";
 WFBE_SE_FNC_SupplyMissionTimerForTown = Compile preprocessFileLineNumbers "Server\Module\supplyMission\supplyMissionTimerForTown.sqf";
+// Marty: Forward Operating Base (FOB) requests from Support players.
+WFBE_SE_FNC_FOB_Reply = Compile preprocessFileLineNumbers "Server\Module\FOB\FOB_Reply.sqf";
+WFBE_SE_FNC_FOB_Construct = Compile preprocessFileLineNumbers "Server\Module\FOB\FOB_Construct.sqf";
+WFBE_SE_FNC_FOB_Deposit = Compile preprocessFileLineNumbers "Server\Module\FOB\FOB_Deposit.sqf";
+WFBE_SE_FNC_FOB_Withdraw = Compile preprocessFileLineNumbers "Server\Module\FOB\FOB_Withdraw.sqf";
+WFBE_SE_FNC_FOB_OnKilled = Compile preprocessFileLineNumbers "Server\Module\FOB\FOB_OnKilled.sqf";
+WFBE_SE_FNC_FOB_Dismantle = Compile preprocessFileLineNumbers "Server\Module\FOB\FOB_Dismantle.sqf";
 WFBE_SE_FNC_CallDatabaseRetrieve = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseRetrieve.sqf";
 WFBE_SE_FNC_CallDatabaseStore = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseStore.sqf";
 WFBE_SE_FNC_CallDatabaseStoreSide = Compile preprocessFileLineNumbers "Server\Module\AntiStack\callDatabaseStoreSide.sqf";
@@ -370,6 +377,7 @@ emptyQueu = [];
 		_logik setVariable ["wfbe_startpos", _pos, true];
 		_logik setVariable ["wfbe_structure_lasthit", 0];
 		_logik setVariable ["wfbe_structures", [], true];
+		_logik setVariable ["wfbe_fobs", [], true];
 		_logik setVariable ["wfbe_aicom_running", false];
 		_logik setVariable ["wfbe_aicom_funds", round((missionNamespace getVariable Format ['WFBE_C_ECONOMY_FUNDS_START_%1', _side])*1.5)];
 		_logik setVariable ["wfbe_upgrades", _upgrades, true];

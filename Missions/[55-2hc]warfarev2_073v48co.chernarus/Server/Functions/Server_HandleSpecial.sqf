@@ -307,6 +307,11 @@ switch (_args select 0) do {
 			missionNamespace setVariable [Format ["WFBE_CLIENT_%1_OBJECTS", _uid], _get];
 		};
 	};
+	// Marty: FOB requests: [request, player, ..., request id].
+	case "fob-construct": {[_args select 1, _args select 2, _args select 3, _args select 4] Call WFBE_SE_FNC_FOB_Construct};
+	case "fob-deposit": {[_args select 1, _args select 2, _args select 3, _args select 4] Call WFBE_SE_FNC_FOB_Deposit};
+	case "fob-withdraw": {[_args select 1, _args select 2, _args select 3, _args select 4] Call WFBE_SE_FNC_FOB_Withdraw};
+	case "fob-dismantle": {[_args select 1, _args select 2, _args select 3] Call WFBE_SE_FNC_FOB_Dismantle};
 	case "repair-camp": {
 		Private ["_camp_sideID","_logic","_repairSideID","_townModel"];
 		_logic = _args select 1;

@@ -1,4 +1,4 @@
-Private ["_building","_cpt","_commander","_crew","_currentUnit","_description","_direction","_distance","_driver","_extracrew","_factory","_factoryPosition","_factoryType","_group","_gunner","_index","_init","_isArtillery","_isMan","_locked","_longest","_position","_queu","_queu2","_ret","_show","_soldier","_spawnedUnits","_waitTime","_txt","_type","_upgrades","_unique","_unit","_vehi","_vehicle","_vehicles","_faction"];
+Private ["_building","_cpt","_isFOB","_commander","_crew","_currentUnit","_description","_direction","_distance","_driver","_extracrew","_factory","_factoryPosition","_factoryType","_group","_gunner","_index","_init","_isArtillery","_isMan","_locked","_longest","_position","_queu","_queu2","_ret","_show","_soldier","_spawnedUnits","_waitTime","_txt","_type","_upgrades","_unique","_unit","_vehi","_vehicle","_vehicles","_faction"];
 _building = _this select 0;
 _unit = _this select 1;
 _vehi = _this select 2;
@@ -26,6 +26,9 @@ _spawnpaddir=2;
 
 _type = typeOf _building;
 _index = (missionNamespace getVariable Format ["WFBE_%1STRUCTURENAMES",sideJoinedText]) find _type;
+// Marty: A FOB uses the base service point class, but spawns its units like a town depot.
+_isFOB = !isNil {_building getVariable "wfbe_fob_sideid"};
+if (_isFOB) then {_index = -1};
 if (_index != -1) then {
 	_distance = (missionNamespace getVariable Format ["WFBE_%1STRUCTUREDISTANCES",sideJoinedText]) select _index;
 	_direction = (missionNamespace getVariable Format ["WFBE_%1STRUCTUREDIRECTIONS",sideJoinedText]) select _index;
@@ -154,6 +157,11 @@ _longest = missionNamespace getVariable Format ["WFBE_LONGEST%1BUILDTIME",_facto
 		_distance = missionNamespace getVariable "WFBE_C_DEPOT_BUY_DISTANCE";
 		_direction = missionNamespace getVariable "WFBE_C_DEPOT_BUY_DIR";
 		_factoryType = "Depot";
+	};
+	if (_isFOB) then {
+		_distance = missionNamespace getVariable "WFBE_C_DEPOT_BUY_DISTANCE";
+		_direction = missionNamespace getVariable "WFBE_C_DEPOT_BUY_DIR";
+		_factoryType = _factory; //--- Barracks / Light / Heavy tab the unit was bought from.
 	};
 	if (_type == WFBE_Logic_Airfield) then {
 		_distance = missionNamespace getVariable "WFBE_C_HANGAR_BUY_DISTANCE";
