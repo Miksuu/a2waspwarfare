@@ -60,7 +60,7 @@ _fob setPos _pos;
 _fob setVariable ["wfbe_fob_sideid", _sideID, true];
 _fob setVariable ["wfbe_fob_cash", 0, true];
 _fob setVariable ["wfbe_fob_builder", name _player, true];
-_fob addEventHandler ["killed", {(_this select 0) Spawn WFBE_SE_FNC_FOB_OnKilled}];
+_fob addEventHandler ["killed", {[_this select 0, _this select 1] Spawn WFBE_SE_FNC_FOB_OnKilled}];
 
 _fobs = _fobs + [_fob];
 _logic setVariable ["wfbe_fobs", _fobs, true];

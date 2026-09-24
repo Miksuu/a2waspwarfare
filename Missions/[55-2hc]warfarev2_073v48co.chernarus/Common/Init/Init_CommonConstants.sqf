@@ -194,6 +194,7 @@ with missionNamespace do {
 	WFBE_C_FOB_MIN_DISTANCE = 1000; //--- Minimum distance between two friendly FOBs.
 	WFBE_C_FOB_HOSTILE_TOWN_RANGE = 500; //--- Cannot build this close to a town that is not ours.
 	WFBE_C_FOB_ENEMY_BASE_RANGE = 800; //--- Cannot build this close to an enemy HQ or base structure.
+	WFBE_C_FOB_DESTROY_BOUNTY = 10000; //--- Paid to the enemy player who destroys a FOB.
 	WFBE_C_FOB_FACTORY_TYPES = ["Barracks","Light","Heavy"]; //--- Buy Units tabs available at a FOB.
 	WFBE_C_FOB_SUPPLYTRUCK_TYPES = ['WarfareSupplyTruck_RU', 'WarfareSupplyTruck_USMC', 'WarfareSupplyTruck_INS', 'WarfareSupplyTruck_Gue', 'WarfareSupplyTruck_CDF', 'UralSupply_TK_EP1', 'MtvrSupply_DES_EP1'];
 
