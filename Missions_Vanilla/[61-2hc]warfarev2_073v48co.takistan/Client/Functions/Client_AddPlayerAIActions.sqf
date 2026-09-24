@@ -77,6 +77,7 @@ if (WF_Debug) then {
 	_player_unit setVariable ["Player_AI_Diagnose_Action", Player_AI_Diagnose_Action, false];
 };
 
+/*
 Player_AI_Recover_Action = _player_unit addAction [
 	"<t color='#11ec52'>Recover my AI movement</t>",
 	"Client\Functions\Client_RecoverPlayerAI.sqf",
@@ -87,6 +88,7 @@ Player_AI_Recover_Action = _player_unit addAction [
 	"",
 	_action_condition
 ];
+*/
 
 
 // ==================================================
@@ -94,4 +96,4 @@ Player_AI_Recover_Action = _player_unit addAction [
 // This makes them easy to remove after respawn.
 // ==================================================
 
-_player_unit setVariable ["Player_AI_Recover_Action", Player_AI_Recover_Action, false];
+// _player_unit setVariable ["Player_AI_Recover_Action", Player_AI_Recover_Action, false];
