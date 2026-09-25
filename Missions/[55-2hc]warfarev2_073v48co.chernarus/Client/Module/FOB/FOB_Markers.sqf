@@ -29,11 +29,11 @@ while {!gameOver} do {
 			//--- Flag in side color, scaled like the base factory markers.
 			_marker setMarkerTypeLocal "mil_flag";
 			_marker setMarkerColorLocal "ColorBrown";
-			_marker setMarkerSizeLocal [0.8,0.8];
+			_marker setMarkerSizeLocal [0.85,0.85];
 			_markers set [count _markers, [_fob, _marker]];
 		};
 
-		_marker setMarkerTextLocal Format ["FOB - $%1", _fob Call WFBE_CL_FNC_FOB_GetCash];
+		_marker setMarkerTextLocal Format [" FOB - $%1", _fob Call WFBE_CL_FNC_FOB_GetCash];
 	} forEach _fobs;
 
 	sleep 5;
