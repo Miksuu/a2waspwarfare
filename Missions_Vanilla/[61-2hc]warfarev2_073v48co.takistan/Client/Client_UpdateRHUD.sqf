@@ -303,8 +303,8 @@ while {true} do {
 			};
 
 			//COMMANDER
-			_commanderText = " No Commander";
-			if (!isNull commanderTeam) then {_commanderText = Format [" %1", name (leader commanderTeam)]};
+			_commanderText = "No Commander";
+			if (!isNull commanderTeam) then {_commanderText = Format ["%1", name (leader commanderTeam)]};
 			[6, [0.85, 0, 0, 1]] call _RHUDSetColor;
 			[6, _commanderText] call _RHUDSetText;
 
