@@ -127,7 +127,7 @@ while {!gameOver && !_afkKickRequested} do {
 
 	// Marty: Publish AFK only when the state actually changes; repeated false/true writes can hide the marker remotely.
 	_afk = player getVariable ["WASP_AFK", false];
-	_afkShouldBe = _countDownKick < 600;
+	_afkShouldBe = _countDownKick < 1800;
 
 	if ((_afk && !_afkShouldBe) || (!_afk && _afkShouldBe)) then {
 		_perfAFKBroadcasts = _perfAFKBroadcasts + 1;
@@ -150,7 +150,7 @@ while {!gameOver && !_afkKickRequested} do {
 	};
 
 	if (_afkShouldBe && !_afkKickRequested) then {
-		if (_countDownKick > 120) then {
+		if (_countDownKick > 1200) then {
 			if ((_countDownKick % 30) == 0) then {
 				hint format ["You are AFK. If you don't move you will be kicked in %1 minutes.", round (_countDownKick / 60)];
 			};
