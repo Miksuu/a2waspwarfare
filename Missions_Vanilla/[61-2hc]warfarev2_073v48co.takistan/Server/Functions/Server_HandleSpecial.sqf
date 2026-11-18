@@ -275,7 +275,7 @@ switch (_args select 0) do {
 		_uid = getPlayerUID _player;
 		_side = str (side _player);
 		_owner = owner _player;
-		["INFORMATION", Format ["CLIENT_EMPTY_GROUP_CLEANUP player:%1 uid:%2 side:%3 owner:%4 machine:%5 attempted:%6 confirmedGone:%7 stillPresent:%8 candidates:%9 protected:%10 west:%11 east:%12 guer:%13 total:%14", _playerName, _uid, _side, _owner, _machine, _attempted, _confirmedGone, _stillPresent, _candidates, _protected, _west, _east, _guer, _total]] Call WFBE_CO_FNC_LogContent;
+		// ["INFORMATION", Format ["CLIENT_EMPTY_GROUP_CLEANUP player:%1 uid:%2 side:%3 owner:%4 machine:%5 attempted:%6 confirmedGone:%7 stillPresent:%8 candidates:%9 protected:%10 west:%11 east:%12 guer:%13 total:%14", _playerName, _uid, _side, _owner, _machine, _attempted, _confirmedGone, _stillPresent, _candidates, _protected, _west, _east, _guer, _total]] Call WFBE_CO_FNC_LogContent;
 	};
 	case "connected-hc": {
 		Private ["_hc","_id","_uid"];

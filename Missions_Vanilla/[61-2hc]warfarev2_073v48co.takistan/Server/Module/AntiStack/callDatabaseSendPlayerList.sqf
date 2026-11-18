@@ -54,11 +54,11 @@ _procedureCode = "";
 
 if (_procedureName == "SEND_PLAYERLIST") then {
 	_procedureCode = 303;
-	["INFORMATION", format ["CallDatabaseSendPlayerList.sqf: Calling database with procedure: [%1]. Parameters: [%2].", _procedureName, _parameters]] Call WFBE_CO_FNC_LogContent;
+	// ["INFORMATION", format ["CallDatabaseSendPlayerList.sqf: Calling database with procedure: [%1]. Parameters: [%2].", _procedureName, _parameters]] Call WFBE_CO_FNC_LogContent;
 	_response = "A2WaspDatabase" callExtension format ["%1,%2",_procedureCode,_parameters];
 };
 
-["INFORMATION", format ["CallDatabaseSendPlayerList.sqf: Called database successfully with procedure: [%1].", _procedureName]] Call WFBE_CO_FNC_LogContent;
+// ["INFORMATION", format ["CallDatabaseSendPlayerList.sqf: Called database successfully with procedure: [%1].", _procedureName]] Call WFBE_CO_FNC_LogContent;
 
 _response = call compile _response;
 

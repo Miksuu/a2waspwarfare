@@ -77,5 +77,5 @@ _players = Call WFBE_CO_FNC_GetHumanPlayerCount;
 
 {
 	// Marty: Include human player count so group pressure can be correlated with population in RPT analysis.
-	["INFORMATION", Format ["GROUP_CENSUS event:%1 machine:%2 source:%3 side:%4 groups:%5 empty:%6 units:%7 vehicles:%8 localGroups:%9 total:%10 players:%11 west:%12 east:%13 guer:%14 civ:%15 logic:%16 unknown:%17 context:%18", _event, _machine, (_x select 0), (_x select 1), (_x select 2), (_x select 3), (_x select 4), (_x select 5), (_x select 6), _total, _players, _west, _east, _guer, _civ, _logic, _unknown, _context]] Call WFBE_CO_FNC_LogContent;
+	// ["INFORMATION", Format ["GROUP_CENSUS event:%1 machine:%2 source:%3 side:%4 groups:%5 empty:%6 units:%7 vehicles:%8 localGroups:%9 total:%10 players:%11 west:%12 east:%13 guer:%14 civ:%15 logic:%16 unknown:%17 context:%18", _event, _machine, (_x select 0), (_x select 1), (_x select 2), (_x select 3), (_x select 4), (_x select 5), (_x select 6), _total, _players, _west, _east, _guer, _civ, _logic, _unknown, _context]] Call WFBE_CO_FNC_LogContent;
 } forEach _groups;
