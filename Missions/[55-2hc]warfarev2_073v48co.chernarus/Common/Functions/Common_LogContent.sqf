@@ -13,5 +13,5 @@ if (LOG_CONTENT_STATE == "ACTIVATED") then {
 	_logContent = _this select 1;
 	_logLevel = if (count _this > 2) then {_this select 2} else {0};
 
-	if (_logLevel >= WFBE_LogLevel) then {diag_log Format["[WFBE (%1) | fps: %2] %3",_logType, round(diag_fps), _logContent]};
+	if (_logLevel >= WFBE_LogLevel) then {diag_log Format["[WFBE (%1) | FPS: %2] %3",_logType, round(diag_fps), _logContent]};
 };
