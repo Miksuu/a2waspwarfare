@@ -24,7 +24,7 @@ if !(isNull _object) then {
 
 	sleep _delay;
 
-	["INFORMATION", Format["Server_TrashObject.sqf: Deleting [%1], it has been [%2] seconds.", _object, _delay]] Call WFBE_CO_FNC_LogContent;
+	// ["INFORMATION", Format["Server_TrashObject.sqf: Deleting [%1], it has been [%2] seconds.", _object, _delay]] Call WFBE_CO_FNC_LogContent;
 
 	deleteVehicle _object;
 
